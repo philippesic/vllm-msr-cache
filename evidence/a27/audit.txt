@@ -1,0 +1,116 @@
+FINAL A26/A27 EVIDENCE VALIDATION — 2026-09-11
+
+Result: PASS
+------------
+The final-all-metrics-a27-v1 report is consistent with its aggregate indexes,
+all fresh A26/A27 raw result cells, profile raw paths, execution ledger and
+latest cleanup record. No concrete reporting, arithmetic, attribution, hash,
+or cleanup defect was found.
+
+Accepted totals and raw paths
+-----------------------------
+* Consolidated index reports 40 valid cells and 1,944 completed requests;
+  24/1,176 are the v5c profile suite and 16/768 are A26+A27 supplements.
+  Direct enumeration of A26 (12 result.json) and A27 (4 result.json) gives
+  16 valid cells, 768 requests, all drains complete. Profile aggregate has
+  24 valid cells, 1,176 requests, zero missing results and every referenced
+  raw result path exists.
+* The A26 raw root has three 48-request A/L/R/M traces (seeds 1103, 2207,
+  3301). A27 has one 48-request A/L/R/M trace (seed 1103). All raw cells are
+  valid=true, exact, and have complete v3 accounting.
+* Grouping all profile raw cells by profile/replicate/seed yields six complete
+  four-arm groups; comparing every manifest request's output_token_digest,
+  output_token_ids and key_chain_digest yields zero mismatches. The same audit
+  on all four A27 cells yields zero mismatches. All accepted request rows are
+  terminal and exact according to the aggregate gates.
+
+Threshold, policy and activation
+---------------------------------
+* Aggregate config inspection reports store_threshold=2 for all 24 profile
+  cells and all 16 supplement cells. The raw A26/A27 launch configurations
+  independently parse to threshold 2 for every DRAM arm.
+* Accepted arms are A=ARC demand, L=LRU demand, R=MSR request-order/FIFO
+  prefetch, and M=MSR semantic prefetch. Each trace has matched budgets,
+  scheduler, model/runtime and generic machinery while policy residency may
+  evolve independently.
+* A26 M has semantic_nomination_valid=true with one fresh constrained
+  nomination per trace, submits 7,340,032 bytes and consumes 0, discarding
+  7,340,032 bytes per trace; A26 R consumes 7,340,032/7,340,032 bytes per
+  trace. Across three traces this is M 0/22,020,096 consumed and R
+  22,020,096/22,020,096. No failed or uncompleted speculative bytes/jobs.
+* A27 aggregate reports combined_activation_met=true for M: one constrained
+  semantic nomination, staging before demand, submit/complete/consume of
+  7,340,032 bytes, zero discarded/failed/uncompleted bytes. R also consumes
+  7,340,032 bytes. This is an activated lifecycle observation, not a benefit
+  claim.
+
+A26 arithmetic and confidence
+-----------------------------
+* Raw normalized prompt totals are A=L=R=119,918 and M=120,174 per seed;
+  M-A/L/R is +256 tokens, or 256/119,918 = +0.2134792108% executed work.
+* Raw model-runner device times independently recompute the report's paired
+  means and normal 95% intervals:
+  - M-A +0.446601958 s, [0.425284823, 0.467919093]
+  - M-L +0.457994004 s, [0.439860238, 0.476127770]
+  - M-R -0.003181444 s, [-0.014324372, 0.007961485]
+  These are based on three matched seeds, not request-level pseudo-replicates.
+* The report's 2.5249% mean M-A median-TTFT regression and its interval match
+  the supplement aggregate. The stated M-L single-trace >3% allowance caveat
+  is retained; the report does not overstate the service constraint.
+
+A27 disjoint arithmetic and identity proof
+--------------------------------------------
+* Raw A/L/R/M prompt totals are all 107,334. Model-runner deltas recompute to
+  M-A +4.9372778%, M-L +5.1259642%, M-R +0.3074619%; p50 TTFT changes are
+  +6.2255%, +6.2281%, and -2.6523%. The report's makespan and throughput
+  changes also match raw normalized values.
+* The supplement aggregate's independent_input_cohort_proof is true and
+  records empty intersections for all six fields: source_id, source_sha256,
+  input_sha256, context_sha256, known_prefix_token_digest and
+  prompt_token_digest. A27 remains a single independent trace and is not
+  pooled into A26's interval.
+
+Metric-category coverage and honest gaps
+----------------------------------------
+* Both aggregate coverage tables mark executed work, exact cohorts, TTFT/E2E,
+  queue/service/makespan/throughput, causal nomination, lifecycle, physical
+  jobs/bytes, overhead, occupancy/byte-time, sampled yield, TTL observations,
+  complete v3 model-runner GPU work, load/burst/recovery and provenance as
+  implemented/observed where applicable.
+* Both tables explicitly leave physical displacement, a capacity frontier,
+  CPU/RSS/index resource time, and (where applicable) paired uncertainty as
+  GPU-unmeasured or unavailable. Optional cost is not implemented without a
+  price basis. The report explicitly limits TTL to bounded constructed
+  horizons, does not call occupancy a capacity frontier, and does not turn
+  H2D/store bytes into provider cache-write price.
+* A26/A27 supplied exact request-level ITL eligibility accounting: 28
+  multi-token observations per 48-request cell, with one-token requests
+  correctly inapplicable. Burst singleton-prefill attribution remains null,
+  as disclosed.
+
+Exclusions, hashes, time and cleanup
+------------------------------------
+* Invalid/superseded attempts are explicitly excluded: A24's invalid A is
+  replaced only by exact-source A25; A08 is source/profile-incompatible;
+  A11/12/14/17/19 and other failed/inactive attempts remain preserved but are
+  not pooled. The accepted 40-cell totals contain none of those invalid rows.
+* `sha256sum -c ARTIFACTS.sha256` passes all seven entries in the final
+  all-metrics directory. Observed archive hashes match the report:
+  A26 d18825bf1ebffc69d742e98a263c9d2c989454f32a8fcb12c5c52e8af2ac76bc;
+  A27 be97a732552f998229ddda25dc3df543dc748ce62f825744eb061324ed848c6c.
+  Analyzer SHA a64ff49cc8d225b22ef9b0775303456856281f88e1a9f8dc289e93de90886e28
+  and bundle SHA 6d3564a211a8aed0bc291890e61d05a84da8deaa6d87c11bcad994c7d0e32cd0
+  also match.
+* Ledger A26/A27 rows report supervisor/run/stage/manifest/capture/retrieve
+  success and empty cleanup_live_pids. FINAL-CLEANUP.md states its latest
+  check followed attempt 27: RTX 5080 identity matched, doctor ok, flock
+  free, 0% utilization, no compute/supervisor process and no owned run live.
+  Exact lease duration remains correctly labeled unavailable.
+
+Conclusion
+----------
+PASS for evidence integrity and report honesty. The report correctly finds
+no provider benefit: A26 is a repeatable small negative on one input cohort;
+A27 is disjoint, activated and exact but ties prompt work and is slower than
+A/L/R. No production TTL, capacity frontier, price-based cost, displacement,
+or repeatable disjoint benefit is claimed.
