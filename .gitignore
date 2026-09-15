@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.serena/
+*.egg-info/
+dgx_logs/
+results/
+
+# Local agent and editor state
+.DS_Store
+.agents/
+.codex/
+.claude/
+.idea/
+.vscode/
+
+# Experiment runs, staging, and local orchestration
+output/
+archive/
+agent_setup/
+ep-builder-*/
+ep-evaluator-*/
+ep-runner-*/
+*.log
+
+# Internal working notes are local by default. Keep the two pause overviews.
+docs/*
+!docs/PROJECT_HISTORY.md
+!docs/FUTURE_WORK.md
