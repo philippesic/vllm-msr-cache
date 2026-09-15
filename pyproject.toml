@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "semantic-offload"
+version = "0.1.0"
+description = "Query-aware semantic eviction/prefetch policy for vLLM's KV-cache CPU offloading"
+requires-python = ">=3.10"
+dependencies = ["torch", "typing-extensions"]
+
+[project.optional-dependencies]
+cache-affinity = ["vllm>=0.26.1rc0,<0.27"]
+
+[project.entry-points."vllm.endpoint_plugins"]
+semantic_wait_hint = "semantic_offload.wait_hint_endpoint:SemanticWaitHintEndpointPlugin"
+
+[tool.setuptools.packages.find]
+include = ["semantic_offload*"]

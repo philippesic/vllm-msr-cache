@@ -1,0 +1,223 @@
+# SPDX-License-Identifier: Apache-2.0
+"""Version-tolerance shims for a real upstream vLLM refactor (#48150,
+"Define clean backend configuration boundary") that changed several
+offload-connector construction signatures.
+
+Why this exists rather than just updating call sites: different checkouts
+of this project run against different vLLM commits (confirmed in practice
+-- a dev-box checkout on the new API, a rented B200 box's checkout on a
+commit that predates the refactor entirely, `config.py` module absent).
+Hardcoding either shape breaks the other. Every function here inspects the
+real installed vLLM's actual signatures at call time and adapts, instead of
+assuming one API generation.
+"""
+
+import inspect
+
+from vllm.v1.kv_offload.base import OffloadingSpec
+from vllm.v1.kv_offload.factory import OffloadingSpecFactory
+
+try:
+    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.config import (
+        build_offloading_config,
+    )
+except ImportError:
+    build_offloading_config = None
+
+
+def create_offloading_spec(vllm_config, kv_cache_config) -> OffloadingSpec:
+    """OffloadingSpecFactory.create_spec() takes a single translated
+    OffloadingConfig on post-#48150 vLLM, or (vllm_config, kv_cache_config)
+    positionally on pre-#48150 vLLM.
+
+    Also stashes the real vllm_config onto the returned spec as
+    `.vllm_config`, unconditionally. Pre-#48150 OffloadingSpec.__init__
+    stored this itself (constructed directly from the raw vllm_config);
+    post-#48150 it only ever sees the narrower, deliberately-decoupled
+    OffloadingConfig translation, which has no live VllmConfig reference at
+    all (no compilation_config.static_forward_context, no cache_config) --
+    SemanticOffloadingWorker genuinely needs the real one (Step 1.2's
+    kv_cache read mechanism), so attach it here rather than relying on
+    whichever base class happens to set it. Harmless on pre-#48150 vLLM:
+    just overwrites the base class's own copy with the identical object.
+    """
+    if build_offloading_config is not None:
+        offloading_config = build_offloading_config(vllm_config, kv_cache_config)
+        spec = OffloadingSpecFactory.create_spec(offloading_config)
+    else:
+        spec = OffloadingSpecFactory.create_spec(vllm_config, kv_cache_config)
+    spec.vllm_config = vllm_config
+    return spec
+
+
+def _filtered_kwargs(func, **candidates):
+    """Keep only the kwargs `func`'s real signature actually accepts."""
+    params = inspect.signature(func).parameters
+    return {k: v for k, v in candidates.items() if k in params}
+
+
+def construct_scheduler_base(scheduler, spec, vllm_config, kv_cache_config) -> None:
+    """Call the real OffloadingConnectorScheduler.__init__ with whichever
+    subset of (spec, vllm_config, kv_cache_config) its actual signature
+    accepts, in the base class's own declared order."""
+    from vllm.distributed.kv_transfer.kv_connector.v1.offloading_connector import (
+        OffloadingConnectorScheduler,
+    )
+
+    kwargs = _filtered_kwargs(
+        OffloadingConnectorScheduler.__init__,
+        spec=spec,
+        vllm_config=vllm_config,
+        kv_cache_config=kv_cache_config,
+    )
+    OffloadingConnectorScheduler.__init__(scheduler, **kwargs)
+
+
+def construct_worker(worker_cls, spec, kv_cache_config):
+    """Construct an OffloadingConnectorWorker (or subclass) with whichever
+    subset of (spec, kv_cache_config) its real __init__ accepts."""
+    kwargs = _filtered_kwargs(
+        worker_cls.__init__, spec=spec, kv_cache_config=kv_cache_config
+    )
+    return worker_cls(**kwargs)
+
+
+def spec_blocks_per_chunk(spec) -> int:
+    """OffloadingSpec's block_size_factor attribute was renamed
+    blocks_per_chunk upstream (#48150); read whichever exists."""
+    if hasattr(spec, "blocks_per_chunk"):
+        return spec.blocks_per_chunk
+    return spec.block_size_factor
+
+
+def config_blocks_per_chunk(config) -> int:
+    """SchedulerOffloadConfig's block_size_factor attribute was renamed
+    blocks_per_chunk upstream (#48150), same rename as spec_blocks_per_chunk
+    but on a different object (kv_group_configs itself is unchanged); read
+    whichever exists."""
+    if hasattr(config, "blocks_per_chunk"):
+        return config.blocks_per_chunk
+    return config.block_size_factor
+
+
+def scheduler_key_byte_layout(config, spec) -> tuple[int, int]:
+    """Resolve transfer and CPU-allocation bytes for one scheduler key.
+
+    Native vLLM keeps the worker byte stride on the full OffloadingConfig,
+    but newer SchedulerOffloadConfig projections intentionally omit it.  The
+    spec retains both the unpadded per-copy transfer size and the possibly
+    padded CPU allocation size, so prefer that boundary and cross-check the
+    full-config field when an older projection still exposes it.
+    """
+    num_workers = getattr(config, "num_workers", None)
+    if (
+        isinstance(num_workers, bool)
+        or not isinstance(num_workers, int)
+        or num_workers <= 0
+    ):
+        raise ValueError("scheduler num_workers must be a positive integer")
+    replicated = bool(getattr(spec, "replicated_layout", False))
+    copies = 1 if replicated else num_workers
+    per_copy_chunk_bytes = getattr(spec, "cpu_page_size_per_worker", None)
+    if (
+        isinstance(per_copy_chunk_bytes, bool)
+        or not isinstance(per_copy_chunk_bytes, int)
+        or per_copy_chunk_bytes <= 0
+    ):
+        worker_bytes_per_block = getattr(
+            config, "worker_kv_bytes_per_block", None
+        )
+        if (
+            isinstance(worker_bytes_per_block, bool)
+            or not isinstance(worker_bytes_per_block, int)
+            or worker_bytes_per_block <= 0
+        ):
+            raise ValueError(
+                "offloading spec does not expose a positive transfer byte layout"
+            )
+        per_copy_chunk_bytes = (
+            worker_bytes_per_block * config_blocks_per_chunk(config)
+        )
+    else:
+        worker_bytes_per_block = getattr(
+            config, "worker_kv_bytes_per_block", None
+        )
+        if worker_bytes_per_block is not None:
+            expected_per_copy = (
+                int(worker_bytes_per_block) * config_blocks_per_chunk(config)
+            )
+            if expected_per_copy != per_copy_chunk_bytes:
+                raise ValueError(
+                    "scheduler and offloading spec transfer byte layouts differ"
+                )
+
+    transfer_bytes = per_copy_chunk_bytes * copies
+    allocation_bytes = getattr(spec, "kv_bytes_per_chunk", transfer_bytes)
+    if (
+        isinstance(allocation_bytes, bool)
+        or not isinstance(allocation_bytes, int)
+        or allocation_bytes < transfer_bytes
+    ):
+        raise ValueError(
+            "offloading spec allocation bytes must cover transfer bytes"
+        )
+    return transfer_bytes, allocation_bytes
+
+
+def group_config_tokens_per_block(group_config) -> int:
+    """GroupOffloadConfig's gpu_block_size field was renamed
+    tokens_per_block upstream (#48150); read whichever exists."""
+    if hasattr(group_config, "tokens_per_block"):
+        return group_config.tokens_per_block
+    return group_config.gpu_block_size
+
+
+def group_config_tokens_per_chunk(group_config) -> int:
+    """GroupOffloadConfig's offloaded_block_size field was renamed
+    tokens_per_chunk upstream (#48150); read whichever exists."""
+    if hasattr(group_config, "tokens_per_chunk"):
+        return group_config.tokens_per_chunk
+    return group_config.offloaded_block_size
+
+
+def scheduler_being_loaded_set(scheduler):
+    """OffloadingConnectorScheduler's own `_blocks_being_loaded` tracking
+    set (set on self by the base __init__, mutated throughout its
+    lifetime) was renamed `_chunks_being_loaded` upstream (#48150); return
+    whichever attribute exists. Callers mutate the returned set in place
+    (e.g. `.update(...)`), so no corresponding setter is needed."""
+    if hasattr(scheduler, "_chunks_being_loaded"):
+        return scheduler._chunks_being_loaded
+    return scheduler._blocks_being_loaded
+
+
+def set_next_stored_chunk_idx(group_state, value: int) -> None:
+    """Set the renamed request-group offload progress field safely."""
+    if hasattr(group_state, "next_stored_chunk_idx"):
+        group_state.next_stored_chunk_idx = value
+        return
+    if hasattr(group_state, "next_stored_block_idx"):
+        group_state.next_stored_block_idx = value
+        return
+    raise AttributeError("request group state has no stored-chunk progress field")
+
+
+def init_cpu_offloading_worker_base(
+    worker, kv_caches, blocks_per_chunk, num_cpu_blocks
+):
+    """CPUOffloadingWorker.__init__'s blocks_per_chunk param was named
+    block_size_factor before #48150 -- call with whichever name the real
+    installed base class's own signature declares, a rename not a filter
+    (both old and new signatures require this param, just under a
+    different name, so a plain _filtered_kwargs drop-if-absent would leave
+    it missing rather than translated)."""
+    from vllm.v1.kv_offload.cpu.gpu_worker import CPUOffloadingWorker
+
+    params = inspect.signature(CPUOffloadingWorker.__init__).parameters
+    key = "blocks_per_chunk" if "blocks_per_chunk" in params else "block_size_factor"
+    CPUOffloadingWorker.__init__(
+        worker,
+        kv_caches=kv_caches,
+        num_cpu_blocks=num_cpu_blocks,
+        **{key: blocks_per_chunk},
+    )
