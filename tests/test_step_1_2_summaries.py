@@ -1,0 +1,181 @@
+# SPDX-License-Identifier: Apache-2.0
+"""Step 1.2 acceptance check: summary correctness vs. reference reductions.
+
+Builds a SemanticOffloadingWorker without going through CPUOffloadingWorker's
+real CUDA-tensor allocation (that plumbing is exercised end-to-end on the real
+server instead, see .claude/docs/semantic-eviction-plan.md Step 1.2 and
+project memory for that run). This test only exercises the block-extraction
+and summary-building logic against a synthetic kv_cache tensor with a known
+layout and known values, so it runs on CPU and needs no GPU.
+"""
+
+from types import SimpleNamespace
+
+import torch
+
+from semantic_offload.worker import SemanticOffloadingWorker, select_probe_layer
+
+
+def _make_layer(num_blocks, num_kv_heads, block_size, head_size, seed):
+    torch.manual_seed(seed)
+    kv_cache = torch.randn(num_blocks, num_kv_heads, block_size, 2 * head_size)
+
+    def get_kv_cache_shape(nb, bs, nh, hs, cache_dtype_str="auto"):
+        return (nb, nh, bs, 2 * hs)
+
+    attn_backend = SimpleNamespace(get_kv_cache_shape=get_kv_cache_shape)
+    return SimpleNamespace(
+        kv_cache=kv_cache,
+        num_kv_heads=num_kv_heads,
+        head_size=head_size,
+        attn_backend=attn_backend,
+    )
+
+
+def _make_worker(layers: dict, block_size: int) -> SemanticOffloadingWorker:
+    worker = SemanticOffloadingWorker.__new__(SemanticOffloadingWorker)
+    worker._attention_layers = layers
+    worker._block_size = block_size
+    worker._summary_stream = None
+    worker._layout_checked = set()
+    worker.summaries = {name: {} for name in layers}
+    # _build_summaries_body only computes the probe layer's summaries now
+    # (issues log entry #53's follow-up: building every model layer's
+    # summary when only the probe layer is ever read was real, wasted,
+    # non-trivial per-block tensor work) -- these tests all use a single
+    # layer, so it's always the probe layer; re-keying itself (Step 1.3)
+    # is still out of scope here.
+    worker._probe_layer_name = next(iter(layers), None)
+    worker._pending_job_keys = {}
+    worker._pending_job_blocks = {}
+    worker.durable_summaries = {}
+    worker._max_durable_summaries = 100
+    worker._stack_cache_dirty = True
+    worker._stack_cache_keys = []
+    worker._stack_cache = {}
+    worker._stack_cache_index = {}
+    worker._stack_pending_insert = set()
+    worker._stack_pending_remove = set()
+    worker._pending_scores = {}
+    return worker
+
+
+def test_build_summaries_matches_reference_reductions():
+    num_blocks, num_kv_heads, block_size, head_size = 8, 2, 16, 32
+    layer = _make_layer(num_blocks, num_kv_heads, block_size, head_size, seed=0)
+    worker = _make_worker({"layer0": layer}, block_size)
+
+    block_id = 3
+    worker._build_summaries_for_blocks(0, [block_id])
+
+    summaries = worker.summaries["layer0"][block_id]
+    assert len(summaries) == num_kv_heads
+
+    keys_full = layer.kv_cache[block_id][..., :head_size].float()
+    for h in range(num_kv_heads):
+        keys = keys_full[h]
+        summary = summaries[h]
+        assert torch.allclose(summary.min, keys.amin(dim=0))
+        assert torch.allclose(summary.max, keys.amax(dim=0))
+        assert torch.allclose(summary.mean, keys.mean(dim=0))
+        expected_mad = (keys - keys.mean(dim=0)).abs().mean(dim=0)
+        assert torch.allclose(summary.mad, expected_mad)
+
+
+def test_build_summaries_only_uses_key_half_not_value_half():
+    """The last dim is [K | V] packed; corrupting only V must not change the
+    computed summary, proving we sliced K and not the whole packed tensor."""
+    num_blocks, num_kv_heads, block_size, head_size = 4, 1, 16, 16
+    layer = _make_layer(num_blocks, num_kv_heads, block_size, head_size, seed=1)
+    worker = _make_worker({"layer0": layer}, block_size)
+
+    block_id = 0
+    worker._build_summaries_for_blocks(0, [block_id])
+    before = worker.summaries["layer0"][block_id][0]
+
+    layer.kv_cache[block_id, :, :, head_size:] = 999.0  # corrupt V half only
+    worker.summaries["layer0"].clear()
+    worker._build_summaries_for_blocks(0, [block_id])
+    after = worker.summaries["layer0"][block_id][0]
+
+    assert torch.allclose(before.min, after.min)
+    assert torch.allclose(before.max, after.max)
+    assert torch.allclose(before.mean, after.mean)
+
+
+def test_layout_mismatch_raises_instead_of_silently_scoring_garbage():
+    layer = _make_layer(4, 1, 16, 8, seed=2)
+    layer.attn_backend.get_kv_cache_shape = lambda *a, **k: (999, 1, 16, 16)
+    worker = _make_worker({"layer0": layer}, block_size=16)
+    try:
+        worker._build_summaries_for_blocks(0, [0])
+        raise AssertionError("expected AssertionError on layout mismatch")
+    except AssertionError as e:
+        assert "does not match get_kv_cache_shape" in str(e)
+
+
+def test_no_blocks_is_a_noop():
+    layer = _make_layer(4, 1, 16, 8, seed=3)
+    worker = _make_worker({"layer0": layer}, block_size=16)
+    worker._build_summaries_for_blocks(0, [])
+    assert worker.summaries["layer0"] == {}
+
+
+def test_only_the_probe_layer_gets_summaries_built():
+    """Regression test for issues log entry #53's follow-up: a real B200
+    run showed _build_summaries_body looping over EVERY attention layer
+    (~28 for a 7B model) even though self.summaries is only ever read for
+    self._probe_layer_name -- every other layer's summary was real,
+    non-trivial tensor work computed and discarded, unread, on every
+    single block stored. With several layers configured, only the probe
+    layer's dict should ever get populated."""
+    num_blocks, num_kv_heads, block_size, head_size = 4, 2, 16, 16
+    layers = {
+        name: _make_layer(num_blocks, num_kv_heads, block_size, head_size, seed=i)
+        for i, name in enumerate(["layer0", "layer1", "layer2"])
+    }
+    worker = _make_worker(layers, block_size)
+    worker._probe_layer_name = "layer1"  # deliberately not the first layer
+
+    worker._build_summaries_for_blocks(0, [0])
+
+    assert worker.summaries["layer1"] != {}
+    assert worker.summaries["layer0"] == {}
+    assert worker.summaries["layer2"] == {}
+
+
+def test_probe_layer_uses_natural_model_order():
+    layers = ["model.layers.10.attn", "model.layers.2.attn", "model.layers.1.attn"]
+
+    assert select_probe_layer(layers, "first") == "model.layers.1.attn"
+    assert select_probe_layer(layers, "middle") == "model.layers.2.attn"
+    assert select_probe_layer(layers, "last") == "model.layers.10.attn"
+    assert select_probe_layer(layers, 1) == "model.layers.2.attn"
+
+
+def test_explicit_job_layout_combines_blocks_without_identity_blur():
+    layer = _make_layer(4, 1, 2, 4, seed=5)
+    worker = _make_worker({"layer0": layer}, block_size=2)
+    from vllm.v1.kv_offload.base import make_offload_key
+
+    key_a = make_offload_key(b"a", 0)
+    key_b = make_offload_key(b"b", 0)
+    worker.receive_job_blocks({7: [(key_a, [2, 3]), (key_b, [0, 1])]})
+
+    worker._build_durable_summaries_for_job(7)
+
+    expected_a = layer.kv_cache[[2, 3], 0, :, :4].reshape(-1, 4).mean(dim=0)
+    expected_b = layer.kv_cache[[0, 1], 0, :, :4].reshape(-1, 4).mean(dim=0)
+    assert torch.allclose(worker.durable_summaries[key_a][0].mean, expected_a)
+    assert torch.allclose(worker.durable_summaries[key_b][0].mean, expected_b)
+
+
+def test_ambiguous_legacy_job_layout_is_skipped():
+    layer = _make_layer(3, 1, 2, 4, seed=6)
+    worker = _make_worker({"layer0": layer}, block_size=2)
+    from vllm.v1.kv_offload.base import make_offload_key
+
+    worker.receive_job_keys({8: [make_offload_key(b"a", 0), make_offload_key(b"b", 0)]})
+    worker._build_summaries_for_blocks(8, [0])
+
+    assert worker.durable_summaries == {}
