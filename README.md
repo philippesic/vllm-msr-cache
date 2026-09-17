@@ -1,8 +1,7 @@
-# MSR semantic cache for vLLM
+# MSR KV Cache Eviction for vLLM
 
-An experimental vLLM extension for exact KV-cache offload, semantic retention,
-and causal prefetch. The project explores **mean semantic relevance (MSR)** as a
-cache policy alongside LRU and ARC.
+Mean Semantic Relevance (MSR is an experimental vLLM extension for exact KV-cache offload, semantic retention,
+and causal prefetch.
 
 ## Architecture
 
