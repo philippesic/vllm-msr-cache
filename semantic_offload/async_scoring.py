@@ -9,11 +9,34 @@ from collections.abc import Callable, Mapping, Sequence
 from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass
 from threading import Condition, Lock
+from semantic_offload.profiling import PROFILE
 from typing import Generic, Protocol, TypeVar
 
 
 class ReadinessFence(Protocol):
     def synchronize(self) -> None: ...
+
+
+_HOST_EVENT_POLL_SECONDS = 0.0005
+
+
+def wait_for_owned_fence(fence: ReadinessFence) -> None:
+    """Cooperate while an owned event is pending; generic fences keep their API.
+
+    Some WSL CUDA event synchronize implementations actively wait even with
+    blocking=True. Querying then sleeping bounds host polling without changing
+    event ordering. Cancellation/reset must still retain/drain the owned job.
+    Query errors fall back to the original fence before propagating the error.
+    """
+    query = getattr(fence, "query", None)
+    if callable(query):
+        try:
+            while not query():
+                time.sleep(_HOST_EVENT_POLL_SECONDS)
+        except BaseException:
+            fence.synchronize()
+            raise
+    fence.synchronize()
 
 
 PayloadT = TypeVar("PayloadT")
@@ -124,11 +147,26 @@ class AsyncScoringController(Generic[PayloadT, ResultT]):
         scorer: Callable[[PayloadT], ResultT],
         snapshot: AsyncScoringSnapshot[PayloadT],
     ) -> AsyncScoringCompletion[PayloadT, ResultT]:
-        for fence in snapshot.readiness_fences:
-            fence.synchronize()
+        with PROFILE.scope("async.input_ready_wait"):
+            try:
+                for fence in snapshot.readiness_fences:
+                    wait_for_owned_fence(fence)
+            except BaseException:
+                # A query failure must not release other pending owned inputs.
+                # Keep the snapshot alive until every original fence was tried.
+                fence_error = None
+                for fence in snapshot.readiness_fences:
+                    try:
+                        fence.synchronize()
+                    except BaseException as error:
+                        fence_error = error
+                if fence_error is not None:
+                    raise fence_error
+                raise
         input_ready_ns = time.monotonic_ns()
         started_ns = time.monotonic_ns()
-        result = scorer(snapshot.payload)
+        with PROFILE.scope("async.executor_total"):
+            result = scorer(snapshot.payload)
         completed_ns = time.monotonic_ns()
         return AsyncScoringCompletion(
             snapshot=snapshot,
@@ -204,7 +242,11 @@ class AsyncScoringController(Generic[PayloadT, ResultT]):
                 readiness_fences=tuple(readiness_fences),
             )
             submitted_ns = time.monotonic_ns()
-            future = self._executor.submit(self._run, self._scorer, snapshot)
+            def execute():
+                if PROFILE.directory:
+                    PROFILE.observe("async.queue_wait.host_wall", time.monotonic_ns()-submitted_ns)
+                return self._run(self._scorer, snapshot)
+            future = self._executor.submit(execute)
             self._pending[sequence] = _Pending(snapshot, future, submitted_ns)
             self._pending_snapshot_bytes += snapshot_bytes
             self._record(

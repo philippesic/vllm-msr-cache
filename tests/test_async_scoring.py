@@ -368,12 +368,12 @@ def test_worker_async_publication_rejects_stale_generation():
     worker._async_scoring.shutdown()
 
 
-def test_worker_retirement_flushes_final_snapshot_before_pruning_request():
+def test_worker_retirement_preserves_eventual_final_snapshot_without_global_drain():
     worker = _worker("asynchronous")
     worker._on_query_captured("req", torch.ones(1, 4))
     worker.retire_async_requests(["req"])
 
-    observations = worker.pop_async_score_observations()
+    observations = _wait_async_observations(worker)
     assert observations[0]["request_ids"] == ["req"]
     assert worker._async_scoring.stats()["pending_items"] == 0
     assert worker._async_scoring.stats()["pending_snapshot_bytes"] == 0

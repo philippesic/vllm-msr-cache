@@ -153,6 +153,9 @@ def test_native149_scheduler_projection_constructs_without_worker_byte_field(
     )
 
     assert scheduler._prefetch_trigger == "preemption"
+    assert scheduler._wait_hint_native_adoption is False
+    assert scheduler._wait_hint_coalesce_exact_source is False
+    assert scheduler._prefetch_require_full_prefix is False
     assert scheduler._wait_hint_coalescing_min_sources == 1
     assert scheduler._wait_hint_coalescing_max_ns == 0
     assert scheduler._prefetch_bytes_per_key == 458752
@@ -162,6 +165,8 @@ def test_native149_scheduler_projection_constructs_without_worker_byte_field(
     spec.extra_config = {
         "wait_hint_coalescing_min_sources": 2,
         "wait_hint_coalescing_max_ms": 25,
+        "wait_hint_coalesce_exact_source": True,
+        "prefetch_require_full_prefix": True,
     }
     scheduler = SemanticOffloadingConnectorScheduler(
         spec,
@@ -173,6 +178,8 @@ def test_native149_scheduler_projection_constructs_without_worker_byte_field(
     )
     assert scheduler._wait_hint_coalescing_min_sources == 2
     assert scheduler._wait_hint_coalescing_max_ns == 25_000_000
+    assert scheduler._wait_hint_coalesce_exact_source is True
+    assert scheduler._prefetch_require_full_prefix is True
 
     spec.extra_config = {"wait_hint_coalescing_min_sources": 2}
     with pytest.raises(ValueError, match="max_ms must be positive"):
@@ -1856,6 +1863,122 @@ def test_wait_hint_coalescing_default_dispatches_without_gate_event():
     )
 
 
+@pytest.mark.parametrize("status", [None, "ready", "in_flight", "pending"])
+def test_wait_nomination_without_candidates_still_expires_hints(status, monkeypatch):
+    calls = []
+    state = SimpleNamespace(status=status)
+    states = {} if status is None else {"hint": state}
+
+    def expire(now_ns):
+        calls.append("expire")
+        # An expired pending hint must disappear before nomination eligibility
+        # is examined. In-flight/ready hints still get the same expiry visit.
+        if status == "pending":
+            states.clear()
+
+    def unexpected(*args, **kwargs):
+        raise AssertionError("empty nomination must not read the pool or emit a decision")
+
+    scheduler = SimpleNamespace(
+        _wait_prefetch=states,
+        _prefetch_selector="semantic",
+        _wait_hint_coalescing_gate=lambda now: (calls.append("gate") or False, None),
+        _expire_wait_prefetches=expire,
+        _prefetch_reserved_blocks=0, _prefetch_budget_fraction=0.2,
+        _prefetch_headroom_blocks=0, _prefetch_bytes_per_key=256,
+        gpu_block_pool=SimpleNamespace(num_gpu_blocks=100, get_num_free_blocks=unexpected),
+    )
+    monkeypatch.setattr("semantic_offload.connector.record_wait_hint_event", unexpected)
+    SemanticOffloadingConnectorScheduler._retry_wait_prefetches(scheduler)
+    assert calls == ["gate", "expire"]
+    assert states == ({} if status in {None, "pending"} else {"hint": state})
+
+
+def test_native_adoption_digest_reads_only_prefix(monkeypatch):
+    class PrefixOnlyTokens(list):
+        def __iter__(self):
+            raise AssertionError("adoption must not copy the complete prompt")
+
+        def __getitem__(self, index):
+            assert index == slice(None, 32)
+            return super().__getitem__(index)
+
+    # Stop after the digest check: the allocator and DMA guards have their
+    # separate integration coverage below. A mismatched digest must reject.
+    now = time.monotonic_ns()
+    request = SimpleNamespace(
+        num_computed_tokens=0,
+        prompt_token_ids=PrefixOnlyTokens(range(100_000)),
+    )
+    state = SimpleNamespace(
+        status="ready", source_released=True, pending_contributors=0,
+        bound_request_id="resume",
+        transfer_record=dict(success=True, cancelled=False, contributors=1,
+                             expected_contributors=1, completed_at_ns=now),
+        keys=(b"a", b"b"), gpu_block_ids=(1, 2),
+        lease=SimpleNamespace(
+            state="ready", expires_at_ns=now + 10_000_000_000,
+            hint=SimpleNamespace(prefix_boundary_tokens=32,
+                                 observed_prefix_id="different-prefix"),
+        ),
+    )
+    scheduler = SimpleNamespace(
+        _wait_hint_native_adoption=True,
+        _wait_hint_native_adoption_layout_supported=True,
+        config=SimpleNamespace(num_workers=1, blocks_per_chunk=1,
+                               kv_group_configs=[SimpleNamespace(
+                                   group_idx=0, tokens_per_block=16,
+                                   tokens_per_chunk=16)]),
+        gpu_block_pool=SimpleNamespace(publish_completed_prefix=lambda *a, **kw: None),
+        _req_status={"resume": SimpleNamespace(req=request)},
+        _wait_hint_namespace={"model": "test"},
+    )
+    seen = []
+
+    def digest(tokens, namespace):
+        seen.append((tokens, namespace))
+        return "actual-prefix"
+
+    monkeypatch.setattr("semantic_offload.connector._observed_prefix_digest", digest)
+    assert not SemanticOffloadingConnectorScheduler._try_publish_wait_prefix(scheduler, state)
+    assert seen == [(list(range(32)), {"model": "test"})]
+
+
+def test_wait_nomination_nonempty_keeps_decision_and_attempt(monkeypatch):
+    events, attempts = [], []
+    source = SimpleNamespace(run_id="run", cell_id="cell", session_id="session",
+                             generation=0, observed_prefix_id="prefix")
+    state = SimpleNamespace(status="pending", source=source,
+                            lease=SimpleNamespace(active_at=lambda now: True,
+                                                  hint=SimpleNamespace(event_id="hint")))
+    candidate = dict(event_id="hint", session_id="session", observed_prefix_id="prefix",
+                     source_request_id="source", aggregate_score=0.5,
+                     eligible_resident_prefix_keys=["key"])
+    scheduler = SimpleNamespace(
+        _wait_prefetch={"hint": state}, _prefetch_selector="semantic",
+        _wait_hint_coalescing_gate=lambda now: (False, None),
+        _expire_wait_prefetches=lambda now: None,
+        _semantic_wait_nomination_candidate=lambda state, now: (candidate, 0.5),
+        _attempt_wait_prefetch=lambda state: attempts.append(state) or False,
+        _prefetch_reserved_blocks=0, _prefetch_budget_fraction=0.2,
+        _prefetch_headroom_blocks=0, _prefetch_bytes_per_key=256,
+        gpu_block_pool=SimpleNamespace(num_gpu_blocks=100, get_num_free_blocks=lambda: 0),
+    )
+    scheduler._prefetch_free_capacity = (
+        SemanticOffloadingConnectorScheduler._prefetch_free_capacity.__get__(scheduler)
+    )
+    scheduler._record_wait_hint_event = (
+        SemanticOffloadingConnectorScheduler._record_wait_hint_event.__get__(scheduler)
+    )
+    monkeypatch.setattr("semantic_offload.connector.record_wait_hint_event", events.append)
+    SemanticOffloadingConnectorScheduler._retry_wait_prefetches(scheduler)
+    assert attempts == [state]
+    assert len(events) == 1
+    assert events[0]["candidates"] == [candidate]
+    assert events[0]["chosen"] == []
+    assert events[0]["no_action_reason"] == "no_causal_candidate_or_shared_budget"
+
+
 def test_semantic_wait_nomination_reverses_winner_across_competing_sessions():
     from unittest.mock import patch
 
@@ -2425,6 +2548,25 @@ def test_released_allocation_retry_is_not_starved_by_new_singleton_window():
 
     assert state_a.status == "in_flight"
     assert sched._wait_prefetch[hint_b["event_id"]].status == "pending"
+
+
+def test_diagnostic_no_dispatch_preserves_hint_but_allocates_no_staging():
+    manager = SemanticOffloadingManager(num_blocks=10)
+    key = to_key(1)
+    _insert_resident(manager, key, block_id=0)
+    pool = _StubBlockPool(20, free_blocks=5)
+    sched = _make_connector_scheduler(manager, pool)
+    sched._prefetch_selector = "request_order"
+    sched._wait_hint_diagnostic_no_dispatch = True
+    prefix_id, boundary = _register_wait_prefix(sched, [key])
+    hint = _wait_hint(sched, prefix_id, boundary)
+
+    assert sched.publish_wait_hint(hint)["status"] == "accepted"
+    sched._retry_wait_prefetches()
+
+    assert sched._wait_prefetch[hint["event_id"]].status == "pending"
+    assert pool.get_num_free_blocks() == 5
+    assert not sched._wait_prefetch_jobs
 
 
 def test_wait_hint_dispatches_real_native_pool_transfer_and_binds_resume():
@@ -3098,6 +3240,76 @@ def test_owned_reclaimable_staging_never_recycles_inflight_destination(capsys):
     assert pool.get_num_free_blocks() == 4
     assert sched._wait_prefetch[hint["event_id"]].status == "in_flight"
     assert '"demand_wait_required":true' in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("prefetch_request_id", ["demand", "other"])
+@pytest.mark.parametrize("pending_count", [None, 0, 1])
+def test_demand_reclaims_completed_legacy_scratch_before_native_admission(
+    prefetch_request_id, pending_count, capsys
+):
+    from vllm.v1.core.block_pool import BlockPool
+
+    # One real null block plus a completed 256-block optional source leave
+    # 527 free destinations: native 625-block admission cannot yet proceed.
+    pool = BlockPool(784, enable_caching=True, hash_block_size=16)
+    scratch = pool.get_new_blocks(256)
+    manager = SemanticOffloadingManager(num_blocks=300)
+    sched = _make_connector_scheduler(manager, pool)
+    sched._staging_mode = "owned_reclaimable"
+    sched.config.kv_group_configs[0].tokens_per_block = 16
+    sched._prefetched[prefetch_request_id] = _PrefetchState(
+        job_id=7, keys=[to_key(i) for i in range(256)],
+        gpu_block_ids=[block.block_id for block in scratch],
+    )
+    sched._prefetch_reserved_blocks = 256
+    if pending_count is not None:
+        sched._jobs[7] = SimpleNamespace(pending_count=pending_count)
+    assert pool.get_num_free_blocks() == 527
+    demand = SimpleNamespace(request_id="demand", num_prompt_tokens=12288)
+
+    sched._reclaim_wait_prefetch_for_demand(
+        demand, 2288, protected_event_id=None
+    )
+
+    if pending_count == 1:
+        assert pool.get_num_free_blocks() == 527
+        assert sched._prefetch_reserved_blocks == 256
+        assert all(block.ref_cnt == 1 for block in scratch)
+        assert '"demand_wait_required":true' in capsys.readouterr().out
+        return
+    assert sched._prefetched == {}
+    assert sched._prefetch_reserved_blocks == 0
+    assert pool.get_num_free_blocks() == 783
+    assert all(block.ref_cnt == 0 for block in scratch)
+    # Native demand now has capacity. Every granted block has sole ownership;
+    # the optional source is no longer a prerequisite for its own admission.
+    admitted = pool.get_new_blocks(625)
+    assert len(admitted) == len({block.block_id for block in admitted}) == 625
+    assert all(block.ref_cnt == 1 for block in admitted)
+    assert pool.get_num_free_blocks() == 158
+    pool.free_blocks(admitted)
+
+
+def test_demand_preserves_completed_legacy_scratch_when_destinations_fit():
+    from vllm.v1.core.block_pool import BlockPool
+
+    pool = BlockPool(784, enable_caching=True, hash_block_size=16)
+    scratch = pool.get_new_blocks(256)
+    sched = _make_connector_scheduler(SemanticOffloadingManager(num_blocks=300), pool)
+    sched._staging_mode = "owned_reclaimable"
+    sched._prefetched["demand"] = _PrefetchState(
+        job_id=7, keys=[], gpu_block_ids=[block.block_id for block in scratch]
+    )
+    sched._prefetch_reserved_blocks = 256
+
+    sched._reclaim_wait_prefetch_for_demand(
+        SimpleNamespace(request_id="demand", num_prompt_tokens=500),
+        0, protected_event_id=None,
+    )
+
+    assert "demand" in sched._prefetched
+    assert pool.get_num_free_blocks() == 527
+    assert all(block.ref_cnt == 1 for block in scratch)
 
 
 def test_useful_on_time_scheduler_uses_causal_completed_cost_and_wait_budget():
@@ -4182,3 +4394,689 @@ def test_compute_load_plan_matches_the_real_base_method():
     # the two, a desync in either content or ordering would be caught.
     assert set(predicted_keys) == real_keys
     assert predicted_dst == list(real_job.dst_spec.block_ids)
+
+
+# Native adoption tests use the real allocator and CPU tensor backing only.
+# Transfer completion is injected; CUDA/worker fence execution is not claimed.
+def _native_adoption_request(request_id, tokens=None):
+    from vllm.sampling_params import SamplingParams
+    from vllm.utils.hashing import sha256
+    from vllm.v1.core.kv_cache_utils import get_request_block_hasher
+    from vllm.v1.request import Request
+
+    return Request(
+        request_id=request_id,
+        prompt_token_ids=list(range(35)) if tokens is None else tokens,
+        sampling_params=SamplingParams(max_tokens=2),
+        pooling_params=None,
+        block_hasher=get_request_block_hasher(16, sha256),
+    )
+
+
+def _native_adoption_fixture(dtype=torch.bfloat16):
+    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.events import (
+        OffloadingEventsTracker,
+    )
+    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.metrics import (
+        OffloadingConnectorStats,
+    )
+    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
+        OffloadingConnectorScheduler,
+    )
+    from vllm.v1.core.kv_cache_manager import KVCacheManager
+    from vllm.v1.core.kv_cache_utils import init_none_hash
+    from vllm.utils.hashing import sha256
+    from vllm.v1.kv_cache_interface import (
+        FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec,
+    )
+    from vllm.v1.kv_offload.base import OffloadingKVEventsConfig
+
+    init_none_hash(sha256)
+    cache = KVCacheManager(
+        KVCacheConfig(12, [], [KVCacheGroupSpec(["layer"], FullAttentionSpec(
+            block_size=16, num_kv_heads=1, head_size=4, dtype=dtype,
+        ))]),
+        max_model_len=128, scheduler_block_size=16, hash_block_size=16,
+    )
+    manager = SemanticOffloadingManager(num_blocks=10)
+    sched = _make_connector_scheduler(manager, cache.block_pool)
+    sched.config = SchedulerOffloadConfig(
+        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
+        blocks_per_chunk=1, num_workers=1, offload_prompt_only=False,
+    )
+    sched._wait_hint_native_adoption = True
+    sched._lifecycle_release_enabled = False
+    sched._wait_hint_native_adoption_layout_supported = True
+    sched._published_wait_prefixes = {}
+    sched._prefetch_budget_fraction = 0.5
+    sched._prefetch_selector = "request_order"
+    sched._connector_stats = OffloadingConnectorStats()
+    sched._events_tracker = OffloadingEventsTracker(
+        OffloadingKVEventsConfig(False, False)
+    )
+    sched._lookup_groups = (0,)
+    sched._sliding_window_groups = ()
+    sched._mamba_align_size = None
+    sched._preservation_requests = {}
+    warm = _native_adoption_request("warm")
+    prefix_id = _observed_prefix_digest(
+        warm.prompt_token_ids[:32], sched._wait_hint_namespace,
+    )
+    warm.kv_transfer_params = dict(
+        run_id="run", cell_id="cell", session_id="session", generation=0,
+        observed_prefix_id=prefix_id, observed_prefix_boundary_tokens=32,
+    )
+    OffloadingConnectorScheduler.on_new_request(sched, warm)
+    sched._req_status["warm"].update_offload_keys()
+    keys = sched._req_status["warm"].group_states[0].offload_keys
+    for i, key in enumerate(keys):
+        _insert_resident(manager, key, i)
+    sched._register_observed_prefix(warm)
+    hint = _wait_hint(sched, prefix_id, 32)
+    assert sched.publish_wait_hint(hint)["status"] == "accepted"
+    sched._retry_wait_prefetches()
+    state = sched._wait_prefetch[hint["event_id"]]
+    # The worker accepted this job; completion remains outstanding.
+    sched._current_batch_prefetch_load_jobs.clear()
+    backing = torch.zeros(12, 16, 4, dtype=dtype)
+    dram = torch.arange(128, dtype=dtype).reshape(2, 16, 4)
+    return SimpleNamespace(
+        sched=sched, cache=cache, state=state, hint=hint, warm=warm,
+        backing=backing, dram=dram,
+    )
+
+
+def _native_adoption_complete(f, *, success=True):
+    state = f.state
+    for key, block_id in zip(state.keys, state.gpu_block_ids):
+        f.backing[block_id].copy_(f.dram[state.source.keys.index(key)])
+    now = time.monotonic_ns()
+    f.sched._preservation_job_events[state.job_id] = SemanticTransferCompletion(
+        is_load=True, bytes=256, time_s=0.001, contributors=1, success=success,
+        started_at_ns=now - 1_000_000, completed_at_ns=now,
+    )
+    meta = SemanticWorkerMetadata(
+        completed_jobs={state.job_id: 1} if success else {},
+        failed_jobs={} if success else {state.job_id: 1},
+    )
+    f.sched._complete_wait_prefetch_jobs(meta)
+
+
+def _native_adoption_bind(f, request=None):
+    request = request or _native_adoption_request("resume")
+    request.kv_transfer_params = dict(
+        external_request_id="owner:future", wait_hint_event_id=f.hint["event_id"],
+        run_id="run", cell_id="cell", session_id="session", generation=0,
+        observed_prefix_id=f.hint["observed_prefix_id"],
+        observed_prefix_boundary_tokens=32,
+    )
+    f.sched.on_new_request(request)
+    return request
+
+
+def test_other_demand_does_not_reclaim_bound_wait_hint_or_leak_source_protection():
+    f = _native_adoption_fixture(torch.float16)
+    f.sched._staging_mode = "owned_reclaimable"
+    f.sched._wait_hint_native_adoption = False
+    _native_adoption_complete(f)
+    request = _native_adoption_bind(f)
+    state = f.state
+    pool = f.cache.block_pool
+    manager = f.sched.manager
+    assert state.status == "bound_ready"
+    assert f.sched._prefetched[request.request_id].attempt_id == f.hint["event_id"]
+    assert manager.staging_protection_stats()["active_bindings"] == 1
+    assert manager.staging_protection_stats()["protected_key_references"] == 2
+    assert all(manager._policy.get(key).ref_cnt == 1 for key in state.keys)
+    pressure = pool.get_new_blocks(pool.get_num_free_blocks())
+    assert pool.get_num_free_blocks() == 0
+
+    f.sched._reclaim_wait_prefetch_for_demand(
+        _native_adoption_request("other-demand"), 0, protected_event_id=None,
+    )
+
+    assert state.status == "bound_ready"
+    assert f.sched._wait_prefetch[f.hint["event_id"]] is state
+    assert request.request_id in f.sched._prefetched
+    assert pool.get_num_free_blocks() == 0
+    assert manager.staging_protection_stats()["active_bindings"] == 1
+    assert all(manager._policy.get(key).ref_cnt == 1 for key in state.keys)
+
+    # The ordinary cancellation/expiry owner releases both tiers exactly once.
+    f.sched._retire_wait_prefetch(
+        state, "cancel", now_ns=time.monotonic_ns(),
+    )
+    assert request.request_id not in f.sched._prefetched
+    assert manager.staging_protection_stats()["active_bindings"] == 0
+    assert manager.staging_protection_stats()["protected_key_references"] == 0
+    assert all(manager._policy.get(key).ref_cnt == 0 for key in state.keys)
+    assert pool.get_num_free_blocks() == 2
+    f.sched._free_wait_prefetch(state, "repeated_cleanup")
+    assert pool.get_num_free_blocks() == 2
+    assert manager.staging_protection_stats()["active_bindings"] == 0
+    pool.free_blocks(pressure)
+    assert pool.get_num_free_blocks() == 11
+
+
+def _native_adoption_allocate(f, request):
+    hit, tokens, _, diverged = f.cache.get_computed_blocks_for_connector(request)
+    assert tokens == 32
+    assert not diverged
+    assert f.sched.get_num_new_matched_tokens(request, tokens) == (0, False)
+    assert f.cache.allocate_slots(
+        request, 3, num_new_computed_tokens=tokens, new_computed_blocks=hit,
+    ) is not None
+    blocks = f.cache.get_blocks(request.request_id)
+    f.sched.update_state_after_alloc(request, blocks, 0)
+    return blocks
+
+
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_native_adoption_same_physical_ids_no_splice_or_duplicate_allocation(
+    monkeypatch, dtype,
+):
+    f = _native_adoption_fixture(dtype)
+    assert f.backing.dtype == dtype and f.dram.dtype == dtype
+    ids = list(f.state.gpu_block_ids)
+    assert f.cache.get_computed_blocks(f.warm)[1] == 0
+    assert all(f.cache.block_pool.blocks[i].ref_cnt == 1 for i in ids)
+    pressure = f.cache.block_pool.get_new_blocks(
+        f.cache.block_pool.get_num_free_blocks()
+    )
+    assert set(ids).isdisjoint(b.block_id for b in pressure)
+    f.cache.block_pool.free_blocks(pressure)
+    _native_adoption_complete(f)
+    assert f.cache.get_computed_blocks(f.warm)[1] == 0  # unbound stays private
+    calls = []
+    allocate = f.cache.block_pool.get_new_blocks
+    def counted(n):
+        calls.append(n)
+        return allocate(n)
+    monkeypatch.setattr(f.cache.block_pool, "get_new_blocks", counted)
+    request = _native_adoption_bind(f)
+    assert calls == []
+    assert f.state.status == "published"
+    assert f.sched._prefetch_reserved_blocks == 0
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+    assert not f.sched._prefetched and not f.sched._wait_prefetch
+    assert not f.sched._wait_hint_request_bindings
+    def forbidden(*args, **kwargs):
+        raise AssertionError("native adoption must not splice")
+    monkeypatch.setattr(f.sched, "_try_splice_prefetch", forbidden)
+    blocks = _native_adoption_allocate(f, request)
+    assert [b.block_id for b in blocks.blocks[0][:2]] == ids
+    assert calls == [1]  # only the mutable suffix; no prefix destinations
+    assert torch.equal(f.backing[ids], f.dram)
+    assert not f.sched._current_batch_load_jobs
+    assert not f.sched._pending_splice_jobs
+    assert not f.sched._published_wait_prefixes
+    f.cache.free(request)
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+
+
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_native_adoption_bound_inflight_publishes_only_after_completion(dtype):
+    f = _native_adoption_fixture(dtype)
+    request = _native_adoption_bind(f)
+    ids = list(f.state.gpu_block_ids)
+    assert f.cache.get_computed_blocks_for_connector(request)[1] == 0
+    assert f.sched.get_num_new_matched_tokens(request, 0) == (None, False)
+    assert all(f.cache.block_pool.blocks[i].ref_cnt == 1 for i in ids)
+    _native_adoption_complete(f)
+    assert f.state.status == "published"
+    blocks = _native_adoption_allocate(f, request)
+    assert [b.block_id for b in blocks.blocks[0][:2]] == ids
+    assert torch.equal(f.backing[ids], f.dram)
+    f.cache.free(request)
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+
+
+def test_native_adoption_two_requests_share_immutable_prefix_and_hold_refs():
+    f = _native_adoption_fixture()
+    _native_adoption_complete(f)
+    first = _native_adoption_bind(f)
+    a = _native_adoption_allocate(f, first)
+    second = _native_adoption_request("second", list(range(32)) + [80, 81, 82])
+    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
+        OffloadingConnectorScheduler,
+    )
+    OffloadingConnectorScheduler.on_new_request(f.sched, second)
+    b = _native_adoption_allocate(f, second)
+    assert a.blocks[0][:2] == b.blocks[0][:2]
+    assert a.blocks[0][-1] is not b.blocks[0][-1]
+    assert all(block.ref_cnt == 2 for block in a.blocks[0][:2])
+    pool = f.cache.block_pool
+    pressure = pool.get_new_blocks(pool.get_num_free_blocks())
+    assert set(f.state.gpu_block_ids).isdisjoint(b.block_id for b in pressure)
+    assert torch.equal(f.backing[list(f.state.gpu_block_ids)], f.dram)
+    pool.free_blocks(pressure)
+    f.cache.free(first)
+    assert all(block.ref_cnt == 1 for block in b.blocks[0][:2])
+    f.cache.free(second)
+    assert pool.get_num_free_blocks() == 11
+
+
+def test_native_adoption_eviction_before_admission_is_safe_demand_fallback():
+    f = _native_adoption_fixture()
+    _native_adoption_complete(f)
+    request = _native_adoption_bind(f)
+    pool = f.cache.block_pool
+    pressure = pool.get_new_blocks(pool.get_num_free_blocks())
+    assert f.cache.get_computed_blocks(request)[1] == 0
+    pool.free_blocks(pressure)
+    assert f.sched.get_num_new_matched_tokens(request, 0) == (32, True)
+    assert f.cache.allocate_slots(
+        request, 0, num_external_computed_tokens=32, delay_cache_blocks=True,
+    ) is not None
+    f.sched.update_state_after_alloc(
+        request, f.cache.get_blocks(request.request_id), 32,
+    )
+    jobs = list(f.sched._current_batch_load_jobs.values())
+    assert len(jobs) == 1 and jobs[0].req_id == request.request_id
+    assert list(jobs[0].src_spec.block_ids) == [0, 1]
+    assert list(jobs[0].dst_spec.block_ids) == [
+        block.block_id for block in f.cache.get_blocks(request.request_id).blocks[0]
+    ]
+    assert not f.sched._pending_splice_jobs
+    assert not f.sched._published_wait_prefixes
+
+
+@pytest.mark.parametrize("retirement", ["cancel", "expire", "failure"])
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_native_adoption_inflight_retirement_never_publishes_or_recycles_early(
+    retirement, dtype,
+):
+    f = _native_adoption_fixture(dtype)
+    request = _native_adoption_bind(f)
+    pool = f.cache.block_pool
+    ids = f.state.gpu_block_ids
+    assert f.sched.get_num_new_matched_tokens(request, 0) == (None, False)
+    if retirement == "cancel":
+        f.sched._retire_wait_prefetch(
+            f.state, "cancel", now_ns=time.monotonic_ns(),
+        )
+    elif retirement == "expire":
+        f.sched._expire_wait_prefetches(f.state.lease.expires_at_ns + 1)
+    assert f.cache.get_computed_blocks(request)[1] == 0
+    assert all(pool.blocks[i].ref_cnt == 1 for i in ids)
+    _native_adoption_complete(f, success=retirement != "failure")
+    assert f.cache.get_computed_blocks(request)[1] == 0
+    assert all(pool.blocks[i].ref_cnt == 0 for i in ids)
+    assert pool.get_num_free_blocks() == 11
+    assert f.sched._prefetch_reserved_blocks == 0
+    assert not f.sched._published_wait_prefixes
+    f.sched._complete_wait_prefetch_jobs(SemanticWorkerMetadata(
+        completed_jobs={f.state.job_id: 1},
+    ))
+    assert pool.get_num_free_blocks() == 11  # duplicate completion cannot free twice
+
+
+@pytest.mark.parametrize("fallback", [
+    "disabled", "layout", "tp", "factor", "missing_api", "wrong_tokens",
+    "wrong_hash", "missing_fence",
+])
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_native_adoption_falls_back_without_publishing(fallback, monkeypatch, dtype):
+    f = _native_adoption_fixture(dtype)
+    _native_adoption_complete(f)
+    request = _native_adoption_request("resume")
+    if fallback == "disabled":
+        f.sched._wait_hint_native_adoption = False
+    elif fallback == "layout":
+        f.sched._wait_hint_native_adoption_layout_supported = False
+    elif fallback == "tp":
+        f.sched.config = f.sched.config._replace(num_workers=2)
+    elif fallback == "factor":
+        f.sched.config = f.sched.config._replace(blocks_per_chunk=2)
+    elif fallback == "missing_api":
+        monkeypatch.setattr(f.cache.block_pool, "publish_completed_prefix", None)
+    elif fallback == "wrong_tokens":
+        request = _native_adoption_request("resume", [90] * 35)
+    elif fallback == "wrong_hash":
+        request.block_hashes[0] = b"wrong-hash"
+    elif fallback == "missing_fence":
+        f.state.transfer_record["completed_at_ns"] = None
+    _native_adoption_bind(f, request)
+    assert f.state.status == "bound_ready"
+    assert f.cache.get_computed_blocks(request)[1] == 0
+    assert request.request_id in f.sched._prefetched
+    assert all(f.cache.block_pool.blocks[i].ref_cnt == 1
+               for i in f.state.gpu_block_ids)
+    f.sched._release_prefetch(request.request_id)
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+
+
+@pytest.mark.parametrize("invalid", [
+    "incomplete", "duplicate", "foreign", "shared_ref", "wrong_group",
+    "wrong_block_size", "skip_cache", "existing_hash",
+])
+def test_native_pool_publication_rejects_entire_prefix_atomically(invalid):
+    from vllm.v1.core.block_pool import BlockPool
+    f = _native_adoption_fixture()
+    pool = f.cache.block_pool
+    blocks = [pool.blocks[i] for i in f.state.gpu_block_ids]
+    request = _native_adoption_request("resume")
+    args = dict(block_size=16, kv_cache_group_id=0, completion_verified=True)
+    if invalid == "incomplete":
+        args["completion_verified"] = False
+    elif invalid == "duplicate":
+        blocks[1] = blocks[0]
+    elif invalid == "foreign":
+        blocks[1] = BlockPool(12, True, 16).get_new_blocks(2)[1]
+    elif invalid == "shared_ref":
+        pool.touch([blocks[1]])
+    elif invalid == "wrong_group":
+        args["kv_cache_group_id"] = 1
+    elif invalid == "wrong_block_size":
+        args["block_size"] = 32
+    elif invalid == "skip_cache":
+        request.skip_reading_prefix_cache = True
+    elif invalid == "existing_hash":
+        existing = pool.get_new_blocks(1)
+        pool.cache_full_blocks(request, existing, 0, 1, 16, 0)
+    before = pool.get_num_free_blocks()
+    assert pool.publish_completed_prefix(request, blocks, **args) is False
+    assert pool.get_num_free_blocks() == before
+    assert all(pool.blocks[i].block_hash is None for i in f.state.gpu_block_ids)
+
+
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+def test_native_adoption_orders_relevance_ranked_blocks_by_exact_keys(dtype):
+    f = _native_adoption_fixture(dtype)
+    # Model a completed transfer whose selected-key order differs from chain order.
+    f.state.keys = tuple(reversed(f.state.keys))
+    ids_in_chain_order = list(reversed(f.state.gpu_block_ids))
+    _native_adoption_complete(f)
+    request = _native_adoption_bind(f)
+    blocks = _native_adoption_allocate(f, request)
+    assert [b.block_id for b in blocks.blocks[0][:2]] == ids_in_chain_order
+    assert torch.equal(f.backing[ids_in_chain_order], f.dram)
+    f.cache.free(request)
+
+
+def test_native_adoption_ready_expiry_frees_private_blocks_without_visibility():
+    f = _native_adoption_fixture()
+    _native_adoption_complete(f)
+    assert f.state.status == "ready"
+    f.sched._expire_wait_prefetches(f.state.lease.expires_at_ns + 1)
+    assert f.cache.get_computed_blocks(f.warm)[1] == 0
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+    assert f.sched._prefetch_reserved_blocks == 0
+
+
+def test_native_adoption_retiring_published_state_does_not_free_cache_twice():
+    f = _native_adoption_fixture()
+    _native_adoption_complete(f)
+    request = _native_adoption_bind(f)
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+    f.sched._retire_wait_prefetch(f.state, "cancel", now_ns=time.monotonic_ns())
+    assert f.cache.block_pool.get_num_free_blocks() == 11
+    # Fenced immutable data now belongs to the ordinary evictable prefix cache.
+    assert f.cache.get_computed_blocks(request)[1] == 32
+
+
+def test_native_pool_publication_exception_rolls_back_visibility(monkeypatch):
+    f = _native_adoption_fixture()
+    pool = f.cache.block_pool
+    blocks = [pool.blocks[i] for i in f.state.gpu_block_ids]
+    cache_full_blocks = pool.cache_full_blocks
+    def failing(*args, **kwargs):
+        cache_full_blocks(*args, **kwargs)
+        raise RuntimeError("injected publication failure")
+    monkeypatch.setattr(pool, "cache_full_blocks", failing)
+    before = pool.get_num_free_blocks()
+    with pytest.raises(RuntimeError, match="injected publication failure"):
+        pool.publish_completed_prefix(
+            f.warm, blocks, block_size=16, kv_cache_group_id=0,
+            completion_verified=True,
+        )
+    assert f.cache.get_computed_blocks(f.warm)[1] == 0
+    assert all(b.ref_cnt == 1 and b.block_hash is None for b in blocks)
+    assert pool.get_num_free_blocks() == before
+
+
+@pytest.mark.parametrize("dtype,layout,group_count,supported", [
+    (torch.bfloat16, {}, 1, True),
+    (torch.float16, {}, 1, True),
+    (torch.float32, {}, 1, False),
+    (torch.bfloat16, {"sliding_window": 16}, 1, False),
+    (torch.float16, {"sliding_window": 16}, 1, False),
+    (torch.float16, {"attention_chunk_size": 16}, 1, False),
+    (torch.float16, {"non_causal": True}, 1, False),
+    (torch.float16, {"kv_quant_mode": "FP8_PER_TENSOR"}, 1, False),
+    (torch.float16, {"kv_quant_mode": "INT8_PER_TOKEN_HEAD"}, 1, False),
+    (torch.float16, {}, 0, False),
+    (torch.float16, {}, 2, False),
+])
+def test_native_adoption_constructor_restricts_layout_and_validates_flag(
+    dtype, layout, group_count, supported, monkeypatch,
+):
+    from vllm.v1.kv_cache_interface import (
+        FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec, KVQuantMode,
+    )
+    native_config = SchedulerOffloadConfig(
+        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
+        blocks_per_chunk=1, num_workers=1, offload_prompt_only=False,
+    )
+    def base(scheduler, *args):
+        scheduler.config = native_config
+        scheduler.manager = object()
+    monkeypatch.setattr("semantic_offload.connector.construct_scheduler_base", base)
+    spec = SimpleNamespace(
+        extra_config={"wait_hint_native_adoption": True},
+        replicated_layout=False, cpu_page_size_per_worker=128, kv_bytes_per_chunk=128,
+    )
+    config = SimpleNamespace(
+        model_config=SimpleNamespace(model="test-model"),
+        cache_config=SimpleNamespace(block_size=16),
+    )
+    layout = dict(layout)
+    if "kv_quant_mode" in layout:
+        layout["kv_quant_mode"] = KVQuantMode[layout["kv_quant_mode"]]
+    cache = KVCacheConfig(12, [], [KVCacheGroupSpec([f"layer-{index}"], FullAttentionSpec(
+        block_size=16, num_kv_heads=1, head_size=4, dtype=dtype, **layout,
+    )) for index in range(group_count)])
+    scheduler = SemanticOffloadingConnectorScheduler(spec, config, cache)
+    assert scheduler._wait_hint_native_adoption_layout_supported is supported
+    assert scheduler._wait_hint_native_adoption is True
+    spec.extra_config["wait_hint_native_adoption"] = "yes"
+    with pytest.raises(TypeError, match="wait_hint_native_adoption"):
+        SemanticOffloadingConnectorScheduler(spec, config, cache)
+
+
+def _full_wait_source_fixture(count=3):
+    manager = SemanticOffloadingManager(num_blocks=count + 1)
+    keys = [to_key(index + 900) for index in range(count)]
+    for index, key in enumerate(keys):
+        _insert_resident(manager, key, index)
+    pool = _StubBlockPool(512, free_blocks=512)
+    sched = _make_connector_scheduler(manager, pool)
+    sched._prefetch_selector = "request_order"
+    sched._prefetch_budget_fraction = 0.5
+    prefix, boundary = _register_wait_prefix(sched, keys)
+    hint = _wait_hint(sched, prefix, boundary)
+    return sched, manager, pool, keys, hint
+
+
+@pytest.mark.parametrize("status", ["pending", "in_flight", "ready"])
+def test_exact_source_refresh_reuses_canonical_lease_without_reserving(status):
+    if status == "pending":
+        sched, manager, pool, keys, hint = _full_wait_source_fixture()
+        sched._wait_hint_coalesce_exact_source = True
+        first = sched.publish_wait_hint(hint)
+        assert first["canonical_event_id"] == hint["event_id"]
+        state = sched._wait_prefetch[hint["event_id"]]
+    else:
+        f = _native_adoption_fixture(torch.float16)
+        sched, pool, hint, state = f.sched, f.cache.block_pool, f.hint, f.state
+        sched._wait_hint_coalesce_exact_source = True
+        if status == "ready":
+            _native_adoption_complete(f)
+    lease_identity = id(state.lease)
+    original_hint = state.lease.hint
+    original_ttl = state.lease.expires_at_ns
+    original_deadline = state.lease.nomination_deadline_ns
+    original_free = pool.get_num_free_blocks()
+    original_reserved = sched._prefetch_reserved_blocks
+    original_jobs = dict(sched._current_batch_prefetch_load_jobs)
+    refresh = _wait_hint(sched, hint["observed_prefix_id"], hint["prefix_boundary_tokens"], event_id="b" * 64)
+    result = sched.publish_wait_hint(refresh)
+    assert result["status"] == "accepted"
+    assert result["reason"] == "coalesced_exact_source"
+    assert result["event_id"] == refresh["event_id"]
+    assert result["canonical_event_id"] == hint["event_id"]
+    assert result["canonical_state_status"] == status
+    assert result["canonical_staged_key_count"] == len(state.keys)
+    assert len(sched._wait_prefetch) == 1
+    assert refresh["event_id"] not in sched._wait_prefetch
+    assert id(state.lease) == lease_identity and state.lease.hint is original_hint
+    assert state.lease.expires_at_ns == original_ttl
+    assert state.lease.nomination_deadline_ns == original_deadline
+    assert pool.get_num_free_blocks() == original_free
+    assert sched._prefetch_reserved_blocks == original_reserved
+    assert sched._current_batch_prefetch_load_jobs == original_jobs
+    replay = sched.publish_wait_hint(refresh)
+    assert replay == {**result, "idempotent_replay": True}
+
+
+@pytest.mark.parametrize("mismatch", ["owner_id", "generation", "namespace", "run_id", "cell_id", "session_id"])
+def test_exact_source_refresh_does_not_merge_different_identity(mismatch):
+    sched, manager, pool, keys, hint = _full_wait_source_fixture()
+    sched._wait_hint_coalesce_exact_source = True
+    sched.publish_wait_hint(hint)
+    refresh = _wait_hint(sched, hint["observed_prefix_id"], hint["prefix_boundary_tokens"], event_id="b" * 64)
+    if mismatch == "generation":
+        refresh[mismatch] = 1
+    elif mismatch == "namespace":
+        refresh[mismatch]["adapter_namespace"] = "other"
+    else:
+        refresh[mismatch] = "other"
+    result = sched.publish_wait_hint(refresh)
+    assert result["reason"] != "coalesced_exact_source"
+    assert result.get("canonical_event_id") != hint["event_id"]
+    assert hint["event_id"] in sched._wait_prefetch
+
+
+@pytest.mark.parametrize("inactive", ["pending_deadline", "ttl", "cancelled", "retired"])
+def test_exact_source_refresh_never_reuses_expired_or_retired_state(inactive):
+    sched, manager, pool, keys, hint = _full_wait_source_fixture()
+    sched._wait_hint_coalesce_exact_source = True
+    sched.publish_wait_hint(hint)
+    old = sched._wait_prefetch[hint["event_id"]]
+    if inactive == "pending_deadline":
+        old.lease.nomination_deadline_ns = time.monotonic_ns() - 1
+    elif inactive == "ttl":
+        sched._retry_wait_prefetches()
+        old.lease.expires_at_ns = time.monotonic_ns() - 1
+    elif inactive == "cancelled":
+        old.lease.cancel()
+    else:
+        old.status = "retired_pending_fence"
+    reserved = sched._prefetch_reserved_blocks
+    refresh = _wait_hint(sched, hint["observed_prefix_id"], hint["prefix_boundary_tokens"], event_id="b" * 64)
+    result = sched.publish_wait_hint(refresh)
+    assert result["reason"] == "queued_for_scheduler_dispatch"
+    assert result["canonical_event_id"] == refresh["event_id"]
+    assert sched._wait_prefetch[hint["event_id"]] is old
+    assert len(sched._wait_prefetch) == 2
+    assert sched._prefetch_reserved_blocks == reserved
+    if inactive == "ttl":
+        assert old.status == "in_flight"  # refresh never recycles live DMA destinations
+        assert old.job_id in sched._wait_prefetch_jobs
+
+
+@pytest.mark.parametrize("missing", ["cpu_tail", "gpu_prefix", "gpu_suffix", "gpu_api"])
+def test_full_prefix_publication_rejects_partial_or_duplicate_source(missing, monkeypatch):
+    sched, manager, pool, keys, hint = _full_wait_source_fixture()
+    sched._prefetch_require_full_prefix = True
+    if missing == "cpu_tail":
+        manager._policy.get(keys[-1]).ref_cnt = -1  # unfinished store, not readable
+    elif missing == "gpu_api":
+        pool.get_cached_block = None
+    else:
+        key = keys[0] if missing == "gpu_prefix" else keys[-1]
+        pool._cached_block_hashes[bytes(key[:-4])] = 500
+    free = pool.get_num_free_blocks()
+    monkeypatch.setattr(pool, "get_new_blocks", lambda *args: pytest.fail("must not reserve"))
+    monkeypatch.setattr(manager, "prepare_load", lambda *args: pytest.fail("must not prepare DMA"))
+    result = sched.publish_wait_hint(hint)
+    assert result["status"] == "no_action"
+    assert result["reason"] == "full_prefix_unavailable"
+    assert not sched._wait_prefetch
+    assert not sched._current_batch_prefetch_load_jobs
+    assert pool.get_num_free_blocks() == free
+
+
+@pytest.mark.parametrize("enough", [False, True])
+def test_full_128_key_source_requires_entire_allocation_budget(enough):
+    sched, manager, pool, keys, hint = _full_wait_source_fixture(128)
+    sched._prefetch_require_full_prefix = True
+    sched._prefetch_budget_fraction = (128 if enough else 127) / 512
+    result = sched.publish_wait_hint(hint)
+    if not enough:
+        assert result["status"] == "no_action"
+        assert result["reason"] == "full_prefix_budget_unavailable"
+        assert not sched._wait_prefetch
+        assert pool.get_num_free_blocks() == 512
+        assert not sched._current_batch_prefetch_load_jobs
+        return
+    assert result["status"] == "accepted"
+    state = sched._wait_prefetch[hint["event_id"]]
+    assert sched._attempt_wait_prefetch(state)
+    assert state.keys == tuple(keys)
+    assert len(state.gpu_block_ids) == 128
+    assert sched._prefetch_reserved_blocks == 128
+    assert len(sched._current_batch_prefetch_load_jobs) == 1
+
+
+@pytest.mark.parametrize("changed", ["budget", "cpu_tail", "gpu_suffix", "candidate_tail", "selected_partial"])
+def test_full_prefix_revalidates_before_dma_without_rewriting_publication(changed, monkeypatch):
+    sched, manager, pool, keys, hint = _full_wait_source_fixture()
+    sched._prefetch_require_full_prefix = True
+    assert sched.publish_wait_hint(hint)["status"] == "accepted"
+    state = sched._wait_prefetch[hint["event_id"]]
+    publication = (state.publication_candidate_keys, state.publication_eligible_keys,
+                   state.publication_local_gpu_prefix_count, state.publication_local_gpu_block_ids)
+    if changed == "budget":
+        sched._prefetch_budget_fraction = 2 / 512
+    elif changed == "cpu_tail":
+        manager._policy.get(keys[-1]).ref_cnt = -1  # unfinished store, not readable
+    elif changed == "gpu_suffix":
+        pool._cached_block_hashes[bytes(keys[-1][:-4])] = 500
+    elif changed == "candidate_tail":
+        state.publication_candidate_keys = tuple(keys[1:])
+        publication = (state.publication_candidate_keys, *publication[1:])
+    else:
+        sched._prefetch_selector = "useful_on_time"
+        sched._prefetch_transfer_ns_per_byte = 1_000_000.0
+    free = pool.get_num_free_blocks()
+    monkeypatch.setattr(pool, "get_new_blocks", lambda *args: pytest.fail("must not reserve"))
+    monkeypatch.setattr(manager, "prepare_load", lambda *args: pytest.fail("must not prepare DMA"))
+    assert not sched._attempt_wait_prefetch(state)
+    assert state.status == "pending"
+    assert not sched._current_batch_prefetch_load_jobs
+    assert pool.get_num_free_blocks() == free
+    assert sched._prefetch_reserved_blocks == 0
+    assert publication == (state.publication_candidate_keys, state.publication_eligible_keys,
+                           state.publication_local_gpu_prefix_count, state.publication_local_gpu_block_ids)
+    assert state.selection_evidence["status"] in {"full_prefix_unavailable", "full_prefix_selection_incomplete"}
+
+
+@pytest.mark.parametrize("option", ["wait_hint_coalesce_exact_source", "prefetch_require_full_prefix"])
+@pytest.mark.parametrize("invalid", [0, 1, None, "true", []])
+def test_exact_source_and_full_prefix_options_require_json_booleans(option, invalid, monkeypatch):
+    config = SchedulerOffloadConfig(
+        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
+        blocks_per_chunk=1, num_workers=1, offload_prompt_only=False,
+    )
+    def base(scheduler, *args):
+        scheduler.config = config
+        scheduler.manager = object()
+    monkeypatch.setattr("semantic_offload.connector.construct_scheduler_base", base)
+    spec = SimpleNamespace(extra_config={option: invalid}, replicated_layout=False,
+                           cpu_page_size_per_worker=128, kv_bytes_per_chunk=128)
+    with pytest.raises(TypeError, match=option + " must be a JSON boolean"):
+        SemanticOffloadingConnectorScheduler(spec,
+            SimpleNamespace(model_config=SimpleNamespace(model="test-model"),
+                            cache_config=SimpleNamespace(block_size=16)),
+            SimpleNamespace())

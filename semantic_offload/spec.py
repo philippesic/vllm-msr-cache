@@ -25,9 +25,57 @@ from semantic_offload.worker import (
 )
 
 
+def validate_preservation_audit(extra_config) -> bool:
+    """Keep full evidence by default; allow a narrow operational ARC profile.
+
+    Disabling audit removes request histories, not transfer failure handling.
+    It is deliberately unavailable to semantic scoring, staging and lifecycle
+    policies whose decisions or qualifications depend on those histories.
+    """
+    audit = extra_config.get("preservation_audit", True)
+    if not isinstance(audit, bool):
+        raise TypeError("preservation_audit must be a JSON boolean")
+    if audit:
+        return True
+    required = {
+        "preservation_events": True,
+        "instrumentation_only": True,
+        "eviction_policy": "arc",
+        "prefetch_trigger": "known_prefix_wait_hint",
+        "wait_hint_diagnostic_no_dispatch": True,
+    }
+    for name, expected in required.items():
+        value = extra_config.get(name)
+        if value != expected or (isinstance(expected, bool) and type(value) is not bool):
+            raise ValueError(f"preservation_audit=false requires {name}={expected!r}")
+    defaults = {
+        "shared_prefetch_scorer": False,
+        "prefix_mean_prefetch_scoring": False,
+        "lifecycle_release_enabled": False,
+        "decision_feature_trace": False,
+        "bounded_prefill_cuda_timing": False,
+        "scoring_mode": "synchronous",
+        "scoring_schedule": "continuous",
+        "admission_mode": "disabled",
+        "soft_retention": "off",
+    }
+    for name, expected in defaults.items():
+        value = extra_config.get(name, expected)
+        if value != expected or (isinstance(expected, bool) and type(value) is not bool):
+            raise ValueError(f"preservation_audit=false requires {name}={expected!r}")
+    if (extra_config.get("wait_hint_cpu_retention_only") is not True
+            and extra_config.get("prefetch_budget_fraction") != 0):
+        raise ValueError("preservation_audit=false requires CPU retention-only or a zero prefetch budget")
+    size = extra_config.get("observed_session_registry_size", 4096)
+    if type(size) is not int or size <= 0:
+        raise ValueError("observed_session_registry_size must be a positive JSON integer")
+    return False
+
+
 class SemanticOffloadingSpec(CPUOffloadingSpec):
     @override
     def create_worker(self, kv_caches: CanonicalKVCaches) -> SemanticOffloadingWorker:
+        preservation_audit = validate_preservation_audit(self.extra_config)
         # Worker-side scoring only ever needs the one configured method
         # (SemanticPolicy only consults its own method's relevance EMA) --
         # same extra_config key get_manager() already reads below.
@@ -157,6 +205,15 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
                 for key, value in runtime_resolution.items()
                 if key not in {"schema", "available"}
             )
+            if not preservation_audit:
+                runtime_resolution["preservation_audit"] = False
+                runtime_resolution["preservation_proofs_available"] = False
+                runtime_resolution["observed_session_registry_size"] = (
+                    self.extra_config.get("observed_session_registry_size", 4096)
+                )
+                runtime_resolution["session_registry_expiry"] = (
+                    "none; capacity rejects new session advice until cache reset"
+                )
             record_runtime_resolution(runtime_resolution)
         admission_mode = self.extra_config.get("admission_mode", "disabled")
         if admission_mode != "disabled" and not preservation_events:
@@ -182,10 +239,19 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
             summary_offload_overlap=summary_offload_overlap,
             preservation_events=preservation_events,
             nvtx_ranges=nvtx_ranges,
+            scoring_schedule=self.extra_config.get("scoring_schedule", "continuous"),
+            scoring_search=self.extra_config.get("scoring_search", "flat"),
+            search_min_pool=positive_int("search_min_pool", 128),
+            search_clusters=positive_int("search_clusters", 16),
+            search_probes=positive_int("search_probes", 4),
+            search_exploration=positive_int("search_exploration", 8),
+            query_snapshot_max_age_ms=positive_int("query_snapshot_max_age_ms", 1000),
+            query_snapshot_max_requests=positive_int("query_snapshot_max_requests", 256),
         )
 
     @override
     def get_manager(self) -> OffloadingManager:
+        preservation_audit = validate_preservation_audit(self.extra_config)
         if not self._manager:
             preservation_events = self.extra_config.get("preservation_events", False)
             instrumentation_only = self.extra_config.get("instrumentation_only", False)
@@ -253,7 +319,7 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
                     cache_policy=eviction_policy,
                     enable_events=(
                         self.kv_events_config.enable_kv_cache_events
-                        or preservation_events
+                        or (preservation_events and preservation_audit)
                     ),
                     store_threshold=store_threshold,
                     max_tracker_size=max_tracker_size,
@@ -314,7 +380,8 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
             self._manager = SemanticOffloadingManager(
                 num_blocks=self.num_blocks,
                 enable_events=(
-                    self.kv_events_config.enable_kv_cache_events or preservation_events
+                    self.kv_events_config.enable_kv_cache_events
+                    or (preservation_events and preservation_audit)
                 ),
                 store_threshold=store_threshold,
                 max_tracker_size=max_tracker_size,

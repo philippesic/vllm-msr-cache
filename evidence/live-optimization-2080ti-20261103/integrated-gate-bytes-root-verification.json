@@ -1,0 +1,51 @@
+{
+  "schema": "root-independent-integrated-gate-bytes-verification-v1",
+  "created_utc": "2026-11-03T15:48:56.481478+00:00",
+  "all279pins_verified": true,
+  "both_selected_arm_qualifications": {
+    "native": {
+      "run": "live-nov3-integrated-gate-byte-native",
+      "qualification_receipt": "output/prefetch-native-20261102/live-nov3-integrated-gate-byte-native-qualification.json",
+      "qualification_receipt_sha256": "7ce346e2bc9c402311214d93863ff9f7437fbc8cce9a200c35b12eb24f1ddecd",
+      "counts": {
+        "D2H": 498,
+        "H2D": 10
+      },
+      "bytes": {
+        "D2H": 5330698240,
+        "H2D": 501874688
+      },
+      "component_comparisons_and_corruption_controls": 14224,
+      "all_rows_and_aggregate_reconciled": true,
+      "per_job_native_Transfer_num_bytes_observed": false,
+      "scope": "Mapped pages \u00d7 independently pinned geometry and native aggregate counters; not an extra observed per-job native byte field."
+    },
+    "candidate": {
+      "run": "live-nov3-integrated-gate-byte-candidate",
+      "qualification_receipt": "output/prefetch-native-20261102/live-nov3-integrated-gate-byte-candidate-qualification.json",
+      "qualification_receipt_sha256": "cc8893857663e82e9d73df31a37fc7415668511a245d56148378c93d1543a526",
+      "counts": {
+        "D2H": 497,
+        "H2D": 14
+      },
+      "bytes": {
+        "D2H": 5187567616,
+        "H2D": 643170304
+      },
+      "component_comparisons_and_corruption_controls": 14308,
+      "all_rows_and_aggregate_reconciled": true,
+      "per_job_native_Transfer_num_bytes_observed": false,
+      "scope": "Mapped pages \u00d7 independently pinned geometry and native aggregate counters; not an extra observed per-job native byte field."
+    }
+  },
+  "all_rows_and_final_load_native_counters_reconciled": true,
+  "candidate_bounded_preservation_verified": true,
+  "actual_gate_activation": {
+    "valid_ACKs": 172,
+    "full_GPU_skips": 160,
+    "partial_fallbacks": 12,
+    "actual_CPU_refreshes": 1139
+  },
+  "total_components": 28532,
+  "scope": "Every exercised mapped D2H/H2D pagecomponent plus onebyte comparator control. Intrusive qualification is not performance, quality or endurance. Per-job native Transfer.num_bytes not independently observed."
+}

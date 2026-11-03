@@ -9,6 +9,7 @@ policy instance afterward. See .claude/docs/semantic-eviction-plan.md,
 Step 1.1.
 """
 
+from semantic_offload.profiling import PROFILE, profiled
 import hashlib
 import json
 import math
@@ -706,6 +707,28 @@ def _validate_chain_admission_max_prefix_blocks(value: object) -> int:
 
 
 class FrequencyCostAdmissionMixin:
+    def _stamp_score_residencies(self, result):
+        if result is None:
+            return
+        versions = self.__dict__.setdefault('_score_residencies', {})
+        for key in result.evicted_keys:
+            versions.pop(key, None)
+        for key in result.keys_to_store:
+            self._score_residency_sequence = getattr(self, '_score_residency_sequence', 0)+1
+            versions[key] = self._score_residency_sequence
+            self._policy.get(key)._semantic_score_version = self._score_residency_sequence
+
+    def score_residency_versions(self):
+        versions = self.__dict__.setdefault('_score_residencies', {})
+        current = {}
+        for key, version in list(versions.items()):
+            block = self._policy.get(key)
+            if block is None:
+                versions.pop(key, None)
+            elif block.is_ready and getattr(block, '_semantic_score_version', None) == version:
+                current[key] = version
+        return current
+
     """Optional TinyLFU-style admission using causal, bounded features only."""
 
     def _init_admission_contract(
@@ -1304,6 +1327,7 @@ class FrequencyCostAdmissionMixin:
             self._complete_exact_chain_prepare(
                 req_context, chain_qualified, result
             )
+            self._stamp_score_residencies(result)
             return result
 
         eligible_new = [
@@ -1456,6 +1480,7 @@ class FrequencyCostAdmissionMixin:
                         publication_ns if publication_ns is not None else 0,
                     )
         self._complete_exact_chain_prepare(req_context, chain_qualified, result)
+        self._stamp_score_residencies(result)
         return result
 
     def _complete_exact_chain_prepare(
@@ -1550,6 +1575,11 @@ class FrequencyCostAdmissionMixin:
         if not success:
             for key in keys:
                 self._admission_resident_cost_per_byte.pop(key, None)
+                # Native failed completion removes only pending stores. A
+                # ready publication can survive a duplicate/late failure;
+                # retain its version instead of invalidating unrelated KV.
+                if self._policy.get(key) is None:
+                    getattr(self, "_score_residencies", {}).pop(key, None)
 
     def drain_admission_records(self) -> list[dict[str, object]]:
         records = self._pending_admission_records
@@ -1580,6 +1610,10 @@ class FrequencyCostAdmissionMixin:
     @override
     def reset_cache(self) -> None:
         super().reset_cache()
+        getattr(self, "_score_residencies", {}).clear()
+        # Keep _score_residency_sequence monotonic across reset. Reusing a
+        # version would let a delayed pre-reset score match a new publication
+        # of the same key after the cache has been emptied and repopulated.
         self._admission_frequencies.clear()
         self._admission_observations.clear()
         self._admission_resident_cost_per_byte.clear()
@@ -1608,6 +1642,27 @@ class PreservationOffloadingManager(
     only buffers the exact ``PrepareStoreOutput.evicted_keys`` values that the
     shared connector scheduler already consumes for semantic policy runs.
     """
+
+    def refresh_wait_hint_cpu_recency(self, keys: Collection[OffloadKey]) -> int:
+        """Refresh ready ARC residents without promoting speculative accesses.
+
+        Hints are advice, not actual cache hits: preserve queue membership,
+        ghost history, the adaptive target, ownership and eviction eligibility.
+        Return zero for unsupported policies rather than applying hit semantics.
+        """
+        from vllm.v1.kv_offload.cpu.policies.arc import ARCCachePolicy
+        policy = self._policy
+        if not isinstance(policy, ARCCachePolicy):
+            return 0
+        refreshed = 0
+        for key in reversed(list(keys)):
+            block = policy.get(key)
+            if block is None or not block.is_ready:
+                continue
+            queue = policy.t1 if key in policy.t1 else policy.t2
+            queue.move_to_end(key)
+            refreshed += 1
+        return refreshed
 
     def __init__(
         self,
@@ -1770,6 +1825,7 @@ class PreservationOffloadingManager(
                     values.pop(key, None)
         return keys
 
+    @profiled('scoring.ema_apply')
     def apply_relevance_updates(
         self,
         updates: Mapping[str, Mapping[OffloadKey, tuple[float, float, float]]],
@@ -1855,6 +1911,7 @@ class PreservationOffloadingManager(
         self._relevance_updated_ns.clear()
 
 
+@profiled('scoring.ema_compose')
 def compose_relevance_updates(
     scores: Mapping[str, Mapping[str, Sequence[tuple[OffloadKey, float]]]],
     mode: str = "default",
@@ -2219,6 +2276,7 @@ class SemanticOffloadingManager(
             for key in list(self.future_reuse_ema)[:excess]:
                 del self.future_reuse_ema[key]
 
+    @profiled('scoring.ema_apply')
     def apply_relevance_updates(
         self,
         updates: Mapping[str, Mapping[OffloadKey, tuple[float, float, float]]],

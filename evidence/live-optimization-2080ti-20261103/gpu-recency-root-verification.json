@@ -1,0 +1,503 @@
+{
+  "schema": "root-independent-GPU-recency-discovery-verification-v1",
+  "all9workflows648EOS_HTTP_verified": true,
+  "groups": [
+    {
+      "partition": 7703,
+      "arms": {
+        "native": {
+          "name": "live-nov3-gpu-recency-s7703-native",
+          "load_s": 69.307037771,
+          "tokens": 6156,
+          "tokens_s": 88.82214848570317,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8212.399944027778,
+          "p95_ttft_ms": 15501.294821300002,
+          "mean_e2e_ms": 14765.099190513889,
+          "p95_e2e_ms": 29350.456066950002,
+          "http_requests": 72,
+          "raw_sha256": "02d8730c30b13a598626c3e61bedcaa31e7fb9f755c8ee5b5cf18d47e4945e61",
+          "tokens_s_gib": 11.8093225584064,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 858783744.0,
+              "delta": 858783744.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 95429.0,
+              "delta": 94328.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 11360.0,
+              "delta": 11360.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 14976.0,
+              "delta": 14976.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "cpu": {
+          "name": "live-nov3-gpu-recency-s7703-cpu",
+          "load_s": 69.636821417,
+          "tokens": 5962,
+          "tokens_s": 85.61562516327798,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8362.558624375,
+          "p95_ttft_ms": 18267.77098665,
+          "mean_e2e_ms": 14960.321925319444,
+          "p95_e2e_ms": 28362.771268099998,
+          "http_requests": 294,
+          "raw_sha256": "cf5e2c42a2a29e15391368d343d6f09e8e7dd9d60322698f9f2fa402c32b1873",
+          "tokens_s_gib": 11.383000195671984,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 514719744.0,
+              "delta": 514719744.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 97135.0,
+              "delta": 96034.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 15424.0,
+              "delta": 15424.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 8976.0,
+              "delta": 8976.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "gpu": {
+          "name": "live-nov3-gpu-recency-s7703-gpu",
+          "load_s": 69.666145764,
+          "tokens": 5978,
+          "tokens_s": 85.80925404214241,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8666.080538958333,
+          "p95_ttft_ms": 18573.41906285,
+          "mean_e2e_ms": 15195.055781194444,
+          "p95_e2e_ms": 28436.14818355,
+          "http_requests": 282,
+          "raw_sha256": "0e064148d7d55ec9e1ec3e4c3216f0bfb116056c28ee63b968657aa2c5eb4db5",
+          "tokens_s_gib": 11.408744066160557,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 698220544.0,
+              "delta": 698220544.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 96418.0,
+              "delta": 95317.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 12928.0,
+              "delta": 12928.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 12176.0,
+              "delta": 12176.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          },
+          "gpu_operations": {
+            "valid_nonreplayed_ack_count": 205,
+            "refreshed_free_block_operations": 12720,
+            "scope": "Repeated policy operations, not unique keys, demand hits or saved bytes."
+          }
+        }
+      },
+      "differences": {
+        "cpu_vs_native": {
+          "workflow_percent": -0.47357653507069664,
+          "token_rate_percent": -3.6100492693455943,
+          "tokens_s_gib_percent": -3.6100492693456054,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 150.1586803472219,
+          "p95_ttft_ms": 2766.476165349999,
+          "mean_e2e_ms": 195.22273480555486,
+          "p95_e2e_ms": -987.6847988500049
+        },
+        "gpu_vs_native": {
+          "workflow_percent": -0.5154698728655371,
+          "token_rate_percent": -3.3920531026624623,
+          "tokens_s_gib_percent": -3.3920531026624734,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 453.68059493055443,
+          "p95_ttft_ms": 3072.1242415499983,
+          "mean_e2e_ms": 429.95659068055465,
+          "p95_e2e_ms": -914.3078834000007
+        },
+        "gpu_vs_cpu": {
+          "workflow_percent": -0.04209267884482948,
+          "token_rate_percent": 0.22616067860878886,
+          "tokens_s_gib_percent": 0.22616067860878886,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 303.52191458333255,
+          "p95_ttft_ms": 305.6480761999992,
+          "mean_e2e_ms": 234.7338558749998,
+          "p95_e2e_ms": 73.37691545000416
+        }
+      }
+    },
+    {
+      "partition": 8803,
+      "arms": {
+        "cpu": {
+          "name": "live-nov3-gpu-recency-s8803-cpu",
+          "load_s": 40.30834123,
+          "tokens": 6202,
+          "tokens_s": 153.86393512477466,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 3355.454691013889,
+          "p95_ttft_ms": 6311.290417550001,
+          "mean_e2e_ms": 7155.497398472222,
+          "p95_e2e_ms": 12494.10812525,
+          "http_requests": 326,
+          "raw_sha256": "6f2f3e76452acf0d5c1fc859e9ed8ca39667e6c942c6dfd62d259eec23ec863c",
+          "tokens_s_gib": 20.45162330086129,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1525809152.0,
+              "delta": 1525809152.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 50399.0,
+              "delta": 49298.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 20256.0,
+              "delta": 20256.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 26608.0,
+              "delta": 26608.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "gpu": {
+          "name": "live-nov3-gpu-recency-s8803-gpu",
+          "load_s": 39.331604033,
+          "tokens": 6219,
+          "tokens_s": 158.11712115229614,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 3378.880172472222,
+          "p95_ttft_ms": 6408.0835829,
+          "mean_e2e_ms": 7038.962871805556,
+          "p95_e2e_ms": 12130.3471205,
+          "http_requests": 325,
+          "raw_sha256": "aff54fe103569310b11eee2438806afe6699a8691ad6768b753285e4e7dfec75",
+          "tokens_s_gib": 21.016957590490737,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1767112704.0,
+              "delta": 1767112704.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 47750.0,
+              "delta": 46649.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 18688.0,
+              "delta": 18688.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 30816.0,
+              "delta": 30816.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          },
+          "gpu_operations": {
+            "valid_nonreplayed_ack_count": 253,
+            "refreshed_free_block_operations": 10642,
+            "scope": "Repeated policy operations, not unique keys, demand hits or saved bytes."
+          }
+        },
+        "native": {
+          "name": "live-nov3-gpu-recency-s8803-native",
+          "load_s": 42.985854299,
+          "tokens": 6214,
+          "tokens_s": 144.55918351131987,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 3730.914568361111,
+          "p95_ttft_ms": 6640.802195650001,
+          "mean_e2e_ms": 7778.077794069444,
+          "p95_e2e_ms": 12380.1378724,
+          "http_requests": 72,
+          "raw_sha256": "b39437298d40044be13494e1c343db426dc1323018d43bde7857e0b05311e573",
+          "tokens_s_gib": 19.214833959992433,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1045037056.0,
+              "delta": 1045037056.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 57768.0,
+              "delta": 56667.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 21280.0,
+              "delta": 21280.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 18224.0,
+              "delta": 18224.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        }
+      },
+      "differences": {
+        "cpu_vs_native": {
+          "workflow_percent": 6.642578154536483,
+          "token_rate_percent": 6.436638190285682,
+          "tokens_s_gib_percent": 6.436638190285682,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -375.4598773472221,
+          "p95_ttft_ms": -329.5117780999999,
+          "mean_e2e_ms": -622.5803955972224,
+          "p95_e2e_ms": 113.97025285000018
+        },
+        "gpu_vs_native": {
+          "workflow_percent": 9.290875253737463,
+          "token_rate_percent": 9.378814483906229,
+          "tokens_s_gib_percent": 9.378814483906229,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -352.03439588888887,
+          "p95_ttft_ms": -232.71861275000083,
+          "mean_e2e_ms": -739.1149222638887,
+          "p95_e2e_ms": -249.79075190000003
+        },
+        "gpu_vs_cpu": {
+          "workflow_percent": 2.4833393425310213,
+          "token_rate_percent": 2.7642514303773513,
+          "tokens_s_gib_percent": 2.7642514303773513,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 23.425481458333252,
+          "p95_ttft_ms": 96.79316534999907,
+          "mean_e2e_ms": -116.53452666666635,
+          "p95_e2e_ms": -363.7610047500002
+        }
+      }
+    },
+    {
+      "partition": 9901,
+      "arms": {
+        "gpu": {
+          "name": "live-nov3-gpu-recency-s9901-gpu",
+          "load_s": 58.538353852,
+          "tokens": 6032,
+          "tokens_s": 103.04355355209417,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 7543.123765611111,
+          "p95_ttft_ms": 20747.876121750003,
+          "mean_e2e_ms": 12705.852796694444,
+          "p95_e2e_ms": 27094.705495900005,
+          "http_requests": 264,
+          "raw_sha256": "f063b4e6518d3acad833f9562ab2d83256d0034b293b918d5d04e7d01ce1a45e",
+          "tokens_s_gib": 13.696568589127612,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1102839808.0,
+              "delta": 1102839808.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 79167.0,
+              "delta": 78066.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 13296.0,
+              "delta": 13296.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 19232.0,
+              "delta": 19232.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          },
+          "gpu_operations": {
+            "valid_nonreplayed_ack_count": 182,
+            "refreshed_free_block_operations": 9973,
+            "scope": "Repeated policy operations, not unique keys, demand hits or saved bytes."
+          }
+        },
+        "native": {
+          "name": "live-nov3-gpu-recency-s9901-native",
+          "load_s": 57.167143826,
+          "tokens": 6050,
+          "tokens_s": 105.83002044696204,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 6931.079935194444,
+          "p95_ttft_ms": 18351.560996250002,
+          "mean_e2e_ms": 12144.142623527778,
+          "p95_e2e_ms": 24392.42816695,
+          "http_requests": 72,
+          "raw_sha256": "74b0aadf7820b742c779bd63a02416c367977ccc514676efc84a1b8a34998b09",
+          "tokens_s_gib": 14.066946294779976,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1072562176.0,
+              "delta": 1072562176.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 76617.0,
+              "delta": 75516.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 16384.0,
+              "delta": 16384.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 18704.0,
+              "delta": 18704.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "cpu": {
+          "name": "live-nov3-gpu-recency-s9901-cpu",
+          "load_s": 58.683201419,
+          "tokens": 6094,
+          "tokens_s": 103.84573187288537,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 7267.148975083333,
+          "p95_ttft_ms": 19434.2587011,
+          "mean_e2e_ms": 12597.168203291667,
+          "p95_e2e_ms": 25921.338153,
+          "http_requests": 263,
+          "raw_sha256": "38046a9934d4397b0d2a00f186f55b56eb03558f839df793e4c37200e73401ab",
+          "tokens_s_gib": 13.80319428295011,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 804651008.0,
+              "delta": 804651008.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 79478.0,
+              "delta": 78377.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 18224.0,
+              "delta": 18224.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 14032.0,
+              "delta": 14032.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        }
+      },
+      "differences": {
+        "cpu_vs_native": {
+          "workflow_percent": -2.5834609502220163,
+          "token_rate_percent": -1.8749770298599922,
+          "tokens_s_gib_percent": -1.8749770298599922,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 336.06903988888917,
+          "p95_ttft_ms": 1082.6977048499975,
+          "mean_e2e_ms": 453.02557976388925,
+          "p95_e2e_ms": 1528.9099860499991
+        },
+        "gpu_vs_native": {
+          "workflow_percent": -2.342413026281487,
+          "token_rate_percent": -2.6329645247156863,
+          "tokens_s_gib_percent": -2.6329645247156863,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 612.0438304166664,
+          "p95_ttft_ms": 2396.315125500001,
+          "mean_e2e_ms": 561.7101731666662,
+          "p95_e2e_ms": 2702.2773289500037
+        },
+        "gpu_vs_cpu": {
+          "workflow_percent": 0.2474404513769013,
+          "token_rate_percent": -0.7724711515087801,
+          "tokens_s_gib_percent": -0.7724711515087801,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 275.97479052777726,
+          "p95_ttft_ms": 1313.6174206500036,
+          "mean_e2e_ms": 108.68459340277695,
+          "p95_e2e_ms": 1173.3673429000046
+        }
+      }
+    }
+  ],
+  "judgment": "No robust winner. Mean and p95TTFT worse than CPU-only in all3sets; do not advance GPUrecency to confirmation. Discovery only, no pooled CI/production claim.",
+  "source_attribution_limit": "First-admission token attribution is not cumulative physical GPU compute, even without preemptions. Missing metric series remains unavailable rather than zero."
+}

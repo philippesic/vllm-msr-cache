@@ -1,0 +1,509 @@
+{
+  "schema": "root-independent-GPU-gated-CPU-discovery-verification-v1",
+  "all9workflows648EOS_HTTP_verified": true,
+  "groups": [
+    {
+      "partition": 7703,
+      "arms": {
+        "native": {
+          "name": "live-nov3-gpu-gate-s7703-native",
+          "load_s": 67.942828167,
+          "tokens": 6065,
+          "tokens_s": 89.26622814541278,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8128.505751722222,
+          "p95_ttft_ms": 17407.222829950002,
+          "mean_e2e_ms": 14595.277600430556,
+          "p95_e2e_ms": 29477.346102250005,
+          "http_requests": 72,
+          "raw_sha256": "4b7db49b3984a68a21b97ba84136b760ebc6da3ad9603f45e7d81daf1bcfe67d",
+          "tokens_s_gib": 11.868365038604706,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 849608704.0,
+              "delta": 849608704.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 92637.0,
+              "delta": 91536.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 14128.0,
+              "delta": 14128.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 14816.0,
+              "delta": 14816.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "cpu": {
+          "name": "live-nov3-gpu-gate-s7703-cpu",
+          "load_s": 70.081093037,
+          "tokens": 6100,
+          "tokens_s": 87.04202140196993,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8596.969525625,
+          "p95_ttft_ms": 17293.821185800003,
+          "mean_e2e_ms": 15240.258081111111,
+          "p95_e2e_ms": 30356.98794785,
+          "http_requests": 285,
+          "raw_sha256": "2c08196e5daf0a955f9c38f9f52f5c7a9a706f1d95de1a252a8cf02b9ea84ce2",
+          "tokens_s_gib": 11.572646286945291,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 578945024.0,
+              "delta": 578945024.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 97227.0,
+              "delta": 96126.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 14272.0,
+              "delta": 14272.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 10096.0,
+              "delta": 10096.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "gate": {
+          "name": "live-nov3-gpu-gate-s7703-gate",
+          "load_s": 69.234338712,
+          "tokens": 6028,
+          "tokens_s": 87.06662202805443,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8309.230043777778,
+          "p95_ttft_ms": 17220.1971444,
+          "mean_e2e_ms": 14878.145168263889,
+          "p95_e2e_ms": 28571.12580275,
+          "http_requests": 289,
+          "raw_sha256": "57de2daedb906eee5f7851c6b58238406f7ad2d8c3d582eac5e7c7973e765884",
+          "tokens_s_gib": 11.57591705593167,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 707395584.0,
+              "delta": 707395584.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 94936.0,
+              "delta": 93835.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 14272.0,
+              "delta": 14272.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 12336.0,
+              "delta": 12336.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          },
+          "gate_operations": {
+            "valid_nonreplayed_ack_count": 210,
+            "full_GPU_skips": 145,
+            "skipped_ready_key_observations": 10632,
+            "actual_CPU_refresh_operations": 6537,
+            "scope": "Repeated policy operations/snapshots, not unique keys, demand hits or saved bytes."
+          }
+        }
+      },
+      "differences": {
+        "cpu_vs_native": {
+          "workflow_percent": -3.0511294520921384,
+          "token_rate_percent": -2.4916553434067623,
+          "tokens_s_gib_percent": -2.4916553434067623,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 468.4637739027776,
+          "p95_ttft_ms": -113.4016441499989,
+          "mean_e2e_ms": 644.980480680555,
+          "p95_e2e_ms": 879.6418455999956
+        },
+        "gate_vs_native": {
+          "workflow_percent": -1.8654190522024106,
+          "token_rate_percent": -2.464096627646506,
+          "tokens_s_gib_percent": -2.464096627646506,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 180.72429205555545,
+          "p95_ttft_ms": -187.02568555000107,
+          "mean_e2e_ms": 282.86756783333294,
+          "p95_e2e_ms": -906.2202995000043
+        },
+        "gate_vs_cpu": {
+          "workflow_percent": 1.223026522319115,
+          "token_rate_percent": 0.028262930580247314,
+          "tokens_s_gib_percent": 0.02826293058026952,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -287.7394818472221,
+          "p95_ttft_ms": -73.62404140000217,
+          "mean_e2e_ms": -362.1129128472221,
+          "p95_e2e_ms": -1785.8621451
+        }
+      }
+    },
+    {
+      "partition": 8803,
+      "arms": {
+        "cpu": {
+          "name": "live-nov3-gpu-gate-s8803-cpu",
+          "load_s": 40.212444784,
+          "tokens": 6202,
+          "tokens_s": 154.23086144883422,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 3334.6220212222224,
+          "p95_ttft_ms": 6311.42070475,
+          "mean_e2e_ms": 7131.165463680555,
+          "p95_e2e_ms": 12477.082739800002,
+          "http_requests": 326,
+          "raw_sha256": "a1e573c3f5deb081322a9c4899428569e36c1d10018e907bd3773c6bc5d653ea",
+          "tokens_s_gib": 20.500395217118015,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1525809152.0,
+              "delta": 1525809152.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 50399.0,
+              "delta": 49298.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 20256.0,
+              "delta": 20256.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 26608.0,
+              "delta": 26608.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "gate": {
+          "name": "live-nov3-gpu-gate-s8803-gate",
+          "load_s": 39.462014887,
+          "tokens": 6183,
+          "tokens_s": 156.68231887563525,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 3353.69190225,
+          "p95_ttft_ms": 6300.200891750001,
+          "mean_e2e_ms": 7078.125364972222,
+          "p95_e2e_ms": 11530.26086115,
+          "http_requests": 329,
+          "raw_sha256": "4c796bfe4f4a41b5799abc434cfe73edeea6ec2580e9afe2db6115c5de3a241a",
+          "tokens_s_gib": 20.826243401036983,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1474428928.0,
+              "delta": 1474428928.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 48731.0,
+              "delta": 47630.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 22816.0,
+              "delta": 22816.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 25712.0,
+              "delta": 25712.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          },
+          "gate_operations": {
+            "valid_nonreplayed_ack_count": 256,
+            "full_GPU_skips": 173,
+            "skipped_ready_key_observations": 10572,
+            "actual_CPU_refresh_operations": 5771,
+            "scope": "Repeated policy operations/snapshots, not unique keys, demand hits or saved bytes."
+          }
+        },
+        "native": {
+          "name": "live-nov3-gpu-gate-s8803-native",
+          "load_s": 43.258925497,
+          "tokens": 6225,
+          "tokens_s": 143.90093901966435,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 3758.7639797916668,
+          "p95_ttft_ms": 6537.26028165,
+          "mean_e2e_ms": 7840.409144972222,
+          "p95_e2e_ms": 12444.308538450001,
+          "http_requests": 72,
+          "raw_sha256": "5141a9455510b4087ddccb6ddc1d98c3de7072b31fe4ed4f1d3b7cc0ab5bf77d",
+          "tokens_s_gib": 19.132306911201514,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1046872064.0,
+              "delta": 1046872064.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 57743.0,
+              "delta": 56642.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 21280.0,
+              "delta": 21280.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 18256.0,
+              "delta": 18256.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        }
+      },
+      "differences": {
+        "cpu_vs_native": {
+          "workflow_percent": 7.5759649266889495,
+          "token_rate_percent": 7.178495498044146,
+          "tokens_s_gib_percent": 7.150670916299795,
+          "vram_saved_mib": -2.0,
+          "mean_ttft_ms": -424.14195856944434,
+          "p95_ttft_ms": -225.83957689999988,
+          "mean_e2e_ms": -709.2436812916667,
+          "p95_e2e_ms": 32.77420135000102
+        },
+        "gate_vs_native": {
+          "workflow_percent": 9.621684601945702,
+          "token_rate_percent": 8.882068416679534,
+          "tokens_s_gib_percent": 8.853801570806441,
+          "vram_saved_mib": -2.0,
+          "mean_ttft_ms": -405.07207754166666,
+          "p95_ttft_ms": -237.0593898999996,
+          "mean_e2e_ms": -762.2837799999998,
+          "p95_e2e_ms": -914.0476773000009
+        },
+        "gate_vs_cpu": {
+          "workflow_percent": 1.9016512439845368,
+          "token_rate_percent": 1.5894726929307268,
+          "tokens_s_gib_percent": 1.5894726929307268,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 19.069881027777683,
+          "p95_ttft_ms": -11.219812999999704,
+          "mean_e2e_ms": -53.04009870833306,
+          "p95_e2e_ms": -946.821878650002
+        }
+      }
+    },
+    {
+      "partition": 9901,
+      "arms": {
+        "gate": {
+          "name": "live-nov3-gpu-gate-s9901-gate",
+          "load_s": 56.170213224,
+          "tokens": 6090,
+          "tokens_s": 108.42045366133503,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 6624.397716888889,
+          "p95_ttft_ms": 16263.096017100002,
+          "mean_e2e_ms": 11356.852713875,
+          "p95_e2e_ms": 23017.297594050004,
+          "http_requests": 280,
+          "raw_sha256": "be986ce0950e56421daaa48fe4e6f09da65b5e3e666c8d16977723db7d8fb027",
+          "tokens_s_gib": 14.411267166616728,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1272578048.0,
+              "delta": 1272578048.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 70608.0,
+              "delta": 69507.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 18816.0,
+              "delta": 18816.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 22192.0,
+              "delta": 22192.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          },
+          "gate_operations": {
+            "valid_nonreplayed_ack_count": 206,
+            "full_GPU_skips": 159,
+            "skipped_ready_key_observations": 10402,
+            "actual_CPU_refresh_operations": 3768,
+            "scope": "Repeated policy operations/snapshots, not unique keys, demand hits or saved bytes."
+          }
+        },
+        "native": {
+          "name": "live-nov3-gpu-gate-s9901-native",
+          "load_s": 57.236344492,
+          "tokens": 6050,
+          "tokens_s": 105.70206839197455,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 6946.821992222222,
+          "p95_ttft_ms": 18381.33149245,
+          "mean_e2e_ms": 12168.91785663889,
+          "p95_e2e_ms": 24413.757521749998,
+          "http_requests": 72,
+          "raw_sha256": "8acd60b7ef2957a746bd1e70ea6b534ccef65dd21bd902f44f1be7a4a389597e",
+          "tokens_s_gib": 14.04993888347821,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 1072562176.0,
+              "delta": 1072562176.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 76617.0,
+              "delta": 75516.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 16384.0,
+              "delta": 16384.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 18704.0,
+              "delta": 18704.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        },
+        "cpu": {
+          "name": "live-nov3-gpu-gate-s9901-cpu",
+          "load_s": 58.707209268,
+          "tokens": 6094,
+          "tokens_s": 103.8032649820012,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 7270.98115425,
+          "p95_ttft_ms": 19466.3264753,
+          "mean_e2e_ms": 12604.359296763889,
+          "p95_e2e_ms": 25955.591092050003,
+          "http_requests": 263,
+          "raw_sha256": "13946470b6518250a2b2a1f5c0970322a12a7e0cfa3a2591b2dc2997fcd231dc",
+          "tokens_s_gib": 13.797549575797538,
+          "prometheus_load_deltas": {
+            "H2D_bytes": {
+              "initial": 0.0,
+              "final": 804651008.0,
+              "delta": 804651008.0
+            },
+            "local_compute": {
+              "initial": 1101.0,
+              "final": 79478.0,
+              "delta": 78377.0
+            },
+            "GPU_cache_hit": {
+              "initial": 0.0,
+              "final": 18224.0,
+              "delta": 18224.0
+            },
+            "external_transfer": {
+              "initial": 0.0,
+              "final": 14032.0,
+              "delta": 14032.0
+            },
+            "preemptions": {
+              "initial": 0.0,
+              "final": 0.0,
+              "delta": 0.0
+            }
+          }
+        }
+      },
+      "differences": {
+        "cpu_vs_native": {
+          "workflow_percent": -2.5054244518513236,
+          "token_rate_percent": -1.7963729933193284,
+          "tokens_s_gib_percent": -1.7963729933193173,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 324.1591620277777,
+          "p95_ttft_ms": 1084.9949828499994,
+          "mean_e2e_ms": 435.44144012499964,
+          "p95_e2e_ms": 1541.8335703000048
+        },
+        "gate_vs_native": {
+          "workflow_percent": 1.8980367116435914,
+          "token_rate_percent": 2.571742739489169,
+          "tokens_s_gib_percent": 2.571742739489169,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -322.42427533333375,
+          "p95_ttft_ms": -2118.2354753499985,
+          "mean_e2e_ms": -812.0651427638895,
+          "p95_e2e_ms": -1396.4599276999943
+        },
+        "gate_vs_cpu": {
+          "workflow_percent": 4.516621708169,
+          "token_rate_percent": 4.4480187401951365,
+          "tokens_s_gib_percent": 4.4480187401951365,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -646.5834373611115,
+          "p95_ttft_ms": -3203.230458199998,
+          "mean_e2e_ms": -1247.5065828888892,
+          "p95_e2e_ms": -2938.293497999999
+        }
+      }
+    }
+  ],
+  "judgment": "Promising relative toCPU-only inall3sets and p95TTFTversusnative inall3. Nativeworkflowwins2of3;7703negativeworkflow/meanTTFT remain. Needsbytequalification/freshheldoutconfirmation/endurance, no productionclaim.",
+  "source_attribution_limit": "First-admission token attribution is not cumulative physical GPU compute, even without preemptions. Missing metric series remains unavailable rather than zero."
+}

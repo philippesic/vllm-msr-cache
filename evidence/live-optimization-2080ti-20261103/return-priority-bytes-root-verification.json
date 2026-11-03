@@ -1,0 +1,56 @@
+{
+  "schema": "root-independent-return-priority-bytes-verification-v1",
+  "created_utc": "2026-11-03T18:44:22.680586+00:00",
+  "all414pins_verified": true,
+  "both_selected_arm_qualifications": {
+    "native": {
+      "run": "live-nov3-return-priority-byte-native",
+      "qualification_receipt": "output/prefetch-native-20261102/live-nov3-return-priority-byte-native-qualification.json",
+      "qualification_receipt_sha256": "e503c90ffa452d83620953e3b38b47c69dc2a79d2e2009ffa5b48e970f6fe1a4",
+      "counts": {
+        "D2H": 516,
+        "H2D": 13
+      },
+      "bytes": {
+        "D2H": 5730729984,
+        "H2D": 729415680
+      },
+      "component_comparisons_and_corruption_controls": 14812,
+      "all_rows_and_aggregate_reconciled": true,
+      "per_job_native_Transfer_num_bytes_observed": false,
+      "scope": "Mapped pages \u00d7 independently pinned geometry and native aggregate counters; not an extra observed per-job native byte field."
+    },
+    "candidate": {
+      "run": "live-nov3-return-priority-byte-candidate",
+      "qualification_receipt": "output/prefetch-native-20261102/live-nov3-return-priority-byte-candidate-qualification.json",
+      "qualification_receipt_sha256": "38933dc77e059078973488cc29d442883c12bc916353a436dba2cf3d6b16738b",
+      "counts": {
+        "D2H": 493,
+        "H2D": 18
+      },
+      "bytes": {
+        "D2H": 5288493056,
+        "H2D": 1337720832
+      },
+      "component_comparisons_and_corruption_controls": 14308,
+      "all_rows_and_aggregate_reconciled": true,
+      "per_job_native_Transfer_num_bytes_observed": false,
+      "scope": "Mapped pages \u00d7 independently pinned geometry and native aggregate counters; not an extra observed per-job native byte field."
+    }
+  },
+  "all_rows_and_final_load_native_counters_reconciled": true,
+  "candidate_bounded_preservation_verified": true,
+  "actual_gate_activation": {
+    "valid_ACKs": 182,
+    "full_GPU_skips": 150,
+    "partial_fallbacks": 32,
+    "actual_CPU_refreshes": 3625
+  },
+  "total_components": 29120,
+  "observed_preemptions": {
+    "native": 1,
+    "candidate": 0
+  },
+  "preemption_scope": "Native intrusive run counter1; cannot attribute per-job H2D specifically to that preemption; no performance claim.",
+  "scope": "Every exercised mapped D2H/H2D pagecomponent plus onebyte comparator control. Intrusive qualification is not performance, quality or endurance. Per-job native Transfer.num_bytes not independently observed."
+}

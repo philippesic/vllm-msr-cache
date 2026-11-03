@@ -1,0 +1,15 @@
+{
+  "schema": "root-three-arm-priority-confirmation-prelaunch-v1",
+  "created_utc": "2026-11-03T18:47:37.315654+00:00",
+  "manifest_sha256": "85bc8dd1105ba7cb05ab025767bee6169cccd4543f8fd5c7f8f82f9ac9054429",
+  "all_pins_verified": 733,
+  "names_absent": 36,
+  "six_orders_each_twice_verified": true,
+  "two_each_matched_primary_pair_orders_per_partition": true,
+  "candidate_bounded_mode_and_gate_explicit": true,
+  "intrusive_audit_disabled_all36": true,
+  "prior_raw_records_scanned": 243,
+  "fresh_corpus_never_used_by_prior_actual_runs": true,
+  "GPU_idle_and_lock_available": true,
+  "custody_transfer": "ROOT to ASTRA for exact36frozeninvocations only"
+}

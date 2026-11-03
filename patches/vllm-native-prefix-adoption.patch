@@ -1,0 +1,72 @@
+diff --git a/vllm/v1/core/block_pool.py b/vllm/v1/core/block_pool.py
+index a64b7e3..b605e57 100644
+--- a/vllm/v1/core/block_pool.py
++++ b/vllm/v1/core/block_pool.py
+@@ -699,6 +699,67 @@ class BlockPool:
+         self._emit_block_removed_events(evicted_hashes)
+         return True
+ 
++    def publish_completed_prefix(
++        self,
++        request: Request,
++        blocks: list[KVCacheBlock],
++        *,
++        block_size: int,
++        kv_cache_group_id: int,
++        completion_verified: bool,
++    ) -> bool:
++        """Publish fenced dense connector blocks, consuming their reservation.
++
++        The caller must have observed successful transfer fences for every
++        worker before setting ``completion_verified``. This method performs no
++        data copy. It validates the entire prefix before changing visibility;
++        on rejection, the caller retains every reference. On success, normal
++        cache lookup/touch owns adoption, sharing and eviction. Publication does
++        not promise that a waiting request will still hit under later pressure.
++
++        Initially restricted to a single dense group with one hash per block.
++        """
++        if (
++            completion_verified is not True
++            or not self.enable_caching
++            or request.skip_reading_prefix_cache
++            or kv_cache_group_id != 0
++            or block_size <= 0
++            or block_size != self.hash_block_size
++            or not blocks
++            or request.num_tokens <= len(blocks) * block_size
++        ):
++            return False
++        hashes = list(request.block_hashes[: len(blocks)])
++        if any(not isinstance(value, bytes) or not value for value in hashes):
++            return False
++        if len(hashes) != len(blocks) or len(set(hashes)) != len(hashes):
++            return False
++        ids = [block.block_id for block in blocks]
++        if len(set(ids)) != len(ids):
++            return False
++        for block, block_hash in zip(blocks, hashes):
++            if (
++                not 0 < block.block_id < self.num_gpu_blocks
++                or self.blocks[block.block_id] is not block
++                or block.is_null
++                or block.ref_cnt != 1
++                or block.block_hash is not None
++                or block.block_id in self.cached_block_hashes_by_block
++                or self.get_cached_block(block_hash, [kv_cache_group_id])
++                is not None
++            ):
++                return False
++        try:
++            self.cache_full_blocks(
++                request, blocks, 0, len(blocks), block_size, kv_cache_group_id
++            )
++        except Exception:
++            self.evict_blocks(set(ids))
++            raise
++        self.free_blocks(blocks)
++        return True
++
+     def touch(self, blocks: Sequence[KVCacheBlock]) -> None:
+         """Touch a block increases its reference count by 1, and may remove
+         the block from the free queue. This is used when a block is hit by

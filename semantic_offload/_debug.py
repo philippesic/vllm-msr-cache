@@ -8,6 +8,7 @@ unstructured stdout volume would both cost real time and pollute logs
 (issues log entry #34). Default off; set SEMANTIC_OFFLOAD_DEBUG=1 to
 restore the old always-on behavior for interactive debugging."""
 
+from semantic_offload.profiling import PROFILE, profiled
 import json
 import os
 
@@ -191,6 +192,7 @@ def debug_print(*args, **kwargs) -> None:
         print(*args, **kwargs)
 
 
+@profiled('logging.preservation')
 def record_preservation_event(event: dict) -> None:
     """Emit one authoritative request-level offload event as JSONL.
 
@@ -198,45 +200,36 @@ def record_preservation_event(event: dict) -> None:
     Keeping the emitter here makes the event visible in the existing server
     log without changing vLLM's global KV event publisher or the default path.
     """
-    print(
-        "SEMANTIC_PRESERVATION_EVENT "
-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
-        flush=True,
-    )
+    _emit_event("SEMANTIC_PRESERVATION_EVENT", event)
 
 
+@profiled('logging.features')
 def record_decision_feature(record: dict) -> None:
     """Emit one opt-in decision-time feature record as JSONL.
 
     This is a separate marker from preservation events so the latter's raw
     schema remains byte-for-byte compatible with existing audit bundles.
     """
-    print(
-        "SEMANTIC_DECISION_FEATURE "
-        + json.dumps(record, sort_keys=True, separators=(",", ":")),
-        flush=True,
-    )
+    _emit_event("SEMANTIC_DECISION_FEATURE", record)
 
 
+@profiled('logging.observation')
 def record_async_scoring_event(event: dict) -> None:
-    print(
-        "SEMANTIC_ASYNC_SCORING_EVENT "
-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
-        flush=True,
-    )
+    _emit_event("SEMANTIC_ASYNC_SCORING_EVENT", event)
 
 
 def record_runtime_resolution(event: dict) -> None:
-    print(
-        "SEMANTIC_RUNTIME_RESOLUTION "
-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
-        flush=True,
-    )
+    _emit_event("SEMANTIC_RUNTIME_RESOLUTION", event)
 
 
+@profiled('logging.wait_hint')
 def record_wait_hint_event(event: dict) -> None:
-    print(
-        "SEMANTIC_WAIT_HINT_EVENT "
-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
-        flush=True,
-    )
+    _emit_event("SEMANTIC_WAIT_HINT_EVENT", event)
+
+
+def _emit_event(marker, event):
+    with PROFILE.scope("logging.json_encode"):
+        payload = json.dumps(event, sort_keys=True, separators=(",", ":"))
+    PROFILE.count("logging.bytes", len(marker) + len(payload) + 2)
+    with PROFILE.scope("logging.stdout_flush"):
+        print(marker + " " + payload, flush=True)

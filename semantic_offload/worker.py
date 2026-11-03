@@ -36,10 +36,18 @@ packed into the last dimension (first half K, second half V). This is the
 convention this file relies on; the assert in `_check_layout` catches any
 backend that doesn't match it, rather than silently producing wrong
 summaries. Does not apply to MLA (no per-head keys exist there at all).
+
+Experimental local screen: SEMANTIC_SUMMARY_FIELDS=required retains only mean
+centroids for mean scoring with continuous or opportunity scheduling.
+Default "all" retains BlockSummary's
+complete payload. The reduced private payload is not a general BlockSummary;
+consumers requesting other fields must fail rather than inventing values.
 """
 
 import hashlib
 import itertools
+import math
+import os
 import re
 import time
 from collections.abc import Sequence
@@ -56,7 +64,7 @@ from vllm.v1.kv_offload.base import (
 )
 from vllm.v1.kv_offload.cpu.gpu_worker import CPUOffloadingWorker
 
-from semantic_offload._debug import TIMING as _TIMING
+from semantic_offload._debug import TIMING as _TIMING, ENABLED as _DEBUG
 from semantic_offload._debug import (
     debug_print,
     record_count,
@@ -74,6 +82,8 @@ from semantic_offload.index import (
     score_minmax_batch,
 )
 from semantic_offload.manager import validate_ema_rank_weight_floor
+from semantic_offload.profiling import PROFILE, profiled
+from semantic_offload.scoring_search import ClusterSearch, SearchConfig
 from semantic_offload.query_capture import install as install_query_capture
 from semantic_offload.query_capture import preflight_install as preflight_query_capture
 
@@ -92,14 +102,29 @@ _METHOD_FIELDS = {
 
 
 @dataclass(frozen=True, slots=True)
+class _MeanOnlySummary:
+    """Owned mean reduction, deliberately exposing no unused summary fields."""
+
+    mean: torch.Tensor
+
+
+_WorkerSummary = BlockSummary | _MeanOnlySummary
+
+
+@dataclass(frozen=True, slots=True)
 class _AsyncScorePayload:
     req_ids: tuple[str, ...]
     queries: torch.Tensor
     keys: tuple[OffloadKey, ...]
-    summaries: tuple[tuple[BlockSummary, ...], ...]
+    summaries: tuple[tuple[_WorkerSummary, ...], ...]
     method: str
     head_aggregation: str
     request_versions: tuple[tuple[str, int], ...]
+    residency_versions: tuple[tuple[OffloadKey, int], ...] = ()
+    decision_leases: tuple[tuple[str, tuple[str, ...]], ...] = ()
+    transport_epoch: str | None = None
+    source_tokens: tuple[tuple[str, int | None], ...] = ()
+    expires_at_ns: int | None = None
 
 
 def validate_parallel_scoring(
@@ -218,6 +243,14 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         summary_offload_overlap: bool = False,
         preservation_events: bool = False,
         nvtx_ranges: bool = False,
+        scoring_schedule: str = "continuous",
+        scoring_search: str = "flat",
+        search_min_pool: int = 128,
+        search_clusters: int = 16,
+        search_probes: int = 4,
+        search_exploration: int = 8,
+        query_snapshot_max_age_ms: int = 1000,
+        query_snapshot_max_requests: int = 256,
     ):
         if method not in _SCORING_METHODS:
             raise ValueError(
@@ -232,6 +265,26 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             )
         validate_rank_ema_mode(rank_ema_mode)
         scoring_mode = validate_scoring_mode(scoring_mode)
+        if scoring_schedule not in ("continuous", "opportunity", "capture_only"):
+            raise ValueError("scoring_schedule must be continuous, opportunity or capture_only")
+        summary_fields = os.environ.get("SEMANTIC_SUMMARY_FIELDS", "all")
+        if summary_fields not in ("all", "required"):
+            raise ValueError("SEMANTIC_SUMMARY_FIELDS must be all or required")
+        if summary_fields == "required" and (
+            method != "mean" or scoring_schedule not in ("continuous", "opportunity")
+        ):
+            raise ValueError("required summary fields require mean scoring with continuous or opportunity schedule")
+        search_config = SearchConfig(scoring_search, search_min_pool, search_clusters,
+                                     search_probes, search_exploration)
+        for value in (query_snapshot_max_age_ms, query_snapshot_max_requests):
+            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                raise ValueError("query snapshot bounds must be positive integers")
+        if (scoring_schedule != "continuous" or scoring_search != "flat") and (
+            method != "mean" or head_aggregation != "mean"
+            or vllm_config.parallel_config.tensor_parallel_size != 1
+            or (scoring_mode != "synchronous" and not (scoring_schedule == "opportunity" and scoring_search == "flat"))
+        ):
+            raise ValueError("scheduled/indexed scoring requires mean/mean TP=1; asynchronous scheduling supports opportunity/flat only")
         if (
             isinstance(async_scoring_max_snapshot_age_ms, bool)
             or not isinstance(async_scoring_max_snapshot_age_ms, int)
@@ -308,9 +361,21 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             num_cpu_blocks=num_cpu_blocks,
         )
         self._method = method
+        self._summary_fields = summary_fields
         self._head_aggregation = head_aggregation
         self._rank_ema_mode = rank_ema_mode
         self._scoring_mode = scoring_mode
+        self._scoring_schedule = scoring_schedule
+        self._candidate_search = ClusterSearch(search_config)
+        self._score_transport_context = {}
+        self._query_snapshots = {}
+        self._query_snapshot_events = {}
+        self._retired_async_request_ids = set()
+        self._decision_async_signatures = {}
+        self._query_snapshot_max_age_ns = query_snapshot_max_age_ms * 1_000_000
+        self._query_snapshot_max_requests = query_snapshot_max_requests
+        self._decision_score_sequence = 0
+        self._profile_metadata_calls = 0
         self._ema_rank_weight_floor = ema_rank_weight_floor
         self._summary_offload_overlap = summary_offload_overlap
         self._preservation_events = preservation_events
@@ -318,14 +383,15 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         self._attention_layers = attention_layers
         self._block_size = vllm_config.cache_config.block_size
         self._summary_stream = (
-            torch.cuda.Stream() if torch.cuda.is_available() else None
+            torch.cuda.Stream()
+            if probe_layer_name is not None and torch.cuda.is_available() else None
         )
         self._layout_checked: set[str] = set()
         # summaries[layer_name][block_id] = list[BlockSummary], one per KV head.
         # Keyed by physical GPU block ID, which is naturally bounded and
         # reused/overwritten as blocks are freed and reallocated -- no
         # separate eviction-cleanup hook needed to keep this bounded.
-        self.summaries: dict[str, dict[int, list[BlockSummary]]] = {
+        self.summaries: dict[str, dict[int, list[_WorkerSummary]]] = {
             layer_name: {} for layer_name in self._attention_layers
         }
 
@@ -350,7 +416,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         # cover, such as a defensive backstop after a full cache reset.
         # Failed-store cleanup is handled at the transfer-result boundary.
         self._max_durable_summaries = max(num_cpu_blocks, 1)
-        self.durable_summaries: dict[OffloadKey, list[BlockSummary]] = {}
+        self.durable_summaries: dict[OffloadKey, list[_WorkerSummary]] = {}
         self._pending_job_keys: dict[int, list[OffloadKey]] = {}
         self._pending_job_blocks: dict[int, list[tuple[OffloadKey, list[int]]]] = {}
         self._transfer_directions: dict[int, bool] = {}
@@ -414,7 +480,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
                 self._score_async_payload,
                 max_queue_items=async_scoring_max_queue_items,
                 max_snapshot_bytes=async_scoring_max_snapshot_bytes,
-                workers=async_scoring_workers,
+                workers=1,  # A single owner for the single scoring stream.
             )
         # splice_id -> completion event. The scheduler keeps speculative
         # source blocks reserved until every worker reports this event done.
@@ -465,7 +531,10 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         summary_stream = getattr(self, "_summary_stream", None)
         if summary_stream is not None:
             summary_stream.synchronize()
+        getattr(self, '_prefix_mean_centroid_cache', {}).clear()
+        self._pending_prefix_score_observations = []
         super().shutdown()
+        PROFILE.flush()
 
     def receive_job_keys(self, store_job_keys: dict[int, list[OffloadKey]]) -> None:
         """Called by SemanticOffloadingConnector before this step's
@@ -488,6 +557,16 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             async_scoring.reset()
         getattr(self, "_async_submission_requests", {}).clear()
         getattr(self, "_async_request_versions", {}).clear()
+        getattr(self, "_query_snapshots", {}).clear()
+        getattr(self, "_query_snapshot_events", {}).clear()
+        getattr(self, '_prefix_mean_centroid_cache', {}).clear()
+        self._pending_prefix_score_observations = []
+        self._prefix_mean_scoring_stats = {}
+        getattr(self, "_retired_async_request_ids", set()).clear()
+        getattr(self, "_decision_async_signatures", {}).clear()
+        if hasattr(self, "_candidate_search"):
+            self._candidate_search.centroids = None
+            self._candidate_search.groups = []
         summary_stream = getattr(self, "_summary_stream", None)
         if summary_stream is not None:
             # Reset is rare and destructive. Do not drop the last references
@@ -548,7 +627,10 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
                 self._preempted_forward_times_ns = preempted_forward_times_ns
                 preempted_request_ids.discard(req_id)
                 self._preempted_request_ids = preempted_request_ids
-        if torch.cuda.is_available():
+        # Detailed allocator categories are audit telemetry. The native CUDA
+        # peak counters remain available at export when this opt-in switch is off.
+        if (os.environ.get("SEMANTIC_ALLOCATOR_AUDIT", "1") != "0"
+                and torch.cuda.is_available()):
             stats = torch.cuda.memory_stats()
             for name in (
                 "allocated_bytes.all.current",
@@ -649,6 +731,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         event = getattr(self, "_summary_job_events", {}).get(job_id)
         return event is None or event.query()
 
+    @profiled('transfer.poll')
     def get_finished(self) -> list[TransferResult]:
         """Do not publish a store completion before its summary reduction.
 
@@ -873,6 +956,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         scores, _, _ = self.pop_pending_score_metadata()
         return scores
 
+    @profiled('metadata.pop_scores')
     def pop_pending_score_metadata(
         self,
     ) -> tuple[
@@ -882,6 +966,9 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
     ]:
         if getattr(self, "_scoring_mode", "synchronous") == "asynchronous":
             self._drain_async_scores()
+        self._profile_metadata_calls = getattr(self, "_profile_metadata_calls", 0) + 1
+        if PROFILE.directory and self._profile_metadata_calls % 128 == 0:
+            PROFILE.flush()
         scores = self._pending_scores
         head_counts = getattr(self, "_pending_score_head_counts", {})
         self._pending_scores = {}
@@ -897,10 +984,11 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         self._pending_async_score_observations = []
         return observations
 
+    @profiled('scoring.stack_cache', cuda=True)
     def _rebuild_stack_cache(self) -> None:
         """Bring the stacked-tensor cache back in sync with
         durable_summaries incrementally: compact out pending removals with
-        one vectorized boolean-mask op per field, then stack and append only
+        basic slices and one concatenation per field, then stack and append only
         the newly-inserted candidates -- instead of a from-scratch Python
         getattr+torch.stack rebuild over EVERY resident candidate on every
         dirty query capture. See the dirty-flag comment in __init__: on
@@ -911,16 +999,30 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         fields = _METHOD_FIELDS[self._method]
 
         if self._stack_pending_remove:
-            keep_mask = torch.ones(len(self._stack_cache_keys), dtype=torch.bool)
-            for key in self._stack_pending_remove:
-                idx = self._stack_cache_index.pop(key, None)
-                if idx is not None:
-                    keep_mask[idx] = False
-            surviving_keys = [
-                k for k, keep in zip(self._stack_cache_keys, keep_mask.tolist()) if keep
-            ]
+            surviving_indices = [index for index, key in enumerate(self._stack_cache_keys)
+                                 if key not in self._stack_pending_remove]
+            surviving_keys = [self._stack_cache_keys[index] for index in surviving_indices]
+            # CPU metadata determines contiguous runs. Basic slices avoid
+            # implicit CPU-mask uploads and CUDA nonzero synchronization.
+            runs = []
+            for index in surviving_indices:
+                if runs and runs[-1][1] == index:
+                    runs[-1] = (runs[-1][0], index + 1)
+                else:
+                    runs.append((index, index + 1))
             for field in fields:
-                self._stack_cache[field] = self._stack_cache[field][keep_mask]
+                existing = self._stack_cache[field]
+                if len(surviving_keys) == len(self._stack_cache_keys):
+                    continue
+                if not runs:
+                    self._stack_cache[field] = existing[:0]
+                elif len(runs) == 1:
+                    start, end = runs[0]
+                    self._stack_cache[field] = existing[start:end]
+                else:
+                    self._stack_cache[field] = torch.cat(
+                        [existing[start:end] for start, end in runs], dim=0
+                    )
             self._stack_cache_keys = surviving_keys
             self._stack_cache_index = {k: i for i, k in enumerate(surviving_keys)}
             self._stack_pending_remove.clear()
@@ -932,14 +1034,17 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             self._stack_pending_insert.clear()
             if new_keys:
                 new_summary_lists = [self.durable_summaries[k] for k in new_keys]
+                num_heads = len(new_summary_lists[0])
+                if not num_heads or any(len(summaries) != num_heads
+                                        for summaries in new_summary_lists):
+                    raise ValueError("stacked summaries must have equal positive head counts")
                 for field in fields:
                     # [n_new, num_kv_heads, head_dim]
-                    new_stack = torch.stack(
-                        [
-                            torch.stack([getattr(s, field) for s in summary_list])
-                            for summary_list in new_summary_lists
-                        ]
-                    )
+                    flat_stack = torch.stack([getattr(summary, field)
+                                              for summaries in new_summary_lists
+                                              for summary in summaries])
+                    new_stack = flat_stack.reshape(len(new_keys), num_heads,
+                                                   *flat_stack.shape[1:])
                     existing = self._stack_cache.get(field)
                     self._stack_cache[field] = (
                         torch.cat([existing, new_stack], dim=0)
@@ -975,6 +1080,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
     def _tensor_bytes(tensor: torch.Tensor) -> int:
         return tensor.numel() * tensor.element_size()
 
+    @torch.no_grad()
     def _score_async_payload(
         self, payload: _AsyncScorePayload
     ) -> tuple[
@@ -982,45 +1088,59 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         dict[str, dict[str, int]],
     ]:
         fields = _METHOD_FIELDS[payload.method]
+        # Retain enqueued output/cache buffers across an exception until the
+        # outer scoring-stream fence completes; no extra tensor allocation.
+        readback_owners = []
 
         def score_payload():
-            cache = {
-                field: torch.stack(
-                    [
-                        torch.stack(
-                            [getattr(summary, field) for summary in summary_list]
-                        )
-                        for summary_list in payload.summaries
-                    ]
+            with PROFILE.scope("async.stack", cuda=True):
+                cache = {
+                    field: torch.stack(
+                        [
+                            torch.stack(
+                                [getattr(summary, field) for summary in summary_list]
+                            )
+                            for summary_list in payload.summaries
+                        ]
+                    )
+                    for field in fields
+                }
+            with PROFILE.scope("async.math_enqueue", cuda=True):
+                query = payload.queries.unsqueeze(1)
+                if payload.method == "minmax":
+                    per_head = score_minmax_batch(
+                        query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
+                    )
+                elif payload.method == "mean":
+                    per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
+                else:
+                    per_head = score_cuboid_mean_batch(
+                        query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
+                    )
+                combined = (
+                    per_head.mean(dim=-1)
+                    if payload.head_aggregation == "mean"
+                    else per_head.max(dim=-1).values
                 )
-                for field in fields
-            }
-            query = payload.queries.unsqueeze(1)
-            if payload.method == "minmax":
-                per_head = score_minmax_batch(
-                    query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
-                )
-            elif payload.method == "mean":
-                per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
-            else:
-                per_head = score_cuboid_mean_batch(
-                    query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
-                )
-            combined = (
-                per_head.mean(dim=-1)
-                if payload.head_aggregation == "mean"
-                else per_head.max(dim=-1).values
-            )
-            all_scores = combined.tolist()
-            ranked_by_request = {
-                req_id: sorted(
-                    zip(payload.keys, scores), key=lambda item: (-item[1], item[0])
-                )
-                for req_id, scores in zip(payload.req_ids, all_scores)
-            }
-            head_counts = {
-                req_id: int(per_head.shape[-1]) for req_id in payload.req_ids
-            }
+            readback_owners.append((cache, per_head, combined))
+            with PROFILE.scope("async.readback", cuda=False):
+                if combined.is_cuda:
+                    from semantic_offload.async_scoring import wait_for_owned_fence
+                    completed = torch.cuda.Event()
+                    readback_owners.append(completed)
+                    completed.record(torch.cuda.current_stream(combined.device))
+                    wait_for_owned_fence(completed)
+                all_scores = combined.tolist()
+            with PROFILE.scope("async.rank", cuda=False):
+                ranked_by_request = {
+                    req_id: sorted(
+                        zip(payload.keys, scores), key=lambda item: (-item[1], item[0])
+                    )
+                    for req_id, scores in zip(payload.req_ids, all_scores)
+                }
+                head_counts = {
+                    req_id: int(per_head.shape[-1]) for req_id in payload.req_ids
+                }
             return (
                 {payload.method: ranked_by_request},
                 {payload.method: head_counts},
@@ -1030,87 +1150,99 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         if stream is None:
             return score_payload()
         with torch.cuda.stream(stream):
-            return score_payload()
+            try:
+                return score_payload()
+            except BaseException:
+                stream.synchronize()  # Failed Future alone is not a GPU reader fence.
+                raise
 
-    def _submit_async_scoring(
-        self, req_ids: list[str], queries: torch.Tensor
-    ) -> None:
-        capture_started_ns = time.monotonic_ns()
-        controller = getattr(self, "_async_scoring", None)
-        if controller is None:
-            raise RuntimeError("asynchronous scoring controller is unavailable")
-        keys = tuple(self.durable_summaries)
-        source_summaries = tuple(
-            tuple(self.durable_summaries[key]) for key in keys
-        )
-        fields = set(_METHOD_FIELDS[self._method])
-        snapshot_bytes = queries.numel() * torch.empty(
-            (), dtype=torch.float32
-        ).element_size() + sum(
-            self._tensor_bytes(getattr(summary, field))
-            for summary_list in source_summaries
-            for summary in summary_list
-            for field in fields
-        )
+    def _submit_async_scoring(self, req_ids, queries, *, candidate_keys=None,
+                              feature_ns=None, query_fences=(), residency_versions=None, decision_leases=None):
+        controller = self._async_scoring
+        # Full item queues reject BEFORE scanning/retaining the bank.
+        if not controller.can_accept(0):
+            controller.record_pre_capture_drop(generation=self._summary_generation, snapshot_bytes=0)
+            return None
+        keys = tuple(key for key in (candidate_keys if candidate_keys is not None else self.durable_summaries)
+                     if key in self.durable_summaries)
+        if not keys:
+            return None
+        if (queries.ndim != 3 or queries.shape[0] != len(req_ids)
+                or not queries.is_floating_point()):
+            raise ValueError("async queries require real floating [requests, heads, dim]")
+        fields = _METHOD_FIELDS[self._method]
+        h, d = queries.shape[1:]
+        if any(len(self.durable_summaries[k]) != h or any(
+                getattr(head, f).shape != (d,) or not getattr(head, f).is_floating_point()
+                for head in self.durable_summaries[k] for f in fields) for k in keys):
+            raise ValueError("async summary fields must match query heads/dim and be real floating")
+        # Project only required immutable tensor fields; never retain whole BlockSummary.
+        from types import SimpleNamespace
+        summaries = tuple(tuple(SimpleNamespace(**{f: getattr(summary, f) for f in fields})
+                                  for summary in self.durable_summaries[key]) for key in keys)
+        tensors = [getattr(summary, f) for row in summaries for summary in row for f in fields]
+        seen = set(); retained = 0
+        for tensor in tensors:
+            storage = tensor.untyped_storage(); identity = (str(tensor.device), storage.data_ptr())
+            if identity not in seen:
+                seen.add(identity); retained += storage.nbytes()
+        query_bytes = queries.numel() * 4
+        # Snapshot copy is float32; torch promotion may retain wider summaries.
+        dtype = torch.float32
+        for tensor in tensors:
+            dtype = torch.promote_types(dtype, tensor.dtype)
+        element_bytes = torch.empty((), dtype=dtype).element_size()
+        r, h, d = queries.shape
+        k = len(keys)
+        # Each stack may promote all rows/heads to the widest field dtype.
+        field_bytes = len(fields)*k*h*d*element_bytes
+        # mean: one broadcast product; minmax/cuboid: two products + max.
+        # Cuboid additionally retains box_min and box_max [K,H,D].
+        products = 1 if self._method == 'mean' else 3
+        boxes = 2*k*h*d*element_bytes if self._method == 'cuboid_mean' else 0
+        # Keep original Q backing as well as its owned float32 snapshot charged.
+        query_backing = queries.untyped_storage().nbytes()
+        snapshot_bytes = (retained + query_backing + query_bytes
+            + 2*field_bytes + products*r*k*h*d*element_bytes + boxes
+            + r*k*h*element_bytes + 3*r*k*(element_bytes+8))
         if not controller.can_accept(snapshot_bytes):
-            controller.record_pre_capture_drop(
-                generation=getattr(self, "_summary_generation", 0),
-                snapshot_bytes=snapshot_bytes,
-            )
-            return
-
-        summary_stream = getattr(self, "_summary_stream", None)
-        # Durable summary tensors are immutable publication versions: updates
-        # replace the object and publication id rather than mutating storage.
-        # Holding these references pins the exact version without launching a
-        # per-candidate clone on the model path; the fence below owns readiness.
-        summaries = source_summaries
+            controller.record_pre_capture_drop(generation=self._summary_generation, snapshot_bytes=snapshot_bytes)
+            return None
+        captured = time.monotonic_ns() if feature_ns is None else feature_ns
+        max_age = self._async_scoring_max_snapshot_age_ns
+        if getattr(self, '_scoring_schedule', 'continuous') == 'opportunity':
+            max_age = min(max_age, self._query_snapshot_max_age_ns)
+        context = getattr(self, '_score_transport_context', {})
+        if residency_versions is None:
+            residency_versions = context.get('residencies', {})
         query_snapshot = queries.detach().to(dtype=torch.float32, copy=True)
-        fences = []
+        fences = list(query_fences)
         if query_snapshot.is_cuda:
-            query_ready = torch.cuda.Event()
-            query_ready.record(torch.cuda.current_stream(query_snapshot.device))
-            fences.append(query_ready)
-            if summary_stream is not None:
-                summary_ready = torch.cuda.Event()
-                summary_ready.record(summary_stream)
-                fences.append(summary_ready)
-        publications = getattr(self, "_durable_summary_publications", {})
-        key_versions = {key: publications.get(key) for key in keys}
-        snapshot_captured_ns = time.monotonic_ns()
-        sequence = controller.submit(
-            _AsyncScorePayload(
-                req_ids=tuple(req_ids),
-                queries=query_snapshot,
-                keys=keys,
-                summaries=summaries,
-                method=self._method,
-                head_aggregation=self._head_aggregation,
-                request_versions=tuple(
-                    (req_id, self._async_request_versions.get(req_id, 0))
-                    for req_id in req_ids
-                ),
-            ),
-            generation=getattr(self, "_summary_generation", 0),
-            snapshot_bytes=snapshot_bytes,
-            key_versions=key_versions,
-            observation_available_ns=snapshot_captured_ns,
-            readiness_fences=fences,
-        )
+            ready = torch.cuda.Event(); ready.record(torch.cuda.current_stream(query_snapshot.device)); fences.append(ready)
+            # Only selected publication production fences, never the unrelated summary-stream tail.
+            for job in dict.fromkeys(self._durable_summary_publications[k][1] for k in keys):
+                event = self._summary_job_events.get(job)
+                if event is not None: fences.append(event)
+        sequence = controller.submit(_AsyncScorePayload(
+            req_ids=tuple(req_ids), queries=query_snapshot, keys=keys, summaries=summaries,
+            method=self._method, head_aggregation=self._head_aggregation,
+            request_versions=tuple((r,self._async_request_versions.get(r,0)) for r in req_ids),
+            residency_versions=tuple((k,v) for k,v in (residency_versions or {}).items() if k in keys),
+            decision_leases=tuple((r,tuple(ids)) for r,ids in (decision_leases or {}).items()),
+            transport_epoch=context.get('epoch'),
+            source_tokens=tuple((r, context.get('sources',{}).get(r)) for r in req_ids),
+            expires_at_ns=captured+max_age),
+            generation=self._summary_generation, snapshot_bytes=snapshot_bytes,
+            key_versions={k:self._durable_summary_publications.get(k) for k in keys},
+            observation_available_ns=captured, readiness_fences=fences)
         if sequence is not None:
             self._async_submission_requests[sequence] = tuple(req_ids)
-            controller.record_event(
-                event="snapshot_captured",
-                observation_sequence=sequence,
-                request_ids=list(req_ids),
-                generation=getattr(self, "_summary_generation", 0),
-                key_count=len(keys),
-                key_chain_digest=hashlib.sha256(b"".join(keys)).hexdigest(),
-                snapshot_bytes=snapshot_bytes,
-                capture_started_ns=capture_started_ns,
-                snapshot_captured_ns=snapshot_captured_ns,
-                capture_duration_ns=snapshot_captured_ns - capture_started_ns,
-            )
+            controller.record_event(event='snapshot_captured', observation_sequence=sequence,
+                request_ids=list(req_ids), generation=self._summary_generation, key_count=len(keys),
+                snapshot_bytes=snapshot_bytes, retained_unique_storage_bytes=retained,
+                workspace_allowance_bytes=snapshot_bytes-retained-query_bytes,
+                snapshot_captured_ns=captured, publication_ns=time.monotonic_ns())
+        return sequence
 
     def _drain_async_scores(self, *, wait: bool = False) -> None:
         controller = getattr(self, "_async_scoring", None)
@@ -1139,7 +1271,8 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             max_age_ns = getattr(
                 self, "_async_scoring_max_snapshot_age_ns", 1_000_000_000
             )
-            expires_at_ns = snapshot.observation_available_ns + max_age_ns
+            expires_at_ns = min(snapshot.observation_available_ns + max_age_ns,
+                snapshot.payload.expires_at_ns or snapshot.observation_available_ns + max_age_ns)
             if publication_ns > expires_at_ns:
                 controller.record_event(
                     event="publication_rejected",
@@ -1180,6 +1313,14 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
                             reason="request_retired_or_aborted",
                         )
                         continue
+                    if any(not math.isfinite(float(value)) for _, value in ranked):
+                        controller.record_event(
+                            event="request_publication_rejected",
+                            observation_sequence=snapshot.observation_sequence,
+                            request_ids=[req_id],
+                            reason="nonfinite_score",
+                        )
+                        continue
                     filtered = [item for item in ranked if item[0] in valid_keys]
                     if not filtered:
                         continue
@@ -1202,8 +1343,13 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
                 self._pending_async_score_observations.append(
                     {
                         "observation_sequence": snapshot.observation_sequence,
+                        "async_contract": "bounded-v2",
+                        "transport_epoch": snapshot.payload.transport_epoch,
+                        "source_tokens": dict(snapshot.payload.source_tokens),
                         "request_ids": published_request_ids,
                         "scores": observation_scores,
+                        "residency_versions": dict(snapshot.payload.residency_versions),
+                        **({"decision_leases":dict(completion.snapshot.payload.decision_leases)} if completion.snapshot.payload.decision_leases else {}),
                         "head_counts": observation_head_counts,
                         "snapshot_captured_ns": snapshot.observation_available_ns,
                         "observation_available_ns": completion.input_ready_ns,
@@ -1226,32 +1372,291 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             for req_ids in self._async_submission_requests.values()
             for req_id in req_ids
         }
+        retained_ids = pending_request_ids | set(getattr(self,'_query_snapshots',{}))
+        retained_ids.update(r for obs in getattr(self,'_pending_async_score_observations',[]) for r in obs['request_ids'])
+        getattr(self,'_retired_async_request_ids',set()).intersection_update(retained_ids)
         for req_id in list(self._async_request_versions):
-            if req_id not in pending_request_ids:
+            if req_id not in retained_ids:
                 self._async_request_versions.pop(req_id, None)
 
     def retire_async_requests(self, request_ids: Sequence[str]) -> None:
-        # This is the last deterministic worker callback for a completed request.
-        # Publish all already-owned observations before invalidating its version;
-        # otherwise a final snapshot can remain stranded after the last query.
-        if getattr(self, "_scoring_mode", "synchronous") == "asynchronous":
-            self._drain_async_scores(wait=True)
-        pending_request_ids = {
-            req_id
-            for req_ids in getattr(self, "_async_submission_requests", {}).values()
-            for req_id in req_ids
-        }
+        # Ordinary completion NEVER fences unrelated scoring. Final source queries
+        # retain the same bounded feature lease; ready metadata polls publish later.
+        if not request_ids:
+            return
+        # A terminal request can be cancelled before its first resumed forward.
+        # Drop the pending marker in every scoring mode. Already observed
+        # timestamps still belong to this step's metadata and are popped there.
+        getattr(self, "_preempted_request_ids", set()).difference_update(request_ids)
+        if not hasattr(self, '_retired_async_request_ids'):
+            self._retired_async_request_ids = set()
+        if getattr(self,'_scoring_mode','synchronous') != 'asynchronous':return
+        live = set(getattr(self,'_query_snapshots',{}))
+        live.update(r for ids in getattr(self,'_async_submission_requests',{}).values() for r in ids)
+        live.update(r for obs in getattr(self,'_pending_async_score_observations',[]) for r in obs['request_ids'])
+        self._retired_async_request_ids.intersection_update(live)
+        self._retired_async_request_ids.update(set(request_ids).intersection(live))
+        self._drain_async_scores()  # ready ordered prefix only
+
+    def cancel_async_requests(self, request_ids):
         for req_id in request_ids:
-            if req_id in pending_request_ids:
-                self._async_request_versions[req_id] = (
-                    self._async_request_versions.get(req_id, 0) + 1
-                )
+            self._async_request_versions[req_id] = self._async_request_versions.get(req_id,0)+1
+            getattr(self,'_query_snapshots',{}).pop(req_id,None)
+            getattr(self,'_query_snapshot_events',{}).pop(req_id,None)
+        cancelled=set(request_ids)
+        observations=[]
+        for obs in getattr(self,'_pending_async_score_observations',[]):
+            scores={method:{r:values for r,values in reqs.items() if r not in cancelled}
+                    for method,reqs in obs['scores'].items()}
+            if any(reqs for reqs in scores.values()):
+                obs=dict(obs,scores=scores,request_ids=[r for r in obs['request_ids'] if r not in cancelled])
+                observations.append(obs)
+        self._pending_async_score_observations=observations
+        # In-flight owned readers remain charged until the controller completes.
 
     def pop_async_scoring_telemetry(self) -> list[dict[str, object]]:
         controller = getattr(self, "_async_scoring", None)
         return controller.pop_telemetry() if controller is not None else []
 
+    @profiled("scoring.callback")
     def _on_queries_captured(self, req_ids: list[str], queries: torch.Tensor) -> None:
+        PROFILE.count("scoring.capture_callbacks")
+        PROFILE.count("scoring.captured_requests", len(req_ids))
+        retired = getattr(self,'_retired_async_request_ids',set())
+        for req_id in req_ids:
+            if req_id in retired:
+                self.cancel_async_requests([req_id]);retired.remove(req_id)
+        schedule = getattr(self, "_scoring_schedule", "continuous")
+        if schedule in ("opportunity", "capture_only"):
+            # One bounded snapshot per request; no pool scan, score readback,
+            # sorting or EMA updates during ordinary generation.
+            with PROFILE.scope("scoring.query_snapshot", cuda=queries.is_cuda):
+                now_ns = time.monotonic_ns()
+                snapshots = self._query_snapshots
+                for req_id, query in zip(req_ids, queries):
+                    snapshots.pop(req_id, None)
+                    snapshots[req_id] = (now_ns, query.detach().clone())
+                if queries.is_cuda:
+                    event = torch.cuda.Event(); event.record(torch.cuda.current_stream(queries.device))
+                    events = self.__dict__.setdefault('_query_snapshot_events',{})
+                    for req_id in req_ids: events[req_id] = event
+                # Updates reinsert at the end, so expiry only walks expired
+                # entries rather than the entire retained request pool.
+                while snapshots and now_ns - next(iter(snapshots.values()))[0] > self._query_snapshot_max_age_ns:
+                    del snapshots[next(iter(snapshots))]
+                while len(snapshots) > self._query_snapshot_max_requests:
+                    del snapshots[next(iter(snapshots))]
+                if len(queries):
+                    PROFILE.count("scoring.snapshot_bytes_observed",
+                                  len(snapshots) * queries[0].numel() * queries.element_size())
+                events = getattr(self,'_query_snapshot_events',{})
+                for key in list(events):
+                    if key not in snapshots: events.pop(key,None)
+            return
+        self._score_queries(req_ids, queries)
+
+    def receive_scoring_context(self, context):
+        """Scheduler identity changes invalidate before stride/capture, not after."""
+        old = getattr(self, '_score_transport_context', {})
+        sources = context.get('sources', {})
+        changed = [r for r, token in old.get('sources', {}).items()
+                   if old.get('epoch') != context.get('epoch') or sources.get(r) != token]
+        if changed:
+            self.cancel_async_requests(changed)
+        self._score_transport_context = context
+
+    def pop_prefix_score_observations(self):
+        observations = getattr(self, '_pending_prefix_score_observations', [])
+        self._pending_prefix_score_observations = []
+        return observations
+
+    @profiled('scoring.prefix_mean')
+    def receive_prefix_score_requests(self, request):
+        """Score exact prefixes against one common fresh, actively captured query.
+
+        This transport contains scalars, never fabricated per-key ranks or EMA
+        updates. Centroids average keys equally, matching the existing raw
+        mean-key / mean-head metric up to FP32 reduction order.
+        """
+        context = getattr(self, '_score_transport_context', {})
+        if not context.get('prefix_mean_prefetch_scoring') or not request:
+            return
+        if (getattr(self, '_method', None) != 'mean'
+                or getattr(self, '_head_aggregation', 'mean') != 'mean'
+                or getattr(self, '_scoring_mode', 'synchronous') != 'synchronous'):
+            raise ValueError('prefix mean scoring requires synchronous mean/mean')
+        candidates = request.get('candidates', {})
+        if not candidates or len(candidates) > 16:
+            PROFILE.count('scoring.prefix_request_over_bound')
+            return
+        now = time.monotonic_ns()
+        snapshots = getattr(self, '_query_snapshots', {})
+        selected = []
+        for req_id in sorted(set(request.get('active_query_ids', ()))):
+            snapshot = snapshots.get(req_id)
+            token = context.get('sources', {}).get(req_id)
+            if snapshot is not None and token is not None and 0 <= now - snapshot[0] <= self._query_snapshot_max_age_ns:
+                selected.append((req_id, token, snapshot[0], snapshot[1]))
+        if not selected:
+            stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
+            stats['missing_fresh_active_query'] = stats.get('missing_fresh_active_query', 0) + 1
+            PROFILE.count('scoring.prefix_no_fresh_active_query')
+            return
+        # Existing query snapshots are owned clones. Work remains on the model
+        # stream; no borrowed source allocation escapes this synchronous call.
+        with torch.no_grad():
+            for req_id, _, _, query in selected:
+                event = getattr(self, '_query_snapshot_events', {}).get(req_id)
+                if query.is_cuda and event is not None:
+                    torch.cuda.current_stream(query.device).wait_event(event)
+            query = torch.stack([x[3].detach().float() for x in selected]).mean(0)
+            if query.ndim != 2:
+                return
+            if getattr(self, '_summary_stream', None) is not None:
+                torch.cuda.current_stream(query.device).wait_stream(self._summary_stream)
+            cache = self.__dict__.setdefault('_prefix_mean_centroid_cache', {})
+            centroids, descriptors = [], []
+            publications = getattr(self, '_durable_summary_publications', {})
+            for event_id, descriptor in candidates.items():
+                keys = tuple(descriptor.get('keys', ()))
+                versions = tuple(publications.get(k) for k in keys)
+                if not keys or any(v is None for v in versions) or any(k not in self.durable_summaries for k in keys):
+                    continue
+                signature = (getattr(self, '_summary_generation', 0), keys, versions)
+                centroid = cache.get(signature)
+                if centroid is None:
+                    summaries = [self.durable_summaries[k] for k in keys]
+                    h, d = query.shape
+                    if len(keys) * h * d * 4 > 16 * 1024 * 1024 or any(
+                            len(heads) != h or any(s.mean.shape != (d,) or s.mean.device != query.device for s in heads)
+                            for heads in summaries):
+                        PROFILE.count('scoring.prefix_summary_over_bound_or_mismatch')
+                        continue
+                    centroid = torch.stack([s.mean.detach() for heads in summaries for s in heads]).reshape(len(keys), h, d).float().mean(0)
+                    # Cache only owned centroid storage, never per-head views.
+                    if centroid.numel() * centroid.element_size() > 1024 * 1024:
+                        continue
+                    cache[signature] = centroid
+                    while len(cache) > 16 or sum(t.untyped_storage().nbytes() for t in cache.values()) > 1024 * 1024:
+                        cache.pop(next(iter(cache)))
+                    stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
+                    stats['centroid_builds'] = stats.get('centroid_builds', 0) + 1
+                    PROFILE.count('scoring.prefix_centroid_builds')
+                else:
+                    stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
+                    stats['centroid_hits'] = stats.get('centroid_hits', 0) + 1
+                    PROFILE.count('scoring.prefix_centroid_hits')
+                centroids.append(centroid)
+                descriptors.append((event_id, dict(descriptor), versions))
+            if not centroids:
+                return
+            values = (torch.stack(centroids) * query).sum(-1).mean(-1).tolist()
+        self._prefix_score_sequence = getattr(self, '_prefix_score_sequence', 0) + 1
+        captured = min(x[2] for x in selected)
+        observation = {
+            'contract': 'prefix-mean-v1', 'transport_epoch': context.get('epoch'),
+            'observation_sequence': self._prefix_score_sequence,
+            'query_sources': {r: token for r, token, _, _ in selected},
+            'query_capture_ns': {r: stamp for r, _, stamp, _ in selected},
+            'snapshot_captured_ns': captured, 'observation_available_ns': time.monotonic_ns(),
+            'expires_at_ns': captured + self._query_snapshot_max_age_ns,
+            'metric': 'raw_mean_key_dot_mean_head_common_active_query',
+            'candidates': {eid: {'descriptor': desc, 'score': float(value),
+                                  'summary_publications': versions}
+                           for (eid, desc, versions), value in zip(descriptors, values)
+                           if math.isfinite(value)},
+        }
+        # At most one bounded scalar batch is retained until metadata polling.
+        self._pending_prefix_score_observations = [observation]
+        stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
+        stats['numerical_calls'] = stats.get('numerical_calls', 0) + 1
+        stats['numerical_candidates'] = stats.get('numerical_candidates', 0) + len(observation['candidates'])
+        PROFILE.count('scoring.prefix_numerical_calls')
+        PROFILE.count('scoring.prefix_numerical_candidates', len(observation['candidates']))
+
+    @profiled("scoring.decision_request")
+    def receive_score_requests(self, requests: dict[str, list[OffloadKey]], residency_versions=None, lease_ids=None) -> None:
+        if getattr(self, "_scoring_schedule", "continuous") != "opportunity":
+            return
+        for req_id, candidates in requests.items():
+            snapshot = self._query_snapshots.get(req_id)
+            now_ns = time.monotonic_ns()
+            if snapshot is None or not 0 <= now_ns - snapshot[0] <= self._query_snapshot_max_age_ns:
+                PROFILE.count("scoring.decision_snapshot_missing_or_stale")
+                continue
+            stamp, query = snapshot
+            if getattr(self,'_scoring_mode','synchronous') == 'asynchronous':
+                signatures = self.__dict__.setdefault('_decision_async_signatures',{})
+                versions = (residency_versions or {}).get(req_id,{})
+                signature = (stamp,tuple(candidates),tuple(versions.items()),tuple((lease_ids or {}).get(req_id,())),getattr(self,'_summary_generation',0))
+                if signatures.get(req_id) == signature: continue
+                event = getattr(self,'_query_snapshot_events',{}).get(req_id)
+                sequence = self._submit_async_scoring([req_id],query.unsqueeze(0),candidate_keys=candidates,
+                    feature_ns=stamp,query_fences=() if event is None else (event,),residency_versions=versions,
+                    decision_leases={req_id:(lease_ids or {}).get(req_id,())} if lease_ids is not None else None)
+                if sequence is not None: signatures[req_id] = signature
+                # Bounded by the same current/retired snapshot lease map.
+                for key in list(signatures):
+                    if key not in self._query_snapshots: signatures.pop(key,None)
+                continue
+            # The existing observation transport preserves feature time,
+            # availability, expiry and consumer checks. Re-scoring an old
+            # query never renews its freshness lease.
+            self._score_queries([req_id], query.unsqueeze(0), candidate_keys=candidates)
+            ranked = self._pending_scores.get(self._method, {}).pop(req_id, None)
+            heads = self._pending_score_head_counts.get(self._method, {}).pop(req_id, None)
+            if not ranked:
+                continue
+            self._decision_score_sequence += 1
+            self._pending_async_score_observations.append({
+                "observation_sequence": self._decision_score_sequence,
+                "request_ids": [req_id], "scores": {self._method: {req_id: ranked}},
+                "head_counts": {self._method: {req_id: heads}},
+                "snapshot_captured_ns": stamp,
+                "observation_available_ns": time.monotonic_ns(),
+                "expires_at_ns": stamp + self._query_snapshot_max_age_ns,
+            })
+            PROFILE.count("scoring.decision_scores_published")
+
+    def _score_shortlists(self, req_ids, queries, keys, cache, candidate_keys):
+        allowed = None if candidate_keys is None else set(candidate_keys)
+        # An eligibility filter wins before index routing. Scanning Python
+        # keys is cheap and does not perform vector comparisons.
+        if allowed is not None:
+            indices = [i for i, key in enumerate(keys) if key in allowed]
+            rows = [indices for _ in req_ids]
+            if (self._candidate_search.centroids is not None
+                    and len(indices) >= self._candidate_search.config.min_pool):
+                allowed_rows = set(indices)
+                routed = self._candidate_search.candidates(queries)
+                rows = [sorted(allowed_rows.intersection(found)) or indices for found in routed]
+            PROFILE.count("search.eligibility_filtered_queries", len(req_ids))
+        else:
+            rows = self._candidate_search.candidates(queries)
+        for req_id, query, selected in zip(req_ids, queries, rows):
+            PROFILE.count("scoring.possible_block_comparisons", len(keys))
+            PROFILE.count("scoring.exact_block_comparisons", len(selected))
+            PROFILE.count("scoring.unobserved_blocks", len(keys) - len(selected))
+            if not selected:
+                continue
+            with PROFILE.scope("search.gather", cuda=query.is_cuda):
+                index = torch.tensor(selected, dtype=torch.long, device=query.device)
+                means = cache["mean"].index_select(0, index)
+            with PROFILE.scope("scoring.vector_math", cuda=query.is_cuda):
+                # Exactly the existing mean-key, mean-head score for visited
+                # rows. Never normalize queries/keys into cosine similarity.
+                combined = score_mean_batch(query.unsqueeze(0), means).mean(dim=-1)
+            with PROFILE.scope("scoring.readback"):
+                values = combined.tolist()
+            with PROFILE.scope("scoring.rank_metadata"):
+                ranked = sorted(((keys[row], value) for row, value in zip(selected, values)),
+                                key=lambda item: (-item[1], item[0]))
+                self._pending_scores.setdefault(self._method, {})[req_id] = ranked
+                self._pending_score_head_counts.setdefault(self._method, {})[req_id] = query.shape[0]
+
+    @profiled("scoring.total")
+    def _score_queries(self, req_ids: list[str], queries: torch.Tensor,
+                       candidate_keys: list[OffloadKey] | None = None) -> None:
         if not self.durable_summaries or not req_ids:
             return
         if getattr(self, "_scoring_mode", "synchronous") == "asynchronous":
@@ -1317,84 +1722,96 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         if self._stack_cache_dirty:
             _t_rebuild = time.perf_counter() if _TIMING else 0.0
             self._rebuild_stack_cache()
+            search = getattr(self, "_candidate_search", None)
+            if search is not None:
+                search.build(self._stack_cache["mean"]) if self._method == "mean" else None
             if _TIMING:
                 record_timing("stack_rebuild", time.perf_counter() - _t_rebuild)
         keys = self._stack_cache_keys
         cache = self._stack_cache
+        search = getattr(self, "_candidate_search", None)
+        if candidate_keys is not None or (search is not None and search.centroids is not None):
+            self._score_shortlists(req_ids, queries, keys, cache, candidate_keys)
+            return
+        PROFILE.count("scoring.exact_block_comparisons", len(req_ids) * len(keys))
 
         # [n_reqs, 1, num_kv_heads, head_dim] broadcasts against the
         # [n_candidates, num_kv_heads, head_dim] stacks to score every
         # (request, candidate) pair in one op -- the score_*_batch functions
         # are broadcast-shape-agnostic, so no index.py change is needed.
-        query = queries.unsqueeze(1)
-        if self._method == "minmax":
-            per_head = score_minmax_batch(
-                query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
-            )
-        elif self._method == "mean":
-            per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
-        else:  # cuboid_mean
-            per_head = score_cuboid_mean_batch(
-                query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
-            )
-        # Combine KV heads before the one CPU/GPU synchronization. Mean is
-        # the current evidence-backed default; max remains an audit arm.
-        _t_sync = time.perf_counter() if _TIMING else 0.0
-        # [n_reqs, n_candidates] -> list of per-request score lists.
-        if self._head_aggregation == "mean":
-            combined = per_head.mean(dim=-1)
-        else:
-            combined = per_head.max(dim=-1).values
-        fast_rank_indices = None
-        if getattr(self, "_rank_ema_mode", "default") == "fast":
-            # Score outputs are finite for all supported index methods. Keep a
-            # fail-closed fallback for malformed/custom tensors so the opt-in
-            # path cannot change legacy NaN ordering semantics.
-            if bool(torch.isfinite(combined).all()):
-                tie_order = getattr(self, "_rank_tie_order", [])
-                if len(tie_order) != len(keys):
-                    tie_order = sorted(range(len(keys)), key=keys.__getitem__)
-                tie_order_tensor = torch.as_tensor(
-                    tie_order, device=combined.device, dtype=torch.long
+        with PROFILE.scope('scoring.vector_math', cuda=queries.is_cuda):
+            query = queries.unsqueeze(1)
+            if self._method == "minmax":
+                per_head = score_minmax_batch(
+                    query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
                 )
-                tie_ordered_scores = combined.index_select(1, tie_order_tensor)
-                tie_positions = torch.argsort(
-                    tie_ordered_scores, dim=1, descending=True, stable=True
+            elif self._method == "mean":
+                per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
+            else:  # cuboid_mean
+                per_head = score_cuboid_mean_batch(
+                    query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
                 )
-                fast_rank_indices = tie_order_tensor[tie_positions]
-                all_scores = tie_ordered_scores.gather(1, tie_positions).tolist()
-                all_rank_indices = fast_rank_indices.tolist()
+            # Combine KV heads before the one CPU/GPU synchronization. Mean is
+            # the current evidence-backed default; max remains an audit arm.
+            _t_sync = time.perf_counter() if _TIMING else 0.0
+            # [n_reqs, n_candidates] -> list of per-request score lists.
+            if self._head_aggregation == "mean":
+                combined = per_head.mean(dim=-1)
+            else:
+                combined = per_head.max(dim=-1).values
+        with PROFILE.scope('scoring.readback'):
+            fast_rank_indices = None
+            if getattr(self, "_rank_ema_mode", "default") == "fast":
+                # Score outputs are finite for all supported index methods. Keep a
+                # fail-closed fallback for malformed/custom tensors so the opt-in
+                # path cannot change legacy NaN ordering semantics.
+                if bool(torch.isfinite(combined).all()):
+                    tie_order = getattr(self, "_rank_tie_order", [])
+                    if len(tie_order) != len(keys):
+                        tie_order = sorted(range(len(keys)), key=keys.__getitem__)
+                    tie_order_tensor = torch.as_tensor(
+                        tie_order, device=combined.device, dtype=torch.long
+                    )
+                    tie_ordered_scores = combined.index_select(1, tie_order_tensor)
+                    tie_positions = torch.argsort(
+                        tie_ordered_scores, dim=1, descending=True, stable=True
+                    )
+                    fast_rank_indices = tie_order_tensor[tie_positions]
+                    all_scores = tie_ordered_scores.gather(1, tie_positions).tolist()
+                    all_rank_indices = fast_rank_indices.tolist()
+                else:
+                    all_scores = combined.tolist()
+                    all_rank_indices = None
             else:
                 all_scores = combined.tolist()
                 all_rank_indices = None
-        else:
-            all_scores = combined.tolist()
-            all_rank_indices = None
         if _TIMING:
             record_timing("query_captured_sync", time.perf_counter() - _t_sync)
         _t_rank = time.perf_counter() if _TIMING else 0.0
-        method_scores = self._pending_scores.setdefault(self._method, {})
-        head_counts = getattr(self, "_pending_score_head_counts", None)
-        if head_counts is None:
-            head_counts = {}
-            self._pending_score_head_counts = head_counts
-        method_head_counts = head_counts.setdefault(self._method, {})
-        for row, (req_id, scores) in enumerate(zip(req_ids, all_scores)):
-            if all_rank_indices is None:
-                ranked = sorted(zip(keys, scores), key=lambda kv: (-kv[1], kv[0]))
-            else:
-                ranked = [
-                    (keys[index], score)
-                    for index, score in zip(all_rank_indices[row], scores)
-                ]
-            method_scores[req_id] = ranked
-            method_head_counts[req_id] = per_head.shape[-1]
-            debug_print(
-                f"SEMANTIC_STEP1_3_DEBUG req={req_id} method={self._method} "
-                f"n_summaries={len(self.durable_summaries)} "
-                f"ranked_keys={[k.hex()[:8] for k, _ in ranked]} "
-                f"scores={[round(s, 4) for _, s in ranked]}"
-            )
+        with PROFILE.scope('scoring.rank_metadata'):
+            method_scores = self._pending_scores.setdefault(self._method, {})
+            head_counts = getattr(self, "_pending_score_head_counts", None)
+            if head_counts is None:
+                head_counts = {}
+                self._pending_score_head_counts = head_counts
+            method_head_counts = head_counts.setdefault(self._method, {})
+            for row, (req_id, scores) in enumerate(zip(req_ids, all_scores)):
+                if all_rank_indices is None:
+                    ranked = sorted(zip(keys, scores), key=lambda kv: (-kv[1], kv[0]))
+                else:
+                    ranked = [
+                        (keys[index], score)
+                        for index, score in zip(all_rank_indices[row], scores)
+                    ]
+                method_scores[req_id] = ranked
+                method_head_counts[req_id] = per_head.shape[-1]
+                if _DEBUG:
+                    debug_print(
+                        f"SEMANTIC_STEP1_3_DEBUG req={req_id} method={self._method} "
+                        f"n_summaries={len(self.durable_summaries)} "
+                        f"ranked_keys={[k.hex()[:8] for k, _ in ranked]} "
+                        f"scores={[round(s, 4) for _, s in ranked]}"
+                    )
         if _TIMING:
             record_timing("query_rank_metadata", time.perf_counter() - _t_rank)
             record_timing("query_captured_total", time.perf_counter() - _t_call)
@@ -1413,6 +1830,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             "layout this module assumes; do not trust summaries built from it."
         )
 
+    @profiled('summary.build_blocks')
     def _build_summaries_for_blocks(self, job_id: int, block_ids) -> None:
         """Overlaps the reduction work with inference via a side stream when
         CUDA is available; falls back to running it inline (still correct,
@@ -1432,6 +1850,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             self._build_summaries_body(block_ids)
             self._durably_key_summaries(job_id, block_ids)
 
+    @profiled('summary.reductions', cuda=True)
     def _build_summaries_body(self, block_ids) -> None:
         # Real bug found on a B200 production-scale run (issues log entry
         # #53's follow-up): this used to loop over EVERY attention layer in
@@ -1453,15 +1872,64 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         self._check_layout(self._probe_layer_name, layer, kv_cache)
         head_size = layer.head_size
         layer_summaries = self.summaries[self._probe_layer_name]
-        for block_id in block_ids:
-            block_id = int(block_id)
-            # block: [num_kv_heads, block_size, 2 * head_size]
-            block = kv_cache[block_id]
-            keys = block[..., :head_size].float()  # K half, upcast for MAD
-            layer_summaries[block_id] = [
-                build_summary(keys[h]) for h in range(keys.shape[0])
-            ]
+        block_ids = [int(block_id) for block_id in block_ids]
+        if not block_ids:
+            return
+        if any(block_id < 0 or block_id >= kv_cache.shape[0] for block_id in block_ids):
+            raise IndexError("summary source block is outside the KV cache")
+        # Basic views + one stack avoid a host-to-device index upload. The
+        # stack owns its storage before later GPU block reuse, and reductions
+        # run for every block and head together rather than in Python loops.
+        keys = torch.stack([
+            kv_cache[block_id, ..., :head_size] for block_id in block_ids
+        ]).float()
+        for block_id, summaries in zip(block_ids, self._summarize_worker_key_batches(keys)):
+            layer_summaries[block_id] = summaries
 
+    def _summarize_worker_key_batches(self, keys: torch.Tensor) -> list[list[_WorkerSummary]]:
+        if getattr(self, "_summary_fields", "all") == "required":
+            if self._method != "mean" or self._scoring_schedule not in ("continuous", "opportunity"):
+                raise ValueError("required summary fields require mean scoring with continuous or opportunity schedule")
+            return self._summarize_mean_key_batches(keys)
+        return self._summarize_key_batches(keys)
+
+    @staticmethod
+    def _summarize_mean_key_batches(keys: torch.Tensor) -> list[list[_MeanOnlySummary]]:
+        """Same centroid reduction as the full builder, with owned mean storage."""
+        if keys.ndim != 4 or any(size <= 0 for size in keys.shape[1:]):
+            raise ValueError("mean summary keys require [groups, heads, tokens, dim] with positive inner dimensions")
+        means = keys.mean(dim=2)
+        summaries = [_MeanOnlySummary(mean)
+                     for mean in means.flatten(0, 1).unbind(0)]
+        heads = keys.shape[1]
+        return [summaries[start : start + heads]
+                for start in range(0, len(summaries), heads)]
+
+    @staticmethod
+    def _summarize_key_batches(keys: torch.Tensor) -> list[list[BlockSummary]]:
+        """Summarize [groups, heads, tokens, dim] without crossing groups.
+
+        Outputs own reduced storage independent of KV; slices share the small
+        batch reduction buffers until the last summary from that batch retires.
+        """
+        means = keys.mean(dim=2)
+        mins = keys.amin(dim=2)
+        maxs = keys.amax(dim=2)
+        mads = (keys - means.unsqueeze(2)).abs().mean(dim=2)
+        # One unbind per field creates all row/head views in C++, avoiding
+        # eight Python-dispatched select operations per summary. Regroup the
+        # resulting Python objects without further tensor indexing.
+        summaries = [BlockSummary(min=minimum, max=maximum, mean=mean, mad=mad)
+                     for minimum, maximum, mean, mad in zip(
+                         mins.flatten(0, 1).unbind(0),
+                         maxs.flatten(0, 1).unbind(0),
+                         means.flatten(0, 1).unbind(0),
+                         mads.flatten(0, 1).unbind(0))]
+        heads = keys.shape[1]
+        return [summaries[start : start + heads]
+                for start in range(0, len(summaries), heads)]
+
+    @profiled('summary.publish')
     def _durably_key_summaries(self, job_id: int, block_ids) -> None:
         """Re-key this job's probe-layer summaries by OffloadKey so they
         outlive GPU block reuse. Job-level granularity: a store job's keys
@@ -1498,6 +1966,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         if pruned:
             self._mark_removed_from_stack_cache(pruned)
 
+    @profiled('summary.build_job', cuda=True)
     def _build_durable_summaries_for_job(self, job_id: int) -> None:
         """Build summaries using an explicit key-to-GPU-block layout."""
         layout = self._pending_job_blocks.pop(job_id, None)
@@ -1511,19 +1980,51 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             return
         self._check_layout(self._probe_layer_name, layer, kv_cache)
         head_size = layer.head_size
+        # Batch entries of the same block count so each reduction still sees
+        # exactly that key's ordered concatenation of source-block tokens.
+        # Grouping is CPU metadata only: no padding, head pooling, or borrowed
+        # GPU indices; one gather owns all key data before reducing anything.
+        groups: dict[int, list[tuple[int, Sequence[int]]]] = {}
+        for position, (_, block_ids) in enumerate(layout):
+            if len(block_ids):
+                groups.setdefault(len(block_ids), []).append((position, block_ids))
+        if not groups:
+            return
+        selected_block_ids = [int(block_id)
+                              for entries in groups.values()
+                              for _, block_ids in entries
+                              for block_id in block_ids]
+        # Unlike index_select, basic indexing accepts negative indices. Reject
+        # them explicitly rather than silently attributing the final GPU block.
+        if any(block_id < 0 or block_id >= kv_cache.shape[0]
+               for block_id in selected_block_ids):
+            raise IndexError("summary source block is outside the KV cache")
+        selected = torch.stack([
+            kv_cache[int(block_id), ..., :head_size]
+            for block_id in selected_block_ids
+        ]).float()
+        summaries_by_position = {}
+        offset = 0
+        for count, entries in groups.items():
+            num_blocks = count * len(entries)
+            keys = selected[offset : offset + num_blocks]
+            offset += num_blocks
+            if count > 1:
+                # [groups, blocks, heads, tokens, dim] ->
+                # [groups, heads, blocks*tokens, dim], preserving token order.
+                keys = keys.reshape(len(entries), count, *keys.shape[1:])
+                keys = keys.permute(0, 2, 1, 3, 4).reshape(
+                    len(entries), keys.shape[2], -1, head_size
+                )
+            for (position, _), summaries in zip(entries, self._summarize_worker_key_batches(keys)):
+                summaries_by_position[position] = summaries
         inserted: list[OffloadKey] = []
-        for key, block_ids in layout:
-            if not block_ids:
+        # Publish in original order, including last-write behavior for any
+        # repeated key. Grouping by shape must not alter retention order.
+        for position, (key, _) in enumerate(layout):
+            if position not in summaries_by_position:
                 continue
-            block_idx = torch.as_tensor(
-                block_ids, device=kv_cache.device, dtype=torch.long
-            )
-            # [blocks, heads, tokens, dim] -> [heads, blocks*tokens, dim]
-            keys = kv_cache.index_select(0, block_idx)[..., :head_size].float()
-            keys = keys.permute(1, 0, 2, 3).reshape(keys.shape[1], -1, head_size)
-            self.durable_summaries[key] = [
-                build_summary(keys[head]) for head in range(keys.shape[0])
-            ]
+            self.durable_summaries[key] = summaries_by_position[position]
             inserted.append(key)
         if not inserted:
             return
@@ -1553,11 +2054,19 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             getattr(self, "_durable_summary_publications", {}).pop(key, None)
         return pruned
 
+    @profiled('transfer.submit_store')
     def submit_store(
         self, job_id: int, src_spec: GPULoadStoreSpec, dst_spec: LoadStoreSpec
     ) -> bool:
         self._record_transfer_start(job_id)
         summary_stream = getattr(self, "_summary_stream", None)
+        # Instrumented ARC and CPU-only advice have no semantic probe. Their
+        # stores still use the native copy fences, but need no summary stream
+        # or event. Consume metadata here even if the base submission fails.
+        if hasattr(self, "_probe_layer_name") and self._probe_layer_name is None:
+            self._pending_job_blocks.pop(job_id, None)
+            self._pending_job_keys.pop(job_id, None)
+            return super().submit_store(job_id, src_spec, dst_spec)
         overlap = (
             bool(getattr(self, "_summary_offload_overlap", False))
             and summary_stream is not None
@@ -1625,12 +2134,14 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
             self._rollback_summary_job(job_id)
         return success
 
+    @profiled('transfer.submit_load')
     def submit_load(
         self, job_id: int, src_spec: LoadStoreSpec, dst_spec: GPULoadStoreSpec
     ) -> bool:
         self._record_transfer_start(job_id)
         return super().submit_load(job_id, src_spec, dst_spec)
 
+    @profiled('transfer.splice', cuda=True)
     def splice_gpu_blocks(
         self,
         src_block_ids: list[int],

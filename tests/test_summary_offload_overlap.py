@@ -520,3 +520,56 @@ def test_invalid_summary_overlap_config_is_rejected():
 
     with pytest.raises(TypeError, match="summary_offload_overlap"):
         spec.create_worker(None)
+
+
+@pytest.mark.parametrize("outcome", [True, False, RuntimeError("copy failed")])
+def test_no_probe_store_uses_native_fences_without_summary_cuda(monkeypatch, outcome):
+    worker = _make_worker()
+    worker._probe_layer_name = None
+    worker._summary_stream = object()
+    worker._summary_offload_overlap = True
+    worker._preservation_events = True
+    worker._pending_job_blocks[21] = [(_key(1), [4])]
+    worker._pending_job_keys[21] = [_key(1)]
+    forbidden = Mock(side_effect=AssertionError("unused summary CUDA work"))
+    for name in ("current_stream", "stream", "Event"):
+        monkeypatch.setattr(worker_module.torch.cuda, name, forbidden)
+    kwargs = {"side_effect": outcome} if isinstance(outcome, Exception) else {"return_value": outcome}
+    with patch.object(CPUOffloadingWorker, "submit_store", **kwargs) as native:
+        if isinstance(outcome, Exception):
+            with pytest.raises(RuntimeError, match="copy failed"):
+                worker.submit_store(21, SimpleNamespace(block_ids=[4]), SimpleNamespace())
+        else:
+            assert worker.submit_store(21, SimpleNamespace(block_ids=[4]), SimpleNamespace()) is outcome
+        native.assert_called_once()
+    assert 21 in worker._transfer_start_times
+    assert not worker._pending_job_blocks and not worker._pending_job_keys
+    assert not worker._summary_job_events and not worker._summary_job_generations
+    forbidden.assert_not_called()
+
+
+def test_allocator_audit_can_be_disabled_without_losing_forward_boundaries(monkeypatch):
+    worker = _make_worker()
+    worker._first_forward_times_ns = {}
+    worker._allocator_peak_stats = {}
+    monkeypatch.setenv("SEMANTIC_ALLOCATOR_AUDIT", "0")
+    forbidden = Mock(side_effect=AssertionError("allocator audit disabled"))
+    monkeypatch.setattr(worker_module.torch.cuda, "memory_stats", forbidden)
+    worker._on_model_runner_forward(["req"], 123)
+    assert worker.pop_first_forward_times() == {"req": 123}
+    assert worker._allocator_peak_stats == {}
+    forbidden.assert_not_called()
+
+
+def test_terminal_requests_drop_unresumed_preemption_markers():
+    worker = _make_worker()
+    worker._scoring_mode = "synchronous"
+    worker._preempted_request_ids = {"still-live"}
+    worker._preempted_forward_times_ns = {"just-finished": 456}
+    for index in range(100):
+        req = f"cancelled-{index}"
+        worker.receive_preempted_request_ids([req])
+        worker.retire_async_requests([req])
+    worker.retire_async_requests(["just-finished"])
+    assert worker._preempted_request_ids == {"still-live"}
+    assert worker.pop_preempted_forward_times() == {"just-finished": 456}

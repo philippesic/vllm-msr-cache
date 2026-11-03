@@ -1,0 +1,1539 @@
+{
+  "schema": "root-independent-gate-confirmation-mechanism-v1",
+  "all1728_measured_requests_natural_uncapped_generation_verified": true,
+  "all24_no_preemptions": true,
+  "all24_actual_contiguity_reconstructed": true,
+  "rows": [
+    {
+      "name": "live-nov3-gate-confirm-p00-s11003-native",
+      "arm": "native",
+      "partition": 11003,
+      "raw_sha256": "5d65ba344f1f2e01245092a4975ff3781922c49b6be51b7c0e0adcd1b6ae9d0f",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 945029120.0,
+          "delta": 945029120.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4763680768.0,
+          "delta": 4699455488.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 77617.0,
+          "delta": 76516.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 16480.0,
+          "delta": 16480.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3647.675483125
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5690.853233333333
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 6988.673851025641
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5371297792,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        158343168,
+        158609408
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p00-s11003-candidate",
+      "arm": "candidate",
+      "partition": 11003,
+      "raw_sha256": "dc8b71d9a9474788de54a5104fffbb7b43c22b7cd716b435ea673cfce15e7d33",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1572601856.0,
+          "delta": 1572601856.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4141613056.0,
+          "delta": 4077387776.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 66684.0,
+          "delta": 65583.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 27424.0,
+          "delta": 27424.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 251,
+        "full_GPU_skips": 160,
+        "partial_or_miss_fallback": 91,
+        "actual_CPU_refresh_operations": 6728
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3773.1140024166666
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5096.620157555555
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 5465.76168525641
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 4998615040,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        356626432,
+        371773440
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p01-s12007-candidate",
+      "arm": "candidate",
+      "partition": 12007,
+      "raw_sha256": "d6e10a50a4e43e84e0560a4c89ff471a55081953718a5b2051b204d469f96dab",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1654259712.0,
+          "delta": 1654259712.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 3915907072.0,
+          "delta": 3851681792.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 63064.0,
+          "delta": 61963.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 16608.0,
+          "delta": 16608.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 28848.0,
+          "delta": 28848.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 202,
+        "full_GPU_skips": 162,
+        "partial_or_miss_fallback": 40,
+        "actual_CPU_refresh_operations": 3296
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3304.782123666667
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 6285.794837166667
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 6866.495314583333
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5386981376,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        174804992,
+        175472640
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p01-s12007-native",
+      "arm": "native",
+      "partition": 12007,
+      "raw_sha256": "d02405a0bf61300ef17003eb535eeab1afae15d8639dad227702d68fc11fde4a",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1243217920.0,
+          "delta": 1243217920.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4326948864.0,
+          "delta": 4262723584.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 70361.0,
+          "delta": 69260.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 16480.0,
+          "delta": 16480.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 21680.0,
+          "delta": 21680.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3387.245560791667
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 6231.390472083333
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 6955.06229825
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5159186432,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        175321088,
+        175390720
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p02-s13001-native",
+      "arm": "native",
+      "partition": 13001,
+      "raw_sha256": "e65a25aaf46b89812feff170ebf7959222338de293f4a6c8289983ebfd8cb92c",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 516554752.0,
+          "delta": 516554752.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5214175232.0,
+          "delta": 5149949952.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 85268.0,
+          "delta": 84167.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 9008.0,
+          "delta": 9008.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4528.481855833334
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6303.475164375
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 9667.261534575
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5380001792,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        179019776,
+        179048448
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p02-s13001-candidate",
+      "arm": "candidate",
+      "partition": 13001,
+      "raw_sha256": "30075b4bb6951e0ab2f131984bd12b1132185918f65fc542f8ffdc1f23f0fd3d",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 309198848.0,
+          "delta": 309198848.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5416943616.0,
+          "delta": 5352718336.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 88882.0,
+          "delta": 87781.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 5392.0,
+          "delta": 5392.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 210,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 47,
+        "actual_CPU_refresh_operations": 4592
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4589.739078708333
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6799.17147025
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 10226.21018565
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5346115584,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        178585600,
+        178634752
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p03-s13001-candidate",
+      "arm": "candidate",
+      "partition": 13001,
+      "raw_sha256": "35d8dcfc0c41f44dd085610e6dc61d29b81751e17d7b7ab09bd1e724fa3ef602",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 309198848.0,
+          "delta": 309198848.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5416943616.0,
+          "delta": 5352718336.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 88882.0,
+          "delta": 87781.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 5392.0,
+          "delta": 5392.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 210,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 47,
+        "actual_CPU_refresh_operations": 4592
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4638.284234708333
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6799.238593375
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 10223.28813285
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5055283200,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        434515968,
+        448372736
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p03-s13001-native",
+      "arm": "native",
+      "partition": 13001,
+      "raw_sha256": "e0c5a17f368b74e981cd727cd9f262846ccc2f531e1264dbab753c0d50598504",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 516554752.0,
+          "delta": 516554752.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5214175232.0,
+          "delta": 5149949952.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 85268.0,
+          "delta": 84167.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 9008.0,
+          "delta": 9008.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4523.899826625
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6310.987758
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 9676.3479569
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5277712384,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        176971776,
+        177090560
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p04-s12007-native",
+      "arm": "native",
+      "partition": 12007,
+      "raw_sha256": "8e0fd14019bdd8ca6136d9b2ce7cf7bdc00c64b848751f80928d3465ea75193d",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 579862528.0,
+          "delta": 579862528.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4927913984.0,
+          "delta": 4863688704.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 80569.0,
+          "delta": 79468.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17760.0,
+          "delta": 17760.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 10112.0,
+          "delta": 10112.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3299.0095534166667
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 7418.157379833333
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 8002.4982707222225
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5280567296,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        177479680,
+        177541120
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p04-s12007-candidate",
+      "arm": "candidate",
+      "partition": 12007,
+      "raw_sha256": "1210f55b391fe29e07205922f45c9993a1883ddb469d3ee3756fb2f80b314d1f",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 553254912.0,
+          "delta": 553254912.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5032509440.0,
+          "delta": 4968284160.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 82371.0,
+          "delta": 81270.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 16496.0,
+          "delta": 16496.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 9648.0,
+          "delta": 9648.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 209,
+        "full_GPU_skips": 173,
+        "partial_or_miss_fallback": 36,
+        "actual_CPU_refresh_operations": 3571
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3237.4493770416666
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 6738.774867
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 8342.612066861111
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5393022976,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        177467392,
+        177532928
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p05-s11003-candidate",
+      "arm": "candidate",
+      "partition": 11003,
+      "raw_sha256": "3ddc13753000d5321a8cb28a84400ab3792ebafc1ff7918a1ef000febb227f2d",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1602879488.0,
+          "delta": 1602879488.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4111335424.0,
+          "delta": 4047110144.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 66156.0,
+          "delta": 65055.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 27952.0,
+          "delta": 27952.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 253,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 90,
+        "actual_CPU_refresh_operations": 6871
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3734.615184208333
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5180.039437666666
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 5534.284148358975
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5094383616,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        275771392,
+        289394688
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p05-s11003-native",
+      "arm": "native",
+      "partition": 11003,
+      "raw_sha256": "a127d33d667e31f3ded7768cddaab070d9f1a7b71a59e9d1e0bd5811d9ed3e7d",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 938606592.0,
+          "delta": 938606592.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4776525824.0,
+          "delta": 4712300544.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 77729.0,
+          "delta": 76628.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 16368.0,
+          "delta": 16368.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3760.762637083333
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5739.635342888889
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 7136.487032538462
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5361963008,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        177086464,
+        177131520
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p06-s11003-native",
+      "arm": "native",
+      "partition": 11003,
+      "raw_sha256": "654649dec31f8423cf04283d3e331e0a281a97219370a8826124778c731e0500",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 938606592.0,
+          "delta": 938606592.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4776525824.0,
+          "delta": 4712300544.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 77729.0,
+          "delta": 76628.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 16368.0,
+          "delta": 16368.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3684.3223584166667
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5748.811616444445
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 7141.224668461538
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5382692864,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        178057216,
+        178118656
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p06-s11003-candidate",
+      "arm": "candidate",
+      "partition": 11003,
+      "raw_sha256": "465af9c21cebeea532650cb04fe471045bc6eaff70be06b7f2d041bafc607a97",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1574436864.0,
+          "delta": 1574436864.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4136108032.0,
+          "delta": 4071882752.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 66652.0,
+          "delta": 65551.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 27456.0,
+          "delta": 27456.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 252,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 89,
+        "actual_CPU_refresh_operations": 6766
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3817.014273333333
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5204.838845555556
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 5618.039490794872
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5159006208,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        178139136,
+        178171904
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p07-s12007-candidate",
+      "arm": "candidate",
+      "partition": 12007,
+      "raw_sha256": "df9260009f3f42ad030c16cf1b362e2a17e22aac983facc963fb8c9651846e23",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1275330560.0,
+          "delta": 1275330560.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4154458112.0,
+          "delta": 4090232832.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 67048.0,
+          "delta": 65947.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 19200.0,
+          "delta": 19200.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 22240.0,
+          "delta": 22240.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 202,
+        "full_GPU_skips": 157,
+        "partial_or_miss_fallback": 45,
+        "actual_CPU_refresh_operations": 3804
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3343.2895560833335
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 5726.933409083334
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 6717.25059025
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5194555392,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        438411264,
+        452907008
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p07-s12007-native",
+      "arm": "native",
+      "partition": 12007,
+      "raw_sha256": "08728e74f3683f890d6b2e69db41df29ff0bf2c3901bf4a267e6c3ca04af0193",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1321205760.0,
+          "delta": 1321205760.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4248043520.0,
+          "delta": 4183818240.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 68980.0,
+          "delta": 67879.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 16480.0,
+          "delta": 16480.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 23040.0,
+          "delta": 23040.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3301.9156122916665
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 6383.71859775
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 6854.501687805556
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 4954984448,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        418156544,
+        431173632
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p08-s13001-native",
+      "arm": "native",
+      "partition": 13001,
+      "raw_sha256": "927673d5b2aabdba2e5eb8770513c6ab5705be0dbf596a60edc0c5b31e156f3f",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 516554752.0,
+          "delta": 516554752.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5214175232.0,
+          "delta": 5149949952.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 85268.0,
+          "delta": 84167.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 9008.0,
+          "delta": 9008.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4476.8606704583335
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6297.538765625
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 9643.9811628
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5133135872,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        526647296,
+        551145472
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p08-s13001-candidate",
+      "arm": "candidate",
+      "partition": 13001,
+      "raw_sha256": "353d0ffcee9de6263fbfd79f5e4429d6e7b2b66225e264cf5b2ca1c9b875eea5",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 309198848.0,
+          "delta": 309198848.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5416943616.0,
+          "delta": 5352718336.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 88882.0,
+          "delta": 87781.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 5392.0,
+          "delta": 5392.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 211,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 48,
+        "actual_CPU_refresh_operations": 4675
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4577.0451838750005
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6791.121358125
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 10212.36110385
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5172297728,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        179118080,
+        179318784
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p09-s13001-candidate",
+      "arm": "candidate",
+      "partition": 13001,
+      "raw_sha256": "e4c10e26aac510dbe222d7c91d8cc554a0ddcbea251f2e9da76c24620e490ab8",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 309198848.0,
+          "delta": 309198848.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5416943616.0,
+          "delta": 5352718336.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 88882.0,
+          "delta": 87781.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 5392.0,
+          "delta": 5392.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 211,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 48,
+        "actual_CPU_refresh_operations": 4675
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4673.681827708333
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6787.96412275
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 10209.49436505
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5226422272,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        385990656,
+        452534272
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p09-s13001-native",
+      "arm": "native",
+      "partition": 13001,
+      "raw_sha256": "9a6d06046a23b5a4e13549596f15d1669db54b08e3faa44c0a4917c361e66b14",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 516554752.0,
+          "delta": 516554752.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 5214175232.0,
+          "delta": 5149949952.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 85268.0,
+          "delta": 84167.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17744.0,
+          "delta": 17744.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 9008.0,
+          "delta": 9008.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 4564.765815916667
+        },
+        "zero_wait_return": {
+          "n": 8,
+          "mean_ttft_ms": 6300.0189665
+        },
+        "positive_wait_return": {
+          "n": 40,
+          "mean_ttft_ms": 9656.1918381
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5378875392,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        179572736,
+        179666944
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p10-s12007-native",
+      "arm": "native",
+      "partition": 12007,
+      "raw_sha256": "d16d3981f176dbd1008d08cf18563c9a63081948399e05520a19fb6e9a52f237",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1243217920.0,
+          "delta": 1243217920.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4326948864.0,
+          "delta": 4262723584.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 70361.0,
+          "delta": 69260.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 16480.0,
+          "delta": 16480.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 21680.0,
+          "delta": 21680.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3357.3485173333333
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 6236.254627166667
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 6960.687112444444
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5129867264,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        179597312,
+        179724288
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p10-s12007-candidate",
+      "arm": "candidate",
+      "partition": 12007,
+      "raw_sha256": "c7107e699991b6af5ed928de766b43d951540a68394c8a9887f4b4001323b2b1",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1654259712.0,
+          "delta": 1654259712.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 3915907072.0,
+          "delta": 3851681792.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 63064.0,
+          "delta": 61963.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 16608.0,
+          "delta": 16608.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 28848.0,
+          "delta": 28848.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 203,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 40,
+        "actual_CPU_refresh_operations": 3296
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3271.1466615833333
+        },
+        "zero_wait_return": {
+          "n": 12,
+          "mean_ttft_ms": 6294.58827925
+        },
+        "positive_wait_return": {
+          "n": 36,
+          "mean_ttft_ms": 6878.856678777778
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5402869760,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        181653504,
+        181964800
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p11-s11003-candidate",
+      "arm": "candidate",
+      "partition": 11003,
+      "raw_sha256": "e6bf2240aa2ef03740c11024464146f2289bdf7b63e25036f7761d9d008a2b8e",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 1574436864.0,
+          "delta": 1574436864.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4136108032.0,
+          "delta": 4071882752.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 66652.0,
+          "delta": 65551.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 27456.0,
+          "delta": 27456.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": {
+        "valid_nonreplayed": 252,
+        "full_GPU_skips": 163,
+        "partial_or_miss_fallback": 89,
+        "actual_CPU_refresh_operations": 6766
+      },
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3777.9846277916668
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5206.662962666666
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 5613.79973525641
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5160693760,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        181559296,
+        181559296
+      ]
+    },
+    {
+      "name": "live-nov3-gate-confirm-p11-s11003-native",
+      "arm": "native",
+      "partition": 11003,
+      "raw_sha256": "c0429dac9aea9eb2ca179f8e9aae9878cb67199be8448c026b22148599f0f222",
+      "counters": {
+        "H2D_bytes": {
+          "initial": 0.0,
+          "final": 938606592.0,
+          "delta": 938606592.0
+        },
+        "D2H_bytes": {
+          "initial": 64225280.0,
+          "final": 4776525824.0,
+          "delta": 4712300544.0
+        },
+        "local_compute": {
+          "initial": 1101.0,
+          "final": 77729.0,
+          "delta": 76628.0
+        },
+        "GPU_cache_hit": {
+          "initial": 0.0,
+          "final": 17472.0,
+          "delta": 17472.0
+        },
+        "external_transfer": {
+          "initial": 0.0,
+          "final": 16368.0,
+          "delta": 16368.0
+        },
+        "preemptions": {
+          "initial": 0.0,
+          "final": 0.0,
+          "delta": 0.0
+        }
+      },
+      "gate": null,
+      "actual_contiguous_returns": 48,
+      "noncontiguous_return_indices": [],
+      "latency_subgroups_descriptive": {
+        "initial": {
+          "n": 24,
+          "mean_ttft_ms": 3698.611255625
+        },
+        "zero_wait_return": {
+          "n": 9,
+          "mean_ttft_ms": 5747.087455
+        },
+        "positive_wait_return": {
+          "n": 39,
+          "mean_ttft_ms": 7139.1033016923075
+        }
+      },
+      "peak_serving_process_RSS_sum_bytes": 5372084224,
+      "startup_GPU_peak_bytes": 8340238336,
+      "swap_used_bytes_range": [
+        181170176,
+        181231616
+      ]
+    }
+  ],
+  "limits": [
+    "GPU snapshots and repeat refresh counts are not demand hits or saved bytes.",
+    "Prompt source counters count first admission, not cumulative physical GPU computation.",
+    "Missing metric series remains null.",
+    "RSS sums may double-count shared mappings; no per-process PSS observation.",
+    "Swap usage is host-wide and may predate these runs."
+  ]
+}

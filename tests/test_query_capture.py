@@ -17,6 +17,74 @@ from semantic_offload.query_capture import (
 )
 
 
+@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16])
+@pytest.mark.parametrize("strided", [False, True])
+@pytest.mark.parametrize("indices", [[1], [1, 2, 5], [0, 1, 2]])
+def test_query_row_selection_matches_indexing_without_index_upload(
+    monkeypatch, dtype, strided, indices
+):
+    query = torch.arange(8 * 8 * 4, dtype=torch.float32).reshape(8, 8, 4).to(dtype)
+    if strided:
+        query = query.transpose(1, 2)
+    expected = query[torch.tensor(indices)].clone()
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("row selection must not construct an index tensor")
+
+    monkeypatch.setattr(torch, "tensor", forbidden)
+    selected = query_capture._select_last_query_rows(query, indices)
+    assert torch.equal(selected, expected)
+    assert selected.dtype == query.dtype and selected.device == query.device
+    # Ownership matters even when only one row is selected: model buffers may
+    # be overwritten after the capture callback returns.
+    selected.zero_()
+    assert torch.equal(query[indices[0]], expected[0])
+
+
+@pytest.mark.parametrize("group_size", [1, 4])
+def test_capture_preserves_mixed_rows_gqa_padding_and_consumes_before_reentry(
+    monkeypatch, group_size
+):
+    config = SimpleNamespace(use_v2_model_runner=True)
+    callbacks = []
+
+    class FakeAttention:
+        def __str__(self):
+            return "vllm.unified_attention_with_output.default"
+
+        def __call__(self, *args, **kwargs):
+            return "attention-result"
+
+    query = torch.arange(8 * 8 * 4, dtype=torch.float32).reshape(8, 8, 4)
+    # Rows6..7 are graph padding; a zero-token request owns no query row.
+    query[6:] = -1000
+    expected = query[[1, 2, 5]].reshape(3, 8 // group_size, group_size, 4).mean(2)
+    args = (query, None, None, None, "layer")
+    mode = None
+
+    def callback(req_ids, grouped):
+        assert query_capture._current_layout.get() is None
+        callbacks.append((req_ids, grouped.clone()))
+        assert mode.__torch_dispatch__(FakeAttention(), (), args) == "attention-result"
+
+    handle = install(config, "layer", callback, num_queries_per_kv=group_size)
+    try:
+        mode = handle._mode_factory()
+        query_capture._current_layout.set(query_capture._BatchLayout(
+            ["prepared-b", "empty", "prepared-a", "prepared-c"],
+            [(0, 2), (2, 2), (2, 3), (3, 6)],
+        ))
+        assert mode.__torch_dispatch__(FakeAttention(), (), args) == "attention-result"
+        assert len(callbacks) == 1
+        assert callbacks[0][0] == ["prepared-b", "prepared-a", "prepared-c"]
+        assert torch.equal(callbacks[0][1], expected)
+        query_capture._current_layout.set(query_capture._BatchLayout(["empty"], [(0, 0)]))
+        mode.__torch_dispatch__(FakeAttention(), (), args)
+        assert len(callbacks) == 1
+    finally:
+        handle.close()
+
+
 def test_nvtx_execution_label_is_bounded_and_reports_batch_size():
     label = _nvtx_execution_label([f"req-{index}" for index in range(66)])
 
@@ -549,3 +617,262 @@ def test_close_from_active_execution_fails_without_deadlock(monkeypatch):
     assert handle._active_executions == 0
     handle.close()
     assert GPUModelRunner.execute_model is prior_execute_model
+
+
+@pytest.mark.parametrize("group_size", [1, 4])
+def test_attention_backend_captures_owned_probe_once_without_dispatch(monkeypatch, group_size):
+    calls = []
+
+    class Impl:
+        def forward(self, layer, query, *args, **kwargs):
+            calls.append((layer, query))
+            return "attention-result"
+
+    impl = Impl()
+    layer = SimpleNamespace(impl=impl)
+    other = SimpleNamespace(impl=impl)
+    original = impl.forward
+    config = SimpleNamespace(
+        use_v2_model_runner=True,
+        compilation_config=SimpleNamespace(static_forward_context={"layer": layer}),
+    )
+    query = torch.arange(8 * 8 * 4, dtype=torch.float32).reshape(8, 8, 4)
+    expected = query[[1, 2, 5]].reshape(3, 8 // group_size, group_size, 4).mean(2)
+    callbacks = []
+
+    def callback(ids, grouped):
+        callbacks.append((ids, grouped.clone()))
+        assert query_capture._current_layout.get() is None
+        impl.forward(layer, query)  # Reentry cannot reuse a consumed layout.
+
+    def prepare(self_runner, scheduler_output, batch_desc):
+        return SimpleNamespace(req_ids=["a", "empty", "b", "c"],
+                               num_scheduled_tokens=[2, 0, 1, 3])
+
+    def execute(self_runner):
+        GPUModelRunner.prepare_inputs(self_runner, None, None)
+        impl.forward(other, query)
+        assert query_capture._current_layout.get() is not None
+        impl.forward(layer, query)
+        impl.forward(layer, query)
+        return "execute-result"
+
+    monkeypatch.setattr(GPUModelRunner, "prepare_inputs", prepare)
+    monkeypatch.setattr(GPUModelRunner, "execute_model", execute)
+    handle = install(config, "layer", callback, num_queries_per_kv=group_size,
+                     capture_backend="attention")
+    try:
+        assert handle._mode_factory is None
+        assert not query_capture.on_query_disabled(handle)
+        # Calls outside the owning model execution do not consume layout.
+        query_capture._current_layout.set(query_capture._BatchLayout(["outside"], [(0, 1)]))
+        impl.forward(layer, query)
+        assert query_capture._current_layout.get() is not None
+        query_capture._current_layout.set(None)
+        assert GPUModelRunner.execute_model(SimpleNamespace(vllm_config=config)) == "execute-result"
+        assert len(callbacks) == 1
+        assert callbacks[0][0] == ["a", "b", "c"]
+        assert torch.equal(callbacks[0][1], expected)
+    finally:
+        handle.close()
+    assert "forward" not in vars(impl)
+    assert impl.forward == original
+
+
+def test_attention_backend_stride_and_callback_failure_cleanup(monkeypatch):
+    class Impl:
+        def forward(self, layer, query):
+            return query
+
+    impl = Impl()
+    layer = SimpleNamespace(impl=impl)
+    config = SimpleNamespace(use_v2_model_runner=True,
+        compilation_config=SimpleNamespace(static_forward_context={"layer": layer}))
+    callbacks = []
+
+    def callback(ids, query):
+        callbacks.append(ids)
+        raise RuntimeError("callback failed")
+
+    def execute(runner):
+        GPUModelRunner.prepare_inputs(runner, None, None)
+        return impl.forward(layer, torch.ones(2, 2, 1))
+
+    monkeypatch.setattr(GPUModelRunner, "prepare_inputs", lambda *args:
+                        SimpleNamespace(req_ids=["req"], num_scheduled_tokens=[2]))
+    monkeypatch.setattr(GPUModelRunner, "execute_model", execute)
+    handle = install(config, "layer", callback, capture_stride=2, capture_backend="attention")
+    runner = SimpleNamespace(vllm_config=config)
+    try:
+        with pytest.raises(RuntimeError, match="callback failed"):
+            GPUModelRunner.execute_model(runner)
+        assert query_capture._current_handle.get() is None
+        assert query_capture._current_layout.get() is None
+        GPUModelRunner.execute_model(runner)  # stride-skipped, no callback
+        assert callbacks == [["req"]]
+    finally:
+        handle.close()
+
+
+def test_attention_backend_does_not_overwrite_external_patch():
+    impl = SimpleNamespace(forward=lambda *args: None)
+    original = impl.forward
+    config = SimpleNamespace(use_v2_model_runner=True,
+        compilation_config=SimpleNamespace(static_forward_context={"layer": SimpleNamespace(impl=impl)}))
+    handle = install(config, "layer", lambda *args: None, capture_backend="attention")
+    external = lambda *args: "external"
+    impl.forward = external
+    with pytest.raises(RuntimeError, match="methods changed"):
+        handle.close()
+    assert impl.forward is external
+    # Conflicting close still releases runner hooks and ownership.
+    impl.forward = original
+    replacement = install(config, "layer", lambda *args: None, capture_backend="attention")
+    replacement.close()
+    assert impl.forward is original
+
+
+def test_attention_backend_missing_probe_rolls_back_without_runner_patch():
+    config = SimpleNamespace(use_v2_model_runner=True,
+        compilation_config=SimpleNamespace(static_forward_context={}))
+    original = GPUModelRunner.execute_model
+    with pytest.raises(ValueError, match="probe implementation"):
+        install(config, "layer", lambda *args: None, capture_backend="attention")
+    assert GPUModelRunner.execute_model is original
+    assert query_capture._active_handle is None
+
+
+def test_attention_backend_preserves_outer_dispatch_mode(monkeypatch):
+    operations = []
+
+    class OuterMode(TorchDispatchMode):
+        def __torch_dispatch__(self, func, types, args=(), kwargs=None):
+            operations.append(str(func))
+            return func(*args, **(kwargs or {}))
+
+    class Impl:
+        def forward(self, layer, query):
+            return query + 1
+
+    impl = Impl()
+    layer = SimpleNamespace(impl=impl)
+    config = SimpleNamespace(use_v2_model_runner=True,
+        compilation_config=SimpleNamespace(static_forward_context={"layer": layer}))
+    monkeypatch.setattr(GPUModelRunner, "prepare_inputs", lambda *args:
+                        SimpleNamespace(req_ids=["req"], num_scheduled_tokens=[2]))
+
+    def execute(runner):
+        GPUModelRunner.prepare_inputs(runner, None, None)
+        return impl.forward(layer, torch.ones(2, 2, 1))
+
+    monkeypatch.setattr(GPUModelRunner, "execute_model", execute)
+    callbacks = []
+    handle = install(config, "layer", lambda ids, query: callbacks.append(ids),
+                     capture_backend="attention")
+    try:
+        with OuterMode():
+            result = GPUModelRunner.execute_model(SimpleNamespace(vllm_config=config))
+        assert torch.equal(result, torch.full((2, 2, 1), 2.0))
+        assert callbacks == [["req"]]
+        assert any("aten.add" in op for op in operations)
+        assert any("aten.mean" in op for op in operations)
+    finally:
+        handle.close()
+
+
+@pytest.mark.parametrize("backend", ["dispatch", "attention"])
+@pytest.mark.parametrize("capture_steps,expected", [
+    ("all", [["decode"], ["single-prefill"], ["decode", "prefill"]]),
+    ("multi_token", [["decode", "prefill"]]),
+])
+def test_capture_steps_keeps_all_mixed_rows_and_skips_only_single_token_batches(
+    monkeypatch, backend, capture_steps, expected
+):
+    class Impl:
+        def forward(self, layer, query):
+            return query
+
+    class FakeAttention:
+        def __str__(self):
+            return "vllm.unified_attention_with_output.default"
+
+        def __call__(self, *args):
+            return None
+
+    impl = Impl()
+    layer = SimpleNamespace(impl=impl)
+    config = SimpleNamespace(use_v2_model_runner=True,
+        compilation_config=SimpleNamespace(static_forward_context={"layer": layer}))
+    callbacks = []
+    handle = None
+    batches = [(["decode"], [1]), (["single-prefill"], [1]),
+               (["empty"], [0]), (["decode", "empty", "prefill"], [1, 0, 3])]
+
+    def prepare(runner, index, batch_desc):
+        ids, counts = batches[index]
+        return SimpleNamespace(req_ids=ids, num_scheduled_tokens=counts)
+
+    query = torch.arange(4 * 4 * 2, dtype=torch.float32).reshape(4, 4, 2)
+
+    def execute(runner, index):
+        GPUModelRunner.prepare_inputs(runner, index, None)
+        if backend == "attention":
+            impl.forward(layer, query)
+        else:
+            handle._mode_factory().__torch_dispatch__(
+                FakeAttention(), (), (query, None, None, None, "layer"))
+
+    monkeypatch.setattr(GPUModelRunner, "prepare_inputs", prepare)
+    monkeypatch.setattr(GPUModelRunner, "execute_model", execute)
+    handle = install(config, "layer", lambda ids, grouped: callbacks.append((ids, grouped.clone())),
+                     capture_backend=backend, capture_steps=capture_steps)
+    try:
+        runner = SimpleNamespace(vllm_config=config)
+        for index in range(len(batches)):
+            GPUModelRunner.execute_model(runner, index)
+        assert [ids for ids, grouped in callbacks] == expected
+        assert torch.equal(callbacks[-1][1], query[[0, 3]])
+    finally:
+        handle.close()
+
+
+def test_multi_token_skips_still_advance_stride(monkeypatch):
+    # Index0 is filtered, index1 is stride-skipped, index2 is captured.
+    class FakeAttention:
+        def __str__(self):
+            return "vllm.unified_attention_with_output.default"
+
+        def __call__(self, *args):
+            return None
+
+    callbacks = []
+    config = SimpleNamespace(use_v2_model_runner=True)
+    handle = install(config, "layer", lambda ids, grouped: callbacks.append(ids),
+                     capture_stride=2, capture_steps="multi_token")
+    try:
+        mode = handle._mode_factory()
+        for count in [1, 3, 3]:
+            query_capture._current_layout.set(
+                query_capture._BatchLayout(["req"], [(0, count)]))
+            mode.__torch_dispatch__(FakeAttention(), (),
+                (torch.ones(3, 2, 1), None, None, None, "layer"))
+        assert callbacks == [["req"]]
+    finally:
+        handle.close()
+
+
+@pytest.mark.parametrize("invalid", ["prefill", "", "ALL"])
+def test_invalid_capture_steps_rejected_before_patch(monkeypatch, invalid):
+    original = GPUModelRunner.execute_model
+    monkeypatch.setenv("SEMANTIC_CAPTURE_STEPS", invalid)
+    with pytest.raises(ValueError, match="capture_steps must be all or multi_token"):
+        install(SimpleNamespace(use_v2_model_runner=True), "layer", lambda *args: None)
+    assert GPUModelRunner.execute_model is original
+    assert query_capture._active_handle is None
+
+
+def test_capture_steps_explicit_parameter_overrides_environment(monkeypatch):
+    monkeypatch.setenv("SEMANTIC_CAPTURE_STEPS", "invalid")
+    handle = install(SimpleNamespace(use_v2_model_runner=True), "layer", lambda *args: None,
+                     capture_steps="all")
+    handle.close()

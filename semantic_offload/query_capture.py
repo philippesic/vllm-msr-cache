@@ -18,20 +18,25 @@ entries #5-#6):
    every step, including pure single-token decode steps, since it's
    orchestration code that itself feeds the (possibly compiled/graph-
    replayed) model forward rather than being part of what gets replayed.
-3. Query data: `TorchDispatchMode` on `torch.ops.vllm.unified_attention_with_
-   output`. This one only fires on steps that include prefill or mixed
+3. Query data: the default `TorchDispatchMode` on
+   `torch.ops.vllm.unified_attention_with_output`, or the opt-in
+   `SEMANTIC_CAPTURE_BACKEND=attention` probe implementation hook. Both fire
+   on Python-executed attention. This only fires on steps that include prefill or mixed
    prefill-decode batches -- vLLM's default `cudagraph_mode` fully captures
    pure decode-only batches with zero Python touchpoints during replay
    (verified empirically). Relevance updates are therefore opportunistic,
    not guaranteed every step; the manager's EMA is designed to tolerate that.
 
-Zero vLLM source modifications -- both are class-level monkey-patches
-applied from this out-of-tree package.
+Zero vLLM source modifications. The attention backend patches only the probe's
+implementation instance; it adds no interception to unrelated tensor operations.
 """
 
+from semantic_offload.profiling import PROFILE, profiled
+import os
 import time
 from collections.abc import Callable
 from contextvars import ContextVar
+from contextlib import nullcontext
 from threading import Condition, RLock, get_ident
 
 import torch
@@ -40,7 +45,7 @@ from typing_extensions import Self
 from vllm.config import VllmConfig
 from vllm.utils.torch_utils import _resolve_layer_name
 
-from semantic_offload._debug import debug_print
+from semantic_offload._debug import debug_print, ENABLED as _DEBUG
 
 
 class _BatchLayout:
@@ -85,6 +90,8 @@ class QueryCaptureHandle:
         self._on_forward = on_forward
         self._on_complete = on_complete
         self._emit_nvtx_ranges = emit_nvtx_ranges
+        self._capture_enabled = mode_factory is not None
+        self._attention_patch = None
 
     def _begin_execution(self, runner) -> None:
         with _lifecycle_condition:
@@ -150,6 +157,9 @@ def _nvtx_execution_label(request_ids: list[str]) -> str:
     return f"semantic_execute[n={len(ids)}]:{shown}"
 
 
+def on_query_disabled(handle):
+    return not handle._capture_enabled
+
 def _patch_runner(handle: QueryCaptureHandle) -> None:
     global _runner_patch
 
@@ -162,9 +172,10 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
     original_prepare = GPUModelRunner.prepare_inputs
     original_execute = GPUModelRunner.execute_model
 
+    @profiled('capture.prepare_layout')
     def prepare_wrapper(self_runner, scheduler_output, batch_desc):
         result = original_prepare(self_runner, scheduler_output, batch_desc)
-        if _current_handle.get() is not handle or self_runner is not handle._runner:
+        if on_query_disabled(handle) or _current_handle.get() is not handle or self_runner is not handle._runner:
             return result
         req_ids = list(result.req_ids)
         token_counts = [int(c) for c in result.num_scheduled_tokens]
@@ -176,6 +187,7 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
         _current_layout.set(_BatchLayout(req_ids=req_ids, boundaries=boundaries))
         return result
 
+    @profiled('model.execute_host', cuda=True)
     def execute_wrapper(self_runner, *args, **kwargs):
         if getattr(self_runner, "vllm_config", None) is not handle.vllm_config:
             return original_execute(self_runner, *args, **kwargs)
@@ -207,7 +219,7 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
                     list(getattr(scheduler_output, "num_scheduled_tokens", {})),
                     time.monotonic_ns(),
                 )
-            with handle._mode_factory():
+            with (handle._mode_factory() if handle._mode_factory is not None else nullcontext()):
                 result = original_execute(self_runner, *args, **kwargs)
             if handle._on_complete is not None:
                 handle._on_complete(self_runner, result)
@@ -234,13 +246,25 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
 def _unpatch_runner(handle: QueryCaptureHandle) -> None:
     global _runner_patch
 
+    conflicts = []
+    if handle._attention_patch is not None:
+        impl, original, wrapper, had_instance_attr = handle._attention_patch
+        if impl.forward is wrapper:
+            if had_instance_attr:
+                impl.forward = original
+            else:
+                del impl.forward
+        else:
+            conflicts.append("attention implementation forward")
+        handle._attention_patch = None
     patch = _runner_patch
     if patch is None:
+        if conflicts:
+            raise RuntimeError("query capture methods changed: " + ", ".join(conflicts))
         return
     runner_cls, original_prepare, prepare_wrapper, original_execute, execute_wrapper = (
         patch
     )
-    conflicts = []
     if runner_cls.prepare_inputs is prepare_wrapper:
         runner_cls.prepare_inputs = original_prepare
     else:
@@ -306,6 +330,15 @@ def preflight_install(vllm_config: VllmConfig) -> None:
             raise RuntimeError("query capture is already installed in this process")
 
 
+def _select_last_query_rows(query: torch.Tensor, indices: list[int]) -> torch.Tensor:
+    """Copy selected rows without constructing a CPU-to-device index tensor.
+
+    Basic slices retain the original device and concatenate into owned storage,
+    including the one-row case. The caller supplies nonempty, valid row indices.
+    """
+    return torch.cat([query[index : index + 1] for index in indices], dim=0)
+
+
 def install(
     vllm_config: VllmConfig,
     probe_layer_name: str | None,
@@ -315,6 +348,8 @@ def install(
     on_forward: Callable[[list[str], int], None] | None = None,
     on_complete: Callable[[object, object], None] | None = None,
     emit_nvtx_ranges: bool = False,
+    capture_backend: str | None = None,
+    capture_steps: str | None = None,
 ) -> QueryCaptureHandle:
     """Install both patches. `on_query(req_ids, query_reprs)` fires ONCE per
     step whenever live query data is captured for the probe layer, covering
@@ -335,20 +370,54 @@ def install(
 
     `capture_stride`: only every `capture_stride`-th eligible step actually
     fires `on_query` (default 1: unchanged, every step) -- see
-    `_should_sample_step`."""
+    `_should_sample_step`.
+
+    `capture_backend`: "dispatch" (default) or "attention", alternatively selected
+    by SEMANTIC_CAPTURE_BACKEND. The latter hooks the configured probe's backend
+    implementation, called dynamically inside vLLM's opaque attention custom op.
+    Full graph replay still has no Python callback. It requires the probe's
+    implementation to expose the installed vLLM `forward(layer, query, ...)`
+    contract; no fallback silently changes the requested backend.
+
+    `capture_steps`: "all" (default) or "multi_token", alternatively selected
+    by SEMANTIC_CAPTURE_STEPS. Multi-token capture keeps a batch only if some
+    request has more than one scheduled token, then captures every nonempty
+    request in that batch, including decode requests. It skips pure single-token
+    batches, including single-token prefills. This reduces semantic observations
+    and may leave relevance stale; it does not identify actual prefill status.
+    Skipped batches still advance the eligible-step stride counter.
+    """
     if capture_stride < 1:
         raise ValueError("capture_stride must be >= 1")
     if on_query is not None and num_queries_per_kv < 1:
         raise ValueError("num_queries_per_kv must be >= 1")
     global _active_handle
+    capture_backend = capture_backend or os.environ.get(
+        "SEMANTIC_CAPTURE_BACKEND", "dispatch"
+    )
+    if capture_backend not in ("dispatch", "attention"):
+        raise ValueError("capture_backend must be dispatch or attention")
+    if capture_steps is None:
+        capture_steps = os.environ.get("SEMANTIC_CAPTURE_STEPS", "all")
+    if capture_steps not in ("all", "multi_token"):
+        raise ValueError("capture_steps must be all or multi_token")
 
     state: dict = {"step_index": 0}
 
+    @profiled('capture.extract', cuda=True)
     def capture_query(layout: _BatchLayout, query: torch.Tensor) -> None:
         step_index = state["step_index"]
         state["step_index"] = step_index + 1
         if not _should_sample_step(step_index, capture_stride):
             return
+        if capture_steps == "multi_token" and not any(
+            end - start > 1 for start, end in layout.boundaries
+        ):
+            return
+        owner = getattr(on_query, '__self__', None)
+        if (getattr(owner, '_scoring_schedule', 'continuous') == 'continuous'
+                and hasattr(owner, 'durable_summaries') and not owner.durable_summaries):
+            return  # Preserve eligible-step stride, but continuous empty banks cannot score.
         req_ids = []
         last_indices = []
         for req_id, (start, end) in zip(layout.req_ids, layout.boundaries):
@@ -357,21 +426,52 @@ def install(
                 last_indices.append(end - 1)
         if not req_ids:
             return
-        last_q = query[torch.tensor(last_indices, device=query.device)]
-        n_reqs, num_query_heads, head_dim = last_q.shape
-        if num_query_heads % num_queries_per_kv:
-            raise ValueError("query heads must be divisible by num_queries_per_kv")
-        num_kv_heads = num_query_heads // num_queries_per_kv
-        grouped = last_q.view(n_reqs, num_kv_heads, num_queries_per_kv, head_dim).mean(
-            dim=2
-        )
+        with PROFILE.scope("capture.group_query", cuda=query.is_cuda):
+            with PROFILE.scope("capture.query_select", cuda=query.is_cuda):
+                last_q = _select_last_query_rows(query, last_indices)
+            n_reqs, num_query_heads, head_dim = last_q.shape
+            if num_query_heads % num_queries_per_kv:
+                raise ValueError("query heads must be divisible by num_queries_per_kv")
+            num_kv_heads = num_query_heads // num_queries_per_kv
+            with PROFILE.scope("capture.head_group_reduce", cuda=query.is_cuda):
+                grouped = last_q.view(
+                    n_reqs, num_kv_heads, num_queries_per_kv, head_dim
+                ).mean(dim=2)
         if on_query is not None:
             on_query(req_ids, grouped)
 
+    attention_ops = {}
+
+    def capture_prepared_query(query):
+        layout = _current_layout.get()
+        # Consume before any callback, including callbacks which reenter.
+        _current_layout.set(None)
+        try:
+            if (
+                layout is not None
+                and query is not None
+                and query.shape[0] >= layout.num_tokens
+            ):
+                capture_query(layout, query)
+        finally:
+            _current_layout.set(None)
+
     class ProbeMode(TorchDispatchMode):
         def __torch_dispatch__(self, func, types, args=(), kwargs=None):
+            sample = False
+            if PROFILE.directory:
+                PROFILE.count("capture.dispatch_calls")
+                sequence = getattr(self, "_profile_dispatch_sequence", 0) + 1
+                self._profile_dispatch_sequence = sequence
+                sample = sequence % 64 == 1
+            if sample:
+                profile_wall, profile_cpu = time.perf_counter_ns(), time.thread_time_ns()
             kwargs = kwargs or {}
-            if "unified_attention_with_output" in str(func):
+            match = attention_ops.get(func)
+            if match is None:
+                match = "unified_attention_with_output" in str(func)
+                attention_ops[func] = match
+            if match:
                 query = args[0] if len(args) > 0 else kwargs.get("query")
                 layer_name_arg = args[4] if len(args) > 4 else kwargs.get("layer_name")
                 resolved_name = (
@@ -381,15 +481,19 @@ def install(
                 )
                 if resolved_name == probe_layer_name:
                     layout = _current_layout.get()
+                    # Consume before extraction/callback: reentry must not
+                    # capture the same prepared batch a second time.
+                    _current_layout.set(None)
                     try:
-                        debug_print(
-                            "SEMANTIC_QUERY_CAPTURE_DEBUG "
-                            "query_shape0="
-                            f"{query.shape[0] if query is not None else None} "
-                            "layout_num_tokens="
-                            f"{layout.num_tokens if layout else None} "
-                            f"layout_req_ids={layout.req_ids if layout else None}"
-                        )
+                        if _DEBUG:
+                            debug_print(
+                                "SEMANTIC_QUERY_CAPTURE_DEBUG "
+                                "query_shape0="
+                                f"{query.shape[0] if query is not None else None} "
+                                "layout_num_tokens="
+                                f"{layout.num_tokens if layout else None} "
+                                f"layout_req_ids={layout.req_ids if layout else None}"
+                            )
                         # CUDA-graph replay can pad the query tensor, but real
                         # tokens occupy its prefix. Consume each prepare-inputs
                         # layout once at the configured probe layer.
@@ -401,18 +505,41 @@ def install(
                             capture_query(layout, query)
                     finally:
                         _current_layout.set(None)
+            if sample:
+                PROFILE.observe("capture.dispatch_intercept_sample.host_wall", time.perf_counter_ns() - profile_wall)
+                PROFILE.observe("capture.dispatch_intercept_sample.thread_cpu", time.thread_time_ns() - profile_cpu)
             return func(*args, **kwargs)
 
     with _lifecycle_condition:
         preflight_install(vllm_config)
         handle = QueryCaptureHandle(
             vllm_config,
-            ProbeMode,
+            ProbeMode if on_query is not None else None,
             on_forward=on_forward,
             on_complete=on_complete,
             emit_nvtx_ranges=emit_nvtx_ranges,
         )
         try:
+            if capture_backend == "attention" and on_query is not None:
+                context = getattr(vllm_config.compilation_config,
+                                  "static_forward_context", {})
+                attention = context.get(probe_layer_name)
+                impl = getattr(attention, "impl", None)
+                if impl is None or not callable(getattr(impl, "forward", None)):
+                    raise ValueError("attention capture requires a probe implementation")
+                original = impl.forward
+                had_instance_attr = "forward" in getattr(impl, "__dict__", {})
+
+                def attention_wrapper(layer, query, *args, **kwargs):
+                    if layer is attention and _current_handle.get() is handle:
+                        capture_prepared_query(query)
+                    return original(layer, query, *args, **kwargs)
+
+                impl.forward = attention_wrapper
+                handle._attention_patch = (
+                    impl, original, attention_wrapper, had_instance_attr
+                )
+                handle._mode_factory = None
             _patch_runner(handle)
         except BaseException:
             _unpatch_runner(handle)

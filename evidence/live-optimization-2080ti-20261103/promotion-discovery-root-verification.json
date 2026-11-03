@@ -1,0 +1,430 @@
+{
+  "schema": "root-independent-promotion-discovery-verification-v1",
+  "all12_workflows864EOS_HTTP_verified": true,
+  "groups": [
+    {
+      "partition": 7703,
+      "arms": {
+        "native": {
+          "name": "live-nov3-promotion-s7703-native",
+          "load_s": 67.844837643,
+          "tokens": 6065,
+          "tokens_s": 89.39515828623647,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8128.188678097222,
+          "p95_ttft_ms": 17363.534758650003,
+          "mean_e2e_ms": 14581.752334736111,
+          "p95_e2e_ms": 29412.24542605,
+          "http_requests": 72,
+          "raw_sha256": "1dbdec92639a3501eb5b543a25c1083a22cd2c0cbf31c035ccb45b05263f1e7e",
+          "tokens_s_gib": 11.885506907456625
+        },
+        "periodic": {
+          "name": "live-nov3-promotion-s7703-periodic",
+          "load_s": 69.699353302,
+          "tokens": 5962,
+          "tokens_s": 85.53881374146009,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8383.074611097221,
+          "p95_ttft_ms": 18255.31745925,
+          "mean_e2e_ms": 14979.702103958334,
+          "p95_e2e_ms": 28356.230006550002,
+          "http_requests": 294,
+          "raw_sha256": "5c67631420ed59c54013f90c025a2a1324f52542044fc3995f3028a8ddcc4986",
+          "tokens_s_gib": 11.372787755735754
+        },
+        "promotion_periodic": {
+          "name": "live-nov3-promotion-s7703-promotion_periodic",
+          "load_s": 70.15829346,
+          "tokens": 5949,
+          "tokens_s": 84.79396670889321,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8404.153099597223,
+          "p95_ttft_ms": 18264.4082428,
+          "mean_e2e_ms": 15145.00833873611,
+          "p95_e2e_ms": 28757.0649139,
+          "http_requests": 293,
+          "raw_sha256": "7c3cde817ac7f231a62e5e27cd8e94d8773b1534df20ef1ed7694a36326b28b1",
+          "tokens_s_gib": 11.273756838175029
+        },
+        "promotion_once_positive": {
+          "name": "live-nov3-promotion-s7703-promotion_once_positive",
+          "load_s": 68.392724804,
+          "tokens": 5951,
+          "tokens_s": 87.01217881074906,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 8269.321847597223,
+          "p95_ttft_ms": 18088.055770550003,
+          "mean_e2e_ms": 14746.324465638889,
+          "p95_e2e_ms": 28716.141819200002,
+          "http_requests": 106,
+          "raw_sha256": "401d35f40cf612e67254448c10312aa95640814a65477c10050a1da5910c3c16",
+          "tokens_s_gib": 11.568678574030054
+        }
+      },
+      "differences": {
+        "periodic_vs_native": {
+          "workflow_percent": -2.6607358191181207,
+          "token_rate_percent": -4.3138181291974,
+          "tokens_s_gib_percent": -4.313818129197378,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 254.88593299999957,
+          "p95_ttft_ms": 891.782700599997,
+          "mean_e2e_ms": 397.94976922222304,
+          "p95_e2e_ms": -1056.0154194999996
+        },
+        "promotion_periodic_vs_native": {
+          "workflow_percent": -3.2974801736290527,
+          "token_rate_percent": -5.147025482756673,
+          "tokens_s_gib_percent": -5.147025482756662,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 275.96442150000075,
+          "p95_ttft_ms": 900.8734841499972,
+          "mean_e2e_ms": 563.2560039999989,
+          "p95_e2e_ms": -655.1805121500001
+        },
+        "promotion_periodic_vs_periodic": {
+          "workflow_percent": -0.6541495457862756,
+          "token_rate_percent": -0.8707708231939892,
+          "tokens_s_gib_percent": -0.8707708231939892,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 21.078488500001185,
+          "p95_ttft_ms": 9.090783550000197,
+          "mean_e2e_ms": 165.3062347777759,
+          "p95_e2e_ms": 400.8349073499994
+        },
+        "promotion_once_positive_vs_native": {
+          "workflow_percent": -0.8010898272734823,
+          "token_rate_percent": -2.6656695073543957,
+          "tokens_s_gib_percent": -2.6656695073543846,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 141.1331695000008,
+          "p95_ttft_ms": 724.5210119000003,
+          "mean_e2e_ms": 164.57213090277764,
+          "p95_e2e_ms": -696.1036068499998
+        },
+        "promotion_once_positive_vs_periodic": {
+          "workflow_percent": 1.9104787851990768,
+          "token_rate_percent": 1.722452071573266,
+          "tokens_s_gib_percent": 1.722452071573266,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -113.75276349999876,
+          "p95_ttft_ms": -167.26168869999674,
+          "mean_e2e_ms": -233.3776383194454,
+          "p95_e2e_ms": 359.9118126499998
+        }
+      },
+      "hint_accounting": {
+        "native": {
+          "hints": 0,
+          "waits": 0,
+          "stop_markers": 0
+        },
+        "periodic": {
+          "hints": 222,
+          "waits": 34,
+          "stop_markers": 0
+        },
+        "promotion_periodic": {
+          "hints": 221,
+          "waits": 34,
+          "stop_markers": 0,
+          "valid_action_ack_count": 214,
+          "promoted_t1_touches": 26,
+          "already_t2_touches": 18500
+        },
+        "promotion_once_positive": {
+          "hints": 34,
+          "waits": 34,
+          "stop_markers": 34,
+          "valid_action_ack_count": 34,
+          "promoted_t1_touches": 25,
+          "already_t2_touches": 3025
+        }
+      }
+    },
+    {
+      "partition": 8803,
+      "arms": {
+        "periodic": {
+          "name": "live-nov3-promotion-s8803-periodic",
+          "load_s": 40.189679976,
+          "tokens": 6202,
+          "tokens_s": 154.3182230787515,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 3320.339506652778,
+          "p95_ttft_ms": 6286.8151195,
+          "mean_e2e_ms": 7117.1564776527775,
+          "p95_e2e_ms": 12442.38988885,
+          "http_requests": 326,
+          "raw_sha256": "0706bb4ec1c8302333302d4b417a4f424f002a538ac75a3312b086abe5e7e02e",
+          "tokens_s_gib": 20.51200734145741
+        },
+        "promotion_periodic": {
+          "name": "live-nov3-promotion-s8803-promotion_periodic",
+          "load_s": 40.074379573,
+          "tokens": 6211,
+          "tokens_s": 154.98680369301695,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 3294.943877847222,
+          "p95_ttft_ms": 6280.544065,
+          "mean_e2e_ms": 7082.095786194444,
+          "p95_e2e_ms": 12429.033024400002,
+          "http_requests": 327,
+          "raw_sha256": "85120f7c010360dab9e2406bff49bd8c0e81b7208e7291250a29671e95a61a8c",
+          "tokens_s_gib": 20.606224779643256
+        },
+        "promotion_once_positive": {
+          "name": "live-nov3-promotion-s8803-promotion_once_positive",
+          "load_s": 42.915673518,
+          "tokens": 6223,
+          "tokens_s": 145.00529736274336,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 3740.5688055833334,
+          "p95_ttft_ms": 6602.2146769500005,
+          "mean_e2e_ms": 7789.230811666666,
+          "p95_e2e_ms": 12378.7758799,
+          "http_requests": 114,
+          "raw_sha256": "5edc1f1109622752d843878f60de4c0c6cbd121cbbb82fed0e273fd33f44dd93",
+          "tokens_s_gib": 19.279136549032067
+        },
+        "native": {
+          "name": "live-nov3-promotion-s8803-native",
+          "load_s": 43.070981622,
+          "tokens": 6223,
+          "tokens_s": 144.4824279746944,
+          "vram_mib": 7701.87109375,
+          "mean_ttft_ms": 3729.7003113888886,
+          "p95_ttft_ms": 6632.726930350001,
+          "mean_e2e_ms": 7778.608005680556,
+          "p95_e2e_ms": 12375.36134945,
+          "http_requests": 72,
+          "raw_sha256": "be87555665798f204a9efa35848c86afd1442388dc1517aec0bdb1e47418c042",
+          "tokens_s_gib": 19.209618603737365
+        }
+      },
+      "differences": {
+        "periodic_vs_native": {
+          "workflow_percent": 7.169257500235426,
+          "token_rate_percent": 6.8076064625518296,
+          "tokens_s_gib_percent": 6.779878167214903,
+          "vram_saved_mib": -2.0,
+          "mean_ttft_ms": -409.3608047361108,
+          "p95_ttft_ms": -345.9118108500006,
+          "mean_e2e_ms": -661.4515280277783,
+          "p95_e2e_ms": 67.02853940000023
+        },
+        "promotion_periodic_vs_native": {
+          "workflow_percent": 7.477600604000245,
+          "token_rate_percent": 7.270348280804351,
+          "tokens_s_gib_percent": 7.270348280804351,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -434.7564335416664,
+          "p95_ttft_ms": -352.1828653500006,
+          "mean_e2e_ms": -696.5122194861115,
+          "p95_e2e_ms": 53.671674950001034
+        },
+        "promotion_periodic_vs_periodic": {
+          "workflow_percent": 0.28771600266441766,
+          "token_rate_percent": 0.433247999443509,
+          "tokens_s_gib_percent": 0.4593282198930515,
+          "vram_saved_mib": 2.0,
+          "mean_ttft_ms": -25.39562880555559,
+          "p95_ttft_ms": -6.271054499999991,
+          "mean_e2e_ms": -35.06069145833317,
+          "p95_e2e_ms": -13.356864449999193
+        },
+        "promotion_once_positive_vs_native": {
+          "workflow_percent": 0.361891335422837,
+          "token_rate_percent": 0.361891335422837,
+          "tokens_s_gib_percent": 0.36189133542285923,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 10.868494194444793,
+          "p95_ttft_ms": -30.51225340000019,
+          "mean_e2e_ms": 10.622805986110507,
+          "p95_e2e_ms": 3.414530449999802
+        },
+        "promotion_once_positive_vs_periodic": {
+          "workflow_percent": -6.35197660560225,
+          "token_rate_percent": -6.034883975598637,
+          "tokens_s_gib_percent": -6.01048338128054,
+          "vram_saved_mib": 2.0,
+          "mean_ttft_ms": 420.2292989305556,
+          "p95_ttft_ms": 315.39955745000043,
+          "mean_e2e_ms": 672.0743340138888,
+          "p95_e2e_ms": -63.614008950000425
+        }
+      },
+      "hint_accounting": {
+        "periodic": {
+          "hints": 254,
+          "waits": 42,
+          "stop_markers": 0
+        },
+        "promotion_periodic": {
+          "hints": 255,
+          "waits": 42,
+          "stop_markers": 0,
+          "valid_action_ack_count": 255,
+          "promoted_t1_touches": 34,
+          "already_t2_touches": 17105
+        },
+        "promotion_once_positive": {
+          "hints": 42,
+          "waits": 42,
+          "stop_markers": 42,
+          "valid_action_ack_count": 42,
+          "promoted_t1_touches": 33,
+          "already_t2_touches": 2910
+        },
+        "native": {
+          "hints": 0,
+          "waits": 0,
+          "stop_markers": 0
+        }
+      }
+    },
+    {
+      "partition": 9901,
+      "arms": {
+        "promotion_periodic": {
+          "name": "live-nov3-promotion-s9901-promotion_periodic",
+          "load_s": 57.543567828,
+          "tokens": 6068,
+          "tokens_s": 105.450534769368,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 7239.379815041667,
+          "p95_ttft_ms": 20240.8900594,
+          "mean_e2e_ms": 12590.748002305556,
+          "p95_e2e_ms": 27531.7213929,
+          "http_requests": 281,
+          "raw_sha256": "a5de0ccf21ca01765a1ef22cc571628ff0f2425c1879f69a7a91573a59b766d5",
+          "tokens_s_gib": 14.016504986880685
+        },
+        "promotion_once_positive": {
+          "name": "live-nov3-promotion-s9901-promotion_once_positive",
+          "load_s": 57.005151498,
+          "tokens": 6058,
+          "tokens_s": 106.27109727464793,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 6891.028710319444,
+          "p95_ttft_ms": 18189.68041955,
+          "mean_e2e_ms": 12088.844517291667,
+          "p95_e2e_ms": 24251.95070405,
+          "http_requests": 110,
+          "raw_sha256": "524c938db28fe414e3c1deb59a39a5d0a8703b7668bf622fe6157ce02e09242b",
+          "tokens_s_gib": 14.125574309975711
+        },
+        "native": {
+          "name": "live-nov3-promotion-s9901-native",
+          "load_s": 57.063626659,
+          "tokens": 6050,
+          "tokens_s": 106.02200305552788,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 6907.304879444445,
+          "p95_ttft_ms": 18311.70352835,
+          "mean_e2e_ms": 12116.035965069445,
+          "p95_e2e_ms": 24355.7662468,
+          "http_requests": 72,
+          "raw_sha256": "b91c0035027432362e2b33846f279de3846e15442045c23012a8fabdeaf51284",
+          "tokens_s_gib": 14.092464659350084
+        },
+        "periodic": {
+          "name": "live-nov3-promotion-s9901-periodic",
+          "load_s": 58.704298125,
+          "tokens": 6094,
+          "tokens_s": 103.80841258035227,
+          "vram_mib": 7703.87109375,
+          "mean_ttft_ms": 7271.828659763889,
+          "p95_ttft_ms": 19453.63305705,
+          "mean_e2e_ms": 12601.059707055556,
+          "p95_e2e_ms": 25935.92593975,
+          "http_requests": 263,
+          "raw_sha256": "51d088f8dedbaeb8bbc81c9ec6037af895c12e05ed21330eef13765d69598b38",
+          "tokens_s_gib": 13.798233795542046
+        }
+      },
+      "differences": {
+        "periodic_vs_native": {
+          "workflow_percent": -2.7948063743245766,
+          "token_rate_percent": -2.0878595115923826,
+          "tokens_s_gib_percent": -2.0878595115923937,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 364.5237803194441,
+          "p95_ttft_ms": 1141.9295286999986,
+          "mean_e2e_ms": 485.0237419861114,
+          "p95_e2e_ms": 1580.1596929499974
+        },
+        "promotion_periodic_vs_native": {
+          "workflow_percent": -0.8340483343586946,
+          "token_rate_percent": -0.5390091393204233,
+          "tokens_s_gib_percent": -0.5390091393204344,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": 332.07493559722207,
+          "p95_ttft_ms": 1929.1865310499998,
+          "mean_e2e_ms": 474.7120372361114,
+          "p95_e2e_ms": 3175.9551460999974
+        },
+        "promotion_periodic_vs_periodic": {
+          "workflow_percent": 2.0171330016752975,
+          "token_rate_percent": 1.581877757493566,
+          "tokens_s_gib_percent": 1.581877757493566,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -32.44884472222202,
+          "p95_ttft_ms": 787.2570023500011,
+          "mean_e2e_ms": -10.31170474999999,
+          "p95_e2e_ms": 1595.79545315
+        },
+        "promotion_once_positive_vs_native": {
+          "workflow_percent": 0.10257873098022952,
+          "token_rate_percent": 0.23494577723606191,
+          "tokens_s_gib_percent": 0.23494577723606191,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -16.276169125000706,
+          "p95_ttft_ms": -122.02310880000005,
+          "mean_e2e_ms": -27.191447777777285,
+          "p95_e2e_ms": -103.81554275000235
+        },
+        "promotion_once_positive_vs_periodic": {
+          "workflow_percent": 2.9806896084814793,
+          "token_rate_percent": 2.3723363387234464,
+          "tokens_s_gib_percent": 2.3723363387234686,
+          "vram_saved_mib": 0.0,
+          "mean_ttft_ms": -380.7999494444448,
+          "p95_ttft_ms": -1263.9526374999987,
+          "mean_e2e_ms": -512.2151897638887,
+          "p95_e2e_ms": -1683.9752356999998
+        }
+      },
+      "hint_accounting": {
+        "promotion_periodic": {
+          "hints": 209,
+          "waits": 38,
+          "stop_markers": 0,
+          "valid_action_ack_count": 207,
+          "promoted_t1_touches": 28,
+          "already_t2_touches": 14315
+        },
+        "promotion_once_positive": {
+          "hints": 38,
+          "waits": 38,
+          "stop_markers": 38,
+          "valid_action_ack_count": 38,
+          "promoted_t1_touches": 23,
+          "already_t2_touches": 2711
+        },
+        "native": {
+          "hints": 0,
+          "waits": 0,
+          "stop_markers": 0
+        },
+        "periodic": {
+          "hints": 191,
+          "waits": 38,
+          "stop_markers": 0
+        }
+      }
+    }
+  ],
+  "judgment": "No robust incremental promotion gain. Sparse actual T1 promotions; many repeated already-T2 touches. Discovery only, no pooled confidence interval or production claim."
+}

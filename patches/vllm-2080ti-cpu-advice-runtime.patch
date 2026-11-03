@@ -1,0 +1,369 @@
+--- a/vllm/v1/core/block_pool.py
++++ b/vllm/v1/core/block_pool.py
+@@ -169,6 +169,7 @@
+     ):
+         assert isinstance(num_gpu_blocks, int) and num_gpu_blocks > 0
+         self.num_gpu_blocks = num_gpu_blocks
++        self.semantic_allocation_epochs = [0] * num_gpu_blocks
+         self.enable_caching = enable_caching
+         self.hash_block_size = hash_block_size
+         # All kv-cache blocks.
+@@ -572,6 +573,7 @@
+         self,
+         block: KVCacheBlock,
+     ) -> list[BlockHashWithGroupId]:
++        self.semantic_allocation_epochs[block.block_id] += 1
+         block_hashes: list[BlockHashWithGroupId] = []
+         if block.block_hash is not None:
+             block_hashes.append(block.block_hash)
+@@ -659,6 +661,9 @@
+             raise ValueError(f"Cannot get {num_blocks} free blocks from the pool")
+ 
+         ret: list[KVCacheBlock] = self.free_block_queue.popleft_n(num_blocks)
++
++        for block in ret:
++            self.semantic_allocation_epochs[block.block_id] += 1
+ 
+         # In order to only iterate the list once, we duplicated code a bit
+         if self.enable_caching:
+@@ -699,6 +704,152 @@
+         self._emit_block_removed_events(evicted_hashes)
+         return True
+ 
++    def publish_completed_observed_keys(
++        self, keys, blocks, *, start_index, block_size, completion_verified,
++    ) -> bool:
++        """Cache exact hashes from an observed, fenced dense single-group copy.
++
++        No future Request or tokens are synthesized. Parent-chain hashes and
++        offsets come from the caller's validated completed-source key chain.
++        Events that require original request tokens are deliberately unsupported.
++        Validate every page before making any new hash visible.
++        """
++        if (completion_verified is not True or not self.enable_caching
++                or self.enable_kv_cache_events or block_size != self.hash_block_size
++                or type(start_index) is not int or start_index < 0
++                or not keys or len(keys) != len(blocks)
++                or len(set(keys)) != len(keys)):
++            return False
++        ids = [b.block_id for b in blocks]
++        if len(set(ids)) != len(ids):
++            return False
++        for key, block in zip(keys, blocks):
++            if (not isinstance(key, bytes) or len(key) <= 4 or get_group_id(key) != 0
++                    or not 0 < block.block_id < self.num_gpu_blocks
++                    or self.blocks[block.block_id] is not block or block.is_null
++                    or block.ref_cnt != 1 or block.block_hash is not None
++                    or block.block_id in self.cached_block_hashes_by_block
++                    or self.get_cached_block(get_block_hash(key), [0]) is not None):
++                return False
++        try:
++            for i, (key, block) in enumerate(zip(keys, blocks)):
++                self._insert_block_hash(key, block,
++                    num_tokens=(start_index + i + 1) * block_size)
++        except Exception:
++            self.evict_blocks(set(ids))
++            raise
++        self.free_blocks(reversed(blocks))
++        return True
++
++    def publish_completed_prefix(
++        self,
++        request: Request,
++        blocks: list[KVCacheBlock],
++        *,
++        block_size: int,
++        kv_cache_group_id: int,
++        completion_verified: bool,
++    ) -> bool:
++        """Publish fenced dense connector blocks, consuming their reservation.
++
++        The caller must have observed successful transfer fences for every
++        worker before setting ``completion_verified``. This method performs no
++        data copy. It validates the entire prefix before changing visibility;
++        on rejection, the caller retains every reference. On success, normal
++        cache lookup/touch owns adoption, sharing and eviction. Publication does
++        not promise that a waiting request will still hit under later pressure.
++
++        Initially restricted to a single dense group with one hash per block.
++        """
++        if (
++            completion_verified is not True
++            or not self.enable_caching
++            or request.skip_reading_prefix_cache
++            or kv_cache_group_id != 0
++            or block_size <= 0
++            or block_size != self.hash_block_size
++            or not blocks
++            or request.num_tokens <= len(blocks) * block_size
++        ):
++            return False
++        hashes = list(request.block_hashes[: len(blocks)])
++        if any(not isinstance(value, bytes) or not value for value in hashes):
++            return False
++        if len(hashes) != len(blocks) or len(set(hashes)) != len(hashes):
++            return False
++        ids = [block.block_id for block in blocks]
++        if len(set(ids)) != len(ids):
++            return False
++        for block, block_hash in zip(blocks, hashes):
++            if (
++                not 0 < block.block_id < self.num_gpu_blocks
++                or self.blocks[block.block_id] is not block
++                or block.is_null
++                or block.ref_cnt != 1
++                or block.block_hash is not None
++                or block.block_id in self.cached_block_hashes_by_block
++                or self.get_cached_block(block_hash, [kv_cache_group_id])
++                is not None
++            ):
++                return False
++        try:
++            self.cache_full_blocks(
++                request, blocks, 0, len(blocks), block_size, kv_cache_group_id
++            )
++        except Exception:
++            self.evict_blocks(set(ids))
++            raise
++        self.free_blocks(blocks)
++        return True
++
++    def publish_completed_suffix(
++        self, request: Request, local_blocks: list[KVCacheBlock],
++        suffix_blocks: list[KVCacheBlock], *, block_size: int,
++        kv_cache_group_id: int, completion_verified: bool,
++    ) -> bool:
++        """Atomically validate a cached prefix and publish only owned suffix KV.
++
++        Scheduler-thread operation: prefix references/hashes are never mutated.
++        The caller still owns all suffix reservations on any rejected operation.
++        """
++        local_count = len(local_blocks)
++        blocks = local_blocks + suffix_blocks
++        if (completion_verified is not True or not self.enable_caching
++                or request.skip_reading_prefix_cache or kv_cache_group_id != 0
++                or block_size <= 0 or block_size != self.hash_block_size
++                or not local_blocks or not suffix_blocks
++                or request.num_tokens <= len(blocks) * block_size):
++            return False
++        hashes = list(request.block_hashes[:len(blocks)])
++        if (len(hashes) != len(blocks) or len(set(hashes)) != len(hashes)
++                or any(not isinstance(h, bytes) or not h for h in hashes)):
++            return False
++        ids = [b.block_id for b in blocks]
++        if len(set(ids)) != len(ids):
++            return False
++        for i, (block, block_hash) in enumerate(zip(blocks, hashes)):
++            if (not 0 < block.block_id < self.num_gpu_blocks
++                    or self.blocks[block.block_id] is not block or block.is_null):
++                return False
++            indexed = self.get_cached_block(block_hash, [kv_cache_group_id])
++            if i < local_count:
++                if (block.ref_cnt < 0 or indexed is None or indexed[0] is not block
++                        or block.block_hash != make_block_hash_with_group_id(block_hash, kv_cache_group_id)
++                        or block.block_hash_num_tokens != (i + 1) * block_size):
++                    return False
++            elif (block.ref_cnt != 1 or block.block_hash is not None
++                    or block.block_id in self.cached_block_hashes_by_block
++                    or indexed is not None):
++                return False
++        try:
++            self.cache_full_blocks(request, blocks, local_count, len(blocks),
++                                   block_size, kv_cache_group_id)
++        except Exception:
++            self.evict_blocks(set(ids[local_count:]))
++            raise
++        self.free_blocks(suffix_blocks)
++        return True
++
+     def touch(self, blocks: Sequence[KVCacheBlock]) -> None:
+         """Touch a block increases its reference count by 1, and may remove
+         the block from the free queue. This is used when a block is hit by
+@@ -784,6 +935,7 @@
+ 
+         # Remove all hashes from all blocks.
+         for block in self.blocks:
++            self.semantic_allocation_epochs[block.block_id] += 1
+             block.reset_hash()
+ 
+         if self.metrics_collector:
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -718,6 +718,11 @@
+                 if request.num_computed_tokens == 0:
+                     did_prefix_cache_lookup = True
+                     hit_diverged = False
++                    # Optional synchronous publication at the actual native
++                    # lookup boundary; never waits for speculative work.
++                    before_lookup = getattr(self.connector, "before_prefix_cache_lookup", None)
++                    if before_lookup is not None:
++                        before_lookup(request)
+                     # Get locally-cached tokens.
+                     if self.connector is not None:
+                         # A KV connector transfers the missing suffix, which needs a
+@@ -2364,6 +2369,17 @@
+             or (self.connector is not None and self.connector.has_pending_push_work())
+         )
+ 
++    def publish_kv_connector_wait_hint(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        """Delegate an opaque wait hint at the scheduler-owned boundary."""
++        if self.connector is None:
++            return {
++                "status": "unsupported",
++                "reason": "kv_connector_unconfigured",
++            }
++        return self.connector.publish_wait_hint(hint)
++
+     def reset_prefix_cache(
+         self, reset_running_requests: bool = False, reset_connector: bool = False
+     ) -> bool:
+--- a/vllm/v1/engine/async_llm.py
++++ b/vllm/v1/engine/async_llm.py
+@@ -928,6 +928,11 @@
+             reset_running_requests, reset_connector
+         )
+ 
++    async def publish_kv_connector_wait_hint(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        return await self.engine_core.publish_kv_connector_wait_hint_async(hint)
++
+     async def reset_encoder_cache(self) -> None:
+         await self.engine_core.reset_encoder_cache_async()
+ 
+--- a/vllm/v1/engine/core.py
++++ b/vllm/v1/engine/core.py
+@@ -649,7 +649,25 @@
+ 
+         model_executed = False
+         deferred_scheduler_output = None
+-        if self.scheduler.has_requests():
++        # A connector may keep the engine alive with only ready/pending leases.
++        # Do not replenish an empty GPU batch ahead of its existing future:
++        # drain that future through the ordinary completion/update path first.
++        # Live requests, nonempty batches and transfer/cleanup work retain the
++        # native path. No futures are dropped and no completion fence is skipped.
++        drain_idle = False
++        if (batch_queue and self.scheduler.requests == {}
++                and not getattr(self, "engines_running", True)
++                and all(output.total_num_scheduled_tokens == 0
++                        for _, output, _ in batch_queue)):
++            connector = self.scheduler.get_kv_connector()
++            inner = getattr(connector, "connector_scheduler", None)
++            idle_timeout = getattr(inner, "ready_staging_idle_timeout", None)
++            timeout = idle_timeout() if idle_timeout is not None else None
++            drain_idle = timeout is not None and timeout > 0
++        if drain_idle:
++            self.semantic_staging_idle_drain_calls = getattr(
++                self, "semantic_staging_idle_drain_calls", 0) + 1
++        if not drain_idle and self.scheduler.has_requests():
+             scheduler_output = self.scheduler.schedule(self._should_throttle_prefills())
+             with self.log_error_detail(scheduler_output):
+                 exec_future = self.model_executor.execute_model(
+@@ -790,6 +808,12 @@
+         return self.scheduler.reset_prefix_cache(
+             reset_running_requests, reset_connector
+         )
++
++    def publish_kv_connector_wait_hint(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        """Publish an opaque hint without creating or advancing a request."""
++        return self.scheduler.publish_kv_connector_wait_hint(hint)
+ 
+     def reset_encoder_cache(self) -> None:
+         """Reset the encoder cache to invalidate all cached encoder outputs.
+@@ -1403,6 +1427,27 @@
+ 
+     def _process_input_queue(self):
+         """Exits when an engine step needs to be performed."""
++
++        # Ready speculative pages need expiry timers, not empty GPU steps.
++        # Queue.get wakes immediately for real inputs, cancellation or shutdown.
++        # Keep ordinary polling for all transfer/cleanup and live-request work.
++        if (self.process_input_queue_block and not self.engines_running
++                and not self.batch_queue and self.scheduler.requests == {}
++                and self.is_running()):
++            connector = self.scheduler.get_kv_connector()
++            inner = getattr(connector, "connector_scheduler", None)
++            idle_timeout = getattr(inner, "ready_staging_idle_timeout", None)
++            timeout = idle_timeout() if idle_timeout is not None else None
++            if timeout is not None and timeout > 0:
++                self.semantic_staging_idle_wait_calls = getattr(
++                    self, "semantic_staging_idle_wait_calls", 0) + 1
++                try:
++                    self._handle_client_request(*self.input_queue.get(timeout=timeout))
++                    self.semantic_staging_idle_input_wakes = getattr(
++                        self, "semantic_staging_idle_input_wakes", 0) + 1
++                except queue.Empty:
++                    self.semantic_staging_idle_timer_wakes = getattr(
++                        self, "semantic_staging_idle_timer_wakes", 0) + 1
+ 
+         waited = False
+         while not self.has_work() and self.is_running():
+--- a/vllm/v1/engine/core_client.py
++++ b/vllm/v1/engine/core_client.py
+@@ -161,6 +161,11 @@
+     ) -> bool:
+         raise NotImplementedError
+ 
++    def publish_kv_connector_wait_hint(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        raise NotImplementedError
++
+     def reset_encoder_cache(self) -> None:
+         raise NotImplementedError
+ 
+@@ -253,6 +258,11 @@
+     ) -> bool:
+         raise NotImplementedError
+ 
++    async def publish_kv_connector_wait_hint_async(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        raise NotImplementedError
++
+     async def reset_encoder_cache_async(self) -> None:
+         raise NotImplementedError
+ 
+@@ -347,6 +357,11 @@
+         return self.engine_core.reset_prefix_cache(
+             reset_running_requests, reset_connector
+         )
++
++    def publish_kv_connector_wait_hint(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        return self.engine_core.publish_kv_connector_wait_hint(hint)
+ 
+     def reset_encoder_cache(self) -> None:
+         self.engine_core.reset_encoder_cache()
+@@ -922,6 +937,11 @@
+         return self.call_utility(
+             "reset_prefix_cache", reset_running_requests, reset_connector
+         )
++
++    def publish_kv_connector_wait_hint(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        return self.call_utility("publish_kv_connector_wait_hint", hint)
+ 
+     def reset_encoder_cache(self) -> None:
+         self.call_utility("reset_encoder_cache")
+@@ -1175,6 +1195,13 @@
+     ) -> bool:
+         return await self.call_utility_async(
+             "reset_prefix_cache", reset_running_requests, reset_connector
++        )
++
++    async def publish_kv_connector_wait_hint_async(
++        self, hint: dict[str, Any]
++    ) -> dict[str, Any]:
++        return await self.call_utility_async(
++            "publish_kv_connector_wait_hint", hint
+         )
+ 
+     async def reset_encoder_cache_async(self) -> None:
