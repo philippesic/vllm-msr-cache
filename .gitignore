@@ -28,3 +28,6 @@ ep-runner-*/
 docs/*
 !docs/PROJECT_HISTORY.md
 !docs/FUTURE_WORK.md
+
+# Optional pinned runtime environment
+.venv-runtime/

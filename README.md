@@ -161,7 +161,10 @@ global runtime default.
 
 ## How to use
 
-Install the extension with its supported vLLM range:
+For repository development on Linux x86-64 / the 2080 Ti WSL host, use the
+[pinned runtime setup](vendor/VLLM.md). It includes the patched source required
+by the native CPU-advice experiments. The generic package installation below
+expresses the supported version range; it does not reproduce that runtime:
 
 ```bash
 python -m pip install -e '.[cache-affinity]'
