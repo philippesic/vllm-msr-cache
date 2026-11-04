@@ -1,98 +1,124 @@
-# Curated results snapshot
+# Results index
 
-This directory keeps the compact evidence needed to understand the project's
-pause point. Multi-gigabyte raw runs remain outside Git in the local `output/`
-tree. Values below come from retained final reports and were independently
-checked where noted.
+Compact retained evidence, organized by experiment. Current work and next actions
+live in [STATUS](../docs/STATUS.md). Raw runs remain in ignored `output/` and may
+not be available in a fresh clone.
 
-## E04: threshold-2 admission
+## November 3: maintained benchmark infrastructure
 
-**Question.** Does semantic/cost-aware admission improve serving over matched
-ARC/LRU, and does the native store threshold help?
+The four maintained tiers passed real serving qualification on this host, including
+0.5B/7B AWQ public-input graph workloads, CPU wait hints, exact abort/recovery and
+failure controls. The selected runs contain 608 normal workload completions;
+full regression and offline artifact checks passed. This is harness qualification,
+not a new policy-performance or production claim.
+[Coverage, turnaround and limits](benchmark-suite-20261103/README.md),
+[commands](../docs/BENCHMARKING.md).
 
-**Coverage.** RTX 5080; 420/420 valid cells; 10,500/10,500 request records; five
-seeds; four workloads per arm; exact output-token digests and block identities
-matched across controls.
+## November 2: CPU-only ARC recency advice
 
-| Threshold-2 arm | TTFT ms | ITL ms | Throughput tok/s | Makespan ms | Store MB/cell |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Semantic/native | 216.89 | 27.16 | 57.17 | 11,246 | 2.96 |
-| ARC | 210.18 | 25.83 | 58.72 | 10,631 | 2.98 |
-| LRU | 209.55 | 25.81 | 58.78 | 10,660 | 3.02 |
+On this RTX 2080 Ti with Qwen2.5-7B-Instruct AWQ / FP16, twelve paired workflows
+used normal model forwards with recorded output tokens. The candidate used 2,048
+GPU blocks versus ARC's 2,112, with the same CPU cache. All 1,728 requests passed
+strict recorded input/output checks. Throughput improved 0.64% and serving-load
+VRAM fell 56 MiB per pair; mean first-token latency worsened by 233 ms and p95 by
+1.43 s. This is conditional replay evidence, not live-generation quality or a
+production recommendation. Speculative GPU copies were disabled: the mechanism
+was CPU retention advice, not a semantic-ranking win.
 
-Within the semantic family, threshold 2 versus neutral changed TTFT −22.50%,
-ITL −19.78%, throughput +14.93%, makespan −12.00%, and store bytes −99.790%.
-Against matched ARC, semantic point estimates were TTFT +3.17%, ITL +4.76%,
-throughput −2.70%, and makespan +5.12%. There were no loads, restores, or
-prefetches in these cells. The supported positive is a policy-agnostic admission
-guard, not a semantic-policy win.
+[Result and intervals](cpu-wait-recency-2080ti-20261102/result.json),
+[paired measurements](cpu-wait-recency-2080ti-20261102/confirmation-pairs.csv),
+[tested configuration](cpu-wait-recency-2080ti-20261102/tested-connector-config.json),
+[aggregate verifier](cpu-wait-recency-2080ti-20261102/verify_aggregates.py).
+The full frozen protocol and raw evidence are local to
+`output/prefetch-native-20261102/`.
 
-Tracked report: [E04-FINAL-RESULT.md](e04/E04-FINAL-RESULT.md), copied byte-for-byte
-from `output/e04-full-grid-repair-20260909-v4/E04-FINAL-RESULT.md`. Frozen extension
-revision `01d3eaa5a9bd90095e6f710c3c1ca07f77103f72`; local raw archive SHA-256
-`15ffc92056a02fa9abb981289add2c819446b3386ee9cc583db1a94dbbf1b21e`.
+## November 3: scoped live serving qualification
 
-## Combined MSR retention and semantic prefetch
+The lead and independent Astra reviewer support the exact measured profile for
+**controlled asynchronous continuation queues producing drafts for human
+review** on this RTX 2080 Ti WSL host. It combines GPU-gated CPU ARC retention
+advice with an eight-second return-priority credit. It does not qualify general
+semantic ranking, interactive chat, autonomous task accuracy, or unrestricted
+arrival rates.
 
-**Question.** At matched memory, runtime, arrivals, and generic machinery, does
-MSR+semantic prefetch reduce authoritative executed prompt work or attributable
-GPU model-runner time per completed request versus ARC/LRU while exact outputs
-hold and median TTFT remains within a 3% regression allowance?
+Twelve paired whole workflows across three fresh fixed public SWE traces used
+Qwen2.5-7B-Instruct AWQ / FP16, 1,536 GPU blocks, 2,048 CPU blocks and eight active
+sequences. All 2,592 responses reached natural EOS with actual generated histories
+and only remaining-context output limits. Recorded tool observations were quoted
+inputs; external tools were not executed and assistant outputs were not replayed.
 
-**Accepted coverage.** 40 valid A/L/R/M cells and 1,944/1,944 successful exact
-requests: 24 profile cells, 12 three-seed reference cells, and four cells on one
-genuinely disjoint input. Every DRAM arm used `store_threshold=2`. Output-token
-and exact key-chain sequences matched in every accepted comparison.
+| Primary comparison: candidate versus native ARC with the same priority | Measured result |
+| --- | --- |
+| Output throughput | **+6.10%**, paired 95% interval +3.34% to +8.94% |
+| Throughput per device GiB | **+6.10%**; same VRAM |
+| Mean first-token latency | **485 ms better**, interval 293–677 ms better |
+| p95 first-token latency | 924 ms better point estimate; interval includes 180 ms worse |
+| Serving VRAM | **Unchanged**, approximately 7.52 GiB |
 
-### Three-seed reference supplement (A26)
+The intervals are conditional on three fixed traces, four repetitions each;
+requests are not independent experimental units. Against native ARC with zero
+priority credit, the full profile improved throughput by 11.17%, but initial
+request p95 first-token latency worsened by 3.69 seconds. That comparison includes
+a generic native scheduling benefit. Fixed priority also affects native
+preemption victim selection; it is not an admission or wall-clock fairness
+guarantee. Fresh summed process RSS was about 51 MiB higher for the candidate;
+shared mappings prevent interpreting that as private memory.
 
-Each 48-request trace produced the same work totals: MSR+semantic (`M`) executed
-120,174 prompt tokens versus 119,918 for ARC, LRU, and MSR+FIFO (`+0.2135%`).
+Operational follow-up completed another **5,328 workload and 16 health responses**
+to natural EOS. Persistent 24-wave cases exercised the 1,024-prefix and
+4,096-acknowledgement caps; pending metadata cleared at every boundary, and final
+engine RSS samples were nearly flat. Reduced concurrency, private waits up to
+60 seconds, two directly identified native aborts with recovery, registry
+exhaustion and finite overlapping bursts were also checked. At an accelerated
+128-session limit, 702 advice acknowledgements declined new sessions while all
+576 inference requests completed. Default-cap coverage reached 576 identities,
+not 4,096. This finite horizon does not prove indefinite stability.
 
-| M compared with | Executed work | Model-runner time | Median TTFT | Makespan | Throughput | H2D |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| ARC | +0.2135% | +3.5626% | +2.5249% | +4.2812% | −4.1051% | +12.4031% |
-| LRU | +0.2135% | +3.6567% | +1.8058% | +4.2807% | −4.1029% | +12.4031% |
-| MSR+FIFO | +0.2135% | −0.0245% | −0.4213% | −0.2003% | +0.2011% | +12.4031% |
+Adverse outcomes remain: overlapping bursts reached about 49 seconds to first
+token for a new session and 64.6 seconds end to end. Initial p95 worsened by
+497 ms and maximum end-to-end latency by 2.45 seconds versus matched native
+priority in that case. The two original endurance abort matchers failed because
+they omitted native randomized IDs; those failures remain recorded, with later
+direct request-ID qualification separate. Two documentation edits stopped earlier
+freezes; no failed case was replaced or relabeled. Shared model source-reading
+and reasoning defects remain, so no quality-equivalence or task-success gain is
+claimed.
 
-Semantic selection chose the no-return source and wasted all 22,020,096 staged
-bytes across the three traces. The traces vary seeds but share an input cohort;
-they do not support a broad population claim.
+[Exact profile and operating contract](live-optimization-2080ti-20261103/qualified-live-profile.json),
+[fresh confirmation](live-optimization-2080ti-20261103/priority-confirmation-root-verification.json),
+[final lead assessment](live-optimization-2080ti-20261103/operational-final-root-assessment.json),
+[independent Astra assessment](live-optimization-2080ti-20261103/operational-final-astra-assessment.json),
+[byte qualification](live-optimization-2080ti-20261103/return-priority-bytes-root-verification.json).
+The byte qualification checked 29,120 component/corruption comparisons with
+transfer-count and aggregate-byte reconciliation; per-job bytes were derived
+from mapped pages rather than independently observed native job-byte fields.
 
-### Disjoint supplement (A27)
+Qualification binds the measured installed wheel and five-file overlay. The
+concurrent vendored developer launcher and a clean installation have separate
+unverified GPU-serving paths. Subsequent concurrent benchmark-telemetry edits
+are [outside the measured frozen source](live-optimization-2080ti-20261103/postqualification-source-boundary.json).
+Keep the exact linked configuration, causal hint
+producer, one gateway priority epoch, and explicit 4,096-session registry-lifetime
+management. New-session advice declines at capacity while inference continues;
+generation records do not expire automatically. See [configuration](../docs/CONFIGURATION.md).
 
-On one independently identified 48-request trace, both MSR+semantic and MSR+FIFO
-consumed all 7,340,032 speculative bytes. Executed prompt work tied ARC/LRU/FIFO
-at 107,334 tokens. MSR+semantic nevertheless had +4.937% model-runner time,
-+6.226% median TTFT, +6.800% makespan, and −6.367% throughput versus ARC. With
-one disjoint trace, uncertainty intervals are unavailable.
+The [protocol](live-optimization-2080ti-20261103/protocol.json), rejected candidates,
+frozen scripts and compressed raw evidence remain in the evidence directory and
+ignored `output/prefetch-native-20261102/`. The earlier replay's 56 MiB saving is
+not a live-generation memory-saving result.
 
-**Decision.** The implementation proved exact activation and useful semantic
-consumption, but no repeatable provider benefit. This is a scoped negative for
-the tested revisions and inputs, not evidence that MSR can never help.
+## Earlier findings
 
-Tracked report: [FINAL-REPORT.md](a27/FINAL-REPORT.md), copied byte-for-byte from
-`output/msr-combined-prefetch-gpu-20260910/analysis-owner/final-all-metrics-a27-v1/FINAL-REPORT.md`,
-SHA-256 `8e961ef3fe05ba8261f8e44c15e919ee5cd38280e7b42d57c556a3bbd3309ba3`.
-Independent validator: [audit.txt](a27/audit.txt), copied byte-for-byte from
-`output/msr-combined-prefetch-gpu-20260910/final-validator-a27-v1/audit.txt`,
-SHA-256 `a23676d585022e32f3b4586a64b8457e5204fa8fee46704de4b9655f1a175e6c`
-(`PASS`).
+- [September results and provenance](september-2026.md): E04 admission and A27
+  combined retention/prefetch. Threshold-2 admission helped generically; semantic
+  policy did not establish a repeatable benefit over matched controls.
+- [Brief history](../docs/PROJECT_HISTORY.md): October/November scoring and
+  broader-workload investigations, with locations of local detailed reports.
 
-## Snapshot provenance
+For new results, keep the tested hardware/model, policy activation, comparator,
+memory denominator, generation mode, trade-offs, and reproduction path alongside
+the claim. Store compact evidence here and bulky artifacts under `output/`.
 
-No artifact was regenerated, redacted, or otherwise transformed. The source
-files remain in `output/`; this directory contains copies only.
+## Repository workflow finalization
 
-| Tracked artifact | Bytes | SHA-256 |
-| --- | ---: | --- |
-| [E04 report](e04/E04-FINAL-RESULT.md) | 8,009 | `ef2be4894e8e03aa1628a9b6c2026308c334e60b240bb5a4a1b4789f6bb2dcd6` |
-| [A27 final report](a27/FINAL-REPORT.md) | 17,989 | `8e961ef3fe05ba8261f8e44c15e919ee5cd38280e7b42d57c556a3bbd3309ba3` |
-| [A27 independent audit](a27/audit.txt) | 6,664 | `a23676d585022e32f3b4586a64b8457e5204fa8fee46704de4b9655f1a175e6c` |
-
-## Explicit limitations
-
-No current evidence supports a production TTL, a useful-capacity frontier,
-physical displacement attribution, price-based inference savings, or complete
-CPU/RSS/index-memory cost. GPU-to-DRAM and H2D bytes are traffic overhead, not a
-provider cache-write price. The tested package remains experimental.
+[Clean installation, shared GPU locking, validator promotion and lightweight CI](workflow-finalization-20261103/README.md). Local checks passed; remote CI awaits a future push.

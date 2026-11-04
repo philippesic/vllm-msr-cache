@@ -1,73 +1,68 @@
-# Project history
+# Brief project history
 
-This is the compact timeline retained while the project is paused. It records
-what was tried and what was learned; it is not a release claim or a work queue.
+Completed milestones and useful negative findings. Active assignments live in
+[STATUS.md](STATUS.md); detailed measurements belong in [evidence](../evidence/README.md).
+Add a short dated outcome with a link when an effort finishes, not a transcript
+of intermediate commands.
 
-## July 2026 — prototype and measurement foundation
+- **July–August 2026:** built exact KV offload, eviction/prefetch, query capture,
+  scoring, and the measurement harness. Bookkeeping and capture overhead emerged
+  as important costs.
+- **September 2026:** E04 supported native threshold-2 admission, not a semantic
+  policy advantage. A27 demonstrated exact semantic activation and consumption
+  but no repeatable benefit over controls. These were other-host results, not
+  2080 Ti measurements. [Reports and limitations](../evidence/README.md).
+- **October 31–November 1, 2026:** 2080 Ti workloads exposed continuous-path
+  overhead. Capture and batching changes improved throughput, but the general
+  within-1%-of-ARC goal remained unmet; reduced observation frequency had quality
+  trade-offs. Local report: `output/scoring-overhead-20261101/REPORT.md`.
+- **November 1–2, 2026:** broader quantized-model testing did not establish a
+  general prefetch advantage. Smaller-cache ARC could obtain similar memory
+  savings; speculative reservations and wasted transfers remained costs. Local
+  report: `output/quantized-realworld-20261101/REPORT.md`.
+- **November 2, 2026:** CPU-only ARC recency advice produced a small conditional
+  throughput/VRAM gain in exact recorded-output replay, with worse first-token
+  latency. It disabled speculative GPU copies and did not establish a semantic
+  ranking win. [Result](../evidence/cpu-wait-recency-2080ti-20261102/result.json).
+- **November 3, 2026:** connected/synchronized the Git remote and brought the
+  patched vLLM source into the repository. Added exact runtime requirements and
+  a same-interpreter launcher guard; 60 focused tests passed. Fresh installation
+  and GPU-launcher qualification remain open in STATUS.
 
-- Built the first exact KV offload/eviction/prefetch extension and a latency
-  benchmark harness.
-- Added selectable semantic scoring, partial-splice correctness checks, mixed
-  workloads, cached candidate tensors, and vectorized query scoring.
-- Early profiling established that semantic bookkeeping can dominate latency if
-  summaries, candidate stacks, or debug paths are rebuilt on the hot path.
+- **November 3, 2026 — workflow cleanup:** separated active status, brief history,
+  configuration, and evidence. Removed the unscheduled backlog and documentation
+  archive at the user’s request. Added
+  runtime/test/benchmark-help entry points and contextual agent notes. Runtime
+  imports, 60 focused tests, 120 harness checks, CLI help, and documentation links
+  passed. Active campaign files were left in place; GPU qualification is still open.
 
-## August 2026 — lifecycle, policy, and preservation studies
+Local `output/` reports are
+not distributed by Git; the retained evidence index identifies portable results.
 
-- Extended lifecycle accounting for load/store traffic, preemption, exact key
-  identity, and preservation outcomes.
-- Compared LRU, ARC, semantic-mean, and semantic-minmax under pressured Chat/RAG
-  workloads. ARC remained the strongest serving baseline; semantic policies were
-  slower without a preservation advantage in that run.
-- Tested chain-aware, prefix-aware, and future-reuse ideas. Future-reuse labeling
-  was kept offline and leakage-safe; it did not become a serving feature.
-- Built an exact MTP offload round-trip validator and cache-affinity scheduling
-  experiments. These remained bounded research paths.
+- **November 3, 2026 — scoped live qualification:** GPU-gated CPU ARC advice with
+  fixed continuation priority measured +6.10% token throughput and 485 ms lower
+  mean first-token latency against equally prioritized native ARC on fresh
+  natural generation. VRAM was unchanged; the p95 interval included regression.
+  Another 5,328 workload plus 16 health completions covered persistence, bounds,
+  capacity fallback, exact abort recovery and finite overlap. Lead and Astra
+  support controlled asynchronous drafts with human review on the exact measured
+  snapshot, with explicit registry lifetime and cold/burst-delay tolerance.
+  Interactive/general production, autonomous quality, later telemetry edits and
+  the new runtime launcher remain unqualified. Historical failures are retained;
+  GPU custody and owned processes were released.
+  [Assessment and operating contract](../evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json).
 
-## Early September 2026 — integrated MSR and prefetch work
+- **November 3, 2026 — maintained benchmarks:** added smoke, advisory screen,
+  paired confirmation, and persistent operational commands with sealed artifacts,
+  native activity/abort receipts and offline verification. Qualified 608 normal
+  requests across 18 successful launches, including public-input graphs on 0.5B
+  and 7B AWQ; real failure controls and 1,348 regression tests passed (26 historical
+  artifact-dependent skips). Fixed wheel-support staging and interruption cleanup.
+  GPU released; useful failures retained. Fresh installation remains unverified.
+  [Commands](BENCHMARKING.md), [qualification](../evidence/benchmark-suite-20261103/README.md).
 
-- Repaired the real vLLM execution path, wait-aware staging, transfer attribution,
-  block-table provenance, worker fences, and failure cleanup.
-- Evaluated nine eviction/prefetch improvements, including async scoring,
-  admission controls, prefetch protection, scheduling, and accounting changes.
-- Rejected the correction-cache oracle after its matched-error cold-byte gate
-  failed. Related approximate-KV work was parked rather than presented as exact
-  cache reuse.
-
-## September 9 — E04 admission campaign
-
-- Completed 420/420 RTX 5080 cells and 10,500/10,500 exact request records across
-  five seeds and four workload profiles.
-- Native `store_threshold=2` reduced writes by about 99.79% and improved the
-  semantic arm versus its neutral configuration: TTFT −22.50%, ITL −19.78%,
-  throughput +14.93%, and makespan −12.00%.
-- Matched ARC remained ahead at threshold 2 by point estimate: semantic TTFT
-  +3.17%, ITL +4.76%, throughput −2.70%, and makespan +5.12%.
-- No restore or prefetch occurred in these cells. The result supports a generic
-  admission guard, not an MSR/prefetch provider benefit.
-
-## September 10–11 — combined MSR and semantic-prefetch campaign
-
-- Progressed from one-block activation diagnostics to exact multi-source causal
-  selection, full transfer/staging/bind/install/fence/consumption attribution,
-  pressure profiles, horizons, burst/recovery, three reference seeds, and a
-  genuinely disjoint input.
-- The final accepted set contained 40 valid cells and 1,944/1,944 successful
-  exact requests. A broader historical execution ledger retained 69 valid cells
-  and 3,980 valid request rows.
-- On three repeated reference traces, MSR+semantic executed 120,174 prompt tokens
-  versus 119,918 for ARC/LRU/FIFO controls in every trace (+0.2135%). It also used
-  3.56% more instrumented model-runner time and 12.40% more H2D traffic than ARC.
-- On one disjoint trace, semantic prefetch selected and consumed the returning
-  source, but executed work tied the controls. Against ARC, model-runner time was
-  +4.94%, median TTFT +6.23%, and throughput −6.37%.
-- The campaign therefore closed as a well-supported negative for the tested
-  configurations. It does not establish universal MSR inferiority.
-
-## Pause point — September 2026
-
-The code, exactness work, negative results, and compact evidence record are worth
-preserving. A production release remains open because no repeatable provider
-benefit has been demonstrated against matched ARC/LRU. Future work should start
-from the ranked backlog, use independent inputs, and begin with a small exact
-matched comparison rather than repeating the full historical campaign.
+- **November 3, 2026 — workflow finalization:** unified maintained GPU reservations
+  across whole invocations; promoted reusable research validators; verified an
+  isolated runtime installation, 1,381 tests and real GPU smoke; added lightweight
+  push/PR checks (31 portable tests). Preserved paused research and historical
+  reproduction files. [Verification](../evidence/workflow-finalization-20261103/README.md).
