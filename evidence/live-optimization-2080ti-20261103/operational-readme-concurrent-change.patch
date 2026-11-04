@@ -1,0 +1,38 @@
+diff --git a/README.md b/README.md
+index 063104b..7561f5a 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# MSR semantic cache for vLLM
++# MSR KV Cache Eviction for vLLM
+ 
+ An experimental vLLM extension for exact KV-cache offload, semantic retention,
+ and causal prefetch. The project explores **mean semantic relevance (MSR)** as a
+@@ -446,6 +446,20 @@ KV budgets therefore do not imply equal metadata allocations.
+ Reproduction scripts, paired measurements, quality diagnostics and rejected
+ candidates are retained locally under `output/scoring-overhead-20261101/`.
+ 
++## Earlier individual comparison
++
++In one earlier individual comparison, MSR semantic prefetch consumed the staged exact KV and reduced median time to first token by 0.80% versus ARC. Prompt work and transfer volume were unchanged.
++
++| Metric | ARC | MSR | MSR vs. ARC |
++|---|---:|---:|---:|
++| Executed prompt tokens | 94,748 | 94,748 | 0.00% |
++| Median TTFT | 166.088 ms | 164.756 ms | **−0.80%** |
++| Makespan | Baseline | — | +0.17% |
++| Throughput | Baseline | — | −0.17% |
++| H2D transfer | 2,752,512 bytes | 2,752,512 bytes | 0.00% |
++| GPU-reused tokens | 448 | 448 | 0 |
++| DRAM-restored tokens | 96 | 96 | 0 |
++
+ ## Repository map
+ 
+ ```text
+@@ -481,5 +495,4 @@ candidates are retained locally under `output/scoring-overhead-20261101/`.
+ 
+ See the [project history](docs/PROJECT_HISTORY.md) for the experiment timeline
+ and [future work](docs/FUTURE_WORK.md) for the unfinished optimization and
+-measurement backlog. Multi-gigabyte raw runs remain outside Git. No new GPU work
+-is scheduled while the project is paused.
++measurement backlog.

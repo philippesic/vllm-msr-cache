@@ -1,0 +1,16 @@
+{
+  "schema": "root-operational-v2-readme-drift-v1",
+  "at_ns": 1793741918490503328,
+  "unique_pins_checked": 813,
+  "mismatches": [
+    {
+      "path": "/home/philip/vllm-semantic-cache-ext/README.md",
+      "expected": "e7ffc27b1be7b94e60909946d13f524ed16b70b191e8aca3c02ba29433efb2e1",
+      "actual": "be94219dffcdf4a888df47a1e465dd875a409a47112512ed33e16f613d3e50e7"
+    }
+  ],
+  "git_log": "commit ff9262b2b30b4c01816441540cb5b6456ec0a3f0\nAuthor:     Philip Pesic <philippesic06@gmail.com>\nAuthorDate: Tue Nov 3 13:33:51 2026 -0800\nCommit:     Philip Pesic <philippesic06@gmail.com>\nCommitDate: Tue Nov 3 13:33:51 2026 -0800\n\n    Pin vendored vLLM development runtime\n\ncommit 97ce2c5cb63cf92af023eef9b16db65ae2b34e11\nMerge: c68955f ebfd47f\nAuthor:     Philip Pesic <philippesic06@gmail.com>\nAuthorDate: Tue Nov 3 13:01:08 2026 -0800\nCommit:     Philip Pesic <philippesic06@gmail.com>\nCommitDate: Tue Nov 3 13:01:08 2026 -0800\n\n    Merge remote README updates\n\ncommit c68955ffd216f043a5c6800a5b5c38d10b307b62\nAuthor:     Philip Pesic <philippesic06@gmail.com>\nAuthorDate: Tue Nov 3 13:01:01 2026 -0800\nCommit:     Philip Pesic <philippesic06@gmail.com>\nCommitDate: Tue Nov 3 13:01:01 2026 -0800\n\n    Record 2080 Ti experiments and implementation\n\ncommit ebfd47f1325fa7deb85b5839b12bef1d2f9c4766\nAuthor:     Philip Pesic <116986036+philippesic@users.noreply.github.com>\nAuthorDate: Thu Sep 17 01:23:32 2026 +0000\nCommit:     GitHub <noreply@github.com>\nCommitDate: Thu Sep 17 01:23:32 2026 +0000\n\n    Update README.md\n",
+  "git_status": "?? evidence/live-optimization-2080ti-20261103/operational-a-root-verification.json\n?? evidence/live-optimization-2080ti-20261103/operational-a-waves.csv\n?? evidence/live-optimization-2080ti-20261103/operational-readme-concurrent-change.patch\n?? evidence/live-optimization-2080ti-20261103/operational-readme-drift-root-verification.json\n?? evidence/live-optimization-2080ti-20261103/operational-v2-frozen.json\n?? evidence/live-optimization-2080ti-20261103/operational-v2-harness-root-review.json\n?? evidence/live-optimization-2080ti-20261103/operational-v2-launch-root-authorization.json\n",
+  "interpretation": "Second concurrent documentation-only change; all executed source/runtime/input pins held. Preserve new README and completed qualified B/C; no replacement or unapproved continuation of stopped freeze.",
+  "next": "Remaining D/E use executed-input mutation guard; README initial identity retained as nonexecuted provenance instead of a serving stop condition."
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "root-operational-v2-review-v1",
+  "at_ns": 1793740486146385521,
+  "review_passed": true,
+  "CPU_controls_root_rerun": 60,
+  "CUDA_visible_devices": "",
+  "exact_original_B_E_settings_verified": true,
+  "only_new_C_cancel_probes_added": true,
+  "old783_pins_only_README_prospectively_changed": true,
+  "all_prospective_pins_checked": 807,
+  "reviewed": [
+    "direct actual returned aborted Request parameter mapping, no suffix parsing",
+    "bounded32 record retention and preserved native args/results/exceptions",
+    "precise shared-epoch priority receipts on abort/health calls",
+    "best-effort failure-only export and metric capture preserves original failure",
+    "unchanged workload, isolated overlap globals, no active-sibling export",
+    "remaining seven names absent, exact argv and counts, no A replacements",
+    "explicit one-file README transition, retained original failed block",
+    "supervisor exact plan/certificate binding, per-case pin checks and cleanup"
+  ],
+  "GPU_idle": true,
+  "GPU_lock_available": true,
+  "port_closed": true,
+  "plan_sha256": "3d236ad03a7b61ab50f0bdc49fbbf5f79c06eadb6f4f017af4f54d0dc9212f96",
+  "production_endorsement": false
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "root-operational-readme-drift-v1",
+  "at_ns": 1793739799450160553,
+  "all_unique_pins_checked": 783,
+  "mismatches": [
+    {
+      "path": "/home/philip/vllm-semantic-cache-ext/README.md",
+      "expected": "fd12652baa6b4e5b6c550dc6e6dbb2644a692b9e838bf0f3de151ccba70d6eeb",
+      "actual": "e7ffc27b1be7b94e60909946d13f524ed16b70b191e8aca3c02ba29433efb2e1"
+    }
+  ],
+  "git_head": "97ce2c5cb63cf92af023eef9b16db65ae2b34e11",
+  "git_recent_log": "commit 97ce2c5cb63cf92af023eef9b16db65ae2b34e11\nMerge: c68955f ebfd47f\nAuthor:     Philip Pesic <philippesic06@gmail.com>\nAuthorDate: Tue Nov 3 13:01:08 2026 -0800\nCommit:     Philip Pesic <philippesic06@gmail.com>\nCommitDate: Tue Nov 3 13:01:08 2026 -0800\n\n    Merge remote README updates\n\ncommit c68955ffd216f043a5c6800a5b5c38d10b307b62\nAuthor:     Philip Pesic <philippesic06@gmail.com>\nAuthorDate: Tue Nov 3 13:01:01 2026 -0800\nCommit:     Philip Pesic <philippesic06@gmail.com>\nCommitDate: Tue Nov 3 13:01:01 2026 -0800\n\n    Record 2080 Ti experiments and implementation\n",
+  "git_status": "?? evidence/live-optimization-2080ti-20261103/operational-readme-concurrent-change.patch\n",
+  "previous_readme_matches_frozen": true,
+  "diff_evidence": "operational-readme-concurrent-change.patch",
+  "interpretation": "Concurrent commit/merge changed documentation only among783 pinned inputs. User work preserved; original freeze stopped honestly, not resumed or relabeled. All serving/runtime/input pins remain unchanged.",
+  "next": "New remaining-case freeze with direct actual-abort external ID observation; preserve original failed A probes and first-block stop."
+}

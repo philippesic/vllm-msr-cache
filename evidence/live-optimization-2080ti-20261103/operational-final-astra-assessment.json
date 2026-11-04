@@ -1,0 +1,1943 @@
+{
+  "schema": "astra-operational-v3-final-scoped-assessment-v1",
+  "evidence": {
+    "live-nov3-operational-v3-independent-analysis.json": "3e4a2a6bb4e7c5175022aab49614e80fe89d1024dca1b14e3fc1af6dbcbd3685",
+    "live-nov3-operational-v3-extra-verification.json": "86c83910e06a888d77d95f5f031a87bcdda916ab941dfd374ea5b7d85396069f",
+    "live-nov3-operational-v3-quality-review.json": "7899fc95f65a86b4c0f42ef4e086dd56b7541d1e7991b03aa9cd8d31471ae8a7",
+    "live-nov3-operational-v3-custody.json": "8a001f2027f5a0f9cf15fbea947736354aaca8ca8d30fba761bfb8d94e6d6701"
+  },
+  "block_status": "complete",
+  "qualified_cases": 3,
+  "natural_EOS": 1008,
+  "all_return_prefixes_contiguous": 672,
+  "preemptions": 0,
+  "pins": {
+    "count": 828,
+    "all_end_match": true,
+    "README_provenance_start": {
+      "path": "/home/philip/vllm-semantic-cache-ext/README.md",
+      "sha256": "ec7920d3e3a376e19a37dd1aa2e57c4bcddd9539baab679670a4912347a717bb",
+      "at_utc": "2026-11-03T21:46:46.257542+00:00",
+      "scope": "Nonexecuted documentation provenance only; changes do not stop execution."
+    },
+    "README_provenance_end": {
+      "path": "/home/philip/vllm-semantic-cache-ext/README.md",
+      "sha256": "b8cd47abbe3cef76c841dc946afaa3a731e35f32242ff90fbea208d155d7d573",
+      "at_utc": "2026-11-03T22:03:04.293377+00:00",
+      "scope": "Nonexecuted documentation provenance only; changes do not stop execution."
+    }
+  },
+  "capacity_and_overlap": {
+    "schema": "astra-operational-v3-extra-verification-v1",
+    "manifest_sha256": "3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04",
+    "cases": {
+      "live-nov3-operational-v3-d-candidate": {
+        "raw_sha256": "4068a7951387e5e91ff3cad563834fc035ff1824eb96bbb74f9e2dcd1dd93996",
+        "qualified": true,
+        "waves": [
+          {
+            "wave": 0,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-0",
+            "actual_release_offset_s": 0.004226359,
+            "normal_load_start_offset_s": 3.9018149,
+            "normal_load_end_offset_s": 58.988234091,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 310,
+              "nomination_deadline_elapsed": 4
+            },
+            "registry": 24,
+            "prefixes": 96,
+            "ACK_history": 314
+          },
+          {
+            "wave": 1,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-1",
+            "actual_release_offset_s": 61.06546863,
+            "normal_load_start_offset_s": 61.351100031,
+            "normal_load_end_offset_s": 112.828320602,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 239,
+              "nomination_deadline_elapsed": 6
+            },
+            "registry": 48,
+            "prefixes": 192,
+            "ACK_history": 559
+          },
+          {
+            "wave": 2,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-2",
+            "actual_release_offset_s": 114.905415729,
+            "normal_load_start_offset_s": 115.217543473,
+            "normal_load_end_offset_s": 167.181390262,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 241,
+              "nomination_deadline_elapsed": 5
+            },
+            "registry": 72,
+            "prefixes": 288,
+            "ACK_history": 805
+          },
+          {
+            "wave": 3,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-3",
+            "actual_release_offset_s": 169.260781415,
+            "normal_load_start_offset_s": 169.577051565,
+            "normal_load_end_offset_s": 223.119611234,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 293,
+              "nomination_deadline_elapsed": 10
+            },
+            "registry": 96,
+            "prefixes": 384,
+            "ACK_history": 1108
+          },
+          {
+            "wave": 4,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-4",
+            "actual_release_offset_s": 225.198130615,
+            "normal_load_start_offset_s": 225.493525776,
+            "normal_load_end_offset_s": 273.487851205,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 238,
+              "nomination_deadline_elapsed": 6
+            },
+            "registry": 120,
+            "prefixes": 480,
+            "ACK_history": 1352
+          },
+          {
+            "wave": 5,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-5",
+            "actual_release_offset_s": 275.578639579,
+            "normal_load_start_offset_s": 275.878091885,
+            "normal_load_end_offset_s": 327.086698671,
+            "capacity_ACKs": 154,
+            "capacity_distinct_sessions": 15,
+            "EOS_requests_for_capacity_sessions": 45,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 92,
+              "session_registry_capacity": 154
+            },
+            "registry": 128,
+            "prefixes": 512,
+            "ACK_history": 1598
+          },
+          {
+            "wave": 6,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-6",
+            "actual_release_offset_s": 329.167622293,
+            "normal_load_start_offset_s": 329.466987404,
+            "normal_load_end_offset_s": 387.236018035,
+            "capacity_ACKs": 306,
+            "capacity_distinct_sessions": 24,
+            "EOS_requests_for_capacity_sessions": 72,
+            "hint_reasons": {
+              "session_registry_capacity": 306
+            },
+            "registry": 128,
+            "prefixes": 512,
+            "ACK_history": 1904
+          },
+          {
+            "wave": 7,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-d-candidate-wave-7",
+            "actual_release_offset_s": 389.318285773,
+            "normal_load_start_offset_s": 389.615122536,
+            "normal_load_end_offset_s": 442.207465665,
+            "capacity_ACKs": 242,
+            "capacity_distinct_sessions": 23,
+            "EOS_requests_for_capacity_sessions": 69,
+            "hint_reasons": {
+              "session_registry_capacity": 242
+            },
+            "registry": 128,
+            "prefixes": 512,
+            "ACK_history": 2146
+          }
+        ],
+        "three_normal_wave_intervals_overlap_s": null,
+        "unique_external_request_ids": 576,
+        "unique_application_namespaces": 8,
+        "one_gateway_epoch": true,
+        "natural_EOS": 576,
+        "capacity_ACKs": 702,
+        "scope": "Exact raw accounting; capacity128 only, finite overlap only. Semantic model namespace unchanged. No physical-prefill or unbounded-stability claim."
+      },
+      "live-nov3-operational-v3-e-candidate": {
+        "raw_sha256": "ac15ecd9ebf55fa69bf91d5bd97a6ac5a38568ae8d8f6564aa230803493a6124",
+        "qualified": true,
+        "waves": [
+          {
+            "wave": 0,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-e-candidate-wave-0",
+            "actual_release_offset_s": 0.013606832,
+            "normal_load_start_offset_s": 5.374429585,
+            "normal_load_end_offset_s": 113.861281284,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 314,
+              "nomination_deadline_elapsed": 2
+            }
+          },
+          {
+            "wave": 1,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-e-candidate-wave-1",
+            "actual_release_offset_s": 20.001126784,
+            "normal_load_start_offset_s": 20.367221447,
+            "normal_load_end_offset_s": 169.390858558,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 242,
+              "nomination_deadline_elapsed": 1
+            }
+          },
+          {
+            "wave": 2,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-e-candidate-wave-2",
+            "actual_release_offset_s": 40.000886222,
+            "normal_load_start_offset_s": 40.365104517,
+            "normal_load_end_offset_s": 192.850810798,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {
+              "cpu_prefix_recency_refreshed": 230,
+              "nomination_deadline_elapsed": 5
+            }
+          }
+        ],
+        "three_normal_wave_intervals_overlap_s": 73.496176767,
+        "unique_external_request_ids": 216,
+        "unique_application_namespaces": 3,
+        "one_gateway_epoch": true,
+        "natural_EOS": 216,
+        "capacity_ACKs": 0,
+        "scope": "Exact raw accounting; capacity128 only, finite overlap only. Semantic model namespace unchanged. No physical-prefill or unbounded-stability claim."
+      },
+      "live-nov3-operational-v3-e-native8": {
+        "raw_sha256": "4dfb19d8ba004eea335ed73150c7fce74bd5c5954e960d47935c5502ea712e4e",
+        "qualified": true,
+        "waves": [
+          {
+            "wave": 0,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-e-native8-wave-0",
+            "actual_release_offset_s": 0.013483311,
+            "normal_load_start_offset_s": 5.759626502,
+            "normal_load_end_offset_s": 119.334443396,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {}
+          },
+          {
+            "wave": 1,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-e-native8-wave-1",
+            "actual_release_offset_s": 20.000744786,
+            "normal_load_start_offset_s": 20.418176031,
+            "normal_load_end_offset_s": 176.267734992,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {}
+          },
+          {
+            "wave": 2,
+            "requests": 72,
+            "natural_EOS": 72,
+            "application_namespace": "live-nov3-operational-v3-e-native8-wave-2",
+            "actual_release_offset_s": 40.000974705,
+            "normal_load_start_offset_s": 40.37051812,
+            "normal_load_end_offset_s": 195.388919142,
+            "capacity_ACKs": 0,
+            "capacity_distinct_sessions": 0,
+            "EOS_requests_for_capacity_sessions": 0,
+            "hint_reasons": {}
+          }
+        ],
+        "three_normal_wave_intervals_overlap_s": 78.963925276,
+        "unique_external_request_ids": 216,
+        "unique_application_namespaces": 3,
+        "one_gateway_epoch": true,
+        "natural_EOS": 216,
+        "capacity_ACKs": 0,
+        "scope": "Exact raw accounting; capacity128 only, finite overlap only. Semantic model namespace unchanged. No physical-prefill or unbounded-stability claim."
+      }
+    }
+  },
+  "descriptive_overlap_comparison": {
+    "phase": "E",
+    "candidate": "live-nov3-operational-v3-e-candidate",
+    "control": "live-nov3-operational-v3-e-native8",
+    "both_attempted": true,
+    "complete_qualified_pair": true,
+    "descriptive_changes": {
+      "normal_tokens_per_s_percent": 1.0047580405166956,
+      "normal_workflows_per_s_percent": 1.148364083555653,
+      "normal_tokens_per_s_per_GiB_percent": 1.0047580405166956,
+      "TTFT_ms_mean_difference": -836.5759147731478,
+      "TTFT_ms_p95_difference": -315.3726217499934,
+      "TTFT_ms_max_difference": 127.12964999999531,
+      "E2E_ms_mean_difference": -889.4634486759278,
+      "E2E_ms_p95_difference": -600.9119695000045,
+      "E2E_ms_max_difference": 2453.2974130000002
+    },
+    "wave_input_checks": [
+      {
+        "wave": 0,
+        "source_ids_equal": true,
+        "first_prompts_equal": true,
+        "private_waits_equal": true
+      },
+      {
+        "wave": 1,
+        "source_ids_equal": true,
+        "first_prompts_equal": true,
+        "private_waits_equal": true
+      },
+      {
+        "wave": 2,
+        "source_ids_equal": true,
+        "first_prompts_equal": true,
+        "private_waits_equal": true
+      }
+    ]
+  },
+  "overlap_fairness_difference_ms": {
+    "initial": {
+      "TTFT_ms": {
+        "mean": -77.62228520833378,
+        "p95": 497.1914517499972,
+        "max": 630.1736219999948
+      },
+      "E2E_ms": {
+        "mean": -274.67139587499696,
+        "p95": 167.04797105000034,
+        "max": 2453.2974130000002
+      }
+    },
+    "return_zero_wait": {
+      "TTFT_ms": {
+        "mean": -909.0142300833359,
+        "p95": 218.6266278999974,
+        "max": 127.56521500000235
+      },
+      "E2E_ms": {
+        "mean": -1466.5196280833334,
+        "p95": -3005.0629180999968,
+        "max": -4269.754199000003
+      }
+    },
+    "return_positive_wait": {
+      "TTFT_ms": {
+        "mean": -1277.4604294500023,
+        "p95": -511.9579992500003,
+        "max": -1652.5312630000044
+      },
+      "E2E_ms": {
+        "mean": -1142.9274444749972,
+        "p95": -1471.1770322499942,
+        "max": -2424.894251000005
+      }
+    }
+  },
+  "case_summaries": [
+    {
+      "case": "live-nov3-operational-v3-d-candidate",
+      "normal": {
+        "requests": 576,
+        "natural_eos": 576,
+        "output_tokens": 49133,
+        "logical_prompt_tokens": 877470,
+        "TTFT_ms": {
+          "n": 576,
+          "mean": 5115.247236048611,
+          "p95": 11339.48824875,
+          "max": 14853.91253
+        },
+        "E2E_ms": {
+          "n": 576,
+          "mean": 10008.961199232639,
+          "p95": 17836.04636475,
+          "max": 26771.964448
+        },
+        "return_contiguity": {
+          "True": 384
+        },
+        "categories": {
+          "initial": {
+            "requests": 192,
+            "TTFT_ms": {
+              "n": 192,
+              "mean": 5477.543045270833,
+              "p95": 11678.714121449999,
+              "max": 12598.830951
+            },
+            "E2E_ms": {
+              "n": 192,
+              "mean": 8870.72501146354,
+              "p95": 16177.199411399999,
+              "max": 18234.592918
+            }
+          },
+          "return_zero_wait": {
+            "requests": 61,
+            "TTFT_ms": {
+              "n": 61,
+              "mean": 3384.2889645901637,
+              "p95": 8944.412841,
+              "max": 14464.234959
+            },
+            "E2E_ms": {
+              "n": 61,
+              "mean": 8810.581538163935,
+              "p95": 19333.508336,
+              "max": 20786.072154
+            }
+          },
+          "return_positive_wait": {
+            "requests": 323,
+            "TTFT_ms": {
+              "n": 323,
+              "mean": 5226.78797656966,
+              "p95": 10477.021743799995,
+              "max": 14853.91253
+            },
+            "E2E_ms": {
+              "n": 323,
+              "mean": 10911.879178727555,
+              "p95": 17907.1641613,
+              "max": 26771.964448
+            }
+          }
+        },
+        "normal_arrival_to_final_completion_s": 438.305650765,
+        "normal_tokens_per_s": 112.09757372337171,
+        "normal_requests_per_s": 1.3141514351792503,
+        "normal_workflows_per_s": 0.018252103266378477,
+        "normal_tokens_per_s_per_GiB": 14.900030659373028
+      },
+      "resources": {
+        "scope": "Observed serving samples only, 250ms polling; CPU time differences within each process observed window; summed RSS may double count shared pages.",
+        "sample_count": 1691,
+        "sample_window_s": 444.081577919,
+        "sampled_server_child_cpu_s": 449.70000000000005,
+        "sampled_driver_cpu_s": 31.39,
+        "sampled_server_summed_rss_peak_mib": 5142.0703125,
+        "sampled_driver_rss_peak_mib": 737.07421875,
+        "serving_nvml_peak_mib": 7703.87109375,
+        "startup_nvml_peak_mib": 7953.87109375,
+        "cuda_load_peaks": [
+          {
+            "gpu_allocated_bytes": 7113956864,
+            "gpu_reserved_bytes": 7381975040,
+            "load_peak_allocated_bytes": 7265872896,
+            "load_peak_reserved_bytes": 7381975040
+          }
+        ]
+      },
+      "host_resources": {
+        "startup": {
+          "samples": 173,
+          "available_bytes": {
+            "first": 14679171072,
+            "last": 10099032064,
+            "min": 9978654720,
+            "max": 14679171072,
+            "delta": -4580139008
+          },
+          "swap_used_bytes": {
+            "first": 158683136,
+            "last": 158875648,
+            "min": 158683136,
+            "max": 158875648,
+            "delta": 192512
+          },
+          "swap_in_bytes": {
+            "first": 20210757632,
+            "last": 20210761728,
+            "min": 20210757632,
+            "max": 20210761728,
+            "delta": 4096
+          },
+          "swap_out_bytes": {
+            "first": 30550007808,
+            "last": 30550220800,
+            "min": 30550007808,
+            "max": 30550220800,
+            "delta": 212992
+          },
+          "scope": "System-wide sampled RAM/swap counters; not uniquely attributed to this server."
+        },
+        "serving": {
+          "samples": 1691,
+          "available_bytes": {
+            "first": 10100744192,
+            "last": 9746948096,
+            "min": 9579716608,
+            "max": 10100744192,
+            "delta": -353796096
+          },
+          "swap_used_bytes": {
+            "first": 158875648,
+            "last": 158699520,
+            "min": 158683136,
+            "max": 159313920,
+            "delta": -176128
+          },
+          "swap_in_bytes": {
+            "first": 20210761728,
+            "last": 20211916800,
+            "min": 20210761728,
+            "max": 20211916800,
+            "delta": 1155072
+          },
+          "swap_out_bytes": {
+            "first": 30550220800,
+            "last": 30550888448,
+            "min": 30550220800,
+            "max": 30550888448,
+            "delta": 667648
+          },
+          "scope": "System-wide sampled RAM/swap counters; not uniquely attributed to this server."
+        },
+        "configured_CPU_KV_bytes": 1879048192,
+        "actual_locked_host_bytes": null
+      },
+      "thermal": {
+        "temperature_c": {
+          "n": 1691,
+          "min": 33,
+          "max": 60,
+          "mean": 54.57362507392076
+        },
+        "clock_mhz": {
+          "n": 1691,
+          "min": 330,
+          "max": 2025,
+          "mean": 1937.1023063276168
+        },
+        "power_w": {
+          "n": 1691,
+          "min": 19.744,
+          "max": 307.844,
+          "mean": 253.56564754583087
+        }
+      },
+      "engine_RSS": {
+        "samples": 1691,
+        "first_RSS_MiB": 3753.8046875,
+        "last_RSS_MiB": 3764.97265625,
+        "min_RSS_MiB": 3753.8046875,
+        "peak_RSS_MiB": 3764.97265625,
+        "first_to_last_MiB": 11.16796875,
+        "whole_sample_slope_MiB_per_minute": 1.2441606788904715,
+        "last_quarter_slope_MiB_per_minute": 0.22738512473438613,
+        "last_quarter_range_MiB": 0.35546875,
+        "observed_CPU_seconds": 432.50000000000006
+      },
+      "metadata_ranges": {
+        "scheduler/scheduler_lengths/_observed_prefix_generations": {
+          "first": 24,
+          "last": 128,
+          "min": 24,
+          "max": 128
+        },
+        "scheduler/scheduler_lengths/_observed_prefixes": {
+          "first": 96,
+          "last": 512,
+          "min": 96,
+          "max": 512
+        },
+        "scheduler/scheduler_lengths/_wait_hint_results": {
+          "first": 314,
+          "last": 2146,
+          "min": 314,
+          "max": 2146
+        },
+        "scheduler/scheduler_lengths/_wait_hint_request_bindings": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_published_wait_prefixes": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_prefetched": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_wait_prefetch": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_wait_prefetch_jobs": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_job_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_job_blocks": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_jobs": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_releases": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_protection_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_request_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preempted_pending": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_requests": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_finished": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_jobs": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_job_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_known_stored_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_evicted_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_score_source_tokens": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_score_source_deadlines": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_lifecycle_request_params": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_lifecycle_releases": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_decision_scoring_requests": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_decision_scoring_attempts": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_score_residencies": {
+          "first": 2048,
+          "last": 2048,
+          "min": 2048,
+          "max": 2048
+        },
+        "scheduler/manager_lengths/_pending_evicted_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_release_ledger": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owner_generations": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owner_states": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owner_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owners_by_key": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_pending_admission_records": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_pending_chain_admission_records": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_chain_admission_pending_stores": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_staging_protection_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_pending_staging_protection_records": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/durable_summaries": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_durable_summary_publications": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_summary_job_publications": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_job_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_job_blocks": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_directions": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_started_at_ns": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_start_times": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_completion_times": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_destination_blocks": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_transfer_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_failed_load_block_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_scores": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_score_head_counts": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_async_score_observations": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_first_forward_times_ns": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_preempted_request_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_preempted_forward_times_ns": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_query_snapshots": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_query_snapshot_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_retired_async_request_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_decision_async_signatures": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_summary_job_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_summary_job_generations": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_deferred_transfer_results": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_async_request_versions": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_async_submission_requests": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_splice_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_splice_event_evidence": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_completed_splice_evidence": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        }
+      },
+      "metadata_issues": [],
+      "transfers": {
+        "GPU_to_CPU": {
+          "bytes": 33528348672.0,
+          "jobs": 3937.0
+        },
+        "CPU_to_GPU": {
+          "bytes": 9677832192.0,
+          "jobs": 156.0
+        }
+      },
+      "first_admission": {
+        "tokens": {
+          "local_compute": 542462.0,
+          "local_cache_hit": 166240.0,
+          "external_kv_transfer": 168768.0
+        },
+        "all_submitted_prompt_tokens": 877470,
+        "reconciles_all_submitted": true,
+        "preemptions": 0.0,
+        "scope": "Whole measured case including health and deliberate-abort admissions where present; per-wave Prometheus counters unavailable. First-admission attribution is not physical cumulative prefill or GPU time."
+      },
+      "stores": {
+        "store_accepted_keys": 36543,
+        "store_completed_keys": 36543,
+        "store_failed_keys": null,
+        "cpu_evicted_blocks": 34565
+      },
+      "basic_receipt_qualified": true
+    },
+    {
+      "case": "live-nov3-operational-v3-e-candidate",
+      "normal": {
+        "requests": 216,
+        "natural_eos": 216,
+        "output_tokens": 18287,
+        "logical_prompt_tokens": 327267,
+        "TTFT_ms": {
+          "n": 216,
+          "mean": 25817.040576763888,
+          "p95": 46800.583611,
+          "max": 48943.383871
+        },
+        "E2E_ms": {
+          "n": 216,
+          "mean": 31745.25249875926,
+          "p95": 53704.7372155,
+          "max": 64601.649166
+        },
+        "return_contiguity": {
+          "True": 144
+        },
+        "categories": {
+          "initial": {
+            "requests": 72,
+            "TTFT_ms": {
+              "n": 72,
+              "mean": 22332.50888748611,
+              "p95": 47716.87095785,
+              "max": 48943.383871
+            },
+            "E2E_ms": {
+              "n": 72,
+              "mean": 25900.866120208335,
+              "p95": 52109.8506309,
+              "max": 64601.649166
+            }
+          },
+          "return_zero_wait": {
+            "requests": 24,
+            "TTFT_ms": {
+              "n": 24,
+              "mean": 28204.17973325,
+              "p95": 41876.42737,
+              "max": 41961.127084
+            },
+            "E2E_ms": {
+              "n": 24,
+              "mean": 35546.756961541665,
+              "p95": 50166.373930350004,
+              "max": 50599.759147
+            }
+          },
+          "return_positive_wait": {
+            "requests": 120,
+            "TTFT_ms": {
+              "n": 120,
+              "mean": 27430.33175903333,
+              "p95": 46594.336403249996,
+              "max": 47163.722958
+            },
+            "E2E_ms": {
+              "n": 120,
+              "mean": 34491.58343333333,
+              "p95": 54131.226684350004,
+              "max": 56620.559698
+            }
+          }
+        },
+        "normal_arrival_to_final_completion_s": 187.476381213,
+        "normal_tokens_per_s": 97.54295384666803,
+        "normal_requests_per_s": 1.1521451321091647,
+        "normal_workflows_per_s": 0.016002015723738397,
+        "normal_tokens_per_s_per_GiB": 12.965427837963434
+      },
+      "resources": {
+        "scope": "Observed serving samples only, 250ms polling; CPU time differences within each process observed window; summed RSS may double count shared pages.",
+        "sample_count": 739,
+        "sample_window_s": 194.874531621,
+        "sampled_server_child_cpu_s": 199.72,
+        "sampled_driver_cpu_s": 16.89,
+        "sampled_server_summed_rss_peak_mib": 4928.578125,
+        "sampled_driver_rss_peak_mib": 864.7578125,
+        "serving_nvml_peak_mib": 7703.87109375,
+        "startup_nvml_peak_mib": 7953.87109375,
+        "cuda_load_peaks": [
+          {
+            "gpu_allocated_bytes": 7113956864,
+            "gpu_reserved_bytes": 7381975040,
+            "load_peak_allocated_bytes": 7265872896,
+            "load_peak_reserved_bytes": 7381975040
+          }
+        ]
+      },
+      "host_resources": {
+        "startup": {
+          "samples": 150,
+          "available_bytes": {
+            "first": 14505115648,
+            "last": 9866035200,
+            "min": 9797857280,
+            "max": 14505115648,
+            "delta": -4639080448
+          },
+          "swap_used_bytes": {
+            "first": 158699520,
+            "last": 160894976,
+            "min": 158691328,
+            "max": 160894976,
+            "delta": 2195456
+          },
+          "swap_in_bytes": {
+            "first": 20211916800,
+            "last": 20211916800,
+            "min": 20211916800,
+            "max": 20211916800,
+            "delta": 0
+          },
+          "swap_out_bytes": {
+            "first": 30550888448,
+            "last": 30553145344,
+            "min": 30550888448,
+            "max": 30553145344,
+            "delta": 2256896
+          },
+          "scope": "System-wide sampled RAM/swap counters; not uniquely attributed to this server."
+        },
+        "serving": {
+          "samples": 739,
+          "available_bytes": {
+            "first": 9866043392,
+            "last": 9516822528,
+            "min": 9372217344,
+            "max": 9866043392,
+            "delta": -349220864
+          },
+          "swap_used_bytes": {
+            "first": 160894976,
+            "last": 160174080,
+            "min": 160174080,
+            "max": 160894976,
+            "delta": -720896
+          },
+          "swap_in_bytes": {
+            "first": 20211916800,
+            "last": 20212920320,
+            "min": 20211916800,
+            "max": 20212920320,
+            "delta": 1003520
+          },
+          "swap_out_bytes": {
+            "first": 30553145344,
+            "last": 30553145344,
+            "min": 30553145344,
+            "max": 30553145344,
+            "delta": 0
+          },
+          "scope": "System-wide sampled RAM/swap counters; not uniquely attributed to this server."
+        },
+        "configured_CPU_KV_bytes": 1879048192,
+        "actual_locked_host_bytes": null
+      },
+      "thermal": {
+        "temperature_c": {
+          "n": 739,
+          "min": 44,
+          "max": 60,
+          "mean": 56.6468200270636
+        },
+        "clock_mhz": {
+          "n": 739,
+          "min": 300,
+          "max": 1980,
+          "mean": 1935.0
+        },
+        "power_w": {
+          "n": 739,
+          "min": 18.582,
+          "max": 313.82,
+          "mean": 262.2794736129905
+        }
+      },
+      "engine_RSS": {
+        "samples": 739,
+        "first_RSS_MiB": 3645.671875,
+        "last_RSS_MiB": 3653.69140625,
+        "min_RSS_MiB": 3645.671875,
+        "peak_RSS_MiB": 3653.69140625,
+        "first_to_last_MiB": 8.01953125,
+        "whole_sample_slope_MiB_per_minute": 1.851543692380631,
+        "last_quarter_slope_MiB_per_minute": 0.09695372715675997,
+        "last_quarter_range_MiB": 0.07421875,
+        "observed_CPU_seconds": 193.37
+      },
+      "metadata_ranges": {
+        "scheduler/scheduler_lengths/_observed_prefix_generations": {
+          "first": 72,
+          "last": 72,
+          "min": 72,
+          "max": 72
+        },
+        "scheduler/scheduler_lengths/_observed_prefixes": {
+          "first": 288,
+          "last": 288,
+          "min": 288,
+          "max": 288
+        },
+        "scheduler/scheduler_lengths/_wait_hint_results": {
+          "first": 794,
+          "last": 794,
+          "min": 794,
+          "max": 794
+        },
+        "scheduler/scheduler_lengths/_wait_hint_request_bindings": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_published_wait_prefixes": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_prefetched": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_wait_prefetch": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_wait_prefetch_jobs": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_job_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_job_blocks": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_jobs": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_releases": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_protection_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_splice_request_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preempted_pending": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_requests": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_finished": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_jobs": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_job_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_known_stored_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_preservation_evicted_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_score_source_tokens": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_score_source_deadlines": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_lifecycle_request_params": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_pending_lifecycle_releases": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_decision_scoring_requests": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/scheduler_lengths/_decision_scoring_attempts": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_score_residencies": {
+          "first": 2048,
+          "last": 2048,
+          "min": 2048,
+          "max": 2048
+        },
+        "scheduler/manager_lengths/_pending_evicted_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_release_ledger": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owner_generations": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owner_states": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owner_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_lifecycle_owners_by_key": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_pending_admission_records": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_pending_chain_admission_records": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_chain_admission_pending_stores": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_staging_protection_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "scheduler/manager_lengths/_pending_staging_protection_records": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/durable_summaries": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_durable_summary_publications": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_summary_job_publications": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_job_keys": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_job_blocks": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_directions": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_started_at_ns": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_start_times": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_completion_times": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_transfer_destination_blocks": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_transfer_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_failed_load_block_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_scores": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_score_head_counts": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_pending_async_score_observations": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_first_forward_times_ns": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_preempted_request_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_preempted_forward_times_ns": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_query_snapshots": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_query_snapshot_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_retired_async_request_ids": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_decision_async_signatures": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_summary_job_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_summary_job_generations": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_deferred_transfer_results": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_async_request_versions": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_async_submission_requests": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_splice_events": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_splice_event_evidence": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        },
+        "worker0/worker_lengths/_completed_splice_evidence": {
+          "first": 0,
+          "last": 0,
+          "min": 0,
+          "max": 0
+        }
+      },
+      "metadata_issues": [],
+      "transfers": {
+        "GPU_to_CPU": {
+          "bytes": 17091264512.0,
+          "jobs": 1539.0
+        },
+        "CPU_to_GPU": {
+          "bytes": 695468032.0,
+          "jobs": 12.0
+        }
+      },
+      "first_admission": {
+        "tokens": {
+          "local_compute": 282739.0,
+          "local_cache_hit": 32400.0,
+          "external_kv_transfer": 12128.0
+        },
+        "all_submitted_prompt_tokens": 327267,
+        "reconciles_all_submitted": true,
+        "preemptions": 0.0,
+        "scope": "Whole measured case including health and deliberate-abort admissions where present; per-wave Prometheus counters unavailable. First-admission attribution is not physical cumulative prefill or GPU time."
+      },
+      "stores": {
+        "store_accepted_keys": 18628,
+        "store_completed_keys": 18628,
+        "store_failed_keys": null,
+        "cpu_evicted_blocks": 16650
+      },
+      "basic_receipt_qualified": true
+    },
+    {
+      "case": "live-nov3-operational-v3-e-native8",
+      "normal": {
+        "requests": 216,
+        "natural_eos": 216,
+        "output_tokens": 18313,
+        "logical_prompt_tokens": 327224,
+        "TTFT_ms": {
+          "n": 216,
+          "mean": 26653.616491537035,
+          "p95": 47115.956232749995,
+          "max": 48816.254221
+        },
+        "E2E_ms": {
+          "n": 216,
+          "mean": 32634.715947435187,
+          "p95": 54305.649185,
+          "max": 62148.351753
+        },
+        "return_contiguity": {
+          "True": 144
+        },
+        "categories": {
+          "initial": {
+            "requests": 72,
+            "TTFT_ms": {
+              "n": 72,
+              "mean": 22410.131172694444,
+              "p95": 47219.6795061,
+              "max": 48313.210249
+            },
+            "E2E_ms": {
+              "n": 72,
+              "mean": 26175.537516083332,
+              "p95": 51942.80265985,
+              "max": 62148.351753
+            }
+          },
+          "return_zero_wait": {
+            "requests": 24,
+            "TTFT_ms": {
+              "n": 24,
+              "mean": 29113.193963333335,
+              "p95": 41657.8007421,
+              "max": 41833.561869
+            },
+            "E2E_ms": {
+              "n": 24,
+              "mean": 37013.276589625,
+              "p95": 53171.43684845,
+              "max": 54869.513346
+            }
+          },
+          "return_positive_wait": {
+            "requests": 120,
+            "TTFT_ms": {
+              "n": 120,
+              "mean": 28707.792188483334,
+              "p95": 47106.294402499996,
+              "max": 48816.254221
+            },
+            "E2E_ms": {
+              "n": 120,
+              "mean": 35634.51087780833,
+              "p95": 55602.4037166,
+              "max": 59045.453949
+            }
+          }
+        },
+        "normal_arrival_to_final_completion_s": 189.62929264,
+        "normal_tokens_per_s": 96.57263255612175,
+        "normal_requests_per_s": 1.1390645242244468,
+        "normal_workflows_per_s": 0.01582034061422843,
+        "normal_tokens_per_s_per_GiB": 12.836452548861637
+      },
+      "resources": {
+        "scope": "Observed serving samples only, 250ms polling; CPU time differences within each process observed window; summed RSS may double count shared pages.",
+        "sample_count": 749,
+        "sample_window_s": 197.259732011,
+        "sampled_server_child_cpu_s": 199.84,
+        "sampled_driver_cpu_s": 16.53,
+        "sampled_server_summed_rss_peak_mib": 4912.34375,
+        "sampled_driver_rss_peak_mib": 861.80078125,
+        "serving_nvml_peak_mib": 7703.87109375,
+        "startup_nvml_peak_mib": 7953.87109375,
+        "cuda_load_peaks": [
+          {
+            "gpu_allocated_bytes": 7113956864,
+            "gpu_reserved_bytes": 7381975040,
+            "load_peak_allocated_bytes": 7265872896,
+            "load_peak_reserved_bytes": 7381975040
+          }
+        ]
+      },
+      "host_resources": {
+        "startup": {
+          "samples": 158,
+          "available_bytes": {
+            "first": 14506504192,
+            "last": 10007486464,
+            "min": 9937899520,
+            "max": 14506504192,
+            "delta": -4499017728
+          },
+          "swap_used_bytes": {
+            "first": 160174080,
+            "last": 179511296,
+            "min": 160169984,
+            "max": 179511296,
+            "delta": 19337216
+          },
+          "swap_in_bytes": {
+            "first": 20212920320,
+            "last": 20212920320,
+            "min": 20212920320,
+            "max": 20212920320,
+            "delta": 0
+          },
+          "swap_out_bytes": {
+            "first": 30553145344,
+            "last": 30572482560,
+            "min": 30553145344,
+            "max": 30572482560,
+            "delta": 19337216
+          },
+          "scope": "System-wide sampled RAM/swap counters; not uniquely attributed to this server."
+        },
+        "serving": {
+          "samples": 749,
+          "available_bytes": {
+            "first": 10012020736,
+            "last": 9645760512,
+            "min": 9401372672,
+            "max": 10012020736,
+            "delta": -366260224
+          },
+          "swap_used_bytes": {
+            "first": 179511296,
+            "last": 179351552,
+            "min": 179351552,
+            "max": 179511296,
+            "delta": -159744
+          },
+          "swap_in_bytes": {
+            "first": 20212920320,
+            "last": 20213149696,
+            "min": 20212920320,
+            "max": 20213149696,
+            "delta": 229376
+          },
+          "swap_out_bytes": {
+            "first": 30572482560,
+            "last": 30572482560,
+            "min": 30572482560,
+            "max": 30572482560,
+            "delta": 0
+          },
+          "scope": "System-wide sampled RAM/swap counters; not uniquely attributed to this server."
+        },
+        "configured_CPU_KV_bytes": 1879048192,
+        "actual_locked_host_bytes": null
+      },
+      "thermal": {
+        "temperature_c": {
+          "n": 749,
+          "min": 44,
+          "max": 61,
+          "mean": 56.946595460614155
+        },
+        "clock_mhz": {
+          "n": 749,
+          "min": 300,
+          "max": 1980,
+          "mean": 1928.030707610147
+        },
+        "power_w": {
+          "n": 749,
+          "min": 18.14,
+          "max": 314.526,
+          "mean": 262.88768624833114
+        }
+      },
+      "engine_RSS": {
+        "samples": 749,
+        "first_RSS_MiB": 3631.6328125,
+        "last_RSS_MiB": 3636.78125,
+        "min_RSS_MiB": 3631.6328125,
+        "peak_RSS_MiB": 3636.78125,
+        "first_to_last_MiB": 5.1484375,
+        "whole_sample_slope_MiB_per_minute": 1.2443919811266462,
+        "last_quarter_slope_MiB_per_minute": 0.0011639630990329638,
+        "last_quarter_range_MiB": 0.00390625,
+        "observed_CPU_seconds": 194.72
+      },
+      "metadata_ranges": {},
+      "metadata_issues": [],
+      "transfers": {
+        "GPU_to_CPU": {
+          "bytes": 17266507776.0,
+          "jobs": 1550.0
+        },
+        "CPU_to_GPU": {
+          "bytes": 586285056.0,
+          "jobs": 11.0
+        }
+      },
+      "first_admission": {
+        "tokens": {
+          "local_compute": 285896.0,
+          "local_cache_hit": 31104.0,
+          "external_kv_transfer": 10224.0
+        },
+        "all_submitted_prompt_tokens": 327224,
+        "reconciles_all_submitted": true,
+        "preemptions": 0.0,
+        "scope": "Whole measured case including health and deliberate-abort admissions where present; per-wave Prometheus counters unavailable. First-admission attribution is not physical cumulative prefill or GPU time."
+      },
+      "stores": {
+        "store_accepted_keys": 18819,
+        "store_completed_keys": 18819,
+        "store_failed_keys": null,
+        "cpu_evicted_blocks": 16841
+      },
+      "basic_receipt_qualified": true
+    }
+  ],
+  "rate_scope": "Normalspan first normalwave load_start through last normalwave load_end; overlap counted once, serial settling/export included. No operational CIs or request-level inference. Fresh confirmation intervals unchanged.",
+  "operational_history": {
+    "normal_waves_across_A_BC_DE": 74,
+    "normal_natural_EOS": 5328,
+    "health_natural_EOS": 16,
+    "direct_exact_qualified_abort_transitions": 2,
+    "historical_A_abort_qualification_failures": 2,
+    "historical_A_limit": "Both originalA cases remain formally failed under their frozen internal-ID matcher. Their normal5328-subset1728perarm and health4perarm responses succeeded. Posthoc mapping is not a relabeled pass. Separate C native/candidate probes qualified actual direct external_request_id mapping.",
+    "historical_pin_stops": "Original and v2 supervisors stopped for concurrent README drift; only previously unattempted cases continued under new prospective freezes. No reruns/replacements or favorable stopping.",
+    "persistent_engine_evidence": "24waves perarm A, 576 distinct sessions, prefix1024 and ACK4096 caps exercised with subsequent observations. Candidate engineRSS lastquarter range~0.051MiB; finitewindow only. Production4096-session limit not reached."
+  },
+  "judgment": {
+    "high_confidence_metrics_justify_some_scoped_production_workload": true,
+    "broad_production_endorsement": false,
+    "supported_workload": "Trusted single-gateway asynchronous append-only repository-status draft queues with human review, finite bounded batches/arrivals, continuation priority and an operator who accepts measured cold/burst waiting. Recorded public observations stand in for actual application evidence; this is not an autonomous coding agent.",
+    "supported_runtime": "Exact measured RTX2080Ti WSL FP16 Qwen2.5-7B-Instruct AWQ, denseTP1 singleKVgroup chunk1, V2 mapped pinned CPU memory, installed prereleasewheel plus pinned normalized runtime overlay, GPU1536blocks CPU2048blocks active8 batch1024 FULL_DECODE_ONLY compile0, GPUgatedCPUretention hint1000ms preservation_auditFalse, common priority8s and one gateway epoch. Public helper integrated, critical22 source modules bytequalified. Active4 and longwait variants are operational checks.",
+    "why_confident": "Independent fresh12wholeworkflowtriples on3untouched inputsets showed candidate/native8 workflow+6.38%CI[4.06,8.76], tokenrate+6.10%CI[3.34,8.94], meanTTFT\u2212484.93msCI[\u2212676.70,\u2212293.17]. Actual H2D/D2H bytes and one-byte corruptioncontrols qualified separately. Causal exact-prefix accounting, naturalEOS/HTTP, finite persistence/caps, directabort+health and overlappedidentity checks passed within stated scopes.",
+    "metric_limits": "No VRAM saving: matched serving7703.87MiB/startup7953.87MiB in selectedactive8geometry; token/GiB improves only with throughput. Freshp95TTFT CI crosseszero. Generic priority8s versuszero separately adds~3.69s initialp95; that gain/cost is not attributed to cacheextension. Intervals conditional on3fixed traces and nominal/unadjusted, not12independentcorpora.",
+    "operational_limits": "E overlap is only three bursts released0/20/40s, not sustainedopenarrival stability. Candidate initialmaxTTFT48.943s/maxE2E64.602s; vsnative8 initialp95+497.2ms, initialmax+630.2ms, zero-waitp95+218.6ms, overallmaxE2E+2453.3ms despite aggregate meanimprovement. No interactiveSLA or uniformfairness claim.",
+    "required_operating_conditions": [
+      "Trusted causal pending/completed-prefix publication and actual append-only token history; no arbitrary future-input knowledge.",
+      "One shared monotonic gateway epoch for all request priorities; no unsupported multiprocess clock mixing.",
+      "Explicit queue admission and asynchronous delay budget; finite overload check does not justify unbounded queues.",
+      "Monitor distinct session registry lifetime and drain/rotate process before relying indefinitely on advice; limit4096 is lifetime distinct(run,cell,session), not concurrency, and no TTL was established. Atcap advicefailsclosed while inferencecontinues; accelerated128case verifies same path only.",
+      "Reserve CPUcache1792MiB plus measured process/workload overhead; actual lockedhostbytes unavailable, system swapobserved.",
+      "Human review of drafts: factual/source-reading mistakes and formatviolations occur; no demonstrated qualityequivalence, tasksuccess or reviewerproductivity.",
+      "Use measured installedwheel+overlay execution path. New vendoredlauncher, cleaninstall packaging, otherhardware/models/layouts/TP or indefinite24x7 operation remain unqualified."
+    ],
+    "remaining_work_to_make_result_reviewable": "ROOT should assemble exact configuration/runbook, evidence links and limitations and independently validate final public changes. No additional GPU experiment is required by this independent scoped judgment; deployment authorization and userSLA acceptance are not implied.",
+    "constraint_provenance": "These workload boundaries and finite qualification choices are engineering judgments, not invented user numeric thresholds or a claim that the user accepted coldlatencySLA."
+  },
+  "quality": {
+    "selected_observations": 57,
+    "distinct_texts": 35,
+    "newly_read_distinct": 18,
+    "prior_exact_source_text_reviews_reused": 17,
+    "conclusion": "No conspicuous looping or service claim of executing edits/commands in selected texts. Important factual/source-reading errors and occasional code-format violations remain in both-arm evidence. Supports only human-reviewed drafts; no autonomous correctness, task-success, quality-equivalence or productivity claim. No outcome excluded or used to tune serving."
+  },
+  "cleanup": {
+    "owned_remaining": [],
+    "final_idle": {
+      "gpu_compute_apps": [],
+      "gpu_lock_available": true,
+      "at_utc": "2026-11-03T22:03:04.854881+00:00"
+    },
+    "GPU_custody_return": "ROOT",
+    "no_follow_on_GPU": true
+  }
+}
