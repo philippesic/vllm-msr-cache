@@ -37,6 +37,7 @@ from typing import TYPE_CHECKING
 
 import torch
 from semantic_offload.profiling import PROFILE, profiled
+from semantic_offload.benchmark_metrics import record_relevance_batch
 from vllm.config import VllmConfig
 from vllm.distributed.kv_transfer.kv_connector.v1 import (
     KVConnectorBase_V1,
@@ -1454,6 +1455,10 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
             None if self._preservation_audit_enabled
             else extra_config.get("observed_session_registry_size", 4096)
         )
+        self._benchmark_telemetry = extra_config.get("benchmark_telemetry", False)
+        if type(self._benchmark_telemetry) is not bool:
+            raise TypeError("benchmark_telemetry must be a JSON boolean")
+        record_relevance_batch(self, 0)
         self._scoring_schedule = extra_config.get("scoring_schedule", "continuous")
         prefix_mean = extra_config.get('prefix_mean_prefetch_scoring', False)
         if not isinstance(prefix_mean, bool):
@@ -10021,6 +10026,7 @@ class SemanticOffloadingConnector(OffloadingConnector):
             )
             consumed_ns = time.monotonic_ns()
             applied_any = True
+            record_relevance_batch(self.connector_scheduler)
             record_async_scoring_event(
                 bind_async_event(
                     {
@@ -10054,6 +10060,7 @@ class SemanticOffloadingConnector(OffloadingConnector):
             else:
                 return
             applied_any = True
+            record_relevance_batch(self.connector_scheduler)
             if _TIMING:
                 record_timing("update_relevance", time.perf_counter() - _t_ur)
         if applied_any and _TIMING:

@@ -73,6 +73,11 @@ def validate_preservation_audit(extra_config) -> bool:
 
 
 class SemanticOffloadingSpec(CPUOffloadingSpec):
+    @classmethod
+    def build_metric_definitions(cls, extra_config):
+        from semantic_offload.benchmark_metrics import definitions
+        return {**super().build_metric_definitions(extra_config), **definitions(extra_config)}
+
     @override
     def create_worker(self, kv_caches: CanonicalKVCaches) -> SemanticOffloadingWorker:
         preservation_audit = validate_preservation_audit(self.extra_config)

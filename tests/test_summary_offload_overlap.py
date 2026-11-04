@@ -83,6 +83,7 @@ def _make_worker() -> SemanticOffloadingWorker:
     worker._transfer_completion_times = {}
     worker._stack_cache_keys = []
     worker._stack_cache = {}
+    worker._allocator_peak_stats = {}
     return worker
 
 
