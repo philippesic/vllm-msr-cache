@@ -133,3 +133,16 @@ def test_operational_development_is_separate_and_preserves_parent(transfer):
     assert verify_campaign(destination)['attempts']=={}
     with pytest.raises(ValueError,match='locked protocol'):
         campaign.run_phase(destination,'operational',dry_run=True)
+
+
+def test_transfer_host_uses_frozen_deadlines_and_rejects_escaping_plan(tmp_path):
+    from benchmarks.serving_suite.transfer_setup import frozen_limits
+    base = dict(startup_timeout_s=900,request_timeout_s=900,tool_timeout_s=180,case_timeout_s=3600)
+    atomic_json(tmp_path/'development.json',base)
+    atomic_json(tmp_path/'confirmation.json',dict(base,case_timeout_s=5400))
+    cell = dict(workload_binding=dict(plan='${bundle}/development.json'),
+        confirmation_binding=dict(plan='${bundle}/confirmation.json'))
+    assert frozen_limits(tmp_path,dict(cells=[cell]))==dict(base,case_timeout_s=5400)
+    cell['confirmation_binding']['plan']='${bundle}/../escape.json'
+    with pytest.raises(ValueError,match='path|Path'):
+        frozen_limits(tmp_path,dict(cells=[cell]))

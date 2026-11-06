@@ -197,6 +197,7 @@ use stable public names, so changing host paths does not change prompts.
 Import preserves the original tasks, precision, repetitions and balanced order,
 while creating a linked hardware-specific campaign identity. It cannot acquire
 confirmation before its own native checks and complete screens pass.
+Host deadline limits are derived from the frozen plans rather than setup defaults.
 `activate-import` activates that existing schedule; do not run `freeze` or replan
 repetitions on the replication host. If the pinned native stack cannot execute
 correctly on the new GPU, retain the capability failure and investigate it before

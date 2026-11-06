@@ -9,8 +9,24 @@ import argparse
 from pathlib import Path
 
 from .assets import MODEL_PATTERNS,model_identity
-from .campaign_contracts import atomic_json,load,validate_host,verify_tree
+from .campaign_contracts import atomic_json,load,local_path,positive,validate_host,verify_tree
 from .published import load_runtimes
+
+
+def frozen_limits(bundle,portable):
+    limits = {}
+    for cell in portable['cells']:
+        for field in ('workload_binding','confirmation_binding'):
+            reference = cell[field]['plan']
+            if not reference.startswith('${bundle}/'):
+                raise ValueError('Frozen plan must be inside the transfer bundle')
+            plan = load(local_path(bundle,reference.removeprefix('${bundle}/')))
+            for name in ('startup_timeout_s','request_timeout_s','tool_timeout_s','case_timeout_s'):
+                value = positive(plan[name],name)
+                limits[name] = max(limits.get(name,0),value)
+    if not limits:
+        raise ValueError('Transfer has no frozen workload deadlines')
+    return limits
 
 
 def prepare(bundle,runtimes,cache,out,host_id,*,offline=False):
@@ -37,7 +53,7 @@ def prepare(bundle,runtimes,cache,out,host_id,*,offline=False):
         runtime_python=str(runtimes/'local-env/bin/python'),asset_cache=str(cache),models=models,
         runtime_bindings=dict(project_root=str(ROOT)),published_runtimes=str(published_path),
         resolved_published_runtimes=published,
-        limits=dict(startup_timeout_s=900,request_timeout_s=180,tool_timeout_s=180,case_timeout_s=1800)))
+        limits=frozen_limits(bundle,portable)))
     cache.mkdir(parents=True,exist_ok=True)
     atomic_json(out,host)
     out.chmod(0o600)

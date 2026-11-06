@@ -8,8 +8,8 @@
   "runtime_bindings": {},
   "limits": {
     "startup_timeout_s": 900,
-    "request_timeout_s": 180,
+    "request_timeout_s": 900,
     "tool_timeout_s": 180,
-    "case_timeout_s": 1800
+    "case_timeout_s": 3600
   }
 }
