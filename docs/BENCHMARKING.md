@@ -5,6 +5,12 @@ The maintained suite lives in `benchmarks/serving_suite/`. It starts a real loca
 vLLM HTTP endpoint and generates live responses through the vendored launcher.
 It never downloads models or imports run-local scripts from `output/`.
 
+For Stage 6 implementation and acquisition, follow the
+[execution plan](STAGE6_EXECUTION_PLAN.md). It specifies a maintained campaign
+layer with explicit asset preparation, model/workload catalogs, resume, and
+portable verification. Its proposed campaign CLI is not implemented yet; the
+commands below are the currently maintained entry points.
+
 ## Choose a tier
 
 - **Smoke:** one candidate server, four sessions, two identical requests per
@@ -66,6 +72,13 @@ they do not remove runtime/backend differences or establish policy superiority.
 See the [predeclared fairness manifest](../evidence/fair-four-20261104/FAIRNESS.md).
 
 ### Five-system comparison
+
+Historical setup note: the original five-system probe settings below are not the
+final qualified upstream setup. The later
+[Stage 2 comparison](../evidence/wait-qualification-20261105/STAGE2.md) uses a
+disclosed host-pointer compatibility patch, V2 runner and pinned backing. New
+Stage 6 work must reconstruct that verified configuration and record its exact
+identity rather than copying the older pinning-off workaround below.
 
 `make bench-agent-five PY="$PY" MODEL="$MODEL" OUT=output/my-five-way RUNTIMES=/path/to/runtimes.json`
 selects one pass through ARC, wait-hint, semantic, Continuum public preview, and

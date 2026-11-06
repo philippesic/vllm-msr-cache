@@ -391,6 +391,13 @@ frozen candidate. A larger headline gain is not an exit requirement.
 
 ## Stage 6 Run more and wider testing — pending
 
+The 2026-11-06 scope decision and implementation handoff are in the
+[Stage 6 execution plan](STAGE6_EXECUTION_PLAN.md). That plan supersedes the broad
+priorities below where narrower: vLLM only; Qwen3-8B-AWQ, Ministral 3-3B Instruct,
+and Qwen3-4B-Instruct-2507; a durable repeatable pipeline; complete the local 2080 Ti
+campaign before handing off the 5080 replication. Other engines and hybrid models
+are deferred. Pipeline implementation and new acquisition remain pending.
+
 Confirm the frozen Stage 5 choice on fresh cases and broaden the supported
 evidence. Declare the matrix, corpus provenance, margins, repetitions, exposure,
 precision/stopping rules and finite budget before each campaign. The earlier
