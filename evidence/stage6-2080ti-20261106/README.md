@@ -2,6 +2,18 @@
 
 Status: implementation and preparation in progress; no new performance claim.
 
+The two-wave operational development probe caught a serving defect before pilot
+or confirmation: CPU-only wait retention still allowed the older preemption
+staging path to reserve GPU blocks. All requests, malformed-advice checks,
+cancellation, recovery and cleanup completed, but native registry validation
+correctly rejected the candidate case. The repair makes the existing retention-only
+and no-dispatch settings cover preemption enqueue, retry and direct reservation.
+Selected configuration, budgets and workloads remain unchanged. Focused CPU
+checks pass 315 tests, including regression coverage; all native capability and
+development comparisons must now use a fresh source snapshot. Earlier development
+timings under preemption cannot establish a pure retention-only effect. See the
+[finding and retained observations](preemption-dispatch-repair.json).
+
 The corrected campaign is `development-09`. The original 180-second request
 deadline expired for four queued long summaries before their first token, after
 12/16 requests completed. New immutable bindings use 900 seconds per request and
@@ -23,8 +35,8 @@ The corrected campaign also passed its own real interruption and whole-block
 replacement check: the first arm completed, the second was interrupted after
 resource acquisition, owned cleanup passed, and resume reran both arms. See the
 [replacement receipt](../../output/stage6-2080ti-20261106/development-09/analysis/recovery-proof.json).
-A separate two-wave persistent-operation probe is running before resource
-qualification and the full matrix; it cannot count as confirmation evidence.
+The separate two-wave persistent-operation probe cannot count as confirmation
+evidence; its retained failure triggered the repair described above.
 
 The repaired development chat completed six requests per arm without failures or
 output caps; the retained source review supports both final answers. Short QA

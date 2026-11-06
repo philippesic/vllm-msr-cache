@@ -3765,6 +3765,36 @@ def test_queue_preempted_is_noop_when_prefetch_disabled():
     assert sched._preempted_pending == set()
 
 
+@pytest.mark.parametrize('setting', [
+    '_wait_hint_cpu_retention_only', '_wait_hint_diagnostic_no_dispatch',
+])
+def test_cpu_only_and_no_dispatch_suppress_preemption_staging(setting):
+    manager = SemanticOffloadingManager(num_blocks=10)
+    key = to_key(1)
+    _insert_resident(manager, key, block_id=0)
+    manager.relevance_ema.setdefault('mean', {})[key] = 1.0
+    pool = _StubBlockPool(20, free_blocks=5)
+    scheduler = _make_connector_scheduler(manager, pool)
+    scheduler._prefetch_budget_fraction = .6
+    setattr(scheduler, setting, True)
+    _add_req_status(scheduler, 'r1', keys=[key])
+    free = pool.get_num_free_blocks()
+    request = SimpleNamespace(request_id='r1')
+    scheduler.on_request_preempted(request)
+    scheduler._queue_preempted(SimpleNamespace(preempted_req_ids={'r1'}))
+    assert not scheduler._preempted_pending
+    # A stale pending item and a direct call must not bypass the setting.
+    scheduler._preempted_pending.add('r1')
+    scheduler._retry_pending_prefetches(SimpleNamespace(preempted_req_ids=set()))
+    assert scheduler._attempt_prefetch_reservation('r1') is True
+    assert not scheduler._preempted_pending
+    assert not scheduler._prefetched and not scheduler._jobs
+    assert not scheduler._current_batch_prefetch_load_jobs
+    assert not scheduler._current_batch_allocated_block_ids
+    assert scheduler._prefetch_reserved_blocks == 0
+    assert pool.get_num_free_blocks() == free
+
+
 def test_retry_pending_prefetches_skips_requests_preempted_this_step():
     """issues log entry #27 (Fix B): a request preempted THIS scheduling
     step must not be attempted even during the retry sweep -- it only

@@ -1,0 +1,88 @@
+{
+  "schema": "stage6-development-repair-v1",
+  "classification": "serving configuration invariant defect",
+  "finding": "CPU-retention-only and wait-hint no-dispatch suppressed wait-hint staging but not the older preemption-triggered staging path. Native reservations occurred with those settings enabled.",
+  "records": [
+    {
+      "system": "00-wait",
+      "artifacts": "output/stage6-2080ti-20261106/operational-development-02/attempts/a4129609b80a9c4c4b9818f1e68a54c1d2aae406ecfa9ef0d953190b317d938c/3f468c6c8a634b75a3806e9128b0a8b6/measurement/result.json",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "native_speculative_activity"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 128,
+      "failed": 0,
+      "native_preemptions": 16,
+      "max_reserved_gpu_blocks": 250,
+      "max_wait_hint_speculative_jobs": 0,
+      "final_native": {
+        "event": "registry_snapshot",
+        "sessions": 32,
+        "prefixes": 160,
+        "results": 1596,
+        "leases": 0,
+        "speculative_jobs": 0,
+        "native_jobs": 0,
+        "request_bindings": 0,
+        "session_limit": null,
+        "prefix_limit": 1024,
+        "result_limit": 4096,
+        "reserved_gpu_blocks": 0,
+        "preservation_audit": true,
+        "monotonic_ns": 472792726135547,
+        "pid": 696019
+      },
+      "operation_passed": true,
+      "all_advice_checks_passed": true,
+      "cleanup_verified": true
+    },
+    {
+      "system": "00-arc",
+      "artifacts": "output/stage6-2080ti-20261106/operational-development-02/attempts/a64dc45f1fe73876734ad05445762fb992d5c6b633ca5cb82f019680d26b3754/5df3aed541fe463db94349023c35321d/measurement/result.json",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 128,
+      "failed": 0,
+      "native_preemptions": 27,
+      "max_reserved_gpu_blocks": 0,
+      "max_wait_hint_speculative_jobs": 0,
+      "final_native": {
+        "event": "registry_snapshot",
+        "sessions": 0,
+        "prefixes": 0,
+        "results": 0,
+        "leases": 0,
+        "speculative_jobs": 0,
+        "native_jobs": 0,
+        "request_bindings": 0,
+        "session_limit": null,
+        "prefix_limit": 1024,
+        "result_limit": 4096,
+        "reserved_gpu_blocks": 0,
+        "preservation_audit": true,
+        "monotonic_ns": 472437680741188,
+        "pid": 695200
+      },
+      "operation_passed": true,
+      "all_advice_checks_passed": true,
+      "cleanup_verified": true
+    }
+  ],
+  "repair": "Gate preemption enqueue, retry and direct reservation on CPU-retention-only and no-dispatch settings; preserve ordinary demand restore and preemption observations.",
+  "unchanged": "Selected configuration, policy budgets, models, task cohorts, prompts and generation limits",
+  "impact": "Earlier development measurements containing preemptions may mix CPU retention with legacy staging. Do not interpret them as a pure retention-only comparison or use them for final confirmation.",
+  "validation": {
+    "cpu_checks": 315,
+    "log": "output/stage6-2080ti-20261106/preemption-retention-cpu-check-01.log",
+    "native_recheck": "pending"
+  },
+  "scope": "Development defect found before pilot/frozen confirmation. No new speed or readiness claim."
+}

@@ -7211,6 +7211,15 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
             )
         return result
 
+    def _preemption_prefetch_enabled(self) -> bool:
+        # CPU-only retention and the matched no-dispatch diagnostic must also
+        # suppress the older preemption path, not just wait-hint staging.
+        return not (
+            _DISABLE_PREFETCH or self._prefetch_budget_fraction == 0
+            or getattr(self, "_wait_hint_cpu_retention_only", False)
+            or getattr(self, "_wait_hint_diagnostic_no_dispatch", False)
+        )
+
     def on_request_preempted(self, request: Request) -> None:
         """Step 1.5: queue a just-preempted request for a prefetch
         reservation attempt -- the actual attempt always happens from
@@ -7236,7 +7245,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
                     "t0_preemption",
                     source="on_request_preempted",
                 )
-        if _DISABLE_PREFETCH or self._prefetch_budget_fraction == 0:
+        if not self._preemption_prefetch_enabled():
             return
         self._preempted_pending.add(request.request_id)
 
@@ -7253,7 +7262,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         crash risk its docstring describes -- _retry_pending_prefetches
         still excludes this step's preempted_req_ids from the attempt
         list, so timing is unchanged from when the hook fired)."""
-        if _DISABLE_PREFETCH or self._prefetch_budget_fraction == 0:
+        if not self._preemption_prefetch_enabled():
             return
         self._preempted_pending.update(scheduler_output.preempted_req_ids or ())
 
@@ -7269,6 +7278,9 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         from being re-preempted while a prefetch job is pending, so a
         request can only ever be in `preempted_req_ids` again after its
         prior prefetch has fully completed and cleared."""
+        if not self._preemption_prefetch_enabled():
+            self._preempted_pending.clear()
+            return
         if not self._preempted_pending:
             return
         if _DEBUG_ENABLED:
@@ -7299,6 +7311,8 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         or genuinely has no candidate keys at all -- so the caller should
         NOT keep retrying it), False if it should be retried later because
         the only blocker was transient (no free GPU blocks right now)."""
+        if not self._preemption_prefetch_enabled():
+            return True
         preservation_state = getattr(self, "_preservation_requests", {}).get(req_id)
         if preservation_state is not None:
             preservation_state["prefetch_attempts"] = (

@@ -47,7 +47,11 @@ these selected runs does not establish a universal performance or quality claim.
   exposed an insufficient 180-second request deadline. Uniform immutable bindings
   now allow 900 seconds per request and 3,600 seconds per case; tasks, policy and
   output budgets remain fixed. Fresh native/registry checks passed again. Raw
-  ownership and recovery receipts are linked in the execution record;
+  ownership and recovery receipts are linked in the execution record. The separate
+  operational development probe then detected legacy preemption staging despite
+  CPU-only retention/no-dispatch settings. The invariant is repaired without
+  changing budgets or workloads; 315 focused CPU checks pass. Fresh source-native
+  checks and development comparisons are required before pilot/confirmation;
   check live state before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
