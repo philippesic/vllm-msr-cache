@@ -7,9 +7,24 @@ deadline expired for four queued long summaries before their first token, after
 12/16 requests completed. New immutable bindings use 900 seconds per request and
 3,600 seconds per case across all arms. Tasks, prompts, output caps, cache budgets
 and policy are unchanged. All three native fixtures and the registry probe passed
-again; long-summary completion and the full screen remain in progress. See the
+again. Long summaries now completed 16/16 requests per arm, with no request
+failures; the measured ARC load took 219.3 seconds, explaining why the old
+180-second deadline was insufficient. Two final answers per arm repeated text,
+exceeded the requested word limit and reached their fixed output cap. Their
+[source spot audit](../../output/stage6-2080ti-20261106/development-09/analysis/quality-screen/development-summary-spot-audit-01.json)
+retains these model-quality failures; no prompt or policy was tuned to remove
+them. The full screen remains in progress. See the
 [deadline finding](deadline-checkpoint.json). Maintained benchmark checks now pass
-196 tests.
+196 tests at that checkpoint. A later focused transfer check passes six tests,
+including rejection of both model snapshot symlinks and direct blob reads during
+offline verification. The final real relocation proof remains due.
+
+The corrected campaign also passed its own real interruption and whole-block
+replacement check: the first arm completed, the second was interrupted after
+resource acquisition, owned cleanup passed, and resume reran both arms. See the
+[replacement receipt](../../output/stage6-2080ti-20261106/development-09/analysis/recovery-proof.json).
+A separate two-wave persistent-operation probe is running before resource
+qualification and the full matrix; it cannot count as confirmation evidence.
 
 The repaired development chat completed six requests per arm without failures or
 output caps; the retained source review supports both final answers. Short QA
