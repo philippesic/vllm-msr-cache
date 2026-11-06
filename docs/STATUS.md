@@ -30,7 +30,7 @@ these selected runs does not establish a universal performance or quality claim.
   and portable handoff first; 5080 execution and release writing follow. Other
   engines and hybrid models are deferred. The
   [selected profile](../evidence/stage5-optimization-20261105/selected-candidate.json)
-  remains frozen. Execution authorized 2026-11-06; campaign contracts, durable orchestration and pinned asset preparation are underway. No Stage 6 performance results yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
+  remains frozen. Execution authorized 2026-11-06; campaign contracts, durable orchestration and pinned public inputs are implemented. All three models passed native restore/fresh-reference correctness fixtures; live adapter development and resource/activation preflight are in progress. Failed development attempts are retained. No Stage 6 confirmation or performance claim yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
   reproduction artifacts and a focused vLLM proposal. A formal paper is not the

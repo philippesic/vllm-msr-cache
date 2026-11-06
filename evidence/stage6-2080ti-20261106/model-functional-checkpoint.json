@@ -1,0 +1,119 @@
+{
+  "schema": "stage6-functional-checkpoint-v1",
+  "models": [
+    {
+      "model": "qwen3_8b_awq",
+      "run": "output/stage6-2080ti-20261106/qwen3-functional-02",
+      "status": "passed",
+      "requests": 11,
+      "checks": [
+        {
+          "check": "duplicate_is_idempotent",
+          "passed": true
+        },
+        {
+          "check": "wrong_namespace_rejected",
+          "passed": true
+        },
+        {
+          "check": "future_information_rejected",
+          "passed": true
+        },
+        {
+          "check": "stale_advice_rejected",
+          "passed": true
+        },
+        {
+          "check": "fresh_reference_recomputed_entire_prompt",
+          "passed": true
+        },
+        {
+          "check": "return_really_restored_cpu_prefix",
+          "passed": true
+        },
+        {
+          "check": "cached_equals_fresh_generation",
+          "passed": true
+        }
+      ],
+      "cleanup_verified": true,
+      "scope": "Deterministic native functional fixture; not a workload performance or production qualification"
+    },
+    {
+      "model": "ministral3_3b",
+      "run": "output/stage6-2080ti-20261106/ministral-functional-03",
+      "status": "passed",
+      "requests": 11,
+      "checks": [
+        {
+          "check": "duplicate_is_idempotent",
+          "passed": true
+        },
+        {
+          "check": "wrong_namespace_rejected",
+          "passed": true
+        },
+        {
+          "check": "future_information_rejected",
+          "passed": true
+        },
+        {
+          "check": "stale_advice_rejected",
+          "passed": true
+        },
+        {
+          "check": "fresh_reference_recomputed_entire_prompt",
+          "passed": true
+        },
+        {
+          "check": "return_really_restored_cpu_prefix",
+          "passed": true
+        },
+        {
+          "check": "cached_equals_fresh_generation",
+          "passed": true
+        }
+      ],
+      "cleanup_verified": true,
+      "scope": "Deterministic native functional fixture; not a workload performance or production qualification"
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "run": "output/stage6-2080ti-20261106/qwen3-4b-functional-01",
+      "status": "passed",
+      "requests": 11,
+      "checks": [
+        {
+          "check": "duplicate_is_idempotent",
+          "passed": true
+        },
+        {
+          "check": "wrong_namespace_rejected",
+          "passed": true
+        },
+        {
+          "check": "future_information_rejected",
+          "passed": true
+        },
+        {
+          "check": "stale_advice_rejected",
+          "passed": true
+        },
+        {
+          "check": "fresh_reference_recomputed_entire_prompt",
+          "passed": true
+        },
+        {
+          "check": "return_really_restored_cpu_prefix",
+          "passed": true
+        },
+        {
+          "check": "cached_equals_fresh_generation",
+          "passed": true
+        }
+      ],
+      "cleanup_verified": true,
+      "scope": "Deterministic native functional fixture; not a workload performance or production qualification"
+    }
+  ]
+}

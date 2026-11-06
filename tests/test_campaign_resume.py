@@ -65,3 +65,20 @@ def test_competing_writer_cannot_recover_live_attempt(tmp_path):
         with pytest.raises(RuntimeError, match='active writer'):
             with second.writer():
                 second.recover()
+
+
+def test_immutable_source_snapshot_detaches_later_edits(tmp_path):
+    from benchmarks.serving_suite.source_snapshot import materialize
+    from benchmarks.serving_suite.campaign_contracts import file_hash
+    source = tmp_path/'source'
+    source.mkdir()
+    (source/'module.py').write_text('value = 1\n')
+    files = {'module.py': file_hash(source/'module.py')}
+    identity = {'files': files, 'digest': digest(files)}
+    snapshot = materialize(source, tmp_path/'cache', identity)
+    (source/'module.py').write_text('value = 2\n')
+    assert (snapshot/'module.py').read_text() == 'value = 1\n'
+    assert materialize(source, tmp_path/'cache', identity) == snapshot
+    (snapshot/'module.py').write_text('value = 3\n')
+    with pytest.raises(ValueError, match='snapshot changed'):
+        materialize(source, tmp_path/'cache', identity)

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 from pathlib import Path
 
 from .campaign_contracts import atomic_json, file_hash, load, validate_campaign, validate_host
@@ -28,9 +29,31 @@ def model_identity(path):
     head_dim = text.get('head_dim') or text['hidden_size'] // text['num_attention_heads']
     kv_bytes = text['num_hidden_layers'] * 2 * text.get('num_key_value_heads', text['num_attention_heads']) * head_dim * 2
     tokenizer_files = {k: v for k, v in files.items() if k.startswith(('tokenizer', 'special_tokens', 'chat_template', 'tekken')) or k.endswith('.model')}
+    index = path/'model.safetensors.index.json'
+    weight_files = sorted(set(load(index)['weight_map'].values())) if index.exists() else [n for n in files if n.endswith('.safetensors')]
     return dict(files=files, content_digest=digest(files), tokenizer_digest=digest(tokenizer_files),
                 config=config, estimated_fp16_kv_bytes_per_token=kv_bytes,
-                weight_bytes=sum((path / n).stat().st_size for n in files if n.endswith('.safetensors')))
+                weight_files=weight_files, weight_bytes=sum((path / n).stat().st_size for n in weight_files),
+                downloaded_weight_bytes=sum((path/n).stat().st_size for n in files if n.endswith('.safetensors')))
+
+
+def runtime_identity(python):
+    """Content identities, without host-private environment or credential dumps."""
+    script = '''
+import hashlib, importlib.metadata as m, json, sys
+from pathlib import Path
+assets={}
+for name in ('vllm','torch','triton','lmcache'):
+ try: dist=m.distribution(name)
+ except m.PackageNotFoundError: continue
+ for f in dist.files or []:
+  if str(f).endswith('.so'):
+   p=Path(dist.locate_file(f))
+   if p.is_file():
+    with p.open('rb') as stream: assets[name+'/'+str(f)]=hashlib.file_digest(stream,'sha256').hexdigest()
+print(json.dumps(dict(python=list(sys.version_info[:3]),packages={d.metadata['Name']:d.version for d in m.distributions()},native_assets=assets),sort_keys=True))
+'''
+    return json.loads(subprocess.check_output([str(python),'-c',script],text=True))
 
 
 def prepare(campaign_path, host_path, *, metadata_only=False):

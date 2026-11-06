@@ -53,11 +53,15 @@ def compile_campaign(campaign_path, host_path, out):
     out.mkdir(parents=True, exist_ok=True)
     assets_path = Path(host['asset_cache']) / (campaign['id'] + '-assets.json')
     assets = load(assets_path) if assets_path.exists() else {'models': {}}
-    unresolved, cells = [], []
+    unresolved, cells, environments = [], [], {}
     for model, workloads in campaign['matrix'].items():
         artifact = assets.get('models', {}).get(model, {})
         binding = host['models'].get(model) or artifact.get('path')
         profile = host.get('model_profiles', {}).get(model)
+        python = (profile or {}).get('runtime_python',host['runtime_python'])
+        if Path(python).is_file() and python not in environments:
+            from .assets import runtime_identity
+            environments[python] = runtime_identity(python)
         if artifact.get('status') != 'prepared' or not binding:
             unresolved.append(f'{model}: pinned model preparation required')
         if not profile:
@@ -68,7 +72,9 @@ def compile_campaign(campaign_path, host_path, out):
                 unresolved.append(f'{model}:{cell}: frozen workload binding required')
             cells.append(dict(model=model, cell=cell, systems=systems,
                               artifact_identity=artifact.get('identity', {}).get('content_digest'),
-                              profile=profile, workload_binding=workload_binding))
+                              profile=profile, workload_binding=workload_binding,
+                              confirmation_binding=host.get('confirmation_bindings', {}).get(model + ':' + cell),
+                              runtime_identity=digest(environments[python]) if python in environments else None))
     if any('continuum' in c['systems'] for c in cells) and not host.get('published_runtimes'):
         unresolved.append('Pinned published runtime bindings required')
     portable = dict(schema=SCHEMA, specification=campaign, catalogs=records,
@@ -83,6 +89,7 @@ def compile_campaign(campaign_path, host_path, out):
                     cost=dict(status='requires measured pilots', confirmation_repeats=[6, 8, 10, 12],
                               overhead_and_operational='additional to matrix'))
     atomic_json(out / 'resolved.json', resolved)
+    atomic_json(out / 'runtime-identities.private.json',environments)
     Ledger(out)
     return resolved
 
@@ -105,10 +112,10 @@ def source_snapshot():
     # executed inputs and must be part of the campaign identity.
     from .runner import source_identity
     identity = source_identity()
-    for directory in ('benchmarks/serving_suite/catalogs', 'benchmarks/serving_suite/campaigns',
+    for directory in ('benchmarks/research_checks', 'benchmarks/serving_suite/catalogs', 'benchmarks/serving_suite/campaigns',
                       'benchmarks/serving_suite/templates', 'patches'):
         for path in sorted((ROOT / directory).rglob('*')):
-            if path.is_file():
+            if path.is_file() and '__pycache__' not in path.parts:
                 identity['files'][str(path.relative_to(ROOT))] = file_hash(path)
     identity['digest'] = digest(identity['files'])
     return identity
@@ -134,7 +141,8 @@ def freeze(out):
         raise ValueError('Cannot freeze unresolved bindings/capabilities')
     if (out / 'protocol.lock.json').exists():
         raise ValueError('Protocol already frozen; create a new campaign to revise it')
-    capability = load(out / 'capability.json')
+    from .campaign_gates import qualify
+    capability = qualify(out)
     if not capability.get('all_required_correctness_passed'):
         raise ValueError('All required model/system correctness gates must pass')
     precision = load(out / 'pilot-precision.json')
@@ -145,6 +153,12 @@ def freeze(out):
     seed = campaign['specification']['seed']
     for cell in resolved['cells']:
         key = cell['model'] + ':' + cell['cell']
+        binding = cell.get('confirmation_binding')
+        if not binding or binding.get('partition') != 'confirmation':
+            raise ValueError('Fresh confirmation bindings required before freeze')
+        for kind in ('plan', 'corpus'):
+            if digest(load(binding[kind])) != binding[kind + '_digest']:
+                raise ValueError('Confirmation input changed before freeze')
         repeats = selections[key]
         if repeats not in (6, 8, 10, 12) or (len(cell['systems']) == 4 and repeats not in (8, 12)):
             raise ValueError('Invalid/balance-breaking repetition count')
@@ -154,6 +168,8 @@ def freeze(out):
     record = dict(schema='serving-campaign-protocol-v1', campaign_id=resolved['campaign_id'],
                   source=source_snapshot(), precision=precision, schedule=schedule,
                   capability_digest=digest(capability), cells_digest=digest(resolved['cells']))
+    from .campaign_schedules import supplementary
+    record['supplementary_schedules'] = supplementary(out,resolved)
     atomic_json(out / 'protocol.lock.json', record)
     return dict(blocks=len(schedule), configurations=sum(len(b['systems']) for b in schedule))
 
@@ -163,7 +179,17 @@ def identity_for(out, phase, cell, repeat, system, source):
     return dict(campaign_id=resolved['campaign_id'], hardware=resolved['host_id'], phase=phase,
                 model=cell['model'], cell=cell['cell'], system=system, repeat=repeat,
                 artifact_identity=cell['artifact_identity'], profile=cell['profile'],
-                workload=digest(cell['workload_binding']), source=source['digest'])
+                runtime_identity=cell.get('runtime_identity'),
+                workload=digest(binding_for(cell, phase)), source=source['digest'])
+
+
+def binding_for(cell, phase):
+    if phase in ('confirm', 'overhead', 'operational'):
+        binding = cell.get('confirmation_binding')
+        if not binding:
+            raise ValueError('Missing confirmation workload binding')
+        return binding
+    return cell['workload_binding']
 
 
 def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
@@ -181,12 +207,20 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
             raise ValueError('Locked resource/workload bindings changed')
     if phase == 'confirm':
         schedule = locked['schedule']
+    elif phase == 'preflight':
+        schedule = [dict(model=c['model'],cell='B06',repeat=0,
+                         systems=['wait','continuum','upstream'] if c['model']=='qwen3_8b_awq' else ['wait'])
+                    for c in resolved['cells'] if c['cell']=='B06']
     else:
         count = 3 if phase == 'pilot' else 1
         spec = load(out / 'campaign.json')['specification']
+        pilot_cells = [c for c in resolved['cells'] if
+            (c['model'] == 'qwen3_8b_awq' and c['cell'] in ('B02','B06','B09','B11','B12')) or
+            (c['model'] != 'qwen3_8b_awq' and c['cell'] == 'B06')]
+        selected_cells = pilot_cells if phase == 'pilot' else resolved['cells']
         schedule = [dict(model=c['model'], cell=c['cell'], repeat=r,
                          systems=order(c['systems'], r, spec['seed']))
-                    for c in resolved['cells'] for r in range(count)]
+                    for c in selected_cells for r in range(count)]
     # Overhead and operational have distinct workload/behavior requirements and
     # must never silently execute the throughput matrix under another phase name.
     if phase in ('overhead', 'operational'):
@@ -194,6 +228,8 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
         if not path.exists():
             raise ValueError(f'{phase}: explicit validated control/operational schedule required')
         schedule = load(path)['blocks']
+        if schedule != locked['supplementary_schedules'][phase]:
+            raise ValueError('Supplementary schedule changed after freeze')
     if only:
         schedule = [b for b in schedule if b['model'] + ':' + b['cell'] == only]
         if not schedule:
@@ -227,15 +263,19 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
                     available_gpu()
                     attempt, directory = ledger.begin(identity, block_id=block_id)
                     row = ledger.index()[attempt]
-                    command = [load(out / 'host.private.json')['runtime_python'], '-m',
+                    from .source_snapshot import materialize
+                    local_host = load(out / 'host.private.json')
+                    snapshot = materialize(ROOT, Path(local_host['asset_cache']) / 'source-snapshots', source)
+                    command = [cell.get('profile', {}).get('runtime_python', local_host['runtime_python']), '-m',
                                'benchmarks.serving_suite.campaign', '_worker', '--out', str(out.resolve()),
                                '--attempt', str(directory.resolve())]
                     print(f'{phase} {cell["model"]}:{cell["cell"]} repetition {block["repeat"] + 1} {system}', flush=True)
                     with (directory / 'worker.log').open('xb') as log:
                         try:
-                            completed = subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, close_fds=True)
-                            if completed.returncode:
-                                raise RuntimeError(f'Worker exited {completed.returncode}; see worker.log')
+                            from .campaign_execution import run_worker
+                            bound = load(binding_for(cell, phase)['plan'])
+                            run_worker(command, cwd=snapshot, log=log,
+                                       timeout=bound['startup_timeout_s'] + bound['case_timeout_s'] + 180)
                             result = load(directory / 'result.json')
                             # Verify artifacts immediately, independent of interpretation.
                             from .verify import verify
@@ -258,6 +298,9 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
 
 def worker(out, attempt):
     """One fresh child owns only the legacy leaf lock under its supervisor."""
+    def terminate(signum, frame):
+        raise KeyboardInterrupt('Campaign worker terminated; closing owned resources')
+    signal.signal(signal.SIGTERM, terminate)
     from harness.gpu_lock import GPULock, LEGACY_LOCK
     from .runner import run_case, source_identity, freeze_source
     from .verify import seal, verify
@@ -266,27 +309,86 @@ def worker(out, attempt):
     resolved = load(Path(out) / 'resolved.json')
     host = load(Path(out) / 'host.private.json')
     cell = next(c for c in resolved['cells'] if c['model'] == identity['model'] and c['cell'] == identity['cell'])
-    binding = cell['workload_binding']
+    binding = binding_for(cell, identity['phase'])
     if not isinstance(binding, dict) or not {'plan', 'corpus'} <= binding.keys():
         raise ValueError('Workload binding requires explicit plan and corpus')
     plan = load(binding['plan'])
     corpus = load(binding['corpus'])
     if digest(corpus) != binding.get('corpus_digest') or digest(plan) != binding.get('plan_digest'):
         raise ValueError('Frozen workload/plan binding identity changed')
+    from .campaign_verify import transform
+    original_project = host['runtime_bindings'].get('project_root')
+    if original_project:
+        plan = transform(plan, {original_project: str(ROOT)})
+        corpus = transform(corpus, {original_project: str(ROOT)})
     from .runner import plan_for_variant
-    plan = plan_for_variant(plan, identity['system'])
+    system = identity['system']
+    control = system if system in ('O0','O1','O2') else None
+    base_system = ('arc' if control in ('O0','O1') else 'wait') if control else system
+    requested_credit = plan.get('continuation_credit_ms', 0)
+    plan = plan_for_variant(plan, base_system)
+    plan['continuation_credit_ms'] = requested_credit
+    if base_system == 'arc':
+        plan['publish_hints'] = False
+        # Match the candidate connector settings while using its actual off
+        # switch. Native unloaded ARC is measured separately as O0.
+        plan['qualification_conditions'] = ['arc', 'wait']
+    if control:
+        plan.update(publish_hints=False,load_plugin=control!='O0',native_arc_control=control=='O0',
+                    qualification_trace=False,required_activity=[],control=control)
+        if identity['model'] != 'qwen3_8b_awq':
+            corpus['sessions'] = corpus['sessions'][:8]
+            plan.update(sessions=8,expected_requests_per_wave=8)
+    if identity['phase'] == 'operational':
+        # Keep one server alive across six anchor waves. Secondary sequences are
+        # smaller, with the same isolated cancel/drain/recovery checks.
+        plan.update(tier='operational',waves=6 if identity['model']=='qwen3_8b_awq' else 2,
+                    wave_interval_s=0,operational_advice_probes=base_system=='wait')
+        if identity['model'] != 'qwen3_8b_awq':
+            corpus['sessions'] = corpus['sessions'][:4]
+            plan.update(sessions=4,expected_requests_per_wave=16,expected_tools_per_wave=12)
+    if identity['phase'] == 'preflight' and base_system == 'wait':
+        document_binding = next(c for c in resolved['cells'] if c['model']==identity['model'] and c['cell']=='B08')['workload_binding']
+        documents = load(document_binding['corpus'])['sessions'][:9]
+        paths = [next(path for path in session['input_files'] if path.endswith('.rst')) for session in documents]
+        kv = cell['profile']['kv_bytes_per_token']
+        cpu = (512*2**20//(256*kv))*(256*kv)
+        plan.update(campaign_adapter=False, sessions=1,turns=11,concurrency=1,client_concurrency=1,
+            gpu_blocks=128,cpu_bytes=cpu,max_model_len=2048,batch_tokens=1024,max_tokens=24,
+            runtime_probe=dict(documents=paths,prompt_tokens=1024,output_tokens=24,require_restore=True),
+            required_activity=['store','restore','cpu_recency'])
+        for name in ('published_runtimes','published_variants'):
+            plan.pop(name,None)
+        corpus = dict(schema='semantic-serving-corpus-v1',synthetic=False,
+            provenance='Deterministic native restore/fresh-reference fixture over pinned development PEP documents; not performance evidence.',
+            sessions=[dict(id='native-functional',context='',turns=['functional fixture']*11)])
     directory = Path(attempt) / 'measurement'
     directory.mkdir()
     with GPULock(LEGACY_LOCK):
-        initial = source_identity()
+        initial = source_snapshot()
+        if initial['digest'] != identity['source']:
+            raise ValueError('Worker source differs from planned identity')
         atomic_json(directory / 'plan.json', plan)
         atomic_json(directory / 'corpus.json', corpus)
         atomic_json(directory / 'source.json', initial)
         freeze_source(initial, directory)
-        case = run_case(plan, corpus['sessions'], 'arc' if identity['system'] == 'arc' else 'candidate',
-                        identity['repeat'], directory, variant=identity['system'])
+        from .assets import runtime_identity
+        environment = runtime_identity(sys.executable)
+        if identity.get('runtime_identity') and digest(environment) != identity['runtime_identity']:
+            raise ValueError('Installed environment/native libraries changed since compilation')
+        atomic_json(directory/'environment.json',environment)
+        if plan.get('published_runtime'):
+            from .published import check_source
+            check_source(base_system,plan['published_runtime'])
+        case = run_case(plan, corpus['sessions'], 'arc' if base_system == 'arc' else 'candidate',
+                        identity['repeat'], directory, variant=system)
         result = dict(schema=SUITE_SCHEMA, plan=plan, cases=[case], status=case['evaluation']['status'])
-        if source_identity()['digest'] != initial['digest']:
+        if digest(runtime_identity(sys.executable)) != digest(environment):
+            result['status'] = 'failed'
+            result['environment_error'] = 'Installed environment changed during attempt'
+        if plan.get('published_runtime'):
+            check_source(base_system,plan['published_runtime'])
+        if source_snapshot()['digest'] != initial['digest']:
             result['status'] = 'failed'
             result['source_error'] = 'Executed source changed during attempt'
         atomic_json(directory / 'result.json', result)
@@ -307,7 +409,7 @@ def main(argv=None):
             p.add_argument('--out', type=Path, required=True)
         else:
             p.add_argument('--metadata-only', action='store_true')
-    for name in ('status', 'freeze', 'verify', 'report', 'export', 'run', 'resume', '_worker'):
+    for name in ('status', 'freeze', 'qualify', 'pilot-plan', 'verify', 'report', 'export', 'run', 'resume', '_worker'):
         p = sub.add_parser(name)
         p.add_argument('--out', type=Path, required=True)
         if name in ('run', 'resume'):
@@ -334,6 +436,12 @@ def main(argv=None):
             result = status(args.out)
         elif args.command == 'freeze':
             result = freeze(args.out)
+        elif args.command == 'qualify':
+            from .campaign_gates import qualify
+            result = qualify(args.out)
+        elif args.command == 'pilot-plan':
+            from .campaign_report import pilot_precision
+            result = pilot_precision(args.out)
         elif args.command in ('run', 'resume'):
             result = run_phase(args.out, args.phase, only=args.only, resume=args.command == 'resume', dry_run=args.dry_run)
         elif args.command == '_worker':

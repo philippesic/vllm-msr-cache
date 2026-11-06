@@ -21,7 +21,7 @@ def validate_graph(graph):
         raise ValueError('Workflow nodes required')
     nodes = {}
     for node in graph['nodes']:
-        fields(node, ('id', 'kind', 'depends_on'), ('prompt', 'tool', 'session', 'role', 'quality_reference'))
+        fields(node, ('id', 'kind', 'depends_on'), ('prompt', 'tool', 'session', 'role', 'quality_reference', 'wait_s'))
         name = identifier(node['id'])
         if name in nodes or node['kind'] not in ('request', 'tool'):
             raise ValueError('Duplicate node or unsupported kind')
@@ -35,6 +35,9 @@ def validate_graph(graph):
             if 'prompt' in node:
                 raise ValueError('Tool node cannot contain model-written prompt command')
             validate_tool(node.get('tool'))
+        delay = node.get('wait_s', 0)
+        if isinstance(delay, bool) or not isinstance(delay, (int, float)) or not math.isfinite(delay) or delay < 0:
+            raise ValueError('Declared waits must be finite nonnegative')
         nodes[name] = node
     if not isinstance(graph['outputs'], list) or not graph['outputs'] or len(graph['outputs']) != len(set(graph['outputs'])):
         raise ValueError('Workflow outputs must be unique declared node IDs')

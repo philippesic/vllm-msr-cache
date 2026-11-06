@@ -58,6 +58,16 @@ def verify(directory):
                 raise ValueError(f"Wrong agent diagnostics: {case['name']}")
             if json.loads((directory/case['name']/'agent.json').read_text()) != observed:
                 raise ValueError(f"Wrong agent.json: {case['name']}")
+        if result.get('plan', {}).get('campaign_adapter') and case.get('campaign'):
+            from .campaign_workload import diagnose
+            observed = diagnose(directory / case['name'], case, result['plan'], write=False)
+            if case['campaign']['schema'] == 'serving-campaign-case-observation-v1':
+                # The first development adapter did not expose class/phase or
+                # bridge aggregates. Recompute every field that it did retain.
+                observed = {key: observed[key] for key in case['campaign']}
+                observed['schema'] = 'serving-campaign-case-observation-v1'
+            if observed != case['campaign'] or load_json_campaign_observation(directory / case['name']) != observed:
+                raise ValueError('Campaign workflow observation mismatch')
         rows = [
             json.loads(line)
             for line in (directory / case["name"] / "requests.jsonl")
@@ -79,6 +89,10 @@ def verify(directory):
                 for s in case["source_ids"]
                 for t in range(result["plan"]["turns"])
             }
+            if result["plan"].get("campaign_adapter"):
+                from .campaign_workload import request_keys
+                corpus = json.loads((directory / "corpus.json").read_text())
+                expected = {tuple(key) for w in range(result["plan"]["waves"]) for key in request_keys(corpus["sessions"], w)}
             if set(keys) != expected:
                 raise ValueError("Incomplete planned request identities")
         for key in (
@@ -146,6 +160,10 @@ def verify(directory):
         "measurement_status": result["status"],
         "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification.",
     }
+
+
+def load_json_campaign_observation(directory):
+    return json.loads((directory / "campaign-observation.json").read_text())
 
 
 def main():

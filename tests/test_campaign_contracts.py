@@ -89,3 +89,11 @@ def test_four_arm_balance():
     edges = [(a, b) for row in rows for a, b in zip(row, row[1:])]
     assert len(set(edges)) == 12
     assert order(arms[:2], 0, 17011) == order(arms[:2], 1, 17011)[::-1]
+
+
+def test_model_native_geometry_estimate(tmp_path):
+    from benchmarks.serving_suite.assets import model_identity
+    atomic_json(tmp_path / 'config.json', dict(text_config=dict(hidden_size=3072, num_attention_heads=32, num_key_value_heads=8, head_dim=128, num_hidden_layers=26)))
+    (tmp_path / 'model.safetensors').write_bytes(b'fixture only; no model load')
+    identity = model_identity(tmp_path)
+    assert identity['estimated_fp16_kv_bytes_per_token'] == 104 * 1024

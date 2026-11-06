@@ -266,6 +266,7 @@ def verify_geometry(directory, plan, variant):
     path = Path(directory)/'runtime-observation.jsonl'
     rows = [json.loads(line) for line in path.read_text().splitlines()] if path.exists() else []
     model = json.loads((Path(plan['model'])/'config.json').read_text())
+    model = model.get('text_config', model)
     head_dim = model.get('head_dim', model['hidden_size']//model['num_attention_heads'])
     kv_heads = model.get('num_key_value_heads', model['num_attention_heads'])
     bytes_per_block = model['num_hidden_layers']*kv_heads*head_dim*2*2*16

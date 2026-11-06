@@ -37,3 +37,35 @@ outputs and verified cleanup. Actual FP16/Marlin execution and pinned CPU backin
 were observed. CPU restoration was inactive; the result remains **inconclusive**
 for the required restore activity. It is a synthetic functional fixture and must
 not enter Stage 6 performance comparisons. [Raw report](../../output/stage6-2080ti-20261106/qwen3-smoke-01/REPORT.md).
+
+
+## Native model and live-adapter checkpoint
+
+All three selected models completed 11/11 deterministic native requests, actual
+CPU restore and a full fresh-reference computation with equal greedy token IDs.
+Duplicate, wrong-namespace, future-information and stale-clock advice checks
+passed. Cleanup was verified. See the compact
+[functional receipts](model-functional-checkpoint.json); raw probe files retain
+scoped metrics and exact tokens. These are functional fixtures, not speed results.
+
+Ministral uses the publisher BF16 artifact with FP16 execution, the supported
+text-only flag, and explicit HF/safetensors loading. An isolated copy of the local
+runtime uses Transformers 5.5.3, huggingface-hub 1.33.0 and tokenizers 0.22.2 to
+match the pinned runtime's model implementation. The original environment remains
+unchanged. Qwen3-4B also passed in FP16. Its measured KV allowance in the one-sequence
+probe was about 1.57 GiB; proposed multi-sequence envelopes are still development
+settings, not qualified capacities.
+
+Pinned public sources and disjoint development/confirmation/repair inputs are
+prepared. Repository tools execute full test classes even when the prompt shows
+explicit complete-method excerpts. Document workflows execute real search,
+metadata parsing and validation. Team graphs propagate actual specialist results;
+mixed traffic has a fixed interleaved 50/50 offered-unit assignment. Live streams,
+causal hint publication, bounded tool subprocesses and cancellation have focused
+CPU integration coverage. The latest focused set passed 130 tests.
+
+Initial development blocks are retained as failed attempts. One exposed an
+oversized historical test-class prompt; another caught a changed token prefix
+from decoded-text re-templating. The adapter now preserves observed prompt/output
+IDs and compiles only the new native turn suffix. No confirmation result has been
+used to tune the policy, which remains the selected Stage 5 configuration.

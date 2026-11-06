@@ -140,6 +140,10 @@ def select_sessions(corpus, plan, repeat):
 
 
 def connector(plan, arm):
+    if plan.get('native_arc_control'):
+        cfg = kv_transfer_config('arc',plan['cpu_bytes'])
+        cfg['kv_connector_extra_config']['store_threshold'] = 0
+        return cfg
     if plan.get('qualification_conditions') and arm == 'arc':
         cfg = json.loads(json.dumps(plan['candidate_config']))
         cfg['kv_connector_extra_config'].update(cpu_bytes_to_use=plan['cpu_bytes'],
@@ -222,6 +226,14 @@ def command(plan, arm, port):
         if plan["execution"] == "eager"
         else ["-cc.mode=0", "-cc.cudagraph_mode=FULL_DECODE_ONLY", "--cudagraph-metrics"]
     )
+    if plan.get('text_only'):
+        args += ['--limit-mm-per-prompt', json.dumps({'image': 0})]
+    if plan.get('model_format'):
+        if plan['model_format'] not in ('hf', 'mistral'):
+            raise ValueError('Unsupported explicit model format')
+        args += ['--config-format', plan['model_format']]
+        if plan['model_format'] == 'hf':
+            args += ['--load-format', 'safetensors', '--tokenizer-mode', 'hf']
     if plan.get('diagnostic_replay'):
         args += ['--logits-processors', 'benchmarks.serving_suite.replay_logits:FixedTokenReplay']
     if plan.get('continuation_credit_ms', 0):
@@ -292,7 +304,7 @@ def required_activity_for_arm(plan, arm):
     if arm == 'candidate':
         return plan['required_activity']
     excluded = {'hint_accepted','scoring','cpu_recency'}
-    if plan['tier'] == 'agent':
+    if plan['tier'] == 'agent' or plan.get('campaign_adapter'):
         # Zero ARC restores can be the actual baseline outcome that advice
         # improves. Require activation on the treatment, not success on ARC.
         excluded.add('restore')
@@ -303,6 +315,8 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
     wave_runner = run_wave
     if plan["tier"] == "agent" or plan.get('repository_workload'):
         from .repo_workload import run_wave as wave_runner
+    if plan.get('campaign_adapter'):
+        from .campaign_workload import run_wave as wave_runner
     if plan.get('diagnostic_replay'):
         from .replay_workload import run_wave as wave_runner
     if plan.get('runtime_probe'):
@@ -327,7 +341,7 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
         OPENBLAS_NUM_THREADS="1",
         VLLM_LOGGING_LEVEL="INFO",
         VLLM_BENCHMARK_ABORT_RECEIPTS="1",
-        VLLM_PLUGINS="semantic_wait_hint" if plan["publish_hints"] else "",
+        VLLM_PLUGINS="semantic_wait_hint" if plan.get('load_plugin', plan["publish_hints"]) else "",
         SEMANTIC_VLLM_STAGE_PARENT=str((directory / "runtime-staging").resolve()),
     )
     if plan.get("qualification_trace"):
@@ -336,7 +350,7 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
         env.pop("VLLM_KV_QUALIFICATION_TRACE", None)
     if plan.get('arc_eviction_profile'):
         env['SEMANTIC_ARC_EVICTION_PROFILE_DIR'] = str((directory / 'arc-profile').resolve())
-    if plan.get('published_variants'):
+    if plan.get('published_variants') or plan.get('observe_runtime'):
         env['PYTHONPATH'] = str(Path(__file__).with_name('published_observer').resolve())
         env['SUITE_RUNTIME_OBSERVATION'] = str((directory/'runtime-observation.jsonl').resolve())
     if plan.get('published_runtime'):
@@ -358,7 +372,7 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
         name=name,
         arm=arm,
         repeat=repeat,
-        expected_requests=len(sessions) * plan["turns"] * plan["waves"],
+        expected_requests=(plan["expected_requests_per_wave"] if plan.get("campaign_adapter") else len(sessions) * plan["turns"]) * plan["waves"],
         configuration=cfg,
         source_ids=[s["id"] for s in sessions],
         command=cmd,
@@ -402,9 +416,9 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
 
         try:
             case["startup_s"] = server.start(plan["startup_timeout_s"])
-            if plan.get('published_variants'):
+            if plan.get('published_variants') or plan.get('observe_runtime'):
                 from .published import verify_geometry
-                case['effective_geometry'] = verify_geometry(directory, plan, variant)
+                case['effective_geometry'] = verify_geometry(directory, plan, variant or arm)
             # Warm up separately; do not count startup/model compilation in serving rates.
             import aiohttp
 
@@ -442,7 +456,7 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
                 server.proc.pid,
                 directory / "resources.jsonl",
                 plan["sample_interval_s"],
-                metrics_url=server.url + "/metrics" if plan["tier"] == "agent" or plan.get('repository_workload') else None,
+                metrics_url=server.url + "/metrics" if plan["tier"] == "agent" or plan.get('repository_workload') or plan.get("campaign_adapter") else None,
             ).start()
 
             async def waves():
@@ -539,7 +553,12 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
             (directory / "metrics-after.prom").write_text(after)
             case["metrics"] = metric_delta(before, after)
             case["activity"] = activity(case["metrics"], case["hints"])
-            if plan["tier"] == "agent":
+            if plan.get("campaign_adapter"):
+                from .campaign_workload import diagnose
+                case["campaign"] = diagnose(directory, case, plan)
+                if plan.get("published_runtime"):
+                    case["agent"] = {"policy_activation": case["campaign"]["policy_activation"]}
+            elif plan["tier"] == "agent":
                 from .agent_report import diagnose
 
                 if plan.get('published_runtime'):
@@ -584,7 +603,11 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
             if sampler:
                 case["telemetry"] = sampler.close()
             case["cleanup"] = server.close()
-            if plan.get('published_runtime') and case.get('agent'):
+            if plan.get('campaign_adapter') and plan.get('published_runtime') and case.get('campaign'):
+                from .campaign_workload import diagnose
+                case['campaign'] = diagnose(directory, case, plan)
+                case['agent'] = {'policy_activation': case['campaign']['policy_activation']}
+            elif plan.get('published_runtime') and case.get('agent'):
                 from .published import diagnose_external
                 # Continuum writes its recorder during shutdown.
                 case['agent'] = diagnose_external(directory, case, plan)
@@ -628,6 +651,9 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
                 case,
                 required_activity_for_arm(plan, arm),
             )
+            if plan.get("campaign_adapter") and case.get("campaign", {}).get("measurement_errors"):
+                case["evaluation"]["errors"] += case["campaign"]["measurement_errors"]
+                case["evaluation"]["status"] = "failed"
             if plan["tier"] == "agent":
                 if case.get("agent", {}).get("measurement_errors"):
                     case["evaluation"]["errors"] += case["agent"]["measurement_errors"]
@@ -720,6 +746,7 @@ def parser():
     p.add_argument("--qualification-trace", action="store_true", help="Opt-in native queue/load/reclaimable-capacity trace; adds diagnostic I/O overhead")
     p.add_argument("--publish-hints", action="store_true")
     p.add_argument("--disable-thinking", action="store_true", help="Explicitly pass enable_thinking=False to the model chat template")
+    p.add_argument("--text-only", action="store_true", help="Disable image inputs/encoder allocation through the runtime multimodal configuration")
     p.add_argument(
         "--arrival-interval-s",
         type=float,

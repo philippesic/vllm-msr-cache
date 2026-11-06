@@ -121,7 +121,7 @@ def validate_campaign(data):
 
 
 def validate_host(data):
-    fields(data, ('schema', 'id', 'device', 'runtime_python', 'asset_cache', 'models', 'runtime_bindings', 'limits'), ('model_profiles', 'workload_bindings', 'published_runtimes'))
+    fields(data, ('schema', 'id', 'device', 'runtime_python', 'asset_cache', 'models', 'runtime_bindings', 'limits'), ('model_profiles', 'workload_bindings', 'published_runtimes', 'resolved_published_runtimes', 'confirmation_bindings'))
     if data['schema'] != 'serving-campaign-host-v1' or data['device'] != 'cuda:0':
         raise ValueError('Unsupported host schema/device')
     identifier(data['id'])

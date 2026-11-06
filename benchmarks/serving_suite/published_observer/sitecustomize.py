@@ -23,6 +23,13 @@ if _policy_path or _runtime_path:
     def _returned(code, offset, value):
         arguments = sys._getframe(1).f_locals
         obj = arguments.get('self')
+        if _runtime_path and (code.co_name == 'build_app' or
+                code.co_name == '__init__' and code.co_filename.endswith('/core/sched/scheduler.py')):
+            import threading
+            _write(_runtime_path, dict(event='loaded_extension_modules', scope=code.co_filename.rsplit('/vllm/',1)[-1],
+                modules={name:getattr(module,'__file__',None) for name,module in list(sys.modules.items())
+                         if name == 'semantic_offload' or name.startswith('semantic_offload.')},
+                threads=[thread.name for thread in threading.enumerate()]))
         if code.co_name == 'apply_g1_priority':
             _write(_policy_path, dict(event='priority_application', status=value.status,
                 affected_blocks=len(value.block_ids),
@@ -79,7 +86,9 @@ if _policy_path or _runtime_path:
                      and code.co_filename.endswith('/vllm/v1/kv_offload/cpu/gpu_worker.py'))
         decode = (_runtime_path and code.co_name == 'from_request_tracker'
                   and code.co_filename.endswith('/lmcache/integration/vllm/vllm_v1_adapter.py'))
-        if policy or geometry or transfers or decode:
+        imports = (_runtime_path and (code.co_name == 'build_app' and code.co_filename.endswith('/openai/api_server.py')
+                   or code.co_name == '__init__' and code.co_filename.endswith('/core/sched/scheduler.py')))
+        if policy or geometry or transfers or decode or imports:
             _monitor.set_local_events(_tool, code, _monitor.events.PY_RETURN)
         return _monitor.DISABLE
 
