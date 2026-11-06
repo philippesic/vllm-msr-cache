@@ -85,6 +85,11 @@ def test_transfer_relocates_both_cohorts_and_full_repo(transfer):
         assert (Path(session['repository'])/'helper.py').read_text()=='VALUE=1\n'
         assert str(root/'original') not in str(corpus)
     assert load(imported/'imported-protocol.json')['precision']['repeats']=={'fixture:B06':6}
+    assert campaign.run_phase(imported,'preflight',dry_run=True)['blocks']
+    with pytest.raises(ValueError,match='locked protocol'):
+        campaign.run_phase(imported,'confirm',dry_run=True)
+    with pytest.raises(ValueError,match='Imported repetitions'):
+        campaign.freeze(imported)
 
 
 def test_transfer_refuses_missing_or_changed_input(transfer):

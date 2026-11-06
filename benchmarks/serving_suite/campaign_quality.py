@@ -27,8 +27,15 @@ def normalize(text):
 def objective(text, reference, *, capped=False):
     result = dict(nonempty=bool(text.strip()),length_capped=capped,kind=reference.get('kind','investigation'))
     if reference.get('kind')=='answer_json':
+        def unique_fields(pairs):
+            value = {}
+            for key,item in pairs:
+                if key in value:
+                    raise ValueError('Duplicate answer field')
+                value[key] = item
+            return value
         try:
-            parsed = json.loads(text)
+            parsed = json.loads(text,object_pairs_hook=unique_fields)
         except (ValueError,TypeError):
             parsed = None
         valid = isinstance(parsed,dict) and set(parsed)=={'answer'} and isinstance(parsed['answer'],str)

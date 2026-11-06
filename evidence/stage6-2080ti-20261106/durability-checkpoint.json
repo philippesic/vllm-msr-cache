@@ -1,0 +1,26 @@
+{
+  "schema": "stage6-durability-checkpoint-v1",
+  "recorded": "2026-11-06",
+  "scope": "Development durability/reconstruction evidence; full campaign acquisition and 5080 native execution pending",
+  "independent_public_recipe_rebuild": {
+    "all_three_environment_identities_equal": true,
+    "external_executed_sources_equal": true,
+    "raw": "../../output/stage6-2080ti-20261106/rebuild-recipe-verification-02.json",
+    "sha256": "e01fa44bfba38a3971907aac428dd031b17036a67271bd2831569c44fe2cd545"
+  },
+  "actual_interruption_and_resume": {
+    "complete": true,
+    "proofs": 1,
+    "raw": "../../output/stage6-2080ti-20261106/development-06/analysis/recovery-proof.json",
+    "sha256": "165aea2092963304c03218acfe701406dad8406d2107128600e85b13666ffce2"
+  },
+  "source_package": {
+    "complete": true,
+    "raw": "../../output/stage6-2080ti-20261106/snapshot-package-proof/receipt.json",
+    "sha256": "ba648bde742ad28f1f4a0c0fc46d305059f41310907571d36942fc0f3dbdacee"
+  },
+  "compiled_torch_architectures": {
+    "raw": "../../output/stage6-2080ti-20261106/rebuilt-torch-architectures-02.txt",
+    "scope": "Contains sm_120; not a 5080 serving/correctness result"
+  }
+}

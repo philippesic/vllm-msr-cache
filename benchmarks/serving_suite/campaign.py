@@ -370,6 +370,7 @@ def worker(out, attempt):
     corpus = load(binding['corpus'])
     if digest(corpus) != binding.get('corpus_digest') or digest(plan) != binding.get('plan_digest'):
         raise ValueError('Frozen workload/plan binding identity changed')
+    plan['campaign_phase'] = identity['phase']
     from .campaign_verify import transform
     original_project = host['runtime_bindings'].get('project_root')
     if original_project:

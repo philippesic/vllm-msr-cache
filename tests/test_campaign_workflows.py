@@ -148,3 +148,14 @@ def test_continuation_preserves_noncanonical_observed_ids_and_eos():
     previous = dict(payload=dict(prompt=[1,2,3]),output_token_ids=[8,9,99])
     history=[dict(role='user',content='old'),dict(role='assistant',content='decoded differently'),dict(role='user',content='new user')]
     assert continuation_tokens(Tokenizer(),history,previous,{}) == [1,2,3,8,9,99,20,21]
+
+
+def test_tool_declarations_preserve_prompts_across_host_path_rebinding():
+    from benchmarks.serving_suite.campaign_workload import tool_declaration
+    for prefix in ('/home/first/cache','/mnt/second/assets'):
+        actual = dict(adapter='python_module',argv=[prefix+'/env/bin/python','-m',
+            'benchmarks.research_checks.qualification_inputs','document','--file',
+            prefix+'/sources/peps/peps/pep-0241.rst','--reference',prefix+'/corpora/document-references.json'])
+        declaration = tool_declaration(actual)
+        assert declaration == 'python -m benchmarks.research_checks.qualification_inputs document --file peps/pep-0241.rst --reference document-references.json'
+        assert actual['argv'][0]==prefix+'/env/bin/python'

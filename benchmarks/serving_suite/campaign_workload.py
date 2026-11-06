@@ -60,6 +60,24 @@ def tool_contract(tool, cwd, timeout, output_limit):
                 timeout_s=timeout, output_limit_bytes=output_limit, checker='exit_code')
 
 
+def tool_declaration(tool):
+    """Stable public names in prompts; actual host argv stays in tool evidence."""
+    import shlex
+    argv = list(tool['argv'])
+    if tool['adapter'] in ('python_module','pytest'):
+        argv[0] = 'python'
+    for index,arg in enumerate(argv):
+        if not Path(arg).is_absolute():
+            continue
+        if '/more_itertools/' in arg:
+            argv[index] = 'more_itertools/'+arg.split('/more_itertools/',1)[1]
+        elif arg.endswith('.rst'):
+            argv[index] = 'peps/'+Path(arg).name
+        else:
+            argv[index] = Path(arg).name
+    return shlex.join(argv)
+
+
 def linear_graph(session, plan):
     nodes = []
     tools = session.get('tools', [])
@@ -184,9 +202,8 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                 if plan.get('published_runtimes'):
                     following = [n for n in graph['nodes'] if n['kind'] == 'tool' and node['id'] in n['depends_on']]
                     if following:
-                        import shlex
-                        content += ('\nThe application will next execute this fixed read-only tool. End with exactly one bash fenced block containing the command:\n'
-                                    + shlex.join(following[0]['tool']['argv']))
+                        content += ('\nThe application will next execute this fixed read-only tool. Paths below are stable public source names; the application binds them to local files. End with exactly one bash fenced block containing this declaration:\n'
+                                    + tool_declaration(following[0]['tool']))
                 history.append(dict(role='user', content=content))
                 tokens = continuation_tokens(tokenizer,history,previous.get(stream),plan.get('chat_template_kwargs', {}))
                 observed = known_prefix_tokens(previous[stream]) if stream in previous else None

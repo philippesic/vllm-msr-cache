@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import csv
+import json
 import math
+import random
 import statistics
 from pathlib import Path
 
@@ -65,7 +67,7 @@ def plan_repeats(pilot_ratios, *, four_arm=False, target=0.02):
                 limitation='Variance estimated from only three development process blocks')
 
 
-def completed_blocks(out, phase):
+def completed_blocks(out, phase, *, source=None):
     """Select whole matched blocks; preserve attempts outside the analysis set."""
     out = Path(out)
     resolved = load(out/'resolved.json')
@@ -76,6 +78,8 @@ def completed_blocks(out, phase):
         identity = details.get('identity',{})
         if event['state'] != 'verified' or identity.get('phase') != phase:
             continue
+        if source is not None and identity.get('source')!=source:
+            continue
         attempt = local_path(out,details['path'])
         verify_tree(attempt,details['seal'])
         case = load(attempt/'measurement/result.json')['cases'][0]
@@ -85,9 +89,18 @@ def completed_blocks(out, phase):
         if not observed or observed['completed_units'] != observed['offered_units']:
             continue
         key = (identity['model'],identity['cell'],identity['repeat'],details['block_id'])
+        request_counts = {}
+        request_path = attempt/'measurement'/case.get('name','')/'requests.jsonl'
+        if request_path.is_file():
+            for line in request_path.read_text().splitlines():
+                row = json.loads(line)
+                if row.get('success') and not row.get('cancel_probe'):
+                    count = request_counts.setdefault(row.get('hint_group','ordinary'),dict(requests=0,returning=0))
+                    count['requests'] += 1
+                    count['returning'] += bool(row.get('is_returning'))
         groups.setdefault(key,{})[identity['system']] = dict(event=event, case=case,
             rate=observed['completed_units_per_s'], units=observed['completed_units'],
-            duration_s=case['load_duration_s'])
+            duration_s=case['load_duration_s'],request_observations=request_counts)
     selected = {}
     for key, block in groups.items():
         if set(block) != required.get(key[:2]):
@@ -157,11 +170,20 @@ def pilot_precision(out):
     return result
 
 
-def latency_estimate(ratios):
+def latency_estimate(ratios, *, tail=False):
     result = paired_estimate(ratios)
+    interval = result['paired_95_interval']
+    method = 'Student t on paired whole-process log latency-statistic ratios; lower is better'
+    if tail and len(ratios)>1:
+        # Resample process pairs, never requests within a process. This estimates
+        # variation in the geometric ratio of process p95s, not a pooled p95.
+        logs = [math.log(r) for r in ratios]
+        rng = random.Random(17011)
+        samples = sorted(math.exp(sum(rng.choice(logs) for _ in logs)/len(logs)) for _ in range(10000))
+        interval = [samples[249],samples[9749]]
+        method = 'Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better'
     return dict(process_pairs=result['process_pairs'], geometric_latency_ratio=result['geometric_throughput_ratio'],
-                paired_95_interval=result['paired_95_interval'],per_run_ratios=ratios,
-                method='Student t on paired whole-process log latency-statistic ratios; lower is better')
+                paired_95_interval=interval,per_run_ratios=ratios,method=method)
 
 
 def compare_classes(runs, baseline, system):
@@ -172,14 +194,24 @@ def compare_classes(runs, baseline, system):
                   run['systems'][system]['case']['campaign']['traffic_classes'][label]) for run in runs]
         result[label] = dict(throughput=paired_estimate([b['completed_units_per_s']/a['completed_units_per_s'] for a,b in pairs]),
                             offered_units_per_process=[a['offered_units'] for a,b in pairs])
+        counts = {role:[run['systems'][name].get('request_observations',{}).get(label,{}) for run in runs]
+                  for role,name in (('baseline',baseline),('candidate',system))}
+        result[label]['observations'] = {role:dict(requests=sum(c.get('requests',0) for c in values),
+            returning=sum(c.get('returning',0) for c in values)) for role,values in counts.items()}
+        result[label]['tail_scope'] = ('descriptive: fewer than 200 returning observations in at least one arm; no tail guarantee'
+            if any(v['returning']<200 for v in result[label]['observations'].values()) else
+            'Process-p95 comparison conditional on this fixed cohort; no population tail guarantee')
         for statistic in ('end_user_ttft_mean_s','end_user_ttft_p95_s','e2e_mean_s','e2e_p95_s'):
             values = [(a['requests'][statistic],b['requests'][statistic]) for a,b in pairs]
             if all(a and b for a,b in values):
-                result[label][statistic] = latency_estimate([b/a for a,b in values])
+                result[label][statistic] = latency_estimate([b/a for a,b in values],tail='p95' in statistic)
         if label == 'unhinted':
-            interval = result[label].get('end_user_ttft_p95_s',{}).get('paired_95_interval')
-            result[label]['five_percent_latency_bound'] = ('bounded' if interval and interval[1]<=1.05 else
+            interval = result[label].get('end_user_ttft_mean_s',{}).get('paired_95_interval')
+            result[label]['five_percent_mean_latency_bound'] = ('bounded' if interval and interval[1]<=1.05 else
                 'regression' if interval and interval[0]>1.05 else 'inconclusive')
+            tail = [b['requests']['end_user_ttft_p95_s']/a['requests']['end_user_ttft_p95_s']
+                    for a,b in pairs if a['requests']['end_user_ttft_p95_s'] and b['requests']['end_user_ttft_p95_s']]
+            result[label]['ten_percent_p95_diagnostic_alarm'] = any(r>1.10 for r in tail)
     return result
 
 
@@ -234,8 +266,10 @@ def report(out):
     quality_path = out/'analysis/quality/summary.json'
     quality = load(quality_path) if quality_path.exists() else dict(status='pending')
     acquisition_complete = not missing
+    from .campaign_completion import readiness
+    completion = readiness(out,acquisition_complete,quality) if locked else dict(complete=False)
     result = dict(schema='serving-campaign-report-v2',campaign_id=resolved['campaign_id'],
-        complete=False,throughput_acquisition_complete=acquisition_complete,missing_blocks=missing,
+        complete=completion['complete'],completion=completion,throughput_acquisition_complete=acquisition_complete,missing_blocks=missing,
         comparisons=comparisons,all_attempts=records,quality=quality,
         limitation='Readiness also requires verified controls, operational, recovery and portability evidence')
     atomic_json(out/'analysis/current/results.json',result)

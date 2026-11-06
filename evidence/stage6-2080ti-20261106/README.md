@@ -2,6 +2,16 @@
 
 Status: implementation and preparation in progress; no new performance claim.
 
+A second clean reconstruction now matches the first for all three installed
+environment identities and both external executed source identities. The source
+snapshot builds an extension wheel without the original checkout. A real measured
+screen was interrupted after its first arm completed; owned cleanup passed and
+resume replaced the entire comparison block. The partial attempt remains sealed.
+See [durability checkpoint](durability-checkpoint.json). The complete 54-configuration
+development screen is queued behind fresh native checks; confirmation remains due.
+The [pipeline and 5080 commands](../../docs/STAGE6_PIPELINE.md) now describe public
+runtime reconstruction, frozen import and mandatory hardware qualification.
+
 The isolated runtimes have now been independently rebuilt from public source and
 native-wheel pins. All three rebuilt native models passed restore versus fresh
 greedy-reference checks. Rebuilt Continuum and upstream each completed 64/64 real

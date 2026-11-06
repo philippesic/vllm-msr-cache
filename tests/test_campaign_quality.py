@@ -10,6 +10,7 @@ def test_qa_requires_both_format_and_reference():
     assert objective('The Rhine',reference)['automatic_failure']
     assert objective('{"answer":"Seine"}',reference)['automatic_failure']
     assert objective('{"answer":"Rhine","extra":1}',reference)['automatic_failure']
+    assert objective('{"answer":"Seine","answer":"Rhine"}',reference)['automatic_failure']
 
 
 def test_investigation_does_not_call_pass_echo_useful():
