@@ -146,3 +146,41 @@ def test_transfer_host_uses_frozen_deadlines_and_rejects_escaping_plan(tmp_path)
     cell['confirmation_binding']['plan']='${bundle}/../escape.json'
     with pytest.raises(ValueError,match='path|Path'):
         frozen_limits(tmp_path,dict(cells=[cell]))
+
+
+def test_offline_guard_rejects_snapshot_and_direct_blob_access(tmp_path):
+    model = tmp_path/'snapshots/pinned'
+    model.mkdir(parents=True)
+    blobs = tmp_path/'blobs'
+    blobs.mkdir()
+    weight = blobs/'weight'
+    weight.write_bytes(b'must not be read')
+    (model/'model.safetensors').symlink_to(weight)
+    atomic_json(model/'config.json',{})
+    original = tmp_path/'original'
+    original.mkdir()
+    (original/'result.json').write_text('{}')
+    allowed = tmp_path/'relocated-result.json'
+    allowed.write_text('{}')
+    script = '''
+import sys
+from pathlib import Path
+from benchmarks.serving_suite.campaign_portability import install_offline_guard
+original,model,blob,allowed = map(Path,sys.argv[1:])
+install_offline_guard(original,[model])
+for path in (model/'config.json',model/'model.safetensors',blob,original/'result.json'):
+ try:
+  path.read_bytes()
+ except RuntimeError as error:
+  assert 'original artifact/model path' in str(error)
+ else:
+  raise AssertionError('Forbidden file was read: '+str(path))
+assert allowed.read_text()=='{}'
+try:
+ import torch
+except RuntimeError as error:
+ assert 'GPU/model dependency' in str(error)
+else:
+ raise AssertionError('GPU import was allowed')
+'''
+    subprocess.run([sys.executable,'-c',script,str(original),str(model),str(weight),str(allowed)],check=True)

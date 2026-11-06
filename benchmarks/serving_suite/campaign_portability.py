@@ -10,6 +10,21 @@ from .campaign_contracts import Ledger,atomic_json,digest,load,read_protocol,ver
 from .campaign_verify import export_campaign,import_campaign
 
 
+def install_offline_guard(original,models):
+    original = Path(original).resolve()
+    models = [Path(p).resolve() for p in models]
+    # Snapshot files may resolve outside the snapshot into sibling blobs/.
+    model_files = {p.resolve() for root in models for p in root.rglob('*') if p.is_file()}
+    def audit(event,args):
+        if event=='import' and str(args[0]).split('.')[0] in ('torch','vllm','transformers','lmcache'):
+            raise RuntimeError('GPU/model dependency imported during offline verification')
+        if event=='open' and isinstance(args[0],(str,bytes)):
+            path = Path(os.fsdecode(args[0])).resolve()
+            if path.is_relative_to(original) or path in model_files or any(path.is_relative_to(p) for p in models):
+                raise RuntimeError('Offline verifier opened an original artifact/model path')
+    sys.addaudithook(audit)
+
+
 def prove(out,destination,*,runtimes=None):
     out,destination = Path(out).resolve(),Path(destination).resolve()
     if destination.exists():
@@ -40,14 +55,19 @@ import json,os,sys
 from pathlib import Path
 original=Path(sys.argv[2]).resolve()
 models=[Path(p).resolve() for p in json.loads(sys.argv[3])]
-def audit(event,args):
- if event=='import' and str(args[0]).split('.')[0] in ('torch','vllm','transformers','lmcache'):
-  raise RuntimeError('GPU/model dependency imported during offline verification')
- if event=='open' and isinstance(args[0],(str,bytes)):
-  path=Path(os.fsdecode(args[0])).resolve()
-  if path.is_relative_to(original) or any(path.is_relative_to(p) for p in models):
-   raise RuntimeError('Offline verifier opened an original artifact/model path')
-sys.addaudithook(audit)
+from benchmarks.serving_suite.campaign_portability import install_offline_guard
+install_offline_guard(original,models)
+guard_checks=0
+for root in models:
+ weight=next(root.rglob('*.safetensors'))
+ for path in (root/'config.json',weight,weight.resolve()):
+  try:
+   with path.open('rb'): pass
+  except RuntimeError as error:
+   assert 'original artifact/model path' in str(error)
+   guard_checks+=1
+  else:
+   raise AssertionError('Model/symlink access guard failed')
 from benchmarks.serving_suite import campaign_verify
 assert Path(campaign_verify.__file__).resolve().is_relative_to(Path.cwd())
 result=campaign_verify.verify_campaign(sys.argv[1])
@@ -55,7 +75,7 @@ from benchmarks.serving_suite.campaign_report import report
 analysis=report(sys.argv[1])
 from benchmarks.serving_suite.campaign_contracts import digest
 assert not original.exists()
-print(json.dumps(dict(verification=result,report=dict(
+print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guard_checks,report=dict(
  throughput_acquisition_complete=analysis['throughput_acquisition_complete'],
  comparisons=len(analysis['comparisons']),comparisons_digest=digest(analysis['comparisons']),
  quality_status=analysis['quality']['status']))))
@@ -97,6 +117,7 @@ print(json.dumps(dict(verification=result,report=dict(
         relocated_evidence=str(relocated),offline_verification=verification['verification'],
         offline_report=verification['report'],relocated_comparisons_match_original=True,
         original_evidence_path_absent_during_verification=True,model_files_forbidden_during_verification=True,
+        model_blob_symlinks_forbidden=True,model_access_guard_negative_tests=verification['model_access_guard_negative_tests'],
         gpu_model_imports_forbidden=True,verifier_source='relocated exported source closure',
         imported_campaign=str(imported),import_result=result,preflight_dry_compile=dry,
         separately_rebuilt_runtime_bindings=bool(runtimes),
