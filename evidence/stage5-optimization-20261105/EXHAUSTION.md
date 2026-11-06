@@ -99,3 +99,34 @@ hint contract. The replacement experiment uses supported declarations and an
 explicit default-off CPU-advice delivery grace; it changes no GPU staging lease.
 The prompt-storage panel also includes a matching prompt-scope/full-store control,
 because completed-transcript publication requires storing decoded tails.
+
+
+## Completed timing, document and cadence follow-ups
+
+The fixed three-repetition timing-finalist comparison did not qualify either
+candidate: tool-only publication was 1.0121× unchanged wait (95% interval
+0.9613–1.0655); tool-only plus CPU grace and linear eviction was 1.0154×
+(0.9636–1.0699). Neither reaches the declared 2% point threshold or excludes no
+improvement. Four arms were rotated across three repetitions, so this was not a
+complete four-position cycle. Selecting screens are not pooled with these repeats.
+
+Supported 50/250ms declarations, 750/2250ms CPU-only delivery grace, half-second
+refresh, uneven tool waits and operational audit-off runs completed. Grace really
+accepted late CPU advice; it allocated no speculative GPU bytes. This establishes
+activation, not a policy win. The strict client declaration contract is unchanged.
+
+The natural-output document screen passed all five arms. ARC took172.62s,
+unchanged wait160.41s, the pressure gate161.15s, two-second refresh170.50s and
+half boost176.19s. Output counts differed (7188/7264/7357/7231/7158), so these are
+not equal-work throughput estimates. Reduced cadence also raised executed prefill
+from144000 to177389 tokens; partial boost increased preemptions. The tight
+identical-token cadence screen similarly favored unchanged wait over both two-
+and five-second intervals in that pass. Saving publication work can lose useful
+retention. These observations support keeping defaults; they do not statistically
+reject every workload-specific cadence setting.
+
+The user narrowed the remaining search: broader audit/uneven repetitions are
+explicitly deferred, while eviction receives actual serving attribution and exact
+state replay. Storage, one bounded interaction screen, matched audit controls and
+final unforced functional validation remain. See the protocol's final scope
+adjustment; this checkpoint is not yet the final exhaustion decision.

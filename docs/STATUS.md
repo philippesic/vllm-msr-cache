@@ -23,8 +23,10 @@ these selected runs does not establish a universal performance or quality claim.
   all categories until further searching mostly yields speculative non-results.
 - **Stage 5 — optimize:** sustained queue/prefix/cadence/pressure/budget/plumbing/
   scheduling search against plain ARC and unchanged wait-hint. Initial policy
-  panels, operating screens and live/mixed follow-ups verified; fixed repeats and
-  timing/operational comparisons active. No new winner selected.
+  panels, operating screens, live/mixed follow-ups and fixed finalist repeats
+  verified (123 valid GPU cases, two retained invalid settings). No new winner
+  selected. Latest scope narrows remaining screens and prioritizes measured
+  eviction costs and exact replay of cache states captured in serving.
   Optional variants preserve default behavior.
   [Protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md);
   [exhaustion ledger](../evidence/stage5-optimization-20261105/EXHAUSTION.md).

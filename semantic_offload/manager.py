@@ -13,6 +13,7 @@ from semantic_offload.profiling import PROFILE, profiled
 import hashlib
 import json
 import math
+import os
 import time
 from collections import OrderedDict
 from collections.abc import Collection, Mapping, Sequence
@@ -1688,6 +1689,10 @@ class PreservationOffloadingManager(
             if not isinstance(self._policy, ARCCachePolicy):
                 raise ValueError("arc_linear_eviction requires ARC")
             self._policy = LinearARCCachePolicy(self._policy.cache_capacity)
+        self._arc_eviction_profile = None
+        if directory := os.environ.get('SEMANTIC_ARC_EVICTION_PROFILE_DIR'):
+            from benchmarks.research_checks.arc_serving_profile import EvictionProfile
+            self._arc_eviction_profile = EvictionProfile(self._policy, directory)
         self._init_staging_protection_contract()
         self._init_lifecycle_contract()
         self._init_admission_contract(
@@ -1751,6 +1756,11 @@ class PreservationOffloadingManager(
         result = super().prepare_store(keys, req_context)
         policy_completed_ns = time.monotonic_ns()
         policy_completed_cpu_ns = time.thread_time_ns()
+        if self._arc_eviction_profile is not None:
+            self._arc_eviction_profile.record_store(
+                policy_completed_ns - policy_started_ns,
+                policy_completed_cpu_ns - policy_started_cpu_ns,
+            )
         if result is not None and result.evicted_keys:
             self._pending_evicted_keys.extend(result.evicted_keys)
             if self._decision_feature_trace_enabled:
@@ -1812,6 +1822,11 @@ class PreservationOffloadingManager(
                     )
                 self._decision_sequence += 1
         return result
+
+    def on_request_finished(self, req_context: ReqContext) -> None:
+        super().on_request_finished(req_context)
+        if self._arc_eviction_profile is not None:
+            self._arc_eviction_profile.flush()
 
     def drain_decision_feature_records(self) -> list[dict[str, object]]:
         records = self._pending_decision_feature_records

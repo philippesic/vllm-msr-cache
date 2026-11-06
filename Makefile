@@ -1,6 +1,6 @@
 PY ?= python3
 RUNTIME = "$(PY)" tools/vllm_runtime.py "$(PY)"
-TESTS ?= tests/test_config.py tests/test_wait_hint_cpu_recency.py tests/test_native_child_runtime.py tests/test_arc_optimization.py
+TESTS ?= tests/test_config.py tests/test_wait_hint_cpu_recency.py tests/test_native_child_runtime.py tests/test_arc_optimization.py tests/test_arc_serving_profile.py
 
 .PHONY: help runtime-check test test-harness benchmark-help bench-tests bench-smoke bench-screen bench-confirm bench-operational bench-agent bench-agent-pressure bench-verify
 help:

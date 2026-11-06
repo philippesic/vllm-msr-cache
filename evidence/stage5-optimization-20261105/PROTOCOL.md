@@ -108,3 +108,29 @@ contemporaneous combination screen. Per-cohort completion analysis uses designat
 corpus groups in both ARC and wait arms; abandoned publications add neither
 requests nor time to their already completed owner's workflow. Selecting screens
 remain separate from the fixed repeated pressure-gate comparison.
+
+
+## Final scope adjustment and eviction diagnostic
+
+The user narrowed remaining breadth and explicitly prioritized following the CPU
+eviction speedup into real serving. Completed repeated timing finalists and live
+document/cadence panels bring the checkpoint to 123 valid GPU cases; the two
+invalid configuration attempts remain separate. No new default is selected.
+
+The bounded remaining pass is prompt storage (five arms), a contemporaneous
+ARC/wait/combined scheduling screen (three arms), and matched audit-off ARC/wait
+operational controls. The unexecuted twelve-case audit repeat and nine-case uneven
+pressure repeat are deferred under this narrower scope, not counted as completed
+or statistically rejected. A three-arm unforced functional probe checks defaults
+and the opt-in linear-eviction/CPU-grace combination.
+
+Eviction diagnosis profiles primary and tight cache cells with ARC, unchanged
+wait, and linear-eviction wait. This is attribution, not a performance selection
+round. Every call records native victim-selection body wall/thread CPU time,
+victim count, protected-set and queue sizes. Bounded exact before-states preserve
+real byte keys, block references, ghost order and adaptive target for offline
+native/linear replay. Snapshot and logging overhead is separate; inclusive store
+time must not be added to eviction body time. Offline iterator-visit counts are
+separate from timed plain-queue replays. Host elapsed cost is not a strict
+end-to-end bound because GPU overlap and scheduler changes can affect results.
+Actual cost and state shapes determine any additional eviction follow-up.

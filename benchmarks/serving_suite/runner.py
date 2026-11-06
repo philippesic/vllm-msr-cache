@@ -334,6 +334,8 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
         env["VLLM_KV_QUALIFICATION_TRACE"] = str((directory / "kv-qualification.jsonl").resolve())
     else:
         env.pop("VLLM_KV_QUALIFICATION_TRACE", None)
+    if plan.get('arc_eviction_profile'):
+        env['SEMANTIC_ARC_EVICTION_PROFILE_DIR'] = str((directory / 'arc-profile').resolve())
     if plan.get('published_variants'):
         env['PYTHONPATH'] = str(Path(__file__).with_name('published_observer').resolve())
         env['SUITE_RUNTIME_OBSERVATION'] = str((directory/'runtime-observation.jsonl').resolve())

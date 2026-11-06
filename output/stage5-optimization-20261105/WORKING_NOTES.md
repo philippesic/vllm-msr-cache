@@ -478,3 +478,18 @@ endtoendbound becausescheduling/GPUoverlapcanchange. Needunprofiledvalidationif
 profilerfindsmeaningfulopportunity; otherwiseevidence-backedbottleneckexplanation.
 Remainingsectionscouldbeonepromptstorage5/combination6 pass andsmallmatchedaudit
 control ratherthan12+9morebroadrepeats. No finalstoppingclaimyet.
+
+
+Checkpoint completed: exact pre-Stage5 foundation committed separately, then
+Stage5 sources/results committed; both pushed non-force to established origin/main.
+Portable check31pass; profiler focused100pass; bench149pass. New profiler opt-in
+in manager and runner; exact bytes snapshots + body timing + request-finish flush.
+Current GPU session47102: eviction-round8 sixcases repository/tight ARC/wait/linearwait.
+Do not edit executed source during it. Profiler replay module pinned external.
+Remaining-plans prepared: prompt-storage5, combination3, matched audit-off2,
+functional3 (three waves) with baselineARC/wait and linear+grace750wait.
+Latest user narrowing means skip broad audit12/uneven9 repeats. Need inspect profiler
+results and decide credible eviction follow-up, finish remaining pass, final evidence,
+cleanup and coherent push. No promotion yet. Skill paths moved into p-stack checkout;
+recap and storage-steward re-read there. Storage cleanup skill announced. Current
+campaign1.9GiB, plenty space; preserve retained evidence/source recovery backup.
