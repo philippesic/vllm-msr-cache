@@ -167,6 +167,14 @@ def export_campaign(out, destination):
             target = destination/'source/tests'/path.name
             target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copyfile(path,target)
+    # Human setup guidance is transfer provenance, not timed serving input.
+    for relative in ('AGENTS.md','docs/STAGE6_PIPELINE.md','docs/STAGE6_EXECUTION_PLAN.md',
+                     'docs/BENCHMARKING.md','docs/WAIT_HINT_SUPPORT.md','vendor/VLLM.md'):
+        path = ROOT/relative
+        if path.is_file():
+            target = destination/'source'/relative
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(path,target)
     campaign = load(out/'campaign.json')
     # Retain the parent's exact logical identity privately in evidence; portable
     # acquisition rebinds paths and gets its own explicitly linked identity.
@@ -174,6 +182,9 @@ def export_campaign(out, destination):
         cells=portable_cells,protocol={k:locked[k] for k in ('source','schedule','supplementary_schedules','precision')},
         specification=campaign['specification'],catalogs=campaign['catalogs'],inventory=inventory,
         verification=verified,raw_evidence_identity=digest(Ledger(out).events()))
+    commit = subprocess.run(['git','-C',str(ROOT),'rev-parse','HEAD'],capture_output=True,text=True)
+    portable['repository_commit'] = commit.stdout.strip() if commit.returncode==0 else None
+    portable['source_authority'] = 'Included exact executed file manifest; repository commit is additional provenance'
     for event in Ledger(out).index().values():
         entry = dict(attempt=event['attempt_id'],state=event['state'],seal=event['details'].get('seal'))
         inventory.setdefault('attempts',[]).append(entry)
@@ -183,7 +194,17 @@ def export_campaign(out, destination):
     atomic_json(destination/'portable.json',portable)
     instructions = ROOT/'docs/STAGE6_PIPELINE.md'
     if instructions.is_file():
-        shutil.copyfile(instructions,destination/'README.md')
+        text = instructions.read_text().replace('(STAGE6_EXECUTION_PLAN.md)','(source/docs/STAGE6_EXECUTION_PLAN.md)')
+        text = text.replace('(../evidence/stage6-2080ti-20261106/README.md)','(findings.json)')
+        (destination/'README.md').write_text(text)
+    from .campaign_report import report
+    analysis = report(out)
+    atomic_json(destination/'findings.json',dict(schema='serving-campaign-portable-findings-v1',
+        complete=analysis['complete'],throughput_acquisition_complete=analysis['throughput_acquisition_complete'],
+        comparisons=[{k:row[k] for k in ('model','cell','candidate','baseline','status','process_pairs','estimate') if k in row}
+                     for row in analysis['comparisons']],
+        quality={k:analysis['quality'][k] for k in ('status','reviewed','objective_outputs','automatic_failures','groups') if k in analysis['quality']},
+        scope='Within-model/system comparisons on the parent host; raw evidence retained separately. RTX 5080 native execution remains required.'))
     atomic_json(destination/'host.example.json',load(ROOT/'benchmarks/serving_suite/templates/host.example.json'))
     seal = seal_tree(destination)
     return dict(destination=str(destination),seal=seal,files=verify_tree(destination,seal),inventory=inventory)

@@ -36,6 +36,15 @@ these selected runs does not establish a universal performance or quality claim.
   Recovery/relocation CPU checks pass. Resource screens and the complete acquisition
   remain in progress; failed development attempts are retained. No Stage 6
   confirmation or performance claim yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
+- **Stage 6 active resources:** the local coordinator owns the GPU reservation
+  across native checks and the complete development screen. A real interrupted
+  comparison was cleaned up and replaced as a whole; two clean public-recipe
+  reconstructions match. Development source review caught invented test-status
+  claims in ordinary chat, prompting a uniform task-specific instruction repair
+  before confirmation. The corrected source passed all three native fixtures and
+  the registry probe. Screens, pilots, confirmation and final portability remain
+  due. Raw ownership and recovery receipts are linked in the execution record;
+  check live state before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
   reproduction artifacts and a focused vLLM proposal. A formal paper is not the
