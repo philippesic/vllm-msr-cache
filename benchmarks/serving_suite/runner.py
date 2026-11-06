@@ -92,20 +92,9 @@ def source_identity():
     ):
         for p in sorted((ROOT / directory).rglob("*.py")):
             files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
-    # The SSE parser imports campaign support; retain those executed dependencies.
-    for name in (
-        "eviction_prefetch_campaign",
-        "csv_utils",
-        "latency_validation",
-        "preservation",
-        "prefetch_attribution",
-        "cell_lifecycle",
-        "msr_combined_prefetch_attribution",
-        "msr_combined_prefetch_workload",
-        "native_child_runtime",
-        "staged_environment_preflight",
-        "wait_hint_serving_diagnostic",
-    ):
+    # Shared lifecycle utilities are imported by harness.server; streaming lives
+    # in harness.streaming and has no historical campaign dependencies.
+    for name in ("csv_utils", "cell_lifecycle"):
         p = ROOT / "benchmarks" / f"{name}.py"
         files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
     for p in sorted((ROOT / 'benchmarks/serving_suite').glob('*.json')):
@@ -353,6 +342,8 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
     if plan.get('published_variants') or plan.get('observe_runtime'):
         env['PYTHONPATH'] = str(Path(__file__).with_name('published_observer').resolve())
         env['SUITE_RUNTIME_OBSERVATION'] = str((directory/'runtime-observation.jsonl').resolve())
+        if plan['tier']=='operational' or plan.get('registry_development_probe'):
+            env['SUITE_OBSERVE_REGISTRY'] = '1'
     if plan.get('published_runtime'):
         env.pop('VLLM_KV_QUALIFICATION_TRACE', None)
         env.pop('VLLM_BENCHMARK_ABORT_RECEIPTS', None)
@@ -416,6 +407,28 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
 
         try:
             case["startup_s"] = server.start(plan["startup_timeout_s"])
+            if plan.get('control'):
+                inventory = [json.loads(line) for line in (directory/'runtime-observation.jsonl').read_text().splitlines()
+                             if json.loads(line)['event']=='loaded_extension_modules']
+                api = json.loads(get_text(server.url+'/openapi.json'))
+                plugin_route = '/plugins/semantic-offload/wait-hints' in api['paths']
+                loaded = sorted({name for record in inventory for name in record['modules']})
+                api_seen = any(r['scope'].endswith('/openai/api_server.py') for r in inventory)
+                scheduler_seen = any(r['scope'].endswith('/core/sched/scheduler.py') for r in inventory)
+                connector_seen = any(r['scope'].endswith('/core/sched/scheduler.py') and
+                    'semantic_offload.connector' in r['modules'] for r in inventory)
+                control = plan['control']
+                established = (api_seen and scheduler_seen and not loaded and not plugin_route and cfg['kv_connector']=='OffloadingConnector'
+                    if control=='O0' else api_seen and scheduler_seen and connector_seen and plugin_route and
+                    cfg['kv_connector']=='SemanticOffloadingConnector' and
+                    (cfg['kv_connector_extra_config']['prefetch_budget_fraction']==0 if control=='O1' else
+                     cfg['kv_connector_extra_config']['prefetch_budget_fraction']>0))
+                case['control_receipt'] = dict(control=control,verified=established,import_observations=inventory,
+                    loaded_extension_modules=loaded,plugin_route=plugin_route,hint_production=plan['publish_hints'],
+                    scope='Actual API/scheduler module inventories, configured connector/off switch and common resource CPU/thread sampling')
+                write_json(directory/'control-receipt.json',case['control_receipt'])
+                if not established or plan['publish_hints']:
+                    raise ValueError('Requested overhead control was not established')
             if plan.get('published_variants') or plan.get('observe_runtime'):
                 from .published import verify_geometry
                 case['effective_geometry'] = verify_geometry(directory, plan, variant or arm)
@@ -603,6 +616,22 @@ def run_case(plan, sessions, arm, repeat, out, variant=None):
             if sampler:
                 case["telemetry"] = sampler.close()
             case["cleanup"] = server.close()
+            if plan.get('campaign_adapter') and plan['tier']=='operational' and case.get('campaign'):
+                from .campaign_workload import diagnose
+                case['campaign'] = diagnose(directory,case,plan)
+                snapshots = case['campaign'].get('registry_snapshots',[])
+                case['operational']['native_transfer_drain_verified'] = bool(snapshots) and snapshots[-1]['native_jobs']==0
+                case['operational']['passed'] = (case['operational'].get('passed',False) and
+                    case['operational']['native_transfer_drain_verified'])
+                samples = [json.loads(line) for line in (directory/'resources.jsonl').read_text().splitlines()]
+                def memory_sample(row):
+                    return {k:row.get(k) for k in ('monotonic_s','rss_bytes','gpu_used_bytes','host_available_bytes','host_swap_used_bytes')}
+                case['operational']['first_final_memory'] = [memory_sample(s) for s in ([samples[0],samples[-1]] if samples else [])]
+                case['operational']['wave_resources'] = [dict(wave=w['wave'],samples=sum(
+                    w['started_monotonic_s']<=s['monotonic_s']<=w['ended_monotonic_s'] for s in samples),
+                    rss_peak_bytes=max((s['rss_bytes'] for s in samples if
+                        w['started_monotonic_s']<=s['monotonic_s']<=w['ended_monotonic_s']),default=None)) for w in case['waves']]
+                case['operational']['rss_growth_alarm_512_mib'] = (samples[-1]['rss_bytes']-samples[0]['rss_bytes']>512*2**20) if samples else None
             if plan.get('campaign_adapter') and plan.get('published_runtime') and case.get('campaign'):
                 from .campaign_workload import diagnose
                 case['campaign'] = diagnose(directory, case, plan)

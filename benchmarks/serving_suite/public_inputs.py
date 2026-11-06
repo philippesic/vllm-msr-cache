@@ -22,6 +22,42 @@ SOURCE_PINS = {
 }
 DOCUMENT_FRESH = [241, 279, 282, 289, 305, 307, 310, 311, 314, 315, 318, 322, 327, 328, 342, 352]
 DOCUMENT_REPAIR = [353, 357, 358, 366, 370, 371, 372, 376, 386, 389, 391, 393, 405, 409, 411, 414]
+SQUAD_URL = 'https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json'
+SQUAD_SHA256 = '3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955'
+
+
+def prepare_datasets(cache):
+    from huggingface_hub import hf_hub_download, HfApi
+    import os
+    import urllib.request
+    cache = Path(cache)
+    receipts = []
+    for repository,revision,filename in (
+        ('THUDM/LongBench','5e628be450b7e67fb7ae6e201bd6d8f7056f7672','data.zip'),
+        ('allenai/WildChat-1M','7d6490e462285cf85d91eabea0f9a954fbddcd1f','data/train-00000-of-00014.parquet')):
+        path = hf_hub_download(repository,filename,repo_type='dataset',revision=revision)
+        info = HfApi().dataset_info(repository,revision=revision)
+        receipts.append(dict(repository=repository,revision=revision,file=filename,path=path,
+            sha256=file_hash(path),card_metadata=info.card_data.to_dict() if info.card_data else {},
+            license_scope='Dataset-card declaration; upstream component terms may differ'))
+    target = cache/'datasets/squad-train-v1.1.json'
+    target.parent.mkdir(parents=True,exist_ok=True)
+    if not target.exists():
+        temporary = target.with_suffix('.download')
+        with urllib.request.urlopen(SQUAD_URL,timeout=60) as response,temporary.open('xb') as output:
+            while chunk:=response.read(2**20):
+                output.write(chunk)
+            output.flush()
+            os.fsync(output.fileno())
+        if file_hash(temporary)!=SQUAD_SHA256:
+            raise ValueError('Downloaded SQuAD source does not match the recorded pin')
+        temporary.replace(target)
+    if file_hash(target)!=SQUAD_SHA256:
+        raise ValueError('Prepared SQuAD source changed')
+    receipts.append(dict(url=SQUAD_URL,revision='v1.1',path=str(target.resolve()),sha256=SQUAD_SHA256,
+                         license='CC-BY-SA-4.0',license_source='https://rajpurkar.github.io/SQuAD-explorer/'))
+    atomic_json(cache/'datasets.json',receipts)
+    return receipts
 
 
 def prepare_sources(cache):
@@ -56,6 +92,8 @@ def repository_tasks(root, partition, python):
     from benchmarks.research_checks.qualification_inputs import REPOSITORY_TASKS, REPOSITORY_RESERVE
     root = Path(root).resolve()
     source, tests = root / 'more_itertools/more.py', root / 'tests/test_more.py'
+    tracked = subprocess.check_output(['git','-C',str(root),'ls-files','-z']).decode().split('\0')
+    executed_inputs = {str(root/name):file_hash(root/name) for name in filter(None,tracked)}
     functions = {n.name: n for n in ast.parse(source.read_text()).body if isinstance(n, (ast.FunctionDef, ast.ClassDef)) and not n.name.startswith('_')}
     classes = {n.name: n for n in ast.parse(tests.read_text()).body if isinstance(n, ast.ClassDef)}
     old = {name for name, _ in REPOSITORY_TASKS + REPOSITORY_RESERVE}
@@ -102,7 +140,7 @@ def repository_tasks(root, partition, python):
     sessions = []
     for name, test, context in selected:
         sessions.append(dict(id='more-' + name, repository=str(root), context=f'PUBLIC SOURCE more_itertools.{name} AND TEST CLASS {test}\n' + context,
-            input_files={str(source): file_hash(source), str(tests): file_hash(tests)}, evidence=name,
+            input_files=executed_inputs, evidence=name,
             quality_reference=dict(symbol=name, test_class=test, source_symbol=excerpt_symbol(source, functions[name]), test_symbol=excerpt_symbol(tests, classes[test])),
             turns=[f'Investigate {name}: describe its purpose and plan a boundary-case check.',
                    f'Explain one concrete {name} behavior supported by the actual search results.',
@@ -150,6 +188,8 @@ def document_tasks(root, partition, python, references):
                    dict(kind='test', argv=common + ['--action', 'validate'], valid_exit_codes=[0]),
                    dict(kind='evidence', argv=common + ['--action', 'summarize'], valid_exit_codes=[0])]))
     atomic_json(references, refs)
+    for session in sessions:
+        session['input_files'][str(Path(references).resolve())] = file_hash(references)
     return corpus(sessions, 'documents', partition, SOURCE_PINS['peps'])
 
 
@@ -252,7 +292,7 @@ def longbench_candidates(archive, tokenizer):
                         end = min((b for b in boundaries if b >= found + len(answer) + 600), default=len(context))
                         excerpt = context[start:end]
                         count = len(tokenizer.encode(excerpt))
-                    if 180 <= count <= 1000:
+                    if 128 <= count <= 1000:
                         candidates.append(dict(source_id=row['_id'], dataset=filename, context=excerpt,
                                                question=row['input'], answers=answers, source_offsets=[start, end]))
                         break
@@ -265,7 +305,7 @@ def longbench_corpus(archive, tokenizer, partition, kind):
     sessions = []
     if kind == 'qa':
         candidates = longbench_candidates(archive, tokenizer)
-        offset, count = {'development': (0, 32), 'confirmation': (32, 64), 'repair': (96, 16)}[partition]
+        offset, count = {'development': (0, 64), 'confirmation': (64, 64), 'repair': (128, 16)}[partition]
         selected = candidates[offset:offset + count]
         if len(selected) != count:
             raise ValueError(f'Insufficient adapted LongBench short QA inputs: {len(candidates)}')
@@ -298,10 +338,48 @@ def longbench_corpus(archive, tokenizer, partition, kind):
         partition=partition, cohort_mode='fixed', sessions=sessions))
 
 
+def squad_corpus(path, tokenizer, partition):
+    """One intact paragraph/question per article; article-disjoint partitions."""
+    import random
+    if file_hash(path)!=SQUAD_SHA256:
+        raise ValueError('SQuAD v1.1 source content differs from preparation pin')
+    articles = list(load(path)['data'])
+    random.Random(17011).shuffle(articles)
+    eligible = []
+    for article in articles:
+        found = None
+        for paragraph in article['paragraphs']:
+            context = paragraph['context']
+            if not 128<=len(tokenizer.encode(context))<=1000:
+                continue
+            for qa in paragraph['qas']:
+                if qa['answers'] and all(context[a['answer_start']:a['answer_start']+len(a['text'])]==a['text'] for a in qa['answers']):
+                    found = dict(id='squad-'+qa['id'],context=context,
+                        turns=[qa['question']+'\nReturn a JSON object with one string field "answer". Use the supplied evidence.'],
+                        publish_hints=False,quality_reference=dict(kind='answer_json',answers=[a['text'] for a in qa['answers']],
+                            source_id=qa['id'],article=article['title'],source_answers=qa['answers']))
+                    break
+            if found:
+                break
+        if found:
+            eligible.append(found)
+    offset = {'development':0,'confirmation':64,'repair':128}[partition]
+    sessions = eligible[offset:offset+64]
+    if len(sessions)!=64:
+        raise ValueError('Insufficient article-disjoint short QA sources')
+    return validate_corpus(dict(schema='semantic-serving-corpus-v1',synthetic=False,
+        provenance=f'SQuAD v1.1 public training source {SQUAD_URL}, sha256 {SQUAD_SHA256}; CC BY-SA 4.0. Intact paragraphs, original human questions/reference spans. Authored JSON extraction instruction; article-disjoint partitions after seeded shuffle; not an official SQuAD score.',
+        source=dict(url=SQUAD_URL,sha256=SQUAD_SHA256,license='CC-BY-SA-4.0',selection_seed=17011,
+                    paragraph_tokens=[128,1000],one_question_per_article=True),
+        partition=partition,cohort_mode='fixed',sessions=sessions))
+
+
 def main():
     import argparse
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest='command', required=True)
+    fetch = sub.add_parser('prepare')
+    fetch.add_argument('--cache',type=Path,required=True)
     sample = sub.add_parser('chat-sample')
     sample.add_argument('--parquet', type=Path, required=True)
     sample.add_argument('--output', type=Path, required=True)
@@ -311,8 +389,12 @@ def main():
     build.add_argument('--model', required=True, help='Prepared local tokenizer for source selection')
     build.add_argument('--archive', type=Path, required=True, help='Pinned LongBench data.zip')
     build.add_argument('--chat-sample', type=Path, required=True)
+    build.add_argument('--qa-source', type=Path, required=True, help='Pinned official SQuAD v1.1 training JSON')
     args = p.parse_args()
-    if args.command == 'chat-sample':
+    if args.command == 'prepare':
+        result = dict(sources=prepare_sources(args.cache),datasets=prepare_datasets(args.cache))
+        print(json.dumps(result,indent=2))
+    elif args.command == 'chat-sample':
         result = prepare_chat_sample(args.parquet, args.output)
         print(json.dumps(dict(samples=len(result['samples']), rows_scanned=result['rows_scanned'])))
     else:
@@ -324,8 +406,8 @@ def main():
             atomic_json(target/'repository.json', repository_tasks(sources['more-itertools']['path'],partition,args.python))
             atomic_json(target/'documents.json', document_tasks(sources['peps']['path'],partition,args.python,target/'document-references.json'))
             atomic_json(target/'chat.json', chat_corpus(args.chat_sample,partition))
-            for kind in ('qa','summary'):
-                atomic_json(target/(kind+'.json'),longbench_corpus(args.archive,tokenizer,partition,kind))
+            atomic_json(target/'qa.json',squad_corpus(args.qa_source,tokenizer,partition))
+            atomic_json(target/'summary.json',longbench_corpus(args.archive,tokenizer,partition,'summary'))
         print(json.dumps(dict(partitions=['development','confirmation','repair'], cache=str(args.cache))))
 
 

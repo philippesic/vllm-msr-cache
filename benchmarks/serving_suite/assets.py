@@ -53,7 +53,9 @@ for name in ('vllm','torch','triton','lmcache'):
     with p.open('rb') as stream: assets[name+'/'+str(f)]=hashlib.file_digest(stream,'sha256').hexdigest()
 print(json.dumps(dict(python=list(sys.version_info[:3]),packages={d.metadata['Name']:d.version for d in m.distributions()},native_assets=assets),sort_keys=True))
 '''
-    return json.loads(subprocess.check_output([str(python),'-c',script],text=True))
+    # Ignore the caller's cwd/PYTHONPATH: a checkout-local egg-info directory is
+    # not a package installed in this environment and must not change its ID.
+    return json.loads(subprocess.check_output([str(python),'-I','-c',script],text=True))
 
 
 def prepare(campaign_path, host_path, *, metadata_only=False):

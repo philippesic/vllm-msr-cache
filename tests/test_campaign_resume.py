@@ -82,3 +82,17 @@ def test_immutable_source_snapshot_detaches_later_edits(tmp_path):
     (snapshot/'module.py').write_text('value = 3\n')
     with pytest.raises(ValueError, match='snapshot changed'):
         materialize(source, tmp_path/'cache', identity)
+
+
+def test_real_source_snapshot_runs_without_historical_campaigns(tmp_path):
+    import json
+    import subprocess
+    import sys
+    from benchmarks.serving_suite.campaign import ROOT,source_snapshot
+    from benchmarks.serving_suite.source_snapshot import materialize
+    identity = source_snapshot()
+    snapshot = materialize(ROOT,tmp_path/'cache',identity)
+    observed = json.loads(subprocess.check_output([sys.executable,'-c',
+        'from benchmarks.serving_suite.campaign import source_snapshot; import json; print(json.dumps(source_snapshot()))'],cwd=snapshot))
+    assert observed['digest']==identity['digest']
+    assert not (snapshot/'benchmarks/eviction_prefetch_campaign.py').exists()

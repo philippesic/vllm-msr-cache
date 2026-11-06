@@ -195,9 +195,10 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                 budget = min(plan['max_tokens'], plan['max_model_len'] - len(tokens))
                 if budget < 1:
                     raise ValueError(f'Context overflow in {session["id"]}:{node["id"]}; no truncation')
-                params = dict(session_id=sid + ':' + stream, generation=0, run_id='suite', cell_id='case', external_request_id=rid,
+                params = dict(external_request_id=rid,
                               benchmark_client_sequence=wave * 100000 + slot * 100 + index)
                 if publish:
+                    params.update(session_id=sid+':'+stream,generation=0,run_id='suite',cell_id='case')
                     observed = observed or tokens[:len(tokens)//16*16]
                     params.update(observed_prefix_id=digest(dict(namespace=namespace, token_ids=observed)),
                                   observed_prefix_boundary_tokens=len(observed))
@@ -327,21 +328,47 @@ def diagnose(directory, case, plan, write=True):
     checks = [e for e in events if e['event']=='advice_probe']
     if any(not e['passed'] for e in checks):
         errors.append('operational_advice_check_failed')
-    result = dict(schema='serving-campaign-case-observation-v2', measurement_errors=errors,
+    legacy = case.get('campaign',{}).get('schema') in ('serving-campaign-case-observation-v1','serving-campaign-case-observation-v2')
+    result = dict(schema='serving-campaign-case-observation-v3', measurement_errors=errors,
                   offered_units=expected_units, completed_units=len(ends),
                   completed_units_per_s=len(ends)/case['load_duration_s'] if case['load_duration_s'] else None,
                   workflow_durations_s=[(ends[s]['ns']-starts[s]['ns'])/1e9 for s in ends],
                   tools=len(tools), tool_queue_s=[t['queue_s'] for t in tools],
                   tool_process_s=[t['duration_s'] for t in tools],
                   output_caps=sum(r.get('finish_reason') == 'length' for r in rows),
-                  no_speculative_dispatch=all(h.get('response', {}).get('speculative_transfer_bytes') == 0
-                    and h.get('response', {}).get('reserved_gpu_blocks') == 0 for h in case['hints']),
-                  dispatch_check_scope='Explicit local acknowledgement fields; no advice is an inactive control',
+                  no_speculative_dispatch=all(
+                    (h.get('response',{}).get('status') in ('no_action','rejected','expired','suppressed') and
+                     h.get('response',{}).get('speculative_transfer_bytes',0)==0 and
+                     h.get('response',{}).get('reserved_gpu_blocks',0)==0) or
+                    (h.get('response',{}).get('speculative_transfer_bytes')==0 and
+                     h.get('response',{}).get('reserved_gpu_blocks')==0) for h in case['hints']),
+                  dispatch_check_scope='Explicit zero fields for actionable acknowledgements; non-action statuses cannot dispatch. Operational runs also inspect native scheduler registries.',
                   operational_advice_checks=checks,
                   abandoned_advice=[e for e in events if e['event']=='advice_abandoned'],
                   policy_activation=None)
+    if legacy:
+        result['no_speculative_dispatch'] = all(h.get('response',{}).get('speculative_transfer_bytes')==0 and
+            h.get('response',{}).get('reserved_gpu_blocks')==0 for h in case['hints'])
+        result['dispatch_check_scope'] = 'Explicit local acknowledgement fields; no advice is an inactive control'
     if not result['no_speculative_dispatch']:
         errors.append('unexpected_speculative_dispatch')
+    if plan.get('registry_development_probe') or plan.get('tier')=='operational':
+        path = directory/'runtime-observation.jsonl'
+        snapshots = [json.loads(line) for line in path.read_text().splitlines()
+                     if json.loads(line).get('event')=='registry_snapshot'] if path.exists() else []
+        result['registry_snapshots'] = snapshots
+        if not snapshots:
+            errors.append('registry_observations_missing')
+        elif any(s['speculative_jobs'] or s['reserved_gpu_blocks'] for s in snapshots):
+            errors.append('native_speculative_activity')
+        if plan.get('registry_development_probe'):
+            capacity = [h for h in case['hints'] if h['response'].get('reason')=='session_registry_capacity']
+            bounded = bool(snapshots) and all(s['sessions']<=2 and s['prefixes']<=2 and
+                s['session_limit']==2 and s['prefix_limit']==2 and s['preservation_audit'] is False for s in snapshots)
+            result['registry_probe'] = dict(passed=bool(capacity) and bounded,
+                capacity_noops=len(capacity),bounded=bounded,offered_units=expected_units)
+            if not result['registry_probe']['passed']:
+                errors.append('configured_registry_limit_unverified')
     if plan.get('published_runtime'):
         from .published import activation
         result['policy_activation'] = activation(directory, case['variant'])
@@ -354,6 +381,29 @@ def diagnose(directory, case, plan, write=True):
         result['bridge_completed_requests'] = count
         if count != case['expected_requests']:
             errors.append('bridge_request_count_mismatch')
+    elif not legacy and plan.get('qualification_trace'):
+        from .agent_report import native_events
+        measured = [r for r in rows if not r.get('cancel_probe')]
+        request_ids = {r['request_id'] for r in measured}
+        receipts = [e for e in native_events((directory/'server.log').read_text(errors='replace'),
+            'SEMANTIC_PRESERVATION_EVENT ') if e.get('external_request_id') in request_ids]
+        by_id = {e['external_request_id']:e for e in receipts}
+        complete = len(by_id)==len(receipts)==len(measured)
+        returning = [r for r in measured if r.get('is_returning')]
+        def total(field,selected=measured):
+            values = [by_id.get(r['request_id'],{}).get(field) for r in selected]
+            return sum(values) if complete and all(v is not None for v in values) else None
+        result['native_cache'] = dict(receipts=len(receipts),complete=complete,
+            computed_prompt_tokens=total('actual_prompt_tokens_locally_executed'),
+            returning_computed_prompt_tokens=total('actual_prompt_tokens_locally_executed',returning),
+            loaded_tokens=total('loaded_tokens'),returning_loaded_tokens=total('loaded_tokens',returning),
+            prior_cpu_evicted_key_observations=sum(len(e.get('prior_evicted_keys',[])) for e in receipts) if complete else None,
+            returning_requests_with_prior_cpu_eviction=sum(bool(by_id.get(r['request_id'],{}).get('prior_evicted_keys'))
+                for r in returning) if complete else None,
+            returning_requests=len(returning),preemptions=total('preemption_count'),
+            scope='Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions')
+        if not complete:
+            errors.append('incomplete_native_request_receipts')
     # Every traffic class and declared hot/scan/return phase is derived from raw
     # requests, preserving the offered-unit denominator and tool handoff latency.
     from .report import summarize_requests

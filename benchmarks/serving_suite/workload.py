@@ -10,7 +10,7 @@ from pathlib import Path
 
 import aiohttp
 
-from benchmarks.eviction_prefetch_campaign import consume_campaign_sse
+from harness.streaming import consume_campaign_sse
 
 from .contracts import digest
 

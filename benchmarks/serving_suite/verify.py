@@ -61,11 +61,11 @@ def verify(directory):
         if result.get('plan', {}).get('campaign_adapter') and case.get('campaign'):
             from .campaign_workload import diagnose
             observed = diagnose(directory / case['name'], case, result['plan'], write=False)
-            if case['campaign']['schema'] == 'serving-campaign-case-observation-v1':
+            if case['campaign']['schema'] in ('serving-campaign-case-observation-v1','serving-campaign-case-observation-v2'):
                 # The first development adapter did not expose class/phase or
                 # bridge aggregates. Recompute every field that it did retain.
                 observed = {key: observed[key] for key in case['campaign']}
-                observed['schema'] = 'serving-campaign-case-observation-v1'
+                observed['schema'] = case['campaign']['schema']
             if observed != case['campaign'] or load_json_campaign_observation(directory / case['name']) != observed:
                 raise ValueError('Campaign workflow observation mismatch')
         rows = [

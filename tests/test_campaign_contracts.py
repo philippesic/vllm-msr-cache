@@ -97,3 +97,14 @@ def test_model_native_geometry_estimate(tmp_path):
     (tmp_path / 'model.safetensors').write_bytes(b'fixture only; no model load')
     identity = model_identity(tmp_path)
     assert identity['estimated_fp16_kv_bytes_per_token'] == 104 * 1024
+
+
+def test_frozen_repetition_schedule_cannot_be_silently_edited(tmp_path):
+    from benchmarks.serving_suite.campaign_contracts import write_protocol,read_protocol
+    write_protocol(tmp_path,dict(schedule=[dict(repeat=0),dict(repeat=1)]))
+    assert len(read_protocol(tmp_path)['schedule'])==2
+    with pytest.raises(ValueError,match='already frozen'):
+        write_protocol(tmp_path,dict(schedule=[]))
+    atomic_json(tmp_path/'protocol.lock.json',dict(schedule=[]))
+    with pytest.raises(ValueError,match='protocol changed'):
+        read_protocol(tmp_path)

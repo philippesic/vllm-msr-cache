@@ -6,7 +6,7 @@ import math
 import statistics
 from pathlib import Path
 
-from .campaign_contracts import Ledger, atomic_json, load, local_path, verify_tree
+from .campaign_contracts import Ledger, atomic_json, load, local_path, read_protocol, verify_tree
 
 # Two-sided 95% Student t critical values for the locked choices and pilot df.
 T95 = {1: 12.7062047364, 2: 4.3026527297, 3: 3.1824463053,
@@ -108,6 +108,11 @@ def pilot_precision(out):
     out = Path(out)
     resolved = load(out/'resolved.json')
     blocks = completed_blocks(out,'pilot')
+    from .campaign import source_snapshot
+    from .campaign_gates import current_serving,serving_files
+    expected_source = serving_files(source_snapshot())
+    blocks = {key:block for key,block in blocks.items() if all(current_serving(
+        local_path(out,data['event']['details']['path']),expected_source) for data in block['systems'].values())}
     measured = {}
     for cell in resolved['cells']:
         key = cell['model']+':'+cell['cell']
@@ -181,7 +186,7 @@ def compare_classes(runs, baseline, system):
 def report(out):
     out = Path(out)
     resolved = load(out/'resolved.json')
-    locked = load(out/'protocol.lock.json') if (out/'protocol.lock.json').exists() else None
+    locked = read_protocol(out) if (out/'protocol.lock.json').exists() else None
     blocks = completed_blocks(out,'confirm')
     records, comparisons, missing = [], [], []
     for event in Ledger(out).index().values():

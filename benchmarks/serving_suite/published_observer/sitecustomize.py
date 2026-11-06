@@ -3,6 +3,7 @@ import os
 
 _policy_path = os.environ.get('SUITE_PUBLISHED_OBSERVATION')
 _runtime_path = os.environ.get('SUITE_RUNTIME_OBSERVATION')
+_registry_enabled = os.environ.get('SUITE_OBSERVE_REGISTRY') == '1'
 if _policy_path or _runtime_path:
     import json
     import sys
@@ -11,6 +12,28 @@ if _policy_path or _runtime_path:
     _monitor = sys.monitoring
     _tool = 4
     _monitor.use_tool_id(_tool, 'serving-suite-observation')
+    _registry_last = {}
+
+    def _registry(obj, force=False):
+        obj = getattr(obj,'connector_scheduler',obj)
+        if not hasattr(obj,'_wait_hint_results'):
+            return
+        stamp = time.monotonic_ns()
+        previous = _registry_last.get(id(obj),0)
+        if not force and stamp-previous<500_000_000:
+            return
+        _registry_last[id(obj)] = stamp
+        fields = {name:len(getattr(obj,attribute,{})) for name,attribute in (
+            ('sessions','_observed_prefix_generations'),('prefixes','_observed_prefixes'),
+            ('results','_wait_hint_results'),('leases','_wait_prefetch'),
+            ('speculative_jobs','_wait_prefetch_jobs'),('native_jobs','_jobs'),
+            ('request_bindings','_wait_hint_request_bindings'))}
+        _write(_runtime_path,dict(event='registry_snapshot',**fields,
+            session_limit=getattr(obj,'_observed_session_limit',None),
+            prefix_limit=getattr(obj,'_observed_prefix_limit',None),
+            result_limit=getattr(obj,'_wait_hint_result_limit',None),
+            reserved_gpu_blocks=getattr(obj,'_prefetch_reserved_blocks',None),
+            preservation_audit=getattr(obj,'_preservation_audit_enabled',None)))
 
     def _write(path, event):
         event.update(monotonic_ns=time.monotonic_ns(), pid=os.getpid())
@@ -23,6 +46,8 @@ if _policy_path or _runtime_path:
     def _returned(code, offset, value):
         arguments = sys._getframe(1).f_locals
         obj = arguments.get('self')
+        if _registry_enabled and code.co_filename.endswith('/semantic_offload/connector.py'):
+            _registry(obj,force=code.co_name in ('__init__','update_connector_output'))
         if _runtime_path and (code.co_name == 'build_app' or
                 code.co_name == '__init__' and code.co_filename.endswith('/core/sched/scheduler.py')):
             import threading
@@ -88,7 +113,9 @@ if _policy_path or _runtime_path:
                   and code.co_filename.endswith('/lmcache/integration/vllm/vllm_v1_adapter.py'))
         imports = (_runtime_path and (code.co_name == 'build_app' and code.co_filename.endswith('/openai/api_server.py')
                    or code.co_name == '__init__' and code.co_filename.endswith('/core/sched/scheduler.py')))
-        if policy or geometry or transfers or decode or imports:
+        registry = (_registry_enabled and code.co_filename.endswith('/semantic_offload/connector.py') and
+            code.co_name in ('__init__','build_connector_meta','_store_wait_hint_result','update_connector_output'))
+        if policy or geometry or transfers or decode or imports or registry:
             _monitor.set_local_events(_tool, code, _monitor.events.PY_RETURN)
         return _monitor.DISABLE
 

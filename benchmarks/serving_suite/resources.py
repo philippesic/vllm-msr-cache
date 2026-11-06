@@ -289,6 +289,12 @@ class Sampler:
             samples=len(self.rows),
             gpu_peak_bytes=max(mem) if mem else None,
             host_rss_peak_bytes=max((r["rss_bytes"] for r in self.rows), default=None),
+            host_available_min_bytes=min((r['host_available_bytes'] for r in self.rows if 'host_available_bytes' in r),default=None),
+            host_swap_in_delta_bytes=(self.rows[-1].get('host_swap_in_bytes',0)-self.rows[0].get('host_swap_in_bytes',0)) if self.rows else None,
+            host_swap_out_delta_bytes=(self.rows[-1].get('host_swap_out_bytes',0)-self.rows[0].get('host_swap_out_bytes',0)) if self.rows else None,
+            gpu_temperature_peak_c=max((r['gpu_temperature_c'] for r in self.rows if r.get('gpu_temperature_c') is not None),default=None),
+            gpu_sm_clock_range_mhz=[f(r['gpu_sm_clock_mhz'] for r in self.rows if r.get('gpu_sm_clock_mhz') is not None)
+                for f in (min,max)] if any(r.get('gpu_sm_clock_mhz') is not None for r in self.rows) else None,
             process_cpu_elapsed_s=sum(max(v) - min(v) for v in cpu.values()),
             client_tool_cpu_elapsed_s=sum(max(v)-min(v) for v in client_cpu.values()) if self.metrics_url else None,
             client_tool_rss_peak_bytes=max((r.get('client_tool_rss_bytes',0) for r in self.rows),default=None) if self.metrics_url else None,

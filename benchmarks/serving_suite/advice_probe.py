@@ -21,6 +21,8 @@ async def exercise(client, url, original, wave):
             lambda status,body: status==200 and body.get('reason')=='observed_prefix_unavailable'))
         bad = dict(raw,event_id=digest([raw['event_id'],'future']),actual_resume_ns=time.monotonic_ns()+10**12)
         checks.append(await send('future_information_rejected',bad,lambda status,body: status==400))
+        bad = dict(raw,event_id=digest([raw['event_id'],'oversize']),session_id='x'*193)
+        checks.append(await send('oversize_identifier_rejected',bad,lambda status,body: status==400))
     elif wave == 1:
         # Reuse a real observation/publication clock, delaying transport beyond
         # its declared nomination deadline. No invented future arrival time.

@@ -66,7 +66,8 @@ def test_model_shell_cannot_be_a_tool():
         validate_tool(spec)
 
 
-def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path):
+@pytest.mark.parametrize('publish',[True,False])
+def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path,publish):
     import json
     import sys
     from aiohttp import web
@@ -111,7 +112,7 @@ def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path):
         evidence = tmp_path / 'evidence.txt'
         evidence.write_text('supported actual evidence\n')
         session = dict(id='actual', context='source', turns=['Plan', 'Report evidence'], repository=str(tmp_path),
-                       publish_hints=True, tools=[dict(kind='search', argv=['rg', 'supported', str(evidence)], valid_exit_codes=[0])])
+                       publish_hints=publish, tools=[dict(kind='search', argv=['rg', 'supported', str(evidence)], valid_exit_codes=[0])])
         plan = dict(concurrency=2, client_concurrency=2, tool_concurrency=1, tool_timeout_s=5,
                     request_timeout_s=5, publish_hints=True, max_tokens=8, max_model_len=128,
                     seed=17, chat_template_kwargs={'enable_thinking': False}, expected_tools_per_wave=1, waves=1)
@@ -120,8 +121,11 @@ def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path):
             await run_wave(f'http://127.0.0.1:{port}', plan, [session], Tokenizer(), 0, rows.append,
                            'candidate', {'model_revision': 'test'}, hints, tmp_path/'streams')
             assert len(rows) == 2 and all(r['success'] for r in rows)
-            assert len(hints) == 1
-            assert sent[1]['kv_transfer_params']['observed_prefix_boundary_tokens'] == 64
+            assert len(hints) == int(publish)
+            if publish:
+                assert sent[1]['kv_transfer_params']['observed_prefix_boundary_tokens'] == 64
+            else:
+                assert all(set(p['kv_transfer_params'])=={'external_request_id','benchmark_client_sequence'} for p in sent)
             assert next((tmp_path/'tools').iterdir()).read_text() == 'supported actual evidence\n'
             (tmp_path/'requests.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in rows))
             result = diagnose(tmp_path, dict(source_ids=['actual'], load_duration_s=1, hints=hints), plan)

@@ -2,6 +2,40 @@
 
 Status: implementation and preparation in progress; no new performance claim.
 
+The isolated runtimes have now been independently rebuilt from public source and
+native-wheel pins. All three rebuilt native models passed restore versus fresh
+greedy-reference checks. Rebuilt Continuum and upstream each completed 64/64 real
+workflow requests with actual policy activation (44 Continuum pins; 48 upstream
+priority applications and 531 selections). These are development capability
+checks, not paired speed results. See [reconstruction checkpoint](runtime-reconstruction-checkpoint.json).
+
+The dependency recipe now includes the full CUDA component closure. Runtime
+fingerprints ignore checkout-local package metadata; installed environments are
+identified independently of the caller's directory. Independent reconstruction
+matched the external native binaries; upstream's generated version metadata is
+explicitly different from the historical environment. Historical environments
+and failed development attempts remain intact.
+
+The short-QA cohort uses article-disjoint SQuAD v1.1 paragraphs/questions/references,
+with an authored JSON answer instruction. It replaces the insufficient pool of
+eligible LongBench QA examples before any QA serving. LongBench still supplies
+intact long-summary inputs; filtered WildChat supplies chat starts. Real repository
+tools execute whole test classes with their full tracked source dependency closure.
+All 48 development/confirmation/repair classes passed: 334 tests and 7,979 subtests.
+
+The maintained benchmark checks pass 190 tests, native CPU checks 100, focused
+registry checks 35 and portable checks 31 at this checkpoint. Recovery tests reap
+timed-out, crashed and detached owned children while preserving pre-existing work.
+Transfer tests retain both cohorts and complete tool imports after relocation and
+removal of original paths. The complete GPU matrix, bounded pilot/confirmation,
+source audit, operational runs and real interruption/relocation proof remain due.
+
+Development envelope rule, recorded before the complete matrix screen: B06 must
+show ARC returning requests whose CPU prefixes were evicted. B07 must at least
+halve that count by changing capacity on identical tasks. This tests the pressure
+contrast; candidate speed does not select the envelope. Native backing and host
+paging observations remain mandatory.
+
 Decision: establish correctness, workload-specific candidate/ARC/Continuum/upstream
 comparisons and a reproducible RTX 5080 handoff under the
 [locked execution scope](../../docs/STAGE6_EXECUTION_PLAN.md).

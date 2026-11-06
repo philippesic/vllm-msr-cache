@@ -90,6 +90,23 @@ def file_hash(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
+def write_protocol(root, record):
+    path = Path(root)/'protocol.lock.json'
+    if path.exists():
+        raise ValueError('Protocol already frozen')
+    atomic_json(path,record)
+    atomic_json(Path(root)/'protocol-seal.json',dict(sha256=file_hash(path)))
+    path.chmod(0o444)
+
+
+def read_protocol(root):
+    path = Path(root)/'protocol.lock.json'
+    receipt = load(Path(root)/'protocol-seal.json')
+    if file_hash(path)!=receipt['sha256']:
+        raise ValueError('Frozen protocol changed')
+    return load(path)
+
+
 def validate_campaign(data):
     fields(data, ('schema', 'id', 'models', 'workloads', 'systems', 'matrix', 'policy', 'execution', 'seed', 'precision'))
     if data['schema'] != SCHEMA or data['execution'] != 'eager':
@@ -135,6 +152,14 @@ def validate_host(data):
         if not isinstance(data.get(key, {}), dict):
             raise ValueError(f'{key}: expected mapping')
     return data
+
+
+def cell_inputs(cell):
+    return dict(model=cell['model'],cell=cell['cell'],systems=cell['systems'],
+        profile={k:v for k,v in (cell.get('profile') or {}).items() if k not in ('runtime_python','allocation_receipts')},
+        development={k:cell['workload_binding'].get(k) for k in ('plan_digest','corpus_digest')} if cell.get('workload_binding') else None,
+        confirmation={k:cell['confirmation_binding'].get(k) for k in ('plan_digest','corpus_digest')} if cell.get('confirmation_binding') else None,
+        driver_runtime=cell.get('runtime_identity'),external_runtimes=cell.get('system_identities',{}))
 
 
 def seal_tree(root):
