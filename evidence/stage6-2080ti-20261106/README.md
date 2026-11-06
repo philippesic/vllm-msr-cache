@@ -2,6 +2,24 @@
 
 Status: implementation and preparation in progress; no new performance claim.
 
+The corrected campaign is `development-09`. The original 180-second request
+deadline expired for four queued long summaries before their first token, after
+12/16 requests completed. New immutable bindings use 900 seconds per request and
+3,600 seconds per case across all arms. Tasks, prompts, output caps, cache budgets
+and policy are unchanged. All three native fixtures and the registry probe passed
+again; long-summary completion and the full screen remain in progress. See the
+[deadline finding](deadline-checkpoint.json). Maintained benchmark checks now pass
+196 tests.
+
+The repaired development chat completed six requests per arm without failures or
+output caps; the retained source review supports both final answers. Short QA
+completed 64 requests per arm with valid JSON throughout and no caps. Each arm
+matched 20/64 references exactly and contained the full normalized reference span
+in 54/64 answers. A targeted source audit found correct paraphrases and inconsistent
+source questions/references, so those mechanical scores are not an answer-correctness
+rate. Original questions and references remain unchanged. These are development
+diagnostics, not fresh confirmation quality or speed estimates.
+
 A second clean reconstruction now matches the first for all three installed
 environment identities and both external executed source identities. The source
 snapshot builds an extension wheel without the original checkout. A real measured

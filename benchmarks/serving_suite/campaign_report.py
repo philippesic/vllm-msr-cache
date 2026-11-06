@@ -129,6 +129,9 @@ def pilot_precision(out):
     expected_source = serving_files(source_snapshot())
     blocks = {key:block for key,block in blocks.items() if all(current_serving(
         local_path(out,data['event']['details']['path']),expected_source) for data in block['systems'].values())}
+    screens = completed_blocks(out,'screen')
+    screens = {key:block for key,block in screens.items() if all(current_serving(
+        local_path(out,data['event']['details']['path']),expected_source) for data in block['systems'].values())}
     measured = {}
     for cell in resolved['cells']:
         key = cell['model']+':'+cell['cell']
@@ -168,13 +171,27 @@ def pilot_precision(out):
         duration = max(measured[k]['mean_case_duration_s'] for k in references)
         elapsed = max(measured[k]['mean_process_elapsed_s'] for k in references)
         startup = max(measured[k]['mean_startup_s'] for k in references)
-        required_timeout = 3*max(measured[k]['max_case_duration_s'] for k in references)
+        maximum = max(measured[k]['max_case_duration_s'] for k in references)
+        screen = screens.get((cell['model'],cell['cell'],0))
+        screen_cost = None
+        if screen:
+            values = list(screen['systems'].values())
+            screen_cost = dict(mean_case_duration_s=statistics.mean(v['duration_s'] for v in values),
+                mean_process_elapsed_s=statistics.mean(v['process_elapsed_s'] for v in values),
+                mean_startup_s=statistics.mean(v['case']['startup_s'] for v in values),
+                max_case_duration_s=max(v['duration_s'] for v in values),block=screen['block_id'])
+            duration = max(duration,screen_cost['mean_case_duration_s'])
+            elapsed = max(elapsed,screen_cost['mean_process_elapsed_s'])
+            startup = max(startup,screen_cost['mean_startup_s'])
+            maximum = max(maximum,screen_cost['max_case_duration_s'])
+        required_timeout = 3*maximum
         available_timeout = load(cell['confirmation_binding']['plan'])['case_timeout_s']
         if available_timeout<required_timeout:
             timeout_violations.append(dict(cell=key,declared_s=available_timeout,required_s=required_timeout))
         costs[key] = selected*len(cell['systems'])*elapsed
         propagation[key] = dict(pilots=references,rule='Maximum measured repetition requirement within model when not directly piloted',
             mean_case_duration_s=duration,mean_startup_s=startup,mean_process_elapsed_s=elapsed,
+            cell_screen=screen_cost,cost_rule='Maximum of applicable pilot mean and this cell development-screen mean',
             process_cost_scope='Measured ledger running-to-terminal wall time including setup, serving, cleanup and verification; phase preparation and supplementary work are additional')
     from .campaign_quality import RUBRIC
     result = dict(schema='serving-campaign-pilot-precision-v1',status='incomplete' if missing or timeout_violations else 'complete',

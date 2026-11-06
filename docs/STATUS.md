@@ -43,7 +43,11 @@ these selected runs does not establish a universal performance or quality claim.
   claims in ordinary chat, prompting a uniform task-specific instruction repair
   before confirmation. The corrected source passed all three native fixtures and
   the registry probe. Screens, pilots, confirmation and final portability remain
-  due. Raw ownership and recovery receipts are linked in the execution record;
+  due. The active campaign is now `development-09`: four queued long summaries
+  exposed an insufficient 180-second request deadline. Uniform immutable bindings
+  now allow 900 seconds per request and 3,600 seconds per case; tasks, policy and
+  output budgets remain fixed. Fresh native/registry checks passed again. Raw
+  ownership and recovery receipts are linked in the execution record;
   check live state before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
