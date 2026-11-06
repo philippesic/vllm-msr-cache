@@ -15,7 +15,7 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Wait-hint release extension — Stage 5 complete; Stage 6 pending
+## Wait-hint release extension — Stage 5 complete; Stage 6 in progress
 
 - **Outcome:** the optimization pass is complete under the user's narrowed final
   scope: 144 valid GPU cases and two retained invalid settings. Keep the existing
@@ -23,14 +23,14 @@ these selected runs does not establish a universal performance or quality claim.
   speedups were real but too small in total serving cost to establish a practical
   gain. See [findings and validation](../evidence/stage5-optimization-20261105/README.md)
   and the brief [history](PROJECT_HISTORY.md).
-- **Stage 6 — execution plan ready; implementation/acquisition pending:** the
+- **Stage 6 — implementation and preparation in progress:** the
   [agent execution plan](STAGE6_EXECUTION_PLAN.md) specifies a durable campaign
   layer over the maintained serving suite, vLLM only, and Qwen3-8B-AWQ,
   Ministral 3-3B Instruct, and Qwen3-4B-Instruct-2507. Complete the 2080 Ti matrix
   and portable handoff first; 5080 execution and release writing follow. Other
   engines and hybrid models are deferred. The
   [selected profile](../evidence/stage5-optimization-20261105/selected-candidate.json)
-  remains frozen; no Stage 6 GPU work or pipeline implementation has started.
+  remains frozen. Execution authorized 2026-11-06; campaign contracts, durable orchestration and pinned asset preparation are underway. No Stage 6 performance results yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
   reproduction artifacts and a focused vLLM proposal. A formal paper is not the

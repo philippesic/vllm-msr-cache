@@ -719,6 +719,7 @@ def parser():
     )
     p.add_argument("--qualification-trace", action="store_true", help="Opt-in native queue/load/reclaimable-capacity trace; adds diagnostic I/O overhead")
     p.add_argument("--publish-hints", action="store_true")
+    p.add_argument("--disable-thinking", action="store_true", help="Explicitly pass enable_thinking=False to the model chat template")
     p.add_argument(
         "--arrival-interval-s",
         type=float,
@@ -766,6 +767,8 @@ def main(argv=None):
         positive(plan[name], name, integer=name in ('context_chars','tool_output_chars'))
     plan['repo_root'] = str(a.repo_root.resolve())
     plan['task_file'] = str(a.task_file.resolve()) if a.task_file else None
+    if a.disable_thinking:
+        plan["chat_template_kwargs"] = {"enable_thinking": False}
     plan.update(
         schema=SCHEMA,
         model=str(a.model.resolve()),
@@ -911,6 +914,7 @@ def main(argv=None):
                             tokenize=True,
                             add_generation_prompt=True,
                             return_dict=False,
+                            **plan.get("chat_template_kwargs", {}),
                         )
                     )
                     initial_lengths.append(n)

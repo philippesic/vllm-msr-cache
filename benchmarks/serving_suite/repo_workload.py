@@ -278,7 +278,7 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                              'End your response with exactly one bash fenced block containing this command:\n'
                              + shlex.join(s['tools'][turn]['argv']))
                 history.append(dict(role='user', content=user))
-                tokens = tokenizer.apply_chat_template(history, tokenize=True, add_generation_prompt=True, return_dict=False)
+                tokens = tokenizer.apply_chat_template(history, tokenize=True, add_generation_prompt=True, return_dict=False, **plan.get("chat_template_kwargs", {}))
                 budget = min(plan['max_model_len']-len(tokens), plan['max_model_len'] if plan.get('natural_eos') else plan['max_tokens'])
                 if budget < 1:
                     raise ValueError(f'Context overflow: {sid} turn {turn} tokens {len(tokens)}; no truncation')

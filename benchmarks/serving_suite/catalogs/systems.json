@@ -1,0 +1,29 @@
+{
+  "schema": "serving-campaign-system-catalog-v1",
+  "systems": {
+    "arc": {
+      "adapter": "local",
+      "retention": false
+    },
+    "wait": {
+      "adapter": "local",
+      "retention": true
+    },
+    "continuum": {
+      "adapter": "published",
+      "retention": true,
+      "repository": "https://github.com/Hanchenli/vllm-continuum",
+      "revision": "316a58794a6ff86b216e579b74fd56ed0c5a911f",
+      "save_decode_cache": true
+    },
+    "upstream": {
+      "adapter": "published",
+      "retention": true,
+      "repository": "https://github.com/karen-sy/vllm",
+      "revision": "7966f717dd4eb09461dd97102db1352c924bbf50",
+      "compatibility_patch": "evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch",
+      "v2": true,
+      "pinned": true
+    }
+  }
+}

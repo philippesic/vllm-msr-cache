@@ -212,6 +212,7 @@ async def run_wave(
                         tokenize=True,
                         add_generation_prompt=True,
                         return_dict=False,
+                        **plan.get("chat_template_kwargs", {}),
                     )
                 identity["prompt_token_count"] = len(tokens)
                 budget = min(

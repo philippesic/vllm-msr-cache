@@ -1,0 +1,38 @@
+{
+  "schema": "serving-campaign-model-catalog-v1",
+  "models": {
+    "qwen3_8b_awq": {
+      "repository": "Qwen/Qwen3-8B-AWQ",
+      "format": "awq",
+      "thinking": false,
+      "revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+      "dtype": "float16",
+      "kv_dtype": "float16",
+      "tensor_parallel": 1,
+      "attention_groups": 1,
+      "weight_offloading": false
+    },
+    "ministral3_3b": {
+      "repository": "mistralai/Ministral-3-3B-Instruct-2512-BF16",
+      "format": "bf16-source",
+      "thinking": false,
+      "revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+      "dtype": "float16",
+      "kv_dtype": "float16",
+      "tensor_parallel": 1,
+      "attention_groups": 1,
+      "weight_offloading": false
+    },
+    "qwen3_4b_2507": {
+      "repository": "Qwen/Qwen3-4B-Instruct-2507",
+      "format": "bf16-source",
+      "thinking": false,
+      "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+      "dtype": "float16",
+      "kv_dtype": "float16",
+      "tensor_parallel": 1,
+      "attention_groups": 1,
+      "weight_offloading": false
+    }
+  }
+}
