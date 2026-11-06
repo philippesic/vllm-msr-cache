@@ -251,6 +251,8 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         search_exploration: int = 8,
         query_snapshot_max_age_ms: int = 1000,
         query_snapshot_max_requests: int = 256,
+        kv_svd_rank: int = 0,
+        kv_svd_trace: str | None = None,
     ):
         if method not in _SCORING_METHODS:
             raise ValueError(
@@ -354,12 +356,25 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
         # (#48150 renamed it on some checkouts, not others still in use
         # across this project's machines) -- call via whichever name the
         # real base class actually declares. See _vllm_compat.py.
-        init_cpu_offloading_worker_base(
-            self,
-            kv_caches=kv_caches,
-            blocks_per_chunk=blocks_per_chunk,
-            num_cpu_blocks=num_cpu_blocks,
-        )
+        if type(kv_svd_rank) is not int or not 0 <= kv_svd_rank <= 15:
+            raise ValueError("kv_svd_rank must be an integer in 0..15")
+        if kv_svd_rank:
+            if blocks_per_chunk != 1 or vllm_config.model_config.dtype != torch.float16:
+                raise ValueError("KV SVD requires FP16 and blocks_per_chunk=1")
+            for layer in attention_layers.values():
+                if layer.head_size != 128:
+                    raise ValueError("KV SVD requires head_size=128")
+            from semantic_offload.kv_svd import SVDTransport, SVDDirection
+            transport = SVDTransport(kv_caches, num_cpu_blocks, kv_svd_rank, kv_svd_trace)
+            self._store_handler = SVDDirection(transport, True)
+            self._load_handler = SVDDirection(transport, False)
+        else:
+            init_cpu_offloading_worker_base(
+                self,
+                kv_caches=kv_caches,
+                blocks_per_chunk=blocks_per_chunk,
+                num_cpu_blocks=num_cpu_blocks,
+            )
         self._method = method
         self._summary_fields = summary_fields
         self._head_aggregation = head_aggregation

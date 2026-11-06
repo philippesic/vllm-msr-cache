@@ -66,3 +66,21 @@ The retained, default-off AWQ loading experiment is recorded separately in
 `patches/vllm-experimental-awq-loading.patch`. It is present in this checkout but
 remains paused and unqualified; the clean-install smoke used its default-off path.
 Do not infer endorsement from retaining its code and tests.
+
+The additive `patches/vllm-v2-cudagraph-metrics.patch` supplies the optional native
+graph statistics missing from this revision's V2 runner. With
+`--cudagraph-metrics`, it propagates the actual dispatched mode and token padding
+through the existing model output, scheduler and interval logger. Dummy/capture
+and profiling forwards are excluded. It changes no graph dispatch, kernels or
+retention policy. Stage 4 qualification requires actual timed `FULL` receipts;
+configuration alone does not establish graph execution. Earlier frozen runs keep
+their original sources. This patch is already applied in this checkout.
+
+The additive `patches/vllm-kv-qualification.patch` supplies default-off native
+scheduler trace points for hybrid qualification. The maintained suite enables
+them with `--qualification-trace`; the writer lives in
+`semantic_offload/qualification.py`. It observes queueing, restore receipts and
+reclaimable capacity without changing cache ownership or scheduling. CPU tests
+cover the trace contract. The retained live smoke and pressure runs exercised
+restore observations; opportunity and semantic qualification remain unresolved.
+See [qualification checkpoint](../evidence/msr-hybrid-qualification-20261103/qualification-checkpoint.json).

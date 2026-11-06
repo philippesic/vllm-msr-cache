@@ -45,6 +45,7 @@ def summarize_requests(rows, duration_s):
             0.95,
         ),
         ttft_mean_s=statistics.mean(ttft) if ttft else None,
+        end_user_ttft_mean_s=statistics.mean([r['ttft_s']+r.get('client_queue_s',0) for r in good if r.get('ttft_s') is not None]) if ttft else None,
         ttft_p95_s=percentile(ttft, 0.95),
         e2e_mean_s=statistics.mean(e2e) if e2e else None,
         e2e_p95_s=percentile(e2e, 0.95),
@@ -120,11 +121,57 @@ def evaluate_case(case, required):
     )
 
 
+def paired_interval(values, logarithmic=False):
+    """Student-t interval across full repetitions; never across requests."""
+    if len(values) < 3:
+        return None
+    criticals = [
+        12.7063,
+        4.3027,
+        3.1825,
+        2.7765,
+        2.5706,
+        2.4469,
+        2.3647,
+        2.3061,
+        2.2622,
+        2.2282,
+        2.2010,
+        2.1789,
+        2.1604,
+        2.1448,
+        2.1315,
+        2.1199,
+        2.1099,
+        2.1009,
+        2.0931,
+        2.0860,
+        2.0797,
+        2.0739,
+        2.0687,
+        2.0639,
+        2.0596,
+        2.0556,
+        2.0519,
+        2.0485,
+        2.0453,
+        2.0423,
+    ]
+    transformed = [math.log(v) for v in values] if logarithmic else values
+    mean = statistics.mean(transformed)
+    margin = criticals[min(len(values)-2,29)] * statistics.stdev(transformed) / math.sqrt(len(values))
+    bounds = [mean-margin, mean+margin]
+    return [math.exp(v) for v in bounds] if logarithmic else bounds
+
+
 def paired_comparison(cases):
     pairs = []
     grouped = {}
     for c in cases:
-        grouped.setdefault(c["repeat"], {})[c["arm"]] = c
+        arms = grouped.setdefault(c["repeat"], {})
+        if c["arm"] in arms:
+            raise ValueError(f"Duplicate comparison arm: repeat={c['repeat']} arm={c['arm']}")
+        arms[c["arm"]] = c
     for repeat, arms in sorted(grouped.items()):
         a, b = arms.get("arc"), arms.get("candidate")
         if not a or not b or any(c["evaluation"]["status"] != "passed" for c in (a, b)):
@@ -136,6 +183,9 @@ def paired_comparison(cases):
         y = b["summary"]["output_tokens_per_s"]
         left = {str(r["key"]): r for r in a.get("request_fingerprints", [])}
         right = {str(r["key"]): r for r in b.get("request_fingerprints", [])}
+        if (len(left) != len(a.get("request_fingerprints", []))
+                or len(right) != len(b.get("request_fingerprints", []))):
+            raise ValueError(f"Duplicate request fingerprint key in repeat {repeat}")
         same_inputs = (
             bool(left)
             and left.keys() == right.keys()
@@ -153,9 +203,14 @@ def paired_comparison(cases):
                 interpretation="Exact recorded prompt/output token agreement"
                 if same_inputs and same_outputs
                 else "Live workflows differ; rates are not identical-work causal attribution",
+                cache_competition_observed=any(c.get('agent',{}).get('opportunity',{}).get('cache_competition_observed',False) for c in (a,b)),
                 repeat=repeat,
                 eligible=True,
                 throughput_ratio=y / x if x else None,
+                workflow_throughput_ratio=(b['summary'].get('completed_requests_per_s') / a['summary']['completed_requests_per_s'])
+                    if a['summary'].get('completed_requests_per_s') and b['summary'].get('completed_requests_per_s') else None,
+                end_user_ttft_mean_delta_s=(b['summary']['end_user_ttft_mean_s']-a['summary']['end_user_ttft_mean_s'])
+                    if all(c['summary'].get('end_user_ttft_mean_s') is not None for c in (a,b)) else None,
                 ttft_mean_delta_s=b["summary"]["ttft_mean_s"]
                 - a["summary"]["ttft_mean_s"],
                 e2e_p95_delta_s=b["summary"]["e2e_p95_s"] - a["summary"]["e2e_p95_s"],
@@ -170,50 +225,11 @@ def paired_comparison(cases):
         for p in pairs
         if p.get("eligible") and p["throughput_ratio"] and p["throughput_ratio"] > 0
     ]
-    # Paired log-ratio t interval; independent repetitions, not per-request pseudoreplication.
-    interval = None
-    if len(ratios) >= 3:
-        # Conservative two-sided 95% Student-t critical values, df 1..30.
-        criticals = [
-            12.7063,
-            4.3027,
-            3.1825,
-            2.7765,
-            2.5706,
-            2.4469,
-            2.3647,
-            2.3061,
-            2.2622,
-            2.2282,
-            2.2010,
-            2.1789,
-            2.1604,
-            2.1448,
-            2.1315,
-            2.1199,
-            2.1099,
-            2.1009,
-            2.0931,
-            2.0860,
-            2.0797,
-            2.0739,
-            2.0687,
-            2.0639,
-            2.0596,
-            2.0556,
-            2.0519,
-            2.0485,
-            2.0453,
-            2.0423,
-        ]
-        logs = [math.log(r) for r in ratios]
-        mean = statistics.mean(logs)
-        margin = (
-            criticals[min(len(logs) - 2, 29)]
-            * statistics.stdev(logs)
-            / math.sqrt(len(logs))
-        )
-        interval = [math.exp(mean - margin), math.exp(mean + margin)]
+    interval = paired_interval(ratios, logarithmic=True)
+    workflow_ratios = [p['workflow_throughput_ratio'] for p in pairs
+                       if p.get('eligible') and p.get('workflow_throughput_ratio')]
+    ftl_deltas = [p['end_user_ttft_mean_delta_s'] for p in pairs
+                  if p.get('eligible') and p.get('end_user_ttft_mean_delta_s') is not None]
     return dict(
         pairs=pairs,
         eligible_pairs=len(ratios),
@@ -221,6 +237,10 @@ def paired_comparison(cases):
         if ratios
         else None,
         throughput_ratio_95ci=interval,
+        geometric_workflow_throughput_ratio=math.exp(statistics.mean(map(math.log,workflow_ratios))) if workflow_ratios else None,
+        workflow_throughput_ratio_95ci=paired_interval(workflow_ratios,logarithmic=True),
+        end_user_ttft_mean_delta_s=statistics.mean(ftl_deltas) if ftl_deltas else None,
+        end_user_ttft_mean_delta_95ci_s=paired_interval(ftl_deltas),
         interval_scope="Paired repetitions conditional on these inputs; not population-wide generalization.",
         decision="inconclusive"
         if len(ratios) != len(pairs) or interval is None
@@ -252,6 +272,39 @@ def render_report(result):
         )
         if c["evaluation"]["errors"]:
             lines.append("")  # Details live in JSON, never hide failed cases.
+    if result['plan']['tier'] == 'agent':
+        lines += ['', 'Real repository investigations: four generated requests and three executed tools per session. Tool waits are measured subprocess lifetimes.', '',
+                  '| Case | Sessions | Tool calls | Return TTFT mean (s) | CPU-evicted return requests | Refreshed CPU keys | Timely hint windows | Test-status claims correct |',
+                  '| --- | --- | --- | --- | --- | --- | --- | --- |']
+        for c in result['cases']:
+            a = c.get('agent', {})
+            h, o, q = a.get('hints',{}), a.get('opportunity',{}), a.get('quality',{})
+            lines.append(f"| {c['name']} | {a.get('sessions',{}).get('completed')} | {a.get('tools',{}).get('executed')} | {fmt(a.get('latency',{}).get('return_ttft_s',{}).get('mean'))} | {o.get('returning_requests_with_prior_cpu_eviction')} | {h.get('ready_cpu_keys_refreshed')} | {h.get('windows_with_advance_ack')}/{h.get('tool_windows')} | {q.get('passed')}/{q.get('checks')} |")
+        lines += ['', 'Per-case agent.json and request-diagnostics.csv contain workflow/tool timing, hint lead times/reasons/cost, per-request reuse/recomputation/transfers, native pressure, sampled gauges, and explicit measurement errors.',
+                  'Test-status checks only assess reporting of observed test outcomes. Code reasoning accuracy is ungraded. A harness pass is not a policy win; use repeats and inspect prompt/output agreement.',
+                  'Detailed tracing and HTTP scraping run equally in both arms; their costs are included. See limitations in agent.json.']
+        lines += ['', '| Case | Completed requests/s | Offered-to-first-token mean (s) | Tool-ready-to-first-token mean (s) | Workflow time (s) |',
+                  '| --- | --- | --- | --- | --- |']
+        for c in result['cases']:
+            s=c.get('summary',{});a=c.get('agent',{})
+            lines.append(f"| {c['name']} | {fmt(s.get('completed_requests_per_s'))} | {fmt(s.get('end_user_ttft_mean_s'))} | {fmt(a.get('latency',{}).get('tool_to_first_token_s',{}).get('mean'))} | {fmt(c.get('load_duration_s'))} |")
+        lines += ['', '| Case | First-admission computed tokens | CPU-restored tokens | Completed load GiB | Preemptions | Applied score batches | Server / tool CPU seconds |',
+                  '| --- | --- | --- | --- | --- | --- | --- |']
+        for c in result['cases']:
+            cache=c.get('agent',{}).get('cache',{});sources=cache.get('first_admission_sources',{})
+            traffic=cache.get('physical_demand_load_bytes');t=c.get('telemetry',{})
+            lines.append(f"| {c['name']} | {sources.get('num_computed_tokens','unavailable')} | {sources.get('num_external_cached_tokens','unavailable')} | {fmt(traffic/2**30 if traffic is not None else None)} | {cache.get('preemptions','unavailable')} | {fmt(c.get('activity',{}).get('scoring'))} | {fmt(t.get('process_cpu_elapsed_s'))} / {fmt(t.get('client_tool_cpu_elapsed_s'))} |")
+    comparisons = dict(result.get('comparisons', {}))
+    if result.get('comparison'):
+        comparisons['candidate_vs_arc'] = result['comparison']
+    if comparisons:
+        lines += ['', '| Comparison | Eligible pairs | Workflow rate ratio (95% interval) | Token rate ratio (95% interval) | Average offered FTL difference, s (95% interval) |',
+                  '| --- | --- | --- | --- | --- |']
+        def estimate(value, bounds):
+            return fmt(value) + (' ['+', '.join(fmt(v) for v in bounds)+']' if bounds else ' [needs ≥3 pairs]')
+        for name, comparison in comparisons.items():
+            lines.append(f"| {name} | {comparison['eligible_pairs']} | {estimate(comparison.get('geometric_workflow_throughput_ratio'), comparison.get('workflow_throughput_ratio_95ci'))} | {estimate(comparison.get('geometric_throughput_ratio'),comparison.get('throughput_ratio_95ci'))} | {estimate(comparison.get('end_user_ttft_mean_delta_s'), comparison.get('end_user_ttft_mean_delta_95ci_s'))} |")
+        lines += ['', 'Ratios above 1 favor the candidate; negative FTL differences favor it. Intervals use paired whole-run repetitions. Live output differences, workload scope and activity still govern interpretation.']
     if result.get("error"):
         lines += ["", "Failure: " + result["error"]]
     lines += [

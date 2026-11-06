@@ -4,6 +4,70 @@ Compact retained evidence, organized by experiment. Current work and next action
 live in [STATUS](../docs/STATUS.md). Raw runs remain in ignored `output/` and may
 not be available in a fresh clone.
 
+## November 5: four-stage wait-hint qualification
+
+Selected local execution across all four stages is complete. The main comparison
+used 7.51% less workflow batch time than ARC; fresh repository and full-budget
+document reserves saved 8.27% and 18.12%, and timed CUDA graphs saved 8.87%.
+Tight documents and several other regimes remain unresolved, upstream/Continuum
+win in some regimes, and answer-quality and production gates remain unmet.
+Eight functional cells, both client examples and isolated installation checks
+pass; all 46 retained coordinator attempts verify, including failures and repairs.
+[Findings and reproduction](wait-qualification-20261105/README.md),
+[support boundaries](wait-qualification-20261105/SUPPORT_MATRIX.md), and
+[adverse findings](wait-qualification-20261105/REGRESSIONS.md).
+
+## November 5: controlled four-system repository comparison
+
+Plain ARC without hints, active wait ARC, Continuum and compatibility-patched
+upstream completed 256 EOS responses / 192 tools. Native upstream CPU ARC,
+priority forwarding, V2 and pinned backing corrected earlier configuration gaps.
+Wait's 101.628 s versus upstream's 102.711 s does not establish a winner; outputs,
+versions/backends, paging and documented orchestration/correction gaps differ.
+Continuum uses a predeclared supported decode-publication correction; its earlier
+false row remains diagnostic. Strict status
+format compliance mostly failed despite correct normalized test-outcome reports.
+[Exact numbers, provenance and remaining limits](fair-four-20261104/README.md).
+
+## November 4: five-system real repository comparison
+
+One pass through ARC, wait-hint, semantic, Continuum public preview and upstream
+retention PR #59714 completed 320 responses and 240 real tools. Wait-hint finished
+the workflow batch fastest; upstream had the highest token rate with more output.
+All five measurement cases verified. This uses eager execution and adapted shared
+prompts, with separate published runtimes and explicit WSL compatibility settings.
+[Numbers, limitations and reproduction](five-way-20261104/README.md).
+
+## November 4: wait-hint opportunity in real queued serving
+
+`make bench-agent-pressure` exposes server queues, actual tool-worker waiting and
+competing CPU/GPU prefixes. Capacity, GPU-gate and host-memory refinements led to
+three rotated ARC/wait/semantic comparisons: wait ARC improved workflow throughput
+7.0%, token throughput 6.2% and average first-token latency 0.43 s. Semantic plus
+wait was about 3.0% slower than wait ARC. All 576 final responses and 144 reported
+test outcomes passed; p95/VRAM did not improve, broader quality remains ungraded.
+[Results, intervals, controls, failures and reproduction](wait-opportunity-20261104/README.md).
+
+## November 4: real repository-agent serving benchmark
+
+`make bench-agent` runs actual repository search/test tools between live model
+requests. Four contended 7B ARC/wait cases passed: 128 responses, 96 tools,
+active CPU refreshes, native eviction/reuse records and consistent endpoint
+accounting. Wait arms restored more tokens and had modestly shorter workflows;
+different live outputs and two pairs prevent a causal performance claim.
+[Commands, metrics and measured acceptance](real-agent-eval-20261104/README.md).
+
+## November 4: actual KV SVD and semantic prefetch factorial
+
+54 serving cases completed 972 responses across all four semantic ablations and
+ARC controls. Batching/capacity/lease refinements did not establish a gain over
+wait-hint ARC. Aggressive rank-4 compression damaged retrieval quality; rank 8
+passed the narrow fixture but remained slower and used extra GPU workspace.
+[Results, activation proofs and stopping decision](semantic-svd-serving-20261104/README.md).
+Subsequent workload review found no public prefetch head start; that small scripted
+workload cannot support a broad policy rejection. See its scope correction and
+the real executed-tool benchmark above.
+
 ## November 3: maintained benchmark infrastructure
 
 The four maintained tiers passed real serving qualification on this host, including
@@ -122,3 +186,9 @@ the claim. Store compact evidence here and bulky artifacts under `output/`.
 ## Repository workflow finalization
 
 [Clean installation, shared GPU locking, validator promotion and lightweight CI](workflow-finalization-20261103/README.md). Local checks passed; remote CI awaits a future push.
+
+## Hybrid qualification evidence
+
+[MSR and richer Q/K pilot, source audits and native restore diagnostics](msr-hybrid-qualification-20261103/README.md).
+The primary pilot was inconclusive; exploratory quarter-second representation
+gains remain hypothetical. Qualification gates are unmet and no live hybrid was built.

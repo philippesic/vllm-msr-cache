@@ -16,7 +16,8 @@ from .contracts import digest
 
 
 async def completion(
-    client, url, payload, identity, writer, cancel_after_first=False, stream_path=None
+    client, url, payload, identity, writer, cancel_after_first=False, stream_path=None,
+    first_token_event=None,
 ):
     start = time.monotonic_ns()
     row = dict(
@@ -39,6 +40,10 @@ async def completion(
         async for line in content:
             if stream_file:
                 stream_file.write(line)
+            if first_token_event is not None and line.startswith(b'data: ') and b'[DONE]' not in line:
+                chunk = json.loads(line[6:])
+                if any(c.get('token_ids') for c in chunk.get('choices', [])):
+                    first_token_event.set()
             yield line
 
     try:
@@ -122,6 +127,13 @@ async def run_wave(
                     and plan["publish_hints"]
                     and arm == "candidate"
                 ):
+                    # Experimental causal advice timing: keep the same total
+                    # scripted wait, but publish after other sessions can evict
+                    # this source from GPU. No future user text is observed.
+                    hint_delay = min(delay, max(0.0, plan.get("hint_delay_s", 0.0)))
+                    if hint_delay:
+                        await asyncio.sleep(hint_delay)
+                        delay -= hint_delay
                     tokens = (
                         previous["payload"]["prompt"]
                         + previous["output_token_ids"][:-1]

@@ -1,0 +1,304 @@
+{
+  "aggregate": {
+    "arc": {
+      "duration_s": 106.448338431345,
+      "offered_ftl_mean_s": 7.890246603822916,
+      "offered_ftl_p95_s": 21.398061819099993,
+      "return_ftl_mean_s": 6.113337249770834,
+      "tool_ready_ftl_mean_s": 6.123971784486112,
+      "first_computed_tokens": 63981.666666666664,
+      "first_cpu_restored_tokens": 37125.333333333336,
+      "returning_compute_above_floor": 14922.666666666666,
+      "physical_load_bytes": 2128915114.6666667,
+      "gpu_peak_bytes": 9159991296,
+      "server_rss_peak_bytes": 7248951978.666667,
+      "server_cpu_s": 116.22000000000001,
+      "client_tool_cpu_s": 140.17999999999998,
+      "gpu_util_mean_pct": 96.02602349697297,
+      "gpu_energy_j": 25850.902698591453,
+      "cases": 3,
+      "requests": 192,
+      "output_tokens": 38081,
+      "output_tokens_per_s": 119.24720342021669,
+      "workflows_per_s": 0.15031036746216286,
+      "test_status_correct": 48,
+      "test_status_checks": 48,
+      "preemptions": 0,
+      "score_update_batches": 0.0,
+      "ready_cpu_key_refreshes": 0
+    },
+    "wait": {
+      "duration_s": 99.48634437335811,
+      "offered_ftl_mean_s": 7.460649079182292,
+      "offered_ftl_p95_s": 21.474675197983323,
+      "return_ftl_mean_s": 5.5224010774097225,
+      "tool_ready_ftl_mean_s": 5.532065365701389,
+      "first_computed_tokens": 51926.666666666664,
+      "first_cpu_restored_tokens": 57360,
+      "returning_compute_above_floor": 2869.3333333333335,
+      "physical_load_bytes": 3289251840.0,
+      "gpu_peak_bytes": 9161389397.333334,
+      "server_rss_peak_bytes": 7318237184,
+      "server_cpu_s": 108.57333333333334,
+      "client_tool_cpu_s": 140.18,
+      "gpu_util_mean_pct": 94.50065270563663,
+      "gpu_energy_j": 24003.884266094054,
+      "cases": 3,
+      "requests": 192,
+      "output_tokens": 37806,
+      "output_tokens_per_s": 126.6706509257842,
+      "workflows_per_s": 0.16082838751469927,
+      "test_status_correct": 48,
+      "test_status_checks": 48,
+      "preemptions": 0,
+      "score_update_batches": 0.0,
+      "ready_cpu_key_refreshes": 330075
+    },
+    "semantic": {
+      "duration_s": 102.58038263733033,
+      "offered_ftl_mean_s": 7.636943189265625,
+      "offered_ftl_p95_s": 21.541424603349988,
+      "return_ftl_mean_s": 5.726178532430556,
+      "tool_ready_ftl_mean_s": 5.736380282048611,
+      "first_computed_tokens": 54841.333333333336,
+      "first_cpu_restored_tokens": 56485.333333333336,
+      "returning_compute_above_floor": 5781.333333333333,
+      "physical_load_bytes": 3239094954.6666665,
+      "gpu_peak_bytes": 9216614400,
+      "server_rss_peak_bytes": 7359520768,
+      "server_cpu_s": 111.84,
+      "client_tool_cpu_s": 141.63,
+      "gpu_util_mean_pct": 93.29893524376769,
+      "gpu_energy_j": 24470.269688091706,
+      "cases": 3,
+      "requests": 192,
+      "output_tokens": 37820,
+      "output_tokens_per_s": 122.89549271069825,
+      "workflows_per_s": 0.15598845392453145,
+      "test_status_correct": 48,
+      "test_status_checks": 48,
+      "preemptions": 0,
+      "score_update_batches": 128.0,
+      "ready_cpu_key_refreshes": 315154
+    }
+  },
+  "paired": {
+    "wait_vs_arc": {
+      "pairs": [
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 0,
+          "eligible": true,
+          "throughput_ratio": 1.0621543884388998,
+          "workflow_throughput_ratio": 1.0746324682522794,
+          "end_user_ttft_mean_delta_s": -0.2526255426562507,
+          "ttft_mean_delta_s": -0.2524156492187499,
+          "e2e_p95_delta_s": -0.3637856280499996,
+          "device_peak_delta_bytes": 2097152,
+          "output_tokens_arc": 12746,
+          "output_tokens_candidate": 12598
+        },
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 1,
+          "eligible": true,
+          "throughput_ratio": 1.0655533916195161,
+          "workflow_throughput_ratio": 1.065807114944769,
+          "end_user_ttft_mean_delta_s": -0.4890215446874997,
+          "ttft_mean_delta_s": -0.48902082871874963,
+          "e2e_p95_delta_s": -0.723607722849998,
+          "device_peak_delta_bytes": 2097152,
+          "output_tokens_arc": 12602,
+          "output_tokens_candidate": 12599
+        },
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 2,
+          "eligible": true,
+          "throughput_ratio": 1.0590954959943897,
+          "workflow_throughput_ratio": 1.0695109009831518,
+          "end_user_ttft_mean_delta_s": -0.5471454865781249,
+          "ttft_mean_delta_s": -0.5471335213593749,
+          "e2e_p95_delta_s": -0.6969673752000034,
+          "device_peak_delta_bytes": 0,
+          "output_tokens_arc": 12733,
+          "output_tokens_candidate": 12609
+        }
+      ],
+      "eligible_pairs": 3,
+      "geometric_throughput_ratio": 1.0622644843486835,
+      "throughput_ratio_95ci": [
+        1.0542704079584748,
+        1.0703191763616489
+      ],
+      "geometric_workflow_throughput_ratio": 1.0699773791307092,
+      "workflow_throughput_ratio_95ci": [
+        1.0590285147229719,
+        1.0810394393874274
+      ],
+      "end_user_ttft_mean_delta_s": -0.4295975246406251,
+      "end_user_ttft_mean_delta_95ci_s": [
+        -0.8171106237565664,
+        -0.04208442552468383
+      ],
+      "interval_scope": "Paired repetitions conditional on these inputs; not population-wide generalization.",
+      "decision": "measured_comparison",
+      "screen_policy": "No automatic rejection: inactive, noisy, capped, or unrepresentative tests require targeted follow-up."
+    },
+    "semantic_vs_arc": {
+      "pairs": [
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 0,
+          "eligible": true,
+          "throughput_ratio": 1.036012975164187,
+          "workflow_throughput_ratio": 1.0492666969759816,
+          "end_user_ttft_mean_delta_s": -0.2208810192343753,
+          "ttft_mean_delta_s": -0.22068176417187502,
+          "e2e_p95_delta_s": -0.21607522089999875,
+          "device_peak_delta_bytes": 56623104,
+          "output_tokens_arc": 12746,
+          "output_tokens_candidate": 12585
+        },
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 1,
+          "eligible": true,
+          "throughput_ratio": 1.0216739517047884,
+          "workflow_throughput_ratio": 1.0196511554117162,
+          "end_user_ttft_mean_delta_s": -0.3427081750000003,
+          "ttft_mean_delta_s": -0.3429765963125,
+          "e2e_p95_delta_s": -0.6277058354499978,
+          "device_peak_delta_bytes": 56623104,
+          "output_tokens_arc": 12602,
+          "output_tokens_candidate": 12627
+        },
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 2,
+          "eligible": true,
+          "throughput_ratio": 1.03429670689396,
+          "workflow_throughput_ratio": 1.0445510762119916,
+          "end_user_ttft_mean_delta_s": -0.19632104943749962,
+          "ttft_mean_delta_s": -0.19631476623437472,
+          "e2e_p95_delta_s": -0.4497781572500017,
+          "device_peak_delta_bytes": 56623104,
+          "output_tokens_arc": 12733,
+          "output_tokens_candidate": 12608
+        }
+      ],
+      "eligible_pairs": 3,
+      "geometric_throughput_ratio": 1.0306413258440148,
+      "throughput_ratio_95ci": [
+        1.011332219719104,
+        1.0503190957690829
+      ],
+      "geometric_workflow_throughput_ratio": 1.0377412060660656,
+      "workflow_throughput_ratio_95ci": [
+        0.9988023550653082,
+        1.0781981092716157
+      ],
+      "end_user_ttft_mean_delta_s": -0.2533034145572917,
+      "end_user_ttft_mean_delta_95ci_s": [
+        -0.44804842719199844,
+        -0.05855840192258502
+      ],
+      "interval_scope": "Paired repetitions conditional on these inputs; not population-wide generalization.",
+      "decision": "measured_comparison",
+      "screen_policy": "No automatic rejection: inactive, noisy, capped, or unrepresentative tests require targeted follow-up."
+    },
+    "semantic_vs_wait": {
+      "pairs": [
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 0,
+          "eligible": true,
+          "throughput_ratio": 0.9753883111916207,
+          "workflow_throughput_ratio": 0.9763958636783503,
+          "end_user_ttft_mean_delta_s": 0.03174452342187539,
+          "ttft_mean_delta_s": 0.03173388504687491,
+          "e2e_p95_delta_s": 0.14771040715000083,
+          "device_peak_delta_bytes": 54525952,
+          "output_tokens_arc": 12598,
+          "output_tokens_candidate": 12585
+        },
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 1,
+          "eligible": true,
+          "throughput_ratio": 0.9588200457529057,
+          "workflow_throughput_ratio": 0.9566938905869056,
+          "end_user_ttft_mean_delta_s": 0.14631336968749942,
+          "ttft_mean_delta_s": 0.14604423240624964,
+          "e2e_p95_delta_s": 0.09590188740000016,
+          "device_peak_delta_bytes": 54525952,
+          "output_tokens_arc": 12599,
+          "output_tokens_candidate": 12627
+        },
+        {
+          "same_prompt_tokens": false,
+          "same_output_tokens": false,
+          "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+          "cache_competition_observed": true,
+          "repeat": 2,
+          "eligible": true,
+          "throughput_ratio": 0.9765849357359923,
+          "workflow_throughput_ratio": 0.9766623932975196,
+          "end_user_ttft_mean_delta_s": 0.3508244371406253,
+          "ttft_mean_delta_s": 0.35081875512500016,
+          "e2e_p95_delta_s": 0.2471892179500017,
+          "device_peak_delta_bytes": 56623104,
+          "output_tokens_arc": 12609,
+          "output_tokens_candidate": 12608
+        }
+      ],
+      "eligible_pairs": 3,
+      "geometric_throughput_ratio": 0.9702304285132359,
+      "throughput_ratio_95ci": [
+        0.9458057415481125,
+        0.9952858637463576
+      ],
+      "geometric_workflow_throughput_ratio": 0.9698720985196589,
+      "workflow_throughput_ratio_95ci": [
+        0.941740931594861,
+        0.9988435841839329
+      ],
+      "end_user_ttft_mean_delta_s": 0.17629411008333337,
+      "end_user_ttft_mean_delta_95ci_s": [
+        -0.22524356876814863,
+        0.5778317889348153
+      ],
+      "interval_scope": "Paired repetitions conditional on these inputs; not population-wide generalization.",
+      "decision": "measured_comparison",
+      "screen_policy": "No automatic rejection: inactive, noisy, capped, or unrepresentative tests require targeted follow-up."
+    }
+  },
+  "analysis_source": {
+    "benchmarks/research_checks/wait_opportunity_report.py": "8867c9e1d0ae99010a59b237a3ded57cbef7948df8309f0eba6507bf0c082752",
+    "benchmarks/serving_suite/report.py": "c3cd61c2e4d76ae048c45ab9de51cfd8c480abb5a138eec7aba69310304cfb00"
+  }
+}

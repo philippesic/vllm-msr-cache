@@ -9,13 +9,18 @@ import math
 from pathlib import Path
 
 from .contracts import SCHEMA, write_json
-from .report import summarize_requests
+from .report import paired_comparison, summarize_requests
 
 
 def seal(directory):
     directory = Path(directory)
     files = {}
     for p in sorted(directory.rglob("*")):
+        # The runtime owns and removes this ephemeral import stage. Its source
+        # and wheel identities are retained separately; sealing its symlink
+        # targets races shutdown and does not preserve executed bytes.
+        if 'runtime-staging' in p.relative_to(directory).parts:
+            continue
         if p.is_file() and p.name != "artifacts.json":
             with p.open("rb") as f:
                 files[str(p.relative_to(directory))] = hashlib.file_digest(
@@ -42,6 +47,17 @@ def verify(directory):
         raise ValueError("Unsupported result schema")
     count = 0
     for case in result["cases"]:
+        if result.get('plan',{}).get('tier') == 'agent' and case.get('agent'):
+            if case.get('published_runtime'):
+                from .published import diagnose_external as diagnose
+            else:
+                from .agent_report import diagnose
+            effective_plan = {**result['plan'], **case.get('qualification_plan_overrides', {})}
+            observed = diagnose(directory/case['name'], case, effective_plan, write=False)
+            if observed != case['agent']:
+                raise ValueError(f"Wrong agent diagnostics: {case['name']}")
+            if json.loads((directory/case['name']/'agent.json').read_text()) != observed:
+                raise ValueError(f"Wrong agent.json: {case['name']}")
         rows = [
             json.loads(line)
             for line in (directory / case["name"] / "requests.jsonl")
@@ -76,7 +92,11 @@ def verify(directory):
         ):
             if recomputed[key] != case["summary"][key]:
                 raise ValueError(f"Wrong request aggregate: {case['name']}/{key}")
-        for key in ("output_tokens_per_s", "ttft_mean_s", "ttft_p95_s", "e2e_p95_s"):
+        for key in ("output_tokens_per_s", "ttft_mean_s", "ttft_p95_s", "e2e_p95_s",
+                    "completed_requests_per_s", "client_queue_p95_s",
+                    "end_user_ttft_mean_s", "end_user_ttft_p95_s"):
+            if key not in case['summary']:
+                continue  # Historical records predate the additional clocks.
             a, b = recomputed[key], case["summary"][key]
             if (a is None) != (b is None) or (
                 a is not None and not math.isclose(a, b, rel_tol=1e-10, abs_tol=1e-12)
@@ -98,6 +118,27 @@ def verify(directory):
                 if not (directory / case["name"] / name).is_file():
                     raise ValueError(f"Missing required measurement: {name}")
         count += len(rows)
+    # Recompute new whole-run primary estimates as well as individual clocks.
+    # Historical records lack these fields and keep their original contract.
+    if 'geometric_workflow_throughput_ratio' in (result.get('comparison') or {}):
+        cases=result['cases']
+        if result['plan'].get('published_runtimes'):
+            from .published import comparisons
+            expected_comparisons = comparisons(cases)
+            if result.get('comparisons') != expected_comparisons:
+                raise ValueError('Wrong five-way primary comparisons')
+            expected = expected_comparisons['wait_vs_arc']
+        else:
+            expected=paired_comparison([c for c in cases if c.get('variant')!='semantic'])
+        if result['comparison'] != expected:
+            raise ValueError('Wrong paired primary comparison')
+        if result['plan'].get('semantic_config') and not result['plan'].get('published_runtimes'):
+            comparisons=dict(wait_vs_arc=expected,
+                semantic_vs_arc=paired_comparison([c for c in cases if c.get('variant') in ('arc','semantic')]),
+                semantic_vs_wait=paired_comparison([{**c,'arm':'arc' if c['variant']=='wait' else 'candidate'}
+                    for c in cases if c.get('variant') in ('wait','semantic')]))
+            if result.get('comparisons') != comparisons:
+                raise ValueError('Wrong three-way primary comparisons')
     return {
         "verified_files": len(manifest["sha256"]),
         "cases": len(result["cases"]),

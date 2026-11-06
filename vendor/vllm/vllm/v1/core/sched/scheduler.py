@@ -80,6 +80,10 @@ class Scheduler(SchedulerInterface):
         include_finished_set: bool = False,
         log_stats: bool = False,
     ) -> None:
+        self._kv_qualification_trace = None
+        if os.environ.get("VLLM_KV_QUALIFICATION_TRACE"):
+            from semantic_offload.qualification import create_scheduler_trace
+            self._kv_qualification_trace = create_scheduler_trace()
         self.vllm_config = vllm_config
         self.scheduler_config = vllm_config.scheduler_config
         self.cache_config = vllm_config.cache_config
@@ -1004,6 +1008,12 @@ class Scheduler(SchedulerInterface):
                     # If loading async, allocate memory and put request
                     # into the WAITING_FOR_REMOTE_KV state.
                     request.status = RequestStatus.WAITING_FOR_REMOTE_KVS
+                    if getattr(self, "_kv_qualification_trace", None) is not None:
+                        self._kv_qualification_trace.emit(
+                            "load_issued", request_id=request_id,
+                            external_tokens=num_external_computed_tokens,
+                            local_tokens=num_new_local_computed_tokens,
+                        )
                     step_skipped_waiting.prepend_request(request)
                     # Set num_computed_tokens even though KVs are not yet loaded.
                     # request.num_computed_tokens will not be used anywhere until
@@ -1032,6 +1042,11 @@ class Scheduler(SchedulerInterface):
                         )
                     continue
 
+                if getattr(self, "_kv_qualification_trace", None) is not None:
+                    self._kv_qualification_trace.emit(
+                        "admitted", request_id=request_id,
+                        preemptions=request.num_preemptions,
+                    )
                 self.running.append(request)
                 if self.log_stats:
                     request.record_event(
@@ -1127,6 +1142,9 @@ class Scheduler(SchedulerInterface):
                 )
                 for req in scheduled_new_reqs
             ]
+
+        if getattr(self, "_kv_qualification_trace", None) is not None:
+            self._kv_qualification_trace.step(self, num_scheduled_tokens)
 
         with record_function_or_nullcontext("schedule: make_cached_request_data"):
             cached_reqs_data = self._make_cached_request_data(
@@ -2183,6 +2201,11 @@ class Scheduler(SchedulerInterface):
             if request.resumable:
                 request.streaming_queue = deque()
             self._enqueue_waiting_request(request)
+            if getattr(self, "_kv_qualification_trace", None) is not None:
+                self._kv_qualification_trace.emit(
+                    "arrival", request_id=request.request_id,
+                    prompt_tokens=request.num_prompt_tokens,
+                )
             self.requests[request.request_id] = request
             if self.connector is not None:
                 self.connector.on_new_request(request)
@@ -2543,6 +2566,9 @@ class Scheduler(SchedulerInterface):
         if self.ec_connector is not None:
             self.ec_connector.shutdown()
 
+        if getattr(self, "_kv_qualification_trace", None) is not None:
+            self._kv_qualification_trace.close()
+            self._kv_qualification_trace = None
         logger.debug_once("[shutdown] Scheduler: complete")
 
     ########################################################################
@@ -2711,6 +2737,8 @@ class Scheduler(SchedulerInterface):
             logger.debug("Finished recving KV transfer for request %s", req_id)
             assert req_id in self.requests
             req = self.requests[req_id]
+            if getattr(self, "_kv_qualification_trace", None) is not None:
+                self._kv_qualification_trace.emit("load_ready", request_id=req_id)
             if req.status == RequestStatus.WAITING_FOR_REMOTE_KVS:
                 self.finished_recving_kv_req_ids.add(req_id)
             else:

@@ -66,3 +66,87 @@ not distributed by Git; the retained evidence index identifies portable results.
   isolated runtime installation, 1,381 tests and real GPU smoke; added lightweight
   push/PR checks (31 portable tests). Preserved paused research and historical
   reproduction files. [Verification](../evidence/workflow-finalization-20261103/README.md).
+
+- **November 4, 2026 — hybrid qualification evidence:** resolved the interrupted
+  source inspection with bounded row-group audits; verified prior pressure traces
+  and completed a longer-history diagnostic with 13 restores per arm. A 711-example
+  task-separated pilot did not establish primary one-second gains. Exploratory
+  quarter-second richer Q/K gains survived more flexible metadata controls, but remain
+  simulated cache-value evidence. Real-cache-value, causal opportunity and native
+  cost gates remain unmet; no live hybrid or policy change. 170 focused and 31
+  portable tests passed; GPU released, useful data/results retained.
+  [Findings and stopping boundary](../evidence/msr-hybrid-qualification-20261103/README.md).
+
+- **November 4, 2026 — semantic KV SVD serving factorial:** implemented actual
+  lossy KV-factor offload, tested all four semantic ablations against ARC and
+  wait-hint ARC, then refined solver batching, capacity, hint timing and staging
+  leases. 54 cases completed 972 responses. Rank 4 failed quality; rank 8 and
+  active prefetch did not beat wait-hint ARC after repairs and diagnostic-off
+  checks. No deployment; prior work preserved.
+  [Comparisons and bounded stopping decision](../evidence/semantic-svd-serving-20261104/README.md).
+
+- **November 4, 2026 — real repository-agent evaluation:** added `bench-agent` to
+  the maintained suite, replacing recorded tool observations for this workflow
+  with executed searches/tests and actual multi-request model history. Fixed
+  canonical request attribution, inactive CPU-advice configuration, cancelled
+  hint accounting and ephemeral-stage sealing. Four contended 7B cases passed
+  (128 responses, 96 tools), with active CPU refreshes, more restored tokens and
+  complete native/endpoint accounting. Two reversed-order pairs are acceptance
+  evidence, not a causal policy win. Corrected the earlier broad negative scope;
+  1,423 tests passed, 26 skipped, GPU released and prior work preserved.
+  [Measured results and reusable commands](../evidence/real-agent-eval-20261104/README.md).
+
+- **November 4, 2026:** implemented independent HTTP admission, real tool-worker
+  queueing, early CPU wait retention, primary workflow/FTL intervals and corrected
+  first-admission accounting. A bounded capacity/GPU-gate/host-memory hill climb
+  ended with three rotated live 7B comparisons: wait ARC +7.0% workflow throughput,
+  +6.2% token rate, -0.43 s average FTL versus ARC. Refined semantic retention was
+  about 3.0% slower than wait ARC; tails/VRAM did not improve, broader answer quality
+  remains ungraded. All nine run sets verify, including failed/interrupted controls;
+  GPU released and prior work preserved. [Evidence and command](../evidence/wait-opportunity-20261104/README.md).
+
+- **November 4, 2026:** adapted the real-tool benchmark for one pass through ARC,
+  wait-hint, semantic, pinned Continuum public preview and upstream PR #59714.
+  All five measurement cases passed (320 responses / 240 tools); wait-hint finished
+  the batch fastest. Eager execution, shared tool-declaration prompts, distinct
+  runtimes and upstream's WSL unpinned-memory setting limit comparisons with earlier
+  runs and other hardware. Published policy activation was observed. GPU released;
+  reusable environments retained. [Results and reproduction](../evidence/five-way-20261104/README.md).
+
+## Upstream pinned-memory compatibility — 2026-11-04
+
+A separately labeled experimental patch resolves registered mmap CPU pointers to
+CUDA device aliases. The reproduced native batch-copy fault disappears; three
+7B requests pass with identical output tokens and two observed 163 MiB CPU
+restores under pinned memory. Published source and earlier results stay intact.
+GPU processes reaped and both locks released; no full rerun or performance claim.
+[Evidence, patch, limitations and cleanup](../evidence/upstream-pin-fix-20261104/README.md).
+
+## Controlled four-system comparison — 2026-11-05
+
+One primary pass per configuration compared plain ARC without hint machinery,
+active wait ARC, Continuum public preview and upstream draft plus the explicit
+pinned-mmap host-pointer fix. Native upstream used CPU ARC, V2 and the same
+application priority as local arms; actual pinned CPU/GPU budgets matched.
+The primary 256 EOS responses / 192 tools completed: ARC 108.153 s, wait 101.628 s,
+upstream 102.711 s, corrected Continuum 109.108 s. Continuum's supported
+save_decode_cache=true was predeclared as a replacement irrespective timing;
+35 decode saves match completed stores and the initial false row stays diagnostic.
+Runtime/backend, live output, observed paging and orchestration/correction gaps
+prevent a winner or isolated policy claim. Normalized test outcomes were correct;
+strict requested format mostly failed and reasoning remains ungraded. Initial
+orchestration failure and one-arm continuation are preserved; original four-case
+files stayed unchanged. Both sealed run sets verify (516 + 139 files); 124
+benchmark and 31 portable checks pass. GPU released, evidence and paused work
+preserved. [Results and limitations](../evidence/fair-four-20261104/README.md).
+
+## Four-stage wait-hint qualification — 2026-11-05
+
+Completed the selected local causal, competitive, workload and compatibility
+studies. Main-comparison batch time fell 7.51% versus ARC; fresh repository and
+full-budget document reserves saved 8.27% and 18.12%, and timed graphs saved
+8.87%. Tight documents and several other regimes remain unresolved; some favor
+upstream/Continuum. Quality and production gates remain unmet. Eight functional
+cells and both client examples pass; all 46 retained attempts and the finished
+archive verify. GPU released, useful evidence and recovery material preserved.
+[Findings, limits and reproduction](../evidence/wait-qualification-20261105/README.md).

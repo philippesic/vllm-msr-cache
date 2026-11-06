@@ -1993,6 +1993,11 @@ class SemanticOffloadingManager(
     FrequencyCostAdmissionMixin,
     CPUOffloadingManager,
 ):
+    def refresh_wait_hint_cpu_recency(self, keys: Collection[OffloadKey]) -> int:
+        # Explicit CPU-only hints compose with semantic eviction; they do not
+        # fabricate a demand hit, semantic observation or ownership reference.
+        return self._policy.refresh_wait_hint_cpu_recency(keys)
+
     def __init__(
         self,
         num_blocks: int,

@@ -1526,7 +1526,9 @@ def test_first_admission_snapshot_is_not_overwritten_by_later_admission():
         "recompute_admission_count": 0,
     }
     sched._preservation_requests = {"req": state}
-    request = SimpleNamespace(request_id="req")
+    request = SimpleNamespace(request_id="req", prefill_stats=SimpleNamespace(
+        num_prompt_tokens=3, num_computed_tokens=1, num_cached_tokens=2,
+        num_local_cached_tokens=1, num_external_cached_tokens=1))
     blocks = SimpleNamespace(
         blocks=[
             [SimpleNamespace(block_id=index + 10) for index in range(3)]
@@ -1535,11 +1537,15 @@ def test_first_admission_snapshot_is_not_overwritten_by_later_admission():
 
     sched._record_admission(request, blocks, num_external_tokens=1)
     frozen = dict(state["first_admission"])
+    source = dict(state['first_admission_prompt_source'])
+    assert source['num_computed_tokens'] == source['num_external_cached_tokens'] == 1
+    request.prefill_stats.num_computed_tokens = 3
     sched._req_status["req"].num_locally_computed_tokens = 2
     state["episode_id"] = 1
     sched._record_admission(request, blocks, num_external_tokens=0)
 
     assert state["first_admission"] == frozen
+    assert state['first_admission_prompt_source'] == source
     assert [record["key"] for record in frozen["local_keys"]] == [keys[0]]
     assert [record["key"] for record in frozen["planned_load_keys"]] == [keys[1]]
     assert state["admission_count"] == 2

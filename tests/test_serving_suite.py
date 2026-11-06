@@ -223,6 +223,35 @@ def test_pairing_no_selective_failure_exclusion():
     assert result["decision"] == "inconclusive" and result["eligible_pairs"] == 2
 
 
+def test_primary_workflow_and_offered_ftl_intervals_use_whole_pairs():
+    cases=[]
+    for rep in range(3):
+        for arm in ('arc','candidate'):
+            c=valid_case(arm,rep)
+            c['evaluation']=evaluate_case(c,[])
+            c['summary'].update(completed_requests_per_s=1 if arm=='arc' else 1.1,
+                                end_user_ttft_mean_s=2 if arm=='arc' else 1.5)
+            cases.append(c)
+    result=paired_comparison(cases)
+    assert result['workflow_throughput_ratio_95ci']==pytest.approx([1.1,1.1])
+    assert result['end_user_ttft_mean_delta_95ci_s']==[-.5,-.5]
+    cases[0]['evaluation']['status']='failed'
+    result=paired_comparison(cases)
+    assert result['workflow_throughput_ratio_95ci'] is None
+    assert result['end_user_ttft_mean_delta_95ci_s'] is None
+
+
+def test_offline_verifier_recomputes_primary_pair_estimates(tmp_path):
+    from benchmarks.serving_suite.verify import seal, verify
+    result=dict(schema=SCHEMA,status='failed',plan={},cases=[],comparison=paired_comparison([]))
+    write_json(tmp_path/'result.json',result);seal(tmp_path)
+    assert verify(tmp_path)['cases']==0
+    result['comparison']['geometric_workflow_throughput_ratio']=1.1
+    write_json(tmp_path/'result.json',result);seal(tmp_path)
+    with pytest.raises(ValueError,match='Wrong paired primary comparison'):
+        verify(tmp_path)
+
+
 def test_cross_process_lock(tmp_path):
     path = tmp_path / "gpu.lock"
     with GPULock(path):
@@ -625,7 +654,8 @@ def test_resource_row_failure_reaches_evaluation(tmp_path):
 
 
 @pytest.mark.parametrize("valid_ack", [True, False])
-def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+@pytest.mark.parametrize("hint_delay", [0.0, 0.02])
+def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack, hint_delay):
     from benchmarks.serving_suite.workload import run_wave
 
     class Tokenizer:
@@ -638,8 +668,11 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
     async def exercise():
         payloads = []
         published = []
+        generated_at = []
+        hinted_at = []
 
         async def generate(request):
+            generated_at.append(time.monotonic())
             payloads.append(await request.json())
             chunk = {
                 "choices": [
@@ -652,6 +685,7 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
             )
 
         async def hint(request):
+            hinted_at.append(time.monotonic())
             published.append(await request.json())
             return web.json_response(
                 {
@@ -672,14 +706,14 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
         site = web.TCPSite(server, "127.0.0.1", 0)
         await site.start()
         p = plan()
-        p.update(tier="screen", publish_hints=True, concurrency=1)
+        p.update(tier="screen", publish_hints=True, concurrency=1, hint_delay_s=hint_delay)
         rows = []
         hints = []
         try:
             await run_wave(
                 f"http://127.0.0.1:{site._server.sockets[0].getsockname()[1]}",
                 p,
-                [{"id": "s", "turns": ["one", "two"]}],
+                [{"id": "s", "turns": ["one", "two"], "wait_s": [0.04]}],
                 Tokenizer(),
                 0,
                 rows.append,
@@ -690,6 +724,8 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
             )
             assert len(rows) == 2 and all(r["success"] for r in rows)
             assert len(published) == 1
+            assert hinted_at[0] - generated_at[0] >= hint_delay
+            assert generated_at[1] - generated_at[0] >= 0.04
             for payload in payloads:
                 params = payload["kv_transfer_params"]
                 assert all(
@@ -736,3 +772,21 @@ def test_cpu_recency_activity_does_not_mislabel_prefetch_admission():
     a = activity({}, hints)
     assert a["cpu_recency"] == 5 and a["hint_accepted"] == 0
     assert activity({}, hints[1:])["cpu_recency"] == 0
+
+
+def test_duplicate_arm_cannot_hide_failed_attempt():
+    good = valid_case('arc', 0)
+    good['evaluation'] = evaluate_case(good, [])
+    failed = dict(good, evaluation={'status': 'failed'})
+    for records in ([failed, good], [good, failed]):
+        with pytest.raises(ValueError, match='Duplicate comparison arm'):
+            paired_comparison(records)
+
+
+def test_duplicate_fingerprint_cannot_claim_identical_work():
+    cases = [valid_case(arm, 0) for arm in ('arc', 'candidate')]
+    for case in cases:
+        case['evaluation'] = evaluate_case(case, [])
+        case['request_fingerprints'] = [dict(key='same', prompt='p', output='o')] * 2
+    with pytest.raises(ValueError, match='Duplicate request fingerprint'):
+        paired_comparison(cases)

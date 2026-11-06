@@ -163,13 +163,14 @@ class OwnedServer:
 
 
 class Sampler:
-    def __init__(self, pid, path, interval=0.25):
+    def __init__(self, pid, path, interval=0.25, metrics_url=None):
         self.pid = pid
         self.path = Path(path)
         self.interval = interval
         self.stop_event = threading.Event()
         self.rows = []
         self.error = None
+        self.metrics_url = metrics_url
 
     def start(self):
         self.thread = threading.Thread(target=self.run, daemon=True)
@@ -196,7 +197,14 @@ class Sampler:
                         "gpu_used_bytes": None,
                     }
                     try:
+                        memory = psutil.virtual_memory()
+                        swap = psutil.swap_memory()
+                        row.update(host_available_bytes=memory.available,
+                            host_swap_used_bytes=swap.used, host_swap_in_bytes=swap.sin,
+                            host_swap_out_bytes=swap.sout,
+                            host_cpu_percent=psutil.cpu_percent())
                         root = psutil.Process(self.pid)
+                        server_pids = set()
                         for p in [root, *root.children(recursive=True)]:
                             try:
                                 # Stable Linux start ticks avoid WSL boot-time estimates.
@@ -211,6 +219,7 @@ class Sampler:
                                     t.user + t.system
                                 )
                                 row["rss_bytes"] += p.memory_info().rss
+                                server_pids.add(p.pid)
                             except (psutil.Error, OSError):
                                 pass
                         if nv:
@@ -221,6 +230,36 @@ class Sampler:
                                 ).gpu,
                                 gpu_power_w=nv.nvmlDeviceGetPowerUsage(gpu) / 1000,
                             )
+                            # Optional WSL/driver capabilities stay unavailable,
+                            # rather than invalidating otherwise useful samples.
+                            for name, read in (
+                                ('gpu_temperature_c', lambda:nv.nvmlDeviceGetTemperature(gpu,nv.NVML_TEMPERATURE_GPU)),
+                                ('gpu_sm_clock_mhz', lambda:nv.nvmlDeviceGetClockInfo(gpu,nv.NVML_CLOCK_SM)),
+                                ('gpu_memory_clock_mhz', lambda:nv.nvmlDeviceGetClockInfo(gpu,nv.NVML_CLOCK_MEM)),
+                                ('gpu_pcie_rx_kib_s', lambda:nv.nvmlDeviceGetPcieThroughput(gpu,nv.NVML_PCIE_UTIL_RX_BYTES)),
+                                ('gpu_pcie_tx_kib_s', lambda:nv.nvmlDeviceGetPcieThroughput(gpu,nv.NVML_PCIE_UTIL_TX_BYTES))):
+                                try:
+                                    row[name] = read()
+                                except Exception:
+                                    row[name] = None
+                        if self.metrics_url:
+                            row.update(client_tool_rss_bytes=0, client_tool_cpu_s={})
+                            parent = psutil.Process(os.getpid())
+                            for p in [parent, *parent.children(recursive=True)]:
+                                if p.pid in server_pids:
+                                    continue
+                                try:
+                                    ticks = Path(f'/proc/{p.pid}/stat').read_text().rsplit(')',1)[1].split()[19]
+                                    t = p.cpu_times()
+                                    row['client_tool_cpu_s'][f'{p.pid}:{ticks}'] = t.user+t.system
+                                    row['client_tool_rss_bytes'] += p.memory_info().rss
+                                except (psutil.Error, OSError):
+                                    pass
+                            from harness.metrics import parse_metrics, parse_gauge_metrics
+                            began = time.monotonic_ns()
+                            raw = get_text(self.metrics_url, timeout=2)
+                            row.update(metrics=parse_metrics(raw), gauges=parse_gauge_metrics(raw),
+                                metrics_scrape_s=(time.monotonic_ns()-began)/1e9)
                     except Exception as e:
                         row["error"] = repr(e)
                     output.write(json.dumps(row) + "\n")
@@ -237,9 +276,12 @@ class Sampler:
         self.stop_event.set()
         self.thread.join(timeout=5)
         cpu = {}
+        client_cpu = {}
         for r in self.rows:
             for k, v in r["process_cpu_s"].items():
                 cpu.setdefault(k, []).append(v)
+            for k,v in r.get('client_tool_cpu_s',{}).items():
+                client_cpu.setdefault(k,[]).append(v)
         mem = [
             r["gpu_used_bytes"] for r in self.rows if r["gpu_used_bytes"] is not None
         ]
@@ -248,6 +290,8 @@ class Sampler:
             gpu_peak_bytes=max(mem) if mem else None,
             host_rss_peak_bytes=max((r["rss_bytes"] for r in self.rows), default=None),
             process_cpu_elapsed_s=sum(max(v) - min(v) for v in cpu.values()),
+            client_tool_cpu_elapsed_s=sum(max(v)-min(v) for v in client_cpu.values()) if self.metrics_url else None,
+            client_tool_rss_peak_bytes=max((r.get('client_tool_rss_bytes',0) for r in self.rows),default=None) if self.metrics_url else None,
             sample_interval_s=self.interval,
             error=self.error
             or next((r["error"] for r in self.rows if r.get("error")), None)

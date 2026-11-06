@@ -1,0 +1,100 @@
+{
+  "full_tests": "1413 passed, 26 skipped; 14 existing deprecation warnings",
+  "benchmark_tests": "94 passed before final timing-only codec correction; full suite covers final source",
+  "portable_checks": "31 passed and compileall",
+  "offline": {
+    "screen-v3": {
+      "verified_files": 188,
+      "cases": 6,
+      "request_records": 108,
+      "measurement_status": "inconclusive",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "restore-v2": {
+      "verified_files": 187,
+      "cases": 6,
+      "request_records": 108,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "delayed-pilot": {
+      "verified_files": 68,
+      "cases": 2,
+      "request_records": 36,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "partial-pilot": {
+      "verified_files": 37,
+      "cases": 1,
+      "request_records": 18,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "capacity-r4": {
+      "verified_files": 363,
+      "cases": 12,
+      "request_records": 216,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "final-qa": {
+      "verified_files": 363,
+      "cases": 12,
+      "request_records": 216,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "lease-refinement": {
+      "verified_files": 191,
+      "cases": 6,
+      "request_records": 108,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "public-final": {
+      "verified_files": 187,
+      "cases": 6,
+      "request_records": 108,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "observer-off": {
+      "verified_files": 97,
+      "cases": 3,
+      "request_records": 54,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  "source_stable_during_each_campaign": {
+    "screen-v3": true,
+    "restore-v2": true,
+    "delayed-pilot": true,
+    "partial-pilot": true,
+    "capacity-r4": true,
+    "final-qa": true,
+    "lease-refinement": true,
+    "public-final": true,
+    "observer-off": true
+  },
+  "prior_protected_diffs_unchanged": {
+    "benchmarks/serving_suite/runner.py": true,
+    "docs/BENCHMARKING.md": true,
+    "vendor/VLLM.md": true,
+    "vendor/vllm/vllm/v1/core/sched/scheduler.py": true
+  },
+  "gpu_locks": "both available; released after check",
+  "servers": "all case cleanup receipts verified; no serving processes or GPU compute clients at handoff",
+  "storage_inventory": "output/semantic-svd-serving-20261104/storage-inventory.json",
+  "chart_preview": "Host preview unavailable: missing browser libraries; html_render succeeded; no system packages changed",
+  "historical_timing_caveat": "Earlier experimental codec transfer_time is host wall time despite legacy CUDA label; codec JSONL seconds is authoritative. Final source uses actual CUDA event intervals.",
+  "diff_check": "passed",
+  "storage_summary": {
+    "retained_evidence_bytes": 349922824,
+    "free_bytes_before": 909016604672,
+    "free_bytes_after": 909016805376,
+    "observed_free_delta": 200704,
+    "removed": "54 empty owned runtime-staging directories; all useful runs and frozen sources retained"
+  }
+}

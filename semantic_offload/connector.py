@@ -35,6 +35,20 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
+
+def _compact_benchmark_preservation(event):
+    """Keep serving counters/timing; never present this as a full KV proof."""
+    fields = ('schema','event','event_instance','expected_event_count','request_id',
+        'external_request_id','authoritative','outcome','reason','required_tokens',
+        'reused_tokens','loaded_tokens','recomputed_tokens','actual_prompt_tokens_locally_executed',
+        'cumulative_prompt_tokens_locally_executed','admitted_external_tokens',
+        'first_admission_prompt_source','prior_evicted_keys','server_timing',
+        'load_bytes','store_bytes','load_worker_seconds','store_worker_seconds',
+        'load_critical_path_s','preemption_count','preempted','terminal_status',
+        'transfer_metadata_complete','admission_metadata_complete')
+    return {**{k:event[k] for k in fields if k in event},
+            'evidence_scope':'compact_benchmark_counters_and_timing; full_byte_and_lifetime_proof_not_retained'}
+
 import torch
 from semantic_offload.profiling import PROFILE, profiled
 from semantic_offload.benchmark_metrics import record_relevance_batch
@@ -1458,6 +1472,9 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         self._benchmark_telemetry = extra_config.get("benchmark_telemetry", False)
         if type(self._benchmark_telemetry) is not bool:
             raise TypeError("benchmark_telemetry must be a JSON boolean")
+        self._benchmark_compact_preservation = extra_config.get('benchmark_compact_preservation_events', False)
+        if type(self._benchmark_compact_preservation) is not bool:
+            raise TypeError('benchmark_compact_preservation_events must be a JSON boolean')
         record_relevance_batch(self, 0)
         self._scoring_schedule = extra_config.get("scoring_schedule", "continuous")
         prefix_mean = extra_config.get('prefix_mean_prefetch_scoring', False)
@@ -1650,6 +1667,16 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         if retain_only and self._prefetch_trigger != "known_prefix_wait_hint":
             raise ValueError("CPU retention-only requires known-prefix wait hints")
         self._wait_hint_cpu_retention_only = retain_only
+        noop = extra_config.get("benchmark_wait_hint_noop", False)
+        if type(noop) is not bool:
+            raise TypeError("benchmark_wait_hint_noop must be a JSON boolean")
+        if noop and (not retain_only or not extra_config.get("benchmark_telemetry")):
+            raise ValueError("benchmark_wait_hint_noop requires CPU-only retention and benchmark telemetry")
+        self._benchmark_wait_hint_noop = noop
+        trace = extra_config.get("benchmark_wait_hint_trace", False)
+        if type(trace) is not bool or (trace and not extra_config.get("benchmark_telemetry")):
+            raise ValueError("benchmark_wait_hint_trace requires a boolean and benchmark telemetry")
+        self._benchmark_wait_hint_trace = trace
         gpu_aware_retention = extra_config.get(
             "wait_hint_cpu_retention_gpu_aware", False
         )
@@ -2380,10 +2407,25 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
             # Full GPU coverage only suppresses this advisory touch. It does
             # not promise that either copy will survive until a future return.
             # An unavailable index falls back to the ordinary ready CPU roots.
-            if skip_cpu_refresh:
+            trace = getattr(self, "_benchmark_wait_hint_trace", False)
+            if trace:
+                policy = getattr(self.manager, "_policy", None)
+                tracked = ready[:1] + ready[8:9] + ready[32:33] + ready[64:65]
+                def positions():
+                    return {repr(k): {name: list(getattr(policy, name, {})).index(k)
+                            for name in ('t1', 't2') if k in getattr(policy, name, {})}
+                            for k in tracked}
+                before_positions = positions()
+            if skip_cpu_refresh or getattr(self, "_benchmark_wait_hint_noop", False):
                 ready_count = 0
             else:
                 ready_count = refresh(ready) if callable(refresh) else 0
+            if trace:
+                import json
+                print('WAIT_HINT_RETENTION_TRACE ' + json.dumps(dict(
+                    event_id=hint.event_id, monotonic_ns=time.monotonic_ns(),
+                    prefix_keys=[repr(k) for k in tracked],
+                    before=before_positions, after=positions(), refreshed=ready_count)), flush=True)
             if gpu_aware:
                 bridge_details["refreshed_cpu_key_count"] = ready_count
             return self._store_wait_hint_result(
@@ -6184,6 +6226,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
                 ),
                 "admitted_local_tokens": state["admitted_local_tokens"],
                 "admitted_external_tokens": state["admitted_external_tokens"],
+                "first_admission_prompt_source": state.get("first_admission_prompt_source"),
                 "admission_count": state["admission_count"],
                 "recompute_admission_count": state["recompute_admission_count"],
                 "required_kv_blocks": (
@@ -6308,6 +6351,8 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
                     },
                 },
             }
+            if getattr(self, '_benchmark_compact_preservation', False):
+                event = _compact_benchmark_preservation(event)
             record_preservation_event(event)
             del self._preservation_finished[req_id]
             self._preservation_requests.pop(req_id, None)
@@ -8206,6 +8251,17 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         else:
             state["physical_block_identity_complete"] = False
         if int(state["admission_count"]) == 0:
+            # These are the same first-prefill source counters sent to the
+            # frontend metrics. They deliberately exclude repeat admissions.
+            # Keep cumulative execution and transfer observations separate.
+            stats = getattr(request, "prefill_stats", None)
+            fields = ("num_prompt_tokens", "num_computed_tokens", "num_cached_tokens",
+                      "num_local_cached_tokens", "num_external_cached_tokens")
+            if stats is not None and all(type(getattr(stats, name, None)) is int for name in fields):
+                state["first_admission_prompt_source"] = {
+                    **{name: getattr(stats, name) for name in fields},
+                    "provenance": "request_prefill_stats_at_first_connector_allocation",
+                }
             admission_ns = time.monotonic_ns()
             state["first_admission"] = {
                 "admission_index": 0,
