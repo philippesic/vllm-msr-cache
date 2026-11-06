@@ -41,6 +41,15 @@ def comparisons(cases, conditions):
     return result
 
 
+def check_replay_row(row, expected):
+    if row.get('wave') == -1:
+        if row.get('session_id') != 'cancel' or not row.get('payload',{}).get('kv_transfer_params',{}).get('suite_probe_id'):
+            raise ValueError('Unexpected non-workload replay row')
+        return  # Abort is independently checked by the operational contract.
+    if row['success'] and (row['payload']['prompt'],row['output_token_ids']) != expected[row['source_id'],row['turn']]:
+        raise ValueError('Replay is not identical frozen work')
+
+
 def offline(directory):
     directory = Path(directory)
     checked = verify(directory)
@@ -55,8 +64,7 @@ def offline(directory):
         for case in result['cases']:
             for line in (directory/case['name']/'requests.jsonl').read_text().splitlines():
                 row = json.loads(line)
-                if row['success'] and (row['payload']['prompt'],row['output_token_ids']) != expected[row['source_id'],row['turn']]:
-                    raise ValueError('Replay is not identical frozen work')
+                check_replay_row(row, expected)
     return checked
 
 

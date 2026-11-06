@@ -105,16 +105,22 @@ async def execute_tool(spec, cwd, timeout_s, artifact, on_running=None):
     return row
 
 
-async def publish_hint(client, url, previous, sid, owner, namespace, hints):
-    tokens = previous['payload']['prompt'] + previous['output_token_ids'][:-1]
-    tokens = tokens[:len(tokens)//16*16]
+def known_prefix_tokens(previous, completed_transcript=True):
+    tokens = previous['payload']['prompt']
+    if completed_transcript:
+        tokens = tokens + previous['output_token_ids'][:-1]
+    return tokens[:len(tokens)//16*16]
+
+
+async def publish_hint(client, url, previous, sid, owner, namespace, hints, *, declared_wait_ms=750, completed_transcript=True):
+    tokens = known_prefix_tokens(previous, completed_transcript)
     now = time.monotonic_ns()
     event = digest([sid, owner, now])
     raw = dict(schema='semantic-known-prefix-wait-hint-v1', event_id=event,
         owner_id=owner, run_id='suite', cell_id='case', session_id=sid, generation=0,
         observed_prefix_id=digest(dict(namespace=namespace, token_ids=tokens)),
         prefix_boundary_tokens=len(tokens), observation_available_ns=now, input_publication_ns=now,
-        declared_wait_ms=750, wait_provenance='driver_declared_tool_wait_budget', namespace=namespace)
+        declared_wait_ms=declared_wait_ms, wait_provenance='driver_declared_tool_wait_budget', namespace=namespace)
     receipt = dict(hint=raw, started_ns=now)
     try:
         async with client.post(url+'/plugins/semantic-offload/wait-hints', json=raw,
@@ -133,6 +139,23 @@ async def publish_hint(client, url, previous, sid, owner, namespace, hints):
         receipt['latency_s'] = (receipt['ended_ns']-now)/1e9
         hints.append(receipt)
     return receipt
+
+
+def hint_refresh_delay(receipts, interval_s, now_ns):
+    """Coalesce only a recent, successful acknowledgement of the full prefix."""
+    if not receipts:
+        return 0.0
+    last = receipts[-1]
+    ack = last.get('response')
+    expected = last.get('hint', {}).get('prefix_boundary_tokens', 0) // 16
+    ended = last.get('ended_ns')
+    if (last.get('error') or last.get('cancelled_before_ack')
+            or not isinstance(ack, dict) or expected <= 0
+            or ack.get('reason') != 'cpu_prefix_recency_refreshed'
+            or ack.get('ready_cpu_prefix_keys') != expected
+            or not isinstance(ended, int) or now_ns < ended):
+        return 0.0
+    return max(0.0, interval_s - (now_ns - ended) / 1e9)
 
 
 async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace, hints, stream_dir):
@@ -164,30 +187,42 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                 if turn:
                     receipts = []
                     async def announce():
-                        receipt = await publish_hint(client, url, previous, sid,
-                            f'sc|suite|case|w{wave}-s{slot}|sample-{turn}', namespace, hints)
-                        receipts.append(receipt)
-                    if session_publish and plan.get('hint_timing') == 'before-tool':
-                        announced_ns = time.monotonic_ns()
-                        await announce()
-                        emit('pre_tool_hint', session_id=sid, turn=turn,
-                             duration_s=(time.monotonic_ns()-announced_ns)/1e9)
+                        before = len(hints)
+                        owner = f'sc|suite|case|w{wave}-s{slot}|sample-{turn}'
+                        try:
+                            return await publish_hint(client, url, previous, sid,
+                                owner, namespace, hints, declared_wait_ms=plan.get('hint_declared_wait_ms',750),
+                                completed_transcript=plan.get('hint_completed_transcript',True))
+                        finally:
+                            receipts.extend(h for h in hints[before:] if h['hint']['owner_id'] == owner)
+                    initial_hint = None
+                    if session_publish and (plan.get('hint_timing') == 'before-tool' or plan.get('hint_initial_only')):
+                        if plan.get('hint_overlap_initial'):
+                            # Join before the next model request, even if a short
+                            # tool finishes before the acknowledgement arrives.
+                            initial_hint = asyncio.create_task(announce())
+                        else:
+                            announced_ns = time.monotonic_ns()
+                            await announce()
+                            emit('pre_tool_hint', session_id=sid, turn=turn,
+                                 duration_s=(time.monotonic_ns()-announced_ns)/1e9)
                     async def during(proc):
+                        if initial_hint:
+                            await asyncio.shield(initial_hint)
+                        if (plan.get('hint_coalesce_initial') or initial_hint) and plan.get('hint_timing') == 'before-tool':
+                            await asyncio.sleep(hint_refresh_delay(receipts,
+                                plan.get('hint_refresh_s', 1.0), time.monotonic_ns()))
                         while proc.returncode is None:
-                            before = len(hints)
-                            try:
-                                await publish_hint(client, url, previous, sid,
-                                    f'sc|suite|case|w{wave}-s{slot}|sample-{turn}', namespace, hints)
-                            finally:
-                                # Per-session ownership, including cancelled RPCs.
-                                receipts.extend(h for h in hints[before:] if h['hint']['owner_id']==f'sc|suite|case|w{wave}-s{slot}|sample-{turn}')
+                            await announce()
                             await asyncio.sleep(plan.get('hint_refresh_s', 1.0))
                     tool_offered_ns = time.monotonic_ns()
                     async def waiting_for_tool():
+                        if initial_hint:
+                            await asyncio.shield(initial_hint)
                         while True:
                             await asyncio.sleep(plan.get('hint_refresh_s',1.0))
                             await announce()
-                    pending_tool = asyncio.create_task(waiting_for_tool()) if session_publish else None
+                    pending_tool = asyncio.create_task(waiting_for_tool()) if session_publish and plan.get('hint_during_wait',True) and not plan.get('hint_initial_only') else None
                     try:
                         async with tool_semaphore:
                             tool_acquired_ns = time.monotonic_ns()
@@ -196,11 +231,15 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                                 await asyncio.gather(pending_tool,return_exceptions=True)
                             tool = await execute_tool(s['tools'][turn-1], s['repository'],
                                 plan.get('tool_timeout_s', 90), directory/'tools'/f'{wave}-{slot}-{turn}.txt',
-                                during if session_publish else None)
+                                during if session_publish and plan.get('hint_during_wait',True) and not plan.get('hint_initial_only') else None)
+                        if initial_hint:
+                            await initial_hint
                     finally:
-                        if pending_tool:
-                            pending_tool.cancel()
-                            await asyncio.gather(pending_tool,return_exceptions=True)
+                        owned = [t for t in (pending_tool, initial_hint) if t is not None]
+                        for task in owned:
+                            if not task.done():
+                                task.cancel()
+                        await asyncio.gather(*owned, return_exceptions=True)
                     tool.update(offered_ns=tool_offered_ns,
                                 queue_s=(tool_acquired_ns-tool_offered_ns)/1e9)
                     # Raw stdout stays intact; cap only what the model receives, explicitly.
@@ -225,8 +264,7 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                     user = f"ACTUAL TOOL {tool['kind']}; exit_code={tool['exit_code']}\n{shown}\n" + (
                         '[tool output excerpt truncated]\n' if tool['prompt_output_truncated'] else '') + user
                     if session_publish:
-                        observed = previous['payload']['prompt'] + previous['output_token_ids'][:-1]
-                        observed = observed[:len(observed)//16*16]
+                        observed = known_prefix_tokens(previous, plan.get('hint_completed_transcript',True))
                     accepted = [h for h in receipts if not h.get('error') and h.get('response',{}).get('status')=='accepted']
                     if accepted:
                         binding = accepted[-1]['response'].get('canonical_event_id') or accepted[-1]['hint']['event_id']
@@ -280,9 +318,11 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                     while not first_token.is_set():
                         await asyncio.sleep(plan.get('hint_refresh_s', 1.0))
                         if not first_token.is_set():
-                            receipt = await publish_hint(client, url, previous, sid, rid, namespace, hints)
+                            receipt = await publish_hint(client, url, previous, sid, rid, namespace, hints,
+                                declared_wait_ms=plan.get('hint_declared_wait_ms',750),
+                                completed_transcript=plan.get('hint_completed_transcript',True))
                             queue_receipts.append(receipt)
-                refresh = asyncio.create_task(queued_hints()) if turn and session_publish and plan.get('hint_through_queue') else None
+                refresh = asyncio.create_task(queued_hints()) if turn and session_publish and plan.get('hint_through_queue') and not plan.get('hint_initial_only') else None
                 try:
                     async with semaphore:
                         row = await completion(client, url, payload, identity, writer,

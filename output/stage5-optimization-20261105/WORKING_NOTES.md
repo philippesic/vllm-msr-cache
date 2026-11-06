@@ -406,3 +406,75 @@ uneven-pressure-repeat9,prompt-storage5,combination6 (32cases); thenchosenfinal
 checks/fairness/operational-unforcedfunctionalprobe, freeze/evidence/cleanup.
 DoNOTlaunchtool-only-repeat(old9supersededbeforeexecution),pressure-repeat(primary
 alreadydonev2), oldv1/v2specsstalepins, orpriorpendingoriginaltiminginvalidwindows.
+
+NEW USER GIT AUTHORIZATION supersedes earlierlocal-onlyinstructions:
+ReplacementAGENTS explicitlyrequirescoherentmilestonecommitsandpushtoestablished
+user-ownedremote. No explicitseparatenopushremains (oldAGENTSpushonlyrequestedwas
+replaced; oldprotocolwasourderivedscope, nowupdated). Needcommit/pushatnextcompleted
+batch andhandoff. NoPRrequested. Currentbranchmain tracksorigin/main,
+remote git@github.com:philippesic/vllm-msr-cache.git, remoteHEADmatcheslocalHEAD at
+read. A separateuserworkflowcommittedpolicy/bookkeeping e5437b5 whileweworked;
+it ONLY changedAGENTS/.gitignore/docsGitpolicy andauthoredoutputrecords, leaving
+existingresearchsourcesdirty. DoNOTrevertthosechanges. It nowtracksour authored
+WORKING_NOTES.md andother top-leveloutputMarkdown; rawruns remainignored.
+
+Gitfoundationissue:135pre-Stage5dirty/untrackedfiles(2.43MB) constitutecompleted
+research/qualificationdependenciesthatStage5imports. Foundationmanifestcomputed
+frompreexisting-status.txt andsource-before.tar.gz, savedfoundation-checkpoint-manifest.json.
+NoGitmutationyet;indexcleanwhenchecked. Planannouncedtouser:checkpointexactarchived
+foundationseparately,thenStage5delta. Allpreexistingtaskentriescompletedexceptpaused
+AWQwhosefilesarealreadyinHEAD/unchanged. DoNOTsilentlycombineunrelatedactivework.
+Useexplicit135manifestandGitblob/indexstagingfromtar (workingfilesuntouched),
+verifyindexclean/HEADandmanifestbeforecommit. PreservecurrentHEADpolicy/output
+bookkeeping (notinpreexistingdirtymanifest). ThenstageonlyStage5paths forowncommit,
+pushexistingmainnonforce;read/checkremoteadvanceandcoordinateifneeded.
+Foundationpathsmax479KBsource;no bulkoutput/model/cacheincluded. Snapshotexactness
+isretentionverification,notfreshbaselinequalification. AllStage5testsrunoncurrenttree.
+
+Round7 primaryfinalist12DONE/pass. timing-finalist-repeat-assessment.json:
+wait->tool-only1.01205 CI[.96131,1.06548];wait->lean-combination1.01536
+CI[.96365,1.06986]. Neithermeets2%point/usefulgain+CIcriterion; no promotion.
+Fourarm3repeatorderrotatedbutnotcompletefourpositioncycle, disclosed. Currentdocs
+panelstillrunning (ARC172.619s completed), then4tightcadence. Session13180active,
+noexecmonitorcellatthisnote. Needremainingaudit12/unevenrepeat9/promptstorage5/
+combination6 andfinalunforcedfunctional/selectedchecks. NewGitworkmustnotmodify
+sourcewhilebatchfrozen. Source_identity excludesGitHEAD/index; stillwaitboundary
+beforeactualcommitmilestoneasannounced. Latestuseronlyworkflowinstructions, notstop.
+
+LATEST USER STEERING (takes precedence over old exhaustive pending lists):
+User asked status, answered117validGPUcases then. User thenexplicitlysaid finisha
+pass throughremainingsections but goLESScrazyonremainingworkload andCHASEEVICTION:
+CPUtests muchfasterneedrealservingcost/bottleneckexplanation orrepresentativeworkload
+reproduction. Acknowledged. DoNOTblindlylaunchall32pendingrepeats. Trimunexecuted
+broadpanels, prioritizeactualevictionprofiling. Planupdatedaccordingly.
+Currentround7session13180 finishinglasttightARC (allother20casescomplete); NOactive
+execmonitorcell. Tightcadence:cadence5177.674/wait173.943/cadence2184.052,ARCpending.
+Documentsall5passed:ARC172.619/wait160.411/pressure75161.155/cadence2170.502/
+boost50176.186. Needretainnaturaloutputcounts beforeinterpretingdocumenttimings.
+AtboundarycheckpointGitfoundation+Stage5asannounced, thenimplementtargetedprofiler.
+
+Proposed targeted eviction approach (notimplemented): opt-in per-case profiling
+via runner planarc_eviction_profile/envSEMANTIC_ARC_EVICTION_PROFILE_DIR. Nativeand
+linearARC body wall/threadCPU timings, n/protected/queue sizes/success percall.
+Bounded snapshots of actual byteskeys/refcounts/queue+ghost order/target before
+representative calls; offline replaynativevslinearidenticalevictions and counted
+queuevisits (countingseparatefromtiming). Bodytimeexcludes capture/log overhead;
+measureobserveroverheadseparately, noCUDAfences. Aggregate storetimeinclusive
+separately so doNOTsum nestedintervals. Existing managerprepare_store already has
+policy_started/ended wall+threadCPU timestamps. ManagerdoesNOTcurrentlyoverride
+on_request_finished; nativehookguaranteesall submit-sidepreparecallsdone bythen,
+so canflush compact profiler summary atrequestfinish (one perrequest) andbuffered
+percallrecords. Lastsummarymustcoverallrawcalls. Outputunderownedcase, sourcepinned.
+Use newreusable benchmarks/research_checks/arc_serving_profile.py, optional import
+fromPreservationmanageronlywhenenabled. Env is normallyscrubbed inrunner; explicitly
+setper-case onlywhenflagtrue. Source_identitydoesnotincludeallresearchmodules, so
+pinnewprofilerasexternalinput inprofile specs. No genericSEMANTIC_PROFILE_DIR:
+existingComponentProfiler wrapsotherphasesandatexitcanbe killed; isolateeviction.
+Potential small profiling matrix: primary/tight matchednativeARC/wait andlinear
+controls; include real longdocument pair or larger realprefillbatch ONLY if activity
+justifies. Actualcallshape/bodyshare guidesfollow-ups; don'tmanufacturearbitrary
+protectedstatesandcallthemreal. Sumhostbodytimeis directtimeatstake, notastrict
+endtoendbound becausescheduling/GPUoverlapcanchange. Needunprofiledvalidationif
+profilerfindsmeaningfulopportunity; otherwiseevidence-backedbottleneckexplanation.
+Remainingsectionscouldbeonepromptstorage5/combination6 pass andsmallmatchedaudit
+control ratherthan12+9morebroadrepeats. No finalstoppingclaimyet.

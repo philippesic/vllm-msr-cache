@@ -13,13 +13,14 @@ from pathlib import Path
 import aiohttp
 
 from .contracts import digest
-from .repo_workload import publish_hint
+from .repo_workload import publish_hint, known_prefix_tokens
 from .workload import completion
 
 
 async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace, hints, stream_dir):
     directory = Path(stream_dir).parent
     rows = []
+    abandoned_tasks = []
     events = (directory / f'workflow-{wave}.jsonl').open('x')
     def emit(event, **fields):
         events.write(json.dumps(dict(event=event, ns=time.monotonic_ns(), wave=wave,
@@ -30,6 +31,7 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                                     connector=aiohttp.TCPConnector(force_close=True)) as client:
         async def session(slot, source):
             sid = f"w{wave}:{source['id']}"
+            session_publish = plan['publish_hints'] and source.get('publish_hints', True)
             previous = None
             tool_end = None
             emit('session_start', session_id=sid, source_id=source['id'])
@@ -38,18 +40,20 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                 first = asyncio.Event()
                 receipts = []
                 async def announce():
-                    receipt = await publish_hint(client, url, previous, sid, rid, namespace, hints)
+                    receipt = await publish_hint(client, url, previous, sid, rid, namespace, hints,
+                        declared_wait_ms=plan.get('hint_declared_wait_ms',750),
+                        completed_transcript=plan.get('hint_completed_transcript',True))
                     receipts.append(receipt)
                     return receipt
                 if turn:
-                    if plan['publish_hints']:
+                    if session_publish:
                         await announce()
                     start = time.monotonic_ns()
                     async def repeat_hints():
                         while True:
                             await asyncio.sleep(plan['hint_refresh_s'])
                             await announce()
-                    refresh = asyncio.create_task(repeat_hints()) if plan['publish_hints'] and not plan.get('hint_initial_only') else None
+                    refresh = asyncio.create_task(repeat_hints()) if session_publish and plan.get('hint_during_wait',True) and not plan.get('hint_initial_only') else None
                     try:
                         await asyncio.sleep(frozen['delay_s'])
                     finally:
@@ -74,13 +78,16 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                 params.update(session_id=sid, external_request_id=rid)
                 params['campaign_provenance'] = {**params.get('campaign_provenance', {}),
                     'content_origin':'frozen_trace_diagnostic_replay',
-                    'wait_origin':'recorded_tool_delays'}
-                if plan['publish_hints']:
-                    observed = (previous['payload']['prompt']+previous['output_token_ids'][:-1]) if previous else payload['prompt']
+                    'wait_origin':plan.get('replay_wait_origin','recorded_tool_delays')}
+                if session_publish:
+                    observed = known_prefix_tokens(previous, plan.get('hint_completed_transcript',True)) if previous else payload['prompt']
                     observed = observed[:len(observed)//16*16]
                     params.update(observed_prefix_id=digest(dict(namespace=namespace,token_ids=observed)),
                                   observed_prefix_boundary_tokens=len(observed))
                 now = time.monotonic_ns()
+                # Frozen payloads may contain the historical gateway priority.
+                # A zero-credit/FCFS intervention must not inherit that value.
+                payload.pop('priority', None)
                 if plan.get('continuation_credit_ms'):
                     from semantic_offload.request_priority import gateway_priority
                     payload['priority'] = gateway_priority(now,origin,turn,plan['continuation_credit_ms'])
@@ -90,7 +97,7 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                         if not first.is_set():
                             queue_receipts.append(await announce())
                 queue_receipts = []
-                refresh = asyncio.create_task(queued()) if turn and plan['publish_hints'] and not plan.get('hint_initial_only') else None
+                refresh = asyncio.create_task(queued()) if turn and session_publish and plan.get('hint_through_queue',True) and not plan.get('hint_initial_only') else None
                 try:
                     row = await completion(client,url,payload,dict(session_id=sid,source_id=source['id'],
                         wave=wave,turn=turn,queued_ns=now,tool_completed_ns=tool_end,
@@ -109,13 +116,31 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                     raise RuntimeError(f'Fixed-token replay mismatch: {rid}')
                 previous = row
             emit('session_end',session_id=sid,source_id=source['id'],success=True)
+            if session_publish and source.get('abandoned_hint', False):
+                # The policy sees an ordinary causal hint for a possible next
+                # turn. Only the diagnostic log knows no such turn is offered.
+                async def abandoned():
+                    owner = f'sc|suite|case|w{wave}-s{slot}|sample-{len(source["replay"])}'
+                    while True:
+                        before = len(hints)
+                        try:
+                            await publish_hint(client, url, previous, sid, owner, namespace, hints,
+                                declared_wait_ms=plan.get('hint_declared_wait_ms',750),
+                                completed_transcript=plan.get('hint_completed_transcript',True))
+                        finally:
+                            own = [h for h in hints[before:] if h['hint']['owner_id']==owner]
+                            for receipt in own:
+                                receipt['abandoned_advice_diagnostic'] = True
+                                emit('abandoned_hint',session_id=sid,future_owner_id=owner,receipt=receipt)
+                        await asyncio.sleep(plan['hint_refresh_s'])
+                abandoned_tasks.append(asyncio.create_task(abandoned()))
         tasks = [asyncio.create_task(session(i,s)) for i,s in enumerate(sessions)]
         try:
             await asyncio.gather(*tasks)
         finally:
-            for task in tasks:
+            for task in tasks + abandoned_tasks:
                 if not task.done():
                     task.cancel()
-            await asyncio.gather(*tasks,return_exceptions=True)
+            await asyncio.gather(*tasks,*abandoned_tasks,return_exceptions=True)
             events.close()
     return rows

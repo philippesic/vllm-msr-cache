@@ -1667,6 +1667,19 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         if retain_only and self._prefetch_trigger != "known_prefix_wait_hint":
             raise ValueError("CPU retention-only requires known-prefix wait hints")
         self._wait_hint_cpu_retention_only = retain_only
+        grace = extra_config.get("wait_hint_cpu_nomination_grace_ms", 0)
+        if type(grace) is not int or not 0 <= grace <= 3000:
+            raise ValueError("wait_hint_cpu_nomination_grace_ms must be an integer in 0..3000")
+        if grace and (not retain_only or extra_config.get("eviction_policy") != "arc"
+                      or extra_config.get("instrumentation_only") is not True):
+            raise ValueError("CPU nomination grace requires native ARC CPU retention-only")
+        self._wait_hint_cpu_nomination_grace_ms = grace
+        self._wait_hint_arc_advice = None
+        if "wait_hint_arc_advice" in extra_config:
+            if not retain_only or extra_config.get("eviction_policy") != "arc" or extra_config.get("instrumentation_only") is not True:
+                raise ValueError("ARC advice requires native ARC CPU retention-only")
+            from semantic_offload.arc_optimization import ARCAdvice
+            self._wait_hint_arc_advice = ARCAdvice(extra_config["wait_hint_arc_advice"])
         noop = extra_config.get("benchmark_wait_hint_noop", False)
         if type(noop) is not bool:
             raise TypeError("benchmark_wait_hint_noop must be a JSON boolean")
@@ -2282,6 +2295,12 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         nomination_deadline_ns = (
             hint.input_publication_ns + hint.declared_wait_ms * 1_000_000
         )
+        # Optional tolerance for delayed delivery of CPU-only advice. This
+        # never extends a staging lease or changes the declared client estimate.
+        cpu_grace_ms = (getattr(self, "_wait_hint_cpu_nomination_grace_ms", 0)
+                        if getattr(self, "_wait_hint_cpu_retention_only", False)
+                        and hint.declared_wait_ms > 0 else 0)
+        nomination_deadline_ns += cpu_grace_ms * 1_000_000
         expires_at_ns = nomination_deadline_ns + self._wait_hint_ttl_ns
         current_generation = self._observed_prefix_generations.get(
             (hint.run_id, hint.cell_id, hint.session_id)
@@ -2418,6 +2437,13 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
                 before_positions = positions()
             if skip_cpu_refresh or getattr(self, "_benchmark_wait_hint_noop", False):
                 ready_count = 0
+            elif getattr(self, "_wait_hint_arc_advice", None) is not None:
+                advice = self._wait_hint_arc_advice
+                identity = (hint.run_id, hint.cell_id, hint.session_id, hint.generation)
+                if advice.options.budget_scope == "wait":
+                    identity += (hint.owner_id,)
+                ready_count = advice.refresh(self.manager, ready, identity, now_ns)
+                gate_details["arc_advice"] = self._wait_hint_arc_advice.last
             else:
                 ready_count = refresh(ready) if callable(refresh) else 0
             if trace:
@@ -2433,6 +2459,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
                 now_ns=now_ns, nomination_deadline_ns=nomination_deadline_ns,
                 expires_at_ns=expires_at_ns, ready_cpu_prefix_keys=ready_count,
                 reserved_gpu_blocks=0, speculative_transfer_bytes=0,
+                **({"cpu_nomination_grace_ms": cpu_grace_ms} if cpu_grace_ms else {}),
                 **bridge_details,
                 **gate_details,
             )
@@ -8888,6 +8915,9 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
         getattr(self, "_observed_prefixes", {}).clear()
         getattr(self, "_observed_prefix_generations", {}).clear()
         getattr(self, "_wait_hint_results", {}).clear()
+        advice = getattr(self, "_wait_hint_arc_advice", None)
+        if advice is not None:
+            advice.clear()
         self._wait_hint_coalescing_started_ns = None
         for state in self._prefetched.values():
             job_status = self._jobs.get(state.job_id)

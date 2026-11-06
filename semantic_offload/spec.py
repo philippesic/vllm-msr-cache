@@ -77,6 +77,11 @@ def validate_preservation_audit(extra_config) -> bool:
 class SemanticOffloadingSpec(CPUOffloadingSpec):
     def __init__(self, config):
         super().__init__(config)
+        linear = self.extra_config.get("arc_linear_eviction", False)
+        if type(linear) is not bool:
+            raise TypeError("arc_linear_eviction must be a JSON boolean")
+        if linear and (self.extra_config.get("instrumentation_only") is not True or self.extra_config.get("eviction_policy") != "arc"):
+            raise ValueError("arc_linear_eviction requires native ARC")
         rank = self.extra_config.get("kv_svd_rank", 0)
         expand = self.extra_config.get("kv_svd_expand_capacity", False)
         if type(rank) is not int or not 0 <= rank <= 15:
@@ -349,6 +354,7 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
                 self._manager = PreservationOffloadingManager(
                     num_blocks=self.num_blocks,
                     cache_policy=eviction_policy,
+                    arc_linear_eviction=self.extra_config.get("arc_linear_eviction", False),
                     enable_events=(
                         self.kv_events_config.enable_kv_cache_events
                         or (preservation_events and preservation_audit)

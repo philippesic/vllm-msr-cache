@@ -335,7 +335,15 @@ limits, and recovery behavior before reliability qualification. Zero failures in
 a short soak does not establish a low long-run failure rate; report exposure and
 the uncertainty it actually supports.
 
-## Stage 5 Optimize — pending
+## Stage 5 Optimize — active
+
+Execution authorized on 2026-11-05: extend the initial panel through sustained,
+evidence-driven rounds in every optimization category until further brute-force
+search mostly yields speculative non-results. The initial five/six variants below
+are a first round, not a total search limit. Implementation, repeated comparisons,
+diagnosis and cleanup are in scope; Stage 6 fresh generalization remains separate.
+See the [active protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md)
+and [category ledger](../evidence/stage5-optimization-20261105/EXHAUSTION.md).
 
 Investigate whether a small, bounded panel improves on the current queue-refresh
 rule. Earlier mechanism ablations are evidence for the existing implementation,

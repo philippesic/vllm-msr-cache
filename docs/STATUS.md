@@ -15,13 +15,19 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Wait-hint release extension — Stages 5–7 recorded; pending execution
+## Wait-hint release extension — Stage 5 optimization active
 
 - **Scope:** on 2026-11-05, the user agreed to record the next stages for a README,
   posts, deeper documentation and a vLLM discussion; a formal paper is not the
-  target. This handoff records the plan; no new optimization/testing is running.
-- **Stage 5 — optimize:** a bounded queue-rule/cadence/pressure/budget panel,
-  compared with plain ARC and current wait-hint; select and freeze a candidate.
+  target. On 2026-11-05 the user authorized sustained Stage 5 optimization across
+  all categories until further searching mostly yields speculative non-results.
+- **Stage 5 — optimize:** sustained queue/prefix/cadence/pressure/budget/plumbing/
+  scheduling search against plain ARC and unchanged wait-hint. Initial policy
+  panels, operating screens and live/mixed follow-ups verified; fixed repeats and
+  timing/operational comparisons active. No new winner selected.
+  Optional variants preserve default behavior.
+  [Protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md);
+  [exhaustion ledger](../evidence/stage5-optimization-20261105/EXHAUSTION.md).
   Keeping the current rule is a valid outcome.
 - **Stage 6 — wider testing:** fresh confirmation, meaningful additional models,
   broader operating and failure conditions, stronger useful-answer checks, and
@@ -31,8 +37,9 @@ these selected runs does not establish a universal performance or quality claim.
   minimal integration, evidence-backed README/docs/post drafts, accessible
   reproduction artifacts and a focused vLLM proposal. Throughput is primary;
   first-token latency is secondary; memory is a constraint/control.
-- **Resources/details:** no new GPU reservation; other work and paused AWQ remain
-  preserved. [Full stages and completion criteria](WAIT_HINT_PRODUCT_PLAN.md#stage-5-optimize--pending).
+- **Resources/details:** Stage 5 owns serialized local GPU campaigns;
+  each supervisor holds both reservations. Preexisting edits and paused AWQ remain
+  preserved. Raw work: `output/stage5-optimization-20261105/`. [Full stages and completion criteria](WAIT_HINT_PRODUCT_PLAN.md#stage-5-optimize--active).
 
 ## Wait-hint staged qualification — selected local execution completed; GPU released
 
