@@ -111,3 +111,25 @@ def test_import_checks_bundle_and_executed_source(transfer,monkeypatch):
     (bundle/'assets/sources/more-itertools/helper.py').unlink()
     with pytest.raises(ValueError,match='unsealed'):
         import_campaign(bundle,host_path,root/'missing-import')
+
+
+def test_operational_development_is_separate_and_preserves_parent(transfer):
+    from benchmarks.serving_suite.campaign_development import prepare_operation
+    from benchmarks.serving_suite.campaign_verify import verify_campaign
+    parent,host,root = transfer
+    destination = root/'operation-development'
+    with pytest.raises(ValueError,match='before freeze'):
+        prepare_operation(parent,destination,'fixture')
+    (parent/'protocol.lock.json').unlink()
+    before = load(parent/'resolved.json')
+    result = prepare_operation(parent,destination,'fixture',waves=2)
+    assert result['diagnostic_only']
+    assert load(parent/'resolved.json')==before
+    child = load(destination/'resolved.json')
+    assert child['campaign_id']!=before['campaign_id']
+    assert child['cells'][0]['confirmation_binding'] is None
+    plan = load(child['cells'][0]['workload_binding']['plan'])
+    assert plan['tier']=='operational' and plan['waves']==2
+    assert verify_campaign(destination)['attempts']=={}
+    with pytest.raises(ValueError,match='locked protocol'):
+        campaign.run_phase(destination,'operational',dry_run=True)

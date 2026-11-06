@@ -144,10 +144,20 @@ signalling. Do not interrupt unrelated work or deliberately perturb confirmation
 
 The portability proof relocates the bundle and an evidence copy, temporarily hides
 the original evidence path under its writer lock, and runs the exported verifier
-with model-file access and GPU/model imports forbidden. It restores the original
-path even on failure. It then imports a separately identified host campaign and
-checks GPU-free preflight compilation and the confirmation guard. Preserve the
-proof destination and original evidence until verification succeeds.
+and report with model-file access and GPU/model imports forbidden. The relocated
+comparison records must match the original report. It restores the original path
+even on failure. It then imports a separately identified host campaign and checks
+GPU-free preflight compilation and the confirmation guard. Pass `--runtimes` with
+a second clean reconstruction to exercise different actual interpreter and external
+runtime bindings; pinned cached weights are checked offline. Preserve the proof
+destination and original evidence until verification succeeds.
+
+Before freeze, `campaign_development --parent "$OUT" --out NEW_DIAGNOSTIC --model
+qwen3_8b_awq --waves 2` prepares a separate development operation. Execute its
+`screen` phase through the normal campaign command. It uses the persistent runner,
+real advice perturbations and native cancellation without counting as the parent's
+required screen or operational confirmation. This catches operational runner
+defects before the long frozen acquisition.
 
 ## Replicate on the RTX 5080
 

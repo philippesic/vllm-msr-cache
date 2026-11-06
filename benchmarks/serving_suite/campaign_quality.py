@@ -12,7 +12,7 @@ from .campaign_report import completed_blocks
 
 RUBRIC = dict(version='stage6-quality-v1',
     answer_json='Exactly one JSON string field answer; normalized reference exact match, with span presence separately reported.',
-    investigation='Correct subject and actual validation status; at least one source-supported fact and a concrete evidence-based limitation.',
+    investigation='Correct subject and actual validation status, with requested status format separately checked; at least one source-supported fact and a concrete evidence-based limitation.',
     team='Synthesis uses actual generated specialist findings and validation, without dropped or contradicted material results.',
     summary='Key source facts, unsupported claims, missing material facts and useful concise summary. Overlap alone is not a pass.',
     chat='Coherent response to the actual current instruction and source context, with no invented tool outcomes.',
@@ -47,14 +47,17 @@ def objective(text, reference, *, capped=False):
         result['automatic_failure'] = not(valid and result['reference_exact'])
     elif result['kind']=='investigation':
         subject = reference.get('symbol') or reference.get('PEP')
-        status = bool(re.search(r'\btest_status\s*=\s*PASS\b',text,re.I))
+        exact_status = bool(re.search(r'\btest_status\s*=\s*PASS\b',text,re.I))
+        normalized_text = re.sub(r'[*`]', '', text)
+        status = bool(re.search(r'\btest[ _]status\s*[:=]\s*PASS\b',normalized_text,re.I))
         # Full test/parse tools must themselves pass acquisition. This checks
         # whether the final answer states that observed result, not whether
         # merely echoing PASS constitutes a useful investigation.
         result.update(subject_named=str(subject).lower() in text.lower() if subject else None,
                       actual_validation_status_stated=status,
+                      requested_status_format=exact_status,
                       limitation_signal=bool(re.search(r'\blimit\w*|\bonly\b|\bdoes not\b|\bnot (?:prove|test|cover|guarantee)\b',text,re.I)))
-        result['automatic_failure'] = not result['nonempty'] or not status or result['subject_named'] is False
+        result['automatic_failure'] = not result['nonempty'] or not status or not exact_status or result['subject_named'] is False
     else:
         result['automatic_failure'] = not result['nonempty']
     result['source_review_required'] = True
@@ -66,13 +69,14 @@ def prepare_review(out, phase='confirm'):
     if phase not in ('screen','confirm'):
         raise ValueError('Quality review requires screen or confirmation measurements')
     blocks = completed_blocks(out,phase)
-    entries, groups = [], {}
+    entries, groups, durations = [], {}, {}
     for (model,cell,repeat), block in sorted(blocks.items()):
         for system,data in sorted(block['systems'].items()):
             event = data['event']
             directory = local_path(out,event['details']['path'])/'measurement'
             corpus = load(directory/'corpus.json')
             case = data['case']
+            durations[event['attempt_id']] = case['load_duration_s']
             raw = [json.loads(line) for line in (directory/case['name']/'requests.jsonl').read_text().splitlines()]
             for session in corpus['sessions']:
                 outputs = set(session['graph']['outputs'])
@@ -137,10 +141,39 @@ def prepare_review(out, phase='confirm'):
     (destination/'private-labels.json').chmod(0o600)
     result = dict(status='pending_source_audit',phase=phase,objective_outputs=len(entries),blind_review_items=len(blind),
                   automatic_failures=sum(i['objective']['automatic_failure'] for i in entries),
+                  objective_groups=aggregate_objective(entries,durations),
                   rubric_digest=digest(RUBRIC),packet_digest=digest(blind),
                   scope='Objective checks cover every final output; usefulness requires the retained source audit')
     atomic_json(destination/'summary.json',result)
     return result
+
+
+def aggregate_objective(entries,durations):
+    groups = {}
+    for item in entries:
+        key = ':'.join(item[k] for k in ('model','cell','system'))
+        group = groups.setdefault(key,dict(final_outputs=0,automatic_failures=0,length_capped=0,
+            observed_checks={},processes={}))
+        group['final_outputs'] += 1
+        check = item['objective']
+        group['automatic_failures'] += check['automatic_failure']
+        group['length_capped'] += check['length_capped']
+        for name in ('nonempty','schema_valid','reference_exact','reference_span_present',
+                     'subject_named','actual_validation_status_stated','requested_status_format','limitation_signal'):
+            if check.get(name) is not None:
+                observed = group['observed_checks'].setdefault(name,dict(passed=0,observed=0))
+                observed['passed'] += bool(check[name])
+                observed['observed'] += 1
+        process = group['processes'].setdefault(item['attempt'],dict(final_outputs=0,mechanical_passes=0,
+            duration_s=durations[item['attempt']]))
+        process['final_outputs'] += 1
+        process['mechanical_passes'] += not check['automatic_failure']
+    for group in groups.values():
+        for process in group['processes'].values():
+            process['mechanical_passes_per_s'] = process['mechanical_passes']/process['duration_s']
+        group['scope'] = ('Every final output, including repeats of the fixed cohort. Mechanical checks '
+            'are not source-audited usefulness; slower or poor-quality cases remain in raw throughput.')
+    return groups
 
 
 def finish_review(out, ratings_path):

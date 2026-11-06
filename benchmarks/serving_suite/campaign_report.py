@@ -73,7 +73,9 @@ def completed_blocks(out, phase, *, source=None):
     resolved = load(out/'resolved.json')
     required = {(c['model'],c['cell']):set(c['systems']) for c in resolved['cells']}
     groups = {}
-    for event in Ledger(out).index().values():
+    ledger = Ledger(out)
+    started = {e['attempt_id']:e['timestamp_unix'] for e in ledger.events() if e['state']=='running'}
+    for event in ledger.index().values():
         details = event['details']
         identity = details.get('identity',{})
         if event['state'] != 'verified' or identity.get('phase') != phase:
@@ -100,7 +102,8 @@ def completed_blocks(out, phase, *, source=None):
                     count['returning'] += bool(row.get('is_returning'))
         groups.setdefault(key,{})[identity['system']] = dict(event=event, case=case,
             rate=observed['completed_units_per_s'], units=observed['completed_units'],
-            duration_s=case['load_duration_s'],request_observations=request_counts)
+            duration_s=case['load_duration_s'],request_observations=request_counts,
+            process_elapsed_s=event['timestamp_unix']-started[event['attempt_id']])
     selected = {}
     for key, block in groups.items():
         if set(block) != required.get(key[:2]):
@@ -140,13 +143,17 @@ def pilot_precision(out):
                 ratios = [run['systems'][system]['rate']/run['systems'][baseline]['rate'] for run in runs]
                 checks[system+'_vs_'+baseline] = plan_repeats(ratios,four_arm=len(cell['systems'])==4)
         durations = [r['duration_s'] for run in runs for r in run['systems'].values()]
+        startups = [r['case']['startup_s'] for run in runs for r in run['systems'].values()]
+        elapsed = [r['process_elapsed_s'] for run in runs for r in run['systems'].values()]
         measured[key] = dict(comparisons=checks, repeats=max(v['repeats'] for v in checks.values()),
             mean_case_duration_s=statistics.mean(durations),
+            max_case_duration_s=max(durations),mean_startup_s=statistics.mean(startups),
+            mean_process_elapsed_s=statistics.mean(elapsed),
             block_ids=[run['block_id'] for run in runs])
     expected = ['qwen3_8b_awq:'+c for c in ('B02','B06','B09','B11','B12')]
     expected += [m+':B06' for m in ('ministral3_3b','qwen3_4b_2507')]
     missing = sorted(set(expected)-measured.keys())
-    repeats, costs, propagation = {}, {}, {}
+    repeats, costs, propagation,timeout_violations = {}, {}, {},[]
     for cell in resolved['cells']:
         key = cell['model']+':'+cell['cell']
         references = [key] if key in measured else [k for k in measured if k.startswith(cell['model']+':')]
@@ -159,12 +166,28 @@ def pilot_precision(out):
         # Cost is deliberately an estimate: unpiloted cells can have a different
         # context/output cost, so expose the conservative borrowed duration.
         duration = max(measured[k]['mean_case_duration_s'] for k in references)
-        costs[key] = selected*len(cell['systems'])*(duration+60)
+        elapsed = max(measured[k]['mean_process_elapsed_s'] for k in references)
+        startup = max(measured[k]['mean_startup_s'] for k in references)
+        required_timeout = 3*max(measured[k]['max_case_duration_s'] for k in references)
+        available_timeout = load(cell['confirmation_binding']['plan'])['case_timeout_s']
+        if available_timeout<required_timeout:
+            timeout_violations.append(dict(cell=key,declared_s=available_timeout,required_s=required_timeout))
+        costs[key] = selected*len(cell['systems'])*elapsed
         propagation[key] = dict(pilots=references,rule='Maximum measured repetition requirement within model when not directly piloted',
-                                mean_case_duration_s=duration,startup_allowance_s=60)
-    result = dict(schema='serving-campaign-pilot-precision-v1',status='incomplete' if missing else 'complete',
+            mean_case_duration_s=duration,mean_startup_s=startup,mean_process_elapsed_s=elapsed,
+            process_cost_scope='Measured ledger running-to-terminal wall time including setup, serving, cleanup and verification; phase preparation and supplementary work are additional')
+    from .campaign_quality import RUBRIC
+    result = dict(schema='serving-campaign-pilot-precision-v1',status='incomplete' if missing or timeout_violations else 'complete',
         missing=missing,measured=measured,repeats=repeats,propagation=propagation,
+        timeout_violations=timeout_violations,quality_rubric=RUBRIC,
         estimated_confirmation_seconds=sum(costs.values()),per_cell_seconds=costs,
+        decision_rules=dict(practical_throughput_ratio=1.02,benefit_requires_interval_lower_above=1,
+            generic_throughput_interval_lower_target=.97,overhead_throughput_interval_lower_target=.97,
+            unhinted_mean_latency_interval_upper_target=1.05,
+            unhinted_mean_statistics=['end_user_ttft_mean_s','e2e_mean_s'],
+            unhinted_p95_diagnostic_ratio=1.10,tail_min_returning_observations=200,
+            tail_interval='Paired whole-process percentile bootstrap of log process-p95 ratios, 10000 resamples, seed 17011',
+            multiplicity_adjusted=False,scope='Conditional on frozen task cohort and host; no pooled model/workload win'),
         scope='Fixed bounded repetition choice before confirmation; no optional stopping for wins')
     atomic_json(out/'pilot-precision.json',result)
     return result
@@ -206,9 +229,14 @@ def compare_classes(runs, baseline, system):
             if all(a and b for a,b in values):
                 result[label][statistic] = latency_estimate([b/a for a,b in values],tail='p95' in statistic)
         if label == 'unhinted':
-            interval = result[label].get('end_user_ttft_mean_s',{}).get('paired_95_interval')
-            result[label]['five_percent_mean_latency_bound'] = ('bounded' if interval and interval[1]<=1.05 else
-                'regression' if interval and interval[0]>1.05 else 'inconclusive')
+            bounds = {}
+            for statistic in ('end_user_ttft_mean_s','e2e_mean_s'):
+                interval = result[label].get(statistic,{}).get('paired_95_interval')
+                bounds[statistic] = ('bounded' if interval and interval[1]<=1.05 else
+                    'regression' if interval and interval[0]>1.05 else 'inconclusive')
+            result[label]['five_percent_mean_latency_bounds'] = bounds
+            result[label]['five_percent_mean_latency_bound'] = ('regression' if 'regression' in bounds.values() else
+                'bounded' if set(bounds.values())=={'bounded'} else 'inconclusive')
             tail = [b['requests']['end_user_ttft_p95_s']/a['requests']['end_user_ttft_p95_s']
                     for a,b in pairs if a['requests']['end_user_ttft_p95_s'] and b['requests']['end_user_ttft_p95_s']]
             result[label]['ten_percent_p95_diagnostic_alarm'] = any(r>1.10 for r in tail)

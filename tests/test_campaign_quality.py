@@ -18,6 +18,23 @@ def test_investigation_does_not_call_pass_echo_useful():
     assert not result['automatic_failure']
     assert result['source_review_required']
     assert 'useful' not in result
+    formatted = objective('groupby **Test Status**: PASS',dict(kind='investigation',symbol='groupby'))
+    assert formatted['actual_validation_status_stated']
+    assert not formatted['requested_status_format']
+    assert formatted['automatic_failure']
+
+
+def test_objective_groups_retain_bad_outputs_and_actual_denominators():
+    from benchmarks.serving_suite.campaign_quality import aggregate_objective
+    ref = dict(kind='answer_json',answers=['Rhine'])
+    items = [dict(model='m',cell='B02',system='wait',attempt='a',
+        objective=objective(text,ref,capped=cap)) for text,cap in
+        [('{"answer":"Rhine"}',False),('{"answer":"Seine"}',True)]]
+    group = aggregate_objective(items,dict(a=10))['m:B02:wait']
+    assert group['final_outputs']==2 and group['automatic_failures']==1 and group['length_capped']==1
+    assert group['observed_checks']['reference_exact']==dict(passed=1,observed=2)
+    assert group['processes']['a']['mechanical_passes_per_s']==.1
+    assert 'not source-audited usefulness' in group['scope']
 
 
 def test_audit_requires_every_blind_item_and_source_notes(tmp_path):

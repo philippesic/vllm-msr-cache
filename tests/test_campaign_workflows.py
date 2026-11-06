@@ -159,3 +159,13 @@ def test_tool_declarations_preserve_prompts_across_host_path_rebinding():
         declaration = tool_declaration(actual)
         assert declaration == 'python -m benchmarks.research_checks.qualification_inputs document --file peps/pep-0241.rst --reference document-references.json'
         assert actual['argv'][0]==prefix+'/env/bin/python'
+
+
+def test_chat_and_qa_do_not_receive_investigation_status_instruction():
+    from benchmarks.serving_suite.campaign_workload import system_instruction
+    ordinary = system_instruction(dict(turns=['Answer the user']))
+    investigation = system_instruction(dict(tools=[dict(kind='test')]))
+    assert 'test_status=PASS' not in ordinary
+    assert 'do not add a test status' in ordinary
+    assert 'After actual validation' in investigation
+    assert 'without claiming a test outcome' in investigation

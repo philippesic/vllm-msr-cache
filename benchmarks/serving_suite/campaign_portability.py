@@ -10,7 +10,7 @@ from .campaign_contracts import Ledger,atomic_json,digest,load,read_protocol,ver
 from .campaign_verify import export_campaign,import_campaign
 
 
-def prove(out,destination):
+def prove(out,destination,*,runtimes=None):
     out,destination = Path(out).resolve(),Path(destination).resolve()
     if destination.exists():
         raise ValueError('Use a new portability proof destination')
@@ -51,8 +51,14 @@ sys.addaudithook(audit)
 from benchmarks.serving_suite import campaign_verify
 assert Path(campaign_verify.__file__).resolve().is_relative_to(Path.cwd())
 result=campaign_verify.verify_campaign(sys.argv[1])
+from benchmarks.serving_suite.campaign_report import report
+analysis=report(sys.argv[1])
+from benchmarks.serving_suite.campaign_contracts import digest
 assert not original.exists()
-print(json.dumps(result))
+print(json.dumps(dict(verification=result,report=dict(
+ throughput_acquisition_complete=analysis['throughput_acquisition_complete'],
+ comparisons=len(analysis['comparisons']),comparisons_digest=digest(analysis['comparisons']),
+ quality_status=analysis['quality']['status']))))
 '''
             raw = subprocess.check_output([sys.executable,'-c',script,str(relocated),str(out),
                 json.dumps(list(host['models'].values()))],cwd=moved/'source',
@@ -60,10 +66,14 @@ print(json.dumps(result))
             verification = json.loads(raw)
         finally:
             parked.rename(out)
-    local_host = dict(host,id=host['id']+'-relocated')
     host_path = destination/'import-host.private.json'
-    atomic_json(host_path,local_host)
-    host_path.chmod(0o600)
+    if runtimes:
+        from .transfer_setup import prepare
+        prepare(moved,runtimes,destination/'rebound-assets',host_path,host['id']+'-relocated',offline=True)
+    else:
+        local_host = dict(host,id=host['id']+'-relocated')
+        atomic_json(host_path,local_host)
+        host_path.chmod(0o600)
     imported = destination/'imported-campaign'
     result = import_campaign(moved,host_path,imported)
     from .campaign import run_phase
@@ -76,14 +86,20 @@ print(json.dumps(result))
     parent = read_protocol(out)
     child = load(imported/'imported-protocol.json')
     preserved = all(parent[k]==child[k] for k in ('source','schedule','supplementary_schedules','precision'))
+    from .campaign_report import report
+    reference = report(out)
+    if verification['report']['comparisons_digest']!=digest(reference['comparisons']):
+        raise ValueError('Relocated offline report disagrees with original evidence')
     if not result['runnable'] or not blocked or not preserved or result['campaign_id']==result['parent_campaign_id']:
         raise ValueError('Relocated import protocol or hardware-preflight guard failed')
     proof = dict(schema='stage6-portability-proof-v1',complete=True,
         relocated_bundle=str(moved),bundle_seal=receipt['seal'],bundle_files=verify_tree(moved,receipt['seal']),
-        relocated_evidence=str(relocated),offline_verification=verification,
+        relocated_evidence=str(relocated),offline_verification=verification['verification'],
+        offline_report=verification['report'],relocated_comparisons_match_original=True,
         original_evidence_path_absent_during_verification=True,model_files_forbidden_during_verification=True,
         gpu_model_imports_forbidden=True,verifier_source='relocated exported source closure',
         imported_campaign=str(imported),import_result=result,preflight_dry_compile=dry,
+        separately_rebuilt_runtime_bindings=bool(runtimes),
         confirmation_blocked_until_hardware_preflight=blocked,parent_protocol_preserved=preserved,
         protocol_identity=digest(parent),
         scope='Offline integrity, relocation and GPU-free import compilation; no 5080 or imported native execution')
@@ -96,5 +112,6 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--out',type=Path,required=True)
     parser.add_argument('--destination',type=Path,required=True)
+    parser.add_argument('--runtimes',type=Path,help='Optional independently rebuilt runtimes; reuse pinned cached weights offline')
     args = parser.parse_args()
-    print(json.dumps(prove(args.out,args.destination),indent=2))
+    print(json.dumps(prove(args.out,args.destination,runtimes=args.runtimes),indent=2))

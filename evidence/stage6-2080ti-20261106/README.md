@@ -12,6 +12,16 @@ development screen is queued behind fresh native checks; confirmation remains du
 The [pipeline and 5080 commands](../../docs/STAGE6_PIPELINE.md) now describe public
 runtime reconstruction, frozen import and mandatory hardware qualification.
 
+The first source review found an inappropriate investigation instruction in
+ordinary chat: both arms invented a test-status claim despite running no tools.
+Those outputs and explicit audit judgments are retained. Before confirmation,
+the shared prompt was repaired uniformly: ordinary tasks receive no investigation
+report requirement, and tool workflows may report validation only after an actual
+tool result. Native checks and the development screen are rerunning from the
+corrected source. This is a development prompt repair, not policy optimization.
+Full quality summaries keep format failures, reference accuracy, capped outputs
+and mechanical pass rates separate from source-audited usefulness and raw speed.
+
 The isolated runtimes have now been independently rebuilt from public source and
 native-wheel pins. All three rebuilt native models passed restore versus fresh
 greedy-reference checks. Rebuilt Continuum and upstream each completed 64/64 real
