@@ -1,0 +1,219 @@
+diff --git a/benchmarks/serving_suite/runner.py b/benchmarks/serving_suite/runner.py
+index 20cfc39..9c4ee82 100644
+--- a/benchmarks/serving_suite/runner.py
++++ b/benchmarks/serving_suite/runner.py
+@@ -236,6 +236,10 @@ def run_case(plan, sessions, arm, repeat, out):
+         VLLM_PLUGINS="semantic_wait_hint" if plan["publish_hints"] else "",
+         SEMANTIC_VLLM_STAGE_PARENT=str((directory / "runtime-staging").resolve()),
+     )
++    if plan.get("qualification_trace"):
++        env["VLLM_KV_QUALIFICATION_TRACE"] = str((directory / "kv-qualification.jsonl").resolve())
++    else:
++        env.pop("VLLM_KV_QUALIFICATION_TRACE", None)
+     server = OwnedServer(cmd, directory, env, int(cmd[cmd.index("--port") + 1]))
+     case = dict(
+         name=name,
+@@ -552,6 +556,7 @@ def parser():
+         default="store,restore",
+         help="Comma-separated store,restore,hint_accepted,scoring,cpu_recency; empty allows overhead-only tests",
+     )
++    p.add_argument("--qualification-trace", action="store_true", help="Opt-in native queue/load/reclaimable-capacity trace; adds diagnostic I/O overhead")
+     p.add_argument("--publish-hints", action="store_true")
+     p.add_argument(
+         "--arrival-interval-s",
+diff --git a/docs/BENCHMARKING.md b/docs/BENCHMARKING.md
+index 1ce996b..ed2893f 100644
+--- a/docs/BENCHMARKING.md
++++ b/docs/BENCHMARKING.md
+@@ -33,6 +33,15 @@ supplied corpus; `--allow-synthetic` explicitly permits fixture qualification on
+ The default candidate is semantic-mean eviction with speculative prefetch disabled.
+ It is not the separately qualified CPU-advice research profile.
+ 
++For prefetch qualification, `--qualification-trace` enables a default-off native
++queue/load trace in each case's `kv-qualification.jsonl`. Analyze it with
++`python -m benchmarks.research_checks.hybrid_qualification PATH`. It separates
++arrival-to-load, async-load issue-to-receipt, and receipt-to-admission intervals,
++and samples reclaimable GPU blocks. These are diagnostic observations with I/O
++overhead. Reclaimable space is not necessarily empty; CPU readiness and bandwidth
++are not observed. Reported candidate overlap is optimistic and cannot establish
++exposed restore stalls, throughput gains, or an MSR qualification by itself.
++
+ ## Commands
+ 
+ ```bash
+diff --git a/docs/PROJECT_HISTORY.md b/docs/PROJECT_HISTORY.md
+index 8b4165d..bf6f8a8 100644
+--- a/docs/PROJECT_HISTORY.md
++++ b/docs/PROJECT_HISTORY.md
+@@ -66,3 +66,13 @@ not distributed by Git; the retained evidence index identifies portable results.
+   isolated runtime installation, 1,381 tests and real GPU smoke; added lightweight
+   push/PR checks (31 portable tests). Preserved paused research and historical
+   reproduction files. [Verification](../evidence/workflow-finalization-20261103/README.md).
++
++- **November 4, 2026 — hybrid qualification evidence:** resolved the interrupted
++  source inspection with bounded row-group audits; verified prior pressure traces
++  and completed a longer-history diagnostic with 13 restores per arm. A 711-example
++  task-separated pilot did not establish primary one-second gains. Exploratory
++  quarter-second richer Q/K gains survived more flexible metadata controls, but remain
++  simulated cache-value evidence. Real-cache-value, causal opportunity and native
++  cost gates remain unmet; no live hybrid or policy change. 170 focused and 31
++  portable tests passed; GPU released, useful data/results retained.
++  [Findings and stopping boundary](../evidence/msr-hybrid-qualification-20261103/README.md).
+diff --git a/docs/STATUS.md b/docs/STATUS.md
+index 7a347a8..7a281cd 100644
+--- a/docs/STATUS.md
++++ b/docs/STATUS.md
+@@ -1,11 +1,40 @@
+ # Current work
+ 
+-Last reconciled: 2026-11-03. This is a handoff summary, not a live process monitor.
++Last reconciled: 2026-11-04. This is a handoff summary, not a live process monitor.
+ Update the affected entry at a meaningful handoff, change of direction, or finish.
+ Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
+ Verify stale ownership before using shared resources. Keep detailed records in
+ linked evidence/run directories, not a second diary here.
+ 
++## MSR hybrid qualification — evidence phase finished; qualification incomplete
++
++- **Goal:** qualify coordinated GPU retention and queued-prefix prefetch over CPU
++  wait-hint ARC, separating MSR predictive value, transfer opportunity and net cost.
++- **Owner/resources:** resumed qualification task finished its bounded evidence
++  phase. GPU released; no compute clients or owned serving/capture processes
++  remained and both locks were available. Paused AWQ loading remains paused.
++- **Current:** retained smoke/pressure artifacts verified; new longer-history ARC
++  and wait-hint ARC diagnostic completed 54 requests and 13 restores each. Relevant
++  activity exists; usable causal headroom and victim costs remain inconclusive.
++  Source audits resolved the stalled nested-Parquet inspection and exposed
++  missing/shifted/reconstructed timing. Original LMCache source supports a limited
++  returning-only pilot, not complete absolute arrival/completion observations.
++- **Finding:** 711 examples with task-disjoint splits; none of the primary one-
++  second scalar/distribution/QK gains was established. Exploratory quarter-second
++  richer Q/K prediction and simulated retained-value gains survived more flexible cheap
++  metadata controls. This is a promising separate representation hypothesis,
++  not original scalar MSR success or real-cache-value qualification.
++- **Stopping boundary:** original real-cache-value, usable opportunity and native
++  cost gates remain unmet. No live hybrid/four-arm implementation or performance
++  claim. Further qualification needs representative causal inputs/timing/session/
++  observation-horizon semantics, observed cache competition and native costs.
++  No user source question remains pending. 170 focused and 31 portable tests pass;
++  useful sources/results retained, empty failed preparation cleaned.
++- **Handoff:** [results, limitations and remaining work](../evidence/msr-hybrid-qualification-20261103/README.md).
++  [Unchanged protocol](../evidence/msr-hybrid-qualification-20261103/PROTOCOL.md).
++  Raw runs: `output/msr-hybrid-qualification-20261103/` and
++  `output/msr-hybrid-qualification-20261104-resume/`.
++
+ ## Lower-VRAM sanity check — completed; GPU released
+ 
+ - **Goal:** test whether the qualified continuation profile retains comparable
+diff --git a/evidence/README.md b/evidence/README.md
+index 5700b5a..5880125 100644
+--- a/evidence/README.md
++++ b/evidence/README.md
+@@ -122,3 +122,9 @@ the claim. Store compact evidence here and bulky artifacts under `output/`.
+ ## Repository workflow finalization
+ 
+ [Clean installation, shared GPU locking, validator promotion and lightweight CI](workflow-finalization-20261103/README.md). Local checks passed; remote CI awaits a future push.
++
++## Hybrid qualification evidence
++
++[MSR and richer Q/K pilot, source audits and native restore diagnostics](msr-hybrid-qualification-20261103/README.md).
++The primary pilot was inconclusive; exploratory quarter-second representation
++gains remain hypothetical. Qualification gates are unmet and no live hybrid was built.
+diff --git a/vendor/VLLM.md b/vendor/VLLM.md
+index cd4d073..25c508d 100644
+--- a/vendor/VLLM.md
++++ b/vendor/VLLM.md
+@@ -66,3 +66,12 @@ The retained, default-off AWQ loading experiment is recorded separately in
+ `patches/vllm-experimental-awq-loading.patch`. It is present in this checkout but
+ remains paused and unqualified; the clean-install smoke used its default-off path.
+ Do not infer endorsement from retaining its code and tests.
++
++The additive `patches/vllm-kv-qualification.patch` supplies default-off native
++scheduler trace points for hybrid qualification. The maintained suite enables
++them with `--qualification-trace`; the writer lives in
++`semantic_offload/qualification.py`. It observes queueing, restore receipts and
++reclaimable capacity without changing cache ownership or scheduling. CPU tests
++cover the trace contract. The retained live smoke and pressure runs exercised
++restore observations; opportunity and semantic qualification remain unresolved.
++See [qualification checkpoint](../evidence/msr-hybrid-qualification-20261103/qualification-checkpoint.json).
+diff --git a/vendor/vllm/vllm/v1/core/sched/scheduler.py b/vendor/vllm/vllm/v1/core/sched/scheduler.py
+index e010aa4..8d6bf93 100644
+--- a/vendor/vllm/vllm/v1/core/sched/scheduler.py
++++ b/vendor/vllm/vllm/v1/core/sched/scheduler.py
+@@ -80,6 +80,10 @@ class Scheduler(SchedulerInterface):
+         include_finished_set: bool = False,
+         log_stats: bool = False,
+     ) -> None:
++        self._kv_qualification_trace = None
++        if os.environ.get("VLLM_KV_QUALIFICATION_TRACE"):
++            from semantic_offload.qualification import create_scheduler_trace
++            self._kv_qualification_trace = create_scheduler_trace()
+         self.vllm_config = vllm_config
+         self.scheduler_config = vllm_config.scheduler_config
+         self.cache_config = vllm_config.cache_config
+@@ -1004,6 +1008,12 @@ class Scheduler(SchedulerInterface):
+                     # If loading async, allocate memory and put request
+                     # into the WAITING_FOR_REMOTE_KV state.
+                     request.status = RequestStatus.WAITING_FOR_REMOTE_KVS
++                    if getattr(self, "_kv_qualification_trace", None) is not None:
++                        self._kv_qualification_trace.emit(
++                            "load_issued", request_id=request_id,
++                            external_tokens=num_external_computed_tokens,
++                            local_tokens=num_new_local_computed_tokens,
++                        )
+                     step_skipped_waiting.prepend_request(request)
+                     # Set num_computed_tokens even though KVs are not yet loaded.
+                     # request.num_computed_tokens will not be used anywhere until
+@@ -1032,6 +1042,11 @@ class Scheduler(SchedulerInterface):
+                         )
+                     continue
+ 
++                if getattr(self, "_kv_qualification_trace", None) is not None:
++                    self._kv_qualification_trace.emit(
++                        "admitted", request_id=request_id,
++                        preemptions=request.num_preemptions,
++                    )
+                 self.running.append(request)
+                 if self.log_stats:
+                     request.record_event(
+@@ -1128,6 +1143,9 @@ class Scheduler(SchedulerInterface):
+                 for req in scheduled_new_reqs
+             ]
+ 
++        if getattr(self, "_kv_qualification_trace", None) is not None:
++            self._kv_qualification_trace.step(self, num_scheduled_tokens)
++
+         with record_function_or_nullcontext("schedule: make_cached_request_data"):
+             cached_reqs_data = self._make_cached_request_data(
+                 scheduled_running_reqs,
+@@ -2183,6 +2201,11 @@ class Scheduler(SchedulerInterface):
+             if request.resumable:
+                 request.streaming_queue = deque()
+             self._enqueue_waiting_request(request)
++            if getattr(self, "_kv_qualification_trace", None) is not None:
++                self._kv_qualification_trace.emit(
++                    "arrival", request_id=request.request_id,
++                    prompt_tokens=request.num_prompt_tokens,
++                )
+             self.requests[request.request_id] = request
+             if self.connector is not None:
+                 self.connector.on_new_request(request)
+@@ -2543,6 +2566,9 @@ class Scheduler(SchedulerInterface):
+         if self.ec_connector is not None:
+             self.ec_connector.shutdown()
+ 
++        if getattr(self, "_kv_qualification_trace", None) is not None:
++            self._kv_qualification_trace.close()
++            self._kv_qualification_trace = None
+         logger.debug_once("[shutdown] Scheduler: complete")
+ 
+     ########################################################################
+@@ -2711,6 +2737,8 @@ class Scheduler(SchedulerInterface):
+             logger.debug("Finished recving KV transfer for request %s", req_id)
+             assert req_id in self.requests
+             req = self.requests[req_id]
++            if getattr(self, "_kv_qualification_trace", None) is not None:
++                self._kv_qualification_trace.emit("load_ready", request_id=req_id)
+             if req.status == RequestStatus.WAITING_FOR_REMOTE_KVS:
+                 self.finished_recving_kv_req_ids.add(req_id)
+             else:

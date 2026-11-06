@@ -1,0 +1,106 @@
+--- before/benchmarks/research_checks/wait_hint_runtime_probe.py
++++ after/benchmarks/research_checks/wait_hint_runtime_probe.py
+@@ -41,8 +41,24 @@
+ 
+ def valid_future_rejection(response):
+     body = response.get('body')
+-    return (response.get('http_status') == 400 and isinstance(body, dict)
+-            and body.get('detail') == FUTURE_FIELD_DETAIL)
++    return response.get('http_status') == 400 and body in (
++        {'detail': FUTURE_FIELD_DETAIL},
++        {'error': {'message': FUTURE_FIELD_DETAIL, 'type': 'Bad Request',
++                   'param': None, 'code': 400}},
++    )
++
++
++def scoped_metric_deltas(before, after):
++    """Keep eager directional counters and missing/reset evidence explicit."""
++    from harness.metrics import parse_metrics_evidence, diff_with_provenance
++    names = ('vllm:request_prefill_kv_computed_tokens_sum',
++             'vllm:external_prefix_cache_hits_total',
++             'vllm:kv_offload_load_bytes_total')
++    left, right = parse_metrics_evidence(before), parse_metrics_evidence(after)
++    values, provenance = diff_with_provenance(left['values'], right['values'])
++    return ({name: values[name] for name in names},
++            {name: dict(before=left['sources'][name], after=right['sources'][name],
++                        difference=provenance[name]) for name in names})
+ 
+ 
+ async def run_wave(url,plan,sessions,tokenizer,wave,writer,arm,namespace,hints,stream_dir):
+@@ -92,14 +108,15 @@
+                     if time.monotonic()>=deadline:
+                         raise RuntimeError('Probe metrics did not settle')
+                     await asyncio.sleep(.1)
+-                names=('vllm:request_prefill_kv_computed_tokens_sum',
+-                       'vllm:external_prefix_cache_hits_total',
+-                       'vllm:kv_offload_load_bytes_total')
+-                deltas={name:metric(after,name)-metric(last_metrics,name)
+-                        if metric(after,name) is not None and metric(last_metrics,name) is not None else None
+-                        for name in names}
++                deltas, provenance = scoped_metric_deltas(last_metrics, after)
++                before_path = directory / f'probe-metrics-{wave}-{turn}-before.prom'
++                after_path = directory / f'probe-metrics-{wave}-{turn}-after.prom'
++                before_path.write_text(last_metrics)
++                after_path.write_text(after)
+                 request_metrics.append(dict(request_id=rid,turn=turn,
+-                    prompt_tokens=len(prompt),fresh_salt=fresh,metrics=deltas))
++                    prompt_tokens=len(prompt),fresh_salt=fresh,metrics=deltas,
++                    metric_provenance=provenance,
++                    before_exposition=before_path.name,after_exposition=after_path.name))
+                 last_metrics=after
+             if not row['success']:
+                 raise RuntimeError(f'Probe generation failed: {rid}')
+@@ -161,7 +178,7 @@
+         checks.append(dict(check='cached_equals_fresh_generation' ,passed=cached['output_token_ids']==fresh['output_token_ids'],
+             cached_request_id=cached['request_id'],fresh_request_id=fresh['request_id'],
+             cached_output_ids=cached['output_token_ids'],fresh_output_ids=fresh['output_token_ids']))
+-        result=dict(schema='wait-hint-runtime-probe-v3',wave=wave,checks=checks,request_metrics=request_metrics,
++        result=dict(schema='wait-hint-runtime-probe-v4',wave=wave,checks=checks,request_metrics=request_metrics,
+             started_ns=origin,ended_ns=time.monotonic_ns(),passed=all(c['passed'] for c in checks),
+             note='Actual CPU restore and fresh-reference computed tokens must additionally be checked from native request receipts. This probe alone does not infer KV byte equality.')
+         write_json(directory/f'runtime-probe-{wave}.json',result)
+--- before/tests/test_wait_hint_qualification.py
++++ after/tests/test_wait_hint_qualification.py
+@@ -172,3 +172,42 @@
+     assert not valid_future_rejection(response)
+     response.update(http_status=400, body=dict(detail='unrelated bad request'))
+     assert not valid_future_rejection(response)
++
++
++@pytest.mark.parametrize('mutation', [None, 'message', 'type', 'code', 'status'])
++def test_future_validation_recognizes_only_the_exact_vllm_error(mutation):
++    from benchmarks.research_checks.wait_hint_runtime_probe import FUTURE_FIELD_DETAIL, valid_future_rejection
++    response = dict(http_status=400, body={'error': dict(message=FUTURE_FIELD_DETAIL,
++        type='Bad Request', param=None, code=400)})
++    if mutation == 'status':
++        response['http_status'] = 500
++    elif mutation:
++        response['body']['error'][mutation] = 'unrelated'
++    assert valid_future_rejection(response) is (mutation is None)
++
++
++def test_probe_uses_actual_eager_directional_load_counter():
++    from benchmarks.research_checks.wait_hint_runtime_probe import scoped_metric_deltas
++    header = '# HELP vllm:kv_offload_load_bytes_total Total bytes loaded.\n'
++    before = header + 'vllm:kv_offload_total_bytes_total{transfer_type="CPU_to_GPU"} 0\n'
++    after = header + 'vllm:kv_offload_total_bytes_total{transfer_type="CPU_to_GPU"} 917504\n'
++    values, sources = scoped_metric_deltas(before, after)
++    name = 'vllm:kv_offload_load_bytes_total'
++    assert values[name] == 917504
++    assert sources[name]['before'] == sources[name]['after'] == 'eager_directional_compat_counter'
++
++
++@pytest.mark.parametrize('before,after', [('', ''), (
++    'vllm:kv_offload_load_bytes_total 100\n', 'vllm:kv_offload_load_bytes_total 40\n')])
++def test_probe_never_fabricates_zero_from_missing_or_reset_load_counter(before, after):
++    from benchmarks.research_checks.wait_hint_runtime_probe import scoped_metric_deltas
++    values, _ = scoped_metric_deltas(before, after)
++    assert values['vllm:kv_offload_load_bytes_total'] is None
++
++
++def test_probe_prefers_modern_counter_without_double_counting_legacy():
++    from benchmarks.research_checks.wait_hint_runtime_probe import scoped_metric_deltas
++    before = 'vllm:kv_offload_load_bytes_total 4\nvllm:kv_offload_total_bytes_total{transfer_type="CPU_to_GPU"} 100\n'
++    after = 'vllm:kv_offload_load_bytes_total 10\nvllm:kv_offload_total_bytes_total{transfer_type="CPU_to_GPU"} 200\n'
++    values, _ = scoped_metric_deltas(before, after)
++    assert values['vllm:kv_offload_load_bytes_total'] == 6

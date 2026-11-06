@@ -1,0 +1,2892 @@
+--- before/README.md
++++ after/README.md
+@@ -237,7 +237,7 @@
+ applying it. The patch was CPU-tested on the recovered prerelease runtime used
+ for the October opportunity screen, not every release in the dependency range.
+ 
+-The initial path supports a complete exact prefix with dense causal BF16 KV,
++The path supports a complete exact prefix with dense causal BF16 or FP16 KV,
+ one worker, one KV group, and one hash per block. It publishes blocks only after
+ transfer completion and returning-request identity checks. Native cache lookup
+ then owns allocation, sharing, and eviction. Eviction before admission falls
+@@ -255,6 +255,56 @@
+ deployable prediction remain unverified. This option is a prototype and does not
+ change the default path.
+ 
++Two opt-in controls support full-prefix adoption under cache pressure.
++`wait_hint_coalesce_exact_source=true` acknowledges a refresh of the same owner,
++source, namespace and generation with the existing `canonical_event_id`. The
++producer must bind that canonical ID to the returning request. This reuses the
++original lease without extending its expiry or refreshing score timestamps.
++`prefetch_require_full_prefix=true` submits only a complete CPU-resident prefix
++that fits the current staging budget and has no keys already cached on the GPU.
++The scheduler rechecks these conditions before allocation. Full-prefix staging
++also waits while admitted requests still have prompt processing outstanding;
++decoding does not close this gate. This gives known prompt growth priority and
++can shorten the available prefetch window. This mode can skip useful partial
++prefetches, but avoids allocating a partial prefix that cannot use native
++adoption. Both options default to `false`.
++
++`wait_hint_completed_transcript=true` additionally registers full blocks of a
++completed request's already computed transcript as a known source. It requires
++`offload_prompt_only=false` and the supported dense TP1 native-adoption layout.
++The declared input source remains valid. The extra source uses actual computed
++tokens after excluding in-flight work, exact native hashes and its own transcript
++digest; it cannot include the last sampled token before that token has computed
++KV. Source registration does not make an unfinished CPU store ready. Clients
++must nominate only transcript tokens they have received and bind the matching
++source identity. Incremental offload increases CPU storage and transfer traffic;
++source-query freshness and speculative staging budgets still apply. The option
++defaults to `false`.
++
++`prefix_mean_prefetch_scoring=true` is a separate experimental policy for ARC
++retention with semantic prefetch selection. It requires synchronous opportunity
++scoring, the `mean` method, mean head aggregation and one worker. It uses a
++common fresh query from active work to compare exact candidate prefixes by raw
++mean dot product. Owned FP32 prefix centroids avoid per-block score readback and
++rank smoothing; at most 16 centroids and 1 MiB of centroid tensor backing are
++cached. The scalar transport rechecks query/source leases, key order, residency
++versions, namespace, generation and expiry. Normal query completion preserves
++only its existing bounded lease; abort, reset or source reuse invalidates it.
++Actual staging retains the full-prefix and admission checks above. This metric
++changes ranking policy and does not promise the original block-level EMA quality.
++The option defaults to `false`.
++
++When demand admission cannot fit, completed legacy prefetch scratch may be
++discarded so demand can load its exact CPU keys normally. In-flight copies,
++pending splices and bound wait-hint protection retain their existing ownership
++rules. Discarding scratch can require another CPU transfer or recomputation if
++the CPU copy has since been evicted.
++
++GPU KV storage is allocated at engine startup. Releasing cached block references
++does not release that allocation. Memory-capacity comparisons must reduce the
++configured GPU block pool and measure device memory while serving the workload;
++free block counts alone do not establish additional VRAM availability.
++
+ A separate synthetic load trial used six agent sessions and twelve background
+ requests on Qwen3-4B, with live semantic capture/scoring and natural cache
+ admission. ARC demand produced 82.4 output tokens/s, request-order prefetch 82.3,
+@@ -281,6 +331,14 @@
+ observations can leave relevance stale, and an all-single-token workload can
+ produce no observations under this option. It preserves the dense scoring
+ formula at observed steps, not the original EMA trajectory or ranking quality.
++
++`SEMANTIC_SUMMARY_FIELDS=required` is an experimental mean-only payload for
++mean scoring with continuous or opportunity schedules. It computes the same FP32
++centroid reduction while omitting unused minimum, maximum and deviation tensors.
++Other scoring methods and capture-only mode are rejected; the default `all`
++preserves the complete summary payload. GPU checks found identical centroids and
++rankings in the exercised FP16 layouts. Reduced summary storage does not by itself
++establish a serving throughput or overall VRAM improvement.
+ 
+ Summary construction batches compatible key layouts and KV heads. Scoring-cache
+ insertion uses one stack per required field; removal uses ordered slices rather
+--- before/semantic_offload/connector.py
++++ after/semantic_offload/connector.py
+@@ -868,6 +868,20 @@
+     return len(block_ids), block_ids, True
+ 
+ 
++def _any_local_gpu_key(block_pool, keys) -> bool | None:
++    """Inspect every exact key without taking refs, including prefix holes.
++
++    None means coverage is unavailable; full-prefix staging fails closed then.
++    """
++    lookup = getattr(block_pool, "get_cached_block", None)
++    if not callable(lookup):
++        return None
++    return any(
++        bool(lookup(get_offload_block_hash(key), [get_offload_group_idx(key)]))
++        for key in keys
++    )
++
++
+ def _select_prefetch_keys(
+     manager,
+     candidate_keys: list[OffloadKey],
+@@ -973,6 +987,7 @@
+ class SemanticOffloadingConnectorMetadata(OffloadingConnectorMetadata):
+     scoring_context: dict = field(default_factory=dict)
+     scoring_requests: dict[str, list[OffloadKey]] = field(default_factory=dict)
++    prefix_scoring_request: dict = field(default_factory=dict)
+     scoring_residency_versions: dict = field(default_factory=dict)
+     scoring_lease_ids: dict = field(default_factory=dict)
+     store_job_keys: dict[int, list[OffloadKey]] = field(default_factory=dict)
+@@ -1049,6 +1064,7 @@
+     async_scoring_events: list[dict[str, object]] = field(default_factory=list)
+     async_scoring_status: dict[str, object] = field(default_factory=dict)
+     async_score_observations: list[dict[str, object]] = field(default_factory=list)
++    prefix_score_observations: list[dict[str, object]] = field(default_factory=list)
+     # CUDA elapsed intervals around complete model-runner executions. Only
+     # records explicitly marked attribution_eligible may be interpreted as
+     # request-level recomputation time.
+@@ -1115,6 +1131,11 @@
+         ):
+             return []
+         return list(self.async_score_observations)
++
++    def complete_prefix_score_observations(self):
++        if self.score_group_size != 1 or self.score_contributors != 1:
++            return []
++        return list(self.prefix_score_observations)
+ 
+     def aggregate(self, other: KVConnectorWorkerMetadata) -> KVConnectorWorkerMetadata:
+         assert isinstance(other, OffloadingWorkerMetadata)
+@@ -1285,6 +1306,11 @@
+         if async_score_observations and other_async_observations:
+             raise ValueError("Cannot aggregate async score observations across workers")
+         async_score_observations.extend(other_async_observations)
++        prefix_score_observations = list(self.prefix_score_observations)
++        other_prefix = getattr(other, 'prefix_score_observations', [])
++        if prefix_score_observations and other_prefix:
++            raise ValueError('Cannot aggregate prefix scores across workers')
++        prefix_score_observations.extend(other_prefix)
+         async_scoring_status = dict(self.async_scoring_status)
+         other_async_status = getattr(other, "async_scoring_status", {})
+         if async_scoring_status and other_async_status:
+@@ -1397,6 +1423,7 @@
+             async_scoring_events=async_scoring_events,
+             async_scoring_status=async_scoring_status,
+             async_score_observations=async_score_observations,
++            prefix_score_observations=prefix_score_observations,
+             prefill_cuda_events=prefill_cuda_events,
+         )
+ 
+@@ -1414,6 +1441,21 @@
+         construct_scheduler_base(self, spec, vllm_config, kv_cache_config)
+         extra_config = dict(getattr(spec, "extra_config", {}) or {})
+         self._scoring_schedule = extra_config.get("scoring_schedule", "continuous")
++        prefix_mean = extra_config.get('prefix_mean_prefetch_scoring', False)
++        if not isinstance(prefix_mean, bool):
++            raise TypeError('prefix_mean_prefetch_scoring must be a JSON boolean')
++        if prefix_mean and (self._scoring_schedule != 'opportunity'
++                or extra_config.get('method', 'mean') != 'mean'
++                or extra_config.get('head_aggregation', 'mean') != 'mean'
++                or extra_config.get('scoring_mode', 'synchronous') != 'synchronous'
++                or extra_config.get('prefetch_selector', 'semantic') != 'semantic'):
++            raise ValueError('prefix mean requires opportunity/synchronous mean/mean semantic selection')
++        if prefix_mean and getattr(self.config, 'num_workers', None) != 1:
++            raise ValueError('prefix mean scoring requires exactly one worker')
++        self._prefix_mean_prefetch_scoring = prefix_mean
++        self._prefix_query_max_age_ns = int(extra_config.get('query_snapshot_max_age_ms', 1000)) * 1_000_000
++        self._prefix_mean_score_batch = {}
++        self._prefix_mean_scoring_request = {}
+         if self._scoring_schedule == "opportunity" and (
+             extra_config.get("eviction_policy", "lru") != "arc"
+             or not extra_config.get("shared_prefetch_scorer", False)
+@@ -1543,18 +1585,39 @@
+         if not isinstance(native_adoption, bool):
+             raise TypeError("wait_hint_native_adoption must be a JSON boolean")
+         self._wait_hint_native_adoption = native_adoption
++        for option in ("wait_hint_coalesce_exact_source", "prefetch_require_full_prefix"):
++            value = extra_config.get(option, False)
++            if not isinstance(value, bool):
++                raise TypeError(f"{option} must be a JSON boolean")
++            setattr(self, "_" + option, value)
+         groups = getattr(kv_cache_config, "kv_cache_groups", ())
+         dense_spec = groups[0].kv_cache_spec if len(groups) == 1 else None
+         self._wait_hint_native_adoption_layout_supported = (
+             native_adoption
+             and type(dense_spec) is FullAttentionSpec
+-            and dense_spec.dtype == torch.bfloat16
++            and dense_spec.dtype in (torch.bfloat16, torch.float16)
+             and getattr(getattr(dense_spec, "kv_quant_mode", None), "name", None)
+             == "NONE"
+             and dense_spec.sliding_window is None
+             and dense_spec.attention_chunk_size is None
+             and not dense_spec.non_causal
+         )
++        completed_transcript = extra_config.get("wait_hint_completed_transcript", False)
++        if not isinstance(completed_transcript, bool):
++            raise TypeError("wait_hint_completed_transcript must be a JSON boolean")
++        if completed_transcript and (
++            not self._wait_hint_native_adoption_layout_supported
++            or self.config.num_workers != 1
++            or len(self.config.kv_group_configs) != 1
++            or config_blocks_per_chunk(self.config) != 1
++            or getattr(self.config.kv_group_configs[0], "is_eagle_group", False)
++            or self.config.offload_prompt_only
++        ):
++            raise ValueError(
++                "wait_hint_completed_transcript requires dense TP1 native adoption "
++                "and offload_prompt_only=false"
++            )
++        self._wait_hint_completed_transcript = completed_transcript
+         self._published_wait_prefixes: dict[str, dict[str, object]] = {}
+         soft_retention = str(
+             getattr(spec, "extra_config", {}).get("soft_retention", "off")
+@@ -1962,13 +2025,16 @@
+             observed_ns=observed_ns,
+             source_request_id=request.request_id,
+         )
++        self._save_observed_prefix(record)
++        if getattr(self, "_wait_hint_completed_transcript", False):
++            self._register_completed_transcript(request, record)
++
++    def _save_observed_prefix(
++        self, record: _ObservedPrefix, *, provenance: str | None = None
++    ) -> None:
+         identity = (
+-            run_id,
+-            cell_id,
+-            session_id,
+-            generation,
+-            observed_prefix_id,
+-            boundary,
++            record.run_id, record.cell_id, record.session_id, record.generation,
++            record.observed_prefix_id, record.boundary_tokens,
+         )
+         self._observed_prefixes[identity] = record
+         self._observed_prefixes.move_to_end(identity)
+@@ -1978,17 +2044,59 @@
+             {
+                 "schema": "semantic-known-prefix-wait-hint-event-v1",
+                 "event": "observed_prefix_registered",
+-                "request_id": request.request_id,
+-                "run_id": run_id,
+-                "cell_id": cell_id,
+-                "session_id": session_id,
+-                "generation": generation,
+-                "observed_prefix_id": observed_prefix_id,
+-                "prefix_boundary_tokens": boundary,
++                "request_id": record.source_request_id,
++                "run_id": record.run_id,
++                "cell_id": record.cell_id,
++                "session_id": record.session_id,
++                "generation": record.generation,
++                "observed_prefix_id": record.observed_prefix_id,
++                "prefix_boundary_tokens": record.boundary_tokens,
+                 "key_count": len(record.keys),
+                 "observed_at_ns": record.observed_ns,
++                **({"provenance": provenance} if provenance is not None else {}),
+             }
+         )
++
++    def _register_completed_transcript(
++        self, request: Request, declared: _ObservedPrefix
++    ) -> None:
++        """Add an exact source containing only already computed output KV.
++
++        Called only after the declared input source passes its existing
++        identity/generation checks. The final sampled token can be present in
++        all_token_ids without ever having been executed; logical token length
++        is therefore never used as evidence of computed KV.
++        """
++        if getattr(getattr(request, "status", None), "name", None) not in {
++            "FINISHED_STOPPED", "FINISHED_LENGTH_CAPPED",
++        }:
++            return
++        req_status = self._req_status.get(request.request_id)
++        computed = getattr(request, "num_computed_tokens", None)
++        if req_status is None or type(computed) is not int or computed < 0:
++            return
++        group = self.config.kv_group_configs[0]
++        chunk_tokens = group_config_tokens_per_chunk(group)
++        computed = self._calc_num_offloadable_tokens(req_status, computed)
++        boundary = computed // chunk_tokens * chunk_tokens
++        if boundary <= request.num_prompt_tokens or boundary > len(request.all_token_ids):
++            return
++        req_status.update_offload_keys()
++        count = boundary // chunk_tokens
++        keys = tuple(req_status.group_states[0].offload_keys[:count])
++        expected_keys = tuple(make_offload_key(h, 0) for h in request.block_hashes[:count])
++        if len(keys) != count or keys != expected_keys or len(set(keys)) != count:
++            return
++        record = _ObservedPrefix(
++            run_id=declared.run_id, cell_id=declared.cell_id,
++            session_id=declared.session_id, generation=declared.generation,
++            observed_prefix_id=_observed_prefix_digest(
++                list(request.all_token_ids[:boundary]), self._wait_hint_namespace,
++            ),
++            boundary_tokens=boundary, keys=keys, observed_ns=time.monotonic_ns(),
++            source_request_id=request.request_id,
++        )
++        self._save_observed_prefix(record, provenance="completed_computed_transcript")
+ 
+     def publish_wait_hint(self, raw_hint: dict[str, object]) -> dict[str, object]:
+         """Validate and queue a pre-request hint on the scheduler boundary."""
+@@ -2125,6 +2233,47 @@
+                 nomination_deadline_ns=nomination_deadline_ns,
+                 expires_at_ns=expires_at_ns,
+             )
++        if getattr(self, "_wait_hint_coalesce_exact_source", False):
++            # Refresh acknowledgements point to the original lease; they never
++            # rename it, create aliases, extend TTL or refresh feature clocks.
++            for existing in self._wait_prefetch.values():
++                old_hint = existing.lease.hint
++                if (
++                    existing.status not in {"pending", "in_flight", "ready"}
++                    or existing.bound_request_id is not None
++                    or not existing.lease.active_at(now_ns)
++                    or (existing.status == "pending"
++                        and now_ns >= existing.lease.nomination_deadline_ns)
++                    or old_hint.owner_id != hint.owner_id
++                    or old_hint.namespace != hint.namespace
++                    or existing.source != source
++                    or (old_hint.run_id, old_hint.cell_id, old_hint.session_id,
++                        old_hint.generation, old_hint.observed_prefix_id,
++                        old_hint.prefix_boundary_tokens)
++                    != (hint.run_id, hint.cell_id, hint.session_id,
++                        hint.generation, hint.observed_prefix_id,
++                        hint.prefix_boundary_tokens)
++                ):
++                    continue
++                return self._store_wait_hint_result(
++                    hint, status="accepted", reason="coalesced_exact_source",
++                    now_ns=now_ns, canonical_event_id=old_hint.event_id,
++                    canonical_state_status=existing.status,
++                    canonical_staged_key_count=len(existing.keys),
++                    canonical_source_key_count=len(existing.source.keys),
++                    nomination_deadline_ns=existing.lease.nomination_deadline_ns,
++                    expires_at_ns=existing.lease.expires_at_ns,
++                    source_observed_ns=existing.source.observed_ns,
++                )
++        if (
++            getattr(self, "_prefetch_require_full_prefix", False)
++            and self._admitted_prefill_in_progress()
++        ):
++            return self._store_wait_hint_result(
++                hint, status="no_action", reason="active_prefill_in_progress",
++                now_ns=now_ns, nomination_deadline_ns=nomination_deadline_ns,
++                expires_at_ns=expires_at_ns,
++            )
+         req_context = ReqContext(
+             req_id=f"wait-hint:{hint.owner_id}:{hint.event_id}",
+             kv_transfer_params={
+@@ -2156,6 +2305,33 @@
+             ),
+             "provenance": ("native_block_pool_prefix_index_and_cpu_policy_ready_state"),
+         }
++        if getattr(self, "_prefetch_require_full_prefix", False) and (
++            not source.keys
++            or tuple(candidate_keys) != source.keys
++            or tuple(resident_prefix) != source.keys
++            or _any_local_gpu_key(self.gpu_block_pool, source.keys) is not False
++        ):
++            return self._store_wait_hint_result(
++                hint, status="no_action", reason="full_prefix_unavailable",
++                now_ns=now_ns, opportunity=opportunity,
++                nomination_deadline_ns=nomination_deadline_ns,
++                expires_at_ns=expires_at_ns,
++            )
++        if getattr(self, "_prefetch_require_full_prefix", False):
++            available_budget = min(
++                max(0, int(self.gpu_block_pool.num_gpu_blocks
++                           * self._prefetch_budget_fraction)
++                    - self._prefetch_reserved_blocks),
++                max(0, self._prefetch_free_capacity() - self._prefetch_headroom_blocks),
++            )
++            if available_budget < len(source.keys):
++                return self._store_wait_hint_result(
++                    hint, status="no_action", reason="full_prefix_budget_unavailable",
++                    now_ns=now_ns, opportunity=opportunity,
++                    allocation_budget=available_budget,
++                    nomination_deadline_ns=nomination_deadline_ns,
++                    expires_at_ns=expires_at_ns,
++                )
+         if local_gpu_coverage_available and not candidate_keys:
+             return self._store_wait_hint_result(
+                 hint,
+@@ -2212,6 +2388,12 @@
+             source_observed_ns=source.observed_ns,
+             decision_ns=now_ns,
+             remaining_wait_ns=hint.remaining_wait_ns(now_ns),
++            **({
++                "canonical_event_id": hint.event_id,
++                "canonical_state_status": state.status,
++                "canonical_staged_key_count": 0,
++                "canonical_source_key_count": len(source.keys),
++            } if getattr(self, "_wait_hint_coalesce_exact_source", False) else {}),
+         )
+ 
+     def _free_wait_prefetch(self, state: _WaitPrefetchState, reason: str) -> None:
+@@ -2306,6 +2488,23 @@
+             ):
+                 self._retire_wait_prefetch(state, "retention_expired", now_ns=now_ns)
+ 
++    def _admitted_prefill_in_progress(self) -> bool:
++        """Give known admitted prompt growth priority over optional staging.
++
++        Native Request objects are live: every retry sees current progress and
++        terminal status. Waiting requests have not acquired prefill slots yet;
++        their ordinary demand admission uses the separate reclamation path.
++        No decode growth or maximum sequence length is guessed here.
++        """
++        for req_status in getattr(self, "_req_status", {}).values():
++            request = getattr(req_status, "req", None)
++            status = getattr(getattr(request, "status", None), "name", None)
++            if status in {"RUNNING", "WAITING_FOR_REMOTE_KVS"} and (
++                request.num_computed_tokens < request.num_prompt_tokens
++            ):
++                return True
++        return False
++
+     def _prefetch_free_capacity(self) -> int:
+         """Bound optional staging to the native queue's unhashed head.
+ 
+@@ -2347,6 +2546,11 @@
+             return False
+         if self.gpu_block_pool is None:
+             return False
++        if (
++            getattr(self, "_prefetch_require_full_prefix", False)
++            and self._admitted_prefill_in_progress()
++        ):
++            return False
+         decision_ns = time.monotonic_ns()
+         remaining_wait_ns = state.lease.hint.remaining_wait_ns(decision_ns)
+         if remaining_wait_ns is None or remaining_wait_ns <= 0:
+@@ -2367,6 +2571,22 @@
+         eligible_resident_prefix = _ready_resident_prefix(
+             self.manager, state.publication_candidate_keys
+         )
++        if getattr(self, "_prefetch_require_full_prefix", False) and (
++            not state.source.keys
++            or tuple(state.publication_candidate_keys) != state.source.keys
++            or tuple(eligible_resident_prefix) != state.source.keys
++            or allocation_budget < len(state.source.keys)
++            or _any_local_gpu_key(self.gpu_block_pool, state.source.keys) is not False
++        ):
++            state.selection_evidence = {
++                "selector": self._prefetch_selector,
++                "status": "full_prefix_unavailable",
++                "source_key_count": len(state.source.keys),
++                "allocation_budget": allocation_budget,
++                "decision_eligible_resident_prefix_count": len(eligible_resident_prefix),
++                "decision_ns": decision_ns,
++            }
++            return False
+         if not eligible_resident_prefix:
+             state.selection_evidence = {
+                 "selector": self._prefetch_selector,
+@@ -2427,16 +2647,17 @@
+                 "tie_break": "immutable_chain_order",
+             }
+         elif self._prefetch_selector == "semantic":
+-            semantic_key_scores = self._semantic_wait_key_scores(
+-                eligible_resident_prefix, decision_ns
+-            )
++            semantic_key_scores = ([] if getattr(self, '_prefix_mean_prefetch_scoring', False)
++                                   else self._semantic_wait_key_scores(eligible_resident_prefix, decision_ns))
++            prefix_mean_score = (self._prefix_mean_score_for_state(state, eligible_resident_prefix, decision_ns)
++                                 if getattr(self, '_prefix_mean_prefetch_scoring', False) else None)
+             # Semantic information nominates an exact observed source.  Once
+             # nominated, movement remains the immutable contiguous source
+             # prefix required by exact prefix-cache reuse; relevance must not
+             # turn a source chain into an arbitrary set of blocks.
+             selected = (
+                 list(eligible_resident_prefix[:allocation_budget])
+-                if semantic_key_scores or unscored_reason is not None
++                if semantic_key_scores or prefix_mean_score is not None or unscored_reason is not None
+                 else []
+             )
+             state.selection_evidence = {
+@@ -2446,8 +2667,9 @@
+                 "tie_break": "cross_session_score_then_source_identity",
+                 "within_source_order": "immutable_contiguous_chain_order",
+                 "semantic_key_scores": semantic_key_scores,
+-                "score_status": "scored" if semantic_key_scores else "not_evaluated",
+-                "unscored_reason": unscored_reason if not semantic_key_scores else None,
++                "prefix_mean_score": prefix_mean_score,
++                "score_status": "scored" if semantic_key_scores or prefix_mean_score is not None else "not_evaluated",
++                "unscored_reason": unscored_reason if not semantic_key_scores and prefix_mean_score is None else None,
+             }
+         else:
+             selected = _select_prefetch_keys(
+@@ -2500,6 +2722,10 @@
+         )
+         count = len(selected)
+         if count <= 0:
++            return False
++        if (getattr(self, "_prefetch_require_full_prefix", False)
++                and tuple(selected) != state.source.keys):
++            state.selection_evidence["status"] = "full_prefix_selection_incomplete"
+             return False
+         resident = selected[:count]
+         reserved = []
+@@ -2617,13 +2843,177 @@
+             )
+         return observations
+ 
++    def _prefix_mean_descriptor(self, state, keys):
++        return {
++            'event_id': state.lease.hint.event_id,
++            'identity': self._wait_hint_exact_source_identity(state),
++            'source_request_id': state.source.source_request_id,
++            'keys': tuple(keys),
++            'residency_versions': {k: getattr(self.manager._policy.get(k), '_semantic_score_version', None) for k in keys},
++        }
++
++    def _prefix_mean_descriptor_valid(self, descriptor, now_ns):
++        state = getattr(self, '_wait_prefetch', {}).get(descriptor.get('event_id'))
++        if state is None or state.status != 'pending' or not state.lease.active_at(now_ns):
++            return False
++        keys = tuple(_ready_resident_prefix(self.manager, state.publication_candidate_keys))
++        expected = self._prefix_mean_descriptor(state, keys)
++        return bool(keys) and descriptor == expected and all(
++            v is not None for v in expected['residency_versions'].values())
++
++    def _prefix_mean_batch_valid(self, observation, now_ns):
++        if not isinstance(observation, dict) or observation.get('contract') != 'prefix-mean-v1' or observation.get('metric') != 'raw_mean_key_dot_mean_head_common_active_query':
++            return False
++        context = self._score_context()
++        if observation.get('transport_epoch') != context.get('epoch'):
++            return False
++        captured, available, expires = (observation.get(k) for k in (
++            'snapshot_captured_ns', 'observation_available_ns', 'expires_at_ns'))
++        if any(isinstance(v, bool) or not isinstance(v, int) for v in (captured, available, expires)):
++            return False
++        if (not 0 <= captured <= available <= now_ns <= expires <= captured + self._prefix_query_max_age_ns
++                or now_ns - captured > getattr(self, '_prefetch_score_max_age_ns', self._prefix_query_max_age_ns)):
++            return False
++        sources, stamps = observation.get('query_sources'), observation.get('query_capture_ns')
++        if not isinstance(sources, dict) or not sources or not isinstance(stamps, dict) or set(sources) != set(stamps):
++            return False
++        return all(token is not None and token == context.get('sources', {}).get(r)
++                   and isinstance(stamps[r], int) and not isinstance(stamps[r], bool)
++                   and captured <= stamps[r] <= available for r, token in sources.items())
++
++    def receive_prefix_score_observations(self, observations):
++        if not getattr(self, '_prefix_mean_prefetch_scoring', False):
++            return
++        for observation in observations:
++            now_ns = time.monotonic_ns()
++            if not self._prefix_mean_batch_valid(observation, now_ns):
++                PROFILE.count('scheduler.prefix_scores_rejected_context')
++                continue
++            sequence = observation.get('observation_sequence')
++            prior = getattr(self, '_prefix_mean_score_batch', {})
++            if (isinstance(sequence, bool) or not isinstance(sequence, int) or sequence <= 0
++                    or (prior.get('transport_epoch') == observation['transport_epoch']
++                        and sequence <= prior.get('observation_sequence', 0))):
++                continue
++            accepted = {}
++            for event_id, item in observation.get('candidates', {}).items():
++                score = item.get('score')
++                descriptor = item.get('descriptor', {})
++                if (isinstance(score, bool) or not isinstance(score, (int, float))
++                        or not math.isfinite(score) or event_id != descriptor.get('event_id')
++                        or not self._prefix_mean_descriptor_valid(descriptor, now_ns)):
++                    continue
++                accepted[event_id] = item
++            if not accepted:
++                continue
++            self._prefix_mean_score_batch = dict(observation, candidates=accepted)
++            stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
++            for name, value in [('accepted_observations', 1), ('accepted_candidates', len(accepted)),
++                                ('accepted_prefix_key_count', sum(len(x['descriptor']['keys']) for x in accepted.values()))]:
++                stats[name] = stats.get(name, 0) + value
++            record_wait_hint_event({
++                'schema': 'semantic-prefix-mean-score-v1', 'event': 'prefix_mean_scores_applied',
++                'metric': observation['metric'], 'observation_sequence': sequence,
++                'query_sources': observation['query_sources'],
++                'query_capture_ns': observation['query_capture_ns'],
++                'snapshot_captured_ns': observation['snapshot_captured_ns'],
++                'observation_available_ns': observation['observation_available_ns'],
++                'expires_at_ns': observation['expires_at_ns'], 'consumer_ns': now_ns,
++                'candidate_count': len(accepted),
++                'scored_key_count': sum(len(x['descriptor']['keys']) for x in accepted.values()),
++                'scores': {eid: x['score'] for eid, x in accepted.items()},
++            })
++            PROFILE.count('scheduler.prefix_score_apply_candidates', len(accepted))
++
++    def _prefix_mean_score_for_state(self, state, keys, now_ns):
++        batch = getattr(self, '_prefix_mean_score_batch', {})
++        if not self._prefix_mean_batch_valid(batch, now_ns):
++            return None
++        item = batch.get('candidates', {}).get(state.lease.hint.event_id)
++        if item is None or tuple(keys) != tuple(item['descriptor']['keys']):
++            return None
++        if not self._prefix_mean_descriptor_valid(item['descriptor'], now_ns):
++            return None
++        return {'score': item['score'], 'metric': batch['metric'],
++                'observation_sequence': batch['observation_sequence'],
++                'snapshot_captured_ns': batch['snapshot_captured_ns'],
++                'observation_available_ns': batch['observation_available_ns'],
++                'expires_at_ns': batch['expires_at_ns'],
++                'query_sources': batch['query_sources'],
++                'query_capture_ns': batch['query_capture_ns'],
++                'scored_key_count': len(keys)}
++
++    def _retry_prefix_mean_prefetches(self, pending, now_ns):
++        ranked, descriptors = [], {}
++        for state in pending:
++            keys = tuple(_ready_resident_prefix(self.manager, state.publication_candidate_keys))
++            if not keys or (getattr(self, '_prefetch_require_full_prefix', False) and keys != state.source.keys):
++                continue
++            descriptor = self._prefix_mean_descriptor(state, keys)
++            if any(v is None for v in descriptor['residency_versions'].values()):
++                continue
++            descriptors[state.lease.hint.event_id] = descriptor
++            candidate, score = self._semantic_wait_nomination_candidate(state, now_ns)
++            ranked.append((state, candidate, score))
++        if not ranked:
++            return
++        missing = any(score is None for _, _, score in ranked)
++        if missing:
++            active = sorted(r for r, status in getattr(self, '_req_status', {}).items()
++                            if getattr(getattr(getattr(status, 'req', None), 'status', None), 'name', None) == 'RUNNING')
++            self._prefix_mean_scoring_request = {'active_query_ids': active, 'candidates': descriptors}
++            signature = tuple((eid, tuple(d['keys']), tuple(d['residency_versions'].items()))
++                              for eid, d in sorted(descriptors.items()))
++            attempt = getattr(self, '_prefix_mean_scoring_attempt', None)
++            if attempt is None or attempt[0] != signature:
++                attempt = self._prefix_mean_scoring_attempt = (signature, now_ns)
++            if now_ns - attempt[1] < 50_000_000:
++                return
++        # Compute while an active peer exists, even if staging cannot yet act.
++        # Actual movement retains every existing prefill/capacity/native check.
++        if getattr(self, '_prefetch_require_full_prefix', False) and self._admitted_prefill_in_progress():
++            return
++        pool = self.gpu_block_pool
++        budget = min(max(0, int(pool.num_gpu_blocks * self._prefetch_budget_fraction) - self._prefetch_reserved_blocks),
++                     max(0, self._prefetch_free_capacity() - self._prefetch_headroom_blocks)) if pool is not None else 0
++        if budget <= 0:
++            return
++        ranked.sort(key=lambda x: (x[2] is None, -(x[2] if x[2] is not None else 0.),
++                                  self._wait_hint_exact_source_identity(x[0]), x[0].lease.hint.event_id))
++        chosen = []
++        reason = 'fresh_active_query_prefix_score_unavailable_after_bounded_wait' if missing else None
++        for state, candidate, score in ranked:
++            if self._attempt_wait_prefetch(state, unscored_reason=reason):
++                chosen.append({'event_id': candidate['event_id'], 'session_id': candidate['session_id'],
++                               'generation': candidate['generation'], 'observed_prefix_id': candidate['observed_prefix_id'],
++                               'source_request_id': candidate['source_request_id'],
++                               'selected_keys': [_event_key(k) for k in state.keys]})
++        eligible_blocks = sum(len(c['eligible_resident_prefix_keys']) for _, c, _ in ranked)
++        scored = sum(score is not None for _, _, score in ranked)
++        record_wait_hint_event({
++            'schema': 'semantic-cross-session-prefetch-nomination-v1', 'event': 'nomination_decision',
++            'selector': 'semantic', 'scoring_transport': 'prefix-mean-v1',
++            'decision_ns': now_ns, 'shared_allocation_budget_blocks': budget,
++            'eligible_candidate_blocks': eligible_blocks, 'scored_candidate_count': scored,
++            'shared_budget_constrained': scored >= 2 and eligible_blocks > budget,
++            'candidate_publication_order_event_ids': [s.lease.hint.event_id for s in pending],
++            'tie_break': 'common_raw_mean_prefix_score_desc_then_source_identity',
++            'highest_ranked_candidate': ranked[0][1] if ranked[0][2] is not None else None,
++            'candidates': [c for _, c, _ in ranked], 'chosen': chosen,
++            'selected_blocks': sum(len(c['selected_keys']) for c in chosen),
++            'selected_bytes': sum(len(c['selected_keys']) for c in chosen) * self._prefetch_bytes_per_key,
++            'unscored_reason': reason,
++            'no_action_reason': None if chosen else 'no_causal_candidate_or_shared_budget',
++        })
++
+     def _semantic_wait_nomination_candidate(
+         self, state: _WaitPrefetchState, decision_ns: int
+     ) -> tuple[dict[str, object], float | None]:
+         eligible = _ready_resident_prefix(
+             self.manager, state.publication_candidate_keys
+         )
+-        scores = self._semantic_wait_key_scores(eligible, decision_ns)
++        scores = ([] if getattr(self, '_prefix_mean_prefetch_scoring', False)
++                  else self._semantic_wait_key_scores(eligible, decision_ns))
+         aggregate = (
+             sum(float(item["score"]) for item in scores) / len(scores)
+             if scores
+@@ -2639,6 +3029,12 @@
+             and all(item["observation_available_ns"] is not None for item in scores)
+             else None
+         )
++        prefix_score = (self._prefix_mean_score_for_state(state, eligible, decision_ns)
++                        if getattr(self, '_prefix_mean_prefetch_scoring', False) else None)
++        if getattr(self, '_prefix_mean_prefetch_scoring', False):
++            scores = []
++            aggregate = prefix_score['score'] if prefix_score is not None else None
++            score_observation_available_ns = prefix_score['observation_available_ns'] if prefix_score else None
+         hint = state.lease.hint
+         candidate = {
+             "event_id": hint.event_id,
+@@ -2667,6 +3063,9 @@
+                 "decision_ns": decision_ns,
+             },
+         }
++        if getattr(self, '_prefix_mean_prefetch_scoring', False):
++            candidate.update(prefix_mean_score=prefix_score,
++                             score_aggregation='raw_mean_prefix_dot_common_active_query')
+         return candidate, aggregate
+ 
+     def _wait_hint_coalescing_enabled(self) -> bool:
+@@ -2958,11 +3357,38 @@
+         # This path also runs on every ordinary decode step with no hints.
+         if not pending:
+             return
++        if getattr(self, '_prefix_mean_prefetch_scoring', False):
++            self._retry_prefix_mean_prefetches(pending, now_ns)
++            return
++        if (
++            getattr(self, "_prefetch_require_full_prefix", False)
++            and self._admitted_prefill_in_progress()
++        ):
++            PROFILE.count("scheduler.full_prefix_active_prefill_retries")
++            return
+         publication_order_event_ids = [state.lease.hint.event_id for state in pending]
+         if self._prefetch_selector != "semantic":
+             for state in pending:
+                 self._attempt_wait_prefetch(state)
+             return
++
++        if getattr(self, "_prefetch_require_full_prefix", False):
++            # Full-prefix staging cannot act when no complete source fits.
++            # Check current capacity on every retry, after expiry/coalescing,
++            # before per-key score evidence or score requests are produced.
++            # No source-readiness scan or cached capacity can hide a later
++            # opportunity; the ordinary allocator checks still run on submit.
++            pool = self.gpu_block_pool
++            allocation_budget = (
++                min(
++                    max(0, int(pool.num_gpu_blocks * self._prefetch_budget_fraction)
++                        - self._prefetch_reserved_blocks),
++                    max(0, self._prefetch_free_capacity() - self._prefetch_headroom_blocks),
++                ) if pool is not None else 0
++            )
++            if not any(0 < len(state.source.keys) <= allocation_budget for state in pending):
++                PROFILE.count("scheduler.full_prefix_no_fit_retries")
++                return
+ 
+         nomination_started_ns = time.monotonic_ns()
+         ranked: list[tuple[_WaitPrefetchState, dict[str, object], float | None]] = []
+@@ -3613,10 +4039,43 @@
+             reclaimed += block_count
+             if reclaimed >= shortfall:
+                 break
++        # Legacy preemption prefetches own scratch allocations too. Their
++        # splice happens only *after* native demand admission allocates its
++        # destination blocks. Keeping completed scratch when admission cannot
++        # fit can therefore deadlock the requesting request on its own source
++        # buffers. Drop that optional copy and let the normal exact CPU load
++        # serve demand. Completion fences remain mandatory, including for
++        # another request's speculative source; pending splice owners have
++        # already left _prefetched and are deliberately not reclaimed here.
++        reclaimed_legacy = 0
++        for req_id, state in list(getattr(self, "_prefetched", {}).items()):
++            if reclaimed >= shortfall:
++                break
++            # Bound wait-hint sources share this index but carry their own
++            # CPU protection and lease lifecycle. Only legacy scratch belongs
++            # to this reclamation path; the wait-state path above deliberately
++            # excludes bound sources.
++            if state.attempt_id in getattr(self, "_wait_prefetch", {}):
++                continue
++            job = self._jobs.get(state.job_id)
++            if job is not None and job.pending_count > 0:
++                continue
++            if state.attempt_id == protected_event_id and protected_event_id is not None:
++                continue
++            block_count = len(state.gpu_block_ids)
++            self._release_prefetch(req_id)
++            reclaimed += block_count
++            reclaimed_legacy += block_count
+         in_flight_blocks = sum(
+             len(state.gpu_block_ids)
+             for state in getattr(self, "_wait_prefetch", {}).values()
+             if state.status in {"in_flight", "retired_pending_fence"}
++        )
++        in_flight_blocks += sum(
++            len(state.gpu_block_ids)
++            for state in getattr(self, "_prefetched", {}).values()
++            if (job := self._jobs.get(state.job_id)) is not None
++            and job.pending_count > 0
+         )
+         record_wait_hint_event(
+             {
+@@ -3627,6 +4086,7 @@
+                 "free_blocks_before": free_blocks,
+                 "shortfall_blocks": shortfall,
+                 "reclaimed_ready_blocks": reclaimed,
++                "reclaimed_legacy_ready_blocks": reclaimed_legacy,
+                 "reclaimed_ready_bytes": reclaimed * self._prefetch_bytes_per_key,
+                 "in_flight_unreclaimable_blocks": in_flight_blocks,
+                 "in_flight_unreclaimable_bytes": (
+@@ -4267,6 +4727,8 @@
+                 complete = False
+             for chunk_index, key in enumerate(keys):
+                 token_start = chunk_index * tokens_per_chunk
++                if token_start >= prompt_token_count:
++                    break
+                 token_end = min(prompt_token_count, token_start + tokens_per_chunk)
+                 positions.append(
+                     {
+@@ -4318,6 +4780,35 @@
+             selected.append(dict(record))
+             remaining[key] -= 1
+         return selected
++
++    def _store_source_key_positions(
++        self, request_id: str, keys, scheduled_tokens: int
++    ) -> list[dict[str, object]]:
++        """Describe store sources independently of prompt demand positions.
++
++        Use the same native offloadable extent as the transfer plan. Running
++        stores are planned after this scheduled forward and become committed
++        only after the worker's store fence; finished stores are capped at
++        processed tokens, excluding final samples and in-flight work.
++        """
++        req_status = self._req_status.get(request_id)
++        request = getattr(req_status, "req", None)
++        computed = getattr(request, "num_computed_tokens", None)
++        if (
++            req_status is None or type(computed) is not int or computed < 0
++            or type(scheduled_tokens) is not int or scheduled_tokens < 0
++        ):
++            return []
++        extent = self._calc_num_offloadable_tokens(
++            req_status, computed + (0 if request.is_finished() else scheduled_tokens),
++        )
++        positions, complete = self._request_key_positions(request_id, extent)
++        if not complete:
++            return []
++        return self._position_records_for_keys(
++            {"ordered_key_positions": [record for record in positions
++                                      if record["complete_chunk"]]}, keys,
++        )
+ 
+     @staticmethod
+     def _complete_positions_in_token_range(
+@@ -5666,7 +6157,8 @@
+                 self._score_source_deadlines.pop(r, None)
+         return {'epoch': self._score_transport_identity+':'+str(self._score_transport_generation),
+                 'sources': dict(self._score_source_tokens),
+-                'residencies': self.manager.score_residency_versions()}
++                'prefix_mean_prefetch_scoring': getattr(self, '_prefix_mean_prefetch_scoring', False),
++                'residencies': {} if getattr(self, '_prefix_mean_prefetch_scoring', False) else self.manager.score_residency_versions()}
+ 
+     def _score_request_started(self, request_id):
+         if getattr(self, '_score_transport_enabled', False):
+@@ -7619,6 +8111,23 @@
+             num_external_tokens,
+             first_readmission=first_readmission,
+         )
++
++    def _calc_num_offloadable_tokens(self, req_status, num_computed_tokens: int) -> int:
++        if (
++            not self.config.offload_prompt_only
++            and req_status.req.is_finished()
++        ):
++            # The native finished-request path supplies req.num_tokens, which
++            # may include one sampled output with no computed KV. Incremental
++            # running stores retain the native scheduled-forward fence path.
++            computed = getattr(req_status.req, "num_computed_tokens", None)
++            in_flight = getattr(req_status.req, "num_in_flight_tokens", 0)
++            num_computed_tokens = (
++                min(num_computed_tokens, max(0, computed - in_flight))
++                if type(computed) is int and computed >= 0
++                and type(in_flight) is int and in_flight >= 0 else 0
++            )
++        return super()._calc_num_offloadable_tokens(req_status, num_computed_tokens)
+ 
+     def _build_store_jobs(self, scheduler_output: SchedulerOutput):
+         store_jobs = super()._build_store_jobs(scheduler_output)
+@@ -8103,6 +8612,10 @@
+     def reset_cache(self) -> None:
+         """Reset semantic and speculative state alongside the base cache."""
+         self._score_transport_generation = getattr(self, '_score_transport_generation', 0)+1
++        self._prefix_mean_score_batch = {}
++        self._prefix_mean_scoring_request = {}
++        self._prefix_mean_scoring_attempt = None
++        self._prefix_mean_scoring_stats = {}
+         getattr(self, '_score_source_tokens', {}).clear()
+         getattr(self, '_score_source_deadlines', {}).clear()
+         getattr(self, "_published_wait_prefixes", {}).clear()
+@@ -8265,7 +8778,13 @@
+                 ) or self._preservation_finished.get(entry.req_id)
+                 raw_keys = list(status.keys) if status is not None else []
+                 key_positions = (
+-                    self._position_records_for_keys(state, raw_keys)
++                    (
++                        self._position_records_for_keys(state, raw_keys)
++                        if is_load else self._store_source_key_positions(
++                            entry.req_id, raw_keys,
++                            scheduler_output.num_scheduled_tokens.get(entry.req_id, 0),
++                        )
++                    )
+                     if state is not None
+                     else []
+                 )
+@@ -8388,6 +8907,7 @@
+         meta = SemanticOffloadingConnectorMetadata(
+             scoring_context=self._score_context(),
+             scoring_requests=dict(getattr(self, "_decision_scoring_requests", {})),
++            prefix_scoring_request=dict(getattr(self, "_prefix_mean_scoring_request", {})),
+             scoring_lease_ids={r:tuple(eid for eid,state in self._wait_prefetch.items()
+                 if state.status=='pending' and state.source.source_request_id==r)
+                 for r in getattr(self,'_decision_scoring_requests',{})},
+@@ -8442,6 +8962,7 @@
+         self._drain_staging_protection_records()
+         self._emit_finished_preservation_events()
+         getattr(self, "_decision_scoring_requests", {}).clear()
++        self._prefix_mean_scoring_request = {}
+         return meta
+ 
+ 
+@@ -8917,6 +9438,8 @@
+                 worker.receive_evicted_keys(connector_metadata.evicted_keys)
+             if hasattr(worker, 'receive_scoring_context'):
+                 worker.receive_scoring_context(connector_metadata.scoring_context)
++            if hasattr(worker, 'receive_prefix_score_requests'):
++                worker.receive_prefix_score_requests(connector_metadata.prefix_scoring_request)
+             if hasattr(worker, "receive_score_requests"):
+                 worker.receive_score_requests(connector_metadata.scoring_requests, connector_metadata.scoring_residency_versions, connector_metadata.scoring_lease_ids)
+             if hasattr(worker, "splice_gpu_blocks"):
+@@ -8946,6 +9469,17 @@
+             )
+         else:
+             raise TypeError("Semantic worker does not provide versioned score metadata")
++        # Synchronous opportunity scoring moves each request into an ordered
++        # observation, leaving empty per-method accumulators behind. Empty
++        # method containers carry no legacy request metadata. Canonicalize
++        # them here; retain every actual request (even an empty ranked list),
++        # so genuinely mixed representations still fail strict validation.
++        scores = {method: reqs for method, reqs in scores.items() if reqs}
++        score_head_counts = {
++            method: {req_id: count for req_id, count in reqs.items()
++                     if req_id in scores.get(method, {})}
++            for method, reqs in score_head_counts.items() if method in scores
++        }
+         relevance_updates: ComposedRelevanceUpdates = {}
+         latest_relevance: LatestRelevance = {}
+         rank_ema_mode = getattr(worker, "_rank_ema_mode", "default")
+@@ -9029,6 +9563,7 @@
+             if hasattr(worker, "pop_async_scoring_telemetry")
+             else []
+         )
++        prefix_score_observations = worker.pop_prefix_score_observations() if hasattr(worker, 'pop_prefix_score_observations') else []
+         async_controller = getattr(worker, "_async_scoring", None)
+         async_scoring_status = (
+             {
+@@ -9066,6 +9601,7 @@
+             async_scoring_events=async_scoring_events,
+             async_scoring_status=async_scoring_status,
+             async_score_observations=async_score_observations,
++            prefix_score_observations=prefix_score_observations,
+             prefill_cuda_events=prefill_cuda_events,
+         )
+ 
+@@ -9137,6 +9673,9 @@
+         super().update_connector_output(connector_output)
+         if self.connector_scheduler is None:
+             return
++        if hasattr(self.connector_scheduler, 'receive_prefix_score_observations'):
++            self.connector_scheduler.receive_prefix_score_observations(
++                meta.complete_prefix_score_observations() if isinstance(meta, SemanticWorkerMetadata) else [])
+         manager = self.connector_scheduler.manager
+ 
+         def record_observation_availability(
+--- before/semantic_offload/worker.py
++++ after/semantic_offload/worker.py
+@@ -36,11 +36,18 @@
+ convention this file relies on; the assert in `_check_layout` catches any
+ backend that doesn't match it, rather than silently producing wrong
+ summaries. Does not apply to MLA (no per-head keys exist there at all).
++
++Experimental local screen: SEMANTIC_SUMMARY_FIELDS=required retains only mean
++centroids for mean scoring with continuous or opportunity scheduling.
++Default "all" retains BlockSummary's
++complete payload. The reduced private payload is not a general BlockSummary;
++consumers requesting other fields must fail rather than inventing values.
+ """
+ 
+ import hashlib
+ import itertools
+ import math
++import os
+ import re
+ import time
+ from collections.abc import Sequence
+@@ -95,11 +102,21 @@
+ 
+ 
+ @dataclass(frozen=True, slots=True)
++class _MeanOnlySummary:
++    """Owned mean reduction, deliberately exposing no unused summary fields."""
++
++    mean: torch.Tensor
++
++
++_WorkerSummary = BlockSummary | _MeanOnlySummary
++
++
++@dataclass(frozen=True, slots=True)
+ class _AsyncScorePayload:
+     req_ids: tuple[str, ...]
+     queries: torch.Tensor
+     keys: tuple[OffloadKey, ...]
+-    summaries: tuple[tuple[BlockSummary, ...], ...]
++    summaries: tuple[tuple[_WorkerSummary, ...], ...]
+     method: str
+     head_aggregation: str
+     request_versions: tuple[tuple[str, int], ...]
+@@ -250,6 +267,13 @@
+         scoring_mode = validate_scoring_mode(scoring_mode)
+         if scoring_schedule not in ("continuous", "opportunity", "capture_only"):
+             raise ValueError("scoring_schedule must be continuous, opportunity or capture_only")
++        summary_fields = os.environ.get("SEMANTIC_SUMMARY_FIELDS", "all")
++        if summary_fields not in ("all", "required"):
++            raise ValueError("SEMANTIC_SUMMARY_FIELDS must be all or required")
++        if summary_fields == "required" and (
++            method != "mean" or scoring_schedule not in ("continuous", "opportunity")
++        ):
++            raise ValueError("required summary fields require mean scoring with continuous or opportunity schedule")
+         search_config = SearchConfig(scoring_search, search_min_pool, search_clusters,
+                                      search_probes, search_exploration)
+         for value in (query_snapshot_max_age_ms, query_snapshot_max_requests):
+@@ -337,6 +361,7 @@
+             num_cpu_blocks=num_cpu_blocks,
+         )
+         self._method = method
++        self._summary_fields = summary_fields
+         self._head_aggregation = head_aggregation
+         self._rank_ema_mode = rank_ema_mode
+         self._scoring_mode = scoring_mode
+@@ -365,7 +390,7 @@
+         # Keyed by physical GPU block ID, which is naturally bounded and
+         # reused/overwritten as blocks are freed and reallocated -- no
+         # separate eviction-cleanup hook needed to keep this bounded.
+-        self.summaries: dict[str, dict[int, list[BlockSummary]]] = {
++        self.summaries: dict[str, dict[int, list[_WorkerSummary]]] = {
+             layer_name: {} for layer_name in self._attention_layers
+         }
+ 
+@@ -390,7 +415,7 @@
+         # cover, such as a defensive backstop after a full cache reset.
+         # Failed-store cleanup is handled at the transfer-result boundary.
+         self._max_durable_summaries = max(num_cpu_blocks, 1)
+-        self.durable_summaries: dict[OffloadKey, list[BlockSummary]] = {}
++        self.durable_summaries: dict[OffloadKey, list[_WorkerSummary]] = {}
+         self._pending_job_keys: dict[int, list[OffloadKey]] = {}
+         self._pending_job_blocks: dict[int, list[tuple[OffloadKey, list[int]]]] = {}
+         self._transfer_directions: dict[int, bool] = {}
+@@ -505,6 +530,8 @@
+         summary_stream = getattr(self, "_summary_stream", None)
+         if summary_stream is not None:
+             summary_stream.synchronize()
++        getattr(self, '_prefix_mean_centroid_cache', {}).clear()
++        self._pending_prefix_score_observations = []
+         super().shutdown()
+         PROFILE.flush()
+ 
+@@ -531,6 +558,9 @@
+         getattr(self, "_async_request_versions", {}).clear()
+         getattr(self, "_query_snapshots", {}).clear()
+         getattr(self, "_query_snapshot_events", {}).clear()
++        getattr(self, '_prefix_mean_centroid_cache', {}).clear()
++        self._pending_prefix_score_observations = []
++        self._prefix_mean_scoring_stats = {}
+         getattr(self, "_retired_async_request_ids", set()).clear()
+         getattr(self, "_decision_async_signatures", {}).clear()
+         if hasattr(self, "_candidate_search"):
+@@ -1427,6 +1457,115 @@
+             self.cancel_async_requests(changed)
+         self._score_transport_context = context
+ 
++    def pop_prefix_score_observations(self):
++        observations = getattr(self, '_pending_prefix_score_observations', [])
++        self._pending_prefix_score_observations = []
++        return observations
++
++    @profiled('scoring.prefix_mean')
++    def receive_prefix_score_requests(self, request):
++        """Score exact prefixes against one common fresh, actively captured query.
++
++        This transport contains scalars, never fabricated per-key ranks or EMA
++        updates. Centroids average keys equally, matching the existing raw
++        mean-key / mean-head metric up to FP32 reduction order.
++        """
++        context = getattr(self, '_score_transport_context', {})
++        if not context.get('prefix_mean_prefetch_scoring') or not request:
++            return
++        if (getattr(self, '_method', None) != 'mean'
++                or getattr(self, '_head_aggregation', 'mean') != 'mean'
++                or getattr(self, '_scoring_mode', 'synchronous') != 'synchronous'):
++            raise ValueError('prefix mean scoring requires synchronous mean/mean')
++        candidates = request.get('candidates', {})
++        if not candidates or len(candidates) > 16:
++            PROFILE.count('scoring.prefix_request_over_bound')
++            return
++        now = time.monotonic_ns()
++        snapshots = getattr(self, '_query_snapshots', {})
++        selected = []
++        for req_id in sorted(set(request.get('active_query_ids', ()))):
++            snapshot = snapshots.get(req_id)
++            token = context.get('sources', {}).get(req_id)
++            if snapshot is not None and token is not None and 0 <= now - snapshot[0] <= self._query_snapshot_max_age_ns:
++                selected.append((req_id, token, snapshot[0], snapshot[1]))
++        if not selected:
++            stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
++            stats['missing_fresh_active_query'] = stats.get('missing_fresh_active_query', 0) + 1
++            PROFILE.count('scoring.prefix_no_fresh_active_query')
++            return
++        # Existing query snapshots are owned clones. Work remains on the model
++        # stream; no borrowed source allocation escapes this synchronous call.
++        with torch.no_grad():
++            for req_id, _, _, query in selected:
++                event = getattr(self, '_query_snapshot_events', {}).get(req_id)
++                if query.is_cuda and event is not None:
++                    torch.cuda.current_stream(query.device).wait_event(event)
++            query = torch.stack([x[3].detach().float() for x in selected]).mean(0)
++            if query.ndim != 2:
++                return
++            if getattr(self, '_summary_stream', None) is not None:
++                torch.cuda.current_stream(query.device).wait_stream(self._summary_stream)
++            cache = self.__dict__.setdefault('_prefix_mean_centroid_cache', {})
++            centroids, descriptors = [], []
++            publications = getattr(self, '_durable_summary_publications', {})
++            for event_id, descriptor in candidates.items():
++                keys = tuple(descriptor.get('keys', ()))
++                versions = tuple(publications.get(k) for k in keys)
++                if not keys or any(v is None for v in versions) or any(k not in self.durable_summaries for k in keys):
++                    continue
++                signature = (getattr(self, '_summary_generation', 0), keys, versions)
++                centroid = cache.get(signature)
++                if centroid is None:
++                    summaries = [self.durable_summaries[k] for k in keys]
++                    h, d = query.shape
++                    if len(keys) * h * d * 4 > 16 * 1024 * 1024 or any(
++                            len(heads) != h or any(s.mean.shape != (d,) or s.mean.device != query.device for s in heads)
++                            for heads in summaries):
++                        PROFILE.count('scoring.prefix_summary_over_bound_or_mismatch')
++                        continue
++                    centroid = torch.stack([s.mean.detach() for heads in summaries for s in heads]).reshape(len(keys), h, d).float().mean(0)
++                    # Cache only owned centroid storage, never per-head views.
++                    if centroid.numel() * centroid.element_size() > 1024 * 1024:
++                        continue
++                    cache[signature] = centroid
++                    while len(cache) > 16 or sum(t.untyped_storage().nbytes() for t in cache.values()) > 1024 * 1024:
++                        cache.pop(next(iter(cache)))
++                    stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
++                    stats['centroid_builds'] = stats.get('centroid_builds', 0) + 1
++                    PROFILE.count('scoring.prefix_centroid_builds')
++                else:
++                    stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
++                    stats['centroid_hits'] = stats.get('centroid_hits', 0) + 1
++                    PROFILE.count('scoring.prefix_centroid_hits')
++                centroids.append(centroid)
++                descriptors.append((event_id, dict(descriptor), versions))
++            if not centroids:
++                return
++            values = (torch.stack(centroids) * query).sum(-1).mean(-1).tolist()
++        self._prefix_score_sequence = getattr(self, '_prefix_score_sequence', 0) + 1
++        captured = min(x[2] for x in selected)
++        observation = {
++            'contract': 'prefix-mean-v1', 'transport_epoch': context.get('epoch'),
++            'observation_sequence': self._prefix_score_sequence,
++            'query_sources': {r: token for r, token, _, _ in selected},
++            'query_capture_ns': {r: stamp for r, _, stamp, _ in selected},
++            'snapshot_captured_ns': captured, 'observation_available_ns': time.monotonic_ns(),
++            'expires_at_ns': captured + self._query_snapshot_max_age_ns,
++            'metric': 'raw_mean_key_dot_mean_head_common_active_query',
++            'candidates': {eid: {'descriptor': desc, 'score': float(value),
++                                  'summary_publications': versions}
++                           for (eid, desc, versions), value in zip(descriptors, values)
++                           if math.isfinite(value)},
++        }
++        # At most one bounded scalar batch is retained until metadata polling.
++        self._pending_prefix_score_observations = [observation]
++        stats = self.__dict__.setdefault('_prefix_mean_scoring_stats', {})
++        stats['numerical_calls'] = stats.get('numerical_calls', 0) + 1
++        stats['numerical_candidates'] = stats.get('numerical_candidates', 0) + len(observation['candidates'])
++        PROFILE.count('scoring.prefix_numerical_calls')
++        PROFILE.count('scoring.prefix_numerical_candidates', len(observation['candidates']))
++
+     @profiled("scoring.decision_request")
+     def receive_score_requests(self, requests: dict[str, list[OffloadKey]], residency_versions=None, lease_ids=None) -> None:
+         if getattr(self, "_scoring_schedule", "continuous") != "opportunity":
+@@ -1736,8 +1875,27 @@
+         keys = torch.stack([
+             kv_cache[block_id, ..., :head_size] for block_id in block_ids
+         ]).float()
+-        for block_id, summaries in zip(block_ids, self._summarize_key_batches(keys)):
++        for block_id, summaries in zip(block_ids, self._summarize_worker_key_batches(keys)):
+             layer_summaries[block_id] = summaries
++
++    def _summarize_worker_key_batches(self, keys: torch.Tensor) -> list[list[_WorkerSummary]]:
++        if getattr(self, "_summary_fields", "all") == "required":
++            if self._method != "mean" or self._scoring_schedule not in ("continuous", "opportunity"):
++                raise ValueError("required summary fields require mean scoring with continuous or opportunity schedule")
++            return self._summarize_mean_key_batches(keys)
++        return self._summarize_key_batches(keys)
++
++    @staticmethod
++    def _summarize_mean_key_batches(keys: torch.Tensor) -> list[list[_MeanOnlySummary]]:
++        """Same centroid reduction as the full builder, with owned mean storage."""
++        if keys.ndim != 4 or any(size <= 0 for size in keys.shape[1:]):
++            raise ValueError("mean summary keys require [groups, heads, tokens, dim] with positive inner dimensions")
++        means = keys.mean(dim=2)
++        summaries = [_MeanOnlySummary(mean)
++                     for mean in means.flatten(0, 1).unbind(0)]
++        heads = keys.shape[1]
++        return [summaries[start : start + heads]
++                for start in range(0, len(summaries), heads)]
+ 
+     @staticmethod
+     def _summarize_key_batches(keys: torch.Tensor) -> list[list[BlockSummary]]:
+@@ -1850,7 +2008,7 @@
+                 keys = keys.permute(0, 2, 1, 3, 4).reshape(
+                     len(entries), keys.shape[2], -1, head_size
+                 )
+-            for (position, _), summaries in zip(entries, self._summarize_key_batches(keys)):
++            for (position, _), summaries in zip(entries, self._summarize_worker_key_batches(keys)):
+                 summaries_by_position[position] = summaries
+         inserted: list[OffloadKey] = []
+         # Publish in original order, including last-write behavior for any
+--- /dev/null
++++ after/tests/test_completed_transcript.py
+@@ -0,0 +1,314 @@
++"""Completed transcript sources use only real, fully computed KV blocks."""
++from collections import defaultdict
++from types import SimpleNamespace
++import time
++
++import pytest
++import torch
++from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
++    OffloadingConnectorScheduler, GroupOffloadConfig, SchedulerOffloadConfig,
++)
++from vllm.v1.outputs import KVConnectorOutput
++from vllm.v1.request import RequestStatus
++
++from semantic_offload.connector import (
++    SemanticOffloadingConnectorScheduler, SemanticWorkerMetadata, SemanticTransferCompletion,
++    _observed_prefix_digest,
++)
++from tests.test_step_1_5_prefetch import (
++    _native_adoption_fixture, _native_adoption_complete, _native_adoption_request, _wait_hint,
++)
++
++
++def _finished_fixture(*, enabled=True, generated=32, computed=None, status=None):
++    f = _native_adoption_fixture(torch.float16)
++    _native_adoption_complete(f)
++    f.sched._free_wait_prefetch(f.state, "fixture_cleanup")
++    f.sched._wait_hint_completed_transcript = enabled
++    f.sched._current_batch_jobs_to_flush = set()
++    f.sched._block_id_to_pending_jobs = defaultdict(set)
++    f.sched._stale_job_threshold = 0
++    request = _native_adoption_request("transcript", list(range(32)))
++    request.kv_transfer_params = dict(
++        run_id="run", cell_id="cell", session_id="session", generation=0,
++        observed_prefix_id=_observed_prefix_digest(
++            list(request.prompt_token_ids), f.sched._wait_hint_namespace,
++        ), observed_prefix_boundary_tokens=32,
++    )
++    OffloadingConnectorScheduler.on_new_request(f.sched, request)
++    request.append_output_token_ids(list(range(100, 100 + generated)))
++    request.num_computed_tokens = (
++        request.num_tokens - 1 if computed is None else computed
++    )
++    request.status = status or RequestStatus.FINISHED_LENGTH_CAPPED
++    blocks = f.cache.allocate_slots(request, request.num_computed_tokens)
++    assert blocks is not None
++    req_state = f.sched._req_status[request.request_id]
++    req_state.update_offload_keys()
++    req_state.update_block_id_groups(
++        tuple([block.block_id for block in group] for group in blocks.blocks)
++    )
++    f.request = request
++    f.req_state = req_state
++    f.blocks = blocks
++    return f
++
++
++def _store_output(request):
++    return SimpleNamespace(num_scheduled_tokens={}, finished_req_ids={request.request_id})
++
++
++@pytest.mark.parametrize("enabled", [False, True])
++@pytest.mark.parametrize("generated", [16, 17, 31, 32, 33])
++def test_incremental_finished_store_excludes_uncomputed_sample_even_without_registry(
++    enabled, generated,
++):
++    f = _finished_fixture(enabled=enabled, generated=generated)
++    request = f.request
++    jobs = f.sched._build_store_jobs(_store_output(request))
++    safe_chunks = request.num_computed_tokens // 16
++    expected = set(f.req_state.group_states[0].offload_keys[2:safe_chunks])
++    actual = set().union(*(f.sched._jobs[job_id].keys for job_id in jobs))
++    assert actual == expected
++    assert f.req_state.group_states[0].next_stored_chunk_idx == safe_chunks
++    # Every new CPU key maps to its exact real GPU block, never to the
++    # sampled-but-unexecuted block tail when logical length is block aligned.
++    mapping = {key: ids for job_id in jobs
++               for key, ids in f.sched._pending_job_blocks[job_id]}
++    for index in range(2, safe_chunks):
++        key = f.req_state.group_states[0].offload_keys[index]
++        assert mapping[key] == [f.blocks.blocks[0][index].block_id]
++    for job in jobs.values():
++        assert set(job.src_spec.block_ids).isdisjoint(
++            block.block_id for block in f.blocks.blocks[0][safe_chunks:]
++        )
++
++
++@pytest.mark.parametrize("in_flight", [1, 16, 32])
++def test_finished_store_and_transcript_exclude_optimistically_counted_inflight(in_flight):
++    f = _finished_fixture(generated=33, computed=64)
++    f.request.num_in_flight_tokens = in_flight
++    expected = (64 - in_flight) // 16
++    jobs = f.sched._build_store_jobs(_store_output(f.request))
++    assert f.req_state.group_states[0].next_stored_chunk_idx == expected
++    f.sched._register_observed_prefix(f.request)
++    records = [record for record in f.sched._observed_prefixes.values()
++               if record.source_request_id == f.request.request_id]
++    assert {record.boundary_tokens for record in records} == {32, max(32, expected * 16)}
++    assert all(len(job.src_spec.block_ids) <= max(0, expected - 2) for job in jobs.values())
++
++
++def test_completed_source_keeps_declared_input_and_waits_for_real_store_completion():
++    f = _finished_fixture()
++    before = time.monotonic_ns()
++    f.sched._register_observed_prefix(f.request)
++    after = time.monotonic_ns()
++    records = {record.boundary_tokens: record for record in f.sched._observed_prefixes.values()
++               if record.source_request_id == f.request.request_id}
++    assert set(records) == {32, 48}
++    extra = records[48]
++    assert before <= extra.observed_ns <= after
++    assert extra.observed_prefix_id == _observed_prefix_digest(
++        list(f.request.all_token_ids[:48]), f.sched._wait_hint_namespace,
++    )
++    assert extra.keys == tuple(f.req_state.group_states[0].offload_keys[:3])
++    assert extra.observed_prefix_id != records[32].observed_prefix_id
++    jobs = f.sched._build_store_jobs(_store_output(f.request))
++    assert len(jobs) == 1
++    job_id, job = next(iter(jobs.items()))
++    assert f.sched._jobs[job_id].keys == {extra.keys[-1]}
++    assert list(job.src_spec.block_ids) == [f.blocks.blocks[0][2].block_id]
++    assert f.sched._block_id_to_pending_jobs[f.blocks.blocks[0][2].block_id] == {job_id}
++    # Exclude unrelated local-cache coverage, using the actual free allocator.
++    f.cache.free(f.request)
++    f.cache.block_pool.evict_blocks({block.block_id for block in f.blocks.blocks[0]})
++    f.sched._prefetch_require_full_prefix = True
++    hint = _wait_hint(f.sched, extra.observed_prefix_id, 48, event_id="c" * 64)
++    early = f.sched.publish_wait_hint(hint)
++    assert early["status"] == "no_action"
++    assert early["reason"] == "full_prefix_unavailable"
++    assert not f.sched._current_batch_prefetch_load_jobs
++    OffloadingConnectorScheduler.update_connector_output(
++        f.sched, KVConnectorOutput(kv_connector_worker_meta=SemanticWorkerMetadata(
++            completed_jobs={job_id: 1},
++        )),
++    )
++    assert f.sched.manager._policy.get(extra.keys[-1]).is_ready
++    assert not f.sched._block_id_to_pending_jobs
++    accepted = f.sched.publish_wait_hint(dict(hint, event_id="d" * 64))
++    assert accepted["status"] == "accepted"
++    f.sched._retry_wait_prefetches()
++    staged = f.sched._wait_prefetch["d" * 64]
++    assert staged.keys == extra.keys
++    assert len(staged.gpu_block_ids) == 3
++
++
++def test_generated_store_reuse_uses_native_flush_and_completion_fences():
++    f = _finished_fixture(enabled=False)
++    jobs = f.sched._build_store_jobs(_store_output(f.request))
++    job_id, job = next(iter(jobs.items()))
++    source_ids = set(job.src_spec.block_ids)
++    assert len(source_ids) == 1
++    f.cache.free(f.request)
++    pressure = f.cache.block_pool.get_new_blocks(
++        f.cache.block_pool.get_num_free_blocks()
++    )
++    assert source_ids <= {block.block_id for block in pressure}
++    f.sched._current_batch_allocated_block_ids.update(
++        block.block_id for block in pressure
++    )
++    output = SimpleNamespace(
++        num_scheduled_tokens={}, finished_req_ids=set(), preempted_req_ids=set(),
++        scheduled_new_reqs=[], scheduled_cached_reqs=SimpleNamespace(
++            req_ids=[], new_block_ids=[], resumed_req_ids=set(),
++        ),
++    )
++    metadata = OffloadingConnectorScheduler.build_connector_meta(f.sched, output)
++    assert job_id in metadata.jobs_to_flush
++    key = next(iter(f.sched._jobs[job_id].keys))
++    assert not f.sched.manager._policy.get(key).is_ready
++    OffloadingConnectorScheduler.update_connector_output(
++        f.sched, KVConnectorOutput(kv_connector_worker_meta=SemanticWorkerMetadata(
++            completed_jobs={job_id: 1},
++        )),
++    )
++    assert f.sched.manager._policy.get(key).is_ready
++    assert job_id not in f.sched._jobs
++    assert not f.sched._block_id_to_pending_jobs
++    f.cache.block_pool.free_blocks(pressure)
++
++
++def test_running_decode_store_keeps_native_scheduled_forward_boundary():
++    f = _finished_fixture(status=RequestStatus.RUNNING, generated=17, computed=47)
++    output = SimpleNamespace(
++        num_scheduled_tokens={f.request.request_id: 1}, finished_req_ids=set(),
++    )
++    jobs = f.sched._build_store_jobs(output)
++    assert len(jobs) == 1
++    assert f.req_state.group_states[0].next_stored_chunk_idx == 3
++    assert list(next(iter(jobs.values())).src_spec.block_ids) == [f.blocks.blocks[0][2].block_id]
++
++
++@pytest.mark.parametrize("generated,computed,in_flight,expected_ranges", [
++    (32, 63, 0, [(32, 48)]),
++    (33, 64, 1, [(32, 48)]),
++    (33, 64, 16, [(32, 48)]),
++    (33, 64, 0, [(32, 48), (48, 64)]),
++])
++def test_preservation_records_decode_store_commits_without_widening_prompt_demand(
++    generated, computed, in_flight, expected_ranges,
++):
++    f = _finished_fixture(generated=generated, computed=computed)
++    f.request.num_in_flight_tokens = in_flight
++    scheduler = f.sched
++    scheduler._preservation_events_enabled = True
++    scheduler._preservation_finished = {}
++    scheduler._preservation_jobs = {}
++    scheduler._preservation_known_stored_keys = set()
++    scheduler._preservation_evicted_keys = set()
++    scheduler._lifecycle_release_timing = "inline"
++    scheduler._replicated_layout = False
++    scheduler._prefetch_provenance = {}
++    state = scheduler._preservation_state(f.request)
++    scheduler._preservation_requests[f.request.request_id] = state
++    assert state["required_tokens"] == state["prompt_token_count"] == 32
++    assert state["required_chunks"] == 2
++    assert [(r["token_start"], r["token_end"]) for r in state["ordered_key_positions"]] == [(0, 16), (16, 32)]
++    output = SimpleNamespace(
++        num_scheduled_tokens={}, finished_req_ids={f.request.request_id},
++        preempted_req_ids=set(), scheduled_new_reqs=[],
++        scheduled_cached_reqs=SimpleNamespace(
++            req_ids=[], new_block_ids=[], resumed_req_ids=set(),
++        ),
++    )
++
++    metadata = scheduler.build_connector_meta(output)
++
++    assert len(metadata.store_jobs) == 1
++    job_id = next(iter(metadata.store_jobs))
++    info = scheduler._preservation_jobs[job_id]
++    assert info["key_order_complete"] is True
++    assert [(r["token_start"], r["token_end"]) for r in info["key_positions"]] == expected_ranges
++    assert all(r["complete_chunk"] for r in info["key_positions"])
++    assert state["cpu_commit_events"] == []
++    now = time.monotonic_ns()
++    scheduler.update_connector_output(KVConnectorOutput(
++        kv_connector_worker_meta=SemanticWorkerMetadata(
++            completed_jobs={job_id: 1}, transfer_events={job_id: SemanticTransferCompletion(
++                is_load=False, bytes=128 * len(expected_ranges), time_s=0.001,
++                contributors=1, contributor_ids=("0",),
++                started_at_ns=now - 1_000_000, completed_at_ns=now,
++            )},
++        ),
++    ))
++    commits = state["cpu_commit_events"]
++    assert [(r["token_start"], r["token_end"]) for r in commits] == expected_ranges
++    assert all(r["state"] == "committed_cpu_ready" for r in commits)
++    assert all(r["token_end"] <= computed - in_flight for r in commits)
++    assert all(r["token_end"] < f.request.num_tokens for r in commits)
++    assert state["required_tokens"] == state["prompt_token_count"] == 32
++    assert state["required_chunks"] == 2
++    assert all(r["token_end"] <= 32 for r in state["ordered_key_positions"])
++
++
++@pytest.mark.parametrize("cap", [0, 32, 47, 48])
++def test_completed_source_and_stores_preserve_per_request_offload_cap(cap):
++    f = _finished_fixture()
++    f.req_state.max_offload_tokens = cap
++    jobs = f.sched._build_store_jobs(_store_output(f.request))
++    f.sched._register_observed_prefix(f.request)
++    records = [r for r in f.sched._observed_prefixes.values()
++               if r.source_request_id == f.request.request_id]
++    assert {r.boundary_tokens for r in records} == ({32, 48} if cap >= 48 else {32})
++    assert sum(len(job.src_spec.block_ids) for job in jobs.values()) == int(cap >= 48)
++
++
++@pytest.mark.parametrize("case", ["disabled", "abort", "running", "generation", "identity", "keys"])
++def test_completed_transcript_registration_fails_closed(case):
++    f = _finished_fixture(enabled=case != "disabled")
++    if case == "abort":
++        f.request.status = RequestStatus.FINISHED_ABORTED
++    elif case == "running":
++        f.request.status = RequestStatus.RUNNING
++    elif case == "generation":
++        f.sched._observed_prefix_generations[("run", "cell", "session")] = 1
++    elif case == "identity":
++        f.request.kv_transfer_params["observed_prefix_id"] = "f" * 64
++    elif case == "keys":
++        f.req_state.group_states[0].offload_keys[2] = b"foreign"
++    f.sched._register_observed_prefix(f.request)
++    assert not any(record.boundary_tokens > 32
++                   for record in f.sched._observed_prefixes.values())
++
++
++@pytest.mark.parametrize("case", ["valid", "flag_type", "prompt_only", "native_disabled", "fp32", "tp2", "factor2"])
++def test_completed_transcript_configuration_guards(case, monkeypatch):
++    from vllm.v1.kv_cache_interface import FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec
++
++    native = SchedulerOffloadConfig(
++        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
++        blocks_per_chunk=2 if case == "factor2" else 1,
++        num_workers=2 if case == "tp2" else 1,
++        offload_prompt_only=case == "prompt_only",
++    )
++    def base(scheduler, *_):
++        scheduler.config = native
++        scheduler.manager = object()
++    monkeypatch.setattr("semantic_offload.connector.construct_scheduler_base", base)
++    spec = SimpleNamespace(extra_config={
++        "wait_hint_native_adoption": case != "native_disabled",
++        "wait_hint_completed_transcript": "yes" if case == "flag_type" else True,
++    }, replicated_layout=False, cpu_page_size_per_worker=128,
++        kv_bytes_per_chunk=128 * native.num_workers)
++    config = SimpleNamespace(model_config=SimpleNamespace(model="test"),
++                             cache_config=SimpleNamespace(block_size=16))
++    cache = KVCacheConfig(12, [], [KVCacheGroupSpec(["layer"], FullAttentionSpec(
++        block_size=16, num_kv_heads=1, head_size=4,
++        dtype=torch.float32 if case == "fp32" else torch.float16,
++    ))])
++    if case == "valid":
++        assert SemanticOffloadingConnectorScheduler(spec, config, cache)._wait_hint_completed_transcript
++    else:
++        error = TypeError if case == "flag_type" else ValueError
++        with pytest.raises(error, match="wait_hint_completed_transcript"):
++            SemanticOffloadingConnectorScheduler(spec, config, cache)
+--- /dev/null
++++ after/tests/test_full_prefix_nomination.py
+@@ -0,0 +1,242 @@
++"""Full-prefix capacity gates nomination work without caching allocation state."""
++from unittest.mock import patch
++
++import pytest
++
++from semantic_offload.manager import SemanticOffloadingManager
++from tests.test_step_1_5_prefetch import (
++    _full_wait_source_fixture, _make_connector_scheduler, _StubBlockPool,
++    _insert_resident, _register_wait_prefix, _wait_hint, to_key,
++    _native_adoption_request,
++)
++
++
++def _add_live_prefill(scheduler, request_id="active", *, status="RUNNING"):
++    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
++        OffloadingConnectorScheduler,
++    )
++    from vllm.utils.hashing import sha256
++    from vllm.v1.core.kv_cache_utils import init_none_hash
++    from vllm.v1.request import RequestStatus
++
++    init_none_hash(sha256)
++    request = _native_adoption_request(request_id)
++    request.status = getattr(RequestStatus, status)
++    request.num_computed_tokens = 16
++    OffloadingConnectorScheduler.on_new_request(scheduler, request)
++    assert scheduler._req_status[request_id].req is request
++    return request
++
++
++@pytest.mark.parametrize("status", ["RUNNING", "WAITING_FOR_REMOTE_KVS"])
++def test_full_prefix_publication_yields_to_admitted_prefill_before_cache_reads(status):
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    scheduler._prefetch_require_full_prefix = True
++    request = _add_live_prefill(scheduler, status=status)
++    with patch.object(manager._policy, "get", side_effect=AssertionError("CPU scan")), \
++         patch.object(pool, "get_cached_block", side_effect=AssertionError("GPU scan")):
++        result = scheduler.publish_wait_hint(hint)
++    assert result["status"] == "no_action"
++    assert result["reason"] == "active_prefill_in_progress"
++    assert not scheduler._wait_prefetch
++    assert not scheduler._current_batch_prefetch_load_jobs
++
++    # Producer refresh after observed progress is evaluated afresh.
++    request.num_computed_tokens = request.num_prompt_tokens
++    refreshed = dict(hint, event_id="b" * 64)
++    assert scheduler.publish_wait_hint(refreshed)["status"] == "accepted"
++    scheduler._retry_wait_prefetches()
++    assert scheduler._wait_prefetch[refreshed["event_id"]].status == "in_flight"
++
++
++def test_full_prefix_retry_rechecks_all_live_prefills_then_stages_during_decode():
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    scheduler._prefetch_require_full_prefix = True
++    assert scheduler.publish_wait_hint(hint)["status"] == "accepted"
++    state = scheduler._wait_prefetch[hint["event_id"]]
++    scheduler._prefetch_selector = "semantic"
++    manager.update_relevance({"mean": {"warm": [(key, 1.0) for key in keys]}})
++    first = _add_live_prefill(scheduler, "first")
++    second = _add_live_prefill(scheduler, "second")
++    with patch.object(scheduler, "_semantic_wait_nomination_candidate", side_effect=AssertionError("score work")), \
++         patch.object(manager._policy, "get", side_effect=AssertionError("CPU scan")), \
++         patch.object(pool, "get_cached_block", side_effect=AssertionError("GPU scan")):
++        scheduler._retry_wait_prefetches()
++        first.num_computed_tokens = first.num_prompt_tokens
++        scheduler._retry_wait_prefetches()
++    assert state.status == "pending"
++    assert not scheduler._current_batch_prefetch_load_jobs
++    second.num_computed_tokens = second.num_prompt_tokens
++    scheduler._retry_wait_prefetches()
++    assert state.status == "in_flight"
++    assert tuple(state.keys) == tuple(keys)
++
++
++def test_full_prefix_submit_rechecks_prefill_after_publication_without_scans():
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    scheduler._prefetch_require_full_prefix = True
++    scheduler.publish_wait_hint(hint)
++    state = scheduler._wait_prefetch[hint["event_id"]]
++    _add_live_prefill(scheduler)
++    with patch.object(manager._policy, "get", side_effect=AssertionError("CPU scan")), \
++         patch.object(pool, "get_cached_block", side_effect=AssertionError("GPU scan")), \
++         patch.object(pool, "get_new_blocks", side_effect=AssertionError("allocation")):
++        assert scheduler._attempt_wait_prefetch(state) is False
++    assert state.status == "pending"
++    assert scheduler._prefetch_reserved_blocks == 0
++
++
++@pytest.mark.parametrize("status", ["WAITING", "PREEMPTED", "FINISHED_ABORTED", "FINISHED_STOPPED", "FINISHED_LENGTH_CAPPED"])
++def test_unadmitted_or_terminal_requests_do_not_block_full_prefix_staging(status):
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    scheduler._prefetch_require_full_prefix = True
++    _add_live_prefill(scheduler, status=status)
++    assert scheduler.publish_wait_hint(hint)["status"] == "accepted"
++    scheduler._retry_wait_prefetches()
++    assert scheduler._wait_prefetch[hint["event_id"]].status == "in_flight"
++
++
++def test_admitted_prefill_gate_preserves_pending_expiry_processing():
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    scheduler._prefetch_require_full_prefix = True
++    scheduler.publish_wait_hint(hint)
++    scheduler._wait_prefetch[hint["event_id"]].lease.nomination_deadline_ns = 0
++    _add_live_prefill(scheduler)
++    scheduler._retry_wait_prefetches()
++    assert not scheduler._wait_prefetch
++    assert not scheduler._current_batch_prefetch_load_jobs
++
++
++def test_admitted_prefill_priority_is_limited_to_opt_in_full_prefix_mode():
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    _add_live_prefill(scheduler)
++    assert scheduler.publish_wait_hint(hint)["status"] == "accepted"
++    scheduler._retry_wait_prefetches()
++    assert scheduler._wait_prefetch[hint["event_id"]].status == "in_flight"
++
++
++@pytest.mark.parametrize("limit", ["reserved_budget", "free_capacity", "headroom"])
++def test_full_prefix_no_fit_skips_scoring_and_serialization_then_resumes(limit, monkeypatch):
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture(96)
++    scheduler._prefetch_require_full_prefix = True
++    scheduler._prefetch_budget_fraction = 0.25  # 128 total blocks.
++    scheduler._scoring_schedule = "opportunity"
++    scheduler._decision_scoring_requests = {}
++    scheduler._decision_scoring_attempts = {}
++    assert scheduler.publish_wait_hint(hint)["status"] == "accepted"
++    scheduler._prefetch_selector = "semantic"
++    if limit == "reserved_budget":
++        scheduler._prefetch_reserved_blocks = 100  # 28 cannot hold 96.
++    elif limit == "free_capacity":
++        pool._free = 95
++    else:
++        scheduler._prefetch_headroom_blocks = pool.get_num_free_blocks() - 95
++    state = scheduler._wait_prefetch[hint["event_id"]]
++    expire_calls = []
++    expire = scheduler._expire_wait_prefetches
++    def observed_expire(now):
++        expire_calls.append(now)
++        expire(now)
++    monkeypatch.setattr(scheduler, "_expire_wait_prefetches", observed_expire)
++    with patch.object(scheduler, "_semantic_wait_nomination_candidate", side_effect=AssertionError("must not score")), \
++         patch("semantic_offload.connector.record_wait_hint_event") as records, \
++         patch.object(manager._policy, "get", side_effect=AssertionError("must not scan readiness")):
++        for _ in range(3):
++            scheduler._retry_wait_prefetches()
++        assert not records.call_args_list
++    assert len(expire_calls) == 3
++    assert state.status == "pending"
++    assert not scheduler._decision_scoring_requests
++    assert not scheduler._current_batch_prefetch_load_jobs
++    # No cached refusal: the next call observes released budget/free capacity.
++    scheduler._prefetch_reserved_blocks = 0
++    scheduler._prefetch_headroom_blocks = 0
++    pool._free = 512
++    scheduler._retry_wait_prefetches()
++    assert state.status == "in_flight"
++    assert state.keys == tuple(keys)
++    assert len(state.gpu_block_ids) == 96
++
++
++def test_full_prefix_no_fit_still_expires_pending_lease_before_gate(monkeypatch):
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture()
++    scheduler._prefetch_require_full_prefix = True
++    scheduler.publish_wait_hint(hint)
++    scheduler._prefetch_selector = "semantic"
++    state = scheduler._wait_prefetch[hint["event_id"]]
++    state.lease.nomination_deadline_ns = 0
++    with patch.object(scheduler, "_semantic_wait_nomination_candidate", side_effect=AssertionError("expired candidate")), \
++         patch.object(scheduler, "_prefetch_free_capacity", side_effect=AssertionError("no pending source")):
++        scheduler._retry_wait_prefetches()
++    assert hint["event_id"] not in scheduler._wait_prefetch
++    assert not scheduler._current_batch_prefetch_load_jobs
++
++
++def test_full_prefix_gate_keeps_scored_competing_choice_when_one_source_fits():
++    manager = SemanticOffloadingManager(num_blocks=8)
++    groups = [[to_key(start + index) for index in range(4)] for start in (100, 200)]
++    for index, key in enumerate(groups[0] + groups[1]):
++        _insert_resident(manager, key, index)
++    scheduler = _make_connector_scheduler(manager, _StubBlockPool(20, free_blocks=20))
++    scheduler._prefetch_budget_fraction = 0.25  # Five blocks, two four-key sources.
++    scheduler._prefetch_require_full_prefix = True
++    for label, keys in zip(("a", "b"), groups):
++        prefix, boundary = _register_wait_prefix(scheduler, keys, session_id=label, request_id="warm-" + label)
++        assert scheduler.publish_wait_hint(_wait_hint(scheduler, prefix, boundary, session_id=label, event_id=label * 64))["status"] == "accepted"
++    manager.update_relevance({"mean": {"source": [(key, 10.0) for key in groups[1]] + [(key, 1.0) for key in groups[0]]}})
++    with patch("semantic_offload.connector.record_wait_hint_event") as records:
++        scheduler._retry_wait_prefetches()
++    assert scheduler._wait_prefetch["b" * 64].status == "in_flight"
++    assert scheduler._wait_prefetch["b" * 64].keys == tuple(groups[1])
++    assert scheduler._wait_prefetch["a" * 64].status == "pending"
++    nomination = [c.args[0] for c in records.call_args_list if c.args[0].get("event") == "nomination_decision"]
++    assert len(nomination) == 1
++    assert nomination[0]["scored_candidate_count"] == 2
++    assert nomination[0]["highest_ranked_candidate"]["session_id"] == "b"
++
++
++def test_nomination_gate_is_limited_to_opt_in_full_prefix_mode():
++    scheduler, manager, pool, keys, hint = _full_wait_source_fixture(96)
++    scheduler.publish_wait_hint(hint)
++    scheduler._prefetch_selector = "semantic"
++    scheduler._prefetch_reserved_blocks = 255  # Existing partial-prefix policy still nominates.
++    with patch.object(scheduler, "_semantic_wait_nomination_candidate", side_effect=RuntimeError("nomination reached")):
++        with pytest.raises(RuntimeError, match="nomination reached"):
++            scheduler._retry_wait_prefetches()
++
++
++def test_multi_source_capacity_recovery_requests_missing_scores_before_competing_choice():
++    manager = SemanticOffloadingManager(num_blocks=8)
++    groups = [[to_key(start + index) for index in range(4)] for start in (300, 400)]
++    for index, key in enumerate(groups[0] + groups[1]):
++        _insert_resident(manager, key, index)
++    scheduler = _make_connector_scheduler(manager, _StubBlockPool(20, free_blocks=20))
++    scheduler._prefetch_budget_fraction = 0.25
++    scheduler._prefetch_require_full_prefix = True
++    scheduler._scoring_schedule = "opportunity"
++    scheduler._decision_scoring_requests = {}
++    scheduler._decision_scoring_attempts = {}
++    for label, keys in zip(("a", "b"), groups):
++        prefix, boundary = _register_wait_prefix(scheduler, keys, session_id=label, request_id="warm-" + label)
++        assert scheduler.publish_wait_hint(_wait_hint(scheduler, prefix, boundary, session_id=label, event_id=label * 64))["status"] == "accepted"
++    scheduler._prefetch_reserved_blocks = 2  # Three remaining blocks fit neither source.
++    scheduler._retry_wait_prefetches()
++    assert not scheduler._decision_scoring_requests
++    assert not scheduler._decision_scoring_attempts
++    assert not scheduler._current_batch_prefetch_load_jobs
++    scheduler._prefetch_reserved_blocks = 0
++    scheduler._retry_wait_prefetches()
++    assert scheduler._decision_scoring_requests == {"warm-a": groups[0], "warm-b": groups[1]}
++    assert len(scheduler._decision_scoring_attempts) == 2
++    assert not scheduler._current_batch_prefetch_load_jobs
++    assert all(state.status == "pending" for state in scheduler._wait_prefetch.values())
++    # Model transport of the requested scores. The next retry must still make
++    # the real competing choice instead of reusing the earlier capacity refusal.
++    scheduler._decision_scoring_requests.clear()
++    manager.update_relevance({"mean": {"warm-b": [(key, 10.0) for key in groups[1]],
++                                       "warm-a": [(key, 1.0) for key in groups[0]]}})
++    scheduler._retry_wait_prefetches()
++    assert scheduler._wait_prefetch["b" * 64].status == "in_flight"
++    assert scheduler._wait_prefetch["b" * 64].keys == tuple(groups[1])
++    assert scheduler._wait_prefetch["a" * 64].status == "pending"
++    assert not scheduler._decision_scoring_requests
+--- /dev/null
++++ after/tests/test_mean_only_summaries.py
+@@ -0,0 +1,277 @@
++# SPDX-License-Identifier: Apache-2.0
++"""CPU qualification for mean-only continuous and opportunity payloads."""
++
++from types import SimpleNamespace
++from unittest.mock import patch
++
++import pytest
++import torch
++from vllm.v1.kv_offload.base import make_offload_key
++
++from semantic_offload.index import BlockSummary
++from semantic_offload.scoring_search import ClusterSearch, SearchConfig
++from semantic_offload.worker import SemanticOffloadingWorker, _MeanOnlySummary
++from tests.test_step_1_2_summaries import _make_layer, _make_worker
++
++
++def _key(value):
++    return make_offload_key(str(value).encode(), 0)
++
++
++def _worker(layer, fields="required", schedule="opportunity"):
++    worker = _make_worker({"probe": layer}, 16)
++    worker._summary_fields = fields
++    worker._method = "mean"
++    worker._scoring_schedule = schedule
++    worker._scoring_mode = "synchronous"
++    worker._head_aggregation = "mean"
++    worker._candidate_search = ClusterSearch(SearchConfig())
++    worker._pending_score_head_counts = {}
++    worker._query_snapshots = {}
++    worker._query_snapshot_events = {}
++    worker._query_snapshot_max_age_ns = 1_000_000_000
++    worker._query_snapshot_max_requests = 16
++    worker._pending_async_score_observations = []
++    worker._decision_score_sequence = 0
++    return worker
++
++
++@pytest.mark.parametrize("dtype", [torch.float16, torch.float32])
++def test_mean_only_exact_key_mapping_ownership_and_duplicate_last_write(dtype):
++    layer = _make_layer(9, 3, 16, 8, seed=924)
++    layer.kv_cache = layer.kv_cache.to(dtype)
++    worker = _worker(layer)
++    full = _worker(layer, "all")
++    layout = [(_key(1), [7, 2]), (_key(2), [0]), (_key(3), [5, 5, 1]),
++              (_key(4), []), (_key(1), [8])]
++    worker.receive_job_blocks({12: layout})
++    full.receive_job_blocks({12: layout})
++    worker._build_durable_summaries_for_job(12)
++    full._build_durable_summaries_for_job(12)
++    assert list(worker.durable_summaries) == [_key(1), _key(2), _key(3)]
++    layer.kv_cache.fill_(999)
++    for key, rows in worker.durable_summaries.items():
++        for reduced, original in zip(rows, full.durable_summaries[key]):
++            assert isinstance(reduced, _MeanOnlySummary)
++            assert isinstance(original, BlockSummary)
++            assert reduced.mean.dtype == torch.float32
++            assert torch.equal(reduced.mean, original.mean)
++            assert all(not hasattr(reduced, field) for field in ("min", "max", "mad"))
++    # Group/head identities must be distinct, even with repeated source blocks.
++    assert not torch.equal(worker.durable_summaries[_key(1)][0].mean,
++                           worker.durable_summaries[_key(2)][0].mean)
++    assert not torch.equal(worker.durable_summaries[_key(3)][0].mean,
++                           worker.durable_summaries[_key(3)][1].mean)
++
++
++def test_mean_only_legacy_block_mapping_matches_full_builder():
++    layer = _make_layer(8, 2, 16, 8, seed=925)
++    worker, full = _worker(layer), _worker(layer, "all")
++    ids = [5, 0, 7, 5]
++    worker._build_summaries_body(ids)
++    full._build_summaries_body(ids)
++    layer.kv_cache.zero_()
++    assert list(worker.summaries["probe"]) == [5, 0, 7]
++    for block in (5, 0, 7):
++        for reduced, original in zip(worker.summaries["probe"][block], full.summaries["probe"][block]):
++            assert torch.equal(reduced.mean, original.mean)
++
++
++def test_mean_only_opportunity_scoring_and_cache_mutations_equal_full_fields():
++    layer = _make_layer(8, 2, 16, 8, seed=926)
++    workers = [_worker(layer), _worker(layer, "all")]
++    queries = torch.randn(1, 2, 8, generator=torch.Generator().manual_seed(13))
++    expected = None
++    for worker in workers:
++        worker.receive_job_blocks({1: [(_key(1), [3]), (_key(2), [0, 1]), (_key(3), [4])]})
++        worker._build_durable_summaries_for_job(1)
++        worker._rebuild_stack_cache()
++        assert set(worker._stack_cache) == {"mean"}
++        worker.receive_evicted_keys([_key(2)])
++        worker.receive_job_blocks({2: [(_key(1), [7]), (_key(4), [5])]})
++        worker._build_durable_summaries_for_job(2)
++        worker._on_queries_captured(["req"], queries)
++        stamp = worker._query_snapshots["req"][0]
++        worker.receive_score_requests({"req": [_key(1), _key(3), _key(4)]})
++        observations = worker.pop_async_score_observations()
++        assert len(observations) == 1
++        assert observations[0]["snapshot_captured_ns"] == stamp
++        assert observations[0]["expires_at_ns"] == stamp + worker._query_snapshot_max_age_ns
++        scores = observations[0]["scores"]
++        if expected is None:
++            expected = scores
++        else:
++            assert scores == expected
++        assert set(worker._stack_cache_keys) == {_key(1), _key(3), _key(4)}
++
++
++def test_mean_only_empty_layout_does_not_publish():
++    layer = _make_layer(2, 1, 16, 8, seed=927)
++    worker = _worker(layer)
++    worker.receive_job_blocks({1: [(_key(1), [])]})
++    with patch("torch.stack", side_effect=AssertionError("must not gather")):
++        worker._build_durable_summaries_for_job(1)
++        worker._build_summaries_body([])
++    assert not worker.durable_summaries and not worker.summaries["probe"]
++    assert SemanticOffloadingWorker._summarize_mean_key_batches(torch.empty(0, 2, 16, 8)) == []
++
++
++@pytest.mark.parametrize("block", [-1, 3])
++def test_mean_only_invalid_block_layout_never_publishes_other_keys(block):
++    layer = _make_layer(3, 1, 16, 8, seed=928)
++    worker = _worker(layer)
++    worker.receive_job_blocks({1: [(_key(1), [0]), (_key(2), [block])]})
++    with pytest.raises(IndexError, match="outside the KV cache"):
++        worker._build_durable_summaries_for_job(1)
++    assert not worker.durable_summaries
++    with pytest.raises(IndexError, match="outside the KV cache"):
++        worker._build_summaries_body([block])
++    assert not worker.summaries["probe"]
++
++
++def test_mean_only_backend_shape_mismatch_fails_closed():
++    layer = _make_layer(3, 1, 16, 8, seed=929)
++    layer.attn_backend.get_kv_cache_shape = lambda *args: (1, 2, 3)
++    worker = _worker(layer)
++    worker.receive_job_blocks({1: [(_key(1), [0])]})
++    with pytest.raises(AssertionError, match="does not match"):
++        worker._build_durable_summaries_for_job(1)
++    assert not worker.durable_summaries
++
++
++@pytest.mark.parametrize("shape", [(2, 16, 8), (2, 0, 16, 8), (2, 3, 0, 8), (2, 3, 16, 0)])
++def test_mean_only_rejects_invalid_reduction_shape(shape):
++    with pytest.raises(ValueError, match="positive inner dimensions"):
++        SemanticOffloadingWorker._summarize_mean_key_batches(torch.empty(shape))
++
++
++def test_mean_only_reductions_do_not_evaluate_unused_fields():
++    keys = torch.randn(3, 2, 16, 8)
++    with patch.object(torch.Tensor, "amin", side_effect=AssertionError("unused min")), \
++         patch.object(torch.Tensor, "amax", side_effect=AssertionError("unused max")), \
++         patch.object(torch.Tensor, "abs", side_effect=AssertionError("unused MAD")):
++        groups = SemanticOffloadingWorker._summarize_mean_key_batches(keys)
++    assert len(groups) == 3 and len(groups[0]) == 2
++    assert torch.equal(groups[1][1].mean, keys[1, 1].mean(0))
++
++
++@pytest.mark.parametrize("method,schedule", [("minmax", "opportunity"), ("cuboid_mean", "opportunity"),
++    ("minmax", "continuous"), ("cuboid_mean", "continuous"), ("mean", "capture_only")])
++def test_required_fields_reject_unsupported_modes_before_allocation(monkeypatch, method, schedule):
++    monkeypatch.setenv("SEMANTIC_SUMMARY_FIELDS", "required")
++    monkeypatch.setattr("semantic_offload.worker.init_cpu_offloading_worker_base",
++                        lambda *args, **kwargs: pytest.fail("must reject before allocation"))
++    with pytest.raises(ValueError, match="require mean scoring"):
++        SemanticOffloadingWorker(None, 1, 1, None, method=method, scoring_schedule=schedule)
++
++
++@pytest.mark.parametrize("setting", ["", "mean", "REQUIRED"])
++def test_required_fields_reject_invalid_environment(monkeypatch, setting):
++    monkeypatch.setenv("SEMANTIC_SUMMARY_FIELDS", setting)
++    with pytest.raises(ValueError, match="must be all or required"):
++        SemanticOffloadingWorker(None, 1, 1, None)
++
++
++@pytest.mark.parametrize("schedule", ["continuous", "opportunity"])
++def test_required_fields_constructor_acceptance_and_default_full_payload(monkeypatch, schedule):
++    monkeypatch.setattr("semantic_offload.worker.init_cpu_offloading_worker_base", lambda *args, **kwargs: None)
++    monkeypatch.setattr(torch.cuda, "is_available", lambda: False)
++    config = SimpleNamespace(
++        use_v2_model_runner=False,
++        parallel_config=SimpleNamespace(tensor_parallel_size=1, pipeline_parallel_size=1, world_size=1),
++        compilation_config=SimpleNamespace(static_forward_context={}),
++        model_config=SimpleNamespace(use_mla=False, get_total_num_kv_heads=lambda: 1),
++        cache_config=SimpleNamespace(block_size=16),
++    )
++    monkeypatch.setenv("SEMANTIC_SUMMARY_FIELDS", "required")
++    worker = SemanticOffloadingWorker(None, 1, 1, config, scoring_schedule=schedule, probe_layer=None)
++    assert worker._summary_fields == "required"
++    monkeypatch.delenv("SEMANTIC_SUMMARY_FIELDS")
++    original = SemanticOffloadingWorker(None, 1, 1, config, probe_layer=None)
++    assert original._summary_fields == "all"
++
++
++def test_mean_only_rollback_waits_for_fence_and_preserves_newer_publication():
++    layer = _make_layer(3, 1, 16, 8, seed=930)
++    worker = _worker(layer)
++    worker._summary_job_events = {}
++    worker.receive_job_blocks({1: [(_key(1), [0])]})
++    worker._build_durable_summaries_for_job(1)
++    worker.receive_job_blocks({2: [(_key(1), [1])]})
++    worker._build_durable_summaries_for_job(2)
++    current = worker.durable_summaries[_key(1)]
++    synchronized = []
++    worker._summary_job_events[1] = SimpleNamespace(synchronize=lambda: synchronized.append(1))
++    worker._rollback_summary_job(1)
++    assert synchronized == [1]
++    assert worker.durable_summaries[_key(1)] is current
++    worker._summary_job_events[2] = SimpleNamespace(synchronize=lambda: synchronized.append(2))
++    worker._rollback_summary_job(2)
++    assert synchronized == [1, 2]
++    assert _key(1) not in worker.durable_summaries
++
++
++@pytest.mark.parametrize("schedule", ["continuous", "opportunity"])
++def test_mean_only_async_projection_and_scores_equal_full_payload(schedule):
++    from tests.test_async_scoring import _worker as make_async_worker, _wait_async_observations
++    expected = None
++    for required in (False, True):
++        worker = make_async_worker("asynchronous")
++        worker._scoring_schedule = schedule
++        worker._query_snapshot_max_age_ns = 1_000_000_000
++        if required:
++            worker._summary_fields = "required"
++            worker.durable_summaries = {
++                key: [_MeanOnlySummary(row.mean) for row in rows]
++                for key, rows in worker.durable_summaries.items()
++            }
++        try:
++            worker._score_queries(["req"], torch.ones(1, 1, 4))
++            pending = next(iter(worker._async_scoring._pending.values()))
++            projected = pending.snapshot.payload.summaries
++            assert all(hasattr(row, "mean") and not hasattr(row, "min")
++                       for rows in projected for row in rows)
++            observations = _wait_async_observations(worker)
++            assert len(observations) == 1
++            scores = observations[0]["scores"]
++            if expected is None:
++                expected = scores
++            else:
++                assert scores == expected
++        finally:
++            worker._async_scoring.shutdown()
++
++
++@pytest.mark.parametrize("request_count", [1, 3])
++def test_continuous_mean_only_online_scores_and_transport_equal_full_payload(request_count):
++    from tests.test_opportunity_metadata import _connector
++    layer = _make_layer(8, 2, 16, 8, seed=414)
++    queries = torch.randn(request_count, 2, 8, generator=torch.Generator().manual_seed(15))
++    req_ids = [f"req-{index}" for index in range(request_count)]
++    expected = None
++    for fields in ("all", "required"):
++        worker = _worker(layer, fields, schedule="continuous")
++        worker.receive_job_blocks({1: [(_key(1), [3]), (_key(2), [0, 1]), (_key(3), [4])]})
++        worker._build_durable_summaries_for_job(1)
++        worker._on_queries_captured(req_ids, queries)
++        assert set(worker._pending_scores["mean"]) == set(req_ids)
++        assert worker._pending_score_head_counts["mean"] == dict.fromkeys(req_ids, 2)
++        assert not worker._query_snapshots
++        assert not worker._pending_async_score_observations
++        metadata = _connector(worker).build_connector_worker_meta()
++        assert metadata.complete_async_score_observations() == []
++        actual = (metadata.complete_scores(), metadata.complete_relevance_updates(),
++                  metadata.complete_latest_relevance(), metadata.score_head_counts,
++                  metadata.score_reduction)
++        if request_count == 1:
++            assert actual[0] and not actual[1]
++        else:
++            assert actual[1] and not actual[0]
++        if expected is None:
++            expected = actual
++        else:
++            assert actual == expected
++        # A later capture remains live; metadata extraction must not turn the
++        # reduced payload into a one-shot or deferred-only scorer.
++        worker._on_queries_captured(req_ids, -queries)
++        assert set(worker._pending_scores["mean"]) == set(req_ids)
+--- /dev/null
++++ after/tests/test_opportunity_metadata.py
+@@ -0,0 +1,87 @@
++"""Regression: sync opportunity observations must not look like legacy scores."""
++
++from copy import deepcopy
++from types import SimpleNamespace
++
++import pytest
++import torch
++from vllm.distributed.kv_transfer.kv_connector.v1.offloading_connector import OffloadingConnector
++from vllm.v1.outputs import KVConnectorOutput
++
++from semantic_offload.connector import SemanticOffloadingConnector, OffloadingWorkerMetadata
++from tests.test_audit import manager
++from tests.test_scoring_schedule import configured_worker
++from tests.test_step_1_3_scoring import _summary, _seed_durable_summaries, to_key
++
++
++def _connector(worker):
++    connector = SemanticOffloadingConnector.__new__(SemanticOffloadingConnector)
++    connector.connector_worker = SimpleNamespace(
++        worker=worker, build_connector_worker_meta=OffloadingWorkerMetadata,
++    )
++    connector.connector_scheduler = None
++    connector._score_group_size = 1
++    return connector
++
++
++def _observed_worker():
++    worker = configured_worker()
++    first, second = to_key(1), to_key(2)
++    _seed_durable_summaries(worker, {first: [_summary(2)], second: [_summary(-1)]})
++    for query in (torch.ones(1, 1, 4), -torch.ones(1, 1, 4)):
++        worker._on_queries_captured(["source"], query)
++        worker.receive_score_requests({"source": [first, second]})
++    assert worker._pending_scores == {"mean": {}}  # Actual failing producer shape.
++    return worker, [first, second]
++
++
++def test_sync_opportunity_metadata_transports_ordered_observations_without_phantom_legacy(monkeypatch):
++    worker, keys = _observed_worker()
++    expected_observations = deepcopy(worker._pending_async_score_observations)
++    connector = _connector(worker)
++    metadata = connector.build_connector_worker_meta()
++    assert metadata.pending_scores == {}
++    assert metadata.score_head_counts == {}
++    assert metadata.relevance_updates == {}
++    assert metadata.complete_async_score_observations() == expected_observations
++    assert [item["observation_sequence"] for item in expected_observations] == [1, 2]
++    # Both clocks and feature expiry survive transport unchanged.
++    for actual, expected in zip(metadata.async_score_observations, expected_observations):
++        for field in ("snapshot_captured_ns", "observation_available_ns", "expires_at_ns"):
++            assert actual[field] == expected[field]
++    actual_manager, expected_manager = manager(keys), manager(keys)
++    for observation in expected_observations:
++        expected_manager.update_relevance(observation["scores"])
++    connector.connector_scheduler = SimpleNamespace(
++        manager=actual_manager, _preservation_requests={}, _preservation_finished={},
++    )
++    monkeypatch.setattr(OffloadingConnector, "update_connector_output", lambda *args: None)
++    connector.update_connector_output(KVConnectorOutput(kv_connector_worker_meta=metadata))
++    assert actual_manager.relevance_ema["mean"] == pytest.approx(expected_manager.relevance_ema["mean"])
++    for key in keys:
++        assert actual_manager._relevance_feature_snapshot_ns["mean"][key] == expected_observations[-1]["snapshot_captured_ns"]
++    second_metadata = connector.build_connector_worker_meta()
++    assert second_metadata.pending_scores == {}
++    assert second_metadata.async_score_observations == []
++
++
++@pytest.mark.parametrize("ranked", [[(to_key(1), 3.0)], []])
++def test_real_legacy_request_metadata_is_preserved_and_mixed_payload_still_rejected(ranked):
++    worker, keys = _observed_worker()
++    worker._pending_scores["mean"]["legacy"] = ranked
++    worker._pending_score_head_counts["mean"]["legacy"] = 1
++    metadata = _connector(worker).build_connector_worker_meta()
++    assert metadata.pending_scores == {"mean": {"legacy": ranked}}
++    assert metadata.score_head_counts == {"mean": {"legacy": 1}}
++    with pytest.raises(ValueError, match="cannot coexist with legacy"):
++        metadata.complete_async_score_observations()
++
++
++def test_empty_method_normalization_preserves_actual_legacy_scores_and_head_counts():
++    worker = configured_worker("continuous")
++    worker._pending_scores = {"unused": {}, "mean": {"source": [(to_key(1), 2.0)]}}
++    worker._pending_score_head_counts = {"unused": {}, "mean": {"source": 1}}
++    metadata = _connector(worker).build_connector_worker_meta()
++    assert metadata.complete_scores() == {"mean": {"source": [(to_key(1), 2.0)]}}
++    assert metadata.score_head_counts == {"mean": {"source": 1}}
++    assert metadata.async_score_observations == []
+--- /dev/null
++++ after/tests/test_prefix_mean_scoring.py
+@@ -0,0 +1,227 @@
++"""Opt-in scalar prefix scoring: CPU math, ownership and consumer contracts."""
++import copy
++import time
++from types import SimpleNamespace
++from unittest.mock import patch
++
++import pytest
++import torch
++
++from semantic_offload.connector import SemanticWorkerMetadata
++from semantic_offload.worker import _MeanOnlySummary
++from tests.test_scoring_schedule import configured_worker
++from tests.test_step_1_3_scoring import to_key
++from tests.test_step_1_5_prefetch import _run_cross_session_wait_nomination
++
++
++def prefix_worker(device='cpu', lengths=(3, 5), heads=3, dim=11):
++    worker = configured_worker()
++    worker._query_snapshot_max_requests = 8
++    worker._query_snapshot_max_age_ns = 10_000_000_000
++    worker._scoring_mode = 'synchronous'
++    worker._summary_generation = 0
++    worker._summary_stream = None
++    worker._score_transport_context = {
++        'epoch': 'test:0', 'prefix_mean_prefetch_scoring': True,
++        'sources': {'peer-a': 1, 'peer-b': 2}, 'residencies': {}}
++    generator = torch.Generator().manual_seed(93)
++    means = torch.randn(sum(lengths), heads, dim, generator=generator).to(device)
++    keys = [to_key(i) for i in range(sum(lengths))]
++    worker.durable_summaries = {
++        k: [_MeanOnlySummary(mean=h) for h in row.unbind(0)] for k, row in zip(keys, means.unbind(0))}
++    worker._register_summary_publications(1, keys)
++    candidates, offset = {}, 0
++    for i, length in enumerate(lengths):
++        selected = tuple(keys[offset:offset + length]);offset += length
++        candidates[f'event-{i}'] = {'event_id': f'event-{i}', 'keys': selected,
++                                  'residency_versions': {k: 1 for k in selected}}
++    query = torch.randn(2, heads, dim, generator=generator).to(device)
++    worker._on_queries_captured(['peer-a', 'peer-b'], query)
++    return worker, {'active_query_ids': ['peer-a', 'peer-b'], 'candidates': candidates}, means, query
++
++
++def test_prefix_scalar_matches_same_query_dense_common_metric_without_block_ranks():
++    worker, request, means, query = prefix_worker()
++    owned_query = query.clone()
++    query.zero_()
++    worker.receive_prefix_score_requests(request)
++    observation, = worker.pop_prefix_score_observations()
++    offset = 0
++    for item in observation['candidates'].values():
++        n = len(item['descriptor']['keys'])
++        dense = (means[offset:offset + n] * owned_query.mean(0)).sum(-1).mean()
++        assert item['score'] == pytest.approx(dense.item(), abs=1e-6)
++        offset += n
++    assert worker._pending_scores == {} and worker._pending_async_score_observations == []
++    assert observation['snapshot_captured_ns'] == min(worker._query_snapshots[r][0] for r in request['active_query_ids'])
++    assert observation['query_sources'] == {'peer-a': 1, 'peer-b': 2}
++    assert worker._prefix_mean_scoring_stats['numerical_candidates'] == 2
++
++
++def test_centroid_owns_storage_and_publication_change_rebuilds_and_missing_refuses():
++    worker, request, means, _ = prefix_worker()
++    worker.receive_prefix_score_requests(request)
++    original = worker.pop_prefix_score_observations()[0]
++    cache_values = [v.clone() for v in worker._prefix_mean_centroid_cache.values()]
++    means.fill_(1000)
++    for actual, expected in zip(worker._prefix_mean_centroid_cache.values(), cache_values):
++        torch.testing.assert_close(actual, expected, rtol=0, atol=0)
++    worker.receive_prefix_score_requests(request)
++    assert worker.pop_prefix_score_observations()[0]['candidates'] == original['candidates']
++    worker._register_summary_publications(2, list(worker.durable_summaries))
++    worker.receive_prefix_score_requests(request)
++    fresh = worker.pop_prefix_score_observations()[0]
++    assert fresh['candidates']['event-0']['score'] != original['candidates']['event-0']['score']
++    worker._durable_summary_publications.clear()
++    worker.receive_prefix_score_requests(request)
++    assert worker.pop_prefix_score_observations() == []
++
++
++def test_cache_and_pending_observations_bounded_no_autograd_and_reset():
++    worker, request, means, _ = prefix_worker()
++    means.requires_grad_(True)
++    for job in range(30):
++        worker._register_summary_publications(job, list(worker.durable_summaries))
++        worker.receive_prefix_score_requests(request)
++    assert len(worker._prefix_mean_centroid_cache) <= 16
++    assert sum(t.untyped_storage().nbytes() for t in worker._prefix_mean_centroid_cache.values()) <= 1024 * 1024
++    assert all(not t.requires_grad and t.grad_fn is None for t in worker._prefix_mean_centroid_cache.values())
++    assert len(worker._pending_prefix_score_observations) == 1
++    worker.reset_semantic_state()
++    assert not worker._prefix_mean_centroid_cache and not worker.pop_prefix_score_observations()
++
++
++def test_expired_or_inactive_query_never_renews_features_and_optin_is_required():
++    worker, request, _, _ = prefix_worker()
++    original = copy.copy(worker._query_snapshots)
++    worker._query_snapshots = {r: (stamp - 20_000_000_000, q) for r, (stamp, q) in original.items()}
++    worker.receive_prefix_score_requests(request)
++    assert not worker.pop_prefix_score_observations()
++    worker._query_snapshots = original
++    request['active_query_ids'] = ['finished-warm']
++    worker.receive_prefix_score_requests(request)
++    assert not worker.pop_prefix_score_observations()
++    request['active_query_ids'] = ['peer-a']
++    worker._score_transport_context['prefix_mean_prefetch_scoring'] = False
++    worker.receive_prefix_score_requests(request)
++    assert not worker.pop_prefix_score_observations()
++
++
++def prefix_scheduler():
++    sched, a, b, now = _run_cross_session_wait_nomination('semantic', .1, .9)
++    sched._prefix_mean_prefetch_scoring = True
++    sched._prefix_query_max_age_ns = 1_000_000_000
++    sched._score_transport_enabled = True
++    sched._score_transport_identity = 'test'
++    sched._score_transport_generation = 0
++    sched._score_source_tokens = {'peer': 42}
++    sched._score_source_deadlines = {}
++    sched._req_status = {'peer': SimpleNamespace(req=SimpleNamespace(status=SimpleNamespace(name='RUNNING')))}
++    sched.manager.relevance_ema.clear()
++    # Test fixture inserts directly; give every current residency a version.
++    for key in a + b: sched.manager._policy.get(key)._semantic_score_version = 1
++    return sched, a, b, now
++
++
++def observation_for(sched, now, scores=(.1, .9)):
++    return {'contract': 'prefix-mean-v1', 'transport_epoch': 'test:0', 'observation_sequence': 1,
++            'metric': 'raw_mean_key_dot_mean_head_common_active_query',
++            'query_sources': {'peer': 42}, 'query_capture_ns': {'peer': now},
++            'snapshot_captured_ns': now, 'observation_available_ns': now,
++            'expires_at_ns': now + 1_000_000_000,
++            'candidates': {s.lease.hint.event_id: {
++                'descriptor': sched._prefix_mean_descriptor(s, s.publication_candidate_keys), 'score': score}
++                for s, score in zip(sched._wait_prefetch.values(), scores)}}
++
++
++def test_common_scalar_changes_real_constrained_choice_without_ema_or_fake_key_scores():
++    sched, a, b, now = prefix_scheduler()
++    with patch('semantic_offload.connector.time.monotonic_ns', return_value=now):
++        sched.receive_prefix_score_observations([observation_for(sched, now)])
++        sched._retry_wait_prefetches()
++    states = list(sched._wait_prefetch.values())
++    assert states[1].status == 'in_flight' and states[0].status == 'pending'
++    assert tuple(states[1].keys) == tuple(b)
++    assert states[1].selection_evidence['semantic_key_scores'] == []
++    assert states[1].selection_evidence['prefix_mean_score']['score'] == .9
++    assert sched.manager.relevance_ema == {}
++    assert sched._prefix_mean_scoring_stats['accepted_candidates'] == 2
++
++
++@pytest.mark.parametrize('fault', ['epoch', 'query_token', 'expired', 'future', 'residency', 'missing_key', 'generation', 'cancelled'])
++def test_consumer_rejects_invalid_identity_lease_query_and_residency(fault):
++    sched, a, _, now = prefix_scheduler()
++    observation = observation_for(sched, now)
++    if fault == 'epoch': observation['transport_epoch'] = 'old'
++    if fault == 'query_token': sched._score_source_tokens['peer'] = 100
++    if fault == 'expired': observation['expires_at_ns'] = now - 1
++    if fault == 'future': observation['observation_available_ns'] = now + 1
++    if fault == 'residency': sched.manager._policy.get(a[0])._semantic_score_version = 2
++    if fault == 'missing_key': observation['candidates'][next(iter(observation['candidates']))]['descriptor']['keys'] = ()
++    if fault == 'generation': observation['candidates'][next(iter(observation['candidates']))]['descriptor']['identity'] = ('wrong-generation',)
++    if fault == 'cancelled': list(sched._wait_prefetch.values())[0].lease.cancel()
++    with patch('semantic_offload.connector.time.monotonic_ns', return_value=now):
++        sched.receive_prefix_score_observations([observation])
++        state = list(sched._wait_prefetch.values())[0]
++        assert sched._prefix_mean_score_for_state(state, a, now) is None
++
++
++def test_normal_completion_lease_survives_but_abort_and_feature_expiry_do_not():
++    sched, a, _, now = prefix_scheduler()
++    observation = observation_for(sched, now)
++    sched._score_source_deadlines['peer'] = now + 500_000_000
++    sched._req_status.clear()  # Normal completion, not a borrowed warm query.
++    with patch('semantic_offload.connector.time.monotonic_ns', return_value=now):
++        sched.receive_prefix_score_observations([observation])
++        state = list(sched._wait_prefetch.values())[0]
++        assert sched._prefix_mean_score_for_state(state, a, now) is not None
++        sched._score_source_tokens.clear()  # Abort/error invalidates immediately.
++        assert sched._prefix_mean_score_for_state(state, a, now) is None
++
++
++def test_all_fit_still_requests_real_scoring_and_fallback_is_bounded_and_labelled():
++    sched, _, _, now = prefix_scheduler()
++    sched._prefetch_budget_fraction = 1.
++    with patch('semantic_offload.connector.time.monotonic_ns', return_value=now):
++        sched._retry_wait_prefetches()
++    assert sched._prefix_mean_scoring_request['active_query_ids'] == ['peer']
++    assert len(sched._prefix_mean_scoring_request['candidates']) == 2
++    assert all(s.status == 'pending' for s in sched._wait_prefetch.values())
++    with patch('semantic_offload.connector.time.monotonic_ns', return_value=now + 60_000_000):
++        sched._retry_wait_prefetches()
++    assert all(s.status == 'in_flight' for s in sched._wait_prefetch.values())
++    for state in sched._wait_prefetch.values():
++        assert state.selection_evidence['score_status'] == 'not_evaluated'
++        assert state.selection_evidence['unscored_reason']
++
++
++def test_prefix_metadata_requires_complete_single_worker_group():
++    observation = {'real': 'scalar'}
++    assert SemanticWorkerMetadata(prefix_score_observations=[observation], score_group_size=1, score_contributors=1).complete_prefix_score_observations() == [observation]
++    assert SemanticWorkerMetadata(prefix_score_observations=[observation], score_group_size=2, score_contributors=1).complete_prefix_score_observations() == []
++
++
++def test_scalar_transport_survives_worker_metadata_without_fake_block_updates():
++    from tests.test_opportunity_metadata import _connector
++    worker, request, _, _ = prefix_worker()
++    worker.receive_prefix_score_requests(request)
++    connector = _connector(worker)
++    metadata = connector.build_connector_worker_meta()
++    observations = metadata.complete_prefix_score_observations()
++    assert len(observations) == 1 and len(observations[0]['candidates']) == 2
++    assert metadata.pending_scores == {} and metadata.relevance_updates == {}
++    assert metadata.latest_relevance == {} and metadata.async_score_observations == []
++    assert connector.build_connector_worker_meta().prefix_score_observations == []
++
++
++def test_prefill_blocks_movement_but_not_real_score_request_or_acceptance():
++    sched, _, _, now = prefix_scheduler()
++    sched._prefetch_require_full_prefix = True
++    sched._admitted_prefill_in_progress = lambda: True
++    with patch('semantic_offload.connector.time.monotonic_ns', return_value=now):
++        sched._retry_wait_prefetches()
++        assert len(sched._prefix_mean_scoring_request['candidates']) == 2
++        sched.receive_prefix_score_observations([observation_for(sched, now)])
++        sched._retry_wait_prefetches()
++    assert sched._prefix_mean_scoring_stats['accepted_candidates'] == 2
++    assert all(s.status == 'pending' for s in sched._wait_prefetch.values())
+--- before/tests/test_step_1_5_prefetch.py
++++ after/tests/test_step_1_5_prefetch.py
+@@ -154,6 +154,8 @@
+ 
+     assert scheduler._prefetch_trigger == "preemption"
+     assert scheduler._wait_hint_native_adoption is False
++    assert scheduler._wait_hint_coalesce_exact_source is False
++    assert scheduler._prefetch_require_full_prefix is False
+     assert scheduler._wait_hint_coalescing_min_sources == 1
+     assert scheduler._wait_hint_coalescing_max_ns == 0
+     assert scheduler._prefetch_bytes_per_key == 458752
+@@ -163,6 +165,8 @@
+     spec.extra_config = {
+         "wait_hint_coalescing_min_sources": 2,
+         "wait_hint_coalescing_max_ms": 25,
++        "wait_hint_coalesce_exact_source": True,
++        "prefetch_require_full_prefix": True,
+     }
+     scheduler = SemanticOffloadingConnectorScheduler(
+         spec,
+@@ -174,6 +178,8 @@
+     )
+     assert scheduler._wait_hint_coalescing_min_sources == 2
+     assert scheduler._wait_hint_coalescing_max_ns == 25_000_000
++    assert scheduler._wait_hint_coalesce_exact_source is True
++    assert scheduler._prefetch_require_full_prefix is True
+ 
+     spec.extra_config = {"wait_hint_coalescing_min_sources": 2}
+     with pytest.raises(ValueError, match="max_ms must be positive"):
+@@ -3233,6 +3239,76 @@
+     assert '"demand_wait_required":true' in capsys.readouterr().out
+ 
+ 
++@pytest.mark.parametrize("prefetch_request_id", ["demand", "other"])
++@pytest.mark.parametrize("pending_count", [None, 0, 1])
++def test_demand_reclaims_completed_legacy_scratch_before_native_admission(
++    prefetch_request_id, pending_count, capsys
++):
++    from vllm.v1.core.block_pool import BlockPool
++
++    # One real null block plus a completed 256-block optional source leave
++    # 527 free destinations: native 625-block admission cannot yet proceed.
++    pool = BlockPool(784, enable_caching=True, hash_block_size=16)
++    scratch = pool.get_new_blocks(256)
++    manager = SemanticOffloadingManager(num_blocks=300)
++    sched = _make_connector_scheduler(manager, pool)
++    sched._staging_mode = "owned_reclaimable"
++    sched.config.kv_group_configs[0].tokens_per_block = 16
++    sched._prefetched[prefetch_request_id] = _PrefetchState(
++        job_id=7, keys=[to_key(i) for i in range(256)],
++        gpu_block_ids=[block.block_id for block in scratch],
++    )
++    sched._prefetch_reserved_blocks = 256
++    if pending_count is not None:
++        sched._jobs[7] = SimpleNamespace(pending_count=pending_count)
++    assert pool.get_num_free_blocks() == 527
++    demand = SimpleNamespace(request_id="demand", num_prompt_tokens=12288)
++
++    sched._reclaim_wait_prefetch_for_demand(
++        demand, 2288, protected_event_id=None
++    )
++
++    if pending_count == 1:
++        assert pool.get_num_free_blocks() == 527
++        assert sched._prefetch_reserved_blocks == 256
++        assert all(block.ref_cnt == 1 for block in scratch)
++        assert '"demand_wait_required":true' in capsys.readouterr().out
++        return
++    assert sched._prefetched == {}
++    assert sched._prefetch_reserved_blocks == 0
++    assert pool.get_num_free_blocks() == 783
++    assert all(block.ref_cnt == 0 for block in scratch)
++    # Native demand now has capacity. Every granted block has sole ownership;
++    # the optional source is no longer a prerequisite for its own admission.
++    admitted = pool.get_new_blocks(625)
++    assert len(admitted) == len({block.block_id for block in admitted}) == 625
++    assert all(block.ref_cnt == 1 for block in admitted)
++    assert pool.get_num_free_blocks() == 158
++    pool.free_blocks(admitted)
++
++
++def test_demand_preserves_completed_legacy_scratch_when_destinations_fit():
++    from vllm.v1.core.block_pool import BlockPool
++
++    pool = BlockPool(784, enable_caching=True, hash_block_size=16)
++    scratch = pool.get_new_blocks(256)
++    sched = _make_connector_scheduler(SemanticOffloadingManager(num_blocks=300), pool)
++    sched._staging_mode = "owned_reclaimable"
++    sched._prefetched["demand"] = _PrefetchState(
++        job_id=7, keys=[], gpu_block_ids=[block.block_id for block in scratch]
++    )
++    sched._prefetch_reserved_blocks = 256
++
++    sched._reclaim_wait_prefetch_for_demand(
++        SimpleNamespace(request_id="demand", num_prompt_tokens=500),
++        0, protected_event_id=None,
++    )
++
++    assert "demand" in sched._prefetched
++    assert pool.get_num_free_blocks() == 527
++    assert all(block.ref_cnt == 1 for block in scratch)
++
++
+ def test_useful_on_time_scheduler_uses_causal_completed_cost_and_wait_budget():
+     manager = SemanticOffloadingManager(num_blocks=10)
+     keys = [to_key(index) for index in range(3)]
+@@ -4334,7 +4410,7 @@
+     )
+ 
+ 
+-def _native_adoption_fixture():
++def _native_adoption_fixture(dtype=torch.bfloat16):
+     from vllm.distributed.kv_transfer.kv_connector.v1.offloading.events import (
+         OffloadingEventsTracker,
+     )
+@@ -4355,7 +4431,7 @@
+     init_none_hash(sha256)
+     cache = KVCacheManager(
+         KVCacheConfig(12, [], [KVCacheGroupSpec(["layer"], FullAttentionSpec(
+-            block_size=16, num_kv_heads=1, head_size=4, dtype=torch.bfloat16,
++            block_size=16, num_kv_heads=1, head_size=4, dtype=dtype,
+         ))]),
+         max_model_len=128, scheduler_block_size=16, hash_block_size=16,
+     )
+@@ -4399,8 +4475,8 @@
+     state = sched._wait_prefetch[hint["event_id"]]
+     # The worker accepted this job; completion remains outstanding.
+     sched._current_batch_prefetch_load_jobs.clear()
+-    backing = torch.zeros(12, 16, 4, dtype=torch.bfloat16)
+-    dram = torch.arange(128, dtype=torch.bfloat16).reshape(2, 16, 4)
++    backing = torch.zeros(12, 16, 4, dtype=dtype)
++    dram = torch.arange(128, dtype=dtype).reshape(2, 16, 4)
+     return SimpleNamespace(
+         sched=sched, cache=cache, state=state, hint=hint, warm=warm,
+         backing=backing, dram=dram,
+@@ -4433,6 +4509,50 @@
+     )
+     f.sched.on_new_request(request)
+     return request
++
++
++def test_other_demand_does_not_reclaim_bound_wait_hint_or_leak_source_protection():
++    f = _native_adoption_fixture(torch.float16)
++    f.sched._staging_mode = "owned_reclaimable"
++    f.sched._wait_hint_native_adoption = False
++    _native_adoption_complete(f)
++    request = _native_adoption_bind(f)
++    state = f.state
++    pool = f.cache.block_pool
++    manager = f.sched.manager
++    assert state.status == "bound_ready"
++    assert f.sched._prefetched[request.request_id].attempt_id == f.hint["event_id"]
++    assert manager.staging_protection_stats()["active_bindings"] == 1
++    assert manager.staging_protection_stats()["protected_key_references"] == 2
++    assert all(manager._policy.get(key).ref_cnt == 1 for key in state.keys)
++    pressure = pool.get_new_blocks(pool.get_num_free_blocks())
++    assert pool.get_num_free_blocks() == 0
++
++    f.sched._reclaim_wait_prefetch_for_demand(
++        _native_adoption_request("other-demand"), 0, protected_event_id=None,
++    )
++
++    assert state.status == "bound_ready"
++    assert f.sched._wait_prefetch[f.hint["event_id"]] is state
++    assert request.request_id in f.sched._prefetched
++    assert pool.get_num_free_blocks() == 0
++    assert manager.staging_protection_stats()["active_bindings"] == 1
++    assert all(manager._policy.get(key).ref_cnt == 1 for key in state.keys)
++
++    # The ordinary cancellation/expiry owner releases both tiers exactly once.
++    f.sched._retire_wait_prefetch(
++        state, "cancel", now_ns=time.monotonic_ns(),
++    )
++    assert request.request_id not in f.sched._prefetched
++    assert manager.staging_protection_stats()["active_bindings"] == 0
++    assert manager.staging_protection_stats()["protected_key_references"] == 0
++    assert all(manager._policy.get(key).ref_cnt == 0 for key in state.keys)
++    assert pool.get_num_free_blocks() == 2
++    f.sched._free_wait_prefetch(state, "repeated_cleanup")
++    assert pool.get_num_free_blocks() == 2
++    assert manager.staging_protection_stats()["active_bindings"] == 0
++    pool.free_blocks(pressure)
++    assert pool.get_num_free_blocks() == 11
+ 
+ 
+ def _native_adoption_allocate(f, request):
+@@ -4448,10 +4568,12 @@
+     return blocks
+ 
+ 
++@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+ def test_native_adoption_same_physical_ids_no_splice_or_duplicate_allocation(
+-    monkeypatch,
++    monkeypatch, dtype,
+ ):
+-    f = _native_adoption_fixture()
++    f = _native_adoption_fixture(dtype)
++    assert f.backing.dtype == dtype and f.dram.dtype == dtype
+     ids = list(f.state.gpu_block_ids)
+     assert f.cache.get_computed_blocks(f.warm)[1] == 0
+     assert all(f.cache.block_pool.blocks[i].ref_cnt == 1 for i in ids)
+@@ -4489,8 +4611,9 @@
+     assert f.cache.block_pool.get_num_free_blocks() == 11
+ 
+ 
+-def test_native_adoption_bound_inflight_publishes_only_after_completion():
+-    f = _native_adoption_fixture()
++@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
++def test_native_adoption_bound_inflight_publishes_only_after_completion(dtype):
++    f = _native_adoption_fixture(dtype)
+     request = _native_adoption_bind(f)
+     ids = list(f.state.gpu_block_ids)
+     assert f.cache.get_computed_blocks_for_connector(request)[1] == 0
+@@ -4556,10 +4679,11 @@
+ 
+ 
+ @pytest.mark.parametrize("retirement", ["cancel", "expire", "failure"])
++@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
+ def test_native_adoption_inflight_retirement_never_publishes_or_recycles_early(
+-    retirement,
++    retirement, dtype,
+ ):
+-    f = _native_adoption_fixture()
++    f = _native_adoption_fixture(dtype)
+     request = _native_adoption_bind(f)
+     pool = f.cache.block_pool
+     ids = f.state.gpu_block_ids
+@@ -4588,8 +4712,9 @@
+     "disabled", "layout", "tp", "factor", "missing_api", "wrong_tokens",
+     "wrong_hash", "missing_fence",
+ ])
+-def test_native_adoption_falls_back_without_publishing(fallback, monkeypatch):
+-    f = _native_adoption_fixture()
++@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
++def test_native_adoption_falls_back_without_publishing(fallback, monkeypatch, dtype):
++    f = _native_adoption_fixture(dtype)
+     _native_adoption_complete(f)
+     request = _native_adoption_request("resume")
+     if fallback == "disabled":
+@@ -4652,8 +4777,9 @@
+     assert all(pool.blocks[i].block_hash is None for i in f.state.gpu_block_ids)
+ 
+ 
+-def test_native_adoption_orders_relevance_ranked_blocks_by_exact_keys():
+-    f = _native_adoption_fixture()
++@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16])
++def test_native_adoption_orders_relevance_ranked_blocks_by_exact_keys(dtype):
++    f = _native_adoption_fixture(dtype)
+     # Model a completed transfer whose selected-key order differs from chain order.
+     f.state.keys = tuple(reversed(f.state.keys))
+     ids_in_chain_order = list(reversed(f.state.gpu_block_ids))
+@@ -4706,16 +4832,24 @@
+     assert pool.get_num_free_blocks() == before
+ 
+ 
+-@pytest.mark.parametrize("dtype,window,supported", [
+-    (torch.bfloat16, None, True),
+-    (torch.float32, None, False),
+-    (torch.bfloat16, 16, False),
++@pytest.mark.parametrize("dtype,layout,group_count,supported", [
++    (torch.bfloat16, {}, 1, True),
++    (torch.float16, {}, 1, True),
++    (torch.float32, {}, 1, False),
++    (torch.bfloat16, {"sliding_window": 16}, 1, False),
++    (torch.float16, {"sliding_window": 16}, 1, False),
++    (torch.float16, {"attention_chunk_size": 16}, 1, False),
++    (torch.float16, {"non_causal": True}, 1, False),
++    (torch.float16, {"kv_quant_mode": "FP8_PER_TENSOR"}, 1, False),
++    (torch.float16, {"kv_quant_mode": "INT8_PER_TOKEN_HEAD"}, 1, False),
++    (torch.float16, {}, 0, False),
++    (torch.float16, {}, 2, False),
+ ])
+ def test_native_adoption_constructor_restricts_layout_and_validates_flag(
+-    dtype, window, supported, monkeypatch,
++    dtype, layout, group_count, supported, monkeypatch,
+ ):
+     from vllm.v1.kv_cache_interface import (
+-        FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec,
++        FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec, KVQuantMode,
+     )
+     native_config = SchedulerOffloadConfig(
+         kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
+@@ -4733,13 +4867,213 @@
+         model_config=SimpleNamespace(model="test-model"),
+         cache_config=SimpleNamespace(block_size=16),
+     )
+-    cache = KVCacheConfig(12, [], [KVCacheGroupSpec(["layer"], FullAttentionSpec(
+-        block_size=16, num_kv_heads=1, head_size=4, dtype=dtype,
+-        sliding_window=window,
+-    ))])
++    layout = dict(layout)
++    if "kv_quant_mode" in layout:
++        layout["kv_quant_mode"] = KVQuantMode[layout["kv_quant_mode"]]
++    cache = KVCacheConfig(12, [], [KVCacheGroupSpec([f"layer-{index}"], FullAttentionSpec(
++        block_size=16, num_kv_heads=1, head_size=4, dtype=dtype, **layout,
++    )) for index in range(group_count)])
+     scheduler = SemanticOffloadingConnectorScheduler(spec, config, cache)
+     assert scheduler._wait_hint_native_adoption_layout_supported is supported
+     assert scheduler._wait_hint_native_adoption is True
+     spec.extra_config["wait_hint_native_adoption"] = "yes"
+     with pytest.raises(TypeError, match="wait_hint_native_adoption"):
+         SemanticOffloadingConnectorScheduler(spec, config, cache)
++
++
++def _full_wait_source_fixture(count=3):
++    manager = SemanticOffloadingManager(num_blocks=count + 1)
++    keys = [to_key(index + 900) for index in range(count)]
++    for index, key in enumerate(keys):
++        _insert_resident(manager, key, index)
++    pool = _StubBlockPool(512, free_blocks=512)
++    sched = _make_connector_scheduler(manager, pool)
++    sched._prefetch_selector = "request_order"
++    sched._prefetch_budget_fraction = 0.5
++    prefix, boundary = _register_wait_prefix(sched, keys)
++    hint = _wait_hint(sched, prefix, boundary)
++    return sched, manager, pool, keys, hint
++
++
++@pytest.mark.parametrize("status", ["pending", "in_flight", "ready"])
++def test_exact_source_refresh_reuses_canonical_lease_without_reserving(status):
++    if status == "pending":
++        sched, manager, pool, keys, hint = _full_wait_source_fixture()
++        sched._wait_hint_coalesce_exact_source = True
++        first = sched.publish_wait_hint(hint)
++        assert first["canonical_event_id"] == hint["event_id"]
++        state = sched._wait_prefetch[hint["event_id"]]
++    else:
++        f = _native_adoption_fixture(torch.float16)
++        sched, pool, hint, state = f.sched, f.cache.block_pool, f.hint, f.state
++        sched._wait_hint_coalesce_exact_source = True
++        if status == "ready":
++            _native_adoption_complete(f)
++    lease_identity = id(state.lease)
++    original_hint = state.lease.hint
++    original_ttl = state.lease.expires_at_ns
++    original_deadline = state.lease.nomination_deadline_ns
++    original_free = pool.get_num_free_blocks()
++    original_reserved = sched._prefetch_reserved_blocks
++    original_jobs = dict(sched._current_batch_prefetch_load_jobs)
++    refresh = _wait_hint(sched, hint["observed_prefix_id"], hint["prefix_boundary_tokens"], event_id="b" * 64)
++    result = sched.publish_wait_hint(refresh)
++    assert result["status"] == "accepted"
++    assert result["reason"] == "coalesced_exact_source"
++    assert result["event_id"] == refresh["event_id"]
++    assert result["canonical_event_id"] == hint["event_id"]
++    assert result["canonical_state_status"] == status
++    assert result["canonical_staged_key_count"] == len(state.keys)
++    assert len(sched._wait_prefetch) == 1
++    assert refresh["event_id"] not in sched._wait_prefetch
++    assert id(state.lease) == lease_identity and state.lease.hint is original_hint
++    assert state.lease.expires_at_ns == original_ttl
++    assert state.lease.nomination_deadline_ns == original_deadline
++    assert pool.get_num_free_blocks() == original_free
++    assert sched._prefetch_reserved_blocks == original_reserved
++    assert sched._current_batch_prefetch_load_jobs == original_jobs
++    replay = sched.publish_wait_hint(refresh)
++    assert replay == {**result, "idempotent_replay": True}
++
++
++@pytest.mark.parametrize("mismatch", ["owner_id", "generation", "namespace", "run_id", "cell_id", "session_id"])
++def test_exact_source_refresh_does_not_merge_different_identity(mismatch):
++    sched, manager, pool, keys, hint = _full_wait_source_fixture()
++    sched._wait_hint_coalesce_exact_source = True
++    sched.publish_wait_hint(hint)
++    refresh = _wait_hint(sched, hint["observed_prefix_id"], hint["prefix_boundary_tokens"], event_id="b" * 64)
++    if mismatch == "generation":
++        refresh[mismatch] = 1
++    elif mismatch == "namespace":
++        refresh[mismatch]["adapter_namespace"] = "other"
++    else:
++        refresh[mismatch] = "other"
++    result = sched.publish_wait_hint(refresh)
++    assert result["reason"] != "coalesced_exact_source"
++    assert result.get("canonical_event_id") != hint["event_id"]
++    assert hint["event_id"] in sched._wait_prefetch
++
++
++@pytest.mark.parametrize("inactive", ["pending_deadline", "ttl", "cancelled", "retired"])
++def test_exact_source_refresh_never_reuses_expired_or_retired_state(inactive):
++    sched, manager, pool, keys, hint = _full_wait_source_fixture()
++    sched._wait_hint_coalesce_exact_source = True
++    sched.publish_wait_hint(hint)
++    old = sched._wait_prefetch[hint["event_id"]]
++    if inactive == "pending_deadline":
++        old.lease.nomination_deadline_ns = time.monotonic_ns() - 1
++    elif inactive == "ttl":
++        sched._retry_wait_prefetches()
++        old.lease.expires_at_ns = time.monotonic_ns() - 1
++    elif inactive == "cancelled":
++        old.lease.cancel()
++    else:
++        old.status = "retired_pending_fence"
++    reserved = sched._prefetch_reserved_blocks
++    refresh = _wait_hint(sched, hint["observed_prefix_id"], hint["prefix_boundary_tokens"], event_id="b" * 64)
++    result = sched.publish_wait_hint(refresh)
++    assert result["reason"] == "queued_for_scheduler_dispatch"
++    assert result["canonical_event_id"] == refresh["event_id"]
++    assert sched._wait_prefetch[hint["event_id"]] is old
++    assert len(sched._wait_prefetch) == 2
++    assert sched._prefetch_reserved_blocks == reserved
++    if inactive == "ttl":
++        assert old.status == "in_flight"  # refresh never recycles live DMA destinations
++        assert old.job_id in sched._wait_prefetch_jobs
++
++
++@pytest.mark.parametrize("missing", ["cpu_tail", "gpu_prefix", "gpu_suffix", "gpu_api"])
++def test_full_prefix_publication_rejects_partial_or_duplicate_source(missing, monkeypatch):
++    sched, manager, pool, keys, hint = _full_wait_source_fixture()
++    sched._prefetch_require_full_prefix = True
++    if missing == "cpu_tail":
++        manager._policy.get(keys[-1]).ref_cnt = -1  # unfinished store, not readable
++    elif missing == "gpu_api":
++        pool.get_cached_block = None
++    else:
++        key = keys[0] if missing == "gpu_prefix" else keys[-1]
++        pool._cached_block_hashes[bytes(key[:-4])] = 500
++    free = pool.get_num_free_blocks()
++    monkeypatch.setattr(pool, "get_new_blocks", lambda *args: pytest.fail("must not reserve"))
++    monkeypatch.setattr(manager, "prepare_load", lambda *args: pytest.fail("must not prepare DMA"))
++    result = sched.publish_wait_hint(hint)
++    assert result["status"] == "no_action"
++    assert result["reason"] == "full_prefix_unavailable"
++    assert not sched._wait_prefetch
++    assert not sched._current_batch_prefetch_load_jobs
++    assert pool.get_num_free_blocks() == free
++
++
++@pytest.mark.parametrize("enough", [False, True])
++def test_full_128_key_source_requires_entire_allocation_budget(enough):
++    sched, manager, pool, keys, hint = _full_wait_source_fixture(128)
++    sched._prefetch_require_full_prefix = True
++    sched._prefetch_budget_fraction = (128 if enough else 127) / 512
++    result = sched.publish_wait_hint(hint)
++    if not enough:
++        assert result["status"] == "no_action"
++        assert result["reason"] == "full_prefix_budget_unavailable"
++        assert not sched._wait_prefetch
++        assert pool.get_num_free_blocks() == 512
++        assert not sched._current_batch_prefetch_load_jobs
++        return
++    assert result["status"] == "accepted"
++    state = sched._wait_prefetch[hint["event_id"]]
++    assert sched._attempt_wait_prefetch(state)
++    assert state.keys == tuple(keys)
++    assert len(state.gpu_block_ids) == 128
++    assert sched._prefetch_reserved_blocks == 128
++    assert len(sched._current_batch_prefetch_load_jobs) == 1
++
++
++@pytest.mark.parametrize("changed", ["budget", "cpu_tail", "gpu_suffix", "candidate_tail", "selected_partial"])
++def test_full_prefix_revalidates_before_dma_without_rewriting_publication(changed, monkeypatch):
++    sched, manager, pool, keys, hint = _full_wait_source_fixture()
++    sched._prefetch_require_full_prefix = True
++    assert sched.publish_wait_hint(hint)["status"] == "accepted"
++    state = sched._wait_prefetch[hint["event_id"]]
++    publication = (state.publication_candidate_keys, state.publication_eligible_keys,
++                   state.publication_local_gpu_prefix_count, state.publication_local_gpu_block_ids)
++    if changed == "budget":
++        sched._prefetch_budget_fraction = 2 / 512
++    elif changed == "cpu_tail":
++        manager._policy.get(keys[-1]).ref_cnt = -1  # unfinished store, not readable
++    elif changed == "gpu_suffix":
++        pool._cached_block_hashes[bytes(keys[-1][:-4])] = 500
++    elif changed == "candidate_tail":
++        state.publication_candidate_keys = tuple(keys[1:])
++        publication = (state.publication_candidate_keys, *publication[1:])
++    else:
++        sched._prefetch_selector = "useful_on_time"
++        sched._prefetch_transfer_ns_per_byte = 1_000_000.0
++    free = pool.get_num_free_blocks()
++    monkeypatch.setattr(pool, "get_new_blocks", lambda *args: pytest.fail("must not reserve"))
++    monkeypatch.setattr(manager, "prepare_load", lambda *args: pytest.fail("must not prepare DMA"))
++    assert not sched._attempt_wait_prefetch(state)
++    assert state.status == "pending"
++    assert not sched._current_batch_prefetch_load_jobs
++    assert pool.get_num_free_blocks() == free
++    assert sched._prefetch_reserved_blocks == 0
++    assert publication == (state.publication_candidate_keys, state.publication_eligible_keys,
++                           state.publication_local_gpu_prefix_count, state.publication_local_gpu_block_ids)
++    assert state.selection_evidence["status"] in {"full_prefix_unavailable", "full_prefix_selection_incomplete"}
++
++
++@pytest.mark.parametrize("option", ["wait_hint_coalesce_exact_source", "prefetch_require_full_prefix"])
++@pytest.mark.parametrize("invalid", [0, 1, None, "true", []])
++def test_exact_source_and_full_prefix_options_require_json_booleans(option, invalid, monkeypatch):
++    config = SchedulerOffloadConfig(
++        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
++        blocks_per_chunk=1, num_workers=1, offload_prompt_only=False,
++    )
++    def base(scheduler, *args):
++        scheduler.config = config
++        scheduler.manager = object()
++    monkeypatch.setattr("semantic_offload.connector.construct_scheduler_base", base)
++    spec = SimpleNamespace(extra_config={option: invalid}, replicated_layout=False,
++                           cpu_page_size_per_worker=128, kv_bytes_per_chunk=128)
++    with pytest.raises(TypeError, match=option + " must be a JSON boolean"):
++        SemanticOffloadingConnectorScheduler(spec,
++            SimpleNamespace(model_config=SimpleNamespace(model="test-model"),
++                            cache_config=SimpleNamespace(block_size=16)),
++            SimpleNamespace())

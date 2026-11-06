@@ -1,0 +1,55 @@
+--- asynccpu/semantic_offload/worker.py
++++ asynccpu_pinned/semantic_offload/worker.py
+@@ -1081,10 +1081,10 @@
+             with PROFILE.scope("async.math_enqueue", cuda=payload.math_backend != "cpu"):
+                 if payload.math_backend == "cpu":
+                     # Controller readiness fences have completed before entry.
+-                    # Blocking copies own CPU storage; no borrowed GPU views or
+-                    # pending D2H writes can reach CPU reductions.
++                    # Cooperative copies own CPU storage and fence DMA before
++                    # any CPU reductions; no borrowed GPU views reach math.
+                     cpu_means = self._async_cpu_mean_bank(cache["mean"])
+-                    cpu_queries = payload.queries.detach().to(device="cpu", copy=True)
++                    cpu_queries = self._copy_to_owned_cpu(payload.queries)
+                     readback_owners.append((cpu_means, cpu_queries))
+                     cache = {"mean": cpu_means}
+                     query = cpu_queries.unsqueeze(1)
+@@ -1139,6 +1139,29 @@
+                 stream.synchronize()  # Failed Future alone is not a GPU reader fence.
+                 raise
+ 
++    @torch.no_grad()
++    def _copy_to_owned_cpu(self, source):
++        if not source.is_cuda:
++            return source.detach().to(device="cpu", copy=True)
++        # The CUDA caching host allocator can reuse these owned pinned buffers.
++        # Cooperative event waiting avoids a blocking D2H copy's driver wait.
++        owned = torch.empty(source.shape, dtype=source.dtype, device="cpu",
++                            pin_memory=True)
++        producer = torch.cuda.current_stream(source.device)
++        try:
++            owned.copy_(source, non_blocking=True)
++            completed = torch.cuda.Event()
++            completed.record(producer)
++            from semantic_offload.async_scoring import wait_for_owned_fence
++            wait_for_owned_fence(completed)
++        except BaseException:
++            # The CPU destination and GPU source must remain live until DMA
++            # stops, including copy/event-record/query failures. Fence INSIDE
++            # this frame rather than relying on the outer scoring-stream catch.
++            producer.synchronize()
++            raise
++        return owned
++
+     def _async_cpu_mean_bank(self, packed):
+         # setdefault publishes one lock even for __new__ CPU fixtures. Each
+         # immutable CPU bank has one backing allocation; concurrent jobs retain
+@@ -1149,7 +1172,7 @@
+             if previous is not None and previous[0]() is packed:
+                 return previous[1]
+             with torch.no_grad():
+-                owned = packed.detach().to(device="cpu", copy=True)
++                owned = self._copy_to_owned_cpu(packed)
+             current = getattr(self, "_async_packed_bank", None)
+             if current is not None and current[1] is packed:
+                 # Weak identity avoids retaining another GPU bank as metadata.

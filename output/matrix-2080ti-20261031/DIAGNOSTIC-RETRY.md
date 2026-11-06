@@ -1,0 +1,7 @@
+# Diagnostic retry
+
+The first diagnostic-multi-1103-arc attempt completed 42 of 43 submitted requests; agent-0 turn3 failed immediately with aiohttp ServerDisconnectedError, so its remaining two turns were never submitted. The server continued serving the other sessions, post-load exports succeeded, and no owned descendants remained. The server log shows no corresponding engine crash; a stale HTTP connection is plausible but unproven. Preserve the full failed attempt in failed-attempts/diagnostic-multi-1103-arc.
+
+Retry this diagnostic cell once with identical source, configuration, workload and instrumentation; do not add client retries, change the transport, replace any primary measurement, or pool the failed partial attempt. Then run the originally planned semantic multi diagnostic and one ARC output-repeatability check. The failure remains an explicit reliability limitation in the final report.
+
+The first semantic multi diagnostic completed all45 requests successfully, then the post-load terminal-drain parser raised JSONDecodeError on a partially written record. It therefore never reached the final metrics fetch or synchronized profiling export. Preserve this attempt separately. A task-local launcher replaces only that post-load reader with incremental JSON decoding plus tolerance for an unfinished record, then retries this diagnostic once. Serving and primary measurement code remain byte-for-byte pinned. The final run.py event extraction already tolerates malformed lines; it extracted all45 terminals in this failed attempt.

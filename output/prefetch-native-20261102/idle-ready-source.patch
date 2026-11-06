@@ -1,0 +1,29 @@
+--- fused-mean/connector.py
++++ idle-ready/connector.py
+@@ -3975,6 +3975,26 @@
+                     "bound_request_id": state.bound_request_id,
+                 }
+             )
++
++    def ready_staging_idle_timeout(self) -> float | None:
++        """Bound the next idle wake by TTL; incoming queue messages wake sooner.
++
++        Called only by an idle native core. Pending DMA, cleanup, nominations,
++        request ownership and diagnostic timing all require ordinary polling.
++        """
++        if (os.environ.get("SEMANTIC_READY_IDLE_WAIT") != "1"
++                or super().has_pending_push_work()
++                or getattr(self, "_wait_prefetch_jobs", {})
++                or getattr(self, "_pending_splice_releases", {})
++                or getattr(self, "_bounded_prefill_cuda_timing", False)):
++            return None
++        states = list(getattr(self, "_wait_prefetch", {}).values())
++        if not states or any(s.status != "ready" or s.bound_request_id is not None
++                             for s in states):
++            return None
++        now = time.monotonic_ns()
++        remaining = min(s.lease.expires_at_ns for s in states) - now
++        return min(0.05, max(0.0, remaining / 1_000_000_000))
+ 
+     def has_pending_push_work(self) -> bool:
+         return super().has_pending_push_work() or bool(

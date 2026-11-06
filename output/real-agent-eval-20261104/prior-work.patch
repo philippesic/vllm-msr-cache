@@ -1,0 +1,440 @@
+diff --git a/benchmarks/serving_suite/runner.py b/benchmarks/serving_suite/runner.py
+index 20cfc39..9c4ee82 100644
+--- a/benchmarks/serving_suite/runner.py
++++ b/benchmarks/serving_suite/runner.py
+@@ -236,6 +236,10 @@ def run_case(plan, sessions, arm, repeat, out):
+         VLLM_PLUGINS="semantic_wait_hint" if plan["publish_hints"] else "",
+         SEMANTIC_VLLM_STAGE_PARENT=str((directory / "runtime-staging").resolve()),
+     )
++    if plan.get("qualification_trace"):
++        env["VLLM_KV_QUALIFICATION_TRACE"] = str((directory / "kv-qualification.jsonl").resolve())
++    else:
++        env.pop("VLLM_KV_QUALIFICATION_TRACE", None)
+     server = OwnedServer(cmd, directory, env, int(cmd[cmd.index("--port") + 1]))
+     case = dict(
+         name=name,
+@@ -552,6 +556,7 @@ def parser():
+         default="store,restore",
+         help="Comma-separated store,restore,hint_accepted,scoring,cpu_recency; empty allows overhead-only tests",
+     )
++    p.add_argument("--qualification-trace", action="store_true", help="Opt-in native queue/load/reclaimable-capacity trace; adds diagnostic I/O overhead")
+     p.add_argument("--publish-hints", action="store_true")
+     p.add_argument(
+         "--arrival-interval-s",
+diff --git a/benchmarks/serving_suite/workload.py b/benchmarks/serving_suite/workload.py
+index 715fe1e..1b63ed7 100644
+--- a/benchmarks/serving_suite/workload.py
++++ b/benchmarks/serving_suite/workload.py
+@@ -122,6 +122,13 @@ async def run_wave(
+                     and plan["publish_hints"]
+                     and arm == "candidate"
+                 ):
++                    # Experimental causal advice timing: keep the same total
++                    # scripted wait, but publish after other sessions can evict
++                    # this source from GPU. No future user text is observed.
++                    hint_delay = min(delay, max(0.0, plan.get("hint_delay_s", 0.0)))
++                    if hint_delay:
++                        await asyncio.sleep(hint_delay)
++                        delay -= hint_delay
+                     tokens = (
+                         previous["payload"]["prompt"]
+                         + previous["output_token_ids"][:-1]
+diff --git a/docs/BENCHMARKING.md b/docs/BENCHMARKING.md
+index 1ce996b..ed2893f 100644
+--- a/docs/BENCHMARKING.md
++++ b/docs/BENCHMARKING.md
+@@ -33,6 +33,15 @@ supplied corpus; `--allow-synthetic` explicitly permits fixture qualification on
+ The default candidate is semantic-mean eviction with speculative prefetch disabled.
+ It is not the separately qualified CPU-advice research profile.
+ 
++For prefetch qualification, `--qualification-trace` enables a default-off native
++queue/load trace in each case's `kv-qualification.jsonl`. Analyze it with
++`python -m benchmarks.research_checks.hybrid_qualification PATH`. It separates
++arrival-to-load, async-load issue-to-receipt, and receipt-to-admission intervals,
++and samples reclaimable GPU blocks. These are diagnostic observations with I/O
++overhead. Reclaimable space is not necessarily empty; CPU readiness and bandwidth
++are not observed. Reported candidate overlap is optimistic and cannot establish
++exposed restore stalls, throughput gains, or an MSR qualification by itself.
++
+ ## Commands
+ 
+ ```bash
+diff --git a/docs/CONFIGURATION.md b/docs/CONFIGURATION.md
+index 528962b..0461d80 100644
+--- a/docs/CONFIGURATION.md
++++ b/docs/CONFIGURATION.md
+@@ -170,3 +170,24 @@ on the candidate and retains the before/after Prometheus snapshots. It defaults
+ to false outside the suite. This proves applied scoring activity, not ranking
+ quality, speculative-copy usefulness, or cache-hit correctness. See the
+ [benchmarking guide](BENCHMARKING.md) for the four tiers and their evidence limits.
++
++## Isolated KV SVD experiment
++
++`kv_svd_rank` defaults to `0` (off). Ranks 1–15 enable lossy SVD compression
++of actual FP16 K/V pages in the semantic worker; this is separate from semantic
++summary/predictor features. The experimental codec supports uniform dense pages,
++head size 128, block size 16, and one CPU block per GPU block. It retains FP16
++factors only on CPU and reconstructs full GPU pages before transfer completion.
++Scheduler ownership remains fenced; no speculative or demand reader may consume
++unfinished data. Transfers currently synchronize and include codec work in their
++reported duration. `kv_svd_trace` optionally records allocation, physical factor
++bytes, operation time and reconstruction residuals to a local JSONL file.
++
++`kv_svd_expand_capacity=true` uses the same nominal CPU byte budget for more
++compressed slots, including the readiness bitmap. Default false keeps the native
++slot count and saves host payload bytes instead. Policy/summary metadata and
++transient codec workspace are additional and must be measured. The solver batches
++at most 256 matrices to bound the observed workspace spike. Rank 4 failed the
++retrieval quality screen; rank 8 passing a small assertion suite is not general
++quality qualification. All options remain experimental and default off. See
++[serving experiment](../evidence/semantic-svd-serving-20261104/PROTOCOL.md).
+diff --git a/docs/PROJECT_HISTORY.md b/docs/PROJECT_HISTORY.md
+index 8b4165d..99aedad 100644
+--- a/docs/PROJECT_HISTORY.md
++++ b/docs/PROJECT_HISTORY.md
+@@ -66,3 +66,21 @@ not distributed by Git; the retained evidence index identifies portable results.
+   isolated runtime installation, 1,381 tests and real GPU smoke; added lightweight
+   push/PR checks (31 portable tests). Preserved paused research and historical
+   reproduction files. [Verification](../evidence/workflow-finalization-20261103/README.md).
++
++- **November 4, 2026 — hybrid qualification evidence:** resolved the interrupted
++  source inspection with bounded row-group audits; verified prior pressure traces
++  and completed a longer-history diagnostic with 13 restores per arm. A 711-example
++  task-separated pilot did not establish primary one-second gains. Exploratory
++  quarter-second richer Q/K gains survived more flexible metadata controls, but remain
++  simulated cache-value evidence. Real-cache-value, causal opportunity and native
++  cost gates remain unmet; no live hybrid or policy change. 170 focused and 31
++  portable tests passed; GPU released, useful data/results retained.
++  [Findings and stopping boundary](../evidence/msr-hybrid-qualification-20261103/README.md).
++
++- **November 4, 2026 — semantic KV SVD serving factorial:** implemented actual
++  lossy KV-factor offload, tested all four semantic ablations against ARC and
++  wait-hint ARC, then refined solver batching, capacity, hint timing and staging
++  leases. 54 cases completed 972 responses. Rank 4 failed quality; rank 8 and
++  active prefetch did not beat wait-hint ARC after repairs and diagnostic-off
++  checks. No deployment; prior work preserved.
++  [Comparisons and bounded stopping decision](../evidence/semantic-svd-serving-20261104/README.md).
+diff --git a/docs/STATUS.md b/docs/STATUS.md
+index 7a347a8..f4a8004 100644
+--- a/docs/STATUS.md
++++ b/docs/STATUS.md
+@@ -1,11 +1,52 @@
+ # Current work
+ 
+-Last reconciled: 2026-11-03. This is a handoff summary, not a live process monitor.
++Last reconciled: 2026-11-04. This is a handoff summary, not a live process monitor.
+ Update the affected entry at a meaningful handoff, change of direction, or finish.
+ Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
+ Verify stale ownership before using shared resources. Keep detailed records in
+ linked evidence/run directories, not a second diary here.
+ 
++## Semantic-guided KV SVD factorial — completed; GPU released
++
++- **Outcome:** 54 real-serving cases / 972 completed responses; no repeatable
++  gain over wait-hint ARC. Rank-4 compression failed factual retrieval checks;
++  rank 8 passed the narrow fixture but retained cost and public-quality limits.
++  Smaller solver batches and prefetch leases repaired workspace/tail failures.
++- **Resources:** owned serving processes reaped, GPU released. Default-off
++  experimental implementation retained; no deployment. Prior qualification and
++  paused AWQ work remain preserved.
++- **Handoff:** [results, refinements and stopping decision](../evidence/semantic-svd-serving-20261104/README.md).
++  Raw runs and frozen versions: `output/semantic-svd-serving-20261104/`.
++
++## MSR hybrid qualification — evidence phase finished; qualification incomplete
++
++- **Goal:** qualify coordinated GPU retention and queued-prefix prefetch over CPU
++  wait-hint ARC, separating MSR predictive value, transfer opportunity and net cost.
++- **Owner/resources:** resumed qualification task finished its bounded evidence
++  phase. GPU released; no compute clients or owned serving/capture processes
++  remained and both locks were available. Paused AWQ loading remains paused.
++- **Current:** retained smoke/pressure artifacts verified; new longer-history ARC
++  and wait-hint ARC diagnostic completed 54 requests and 13 restores each. Relevant
++  activity exists; usable causal headroom and victim costs remain inconclusive.
++  Source audits resolved the stalled nested-Parquet inspection and exposed
++  missing/shifted/reconstructed timing. Original LMCache source supports a limited
++  returning-only pilot, not complete absolute arrival/completion observations.
++- **Finding:** 711 examples with task-disjoint splits; none of the primary one-
++  second scalar/distribution/QK gains was established. Exploratory quarter-second
++  richer Q/K prediction and simulated retained-value gains survived more flexible cheap
++  metadata controls. This is a promising separate representation hypothesis,
++  not original scalar MSR success or real-cache-value qualification.
++- **Stopping boundary:** original real-cache-value, usable opportunity and native
++  cost gates remain unmet. No live hybrid/four-arm implementation or performance
++  claim. Further qualification needs representative causal inputs/timing/session/
++  observation-horizon semantics, observed cache competition and native costs.
++  No user source question remains pending. 170 focused and 31 portable tests pass;
++  useful sources/results retained, empty failed preparation cleaned.
++- **Handoff:** [results, limitations and remaining work](../evidence/msr-hybrid-qualification-20261103/README.md).
++  [Unchanged protocol](../evidence/msr-hybrid-qualification-20261103/PROTOCOL.md).
++  Raw runs: `output/msr-hybrid-qualification-20261103/` and
++  `output/msr-hybrid-qualification-20261104-resume/`.
++
+ ## Lower-VRAM sanity check — completed; GPU released
+ 
+ - **Goal:** test whether the qualified continuation profile retains comparable
+diff --git a/evidence/README.md b/evidence/README.md
+index 5700b5a..5c874f5 100644
+--- a/evidence/README.md
++++ b/evidence/README.md
+@@ -4,6 +4,14 @@ Compact retained evidence, organized by experiment. Current work and next action
+ live in [STATUS](../docs/STATUS.md). Raw runs remain in ignored `output/` and may
+ not be available in a fresh clone.
+ 
++## November 4: actual KV SVD and semantic prefetch factorial
++
++54 serving cases completed 972 responses across all four semantic ablations and
++ARC controls. Batching/capacity/lease refinements did not establish a gain over
++wait-hint ARC. Aggressive rank-4 compression damaged retrieval quality; rank 8
++passed the narrow fixture but remained slower and used extra GPU workspace.
++[Results, activation proofs and stopping decision](semantic-svd-serving-20261104/README.md).
++
+ ## November 3: maintained benchmark infrastructure
+ 
+ The four maintained tiers passed real serving qualification on this host, including
+@@ -122,3 +130,9 @@ the claim. Store compact evidence here and bulky artifacts under `output/`.
+ ## Repository workflow finalization
+ 
+ [Clean installation, shared GPU locking, validator promotion and lightweight CI](workflow-finalization-20261103/README.md). Local checks passed; remote CI awaits a future push.
++
++## Hybrid qualification evidence
++
++[MSR and richer Q/K pilot, source audits and native restore diagnostics](msr-hybrid-qualification-20261103/README.md).
++The primary pilot was inconclusive; exploratory quarter-second representation
++gains remain hypothetical. Qualification gates are unmet and no live hybrid was built.
+diff --git a/semantic_offload/spec.py b/semantic_offload/spec.py
+index 23434d1..bfb1791 100644
+--- a/semantic_offload/spec.py
++++ b/semantic_offload/spec.py
+@@ -73,6 +73,20 @@ def validate_preservation_audit(extra_config) -> bool:
+ 
+ 
+ class SemanticOffloadingSpec(CPUOffloadingSpec):
++    def __init__(self, config):
++        super().__init__(config)
++        rank = self.extra_config.get("kv_svd_rank", 0)
++        expand = self.extra_config.get("kv_svd_expand_capacity", False)
++        if type(rank) is not int or not 0 <= rank <= 15:
++            raise ValueError("kv_svd_rank must be an integer in 0..15")
++        if type(expand) is not bool:
++            raise TypeError("kv_svd_expand_capacity must be a JSON boolean")
++        if rank and expand and self.kv_bytes_per_chunk:
++            # FP16 16x256 -> 16xr plus rx256. Include the ready bitmap;
++            # Python policy/summary metadata is separately measured as RSS.
++            factor_bytes = self.kv_bytes_per_chunk * rank * 272 // 4096
++            self.num_blocks = int(self.extra_config["cpu_bytes_to_use"]) // (factor_bytes + 1)
++
+     @classmethod
+     def build_metric_definitions(cls, extra_config):
+         from semantic_offload.benchmark_metrics import definitions
+@@ -252,6 +266,8 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
+             search_exploration=positive_int("search_exploration", 8),
+             query_snapshot_max_age_ms=positive_int("query_snapshot_max_age_ms", 1000),
+             query_snapshot_max_requests=positive_int("query_snapshot_max_requests", 256),
++            kv_svd_rank=self.extra_config.get("kv_svd_rank", 0),
++            kv_svd_trace=self.extra_config.get("kv_svd_trace"),
+         )
+ 
+     @override
+diff --git a/semantic_offload/worker.py b/semantic_offload/worker.py
+index f86e6a5..baf6e21 100644
+--- a/semantic_offload/worker.py
++++ b/semantic_offload/worker.py
+@@ -251,6 +251,8 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         search_exploration: int = 8,
+         query_snapshot_max_age_ms: int = 1000,
+         query_snapshot_max_requests: int = 256,
++        kv_svd_rank: int = 0,
++        kv_svd_trace: str | None = None,
+     ):
+         if method not in _SCORING_METHODS:
+             raise ValueError(
+@@ -354,12 +356,25 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         # (#48150 renamed it on some checkouts, not others still in use
+         # across this project's machines) -- call via whichever name the
+         # real base class actually declares. See _vllm_compat.py.
+-        init_cpu_offloading_worker_base(
+-            self,
+-            kv_caches=kv_caches,
+-            blocks_per_chunk=blocks_per_chunk,
+-            num_cpu_blocks=num_cpu_blocks,
+-        )
++        if type(kv_svd_rank) is not int or not 0 <= kv_svd_rank <= 15:
++            raise ValueError("kv_svd_rank must be an integer in 0..15")
++        if kv_svd_rank:
++            if blocks_per_chunk != 1 or vllm_config.model_config.dtype != torch.float16:
++                raise ValueError("KV SVD requires FP16 and blocks_per_chunk=1")
++            for layer in attention_layers.values():
++                if layer.head_size != 128:
++                    raise ValueError("KV SVD requires head_size=128")
++            from semantic_offload.kv_svd import SVDTransport, SVDDirection
++            transport = SVDTransport(kv_caches, num_cpu_blocks, kv_svd_rank, kv_svd_trace)
++            self._store_handler = SVDDirection(transport, True)
++            self._load_handler = SVDDirection(transport, False)
++        else:
++            init_cpu_offloading_worker_base(
++                self,
++                kv_caches=kv_caches,
++                blocks_per_chunk=blocks_per_chunk,
++                num_cpu_blocks=num_cpu_blocks,
++            )
+         self._method = method
+         self._summary_fields = summary_fields
+         self._head_aggregation = head_aggregation
+diff --git a/tests/test_serving_suite.py b/tests/test_serving_suite.py
+index 86aad29..67da870 100644
+--- a/tests/test_serving_suite.py
++++ b/tests/test_serving_suite.py
+@@ -625,7 +625,8 @@ def test_resource_row_failure_reaches_evaluation(tmp_path):
+ 
+ 
+ @pytest.mark.parametrize("valid_ack", [True, False])
+-def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
++@pytest.mark.parametrize("hint_delay", [0.0, 0.02])
++def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack, hint_delay):
+     from benchmarks.serving_suite.workload import run_wave
+ 
+     class Tokenizer:
+@@ -638,8 +639,11 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+     async def exercise():
+         payloads = []
+         published = []
++        generated_at = []
++        hinted_at = []
+ 
+         async def generate(request):
++            generated_at.append(time.monotonic())
+             payloads.append(await request.json())
+             chunk = {
+                 "choices": [
+@@ -652,6 +656,7 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+             )
+ 
+         async def hint(request):
++            hinted_at.append(time.monotonic())
+             published.append(await request.json())
+             return web.json_response(
+                 {
+@@ -672,14 +677,14 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+         site = web.TCPSite(server, "127.0.0.1", 0)
+         await site.start()
+         p = plan()
+-        p.update(tier="screen", publish_hints=True, concurrency=1)
++        p.update(tier="screen", publish_hints=True, concurrency=1, hint_delay_s=hint_delay)
+         rows = []
+         hints = []
+         try:
+             await run_wave(
+                 f"http://127.0.0.1:{site._server.sockets[0].getsockname()[1]}",
+                 p,
+-                [{"id": "s", "turns": ["one", "two"]}],
++                [{"id": "s", "turns": ["one", "two"], "wait_s": [0.04]}],
+                 Tokenizer(),
+                 0,
+                 rows.append,
+@@ -690,6 +695,8 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+             )
+             assert len(rows) == 2 and all(r["success"] for r in rows)
+             assert len(published) == 1
++            assert hinted_at[0] - generated_at[0] >= hint_delay
++            assert generated_at[1] - generated_at[0] >= 0.04
+             for payload in payloads:
+                 params = payload["kv_transfer_params"]
+                 assert all(
+diff --git a/vendor/VLLM.md b/vendor/VLLM.md
+index cd4d073..25c508d 100644
+--- a/vendor/VLLM.md
++++ b/vendor/VLLM.md
+@@ -66,3 +66,12 @@ The retained, default-off AWQ loading experiment is recorded separately in
+ `patches/vllm-experimental-awq-loading.patch`. It is present in this checkout but
+ remains paused and unqualified; the clean-install smoke used its default-off path.
+ Do not infer endorsement from retaining its code and tests.
++
++The additive `patches/vllm-kv-qualification.patch` supplies default-off native
++scheduler trace points for hybrid qualification. The maintained suite enables
++them with `--qualification-trace`; the writer lives in
++`semantic_offload/qualification.py`. It observes queueing, restore receipts and
++reclaimable capacity without changing cache ownership or scheduling. CPU tests
++cover the trace contract. The retained live smoke and pressure runs exercised
++restore observations; opportunity and semantic qualification remain unresolved.
++See [qualification checkpoint](../evidence/msr-hybrid-qualification-20261103/qualification-checkpoint.json).
+diff --git a/vendor/vllm/vllm/v1/core/sched/scheduler.py b/vendor/vllm/vllm/v1/core/sched/scheduler.py
+index e010aa4..8d6bf93 100644
+--- a/vendor/vllm/vllm/v1/core/sched/scheduler.py
++++ b/vendor/vllm/vllm/v1/core/sched/scheduler.py
+@@ -80,6 +80,10 @@ class Scheduler(SchedulerInterface):
+         include_finished_set: bool = False,
+         log_stats: bool = False,
+     ) -> None:
++        self._kv_qualification_trace = None
++        if os.environ.get("VLLM_KV_QUALIFICATION_TRACE"):
++            from semantic_offload.qualification import create_scheduler_trace
++            self._kv_qualification_trace = create_scheduler_trace()
+         self.vllm_config = vllm_config
+         self.scheduler_config = vllm_config.scheduler_config
+         self.cache_config = vllm_config.cache_config
+@@ -1004,6 +1008,12 @@ class Scheduler(SchedulerInterface):
+                     # If loading async, allocate memory and put request
+                     # into the WAITING_FOR_REMOTE_KV state.
+                     request.status = RequestStatus.WAITING_FOR_REMOTE_KVS
++                    if getattr(self, "_kv_qualification_trace", None) is not None:
++                        self._kv_qualification_trace.emit(
++                            "load_issued", request_id=request_id,
++                            external_tokens=num_external_computed_tokens,
++                            local_tokens=num_new_local_computed_tokens,
++                        )
+                     step_skipped_waiting.prepend_request(request)
+                     # Set num_computed_tokens even though KVs are not yet loaded.
+                     # request.num_computed_tokens will not be used anywhere until
+@@ -1032,6 +1042,11 @@ class Scheduler(SchedulerInterface):
+                         )
+                     continue
+ 
++                if getattr(self, "_kv_qualification_trace", None) is not None:
++                    self._kv_qualification_trace.emit(
++                        "admitted", request_id=request_id,
++                        preemptions=request.num_preemptions,
++                    )
+                 self.running.append(request)
+                 if self.log_stats:
+                     request.record_event(
+@@ -1128,6 +1143,9 @@ class Scheduler(SchedulerInterface):
+                 for req in scheduled_new_reqs
+             ]
+ 
++        if getattr(self, "_kv_qualification_trace", None) is not None:
++            self._kv_qualification_trace.step(self, num_scheduled_tokens)
++
+         with record_function_or_nullcontext("schedule: make_cached_request_data"):
+             cached_reqs_data = self._make_cached_request_data(
+                 scheduled_running_reqs,
+@@ -2183,6 +2201,11 @@ class Scheduler(SchedulerInterface):
+             if request.resumable:
+                 request.streaming_queue = deque()
+             self._enqueue_waiting_request(request)
++            if getattr(self, "_kv_qualification_trace", None) is not None:
++                self._kv_qualification_trace.emit(
++                    "arrival", request_id=request.request_id,
++                    prompt_tokens=request.num_prompt_tokens,
++                )
+             self.requests[request.request_id] = request
+             if self.connector is not None:
+                 self.connector.on_new_request(request)
+@@ -2543,6 +2566,9 @@ class Scheduler(SchedulerInterface):
+         if self.ec_connector is not None:
+             self.ec_connector.shutdown()
+ 
++        if getattr(self, "_kv_qualification_trace", None) is not None:
++            self._kv_qualification_trace.close()
++            self._kv_qualification_trace = None
+         logger.debug_once("[shutdown] Scheduler: complete")
+ 
+     ########################################################################
+@@ -2711,6 +2737,8 @@ class Scheduler(SchedulerInterface):
+             logger.debug("Finished recving KV transfer for request %s", req_id)
+             assert req_id in self.requests
+             req = self.requests[req_id]
++            if getattr(self, "_kv_qualification_trace", None) is not None:
++                self._kv_qualification_trace.emit("load_ready", request_id=req_id)
+             if req.status == RequestStatus.WAITING_FOR_REMOTE_KVS:
+                 self.finished_recving_kv_req_ids.add(req_id)
+             else:

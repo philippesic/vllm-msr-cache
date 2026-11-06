@@ -1,0 +1,2898 @@
+diff --git a/README.md b/README.md
+index 990806a..749d2ca 100644
+--- a/README.md
++++ b/README.md
+@@ -115,6 +115,155 @@ does not support MLA KV caches, and requires the vLLM version range declared in
+ `pyproject.toml`. Treat the configuration as experimental and pin both projects
+ when reproducing results.
+ 
++### Experimental scoring controls
++
++The existing scoring behavior remains the default: `scoring_mode="synchronous"`,
++`scoring_schedule="continuous"`, `capture_stride=1`, and `scoring_search="flat"`.
++
++For the single-worker ARC wait-hint experiment, `scoring_schedule="opportunity"`
++retains bounded last-query snapshots instead of scoring every generation step.
++Use `capture_stride=8` to sample fewer query-extraction steps. When at least two
++eligible sources compete for insufficient staging space, the scheduler requests
++scores only for their DRAM-resident prefix keys. When every source fits, ranking
++is bypassed. A missing or expired snapshot retains an unscored fallback; scoring
++can defer speculative submission for at most 50 ms, checked at scheduler steps.
++Demand serving is never held for a score. Snapshot bounds are
++`query_snapshot_max_age_ms=1000` and `query_snapshot_max_requests=256`. This mode
++requires `instrumentation_only=true`, `eviction_policy="arc"`,
++`shared_prefetch_scorer=true`, and mean-key/mean-head TP=1 scoring. It supports
++synchronous scoring or experimental `scoring_mode="asynchronous"` with flat search.
++It does not provide semantic retention updates. `scoring_schedule="capture_only"`
++is an attribution control, not a serving recommendation.
++
++Asynchronous scoring requires `preservation_events=true` and one dense KV group.
++One executor owns the scoring stream. Pending jobs are bounded by
++`async_scoring_max_queue_items=2` and `async_scoring_max_snapshot_bytes=67108864`;
++the byte limit covers retained job tensors and conservative workspace, not the
++whole process, durable cache, query bank, Python metadata or allocator reservation.
++Overflow drops the newest observation. Results retain their original feature
++timestamp and expire within `async_scoring_max_snapshot_age_ms=1000` (also bounded
++by the query lease in opportunity mode). Request generations, cache residency
++versions and reset epochs are checked through final consumption. Normal completion
++preserves a bounded final-query lease; abort/reset invalidate stale results.
++Pending CUDA host waits query the event and sleep for 500 microseconds between
++checks. This reduces active CPU waiting but can delay result availability; OS
++scheduling can add more than one interval. Cancellation retains live GPU inputs
++until their completion fences finish.
++
++The scoring audit measured about 71% less readiness-plus-executor CPU per job in
++the continuous diagnostic. Its final opportunity-mode serving comparison still
++failed the ARC target: throughput was 2.27–2.71% lower and median first-token latency
++12.22–12.81% higher. Those products had no constrained scoring opportunities.
++This supports experimental work reduction, not dependable ARC parity, ranking
++utility or lower VRAM use. Qualification is limited to the tested dense TP1/PP1
++eager runtime. See the local [audit report](output/scoring-audit/REPORT.md) and
++[independent Astra review](output/scoring-audit/astra-acceptance.md) when retained.
++
++`prefetch_preserve_gpu_prefix_cache=true` is a later experimental opt-in
++(default `false`). It reserves speculative staging only from the contiguous
++unhashed head of the native free-block queue, preserving reusable GPU prefix
++entries for ordinary demand allocation. It can defer prefetch and reduce its
++coverage; unsupported queue layouts defer staging safely.
++
++A three-seed confirmation measured regular throughput at 81.252 versus ARC's
++80.806 output tokens/s (+0.552%), with all six regular pairs positive. The
++higher-concurrency aggregate was 0.168% below ARC, including one pair 1.588%
++slower; one regular pair's median first-token latency worsened 16.480%. Earlier
++prefetch also matched ARC in the allocator screen, so the option's causal speed
++benefit remains unproven. Real prefetch consumption remained enabled, but these
++products had no competitive semantic scoring jobs. See the retained
++[throughput report](output/throughput-parity/REPORT.md) for results and limits.
++
++`scoring_search="ivf"` enables approximate cluster routing followed by the existing
++exact mean-key/mean-head dot-product score on visited rows. Defaults are
++`search_min_pool=128`, `search_clusters=16`, `search_probes=4`, and
++`search_exploration=8`. Small pools use the flat scan. The index rebuilds when the
++summary pool changes; its maintenance cost must be included in comparisons.
++Unvisited blocks receive no score or freshness update. Rotating exploration
++reduces persistent omission on a stable pool; it does not guarantee recall under
++churn. Shortlist ranks change rolling-score weights relative to exhaustive
++ranking. Candidate search never authorizes reuse of inexact KV or arbitrary
++noncontiguous prefixes. These controls are experimental and have no presumed
++serving benefit.
++
++Set `SEMANTIC_PROFILE_DIR` to write bounded per-process component aggregates.
++They distinguish host wall time, thread CPU time, counters and sampled CUDA-stream
++intervals (`SEMANTIC_PROFILE_CUDA_STRIDE=16`). CUDA samples are read only after
++completion; the profiler adds no per-step synchronization. Nested scopes and
++concurrent streams overlap, so totals are not additive. Histogram quantiles are
++duration bounds. Compare observer-off runs for serving results and use separate
++profiled runs for attribution. Final flushes retain unfinished-sample counts.
++
++### Scoring efficiency trial
++
++A bounded follow-up compared five observer-off configurations on cached dense
++Qwen3-4B with six simulated agents and 12 background requests (45 requests per
++configuration). Current semantic scoring produced 81.26 output tokens/s; work
++reduction produced 81.89 (+0.78%), and both controls enabled produced 81.84.
++Matched ARC demand remained ahead at 82.34. Median release-to-first-token time
++was 3.149 s for current semantic, 2.738 s with work reduction and 2.743 s for ARC.
++These are one-run point estimates; completion-dependent arrival/cache histories
++and prompt work differ, so these are not isolated scoring-cost or significance
++claims.
++
++Only 11 blocks entered DRAM, with no competing eligible sessions. Production
++IVF correctly stayed on flat fallback. A separate static replay of real query
++and summary tensors forced IVF on this tiny pool: it was costlier than scanning,
++with 100% top-1/top-3 recall but 88.0% mean top-8 recall over 24 correlated query
++rows. Large-pool crossover remains unmeasured; keep the index disabled for this
++workload.
++
++A separate complete diagnostic placed 13.22 s of cumulative host time inside
++construction of the tiny GPU gather-index tensor, versus 0.195 s inside scoring.
++The upload span includes possible driver waiting/spinning for previous GPU work;
++it is not 13 s of additional GPU computation or reclaimable latency. Device,
++host and nested timing ranges overlap. This identifies a capture/synchronization
++investigation seam rather than evidence that vector comparisons dominate.
++Per-request results, complete component/queue/serialization measurements, exact
++source pins and reproduction material are retained outside Git under
++`output/scoring-efficiency/`. All nine real serving runs preserved exact output
++and native KV identities; native direct adoption was not exercised because
++prefetched prefixes were partial. This follow-up establishes no capacity or
++production-policy win.
++
++### Direct adoption of prefetched blocks
++
++The experimental `wait_hint_native_adoption` option defaults to `false`. With
++`prefetch_trigger="known_prefix_wait_hint"`, setting it to `true` lets a returning
++request adopt the same physical GPU blocks that hold its completed prefetched
++prefix, avoiding a second prefix allocation and the staging-to-destination copy.
++It requires the companion [vLLM patch](patches/vllm-native-prefix-adoption.patch);
++check the patch against the runtime checkout with `git apply --check` before
++applying it. The patch was CPU-tested on the recovered prerelease runtime used
++for the October opportunity screen, not every release in the dependency range.
++
++The initial path supports a complete exact prefix with dense causal BF16 KV,
++one worker, one KV group, and one hash per block. It publishes blocks only after
++transfer completion and returning-request identity checks. Native cache lookup
++then owns allocation, sharing, and eviction. Eviction before admission falls
++back to demand restoration; unsupported configurations retain the existing
++staging path. Missing runtime support also retains that path.
++
++CPU tests verify allocator ownership and physical block reuse. A bounded GPU
++validation also confirmed real transfer completion, the same physical prefix
++blocks in the worker's CUDA block table, and exact generated outputs. Three
++alternating-order pairs with lighter logging measured 41.9–42.3 ms from request
++release to first token, versus 70.9–71.4 ms for matched project ARC demand
++restoration. The test supplied the exact target prefix 750 ms in advance.
++Background generation took 6.8–17.6 ms longer over roughly eight seconds; no
++background-neutrality claim is made. Broader repeatability, capacity gains and
++deployable prediction remain unverified. This option is a prototype and does not
++change the default path.
++
++A separate synthetic load trial used six agent sessions and twelve background
++requests on Qwen3-4B, with live semantic capture/scoring and natural cache
++admission. ARC demand produced 82.4 output tokens/s, request-order prefetch 82.3,
++and semantic prefetch 77.8. Only one or two blocks became eligible per decision;
++no full prefix used native adoption and no semantic decision had competing
++eligible sessions. This trial showed no end-to-end semantic benefit. Each arm
++ran once on generated sessions, not a production trace. The separate CPU-cost
++optimizations were excluded from these measurements.
++
+ ## Repository map
+ 
+ ```text
+diff --git a/semantic_offload/_debug.py b/semantic_offload/_debug.py
+index e0d275b..dd20724 100644
+--- a/semantic_offload/_debug.py
++++ b/semantic_offload/_debug.py
+@@ -8,6 +8,7 @@ unstructured stdout volume would both cost real time and pollute logs
+ (issues log entry #34). Default off; set SEMANTIC_OFFLOAD_DEBUG=1 to
+ restore the old always-on behavior for interactive debugging."""
+ 
++from semantic_offload.profiling import PROFILE, profiled
+ import json
+ import os
+ 
+@@ -191,6 +192,7 @@ def debug_print(*args, **kwargs) -> None:
+         print(*args, **kwargs)
+ 
+ 
++@profiled('logging.preservation')
+ def record_preservation_event(event: dict) -> None:
+     """Emit one authoritative request-level offload event as JSONL.
+ 
+@@ -198,45 +200,36 @@ def record_preservation_event(event: dict) -> None:
+     Keeping the emitter here makes the event visible in the existing server
+     log without changing vLLM's global KV event publisher or the default path.
+     """
+-    print(
+-        "SEMANTIC_PRESERVATION_EVENT "
+-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
+-        flush=True,
+-    )
++    _emit_event("SEMANTIC_PRESERVATION_EVENT", event)
+ 
+ 
++@profiled('logging.features')
+ def record_decision_feature(record: dict) -> None:
+     """Emit one opt-in decision-time feature record as JSONL.
+ 
+     This is a separate marker from preservation events so the latter's raw
+     schema remains byte-for-byte compatible with existing audit bundles.
+     """
+-    print(
+-        "SEMANTIC_DECISION_FEATURE "
+-        + json.dumps(record, sort_keys=True, separators=(",", ":")),
+-        flush=True,
+-    )
++    _emit_event("SEMANTIC_DECISION_FEATURE", record)
+ 
+ 
++@profiled('logging.observation')
+ def record_async_scoring_event(event: dict) -> None:
+-    print(
+-        "SEMANTIC_ASYNC_SCORING_EVENT "
+-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
+-        flush=True,
+-    )
++    _emit_event("SEMANTIC_ASYNC_SCORING_EVENT", event)
+ 
+ 
+ def record_runtime_resolution(event: dict) -> None:
+-    print(
+-        "SEMANTIC_RUNTIME_RESOLUTION "
+-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
+-        flush=True,
+-    )
++    _emit_event("SEMANTIC_RUNTIME_RESOLUTION", event)
+ 
+ 
++@profiled('logging.wait_hint')
+ def record_wait_hint_event(event: dict) -> None:
+-    print(
+-        "SEMANTIC_WAIT_HINT_EVENT "
+-        + json.dumps(event, sort_keys=True, separators=(",", ":")),
+-        flush=True,
+-    )
++    _emit_event("SEMANTIC_WAIT_HINT_EVENT", event)
++
++
++def _emit_event(marker, event):
++    with PROFILE.scope("logging.json_encode"):
++        payload = json.dumps(event, sort_keys=True, separators=(",", ":"))
++    PROFILE.count("logging.bytes", len(marker) + len(payload) + 2)
++    with PROFILE.scope("logging.stdout_flush"):
++        print(marker + " " + payload, flush=True)
+diff --git a/semantic_offload/async_scoring.py b/semantic_offload/async_scoring.py
+index 1c38b0a..c2f28f0 100644
+--- a/semantic_offload/async_scoring.py
++++ b/semantic_offload/async_scoring.py
+@@ -9,6 +9,7 @@ from collections.abc import Callable, Mapping, Sequence
+ from concurrent.futures import Future, ThreadPoolExecutor
+ from dataclasses import dataclass
+ from threading import Condition, Lock
++from semantic_offload.profiling import PROFILE
+ from typing import Generic, Protocol, TypeVar
+ 
+ 
+@@ -16,6 +17,28 @@ class ReadinessFence(Protocol):
+     def synchronize(self) -> None: ...
+ 
+ 
++_HOST_EVENT_POLL_SECONDS = 0.0005
++
++
++def wait_for_owned_fence(fence: ReadinessFence) -> None:
++    """Cooperate while an owned event is pending; generic fences keep their API.
++
++    Some WSL CUDA event synchronize implementations actively wait even with
++    blocking=True. Querying then sleeping bounds host polling without changing
++    event ordering. Cancellation/reset must still retain/drain the owned job.
++    Query errors fall back to the original fence before propagating the error.
++    """
++    query = getattr(fence, "query", None)
++    if callable(query):
++        try:
++            while not query():
++                time.sleep(_HOST_EVENT_POLL_SECONDS)
++        except BaseException:
++            fence.synchronize()
++            raise
++    fence.synchronize()
++
++
+ PayloadT = TypeVar("PayloadT")
+ ResultT = TypeVar("ResultT")
+ 
+@@ -124,11 +147,26 @@ class AsyncScoringController(Generic[PayloadT, ResultT]):
+         scorer: Callable[[PayloadT], ResultT],
+         snapshot: AsyncScoringSnapshot[PayloadT],
+     ) -> AsyncScoringCompletion[PayloadT, ResultT]:
+-        for fence in snapshot.readiness_fences:
+-            fence.synchronize()
++        with PROFILE.scope("async.input_ready_wait"):
++            try:
++                for fence in snapshot.readiness_fences:
++                    wait_for_owned_fence(fence)
++            except BaseException:
++                # A query failure must not release other pending owned inputs.
++                # Keep the snapshot alive until every original fence was tried.
++                fence_error = None
++                for fence in snapshot.readiness_fences:
++                    try:
++                        fence.synchronize()
++                    except BaseException as error:
++                        fence_error = error
++                if fence_error is not None:
++                    raise fence_error
++                raise
+         input_ready_ns = time.monotonic_ns()
+         started_ns = time.monotonic_ns()
+-        result = scorer(snapshot.payload)
++        with PROFILE.scope("async.executor_total"):
++            result = scorer(snapshot.payload)
+         completed_ns = time.monotonic_ns()
+         return AsyncScoringCompletion(
+             snapshot=snapshot,
+@@ -204,7 +242,11 @@ class AsyncScoringController(Generic[PayloadT, ResultT]):
+                 readiness_fences=tuple(readiness_fences),
+             )
+             submitted_ns = time.monotonic_ns()
+-            future = self._executor.submit(self._run, self._scorer, snapshot)
++            def execute():
++                if PROFILE.directory:
++                    PROFILE.observe("async.queue_wait.host_wall", time.monotonic_ns()-submitted_ns)
++                return self._run(self._scorer, snapshot)
++            future = self._executor.submit(execute)
+             self._pending[sequence] = _Pending(snapshot, future, submitted_ns)
+             self._pending_snapshot_bytes += snapshot_bytes
+             self._record(
+diff --git a/semantic_offload/connector.py b/semantic_offload/connector.py
+index 292eec8..4cfdd00 100644
+--- a/semantic_offload/connector.py
++++ b/semantic_offload/connector.py
+@@ -29,12 +29,14 @@ import json
+ import math
+ import re
+ import time
++import uuid
+ from collections import OrderedDict, defaultdict
+ from collections.abc import Mapping, Sequence
+ from dataclasses import dataclass, field
+ from typing import TYPE_CHECKING
+ 
+ import torch
++from semantic_offload.profiling import PROFILE, profiled
+ from vllm.config import VllmConfig
+ from vllm.distributed.kv_transfer.kv_connector.v1 import (
+     KVConnectorBase_V1,
+@@ -61,7 +63,7 @@ from vllm.distributed.kv_transfer.kv_connector.v1.offloading_connector import (
+ )
+ from vllm.utils.math_utils import cdiv
+ from vllm.v1.core.sched.output import SchedulerOutput
+-from vllm.v1.kv_cache_interface import KVCacheConfig
++from vllm.v1.kv_cache_interface import FullAttentionSpec, KVCacheConfig
+ from vllm.v1.kv_offload.base import (
+     GPULoadStoreSpec,
+     LookupResult,
+@@ -70,6 +72,7 @@ from vllm.v1.kv_offload.base import (
+     ReqContext,
+     get_offload_block_hash,
+     get_offload_group_idx,
++    make_offload_key,
+ )
+ from vllm.v1.outputs import KVConnectorOutput
+ 
+@@ -968,6 +971,10 @@ class _WaitPrefetchState:
+ 
+ @dataclass
+ class SemanticOffloadingConnectorMetadata(OffloadingConnectorMetadata):
++    scoring_context: dict = field(default_factory=dict)
++    scoring_requests: dict[str, list[OffloadKey]] = field(default_factory=dict)
++    scoring_residency_versions: dict = field(default_factory=dict)
++    scoring_lease_ids: dict = field(default_factory=dict)
+     store_job_keys: dict[int, list[OffloadKey]] = field(default_factory=dict)
+     # Exact key -> ordered source GPU blocks. Unlike store_job_keys, this
+     # preserves identity after the base scheduler stores keys in a set.
+@@ -1406,6 +1413,22 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         # shape. See _vllm_compat.py.
+         construct_scheduler_base(self, spec, vllm_config, kv_cache_config)
+         extra_config = dict(getattr(spec, "extra_config", {}) or {})
++        self._scoring_schedule = extra_config.get("scoring_schedule", "continuous")
++        if self._scoring_schedule == "opportunity" and (
++            extra_config.get("eviction_policy", "lru") != "arc"
++            or not extra_config.get("shared_prefetch_scorer", False)
++        ):
++            raise ValueError("opportunity scoring is an ARC shared-prefetch experiment")
++        self._score_requires_bounded_contract = extra_config.get('scoring_mode') == 'asynchronous'
++        self._score_transport_enabled = self._score_requires_bounded_contract or self._scoring_schedule == 'opportunity'
++        self._score_source_tokens = {}
++        self._score_source_deadlines = {}
++        self._score_source_sequence = 0
++        self._score_transport_identity = uuid.uuid4().hex
++        self._score_transport_generation = 0
++        self._score_source_lease_ns = (min(extra_config.get('async_scoring_max_snapshot_age_ms',1000), extra_config.get('query_snapshot_max_age_ms',1000)) if self._scoring_schedule == 'opportunity' else extra_config.get('async_scoring_max_snapshot_age_ms',1000))*1_000_000
++        self._decision_scoring_requests = {}
++        self._decision_scoring_attempts = {}
+         bounded_prefill_cuda_timing = extra_config.get(
+             "bounded_prefill_cuda_timing", False
+         )
+@@ -1448,6 +1471,12 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         if headroom < 0:
+             raise ValueError("prefetch_headroom_blocks must be non-negative")
+         self._prefetch_headroom_blocks = headroom
++        preserve_gpu_prefix_cache = extra_config.get(
++            "prefetch_preserve_gpu_prefix_cache", False
++        )
++        if not isinstance(preserve_gpu_prefix_cache, bool):
++            raise TypeError("prefetch_preserve_gpu_prefix_cache must be a JSON boolean")
++        self._prefetch_preserve_gpu_prefix_cache = preserve_gpu_prefix_cache
+         selector = str(
+             getattr(spec, "extra_config", {}).get("prefetch_selector", "semantic")
+         )
+@@ -1504,6 +1533,29 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+                 "prefetch_trigger must be preemption or known_prefix_wait_hint"
+             )
+         self._prefetch_trigger = prefetch_trigger
++        diagnostic_no_dispatch = extra_config.get(
++            "wait_hint_diagnostic_no_dispatch", False
++        )
++        if not isinstance(diagnostic_no_dispatch, bool):
++            raise TypeError("wait_hint_diagnostic_no_dispatch must be a JSON boolean")
++        self._wait_hint_diagnostic_no_dispatch = diagnostic_no_dispatch
++        native_adoption = extra_config.get("wait_hint_native_adoption", False)
++        if not isinstance(native_adoption, bool):
++            raise TypeError("wait_hint_native_adoption must be a JSON boolean")
++        self._wait_hint_native_adoption = native_adoption
++        groups = getattr(kv_cache_config, "kv_cache_groups", ())
++        dense_spec = groups[0].kv_cache_spec if len(groups) == 1 else None
++        self._wait_hint_native_adoption_layout_supported = (
++            native_adoption
++            and type(dense_spec) is FullAttentionSpec
++            and dense_spec.dtype == torch.bfloat16
++            and getattr(getattr(dense_spec, "kv_quant_mode", None), "name", None)
++            == "NONE"
++            and dense_spec.sliding_window is None
++            and dense_spec.attention_chunk_size is None
++            and not dense_spec.non_causal
++        )
++        self._published_wait_prefixes: dict[str, dict[str, object]] = {}
+         soft_retention = str(
+             getattr(spec, "extra_config", {}).get("soft_retention", "off")
+         )
+@@ -2254,7 +2306,45 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             ):
+                 self._retire_wait_prefetch(state, "retention_expired", now_ns=now_ns)
+ 
+-    def _attempt_wait_prefetch(self, state: _WaitPrefetchState) -> bool:
++    def _prefetch_free_capacity(self) -> int:
++        """Bound optional staging to the native queue's unhashed head.
++
++        Cached reclaimable blocks stay available to ordinary demand allocation.
++        Keep native allocation/refcount/metrics and free-queue ordering intact.
++        """
++        pool = self.gpu_block_pool
++        if pool is None:
++            return 0
++        free = pool.get_num_free_blocks()
++        if not getattr(self, "_prefetch_preserve_gpu_prefix_cache", False):
++            return free
++        if not getattr(pool, "enable_caching", True):
++            return free
++        queue = getattr(pool, "free_block_queue", None)
++        iterate = getattr(queue, "iter_blocks_after", None)
++        if not callable(iterate):
++            return 0
++        limit = min(free, int(pool.num_gpu_blocks * self._prefetch_budget_fraction)
++                    + self._prefetch_headroom_blocks)
++        aliases = getattr(pool, "cached_block_hashes_by_block", {})
++        count = 0
++        for block in iterate(None):
++            if count >= limit:
++                break
++            if (block.is_null or block.ref_cnt != 0 or block.block_hash is not None
++                    or aliases.get(block.block_id)):
++                break
++            count += 1
++        return count
++
++    @profiled('scheduler.prefetch_submit')
++    def _attempt_wait_prefetch(
++        self, state: _WaitPrefetchState, *, unscored_reason: str | None = None
++    ) -> bool:
++        # A privileged matched diagnostic can preserve hint publication and
++        # source observation while leaving all restoration to demand.
++        if getattr(self, "_wait_hint_diagnostic_no_dispatch", False):
++            return False
+         if self.gpu_block_pool is None:
+             return False
+         decision_ns = time.monotonic_ns()
+@@ -2267,7 +2357,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         remaining_budget = max(0, total_budget - self._prefetch_reserved_blocks)
+         if remaining_budget <= 0:
+             return False
+-        free_blocks = self.gpu_block_pool.get_num_free_blocks()
++        free_blocks = self._prefetch_free_capacity()
+         allocation_budget = min(
+             remaining_budget,
+             max(0, free_blocks - self._prefetch_headroom_blocks),
+@@ -2346,7 +2436,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             # turn a source chain into an arbitrary set of blocks.
+             selected = (
+                 list(eligible_resident_prefix[:allocation_budget])
+-                if semantic_key_scores
++                if semantic_key_scores or unscored_reason is not None
+                 else []
+             )
+             state.selection_evidence = {
+@@ -2356,6 +2446,8 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+                 "tie_break": "cross_session_score_then_source_identity",
+                 "within_source_order": "immutable_contiguous_chain_order",
+                 "semantic_key_scores": semantic_key_scores,
++                "score_status": "scored" if semantic_key_scores else "not_evaluated",
++                "unscored_reason": unscored_reason if not semantic_key_scores else None,
+             }
+         else:
+             selected = _select_prefetch_keys(
+@@ -2496,6 +2588,12 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             if not math.isfinite(score):
+                 continue
+             feature_snapshot_ns = feature_snapshots.get(key)
++            if feature_snapshot_ns is not None and max_age_ns is not None and not (
++                0 <= decision_ns - feature_snapshot_ns <= max_age_ns
++            ):
++                # Deferred evaluation must not make an old feature fresh by
++                # assigning it a new score-computation timestamp.
++                continue
+             observations.append(
+                 {
+                     "key": _event_key(key),
+@@ -2822,7 +2920,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+                 max(0, total_budget - self._prefetch_reserved_blocks),
+                 max(
+                     0,
+-                    self.gpu_block_pool.get_num_free_blocks()
++                    self._prefetch_free_capacity()
+                     - self._prefetch_headroom_blocks,
+                 ),
+             )
+@@ -2841,6 +2939,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             identities=identities,
+         )
+ 
++    @profiled('scheduler.prefetch_decision')
+     def _retry_wait_prefetches(self) -> None:
+         now_ns = time.monotonic_ns()
+         should_wait, dispatch_ids = self._wait_hint_coalescing_gate(now_ns)
+@@ -2854,6 +2953,11 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             and state.lease.active_at(now_ns)
+             and (dispatch_ids is None or state.lease.hint.event_id in dispatch_ids)
+         ]
++        # Ready/in-flight hints still need expiry processing above, but there
++        # is no nomination decision to build or serialize without candidates.
++        # This path also runs on every ordinary decode step with no hints.
++        if not pending:
++            return
+         publication_order_event_ids = [state.lease.hint.event_id for state in pending]
+         if self._prefetch_selector != "semantic":
+             for state in pending:
+@@ -2886,7 +2990,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             else 0
+         )
+         initial_free = (
+-            self.gpu_block_pool.get_num_free_blocks()
++            self._prefetch_free_capacity()
+             if self.gpu_block_pool is not None
+             else 0
+         )
+@@ -2894,6 +2998,46 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             max(0, total_budget - initial_reserved),
+             max(0, initial_free - self._prefetch_headroom_blocks),
+         )
++        unscored_reason = None
++        if getattr(self, "_scoring_schedule", "continuous") == "opportunity":
++            eligible = [(state, candidate) for state, candidate, _ in ranked
++                        if candidate["eligible_resident_prefix_keys"]]
++            # All candidates fit, or only one can be selected: semantic
++            # ranking cannot improve this allocation decision.
++            needs_ranking = len(eligible) >= 2 and sum(
++                len(candidate["eligible_resident_prefix_keys"]) for _, candidate in eligible
++            ) > shared_allocation_budget > 0
++            if needs_ranking:
++                deferred = False
++                attempts = self._decision_scoring_attempts
++                live_signatures = set()
++                for state, _candidate in eligible:
++                    ready_keys = tuple(_ready_resident_prefix(
++                        self.manager, state.publication_candidate_keys))
++                    signature = (state.source.source_request_id, ready_keys)
++                    live_signatures.add(signature)
++                    # Only request missing/freshness-expired observations.
++                    # A cached query itself expires; failures fall back after
++                    # at most 50 ms without delaying demand serving.
++                    if len(self._semantic_wait_key_scores(ready_keys, now_ns)) == len(ready_keys):
++                        continue
++                    requested_ns = attempts.get(signature)
++                    if requested_ns is None:
++                        attempts[signature] = now_ns
++                        self._decision_scoring_requests[state.source.source_request_id] = list(ready_keys)
++                        deferred = True
++                    elif now_ns - requested_ns < 50_000_000:
++                        deferred = True
++                self._decision_scoring_attempts = {
++                    key: value for key, value in attempts.items() if key in live_signatures}
++                if deferred:
++                    PROFILE.count("scheduler.semantic_decisions_deferred")
++                    return
++                PROFILE.count("scheduler.semantic_competing_decisions")
++                unscored_reason = "score_unavailable_after_bounded_wait"
++            else:
++                PROFILE.count("scheduler.semantic_ranking_bypassed")
++                unscored_reason = "ranking_cannot_change_allocation"
+         eligible_candidate_blocks = sum(
+             len(candidate["eligible_resident_prefix_keys"])
+             for _, candidate, _ in ranked
+@@ -2907,7 +3051,12 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         )
+         chosen: list[dict[str, object]] = []
+         for state, candidate, _aggregate in ranked:
+-            if self._attempt_wait_prefetch(state):
++            submitted = (
++                self._attempt_wait_prefetch(state)
++                if unscored_reason is None
++                else self._attempt_wait_prefetch(state, unscored_reason=unscored_reason)
++            )
++            if submitted:
+                 chosen.append(
+                     {
+                         "event_id": candidate["event_id"],
+@@ -2960,6 +3109,8 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         request_id = state.bound_request_id
+         if request_id is None or request_id not in self._req_status:
+             return
++        if self._try_publish_wait_prefix(state):
++            return
+         binding_id = state.protection_binding_id or (
+             f"wait-hint:{state.lease.hint.event_id}"
+         )
+@@ -2984,6 +3135,141 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         )
+         state.status = "bound_ready"
+ 
++    @profiled('scheduler.native_publish')
++    def _try_publish_wait_prefix(self, state: _WaitPrefetchState) -> bool:
++        """Publish a fenced exact prefix before native scheduler cache lookup."""
++        if (
++            not getattr(self, "_wait_hint_native_adoption", False)
++            or not getattr(self, "_wait_hint_native_adoption_layout_supported", False)
++            or self.config.num_workers != 1
++            or len(self.config.kv_group_configs) != 1
++            or config_blocks_per_chunk(self.config) != 1
++            or state.status != "ready"
++            or not state.source_released
++            or state.pending_contributors != 0
++        ):
++            return False
++        publish = getattr(self.gpu_block_pool, "publish_completed_prefix", None)
++        req_status = self._req_status.get(state.bound_request_id)
++        request = getattr(req_status, "req", None)
++        transfer = state.transfer_record or {}
++        if (
++            publish is None
++            or request is None
++            or request.num_computed_tokens != 0
++            or transfer.get("success") is not True
++            or transfer.get("cancelled") is not False
++            or transfer.get("contributors") != 1
++            or transfer.get("expected_contributors") != 1
++            or not isinstance(transfer.get("completed_at_ns"), int)
++            or isinstance(transfer.get("completed_at_ns"), bool)
++            or not 0 < transfer["completed_at_ns"] <= time.monotonic_ns()
++        ):
++            return False
++        group = self.config.kv_group_configs[0]
++        block_size = group_config_tokens_per_block(group)
++        boundary = state.lease.hint.prefix_boundary_tokens
++        count = boundary // block_size
++        if (
++            getattr(group, "group_idx", -1) != 0
++            or group_config_tokens_per_chunk(group) != block_size
++            or boundary != count * block_size
++            or count == 0
++            or len(state.keys) != count
++            or len(state.gpu_block_ids) != count
++            or len(set(state.keys)) != count
++            or state.lease.state not in {"ready", "resumed"}
++            or time.monotonic_ns() > state.lease.expires_at_ns
++            or _observed_prefix_digest(
++                (request.prompt_token_ids or [])[:boundary],
++                self._wait_hint_namespace,
++            ) != state.lease.hint.observed_prefix_id
++        ):
++            return False
++        expected_keys = [make_offload_key(h, 0) for h in request.block_hashes[:count]]
++        if (
++            expected_keys != list(state.source.keys)
++            or set(expected_keys) != set(state.keys)
++        ):
++            return False
++        by_key = dict(zip(state.keys, state.gpu_block_ids))
++        ids = [by_key[key] for key in expected_keys]
++        if any(
++            type(block_id) is not int
++            or not 0 < block_id < self.gpu_block_pool.num_gpu_blocks
++            for block_id in ids
++        ):
++            return False
++        blocks = [self.gpu_block_pool.blocks[block_id] for block_id in ids]
++        if not publish(
++            request, blocks, block_size=block_size, kv_cache_group_id=0,
++            completion_verified=True,
++        ):
++            return False
++        published_ns = time.monotonic_ns()
++        state.destination_released = True
++        self._prefetch_reserved_blocks -= count
++        state.status = "published"
++        self._release_wait_prefetch_protection(state)
++        event_id = state.lease.hint.event_id
++        self._wait_prefetch.pop(event_id, None)
++        self._wait_hint_request_bindings.pop(request.request_id, None)
++        self._published_wait_prefixes[request.request_id] = {
++            "event_id": event_id, "block_ids": ids,
++            "published_at_ns": published_ns, "keys": expected_keys,
++        }
++        record_wait_hint_event({
++            "schema": "semantic-known-prefix-wait-hint-event-v1",
++            "event": "native_prefix_published", "event_id": event_id,
++            **self._wait_state_identity(state), "request_id": request.request_id,
++            "block_ids": ids, "published_at_ns": published_ns,
++            "ownership": "native_prefix_cache_evictable", "gpu_splice_bytes": 0,
++        })
++        return True
++
++    def _record_native_prefix_adoption(
++        self, request: Request, blocks, num_external_tokens: int
++    ) -> None:
++        published = getattr(self, "_published_wait_prefixes", {}).pop(
++            request.request_id, None
++        )
++        if published is None:
++            return
++        ids = published["block_ids"]
++        prefix_blocks = blocks.blocks[0][:len(ids)]
++        actual = [block.block_id for block in prefix_blocks]
++        adopted = (
++            num_external_tokens == 0
++            and actual == ids
++            and all(
++                block.block_hash == key and block.ref_cnt > 0
++                for block, key in zip(prefix_blocks, published["keys"])
++            )
++        )
++        usable_ns = time.monotonic_ns()
++        state = getattr(self, "_preservation_requests", {}).get(request.request_id)
++        if state is not None:
++            state["prefetch_native_adoption"] = {
++                "published_at_ns": published["published_at_ns"],
++                "adopted_at_ns": usable_ns if adopted else None,
++                "same_physical_blocks": adopted, "published_block_ids": ids,
++                "actual_block_ids": actual,
++            }
++            if adopted:
++                state["prefetch_consumed_keys"] += len(ids)
++                state["prefetch_consumed_blocks"] += len(ids)
++                state["prefetch_splice_bytes"] = 0
++                state["prefetch_request_usable_ns"] = usable_ns
++                state["prefetch_request_usable_source"] = "native_allocator_cache_hit"
++                state["prefetch_cleanup_released"] = True
++        record_wait_hint_event({
++            "schema": "semantic-known-prefix-wait-hint-event-v1",
++            "event": "native_prefix_adopted" if adopted else "native_prefix_missed",
++            "event_id": published["event_id"], "request_id": request.request_id,
++            "published_block_ids": ids, "actual_block_ids": actual,
++            "observed_at_ns": usable_ns, "gpu_splice_bytes": 0,
++        })
++
+     def _bind_wait_prefetch_transfer_evidence(
+         self,
+         wait_state: _WaitPrefetchState,
+@@ -4535,7 +4821,13 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         if isinstance(wait_hint, dict):
+             if int(state.get("prefetch_consumed_blocks", 0)) > 0:
+                 prefetch_status = "hint_consumed"
+-                prefetch_reason = "known_prefix_staging_spliced"
++                prefetch_reason = (
++                    "native_prefix_cache_adopted"
++                    if state.get("prefetch_native_adoption", {}).get(
++                        "same_physical_blocks"
++                    )
++                    else "known_prefix_staging_spliced"
++                )
+             elif state.get("prefetch_failure_reason"):
+                 prefetch_status = "hint_failed"
+                 prefetch_reason = str(state["prefetch_failure_reason"])
+@@ -4621,6 +4913,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             "unavailable_fields": unavailable_fields,
+             "provenance": state.get("prefetch_provenance", {}),
+             "wait_hint": state.get("wait_hint"),
++            "native_adoption": state.get("prefetch_native_adoption"),
+             "allocator_peak_stats": dict(getattr(self, "_allocator_peak_stats", {})),
+             "block_pool_snapshots": list(
+                 state.get("prefetch_block_pool_snapshots", [])
+@@ -5363,7 +5656,36 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+             del self._preservation_finished[req_id]
+             self._preservation_requests.pop(req_id, None)
+ 
++    def _score_context(self):
++        if not getattr(self, '_score_transport_enabled', False):
++            return {}
++        now = time.monotonic_ns()
++        for r, deadline in list(self._score_source_deadlines.items()):
++            if now > deadline:
++                self._score_source_tokens.pop(r, None)
++                self._score_source_deadlines.pop(r, None)
++        return {'epoch': self._score_transport_identity+':'+str(self._score_transport_generation),
++                'sources': dict(self._score_source_tokens),
++                'residencies': self.manager.score_residency_versions()}
++
++    def _score_request_started(self, request_id):
++        if getattr(self, '_score_transport_enabled', False):
++            self._score_source_sequence += 1
++            self._score_source_tokens[request_id] = self._score_source_sequence
++            self._score_source_deadlines.pop(request_id, None)
++
++    def _score_request_finished(self, request):
++        if not getattr(self, '_score_transport_enabled', False):
++            return
++        status = str(getattr(request, 'status', '')).lower()
++        if any(reason in status for reason in ('abort', 'error')):
++            self._score_source_tokens.pop(request.request_id, None)
++            self._score_source_deadlines.pop(request.request_id, None)
++        else:
++            self._score_source_deadlines[request.request_id] = time.monotonic_ns()+self._score_source_lease_ns
++
+     def on_new_request(self, request: Request) -> None:
++        self._score_request_started(request.request_id)
+         original_params = request.kv_transfer_params
+         policy_params = _campaign_policy_params(original_params)
+         if policy_params is original_params:
+@@ -6327,7 +6649,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+                 source="prefetch_reservation",
+             )
+             return False
+-        free_blocks = self.gpu_block_pool.get_num_free_blocks()
++        free_blocks = self._prefetch_free_capacity()
+         n = min(
+             len(resident_keys),
+             max(0, free_blocks - getattr(self, "_prefetch_headroom_blocks", 0)),
+@@ -6378,7 +6700,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+                         "phase": "reserved",
+                         "action": "reserve",
+                         "reserved_blocks": len(gpu_block_ids),
+-                        "free_blocks": self.gpu_block_pool.get_num_free_blocks(),
++                        "free_blocks": self._prefetch_free_capacity(),
+                     }
+                 )
+                 preservation_state["prefetch_attempted_keys"] = int(
+@@ -6564,6 +6886,8 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         self.gpu_block_pool.free_blocks(blocks)
+ 
+     def request_finished(self, request: Request):
++        self._score_request_finished(request)
++        getattr(self, "_published_wait_prefixes", {}).pop(request.request_id, None)
+         # A request can finish (or abort) while still preempted, in which
+         # case a still-pending retry attempt would otherwise loop forever --
+         # this is the one lifecycle point that always fires before a
+@@ -6819,6 +7143,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         assert len(keys_to_load) == len(dst_block_ids)
+         return keys_to_load, dst_block_ids, num_locally_computed_gpu_blocks, num_blocks
+ 
++    @profiled('scheduler.splice_prepare')
+     def _try_splice_prefetch(
+         self, request: Request, blocks, num_external_tokens: int
+     ) -> bool:
+@@ -7254,6 +7579,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+     def update_state_after_alloc(
+         self, request: Request, blocks, num_external_tokens: int
+     ) -> None:
++        self._record_native_prefix_adoption(request, blocks, num_external_tokens)
+         # Being re-admitted at all means this request is no longer
+         # preempted -- stop retrying it regardless of what happens below.
+         self._preempted_pending.discard(request.request_id)
+@@ -7402,6 +7728,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         if req_status.finished_signaled and not req_status.transfer_jobs:
+             del self._req_status[job_status.req_id]
+ 
++    @profiled('scheduler.consume_worker')
+     def update_connector_output(self, connector_output: KVConnectorOutput):
+         if not getattr(self, "_preservation_events_enabled", False):
+             result = super().update_connector_output(connector_output)
+@@ -7775,6 +8102,10 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+ 
+     def reset_cache(self) -> None:
+         """Reset semantic and speculative state alongside the base cache."""
++        self._score_transport_generation = getattr(self, '_score_transport_generation', 0)+1
++        getattr(self, '_score_source_tokens', {}).clear()
++        getattr(self, '_score_source_deadlines', {}).clear()
++        getattr(self, "_published_wait_prefixes", {}).clear()
+         wait_states = list(getattr(self, "_wait_prefetch", {}).values())
+         for wait_state in wait_states:
+             if wait_state.status == "bound_ready":
+@@ -7873,6 +8204,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         ):
+             getattr(self.manager, name, {}).clear()
+ 
++    @profiled('scheduler.build_metadata')
+     def build_connector_meta(
+         self, scheduler_output: SchedulerOutput
+     ) -> KVConnectorMetadata:
+@@ -8054,6 +8386,13 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         reset_semantic_state = self._worker_reset_pending
+         self._worker_reset_pending = False
+         meta = SemanticOffloadingConnectorMetadata(
++            scoring_context=self._score_context(),
++            scoring_requests=dict(getattr(self, "_decision_scoring_requests", {})),
++            scoring_lease_ids={r:tuple(eid for eid,state in self._wait_prefetch.items()
++                if state.status=='pending' and state.source.source_request_id==r)
++                for r in getattr(self,'_decision_scoring_requests',{})},
++            scoring_residency_versions={r:{k:getattr(self.manager._policy.get(k),'_semantic_score_version',None)
++                for k in keys} for r,keys in getattr(self,'_decision_scoring_requests',{}).items()},
+             load_jobs=base_meta.load_jobs,
+             store_jobs=base_meta.store_jobs,
+             jobs_to_flush=base_meta.jobs_to_flush,
+@@ -8102,6 +8441,7 @@ class SemanticOffloadingConnectorScheduler(OffloadingConnectorScheduler):
+         )
+         self._drain_staging_protection_records()
+         self._emit_finished_preservation_events()
++        getattr(self, "_decision_scoring_requests", {}).clear()
+         return meta
+ 
+ 
+@@ -8552,6 +8892,7 @@ class SemanticOffloadingConnector(OffloadingConnector):
+         if isinstance(self.connector_scheduler, SemanticOffloadingConnectorScheduler):
+             self.connector_scheduler.on_request_preempted(request)
+ 
++    @profiled('metadata.bind_worker')
+     def bind_connector_metadata(self, connector_metadata: KVConnectorMetadata) -> None:
+         if self.connector_worker is not None and isinstance(
+             connector_metadata, SemanticOffloadingConnectorMetadata
+@@ -8574,6 +8915,10 @@ class SemanticOffloadingConnector(OffloadingConnector):
+                 worker.receive_job_keys(connector_metadata.store_job_keys)
+             if hasattr(worker, "receive_evicted_keys"):
+                 worker.receive_evicted_keys(connector_metadata.evicted_keys)
++            if hasattr(worker, 'receive_scoring_context'):
++                worker.receive_scoring_context(connector_metadata.scoring_context)
++            if hasattr(worker, "receive_score_requests"):
++                worker.receive_score_requests(connector_metadata.scoring_requests, connector_metadata.scoring_residency_versions, connector_metadata.scoring_lease_ids)
+             if hasattr(worker, "splice_gpu_blocks"):
+                 # Runs before super().bind_connector_metadata() below (which
+                 # hands off the load_jobs that would otherwise redundantly
+@@ -8587,6 +8932,7 @@ class SemanticOffloadingConnector(OffloadingConnector):
+                     worker.splice_gpu_blocks(src_ids, dst_ids, splice_id=splice_id)
+         super().bind_connector_metadata(connector_metadata)
+ 
++    @profiled('metadata.build_worker')
+     def build_connector_worker_meta(self) -> KVConnectorWorkerMetadata | None:
+         base_meta = super().build_connector_worker_meta()
+         assert self.connector_worker is not None
+@@ -8723,6 +9069,7 @@ class SemanticOffloadingConnector(OffloadingConnector):
+             prefill_cuda_events=prefill_cuda_events,
+         )
+ 
++    @profiled('scheduler.consume_worker')
+     def update_connector_output(self, connector_output: KVConnectorOutput) -> None:
+         meta = connector_output.kv_connector_worker_meta
+         updates: ComposedRelevanceUpdates = {}
+@@ -8764,9 +9111,16 @@ class SemanticOffloadingConnector(OffloadingConnector):
+             for event in meta.async_scoring_events:
+                 record_async_scoring_event(bind_async_event(event))
+             if meta.async_scoring_status:
+-                record_async_scoring_event(
+-                    {"event": "status", **meta.async_scoring_status}
+-                )
++                # Keep status in native metadata, but log transitions only.
++                # Ordinary idle polls otherwise encode/flush the same JSON.
++                previous = getattr(self, "_last_logged_async_scoring_status", None)
++                if previous != meta.async_scoring_status:
++                    record_async_scoring_event(
++                        {"event": "status", **meta.async_scoring_status}
++                    )
++                    self._last_logged_async_scoring_status = dict(
++                        meta.async_scoring_status
++                    )
+             rank_ema_mode = getattr(meta, "rank_ema_mode", "default")
+             ema_rank_weight_floor = getattr(meta, "ema_rank_weight_floor", 0.0)
+             async_observations = meta.complete_async_score_observations()
+@@ -8885,6 +9239,50 @@ class SemanticOffloadingConnector(OffloadingConnector):
+             observation_scores = observation.get("scores")
+             if not isinstance(observation_scores, dict) or not observation_scores:
+                 continue
++            if (getattr(self.connector_scheduler, '_score_requires_bounded_contract', False)
++                    and observation.get('async_contract') != 'bounded-v2'):
++                continue
++            if observation.get('async_contract') == 'bounded-v2':
++                if (not isinstance(observation.get('source_tokens'), dict)
++                        or not isinstance(observation.get('residency_versions'), dict)):
++                    continue
++                context = getattr(self.connector_scheduler, '_score_context', lambda: {})()
++                epoch = observation.get('transport_epoch')
++                if epoch is None or epoch != context.get('epoch'):
++                    continue
++                sequence = observation.get('observation_sequence')
++                watermark = getattr(self, '_score_observation_watermark', (None, -1))
++                if watermark[0] != epoch:
++                    watermark = (epoch, -1)
++                if isinstance(sequence, bool) or not isinstance(sequence, int) or sequence <= watermark[1]:
++                    continue
++                self._score_observation_watermark = (epoch, sequence)
++                tokens = observation.get('source_tokens', {})
++                observation_scores = {method: {r: values for r, values in reqs.items()
++                    if tokens.get(r) is not None and tokens[r] == context.get('sources', {}).get(r)}
++                    for method, reqs in observation_scores.items()}
++                if not any(observation_scores.values()):
++                    continue
++            leases = observation.get('decision_leases')
++            if leases is not None:
++                states=getattr(self.connector_scheduler,'_wait_prefetch',{})
++                valid_requests={r for r,ids in leases.items() if any(
++                    eid in states and states[eid].status=='pending'
++                    and states[eid].source.source_request_id==r
++                    and decision_ns<=states[eid].lease.expires_at_ns for eid in ids)}
++                observation_scores={method:{r:values for r,values in reqs.items() if r in valid_requests}
++                                    for method,reqs in observation_scores.items()}
++                if not any(reqs for reqs in observation_scores.values()):continue
++            residency = observation.get('residency_versions')
++            if residency is not None:
++                # Worker publication checking does not cover eviction/reinsert during transport.
++                valid = {k for k,version in residency.items() if version is not None
++                    and (block := manager._policy.get(k)) is not None and block.is_ready
++                    and getattr(block,'_semantic_score_version',None) == version}
++                observation_scores = {method:{req:[(k,v) for k,v in values if k in valid]
++                    for req,values in reqs.items()} for method,reqs in observation_scores.items()}
++                if not any(values for reqs in observation_scores.values() for values in reqs.values()):
++                    continue
+             observation_updates = compose_relevance_updates(
+                 observation_scores, rank_ema_mode, ema_rank_weight_floor
+             )
+diff --git a/semantic_offload/manager.py b/semantic_offload/manager.py
+index 42fd7f7..d67e3fc 100644
+--- a/semantic_offload/manager.py
++++ b/semantic_offload/manager.py
+@@ -9,6 +9,7 @@ policy instance afterward. See .claude/docs/semantic-eviction-plan.md,
+ Step 1.1.
+ """
+ 
++from semantic_offload.profiling import PROFILE, profiled
+ import hashlib
+ import json
+ import math
+@@ -706,6 +707,28 @@ def _validate_chain_admission_max_prefix_blocks(value: object) -> int:
+ 
+ 
+ class FrequencyCostAdmissionMixin:
++    def _stamp_score_residencies(self, result):
++        if result is None:
++            return
++        versions = self.__dict__.setdefault('_score_residencies', {})
++        for key in result.evicted_keys:
++            versions.pop(key, None)
++        for key in result.keys_to_store:
++            self._score_residency_sequence = getattr(self, '_score_residency_sequence', 0)+1
++            versions[key] = self._score_residency_sequence
++            self._policy.get(key)._semantic_score_version = self._score_residency_sequence
++
++    def score_residency_versions(self):
++        versions = self.__dict__.setdefault('_score_residencies', {})
++        current = {}
++        for key, version in list(versions.items()):
++            block = self._policy.get(key)
++            if block is None:
++                versions.pop(key, None)
++            elif block.is_ready and getattr(block, '_semantic_score_version', None) == version:
++                current[key] = version
++        return current
++
+     """Optional TinyLFU-style admission using causal, bounded features only."""
+ 
+     def _init_admission_contract(
+@@ -1304,6 +1327,7 @@ class FrequencyCostAdmissionMixin:
+             self._complete_exact_chain_prepare(
+                 req_context, chain_qualified, result
+             )
++            self._stamp_score_residencies(result)
+             return result
+ 
+         eligible_new = [
+@@ -1456,6 +1480,7 @@ class FrequencyCostAdmissionMixin:
+                         publication_ns if publication_ns is not None else 0,
+                     )
+         self._complete_exact_chain_prepare(req_context, chain_qualified, result)
++        self._stamp_score_residencies(result)
+         return result
+ 
+     def _complete_exact_chain_prepare(
+@@ -1770,6 +1795,7 @@ class PreservationOffloadingManager(
+                     values.pop(key, None)
+         return keys
+ 
++    @profiled('scoring.ema_apply')
+     def apply_relevance_updates(
+         self,
+         updates: Mapping[str, Mapping[OffloadKey, tuple[float, float, float]]],
+@@ -1855,6 +1881,7 @@ class PreservationOffloadingManager(
+         self._relevance_updated_ns.clear()
+ 
+ 
++@profiled('scoring.ema_compose')
+ def compose_relevance_updates(
+     scores: Mapping[str, Mapping[str, Sequence[tuple[OffloadKey, float]]]],
+     mode: str = "default",
+@@ -2219,6 +2246,7 @@ class SemanticOffloadingManager(
+             for key in list(self.future_reuse_ema)[:excess]:
+                 del self.future_reuse_ema[key]
+ 
++    @profiled('scoring.ema_apply')
+     def apply_relevance_updates(
+         self,
+         updates: Mapping[str, Mapping[OffloadKey, tuple[float, float, float]]],
+diff --git a/semantic_offload/query_capture.py b/semantic_offload/query_capture.py
+index 5049290..4c21d4b 100644
+--- a/semantic_offload/query_capture.py
++++ b/semantic_offload/query_capture.py
+@@ -29,9 +29,11 @@ Zero vLLM source modifications -- both are class-level monkey-patches
+ applied from this out-of-tree package.
+ """
+ 
++from semantic_offload.profiling import PROFILE, profiled
+ import time
+ from collections.abc import Callable
+ from contextvars import ContextVar
++from contextlib import nullcontext
+ from threading import Condition, RLock, get_ident
+ 
+ import torch
+@@ -40,7 +42,7 @@ from typing_extensions import Self
+ from vllm.config import VllmConfig
+ from vllm.utils.torch_utils import _resolve_layer_name
+ 
+-from semantic_offload._debug import debug_print
++from semantic_offload._debug import debug_print, ENABLED as _DEBUG
+ 
+ 
+ class _BatchLayout:
+@@ -150,6 +152,9 @@ def _nvtx_execution_label(request_ids: list[str]) -> str:
+     return f"semantic_execute[n={len(ids)}]:{shown}"
+ 
+ 
++def on_query_disabled(handle):
++    return handle._mode_factory is None
++
+ def _patch_runner(handle: QueryCaptureHandle) -> None:
+     global _runner_patch
+ 
+@@ -162,9 +167,10 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
+     original_prepare = GPUModelRunner.prepare_inputs
+     original_execute = GPUModelRunner.execute_model
+ 
++    @profiled('capture.prepare_layout')
+     def prepare_wrapper(self_runner, scheduler_output, batch_desc):
+         result = original_prepare(self_runner, scheduler_output, batch_desc)
+-        if _current_handle.get() is not handle or self_runner is not handle._runner:
++        if on_query_disabled(handle) or _current_handle.get() is not handle or self_runner is not handle._runner:
+             return result
+         req_ids = list(result.req_ids)
+         token_counts = [int(c) for c in result.num_scheduled_tokens]
+@@ -176,6 +182,7 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
+         _current_layout.set(_BatchLayout(req_ids=req_ids, boundaries=boundaries))
+         return result
+ 
++    @profiled('model.execute_host', cuda=True)
+     def execute_wrapper(self_runner, *args, **kwargs):
+         if getattr(self_runner, "vllm_config", None) is not handle.vllm_config:
+             return original_execute(self_runner, *args, **kwargs)
+@@ -207,7 +214,7 @@ def _patch_runner(handle: QueryCaptureHandle) -> None:
+                     list(getattr(scheduler_output, "num_scheduled_tokens", {})),
+                     time.monotonic_ns(),
+                 )
+-            with handle._mode_factory():
++            with (handle._mode_factory() if handle._mode_factory is not None else nullcontext()):
+                 result = original_execute(self_runner, *args, **kwargs)
+             if handle._on_complete is not None:
+                 handle._on_complete(self_runner, result)
+@@ -306,6 +313,15 @@ def preflight_install(vllm_config: VllmConfig) -> None:
+             raise RuntimeError("query capture is already installed in this process")
+ 
+ 
++def _select_last_query_rows(query: torch.Tensor, indices: list[int]) -> torch.Tensor:
++    """Copy selected rows without constructing a CPU-to-device index tensor.
++
++    Basic slices retain the original device and concatenate into owned storage,
++    including the one-row case. The caller supplies nonempty, valid row indices.
++    """
++    return torch.cat([query[index : index + 1] for index in indices], dim=0)
++
++
+ def install(
+     vllm_config: VllmConfig,
+     probe_layer_name: str | None,
+@@ -344,11 +360,16 @@ def install(
+ 
+     state: dict = {"step_index": 0}
+ 
++    @profiled('capture.extract', cuda=True)
+     def capture_query(layout: _BatchLayout, query: torch.Tensor) -> None:
+         step_index = state["step_index"]
+         state["step_index"] = step_index + 1
+         if not _should_sample_step(step_index, capture_stride):
+             return
++        owner = getattr(on_query, '__self__', None)
++        if (getattr(owner, '_scoring_schedule', 'continuous') == 'continuous'
++                and hasattr(owner, 'durable_summaries') and not owner.durable_summaries):
++            return  # Preserve eligible-step stride, but continuous empty banks cannot score.
+         req_ids = []
+         last_indices = []
+         for req_id, (start, end) in zip(layout.req_ids, layout.boundaries):
+@@ -357,21 +378,38 @@ def install(
+                 last_indices.append(end - 1)
+         if not req_ids:
+             return
+-        last_q = query[torch.tensor(last_indices, device=query.device)]
+-        n_reqs, num_query_heads, head_dim = last_q.shape
+-        if num_query_heads % num_queries_per_kv:
+-            raise ValueError("query heads must be divisible by num_queries_per_kv")
+-        num_kv_heads = num_query_heads // num_queries_per_kv
+-        grouped = last_q.view(n_reqs, num_kv_heads, num_queries_per_kv, head_dim).mean(
+-            dim=2
+-        )
++        with PROFILE.scope("capture.group_query", cuda=query.is_cuda):
++            with PROFILE.scope("capture.query_select", cuda=query.is_cuda):
++                last_q = _select_last_query_rows(query, last_indices)
++            n_reqs, num_query_heads, head_dim = last_q.shape
++            if num_query_heads % num_queries_per_kv:
++                raise ValueError("query heads must be divisible by num_queries_per_kv")
++            num_kv_heads = num_query_heads // num_queries_per_kv
++            with PROFILE.scope("capture.head_group_reduce", cuda=query.is_cuda):
++                grouped = last_q.view(
++                    n_reqs, num_kv_heads, num_queries_per_kv, head_dim
++                ).mean(dim=2)
+         if on_query is not None:
+             on_query(req_ids, grouped)
+ 
++    attention_ops = {}
++
+     class ProbeMode(TorchDispatchMode):
+         def __torch_dispatch__(self, func, types, args=(), kwargs=None):
++            sample = False
++            if PROFILE.directory:
++                PROFILE.count("capture.dispatch_calls")
++                sequence = getattr(self, "_profile_dispatch_sequence", 0) + 1
++                self._profile_dispatch_sequence = sequence
++                sample = sequence % 64 == 1
++            if sample:
++                profile_wall, profile_cpu = time.perf_counter_ns(), time.thread_time_ns()
+             kwargs = kwargs or {}
+-            if "unified_attention_with_output" in str(func):
++            match = attention_ops.get(func)
++            if match is None:
++                match = "unified_attention_with_output" in str(func)
++                attention_ops[func] = match
++            if match:
+                 query = args[0] if len(args) > 0 else kwargs.get("query")
+                 layer_name_arg = args[4] if len(args) > 4 else kwargs.get("layer_name")
+                 resolved_name = (
+@@ -381,15 +419,19 @@ def install(
+                 )
+                 if resolved_name == probe_layer_name:
+                     layout = _current_layout.get()
++                    # Consume before extraction/callback: reentry must not
++                    # capture the same prepared batch a second time.
++                    _current_layout.set(None)
+                     try:
+-                        debug_print(
+-                            "SEMANTIC_QUERY_CAPTURE_DEBUG "
+-                            "query_shape0="
+-                            f"{query.shape[0] if query is not None else None} "
+-                            "layout_num_tokens="
+-                            f"{layout.num_tokens if layout else None} "
+-                            f"layout_req_ids={layout.req_ids if layout else None}"
+-                        )
++                        if _DEBUG:
++                            debug_print(
++                                "SEMANTIC_QUERY_CAPTURE_DEBUG "
++                                "query_shape0="
++                                f"{query.shape[0] if query is not None else None} "
++                                "layout_num_tokens="
++                                f"{layout.num_tokens if layout else None} "
++                                f"layout_req_ids={layout.req_ids if layout else None}"
++                            )
+                         # CUDA-graph replay can pad the query tensor, but real
+                         # tokens occupy its prefix. Consume each prepare-inputs
+                         # layout once at the configured probe layer.
+@@ -401,13 +443,16 @@ def install(
+                             capture_query(layout, query)
+                     finally:
+                         _current_layout.set(None)
++            if sample:
++                PROFILE.observe("capture.dispatch_intercept_sample.host_wall", time.perf_counter_ns() - profile_wall)
++                PROFILE.observe("capture.dispatch_intercept_sample.thread_cpu", time.thread_time_ns() - profile_cpu)
+             return func(*args, **kwargs)
+ 
+     with _lifecycle_condition:
+         preflight_install(vllm_config)
+         handle = QueryCaptureHandle(
+             vllm_config,
+-            ProbeMode,
++            ProbeMode if on_query is not None else None,
+             on_forward=on_forward,
+             on_complete=on_complete,
+             emit_nvtx_ranges=emit_nvtx_ranges,
+diff --git a/semantic_offload/spec.py b/semantic_offload/spec.py
+index 81170f6..2119db4 100644
+--- a/semantic_offload/spec.py
++++ b/semantic_offload/spec.py
+@@ -182,6 +182,14 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
+             summary_offload_overlap=summary_offload_overlap,
+             preservation_events=preservation_events,
+             nvtx_ranges=nvtx_ranges,
++            scoring_schedule=self.extra_config.get("scoring_schedule", "continuous"),
++            scoring_search=self.extra_config.get("scoring_search", "flat"),
++            search_min_pool=positive_int("search_min_pool", 128),
++            search_clusters=positive_int("search_clusters", 16),
++            search_probes=positive_int("search_probes", 4),
++            search_exploration=positive_int("search_exploration", 8),
++            query_snapshot_max_age_ms=positive_int("query_snapshot_max_age_ms", 1000),
++            query_snapshot_max_requests=positive_int("query_snapshot_max_requests", 256),
+         )
+ 
+     @override
+diff --git a/semantic_offload/worker.py b/semantic_offload/worker.py
+index 34bca10..9435b75 100644
+--- a/semantic_offload/worker.py
++++ b/semantic_offload/worker.py
+@@ -40,6 +40,7 @@ summaries. Does not apply to MLA (no per-head keys exist there at all).
+ 
+ import hashlib
+ import itertools
++import math
+ import re
+ import time
+ from collections.abc import Sequence
+@@ -56,7 +57,7 @@ from vllm.v1.kv_offload.base import (
+ )
+ from vllm.v1.kv_offload.cpu.gpu_worker import CPUOffloadingWorker
+ 
+-from semantic_offload._debug import TIMING as _TIMING
++from semantic_offload._debug import TIMING as _TIMING, ENABLED as _DEBUG
+ from semantic_offload._debug import (
+     debug_print,
+     record_count,
+@@ -74,6 +75,8 @@ from semantic_offload.index import (
+     score_minmax_batch,
+ )
+ from semantic_offload.manager import validate_ema_rank_weight_floor
++from semantic_offload.profiling import PROFILE, profiled
++from semantic_offload.scoring_search import ClusterSearch, SearchConfig
+ from semantic_offload.query_capture import install as install_query_capture
+ from semantic_offload.query_capture import preflight_install as preflight_query_capture
+ 
+@@ -100,6 +103,11 @@ class _AsyncScorePayload:
+     method: str
+     head_aggregation: str
+     request_versions: tuple[tuple[str, int], ...]
++    residency_versions: tuple[tuple[OffloadKey, int], ...] = ()
++    decision_leases: tuple[tuple[str, tuple[str, ...]], ...] = ()
++    transport_epoch: str | None = None
++    source_tokens: tuple[tuple[str, int | None], ...] = ()
++    expires_at_ns: int | None = None
+ 
+ 
+ def validate_parallel_scoring(
+@@ -218,6 +226,14 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         summary_offload_overlap: bool = False,
+         preservation_events: bool = False,
+         nvtx_ranges: bool = False,
++        scoring_schedule: str = "continuous",
++        scoring_search: str = "flat",
++        search_min_pool: int = 128,
++        search_clusters: int = 16,
++        search_probes: int = 4,
++        search_exploration: int = 8,
++        query_snapshot_max_age_ms: int = 1000,
++        query_snapshot_max_requests: int = 256,
+     ):
+         if method not in _SCORING_METHODS:
+             raise ValueError(
+@@ -232,6 +248,19 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             )
+         validate_rank_ema_mode(rank_ema_mode)
+         scoring_mode = validate_scoring_mode(scoring_mode)
++        if scoring_schedule not in ("continuous", "opportunity", "capture_only"):
++            raise ValueError("scoring_schedule must be continuous, opportunity or capture_only")
++        search_config = SearchConfig(scoring_search, search_min_pool, search_clusters,
++                                     search_probes, search_exploration)
++        for value in (query_snapshot_max_age_ms, query_snapshot_max_requests):
++            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
++                raise ValueError("query snapshot bounds must be positive integers")
++        if (scoring_schedule != "continuous" or scoring_search != "flat") and (
++            method != "mean" or head_aggregation != "mean"
++            or vllm_config.parallel_config.tensor_parallel_size != 1
++            or (scoring_mode != "synchronous" and not (scoring_schedule == "opportunity" and scoring_search == "flat"))
++        ):
++            raise ValueError("scheduled/indexed scoring requires mean/mean TP=1; asynchronous scheduling supports opportunity/flat only")
+         if (
+             isinstance(async_scoring_max_snapshot_age_ms, bool)
+             or not isinstance(async_scoring_max_snapshot_age_ms, int)
+@@ -311,6 +340,17 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         self._head_aggregation = head_aggregation
+         self._rank_ema_mode = rank_ema_mode
+         self._scoring_mode = scoring_mode
++        self._scoring_schedule = scoring_schedule
++        self._candidate_search = ClusterSearch(search_config)
++        self._score_transport_context = {}
++        self._query_snapshots = {}
++        self._query_snapshot_events = {}
++        self._retired_async_request_ids = set()
++        self._decision_async_signatures = {}
++        self._query_snapshot_max_age_ns = query_snapshot_max_age_ms * 1_000_000
++        self._query_snapshot_max_requests = query_snapshot_max_requests
++        self._decision_score_sequence = 0
++        self._profile_metadata_calls = 0
+         self._ema_rank_weight_floor = ema_rank_weight_floor
+         self._summary_offload_overlap = summary_offload_overlap
+         self._preservation_events = preservation_events
+@@ -414,7 +454,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+                 self._score_async_payload,
+                 max_queue_items=async_scoring_max_queue_items,
+                 max_snapshot_bytes=async_scoring_max_snapshot_bytes,
+-                workers=async_scoring_workers,
++                workers=1,  # A single owner for the single scoring stream.
+             )
+         # splice_id -> completion event. The scheduler keeps speculative
+         # source blocks reserved until every worker reports this event done.
+@@ -466,6 +506,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         if summary_stream is not None:
+             summary_stream.synchronize()
+         super().shutdown()
++        PROFILE.flush()
+ 
+     def receive_job_keys(self, store_job_keys: dict[int, list[OffloadKey]]) -> None:
+         """Called by SemanticOffloadingConnector before this step's
+@@ -488,6 +529,13 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             async_scoring.reset()
+         getattr(self, "_async_submission_requests", {}).clear()
+         getattr(self, "_async_request_versions", {}).clear()
++        getattr(self, "_query_snapshots", {}).clear()
++        getattr(self, "_query_snapshot_events", {}).clear()
++        getattr(self, "_retired_async_request_ids", set()).clear()
++        getattr(self, "_decision_async_signatures", {}).clear()
++        if hasattr(self, "_candidate_search"):
++            self._candidate_search.centroids = None
++            self._candidate_search.groups = []
+         summary_stream = getattr(self, "_summary_stream", None)
+         if summary_stream is not None:
+             # Reset is rare and destructive. Do not drop the last references
+@@ -649,6 +697,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         event = getattr(self, "_summary_job_events", {}).get(job_id)
+         return event is None or event.query()
+ 
++    @profiled('transfer.poll')
+     def get_finished(self) -> list[TransferResult]:
+         """Do not publish a store completion before its summary reduction.
+ 
+@@ -873,6 +922,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         scores, _, _ = self.pop_pending_score_metadata()
+         return scores
+ 
++    @profiled('metadata.pop_scores')
+     def pop_pending_score_metadata(
+         self,
+     ) -> tuple[
+@@ -882,6 +932,9 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+     ]:
+         if getattr(self, "_scoring_mode", "synchronous") == "asynchronous":
+             self._drain_async_scores()
++        self._profile_metadata_calls = getattr(self, "_profile_metadata_calls", 0) + 1
++        if PROFILE.directory and self._profile_metadata_calls % 128 == 0:
++            PROFILE.flush()
+         scores = self._pending_scores
+         head_counts = getattr(self, "_pending_score_head_counts", {})
+         self._pending_scores = {}
+@@ -897,6 +950,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         self._pending_async_score_observations = []
+         return observations
+ 
++    @profiled('scoring.stack_cache', cuda=True)
+     def _rebuild_stack_cache(self) -> None:
+         """Bring the stacked-tensor cache back in sync with
+         durable_summaries incrementally: compact out pending removals with
+@@ -975,6 +1029,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+     def _tensor_bytes(tensor: torch.Tensor) -> int:
+         return tensor.numel() * tensor.element_size()
+ 
++    @torch.no_grad()
+     def _score_async_payload(
+         self, payload: _AsyncScorePayload
+     ) -> tuple[
+@@ -982,45 +1037,59 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         dict[str, dict[str, int]],
+     ]:
+         fields = _METHOD_FIELDS[payload.method]
++        # Retain enqueued output/cache buffers across an exception until the
++        # outer scoring-stream fence completes; no extra tensor allocation.
++        readback_owners = []
+ 
+         def score_payload():
+-            cache = {
+-                field: torch.stack(
+-                    [
+-                        torch.stack(
+-                            [getattr(summary, field) for summary in summary_list]
+-                        )
+-                        for summary_list in payload.summaries
+-                    ]
+-                )
+-                for field in fields
+-            }
+-            query = payload.queries.unsqueeze(1)
+-            if payload.method == "minmax":
+-                per_head = score_minmax_batch(
+-                    query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
+-                )
+-            elif payload.method == "mean":
+-                per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
+-            else:
+-                per_head = score_cuboid_mean_batch(
+-                    query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
+-                )
+-            combined = (
+-                per_head.mean(dim=-1)
+-                if payload.head_aggregation == "mean"
+-                else per_head.max(dim=-1).values
+-            )
+-            all_scores = combined.tolist()
+-            ranked_by_request = {
+-                req_id: sorted(
+-                    zip(payload.keys, scores), key=lambda item: (-item[1], item[0])
++            with PROFILE.scope("async.stack", cuda=True):
++                cache = {
++                    field: torch.stack(
++                        [
++                            torch.stack(
++                                [getattr(summary, field) for summary in summary_list]
++                            )
++                            for summary_list in payload.summaries
++                        ]
++                    )
++                    for field in fields
++                }
++            with PROFILE.scope("async.math_enqueue", cuda=True):
++                query = payload.queries.unsqueeze(1)
++                if payload.method == "minmax":
++                    per_head = score_minmax_batch(
++                        query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
++                    )
++                elif payload.method == "mean":
++                    per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
++                else:
++                    per_head = score_cuboid_mean_batch(
++                        query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
++                    )
++                combined = (
++                    per_head.mean(dim=-1)
++                    if payload.head_aggregation == "mean"
++                    else per_head.max(dim=-1).values
+                 )
+-                for req_id, scores in zip(payload.req_ids, all_scores)
+-            }
+-            head_counts = {
+-                req_id: int(per_head.shape[-1]) for req_id in payload.req_ids
+-            }
++            readback_owners.append((cache, per_head, combined))
++            with PROFILE.scope("async.readback", cuda=False):
++                if combined.is_cuda:
++                    from semantic_offload.async_scoring import wait_for_owned_fence
++                    completed = torch.cuda.Event()
++                    readback_owners.append(completed)
++                    completed.record(torch.cuda.current_stream(combined.device))
++                    wait_for_owned_fence(completed)
++                all_scores = combined.tolist()
++            with PROFILE.scope("async.rank", cuda=False):
++                ranked_by_request = {
++                    req_id: sorted(
++                        zip(payload.keys, scores), key=lambda item: (-item[1], item[0])
++                    )
++                    for req_id, scores in zip(payload.req_ids, all_scores)
++                }
++                head_counts = {
++                    req_id: int(per_head.shape[-1]) for req_id in payload.req_ids
++                }
+             return (
+                 {payload.method: ranked_by_request},
+                 {payload.method: head_counts},
+@@ -1030,87 +1099,99 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         if stream is None:
+             return score_payload()
+         with torch.cuda.stream(stream):
+-            return score_payload()
++            try:
++                return score_payload()
++            except BaseException:
++                stream.synchronize()  # Failed Future alone is not a GPU reader fence.
++                raise
+ 
+-    def _submit_async_scoring(
+-        self, req_ids: list[str], queries: torch.Tensor
+-    ) -> None:
+-        capture_started_ns = time.monotonic_ns()
+-        controller = getattr(self, "_async_scoring", None)
+-        if controller is None:
+-            raise RuntimeError("asynchronous scoring controller is unavailable")
+-        keys = tuple(self.durable_summaries)
+-        source_summaries = tuple(
+-            tuple(self.durable_summaries[key]) for key in keys
+-        )
+-        fields = set(_METHOD_FIELDS[self._method])
+-        snapshot_bytes = queries.numel() * torch.empty(
+-            (), dtype=torch.float32
+-        ).element_size() + sum(
+-            self._tensor_bytes(getattr(summary, field))
+-            for summary_list in source_summaries
+-            for summary in summary_list
+-            for field in fields
+-        )
++    def _submit_async_scoring(self, req_ids, queries, *, candidate_keys=None,
++                              feature_ns=None, query_fences=(), residency_versions=None, decision_leases=None):
++        controller = self._async_scoring
++        # Full item queues reject BEFORE scanning/retaining the bank.
++        if not controller.can_accept(0):
++            controller.record_pre_capture_drop(generation=self._summary_generation, snapshot_bytes=0)
++            return None
++        keys = tuple(key for key in (candidate_keys if candidate_keys is not None else self.durable_summaries)
++                     if key in self.durable_summaries)
++        if not keys:
++            return None
++        if (queries.ndim != 3 or queries.shape[0] != len(req_ids)
++                or not queries.is_floating_point()):
++            raise ValueError("async queries require real floating [requests, heads, dim]")
++        fields = _METHOD_FIELDS[self._method]
++        h, d = queries.shape[1:]
++        if any(len(self.durable_summaries[k]) != h or any(
++                getattr(head, f).shape != (d,) or not getattr(head, f).is_floating_point()
++                for head in self.durable_summaries[k] for f in fields) for k in keys):
++            raise ValueError("async summary fields must match query heads/dim and be real floating")
++        # Project only required immutable tensor fields; never retain whole BlockSummary.
++        from types import SimpleNamespace
++        summaries = tuple(tuple(SimpleNamespace(**{f: getattr(summary, f) for f in fields})
++                                  for summary in self.durable_summaries[key]) for key in keys)
++        tensors = [getattr(summary, f) for row in summaries for summary in row for f in fields]
++        seen = set(); retained = 0
++        for tensor in tensors:
++            storage = tensor.untyped_storage(); identity = (str(tensor.device), storage.data_ptr())
++            if identity not in seen:
++                seen.add(identity); retained += storage.nbytes()
++        query_bytes = queries.numel() * 4
++        # Snapshot copy is float32; torch promotion may retain wider summaries.
++        dtype = torch.float32
++        for tensor in tensors:
++            dtype = torch.promote_types(dtype, tensor.dtype)
++        element_bytes = torch.empty((), dtype=dtype).element_size()
++        r, h, d = queries.shape
++        k = len(keys)
++        # Each stack may promote all rows/heads to the widest field dtype.
++        field_bytes = len(fields)*k*h*d*element_bytes
++        # mean: one broadcast product; minmax/cuboid: two products + max.
++        # Cuboid additionally retains box_min and box_max [K,H,D].
++        products = 1 if self._method == 'mean' else 3
++        boxes = 2*k*h*d*element_bytes if self._method == 'cuboid_mean' else 0
++        # Keep original Q backing as well as its owned float32 snapshot charged.
++        query_backing = queries.untyped_storage().nbytes()
++        snapshot_bytes = (retained + query_backing + query_bytes
++            + 2*field_bytes + products*r*k*h*d*element_bytes + boxes
++            + r*k*h*element_bytes + 3*r*k*(element_bytes+8))
+         if not controller.can_accept(snapshot_bytes):
+-            controller.record_pre_capture_drop(
+-                generation=getattr(self, "_summary_generation", 0),
+-                snapshot_bytes=snapshot_bytes,
+-            )
+-            return
+-
+-        summary_stream = getattr(self, "_summary_stream", None)
+-        # Durable summary tensors are immutable publication versions: updates
+-        # replace the object and publication id rather than mutating storage.
+-        # Holding these references pins the exact version without launching a
+-        # per-candidate clone on the model path; the fence below owns readiness.
+-        summaries = source_summaries
++            controller.record_pre_capture_drop(generation=self._summary_generation, snapshot_bytes=snapshot_bytes)
++            return None
++        captured = time.monotonic_ns() if feature_ns is None else feature_ns
++        max_age = self._async_scoring_max_snapshot_age_ns
++        if getattr(self, '_scoring_schedule', 'continuous') == 'opportunity':
++            max_age = min(max_age, self._query_snapshot_max_age_ns)
++        context = getattr(self, '_score_transport_context', {})
++        if residency_versions is None:
++            residency_versions = context.get('residencies', {})
+         query_snapshot = queries.detach().to(dtype=torch.float32, copy=True)
+-        fences = []
++        fences = list(query_fences)
+         if query_snapshot.is_cuda:
+-            query_ready = torch.cuda.Event()
+-            query_ready.record(torch.cuda.current_stream(query_snapshot.device))
+-            fences.append(query_ready)
+-            if summary_stream is not None:
+-                summary_ready = torch.cuda.Event()
+-                summary_ready.record(summary_stream)
+-                fences.append(summary_ready)
+-        publications = getattr(self, "_durable_summary_publications", {})
+-        key_versions = {key: publications.get(key) for key in keys}
+-        snapshot_captured_ns = time.monotonic_ns()
+-        sequence = controller.submit(
+-            _AsyncScorePayload(
+-                req_ids=tuple(req_ids),
+-                queries=query_snapshot,
+-                keys=keys,
+-                summaries=summaries,
+-                method=self._method,
+-                head_aggregation=self._head_aggregation,
+-                request_versions=tuple(
+-                    (req_id, self._async_request_versions.get(req_id, 0))
+-                    for req_id in req_ids
+-                ),
+-            ),
+-            generation=getattr(self, "_summary_generation", 0),
+-            snapshot_bytes=snapshot_bytes,
+-            key_versions=key_versions,
+-            observation_available_ns=snapshot_captured_ns,
+-            readiness_fences=fences,
+-        )
++            ready = torch.cuda.Event(); ready.record(torch.cuda.current_stream(query_snapshot.device)); fences.append(ready)
++            # Only selected publication production fences, never the unrelated summary-stream tail.
++            for job in dict.fromkeys(self._durable_summary_publications[k][1] for k in keys):
++                event = self._summary_job_events.get(job)
++                if event is not None: fences.append(event)
++        sequence = controller.submit(_AsyncScorePayload(
++            req_ids=tuple(req_ids), queries=query_snapshot, keys=keys, summaries=summaries,
++            method=self._method, head_aggregation=self._head_aggregation,
++            request_versions=tuple((r,self._async_request_versions.get(r,0)) for r in req_ids),
++            residency_versions=tuple((k,v) for k,v in (residency_versions or {}).items() if k in keys),
++            decision_leases=tuple((r,tuple(ids)) for r,ids in (decision_leases or {}).items()),
++            transport_epoch=context.get('epoch'),
++            source_tokens=tuple((r, context.get('sources',{}).get(r)) for r in req_ids),
++            expires_at_ns=captured+max_age),
++            generation=self._summary_generation, snapshot_bytes=snapshot_bytes,
++            key_versions={k:self._durable_summary_publications.get(k) for k in keys},
++            observation_available_ns=captured, readiness_fences=fences)
+         if sequence is not None:
+             self._async_submission_requests[sequence] = tuple(req_ids)
+-            controller.record_event(
+-                event="snapshot_captured",
+-                observation_sequence=sequence,
+-                request_ids=list(req_ids),
+-                generation=getattr(self, "_summary_generation", 0),
+-                key_count=len(keys),
+-                key_chain_digest=hashlib.sha256(b"".join(keys)).hexdigest(),
+-                snapshot_bytes=snapshot_bytes,
+-                capture_started_ns=capture_started_ns,
+-                snapshot_captured_ns=snapshot_captured_ns,
+-                capture_duration_ns=snapshot_captured_ns - capture_started_ns,
+-            )
++            controller.record_event(event='snapshot_captured', observation_sequence=sequence,
++                request_ids=list(req_ids), generation=self._summary_generation, key_count=len(keys),
++                snapshot_bytes=snapshot_bytes, retained_unique_storage_bytes=retained,
++                workspace_allowance_bytes=snapshot_bytes-retained-query_bytes,
++                snapshot_captured_ns=captured, publication_ns=time.monotonic_ns())
++        return sequence
+ 
+     def _drain_async_scores(self, *, wait: bool = False) -> None:
+         controller = getattr(self, "_async_scoring", None)
+@@ -1139,7 +1220,8 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             max_age_ns = getattr(
+                 self, "_async_scoring_max_snapshot_age_ns", 1_000_000_000
+             )
+-            expires_at_ns = snapshot.observation_available_ns + max_age_ns
++            expires_at_ns = min(snapshot.observation_available_ns + max_age_ns,
++                snapshot.payload.expires_at_ns or snapshot.observation_available_ns + max_age_ns)
+             if publication_ns > expires_at_ns:
+                 controller.record_event(
+                     event="publication_rejected",
+@@ -1180,6 +1262,14 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+                             reason="request_retired_or_aborted",
+                         )
+                         continue
++                    if any(not math.isfinite(float(value)) for _, value in ranked):
++                        controller.record_event(
++                            event="request_publication_rejected",
++                            observation_sequence=snapshot.observation_sequence,
++                            request_ids=[req_id],
++                            reason="nonfinite_score",
++                        )
++                        continue
+                     filtered = [item for item in ranked if item[0] in valid_keys]
+                     if not filtered:
+                         continue
+@@ -1202,8 +1292,13 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+                 self._pending_async_score_observations.append(
+                     {
+                         "observation_sequence": snapshot.observation_sequence,
++                        "async_contract": "bounded-v2",
++                        "transport_epoch": snapshot.payload.transport_epoch,
++                        "source_tokens": dict(snapshot.payload.source_tokens),
+                         "request_ids": published_request_ids,
+                         "scores": observation_scores,
++                        "residency_versions": dict(snapshot.payload.residency_versions),
++                        **({"decision_leases":dict(completion.snapshot.payload.decision_leases)} if completion.snapshot.payload.decision_leases else {}),
+                         "head_counts": observation_head_counts,
+                         "snapshot_captured_ns": snapshot.observation_available_ns,
+                         "observation_available_ns": completion.input_ready_ns,
+@@ -1226,32 +1321,178 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             for req_ids in self._async_submission_requests.values()
+             for req_id in req_ids
+         }
++        retained_ids = pending_request_ids | set(getattr(self,'_query_snapshots',{}))
++        retained_ids.update(r for obs in getattr(self,'_pending_async_score_observations',[]) for r in obs['request_ids'])
++        getattr(self,'_retired_async_request_ids',set()).intersection_update(retained_ids)
+         for req_id in list(self._async_request_versions):
+-            if req_id not in pending_request_ids:
++            if req_id not in retained_ids:
+                 self._async_request_versions.pop(req_id, None)
+ 
+     def retire_async_requests(self, request_ids: Sequence[str]) -> None:
+-        # This is the last deterministic worker callback for a completed request.
+-        # Publish all already-owned observations before invalidating its version;
+-        # otherwise a final snapshot can remain stranded after the last query.
+-        if getattr(self, "_scoring_mode", "synchronous") == "asynchronous":
+-            self._drain_async_scores(wait=True)
+-        pending_request_ids = {
+-            req_id
+-            for req_ids in getattr(self, "_async_submission_requests", {}).values()
+-            for req_id in req_ids
+-        }
++        # Ordinary completion NEVER fences unrelated scoring. Final source queries
++        # retain the same bounded feature lease; ready metadata polls publish later.
++        if not request_ids:
++            return
++        if not hasattr(self, '_retired_async_request_ids'):
++            self._retired_async_request_ids = set()
++        if getattr(self,'_scoring_mode','synchronous') != 'asynchronous':return
++        live = set(getattr(self,'_query_snapshots',{}))
++        live.update(r for ids in getattr(self,'_async_submission_requests',{}).values() for r in ids)
++        live.update(r for obs in getattr(self,'_pending_async_score_observations',[]) for r in obs['request_ids'])
++        self._retired_async_request_ids.intersection_update(live)
++        self._retired_async_request_ids.update(set(request_ids).intersection(live))
++        self._drain_async_scores()  # ready ordered prefix only
++
++    def cancel_async_requests(self, request_ids):
+         for req_id in request_ids:
+-            if req_id in pending_request_ids:
+-                self._async_request_versions[req_id] = (
+-                    self._async_request_versions.get(req_id, 0) + 1
+-                )
++            self._async_request_versions[req_id] = self._async_request_versions.get(req_id,0)+1
++            getattr(self,'_query_snapshots',{}).pop(req_id,None)
++            getattr(self,'_query_snapshot_events',{}).pop(req_id,None)
++        cancelled=set(request_ids)
++        observations=[]
++        for obs in getattr(self,'_pending_async_score_observations',[]):
++            scores={method:{r:values for r,values in reqs.items() if r not in cancelled}
++                    for method,reqs in obs['scores'].items()}
++            if any(reqs for reqs in scores.values()):
++                obs=dict(obs,scores=scores,request_ids=[r for r in obs['request_ids'] if r not in cancelled])
++                observations.append(obs)
++        self._pending_async_score_observations=observations
++        # In-flight owned readers remain charged until the controller completes.
+ 
+     def pop_async_scoring_telemetry(self) -> list[dict[str, object]]:
+         controller = getattr(self, "_async_scoring", None)
+         return controller.pop_telemetry() if controller is not None else []
+ 
++    @profiled("scoring.callback")
+     def _on_queries_captured(self, req_ids: list[str], queries: torch.Tensor) -> None:
++        PROFILE.count("scoring.capture_callbacks")
++        PROFILE.count("scoring.captured_requests", len(req_ids))
++        retired = getattr(self,'_retired_async_request_ids',set())
++        for req_id in req_ids:
++            if req_id in retired:
++                self.cancel_async_requests([req_id]);retired.remove(req_id)
++        schedule = getattr(self, "_scoring_schedule", "continuous")
++        if schedule in ("opportunity", "capture_only"):
++            # One bounded snapshot per request; no pool scan, score readback,
++            # sorting or EMA updates during ordinary generation.
++            with PROFILE.scope("scoring.query_snapshot", cuda=queries.is_cuda):
++                now_ns = time.monotonic_ns()
++                snapshots = self._query_snapshots
++                for req_id, query in zip(req_ids, queries):
++                    snapshots.pop(req_id, None)
++                    snapshots[req_id] = (now_ns, query.detach().clone())
++                if queries.is_cuda:
++                    event = torch.cuda.Event(); event.record(torch.cuda.current_stream(queries.device))
++                    events = self.__dict__.setdefault('_query_snapshot_events',{})
++                    for req_id in req_ids: events[req_id] = event
++                # Updates reinsert at the end, so expiry only walks expired
++                # entries rather than the entire retained request pool.
++                while snapshots and now_ns - next(iter(snapshots.values()))[0] > self._query_snapshot_max_age_ns:
++                    del snapshots[next(iter(snapshots))]
++                while len(snapshots) > self._query_snapshot_max_requests:
++                    del snapshots[next(iter(snapshots))]
++                if len(queries):
++                    PROFILE.count("scoring.snapshot_bytes_observed",
++                                  len(snapshots) * queries[0].numel() * queries.element_size())
++                events = getattr(self,'_query_snapshot_events',{})
++                for key in list(events):
++                    if key not in snapshots: events.pop(key,None)
++            return
++        self._score_queries(req_ids, queries)
++
++    def receive_scoring_context(self, context):
++        """Scheduler identity changes invalidate before stride/capture, not after."""
++        old = getattr(self, '_score_transport_context', {})
++        sources = context.get('sources', {})
++        changed = [r for r, token in old.get('sources', {}).items()
++                   if old.get('epoch') != context.get('epoch') or sources.get(r) != token]
++        if changed:
++            self.cancel_async_requests(changed)
++        self._score_transport_context = context
++
++    @profiled("scoring.decision_request")
++    def receive_score_requests(self, requests: dict[str, list[OffloadKey]], residency_versions=None, lease_ids=None) -> None:
++        if getattr(self, "_scoring_schedule", "continuous") != "opportunity":
++            return
++        for req_id, candidates in requests.items():
++            snapshot = self._query_snapshots.get(req_id)
++            now_ns = time.monotonic_ns()
++            if snapshot is None or not 0 <= now_ns - snapshot[0] <= self._query_snapshot_max_age_ns:
++                PROFILE.count("scoring.decision_snapshot_missing_or_stale")
++                continue
++            stamp, query = snapshot
++            if getattr(self,'_scoring_mode','synchronous') == 'asynchronous':
++                signatures = self.__dict__.setdefault('_decision_async_signatures',{})
++                versions = (residency_versions or {}).get(req_id,{})
++                signature = (stamp,tuple(candidates),tuple(versions.items()),tuple((lease_ids or {}).get(req_id,())),getattr(self,'_summary_generation',0))
++                if signatures.get(req_id) == signature: continue
++                event = getattr(self,'_query_snapshot_events',{}).get(req_id)
++                sequence = self._submit_async_scoring([req_id],query.unsqueeze(0),candidate_keys=candidates,
++                    feature_ns=stamp,query_fences=() if event is None else (event,),residency_versions=versions,
++                    decision_leases={req_id:(lease_ids or {}).get(req_id,())} if lease_ids is not None else None)
++                if sequence is not None: signatures[req_id] = signature
++                # Bounded by the same current/retired snapshot lease map.
++                for key in list(signatures):
++                    if key not in self._query_snapshots: signatures.pop(key,None)
++                continue
++            # The existing observation transport preserves feature time,
++            # availability, expiry and consumer checks. Re-scoring an old
++            # query never renews its freshness lease.
++            self._score_queries([req_id], query.unsqueeze(0), candidate_keys=candidates)
++            ranked = self._pending_scores.get(self._method, {}).pop(req_id, None)
++            heads = self._pending_score_head_counts.get(self._method, {}).pop(req_id, None)
++            if not ranked:
++                continue
++            self._decision_score_sequence += 1
++            self._pending_async_score_observations.append({
++                "observation_sequence": self._decision_score_sequence,
++                "request_ids": [req_id], "scores": {self._method: {req_id: ranked}},
++                "head_counts": {self._method: {req_id: heads}},
++                "snapshot_captured_ns": stamp,
++                "observation_available_ns": time.monotonic_ns(),
++                "expires_at_ns": stamp + self._query_snapshot_max_age_ns,
++            })
++            PROFILE.count("scoring.decision_scores_published")
++
++    def _score_shortlists(self, req_ids, queries, keys, cache, candidate_keys):
++        allowed = None if candidate_keys is None else set(candidate_keys)
++        # An eligibility filter wins before index routing. Scanning Python
++        # keys is cheap and does not perform vector comparisons.
++        if allowed is not None:
++            indices = [i for i, key in enumerate(keys) if key in allowed]
++            rows = [indices for _ in req_ids]
++            if (self._candidate_search.centroids is not None
++                    and len(indices) >= self._candidate_search.config.min_pool):
++                allowed_rows = set(indices)
++                routed = self._candidate_search.candidates(queries)
++                rows = [sorted(allowed_rows.intersection(found)) or indices for found in routed]
++            PROFILE.count("search.eligibility_filtered_queries", len(req_ids))
++        else:
++            rows = self._candidate_search.candidates(queries)
++        for req_id, query, selected in zip(req_ids, queries, rows):
++            PROFILE.count("scoring.possible_block_comparisons", len(keys))
++            PROFILE.count("scoring.exact_block_comparisons", len(selected))
++            PROFILE.count("scoring.unobserved_blocks", len(keys) - len(selected))
++            if not selected:
++                continue
++            with PROFILE.scope("search.gather", cuda=query.is_cuda):
++                index = torch.tensor(selected, dtype=torch.long, device=query.device)
++                means = cache["mean"].index_select(0, index)
++            with PROFILE.scope("scoring.vector_math", cuda=query.is_cuda):
++                # Exactly the existing mean-key, mean-head score for visited
++                # rows. Never normalize queries/keys into cosine similarity.
++                combined = score_mean_batch(query.unsqueeze(0), means).mean(dim=-1)
++            with PROFILE.scope("scoring.readback"):
++                values = combined.tolist()
++            with PROFILE.scope("scoring.rank_metadata"):
++                ranked = sorted(((keys[row], value) for row, value in zip(selected, values)),
++                                key=lambda item: (-item[1], item[0]))
++                self._pending_scores.setdefault(self._method, {})[req_id] = ranked
++                self._pending_score_head_counts.setdefault(self._method, {})[req_id] = query.shape[0]
++
++    @profiled("scoring.total")
++    def _score_queries(self, req_ids: list[str], queries: torch.Tensor,
++                       candidate_keys: list[OffloadKey] | None = None) -> None:
+         if not self.durable_summaries or not req_ids:
+             return
+         if getattr(self, "_scoring_mode", "synchronous") == "asynchronous":
+@@ -1317,84 +1558,96 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         if self._stack_cache_dirty:
+             _t_rebuild = time.perf_counter() if _TIMING else 0.0
+             self._rebuild_stack_cache()
++            search = getattr(self, "_candidate_search", None)
++            if search is not None:
++                search.build(self._stack_cache["mean"]) if self._method == "mean" else None
+             if _TIMING:
+                 record_timing("stack_rebuild", time.perf_counter() - _t_rebuild)
+         keys = self._stack_cache_keys
+         cache = self._stack_cache
++        search = getattr(self, "_candidate_search", None)
++        if candidate_keys is not None or (search is not None and search.centroids is not None):
++            self._score_shortlists(req_ids, queries, keys, cache, candidate_keys)
++            return
++        PROFILE.count("scoring.exact_block_comparisons", len(req_ids) * len(keys))
+ 
+         # [n_reqs, 1, num_kv_heads, head_dim] broadcasts against the
+         # [n_candidates, num_kv_heads, head_dim] stacks to score every
+         # (request, candidate) pair in one op -- the score_*_batch functions
+         # are broadcast-shape-agnostic, so no index.py change is needed.
+-        query = queries.unsqueeze(1)
+-        if self._method == "minmax":
+-            per_head = score_minmax_batch(
+-                query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
+-            )
+-        elif self._method == "mean":
+-            per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
+-        else:  # cuboid_mean
+-            per_head = score_cuboid_mean_batch(
+-                query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
+-            )
+-        # Combine KV heads before the one CPU/GPU synchronization. Mean is
+-        # the current evidence-backed default; max remains an audit arm.
+-        _t_sync = time.perf_counter() if _TIMING else 0.0
+-        # [n_reqs, n_candidates] -> list of per-request score lists.
+-        if self._head_aggregation == "mean":
+-            combined = per_head.mean(dim=-1)
+-        else:
+-            combined = per_head.max(dim=-1).values
+-        fast_rank_indices = None
+-        if getattr(self, "_rank_ema_mode", "default") == "fast":
+-            # Score outputs are finite for all supported index methods. Keep a
+-            # fail-closed fallback for malformed/custom tensors so the opt-in
+-            # path cannot change legacy NaN ordering semantics.
+-            if bool(torch.isfinite(combined).all()):
+-                tie_order = getattr(self, "_rank_tie_order", [])
+-                if len(tie_order) != len(keys):
+-                    tie_order = sorted(range(len(keys)), key=keys.__getitem__)
+-                tie_order_tensor = torch.as_tensor(
+-                    tie_order, device=combined.device, dtype=torch.long
++        with PROFILE.scope('scoring.vector_math', cuda=queries.is_cuda):
++            query = queries.unsqueeze(1)
++            if self._method == "minmax":
++                per_head = score_minmax_batch(
++                    query, cache["max"].unsqueeze(0), cache["min"].unsqueeze(0)
+                 )
+-                tie_ordered_scores = combined.index_select(1, tie_order_tensor)
+-                tie_positions = torch.argsort(
+-                    tie_ordered_scores, dim=1, descending=True, stable=True
++            elif self._method == "mean":
++                per_head = score_mean_batch(query, cache["mean"].unsqueeze(0))
++            else:  # cuboid_mean
++                per_head = score_cuboid_mean_batch(
++                    query, cache["mean"].unsqueeze(0), cache["mad"].unsqueeze(0)
+                 )
+-                fast_rank_indices = tie_order_tensor[tie_positions]
+-                all_scores = tie_ordered_scores.gather(1, tie_positions).tolist()
+-                all_rank_indices = fast_rank_indices.tolist()
++            # Combine KV heads before the one CPU/GPU synchronization. Mean is
++            # the current evidence-backed default; max remains an audit arm.
++            _t_sync = time.perf_counter() if _TIMING else 0.0
++            # [n_reqs, n_candidates] -> list of per-request score lists.
++            if self._head_aggregation == "mean":
++                combined = per_head.mean(dim=-1)
++            else:
++                combined = per_head.max(dim=-1).values
++        with PROFILE.scope('scoring.readback'):
++            fast_rank_indices = None
++            if getattr(self, "_rank_ema_mode", "default") == "fast":
++                # Score outputs are finite for all supported index methods. Keep a
++                # fail-closed fallback for malformed/custom tensors so the opt-in
++                # path cannot change legacy NaN ordering semantics.
++                if bool(torch.isfinite(combined).all()):
++                    tie_order = getattr(self, "_rank_tie_order", [])
++                    if len(tie_order) != len(keys):
++                        tie_order = sorted(range(len(keys)), key=keys.__getitem__)
++                    tie_order_tensor = torch.as_tensor(
++                        tie_order, device=combined.device, dtype=torch.long
++                    )
++                    tie_ordered_scores = combined.index_select(1, tie_order_tensor)
++                    tie_positions = torch.argsort(
++                        tie_ordered_scores, dim=1, descending=True, stable=True
++                    )
++                    fast_rank_indices = tie_order_tensor[tie_positions]
++                    all_scores = tie_ordered_scores.gather(1, tie_positions).tolist()
++                    all_rank_indices = fast_rank_indices.tolist()
++                else:
++                    all_scores = combined.tolist()
++                    all_rank_indices = None
+             else:
+                 all_scores = combined.tolist()
+                 all_rank_indices = None
+-        else:
+-            all_scores = combined.tolist()
+-            all_rank_indices = None
+         if _TIMING:
+             record_timing("query_captured_sync", time.perf_counter() - _t_sync)
+         _t_rank = time.perf_counter() if _TIMING else 0.0
+-        method_scores = self._pending_scores.setdefault(self._method, {})
+-        head_counts = getattr(self, "_pending_score_head_counts", None)
+-        if head_counts is None:
+-            head_counts = {}
+-            self._pending_score_head_counts = head_counts
+-        method_head_counts = head_counts.setdefault(self._method, {})
+-        for row, (req_id, scores) in enumerate(zip(req_ids, all_scores)):
+-            if all_rank_indices is None:
+-                ranked = sorted(zip(keys, scores), key=lambda kv: (-kv[1], kv[0]))
+-            else:
+-                ranked = [
+-                    (keys[index], score)
+-                    for index, score in zip(all_rank_indices[row], scores)
+-                ]
+-            method_scores[req_id] = ranked
+-            method_head_counts[req_id] = per_head.shape[-1]
+-            debug_print(
+-                f"SEMANTIC_STEP1_3_DEBUG req={req_id} method={self._method} "
+-                f"n_summaries={len(self.durable_summaries)} "
+-                f"ranked_keys={[k.hex()[:8] for k, _ in ranked]} "
+-                f"scores={[round(s, 4) for _, s in ranked]}"
+-            )
++        with PROFILE.scope('scoring.rank_metadata'):
++            method_scores = self._pending_scores.setdefault(self._method, {})
++            head_counts = getattr(self, "_pending_score_head_counts", None)
++            if head_counts is None:
++                head_counts = {}
++                self._pending_score_head_counts = head_counts
++            method_head_counts = head_counts.setdefault(self._method, {})
++            for row, (req_id, scores) in enumerate(zip(req_ids, all_scores)):
++                if all_rank_indices is None:
++                    ranked = sorted(zip(keys, scores), key=lambda kv: (-kv[1], kv[0]))
++                else:
++                    ranked = [
++                        (keys[index], score)
++                        for index, score in zip(all_rank_indices[row], scores)
++                    ]
++                method_scores[req_id] = ranked
++                method_head_counts[req_id] = per_head.shape[-1]
++                if _DEBUG:
++                    debug_print(
++                        f"SEMANTIC_STEP1_3_DEBUG req={req_id} method={self._method} "
++                        f"n_summaries={len(self.durable_summaries)} "
++                        f"ranked_keys={[k.hex()[:8] for k, _ in ranked]} "
++                        f"scores={[round(s, 4) for _, s in ranked]}"
++                    )
+         if _TIMING:
+             record_timing("query_rank_metadata", time.perf_counter() - _t_rank)
+             record_timing("query_captured_total", time.perf_counter() - _t_call)
+@@ -1413,6 +1666,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             "layout this module assumes; do not trust summaries built from it."
+         )
+ 
++    @profiled('summary.build_blocks')
+     def _build_summaries_for_blocks(self, job_id: int, block_ids) -> None:
+         """Overlaps the reduction work with inference via a side stream when
+         CUDA is available; falls back to running it inline (still correct,
+@@ -1432,6 +1686,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             self._build_summaries_body(block_ids)
+             self._durably_key_summaries(job_id, block_ids)
+ 
++    @profiled('summary.reductions', cuda=True)
+     def _build_summaries_body(self, block_ids) -> None:
+         # Real bug found on a B200 production-scale run (issues log entry
+         # #53's follow-up): this used to loop over EVERY attention layer in
+@@ -1462,6 +1717,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+                 build_summary(keys[h]) for h in range(keys.shape[0])
+             ]
+ 
++    @profiled('summary.publish')
+     def _durably_key_summaries(self, job_id: int, block_ids) -> None:
+         """Re-key this job's probe-layer summaries by OffloadKey so they
+         outlive GPU block reuse. Job-level granularity: a store job's keys
+@@ -1498,6 +1754,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         if pruned:
+             self._mark_removed_from_stack_cache(pruned)
+ 
++    @profiled('summary.build_job', cuda=True)
+     def _build_durable_summaries_for_job(self, job_id: int) -> None:
+         """Build summaries using an explicit key-to-GPU-block layout."""
+         layout = self._pending_job_blocks.pop(job_id, None)
+@@ -1553,6 +1810,7 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             getattr(self, "_durable_summary_publications", {}).pop(key, None)
+         return pruned
+ 
++    @profiled('transfer.submit_store')
+     def submit_store(
+         self, job_id: int, src_spec: GPULoadStoreSpec, dst_spec: LoadStoreSpec
+     ) -> bool:
+@@ -1625,12 +1883,14 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+             self._rollback_summary_job(job_id)
+         return success
+ 
++    @profiled('transfer.submit_load')
+     def submit_load(
+         self, job_id: int, src_spec: LoadStoreSpec, dst_spec: GPULoadStoreSpec
+     ) -> bool:
+         self._record_transfer_start(job_id)
+         return super().submit_load(job_id, src_spec, dst_spec)
+ 
++    @profiled('transfer.splice', cuda=True)
+     def splice_gpu_blocks(
+         self,
+         src_block_ids: list[int],
+diff --git a/tests/test_async_scoring.py b/tests/test_async_scoring.py
+index f85ba64..18e091d 100644
+--- a/tests/test_async_scoring.py
++++ b/tests/test_async_scoring.py
+@@ -368,12 +368,12 @@ def test_worker_async_publication_rejects_stale_generation():
+     worker._async_scoring.shutdown()
+ 
+ 
+-def test_worker_retirement_flushes_final_snapshot_before_pruning_request():
++def test_worker_retirement_preserves_eventual_final_snapshot_without_global_drain():
+     worker = _worker("asynchronous")
+     worker._on_query_captured("req", torch.ones(1, 4))
+     worker.retire_async_requests(["req"])
+ 
+-    observations = worker.pop_async_score_observations()
++    observations = _wait_async_observations(worker)
+     assert observations[0]["request_ids"] == ["req"]
+     assert worker._async_scoring.stats()["pending_items"] == 0
+     assert worker._async_scoring.stats()["pending_snapshot_bytes"] == 0
+diff --git a/tests/test_query_capture.py b/tests/test_query_capture.py
+index eeb2776..8d3b453 100644
+--- a/tests/test_query_capture.py
++++ b/tests/test_query_capture.py
+@@ -17,6 +17,74 @@ from semantic_offload.query_capture import (
+ )
+ 
+ 
++@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16])
++@pytest.mark.parametrize("strided", [False, True])
++@pytest.mark.parametrize("indices", [[1], [1, 2, 5], [0, 1, 2]])
++def test_query_row_selection_matches_indexing_without_index_upload(
++    monkeypatch, dtype, strided, indices
++):
++    query = torch.arange(8 * 8 * 4, dtype=torch.float32).reshape(8, 8, 4).to(dtype)
++    if strided:
++        query = query.transpose(1, 2)
++    expected = query[torch.tensor(indices)].clone()
++
++    def forbidden(*args, **kwargs):
++        raise AssertionError("row selection must not construct an index tensor")
++
++    monkeypatch.setattr(torch, "tensor", forbidden)
++    selected = query_capture._select_last_query_rows(query, indices)
++    assert torch.equal(selected, expected)
++    assert selected.dtype == query.dtype and selected.device == query.device
++    # Ownership matters even when only one row is selected: model buffers may
++    # be overwritten after the capture callback returns.
++    selected.zero_()
++    assert torch.equal(query[indices[0]], expected[0])
++
++
++@pytest.mark.parametrize("group_size", [1, 4])
++def test_capture_preserves_mixed_rows_gqa_padding_and_consumes_before_reentry(
++    monkeypatch, group_size
++):
++    config = SimpleNamespace(use_v2_model_runner=True)
++    callbacks = []
++
++    class FakeAttention:
++        def __str__(self):
++            return "vllm.unified_attention_with_output.default"
++
++        def __call__(self, *args, **kwargs):
++            return "attention-result"
++
++    query = torch.arange(8 * 8 * 4, dtype=torch.float32).reshape(8, 8, 4)
++    # Rows6..7 are graph padding; a zero-token request owns no query row.
++    query[6:] = -1000
++    expected = query[[1, 2, 5]].reshape(3, 8 // group_size, group_size, 4).mean(2)
++    args = (query, None, None, None, "layer")
++    mode = None
++
++    def callback(req_ids, grouped):
++        assert query_capture._current_layout.get() is None
++        callbacks.append((req_ids, grouped.clone()))
++        assert mode.__torch_dispatch__(FakeAttention(), (), args) == "attention-result"
++
++    handle = install(config, "layer", callback, num_queries_per_kv=group_size)
++    try:
++        mode = handle._mode_factory()
++        query_capture._current_layout.set(query_capture._BatchLayout(
++            ["prepared-b", "empty", "prepared-a", "prepared-c"],
++            [(0, 2), (2, 2), (2, 3), (3, 6)],
++        ))
++        assert mode.__torch_dispatch__(FakeAttention(), (), args) == "attention-result"
++        assert len(callbacks) == 1
++        assert callbacks[0][0] == ["prepared-b", "prepared-a", "prepared-c"]
++        assert torch.equal(callbacks[0][1], expected)
++        query_capture._current_layout.set(query_capture._BatchLayout(["empty"], [(0, 0)]))
++        mode.__torch_dispatch__(FakeAttention(), (), args)
++        assert len(callbacks) == 1
++    finally:
++        handle.close()
++
++
+ def test_nvtx_execution_label_is_bounded_and_reports_batch_size():
+     label = _nvtx_execution_label([f"req-{index}" for index in range(66)])
+ 
+diff --git a/tests/test_step_1_5_prefetch.py b/tests/test_step_1_5_prefetch.py
+index c8fc164..0c7a519 100644
+--- a/tests/test_step_1_5_prefetch.py
++++ b/tests/test_step_1_5_prefetch.py
+@@ -153,6 +153,7 @@ def test_native149_scheduler_projection_constructs_without_worker_byte_field(
+     )
+ 
+     assert scheduler._prefetch_trigger == "preemption"
++    assert scheduler._wait_hint_native_adoption is False
+     assert scheduler._wait_hint_coalescing_min_sources == 1
+     assert scheduler._wait_hint_coalescing_max_ns == 0
+     assert scheduler._prefetch_bytes_per_key == 458752
+@@ -1856,6 +1857,119 @@ def test_wait_hint_coalescing_default_dispatches_without_gate_event():
+     )
+ 
+ 
++@pytest.mark.parametrize("status", [None, "ready", "in_flight", "pending"])
++def test_wait_nomination_without_candidates_still_expires_hints(status, monkeypatch):
++    calls = []
++    state = SimpleNamespace(status=status)
++    states = {} if status is None else {"hint": state}
++
++    def expire(now_ns):
++        calls.append("expire")
++        # An expired pending hint must disappear before nomination eligibility
++        # is examined. In-flight/ready hints still get the same expiry visit.
++        if status == "pending":
++            states.clear()
++
++    def unexpected(*args, **kwargs):
++        raise AssertionError("empty nomination must not read the pool or emit a decision")
++
++    scheduler = SimpleNamespace(
++        _wait_prefetch=states,
++        _prefetch_selector="semantic",
++        _wait_hint_coalescing_gate=lambda now: (calls.append("gate") or False, None),
++        _expire_wait_prefetches=expire,
++        _prefetch_reserved_blocks=0, _prefetch_budget_fraction=0.2,
++        _prefetch_headroom_blocks=0, _prefetch_bytes_per_key=256,
++        gpu_block_pool=SimpleNamespace(num_gpu_blocks=100, get_num_free_blocks=unexpected),
++    )
++    monkeypatch.setattr("semantic_offload.connector.record_wait_hint_event", unexpected)
++    SemanticOffloadingConnectorScheduler._retry_wait_prefetches(scheduler)
++    assert calls == ["gate", "expire"]
++    assert states == ({} if status in {None, "pending"} else {"hint": state})
++
++
++def test_native_adoption_digest_reads_only_prefix(monkeypatch):
++    class PrefixOnlyTokens(list):
++        def __iter__(self):
++            raise AssertionError("adoption must not copy the complete prompt")
++
++        def __getitem__(self, index):
++            assert index == slice(None, 32)
++            return super().__getitem__(index)
++
++    # Stop after the digest check: the allocator and DMA guards have their
++    # separate integration coverage below. A mismatched digest must reject.
++    now = time.monotonic_ns()
++    request = SimpleNamespace(
++        num_computed_tokens=0,
++        prompt_token_ids=PrefixOnlyTokens(range(100_000)),
++    )
++    state = SimpleNamespace(
++        status="ready", source_released=True, pending_contributors=0,
++        bound_request_id="resume",
++        transfer_record=dict(success=True, cancelled=False, contributors=1,
++                             expected_contributors=1, completed_at_ns=now),
++        keys=(b"a", b"b"), gpu_block_ids=(1, 2),
++        lease=SimpleNamespace(
++            state="ready", expires_at_ns=now + 10_000_000_000,
++            hint=SimpleNamespace(prefix_boundary_tokens=32,
++                                 observed_prefix_id="different-prefix"),
++        ),
++    )
++    scheduler = SimpleNamespace(
++        _wait_hint_native_adoption=True,
++        _wait_hint_native_adoption_layout_supported=True,
++        config=SimpleNamespace(num_workers=1, blocks_per_chunk=1,
++                               kv_group_configs=[SimpleNamespace(
++                                   group_idx=0, tokens_per_block=16,
++                                   tokens_per_chunk=16)]),
++        gpu_block_pool=SimpleNamespace(publish_completed_prefix=lambda *a, **kw: None),
++        _req_status={"resume": SimpleNamespace(req=request)},
++        _wait_hint_namespace={"model": "test"},
++    )
++    seen = []
++
++    def digest(tokens, namespace):
++        seen.append((tokens, namespace))
++        return "actual-prefix"
++
++    monkeypatch.setattr("semantic_offload.connector._observed_prefix_digest", digest)
++    assert not SemanticOffloadingConnectorScheduler._try_publish_wait_prefix(scheduler, state)
++    assert seen == [(list(range(32)), {"model": "test"})]
++
++
++def test_wait_nomination_nonempty_keeps_decision_and_attempt(monkeypatch):
++    events, attempts = [], []
++    source = SimpleNamespace(run_id="run", cell_id="cell", session_id="session",
++                             generation=0, observed_prefix_id="prefix")
++    state = SimpleNamespace(status="pending", source=source,
++                            lease=SimpleNamespace(active_at=lambda now: True,
++                                                  hint=SimpleNamespace(event_id="hint")))
++    candidate = dict(event_id="hint", session_id="session", observed_prefix_id="prefix",
++                     source_request_id="source", aggregate_score=0.5,
++                     eligible_resident_prefix_keys=["key"])
++    scheduler = SimpleNamespace(
++        _wait_prefetch={"hint": state}, _prefetch_selector="semantic",
++        _wait_hint_coalescing_gate=lambda now: (False, None),
++        _expire_wait_prefetches=lambda now: None,
++        _semantic_wait_nomination_candidate=lambda state, now: (candidate, 0.5),
++        _attempt_wait_prefetch=lambda state: attempts.append(state) or False,
++        _prefetch_reserved_blocks=0, _prefetch_budget_fraction=0.2,
++        _prefetch_headroom_blocks=0, _prefetch_bytes_per_key=256,
++        gpu_block_pool=SimpleNamespace(num_gpu_blocks=100, get_num_free_blocks=lambda: 0),
++    )
++    scheduler._prefetch_free_capacity = (
++        SemanticOffloadingConnectorScheduler._prefetch_free_capacity.__get__(scheduler)
++    )
++    monkeypatch.setattr("semantic_offload.connector.record_wait_hint_event", events.append)
++    SemanticOffloadingConnectorScheduler._retry_wait_prefetches(scheduler)
++    assert attempts == [state]
++    assert len(events) == 1
++    assert events[0]["candidates"] == [candidate]
++    assert events[0]["chosen"] == []
++    assert events[0]["no_action_reason"] == "no_causal_candidate_or_shared_budget"
++
++
+ def test_semantic_wait_nomination_reverses_winner_across_competing_sessions():
+     from unittest.mock import patch
+ 
+@@ -2427,6 +2541,25 @@ def test_released_allocation_retry_is_not_starved_by_new_singleton_window():
+     assert sched._wait_prefetch[hint_b["event_id"]].status == "pending"
+ 
+ 
++def test_diagnostic_no_dispatch_preserves_hint_but_allocates_no_staging():
++    manager = SemanticOffloadingManager(num_blocks=10)
++    key = to_key(1)
++    _insert_resident(manager, key, block_id=0)
++    pool = _StubBlockPool(20, free_blocks=5)
++    sched = _make_connector_scheduler(manager, pool)
++    sched._prefetch_selector = "request_order"
++    sched._wait_hint_diagnostic_no_dispatch = True
++    prefix_id, boundary = _register_wait_prefix(sched, [key])
++    hint = _wait_hint(sched, prefix_id, boundary)
++
++    assert sched.publish_wait_hint(hint)["status"] == "accepted"
++    sched._retry_wait_prefetches()
++
++    assert sched._wait_prefetch[hint["event_id"]].status == "pending"
++    assert pool.get_num_free_blocks() == 5
++    assert not sched._wait_prefetch_jobs
++
++
+ def test_wait_hint_dispatches_real_native_pool_transfer_and_binds_resume():
+     manager = SemanticOffloadingManager(num_blocks=10)
+     key = to_key(1)
+@@ -4182,3 +4315,431 @@ def test_compute_load_plan_matches_the_real_base_method():
+     # the two, a desync in either content or ordering would be caught.
+     assert set(predicted_keys) == real_keys
+     assert predicted_dst == list(real_job.dst_spec.block_ids)
++
++
++# Native adoption tests use the real allocator and CPU tensor backing only.
++# Transfer completion is injected; CUDA/worker fence execution is not claimed.
++def _native_adoption_request(request_id, tokens=None):
++    from vllm.sampling_params import SamplingParams
++    from vllm.utils.hashing import sha256
++    from vllm.v1.core.kv_cache_utils import get_request_block_hasher
++    from vllm.v1.request import Request
++
++    return Request(
++        request_id=request_id,
++        prompt_token_ids=list(range(35)) if tokens is None else tokens,
++        sampling_params=SamplingParams(max_tokens=2),
++        pooling_params=None,
++        block_hasher=get_request_block_hasher(16, sha256),
++    )
++
++
++def _native_adoption_fixture():
++    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.events import (
++        OffloadingEventsTracker,
++    )
++    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.metrics import (
++        OffloadingConnectorStats,
++    )
++    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
++        OffloadingConnectorScheduler,
++    )
++    from vllm.v1.core.kv_cache_manager import KVCacheManager
++    from vllm.v1.core.kv_cache_utils import init_none_hash
++    from vllm.utils.hashing import sha256
++    from vllm.v1.kv_cache_interface import (
++        FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec,
++    )
++    from vllm.v1.kv_offload.base import OffloadingKVEventsConfig
++
++    init_none_hash(sha256)
++    cache = KVCacheManager(
++        KVCacheConfig(12, [], [KVCacheGroupSpec(["layer"], FullAttentionSpec(
++            block_size=16, num_kv_heads=1, head_size=4, dtype=torch.bfloat16,
++        ))]),
++        max_model_len=128, scheduler_block_size=16, hash_block_size=16,
++    )
++    manager = SemanticOffloadingManager(num_blocks=10)
++    sched = _make_connector_scheduler(manager, cache.block_pool)
++    sched.config = SchedulerOffloadConfig(
++        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
++        blocks_per_chunk=1, num_workers=1, offload_prompt_only=False,
++    )
++    sched._wait_hint_native_adoption = True
++    sched._lifecycle_release_enabled = False
++    sched._wait_hint_native_adoption_layout_supported = True
++    sched._published_wait_prefixes = {}
++    sched._prefetch_budget_fraction = 0.5
++    sched._prefetch_selector = "request_order"
++    sched._connector_stats = OffloadingConnectorStats()
++    sched._events_tracker = OffloadingEventsTracker(
++        OffloadingKVEventsConfig(False, False)
++    )
++    sched._lookup_groups = (0,)
++    sched._sliding_window_groups = ()
++    sched._mamba_align_size = None
++    sched._preservation_requests = {}
++    warm = _native_adoption_request("warm")
++    prefix_id = _observed_prefix_digest(
++        warm.prompt_token_ids[:32], sched._wait_hint_namespace,
++    )
++    warm.kv_transfer_params = dict(
++        run_id="run", cell_id="cell", session_id="session", generation=0,
++        observed_prefix_id=prefix_id, observed_prefix_boundary_tokens=32,
++    )
++    OffloadingConnectorScheduler.on_new_request(sched, warm)
++    sched._req_status["warm"].update_offload_keys()
++    keys = sched._req_status["warm"].group_states[0].offload_keys
++    for i, key in enumerate(keys):
++        _insert_resident(manager, key, i)
++    sched._register_observed_prefix(warm)
++    hint = _wait_hint(sched, prefix_id, 32)
++    assert sched.publish_wait_hint(hint)["status"] == "accepted"
++    sched._retry_wait_prefetches()
++    state = sched._wait_prefetch[hint["event_id"]]
++    # The worker accepted this job; completion remains outstanding.
++    sched._current_batch_prefetch_load_jobs.clear()
++    backing = torch.zeros(12, 16, 4, dtype=torch.bfloat16)
++    dram = torch.arange(128, dtype=torch.bfloat16).reshape(2, 16, 4)
++    return SimpleNamespace(
++        sched=sched, cache=cache, state=state, hint=hint, warm=warm,
++        backing=backing, dram=dram,
++    )
++
++
++def _native_adoption_complete(f, *, success=True):
++    state = f.state
++    for key, block_id in zip(state.keys, state.gpu_block_ids):
++        f.backing[block_id].copy_(f.dram[state.source.keys.index(key)])
++    now = time.monotonic_ns()
++    f.sched._preservation_job_events[state.job_id] = SemanticTransferCompletion(
++        is_load=True, bytes=256, time_s=0.001, contributors=1, success=success,
++        started_at_ns=now - 1_000_000, completed_at_ns=now,
++    )
++    meta = SemanticWorkerMetadata(
++        completed_jobs={state.job_id: 1} if success else {},
++        failed_jobs={} if success else {state.job_id: 1},
++    )
++    f.sched._complete_wait_prefetch_jobs(meta)
++
++
++def _native_adoption_bind(f, request=None):
++    request = request or _native_adoption_request("resume")
++    request.kv_transfer_params = dict(
++        external_request_id="owner:future", wait_hint_event_id=f.hint["event_id"],
++        run_id="run", cell_id="cell", session_id="session", generation=0,
++        observed_prefix_id=f.hint["observed_prefix_id"],
++        observed_prefix_boundary_tokens=32,
++    )
++    f.sched.on_new_request(request)
++    return request
++
++
++def _native_adoption_allocate(f, request):
++    hit, tokens, _, diverged = f.cache.get_computed_blocks_for_connector(request)
++    assert tokens == 32
++    assert not diverged
++    assert f.sched.get_num_new_matched_tokens(request, tokens) == (0, False)
++    assert f.cache.allocate_slots(
++        request, 3, num_new_computed_tokens=tokens, new_computed_blocks=hit,
++    ) is not None
++    blocks = f.cache.get_blocks(request.request_id)
++    f.sched.update_state_after_alloc(request, blocks, 0)
++    return blocks
++
++
++def test_native_adoption_same_physical_ids_no_splice_or_duplicate_allocation(
++    monkeypatch,
++):
++    f = _native_adoption_fixture()
++    ids = list(f.state.gpu_block_ids)
++    assert f.cache.get_computed_blocks(f.warm)[1] == 0
++    assert all(f.cache.block_pool.blocks[i].ref_cnt == 1 for i in ids)
++    pressure = f.cache.block_pool.get_new_blocks(
++        f.cache.block_pool.get_num_free_blocks()
++    )
++    assert set(ids).isdisjoint(b.block_id for b in pressure)
++    f.cache.block_pool.free_blocks(pressure)
++    _native_adoption_complete(f)
++    assert f.cache.get_computed_blocks(f.warm)[1] == 0  # unbound stays private
++    calls = []
++    allocate = f.cache.block_pool.get_new_blocks
++    def counted(n):
++        calls.append(n)
++        return allocate(n)
++    monkeypatch.setattr(f.cache.block_pool, "get_new_blocks", counted)
++    request = _native_adoption_bind(f)
++    assert calls == []
++    assert f.state.status == "published"
++    assert f.sched._prefetch_reserved_blocks == 0
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++    assert not f.sched._prefetched and not f.sched._wait_prefetch
++    assert not f.sched._wait_hint_request_bindings
++    def forbidden(*args, **kwargs):
++        raise AssertionError("native adoption must not splice")
++    monkeypatch.setattr(f.sched, "_try_splice_prefetch", forbidden)
++    blocks = _native_adoption_allocate(f, request)
++    assert [b.block_id for b in blocks.blocks[0][:2]] == ids
++    assert calls == [1]  # only the mutable suffix; no prefix destinations
++    assert torch.equal(f.backing[ids], f.dram)
++    assert not f.sched._current_batch_load_jobs
++    assert not f.sched._pending_splice_jobs
++    assert not f.sched._published_wait_prefixes
++    f.cache.free(request)
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++
++
++def test_native_adoption_bound_inflight_publishes_only_after_completion():
++    f = _native_adoption_fixture()
++    request = _native_adoption_bind(f)
++    ids = list(f.state.gpu_block_ids)
++    assert f.cache.get_computed_blocks_for_connector(request)[1] == 0
++    assert f.sched.get_num_new_matched_tokens(request, 0) == (None, False)
++    assert all(f.cache.block_pool.blocks[i].ref_cnt == 1 for i in ids)
++    _native_adoption_complete(f)
++    assert f.state.status == "published"
++    blocks = _native_adoption_allocate(f, request)
++    assert [b.block_id for b in blocks.blocks[0][:2]] == ids
++    assert torch.equal(f.backing[ids], f.dram)
++    f.cache.free(request)
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++
++
++def test_native_adoption_two_requests_share_immutable_prefix_and_hold_refs():
++    f = _native_adoption_fixture()
++    _native_adoption_complete(f)
++    first = _native_adoption_bind(f)
++    a = _native_adoption_allocate(f, first)
++    second = _native_adoption_request("second", list(range(32)) + [80, 81, 82])
++    from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
++        OffloadingConnectorScheduler,
++    )
++    OffloadingConnectorScheduler.on_new_request(f.sched, second)
++    b = _native_adoption_allocate(f, second)
++    assert a.blocks[0][:2] == b.blocks[0][:2]
++    assert a.blocks[0][-1] is not b.blocks[0][-1]
++    assert all(block.ref_cnt == 2 for block in a.blocks[0][:2])
++    pool = f.cache.block_pool
++    pressure = pool.get_new_blocks(pool.get_num_free_blocks())
++    assert set(f.state.gpu_block_ids).isdisjoint(b.block_id for b in pressure)
++    assert torch.equal(f.backing[list(f.state.gpu_block_ids)], f.dram)
++    pool.free_blocks(pressure)
++    f.cache.free(first)
++    assert all(block.ref_cnt == 1 for block in b.blocks[0][:2])
++    f.cache.free(second)
++    assert pool.get_num_free_blocks() == 11
++
++
++def test_native_adoption_eviction_before_admission_is_safe_demand_fallback():
++    f = _native_adoption_fixture()
++    _native_adoption_complete(f)
++    request = _native_adoption_bind(f)
++    pool = f.cache.block_pool
++    pressure = pool.get_new_blocks(pool.get_num_free_blocks())
++    assert f.cache.get_computed_blocks(request)[1] == 0
++    pool.free_blocks(pressure)
++    assert f.sched.get_num_new_matched_tokens(request, 0) == (32, True)
++    assert f.cache.allocate_slots(
++        request, 0, num_external_computed_tokens=32, delay_cache_blocks=True,
++    ) is not None
++    f.sched.update_state_after_alloc(
++        request, f.cache.get_blocks(request.request_id), 32,
++    )
++    jobs = list(f.sched._current_batch_load_jobs.values())
++    assert len(jobs) == 1 and jobs[0].req_id == request.request_id
++    assert list(jobs[0].src_spec.block_ids) == [0, 1]
++    assert list(jobs[0].dst_spec.block_ids) == [
++        block.block_id for block in f.cache.get_blocks(request.request_id).blocks[0]
++    ]
++    assert not f.sched._pending_splice_jobs
++    assert not f.sched._published_wait_prefixes
++
++
++@pytest.mark.parametrize("retirement", ["cancel", "expire", "failure"])
++def test_native_adoption_inflight_retirement_never_publishes_or_recycles_early(
++    retirement,
++):
++    f = _native_adoption_fixture()
++    request = _native_adoption_bind(f)
++    pool = f.cache.block_pool
++    ids = f.state.gpu_block_ids
++    assert f.sched.get_num_new_matched_tokens(request, 0) == (None, False)
++    if retirement == "cancel":
++        f.sched._retire_wait_prefetch(
++            f.state, "cancel", now_ns=time.monotonic_ns(),
++        )
++    elif retirement == "expire":
++        f.sched._expire_wait_prefetches(f.state.lease.expires_at_ns + 1)
++    assert f.cache.get_computed_blocks(request)[1] == 0
++    assert all(pool.blocks[i].ref_cnt == 1 for i in ids)
++    _native_adoption_complete(f, success=retirement != "failure")
++    assert f.cache.get_computed_blocks(request)[1] == 0
++    assert all(pool.blocks[i].ref_cnt == 0 for i in ids)
++    assert pool.get_num_free_blocks() == 11
++    assert f.sched._prefetch_reserved_blocks == 0
++    assert not f.sched._published_wait_prefixes
++    f.sched._complete_wait_prefetch_jobs(SemanticWorkerMetadata(
++        completed_jobs={f.state.job_id: 1},
++    ))
++    assert pool.get_num_free_blocks() == 11  # duplicate completion cannot free twice
++
++
++@pytest.mark.parametrize("fallback", [
++    "disabled", "layout", "tp", "factor", "missing_api", "wrong_tokens",
++    "wrong_hash", "missing_fence",
++])
++def test_native_adoption_falls_back_without_publishing(fallback, monkeypatch):
++    f = _native_adoption_fixture()
++    _native_adoption_complete(f)
++    request = _native_adoption_request("resume")
++    if fallback == "disabled":
++        f.sched._wait_hint_native_adoption = False
++    elif fallback == "layout":
++        f.sched._wait_hint_native_adoption_layout_supported = False
++    elif fallback == "tp":
++        f.sched.config = f.sched.config._replace(num_workers=2)
++    elif fallback == "factor":
++        f.sched.config = f.sched.config._replace(blocks_per_chunk=2)
++    elif fallback == "missing_api":
++        monkeypatch.setattr(f.cache.block_pool, "publish_completed_prefix", None)
++    elif fallback == "wrong_tokens":
++        request = _native_adoption_request("resume", [90] * 35)
++    elif fallback == "wrong_hash":
++        request.block_hashes[0] = b"wrong-hash"
++    elif fallback == "missing_fence":
++        f.state.transfer_record["completed_at_ns"] = None
++    _native_adoption_bind(f, request)
++    assert f.state.status == "bound_ready"
++    assert f.cache.get_computed_blocks(request)[1] == 0
++    assert request.request_id in f.sched._prefetched
++    assert all(f.cache.block_pool.blocks[i].ref_cnt == 1
++               for i in f.state.gpu_block_ids)
++    f.sched._release_prefetch(request.request_id)
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++
++
++@pytest.mark.parametrize("invalid", [
++    "incomplete", "duplicate", "foreign", "shared_ref", "wrong_group",
++    "wrong_block_size", "skip_cache", "existing_hash",
++])
++def test_native_pool_publication_rejects_entire_prefix_atomically(invalid):
++    from vllm.v1.core.block_pool import BlockPool
++    f = _native_adoption_fixture()
++    pool = f.cache.block_pool
++    blocks = [pool.blocks[i] for i in f.state.gpu_block_ids]
++    request = _native_adoption_request("resume")
++    args = dict(block_size=16, kv_cache_group_id=0, completion_verified=True)
++    if invalid == "incomplete":
++        args["completion_verified"] = False
++    elif invalid == "duplicate":
++        blocks[1] = blocks[0]
++    elif invalid == "foreign":
++        blocks[1] = BlockPool(12, True, 16).get_new_blocks(2)[1]
++    elif invalid == "shared_ref":
++        pool.touch([blocks[1]])
++    elif invalid == "wrong_group":
++        args["kv_cache_group_id"] = 1
++    elif invalid == "wrong_block_size":
++        args["block_size"] = 32
++    elif invalid == "skip_cache":
++        request.skip_reading_prefix_cache = True
++    elif invalid == "existing_hash":
++        existing = pool.get_new_blocks(1)
++        pool.cache_full_blocks(request, existing, 0, 1, 16, 0)
++    before = pool.get_num_free_blocks()
++    assert pool.publish_completed_prefix(request, blocks, **args) is False
++    assert pool.get_num_free_blocks() == before
++    assert all(pool.blocks[i].block_hash is None for i in f.state.gpu_block_ids)
++
++
++def test_native_adoption_orders_relevance_ranked_blocks_by_exact_keys():
++    f = _native_adoption_fixture()
++    # Model a completed transfer whose selected-key order differs from chain order.
++    f.state.keys = tuple(reversed(f.state.keys))
++    ids_in_chain_order = list(reversed(f.state.gpu_block_ids))
++    _native_adoption_complete(f)
++    request = _native_adoption_bind(f)
++    blocks = _native_adoption_allocate(f, request)
++    assert [b.block_id for b in blocks.blocks[0][:2]] == ids_in_chain_order
++    assert torch.equal(f.backing[ids_in_chain_order], f.dram)
++    f.cache.free(request)
++
++
++def test_native_adoption_ready_expiry_frees_private_blocks_without_visibility():
++    f = _native_adoption_fixture()
++    _native_adoption_complete(f)
++    assert f.state.status == "ready"
++    f.sched._expire_wait_prefetches(f.state.lease.expires_at_ns + 1)
++    assert f.cache.get_computed_blocks(f.warm)[1] == 0
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++    assert f.sched._prefetch_reserved_blocks == 0
++
++
++def test_native_adoption_retiring_published_state_does_not_free_cache_twice():
++    f = _native_adoption_fixture()
++    _native_adoption_complete(f)
++    request = _native_adoption_bind(f)
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++    f.sched._retire_wait_prefetch(f.state, "cancel", now_ns=time.monotonic_ns())
++    assert f.cache.block_pool.get_num_free_blocks() == 11
++    # Fenced immutable data now belongs to the ordinary evictable prefix cache.
++    assert f.cache.get_computed_blocks(request)[1] == 32
++
++
++def test_native_pool_publication_exception_rolls_back_visibility(monkeypatch):
++    f = _native_adoption_fixture()
++    pool = f.cache.block_pool
++    blocks = [pool.blocks[i] for i in f.state.gpu_block_ids]
++    cache_full_blocks = pool.cache_full_blocks
++    def failing(*args, **kwargs):
++        cache_full_blocks(*args, **kwargs)
++        raise RuntimeError("injected publication failure")
++    monkeypatch.setattr(pool, "cache_full_blocks", failing)
++    before = pool.get_num_free_blocks()
++    with pytest.raises(RuntimeError, match="injected publication failure"):
++        pool.publish_completed_prefix(
++            f.warm, blocks, block_size=16, kv_cache_group_id=0,
++            completion_verified=True,
++        )
++    assert f.cache.get_computed_blocks(f.warm)[1] == 0
++    assert all(b.ref_cnt == 1 and b.block_hash is None for b in blocks)
++    assert pool.get_num_free_blocks() == before
++
++
++@pytest.mark.parametrize("dtype,window,supported", [
++    (torch.bfloat16, None, True),
++    (torch.float32, None, False),
++    (torch.bfloat16, 16, False),
++])
++def test_native_adoption_constructor_restricts_layout_and_validates_flag(
++    dtype, window, supported, monkeypatch,
++):
++    from vllm.v1.kv_cache_interface import (
++        FullAttentionSpec, KVCacheConfig, KVCacheGroupSpec,
++    )
++    native_config = SchedulerOffloadConfig(
++        kv_group_configs=(GroupOffloadConfig(0, 16, 16, 1, None, None),),
++        blocks_per_chunk=1, num_workers=1, offload_prompt_only=False,
++    )
++    def base(scheduler, *args):
++        scheduler.config = native_config
++        scheduler.manager = object()
++    monkeypatch.setattr("semantic_offload.connector.construct_scheduler_base", base)
++    spec = SimpleNamespace(
++        extra_config={"wait_hint_native_adoption": True},
++        replicated_layout=False, cpu_page_size_per_worker=128, kv_bytes_per_chunk=128,
++    )
++    config = SimpleNamespace(
++        model_config=SimpleNamespace(model="test-model"),
++        cache_config=SimpleNamespace(block_size=16),
++    )
++    cache = KVCacheConfig(12, [], [KVCacheGroupSpec(["layer"], FullAttentionSpec(
++        block_size=16, num_kv_heads=1, head_size=4, dtype=dtype,
++        sliding_window=window,
++    ))])
++    scheduler = SemanticOffloadingConnectorScheduler(spec, config, cache)
++    assert scheduler._wait_hint_native_adoption_layout_supported is supported
++    assert scheduler._wait_hint_native_adoption is True
++    spec.extra_config["wait_hint_native_adoption"] = "yes"
++    with pytest.raises(TypeError, match="wait_hint_native_adoption"):
++        SemanticOffloadingConnectorScheduler(spec, config, cache)

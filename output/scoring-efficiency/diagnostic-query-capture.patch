@@ -1,0 +1,25 @@
+--- a/semantic_offload/query_capture.py
++++ b/semantic_offload/query_capture.py
+@@ -362,14 +362,18 @@
+         if not req_ids:
+             return
+         with PROFILE.scope("capture.group_query", cuda=query.is_cuda):
+-            last_q = query[torch.tensor(last_indices, device=query.device)]
++            with PROFILE.scope("capture.index_upload", cuda=query.is_cuda):
++                last_index_tensor = torch.tensor(last_indices, device=query.device)
++            with PROFILE.scope("capture.query_gather", cuda=query.is_cuda):
++                last_q = query[last_index_tensor]
+             n_reqs, num_query_heads, head_dim = last_q.shape
+             if num_query_heads % num_queries_per_kv:
+                 raise ValueError("query heads must be divisible by num_queries_per_kv")
+             num_kv_heads = num_query_heads // num_queries_per_kv
+-            grouped = last_q.view(n_reqs, num_kv_heads, num_queries_per_kv, head_dim).mean(
+-                dim=2
+-            )
++            with PROFILE.scope("capture.head_group_reduce", cuda=query.is_cuda):
++                grouped = last_q.view(n_reqs, num_kv_heads, num_queries_per_kv, head_dim).mean(
++                    dim=2
++                )
+         if on_query is not None:
+             on_query(req_ids, grouped)
+ 

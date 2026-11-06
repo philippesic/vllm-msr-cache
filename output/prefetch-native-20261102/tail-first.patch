@@ -1,0 +1,20 @@
+--- runtime-shared-lookup/block_pool.py
++++ runtime-prefix-order/block_pool.py
+@@ -757,7 +757,7 @@
+         except Exception:
+             self.evict_blocks(set(ids))
+             raise
+-        self.free_blocks(blocks)
++        self.free_blocks(reversed(blocks))
+         return True
+ 
+     def publish_completed_suffix(
+@@ -805,7 +805,7 @@
+         except Exception:
+             self.evict_blocks(set(ids[local_count:]))
+             raise
+-        self.free_blocks(suffix_blocks)
++        self.free_blocks(reversed(suffix_blocks))
+         return True
+ 
+     def touch(self, blocks: Sequence[KVCacheBlock]) -> None:

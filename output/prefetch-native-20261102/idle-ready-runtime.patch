@@ -1,0 +1,25 @@
+--- shared-lookup/core.py
++++ idle-ready/core.py
+@@ -1410,6 +1410,22 @@
+     def _process_input_queue(self):
+         """Exits when an engine step needs to be performed."""
+ 
++        # Ready speculative pages need expiry timers, not empty GPU steps.
++        # Queue.get wakes immediately for real inputs, cancellation or shutdown.
++        # Keep ordinary polling for all transfer/cleanup and live-request work.
++        if (self.process_input_queue_block and not self.engines_running
++                and not self.batch_queue and self.scheduler.requests == {}
++                and self.is_running()):
++            connector = self.scheduler.get_kv_connector()
++            inner = getattr(connector, "connector_scheduler", None)
++            idle_timeout = getattr(inner, "ready_staging_idle_timeout", None)
++            timeout = idle_timeout() if idle_timeout is not None else None
++            if timeout is not None and timeout > 0:
++                try:
++                    self._handle_client_request(*self.input_queue.get(timeout=timeout))
++                except queue.Empty:
++                    pass
++
+         waited = False
+         while not self.has_work() and self.is_running():
+             # Notify callbacks waiting for engine to become idle.

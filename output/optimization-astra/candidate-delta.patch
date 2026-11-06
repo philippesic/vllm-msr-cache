@@ -1,0 +1,142 @@
+--- a/semantic_offload/connector.py
++++ b/semantic_offload/connector.py
+@@ -2882,6 +2882,11 @@
+             and state.lease.active_at(now_ns)
+             and (dispatch_ids is None or state.lease.hint.event_id in dispatch_ids)
+         ]
++        # Ready/in-flight hints still need expiry processing above, but there
++        # is no nomination decision to build or serialize without candidates.
++        # This path also runs on every ordinary decode step with no hints.
++        if not pending:
++            return
+         publication_order_event_ids = [state.lease.hint.event_id for state in pending]
+         if self._prefetch_selector != "semantic":
+             for state in pending:
+@@ -3059,7 +3064,7 @@
+             or state.lease.state not in {"ready", "resumed"}
+             or time.monotonic_ns() > state.lease.expires_at_ns
+             or _observed_prefix_digest(
+-                list(request.prompt_token_ids or ())[:boundary],
++                (request.prompt_token_ids or [])[:boundary],
+                 self._wait_hint_namespace,
+             ) != state.lease.hint.observed_prefix_id
+         ):
+--- a/tests/test_step_1_5_prefetch.py
++++ b/tests/test_step_1_5_prefetch.py
+@@ -1857,6 +1857,116 @@
+     )
+ 
+ 
++@pytest.mark.parametrize("status", [None, "ready", "in_flight", "pending"])
++def test_wait_nomination_without_candidates_still_expires_hints(status, monkeypatch):
++    calls = []
++    state = SimpleNamespace(status=status)
++    states = {} if status is None else {"hint": state}
++
++    def expire(now_ns):
++        calls.append("expire")
++        # An expired pending hint must disappear before nomination eligibility
++        # is examined. In-flight/ready hints still get the same expiry visit.
++        if status == "pending":
++            states.clear()
++
++    def unexpected(*args, **kwargs):
++        raise AssertionError("empty nomination must not read the pool or emit a decision")
++
++    scheduler = SimpleNamespace(
++        _wait_prefetch=states,
++        _prefetch_selector="semantic",
++        _wait_hint_coalescing_gate=lambda now: (calls.append("gate") or False, None),
++        _expire_wait_prefetches=expire,
++        _prefetch_reserved_blocks=0, _prefetch_budget_fraction=0.2,
++        _prefetch_headroom_blocks=0, _prefetch_bytes_per_key=256,
++        gpu_block_pool=SimpleNamespace(num_gpu_blocks=100, get_num_free_blocks=unexpected),
++    )
++    monkeypatch.setattr("semantic_offload.connector.record_wait_hint_event", unexpected)
++    SemanticOffloadingConnectorScheduler._retry_wait_prefetches(scheduler)
++    assert calls == ["gate", "expire"]
++    assert states == ({} if status in {None, "pending"} else {"hint": state})
++
++
++def test_native_adoption_digest_reads_only_prefix(monkeypatch):
++    class PrefixOnlyTokens(list):
++        def __iter__(self):
++            raise AssertionError("adoption must not copy the complete prompt")
++
++        def __getitem__(self, index):
++            assert index == slice(None, 32)
++            return super().__getitem__(index)
++
++    # Stop after the digest check: the allocator and DMA guards have their
++    # separate integration coverage below. A mismatched digest must reject.
++    now = time.monotonic_ns()
++    request = SimpleNamespace(
++        num_computed_tokens=0,
++        prompt_token_ids=PrefixOnlyTokens(range(100_000)),
++    )
++    state = SimpleNamespace(
++        status="ready", source_released=True, pending_contributors=0,
++        bound_request_id="resume",
++        transfer_record=dict(success=True, cancelled=False, contributors=1,
++                             expected_contributors=1, completed_at_ns=now),
++        keys=(b"a", b"b"), gpu_block_ids=(1, 2),
++        lease=SimpleNamespace(
++            state="ready", expires_at_ns=now + 10_000_000_000,
++            hint=SimpleNamespace(prefix_boundary_tokens=32,
++                                 observed_prefix_id="different-prefix"),
++        ),
++    )
++    scheduler = SimpleNamespace(
++        _wait_hint_native_adoption=True,
++        _wait_hint_native_adoption_layout_supported=True,
++        config=SimpleNamespace(num_workers=1, blocks_per_chunk=1,
++                               kv_group_configs=[SimpleNamespace(
++                                   group_idx=0, tokens_per_block=16,
++                                   tokens_per_chunk=16)]),
++        gpu_block_pool=SimpleNamespace(publish_completed_prefix=lambda *a, **kw: None),
++        _req_status={"resume": SimpleNamespace(req=request)},
++        _wait_hint_namespace={"model": "test"},
++    )
++    seen = []
++
++    def digest(tokens, namespace):
++        seen.append((tokens, namespace))
++        return "actual-prefix"
++
++    monkeypatch.setattr("semantic_offload.connector._observed_prefix_digest", digest)
++    assert not SemanticOffloadingConnectorScheduler._try_publish_wait_prefix(scheduler, state)
++    assert seen == [(list(range(32)), {"model": "test"})]
++
++
++def test_wait_nomination_nonempty_keeps_decision_and_attempt(monkeypatch):
++    events, attempts = [], []
++    source = SimpleNamespace(run_id="run", cell_id="cell", session_id="session",
++                             generation=0, observed_prefix_id="prefix")
++    state = SimpleNamespace(status="pending", source=source,
++                            lease=SimpleNamespace(active_at=lambda now: True,
++                                                  hint=SimpleNamespace(event_id="hint")))
++    candidate = dict(event_id="hint", session_id="session", observed_prefix_id="prefix",
++                     source_request_id="source", aggregate_score=0.5,
++                     eligible_resident_prefix_keys=["key"])
++    scheduler = SimpleNamespace(
++        _wait_prefetch={"hint": state}, _prefetch_selector="semantic",
++        _wait_hint_coalescing_gate=lambda now: (False, None),
++        _expire_wait_prefetches=lambda now: None,
++        _semantic_wait_nomination_candidate=lambda state, now: (candidate, 0.5),
++        _attempt_wait_prefetch=lambda state: attempts.append(state) or False,
++        _prefetch_reserved_blocks=0, _prefetch_budget_fraction=0.2,
++        _prefetch_headroom_blocks=0, _prefetch_bytes_per_key=256,
++        gpu_block_pool=SimpleNamespace(num_gpu_blocks=100, get_num_free_blocks=lambda: 0),
++    )
++    monkeypatch.setattr("semantic_offload.connector.record_wait_hint_event", events.append)
++    SemanticOffloadingConnectorScheduler._retry_wait_prefetches(scheduler)
++    assert attempts == [state]
++    assert len(events) == 1
++    assert events[0]["candidates"] == [candidate]
++    assert events[0]["chosen"] == []
++    assert events[0]["no_action_reason"] == "no_causal_candidate_or_shared_budget"
++
++
+ def test_semantic_wait_nomination_reverses_winner_across_competing_sessions():
+     from unittest.mock import patch
+ 

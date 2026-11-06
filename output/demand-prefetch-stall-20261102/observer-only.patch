@@ -1,0 +1,20 @@
+--- frozen/connector.py
++++ probe/connector.py
+@@ -25,6 +25,7 @@
+ from __future__ import annotations
+ 
+ import hashlib
++from demand_guard_observer import observe as _demand_guard_probe
+ import json
+ import math
+ import re
+@@ -7069,7 +7070,9 @@
+             "pending",
+             "in_flight",
+         }:
++            _demand_guard_probe(self, request, hint_event_id, hint_state, True)
+             return None, False
++        _demand_guard_probe(self, request, hint_event_id, hint_state, False)
+         if getattr(self, "_preservation_events_enabled", False):
+             self._begin_lookup_episode(request)
+         try:

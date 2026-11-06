@@ -1,0 +1,29 @@
+--- v1/connector.py
++++ v2/connector.py
+@@ -1587,7 +1587,7 @@
+             raise TypeError("wait_hint_native_adoption must be a JSON boolean")
+         self._wait_hint_native_adoption = native_adoption
+         for option in ("wait_hint_coalesce_exact_source", "prefetch_require_full_prefix",
+-                       "wait_hint_shared_local_prefix"):
++                       "wait_hint_shared_local_prefix", "wait_hint_partial_native_publication"):
+             value = extra_config.get(option, False)
+             if not isinstance(value, bool):
+                 raise TypeError(f"{option} must be a JSON boolean")
+@@ -1609,7 +1609,7 @@
+             or self.config.num_workers != 1
+             or len(self.config.kv_group_configs) != 1
+             or config_blocks_per_chunk(self.config) != 1
+-            or not self._prefetch_require_full_prefix
++            or not (self._prefetch_require_full_prefix or self._wait_hint_partial_native_publication)
+         ):
+             raise ValueError("wait_hint_shared_local_prefix requires dense TP1 factor1 full-suffix native adoption")
+         completed_transcript = extra_config.get("wait_hint_completed_transcript", False)
+@@ -1635,8 +1635,6 @@
+             raise ValueError("wait_hint_publish_at_lookup requires shared-local-prefix support")
+         self._wait_hint_publish_at_lookup = lookup_publication
+         self._published_wait_prefixes: dict[str, dict[str, object]] = {}
+-        self._wait_hint_partial_native_publication = bool(
+-            getattr(spec, "extra_config", {}).get("wait_hint_partial_native_publication", False))
+         soft_retention = str(
+             getattr(spec, "extra_config", {}).get("soft_retention", "off")
+         )

@@ -1,0 +1,930 @@
+diff --git a/Makefile b/Makefile
+index 54db4bb..d8649ae 100644
+--- a/Makefile
++++ b/Makefile
+@@ -21,8 +21,8 @@ test-harness:
+ benchmark-help:
+ 	"$(PY)" -m benchmarks.serving_suite.runner --help
+ bench-tests:
+-	$(RUNTIME) -m pytest -q tests/test_serving_suite.py tests/test_benchmark_metrics.py
+-bench-smoke bench-screen bench-confirm bench-operational:
++	$(RUNTIME) -m pytest -q tests/test_serving_suite.py tests/test_benchmark_metrics.py tests/test_repo_workload.py
++bench-smoke bench-screen bench-confirm bench-operational bench-agent:
+ 	@test -n "$(MODEL)" -a -n "$(OUT)" || { echo 'Set MODEL to a local snapshot and OUT to a new artifact directory'; exit 2; }
+ 	"$(PY)" -m benchmarks.serving_suite.runner $(patsubst bench-%,%,$@) --model "$(MODEL)" --output "$(OUT)" $(BENCH_ARGS)
+ bench-verify:
+diff --git a/benchmarks/serving_suite/contracts.py b/benchmarks/serving_suite/contracts.py
+index 0f6131d..fe46d31 100644
+--- a/benchmarks/serving_suite/contracts.py
++++ b/benchmarks/serving_suite/contracts.py
+@@ -9,6 +9,7 @@ from pathlib import Path
+ 
+ SCHEMA = "semantic-serving-suite-v1"
+ PROFILES = {
++    "agent": dict(repeats=1, sessions=8, turns=4, concurrency=4, waves=1, max_tokens=256),
+     "smoke": dict(repeats=1, sessions=4, turns=2, concurrency=1, waves=1, max_tokens=8),
+     "screen": dict(
+         repeats=1, sessions=6, turns=2, concurrency=2, waves=1, max_tokens=32
+diff --git a/benchmarks/serving_suite/report.py b/benchmarks/serving_suite/report.py
+index e6cc366..71834ed 100644
+--- a/benchmarks/serving_suite/report.py
++++ b/benchmarks/serving_suite/report.py
+@@ -252,6 +252,17 @@ def render_report(result):
+         )
+         if c["evaluation"]["errors"]:
+             lines.append("")  # Details live in JSON, never hide failed cases.
++    if result['plan']['tier'] == 'agent':
++        lines += ['', 'Real repository investigations: four generated requests and three executed tools per session. Tool waits are measured subprocess lifetimes.', '',
++                  '| Case | Sessions | Tool calls | Return TTFT mean (s) | CPU-evicted return requests | Refreshed CPU keys | Timely hint windows | Test-status claims correct |',
++                  '| --- | --- | --- | --- | --- | --- | --- | --- |']
++        for c in result['cases']:
++            a = c.get('agent', {})
++            h, o, q = a.get('hints',{}), a.get('opportunity',{}), a.get('quality',{})
++            lines.append(f"| {c['name']} | {a.get('sessions',{}).get('completed')} | {a.get('tools',{}).get('executed')} | {fmt(a.get('latency',{}).get('return_ttft_s',{}).get('mean'))} | {o.get('returning_requests_with_prior_cpu_eviction')} | {h.get('ready_cpu_keys_refreshed')} | {h.get('windows_with_advance_ack')}/{h.get('tool_windows')} | {q.get('passed')}/{q.get('checks')} |")
++        lines += ['', 'Per-case agent.json and request-diagnostics.csv contain workflow/tool timing, hint lead times/reasons/cost, per-request reuse/recomputation/transfers, native pressure, sampled gauges, and explicit measurement errors.',
++                  'Test-status checks only assess reporting of observed test outcomes. Code reasoning accuracy is ungraded. A harness pass is not a policy win; use repeats and inspect prompt/output agreement.',
++                  'Detailed tracing and HTTP scraping run equally in both arms; their costs are included. See limitations in agent.json.']
+     if result.get("error"):
+         lines += ["", "Failure: " + result["error"]]
+     lines += [
+diff --git a/benchmarks/serving_suite/resources.py b/benchmarks/serving_suite/resources.py
+index 028f3b4..8d884f1 100644
+--- a/benchmarks/serving_suite/resources.py
++++ b/benchmarks/serving_suite/resources.py
+@@ -163,13 +163,14 @@ class OwnedServer:
+ 
+ 
+ class Sampler:
+-    def __init__(self, pid, path, interval=0.25):
++    def __init__(self, pid, path, interval=0.25, metrics_url=None):
+         self.pid = pid
+         self.path = Path(path)
+         self.interval = interval
+         self.stop_event = threading.Event()
+         self.rows = []
+         self.error = None
++        self.metrics_url = metrics_url
+ 
+     def start(self):
+         self.thread = threading.Thread(target=self.run, daemon=True)
+@@ -197,6 +198,7 @@ class Sampler:
+                     }
+                     try:
+                         root = psutil.Process(self.pid)
++                        server_pids = set()
+                         for p in [root, *root.children(recursive=True)]:
+                             try:
+                                 # Stable Linux start ticks avoid WSL boot-time estimates.
+@@ -211,6 +213,7 @@ class Sampler:
+                                     t.user + t.system
+                                 )
+                                 row["rss_bytes"] += p.memory_info().rss
++                                server_pids.add(p.pid)
+                             except (psutil.Error, OSError):
+                                 pass
+                         if nv:
+@@ -221,6 +224,24 @@ class Sampler:
+                                 ).gpu,
+                                 gpu_power_w=nv.nvmlDeviceGetPowerUsage(gpu) / 1000,
+                             )
++                        if self.metrics_url:
++                            row.update(client_tool_rss_bytes=0, client_tool_cpu_s={})
++                            parent = psutil.Process(os.getpid())
++                            for p in [parent, *parent.children(recursive=True)]:
++                                if p.pid in server_pids:
++                                    continue
++                                try:
++                                    ticks = Path(f'/proc/{p.pid}/stat').read_text().rsplit(')',1)[1].split()[19]
++                                    t = p.cpu_times()
++                                    row['client_tool_cpu_s'][f'{p.pid}:{ticks}'] = t.user+t.system
++                                    row['client_tool_rss_bytes'] += p.memory_info().rss
++                                except (psutil.Error, OSError):
++                                    pass
++                            from harness.metrics import parse_metrics, parse_gauge_metrics
++                            began = time.monotonic_ns()
++                            raw = get_text(self.metrics_url, timeout=2)
++                            row.update(metrics=parse_metrics(raw), gauges=parse_gauge_metrics(raw),
++                                metrics_scrape_s=(time.monotonic_ns()-began)/1e9)
+                     except Exception as e:
+                         row["error"] = repr(e)
+                     output.write(json.dumps(row) + "\n")
+@@ -237,9 +258,12 @@ class Sampler:
+         self.stop_event.set()
+         self.thread.join(timeout=5)
+         cpu = {}
++        client_cpu = {}
+         for r in self.rows:
+             for k, v in r["process_cpu_s"].items():
+                 cpu.setdefault(k, []).append(v)
++            for k,v in r.get('client_tool_cpu_s',{}).items():
++                client_cpu.setdefault(k,[]).append(v)
+         mem = [
+             r["gpu_used_bytes"] for r in self.rows if r["gpu_used_bytes"] is not None
+         ]
+@@ -248,6 +272,8 @@ class Sampler:
+             gpu_peak_bytes=max(mem) if mem else None,
+             host_rss_peak_bytes=max((r["rss_bytes"] for r in self.rows), default=None),
+             process_cpu_elapsed_s=sum(max(v) - min(v) for v in cpu.values()),
++            client_tool_cpu_elapsed_s=sum(max(v)-min(v) for v in client_cpu.values()) if self.metrics_url else None,
++            client_tool_rss_peak_bytes=max((r.get('client_tool_rss_bytes',0) for r in self.rows),default=None) if self.metrics_url else None,
+             sample_interval_s=self.interval,
+             error=self.error
+             or next((r["error"] for r in self.rows if r.get("error")), None)
+diff --git a/benchmarks/serving_suite/runner.py b/benchmarks/serving_suite/runner.py
+index 20cfc39..cd1ee34 100644
+--- a/benchmarks/serving_suite/runner.py
++++ b/benchmarks/serving_suite/runner.py
+@@ -87,6 +87,7 @@ def source_identity():
+         "benchmarks/serving_suite",
+         "harness",
+         "tools",
++        "tests",
+         "vendor/vllm/vllm",
+     ):
+         for p in sorted((ROOT / directory).rglob("*.py")):
+@@ -107,9 +108,25 @@ def source_identity():
+     ):
+         p = ROOT / "benchmarks" / f"{name}.py"
+         files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
++    for p in sorted((ROOT / 'benchmarks/serving_suite').glob('*.json')):
++        files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
++    p = ROOT/'benchmarks/research_checks/fixtures/semantic_svd_control.json'
++    files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
+     return {"digest": digest(files), "files": files}
+ 
+ 
++def freeze_source(identity, output):
++    """Keep reviewable executed inputs even when the working tree is dirty."""
++    import tarfile
++
++    with tarfile.open(output / 'executed-source.tar.gz', 'w:gz') as archive:
++        for name, expected in identity['files'].items():
++            path = ROOT / name
++            if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
++                raise RuntimeError(f'Source changed during freeze: {name}')
++            archive.add(path, arcname=name, recursive=False)
++
++
+ def select_sessions(corpus, plan, repeat):
+     sessions = list(corpus["sessions"])
+     random.Random(plan["seed"]).shuffle(sessions)
+@@ -123,7 +140,11 @@ def select_sessions(corpus, plan, repeat):
+ 
+ 
+ def connector(plan, arm):
+-    if arm == "arc":
++    if plan["tier"] == "agent" and (arm == "arc" or not plan["candidate_config"]):
++        from .agent_report import wait_hint_config
++
++        cfg = wait_hint_config(plan, enabled=arm == "candidate")
++    elif arm == "arc":
+         cfg = kv_transfer_config("arc", plan["cpu_bytes"])
+         cfg["kv_connector_extra_config"]["store_threshold"] = 0
+     elif plan["candidate_config"]:
+@@ -213,6 +234,9 @@ def settle_metrics(server, minimum_completed, timeout=12):
+ 
+ 
+ def run_case(plan, sessions, arm, repeat, out):
++    wave_runner = run_wave
++    if plan["tier"] == "agent":
++        from .repo_workload import run_wave as wave_runner
+     name = f"{repeat:02d}-{arm}"
+     directory = out / name
+     directory.mkdir()
+@@ -236,6 +260,10 @@ def run_case(plan, sessions, arm, repeat, out):
+         VLLM_PLUGINS="semantic_wait_hint" if plan["publish_hints"] else "",
+         SEMANTIC_VLLM_STAGE_PARENT=str((directory / "runtime-staging").resolve()),
+     )
++    if plan.get("qualification_trace"):
++        env["VLLM_KV_QUALIFICATION_TRACE"] = str((directory / "kv-qualification.jsonl").resolve())
++    else:
++        env.pop("VLLM_KV_QUALIFICATION_TRACE", None)
+     server = OwnedServer(cmd, directory, env, int(cmd[cmd.index("--port") + 1]))
+     case = dict(
+         name=name,
+@@ -317,13 +345,14 @@ def run_case(plan, sessions, arm, repeat, out):
+                 server.proc.pid,
+                 directory / "resources.jsonl",
+                 plan["sample_interval_s"],
++                metrics_url=server.url + "/metrics" if plan["tier"] == "agent" else None,
+             ).start()
+ 
+             async def waves():
+                 async def one(wave):
+                     await asyncio.sleep(wave * plan.get("wave_interval_s", 0))
+                     start = time.monotonic()
+-                    wave_rows = await run_wave(
++                    wave_rows = await wave_runner(
+                         server.url,
+                         plan,
+                         sessions,
+@@ -371,7 +400,7 @@ def run_case(plan, sessions, arm, repeat, out):
+ 
+                 async def bounded_wave():
+                     return await asyncio.wait_for(
+-                        run_wave(
++                        wave_runner(
+                             server.url,
+                             plan,
+                             sessions,
+@@ -412,6 +441,10 @@ def run_case(plan, sessions, arm, repeat, out):
+             (directory / "metrics-after.prom").write_text(after)
+             case["metrics"] = metric_delta(before, after)
+             case["activity"] = activity(case["metrics"], case["hints"])
++            if plan["tier"] == "agent":
++                from .agent_report import diagnose
++
++                case["agent"] = diagnose(directory, case, plan)
+             if plan["tier"] == "operational":
+                 probe = asyncio.run(
+                     cancel_probe(server.url, plan, tok, record, directory / "streams")
+@@ -495,6 +528,12 @@ def run_case(plan, sessions, arm, repeat, out):
+                     if x not in ("hint_accepted", "scoring", "cpu_recency")
+                 ],
+             )
++            if plan["tier"] == "agent":
++                if case.get("agent", {}).get("measurement_errors"):
++                    case["evaluation"]["errors"] += case["agent"]["measurement_errors"]
++                    case["evaluation"]["status"] = "failed"
++                elif not case.get("agent", {}).get("opportunity", {}).get("cache_competition_observed") and case["evaluation"]["status"] == "passed":
++                    case["evaluation"].update(status="inconclusive", reason="No observed cache competition; cannot assess wait-hint benefit")
+             write_json(directory / "case.json", case)
+     return case
+ 
+@@ -521,6 +560,12 @@ def parser():
+         type=Path,
+         help="semantic-serving-corpus-v1 JSON; otherwise an explicitly synthetic fixture",
+     )
++    p.add_argument("--repo-root", type=Path, default=ROOT, help="Agent tier: real repository in which read-only tools execute")
++    p.add_argument("--task-file", type=Path, help="Agent tier: repository-investigation-tasks-v1 JSON")
++    p.add_argument("--context-chars", type=int, default=12000, help="Agent tier: real initial source/test excerpt budget; never padded")
++    p.add_argument("--hint-refresh-s", type=float, default=1.0, help="Agent tier: refresh only while the real tool is running")
++    p.add_argument("--tool-timeout-s", type=float, default=90)
++    p.add_argument("--tool-output-chars", type=int, default=8000)
+     p.add_argument(
+         "--candidate-config",
+         type=Path,
+@@ -538,9 +583,9 @@ def parser():
+     )
+     for name in ("repeats", "sessions", "turns", "concurrency", "waves", "max-tokens"):
+         p.add_argument("--" + name, type=int)
+-    p.add_argument("--gpu-blocks", type=int, default=128)
+-    p.add_argument("--cpu-bytes", type=int, default=256 * 2**20)
+-    p.add_argument("--max-model-len", type=int, default=2048)
++    p.add_argument("--gpu-blocks", type=int)
++    p.add_argument("--cpu-bytes", type=int)
++    p.add_argument("--max-model-len", type=int)
+     p.add_argument("--gpu-memory-utilization", type=float, default=0.75)
+     p.add_argument("--seed", type=int, default=17011)
+     p.add_argument("--startup-timeout-s", type=float, default=180)
+@@ -552,6 +597,7 @@ def parser():
+         default="store,restore",
+         help="Comma-separated store,restore,hint_accepted,scoring,cpu_recency; empty allows overhead-only tests",
+     )
++    p.add_argument("--qualification-trace", action="store_true", help="Opt-in native queue/load/reclaimable-capacity trace; adds diagnostic I/O overhead")
+     p.add_argument("--publish-hints", action="store_true")
+     p.add_argument(
+         "--arrival-interval-s",
+@@ -585,6 +631,19 @@ def main(argv=None):
+     a = parser().parse_args(argv)
+     plan = dict(PROFILES[a.tier])
+     plan.update({k: v for k, v in vars(a).items() if v is not None})
++    for key, ordinary, agent in (("gpu_blocks",128,1024), ("cpu_bytes",256*2**20,896*2**20), ("max_model_len",2048,8192)):
++        plan.setdefault(key, agent if a.tier == "agent" else ordinary)
++    if a.tier == "agent":
++        plan.update(publish_hints=True, qualification_trace=True)
++        if a.require_activity == 'store,restore':
++            a.require_activity = 'store,restore,cpu_recency'
++        if plan['turns'] != 4:
++            raise ValueError('Agent workflow requires four model requests and three real tools per session')
++    for name in ('hint_refresh_s', 'tool_timeout_s', 'context_chars', 'tool_output_chars'):
++        from .contracts import positive
++        positive(plan[name], name, integer=name in ('context_chars','tool_output_chars'))
++    plan['repo_root'] = str(a.repo_root.resolve())
++    plan['task_file'] = str(a.task_file.resolve()) if a.task_file else None
+     plan.update(
+         schema=SCHEMA,
+         model=str(a.model.resolve()),
+@@ -595,18 +654,24 @@ def main(argv=None):
+         required_activity=[x for x in a.require_activity.split(",") if x],
+     )
+     plan["natural_eos"] = (
+-        a.natural_eos if a.natural_eos is not None else a.tier == "operational"
++        a.natural_eos if a.natural_eos is not None else a.tier in ("operational", "agent")
+     )
+     plan.pop("corpus", None)
+     plan.pop("require_activity", None)
+     if not (a.model / "config.json").is_file():
+         raise ValueError("Model must be an existing local snapshot with config.json")
+     validate_plan(plan)
+-    corpus = (
++    if a.tier == 'agent':
++        if a.corpus:
++            raise ValueError('Agent tier reads live repository inputs; use --task-file to change tasks')
++        from .repo_workload import build_corpus
++        corpus = build_corpus(a.repo_root, a.task_file, a.context_chars)
++    else:
++        corpus = (
+         validate_corpus(json.loads(a.corpus.read_text()))
+         if a.corpus
+         else fixture_corpus(max(36, plan["sessions"] * plan["repeats"]))
+-    )
++        )
+     if (
+         corpus["synthetic"]
+         and a.tier in ("confirm", "operational")
+@@ -617,7 +682,7 @@ def main(argv=None):
+         )
+     for repeat in range(plan["repeats"]):
+         select_sessions(corpus, plan, repeat)
+-    if plan["publish_hints"] and not (plan["candidate_config"] or {}).get(
++    if a.tier != 'agent' and plan["publish_hints"] and not (plan["candidate_config"] or {}).get(
+         "kv_connector_extra_config", {}
+     ).get("admission_namespace"):
+         raise ValueError(
+@@ -675,6 +740,9 @@ def main(argv=None):
+                             + session["turns"][0],
+                         },
+                     ]
++                    if a.tier == 'agent':
++                        from .repo_workload import SYSTEM
++                        messages[0]['content'] = SYSTEM
+                     n = len(
+                         tokenizer.apply_chat_template(
+                             messages,
+@@ -693,6 +761,8 @@ def main(argv=None):
+                 "max": max(initial_lengths),
+             }
+             write_json(a.output / "source.json", initial)
++            if a.tier == 'agent':
++                freeze_source(initial, a.output)
+             model_files = {}
+             for p in sorted(Path(plan["model"]).iterdir()):
+                 if p.is_file():
+diff --git a/benchmarks/serving_suite/verify.py b/benchmarks/serving_suite/verify.py
+index 9a906f9..b12f532 100644
+--- a/benchmarks/serving_suite/verify.py
++++ b/benchmarks/serving_suite/verify.py
+@@ -16,6 +16,11 @@ def seal(directory):
+     directory = Path(directory)
+     files = {}
+     for p in sorted(directory.rglob("*")):
++        # The runtime owns and removes this ephemeral import stage. Its source
++        # and wheel identities are retained separately; sealing its symlink
++        # targets races shutdown and does not preserve executed bytes.
++        if 'runtime-staging' in p.relative_to(directory).parts:
++            continue
+         if p.is_file() and p.name != "artifacts.json":
+             with p.open("rb") as f:
+                 files[str(p.relative_to(directory))] = hashlib.file_digest(
+@@ -42,6 +47,13 @@ def verify(directory):
+         raise ValueError("Unsupported result schema")
+     count = 0
+     for case in result["cases"]:
++        if result.get('plan',{}).get('tier') == 'agent' and case.get('agent'):
++            from .agent_report import diagnose
++            observed = diagnose(directory/case['name'], case, result['plan'], write=False)
++            if observed != case['agent']:
++                raise ValueError(f"Wrong agent diagnostics: {case['name']}")
++            if json.loads((directory/case['name']/'agent.json').read_text()) != observed:
++                raise ValueError(f"Wrong agent.json: {case['name']}")
+         rows = [
+             json.loads(line)
+             for line in (directory / case["name"] / "requests.jsonl")
+diff --git a/benchmarks/serving_suite/workload.py b/benchmarks/serving_suite/workload.py
+index 715fe1e..1b63ed7 100644
+--- a/benchmarks/serving_suite/workload.py
++++ b/benchmarks/serving_suite/workload.py
+@@ -122,6 +122,13 @@ async def run_wave(
+                     and plan["publish_hints"]
+                     and arm == "candidate"
+                 ):
++                    # Experimental causal advice timing: keep the same total
++                    # scripted wait, but publish after other sessions can evict
++                    # this source from GPU. No future user text is observed.
++                    hint_delay = min(delay, max(0.0, plan.get("hint_delay_s", 0.0)))
++                    if hint_delay:
++                        await asyncio.sleep(hint_delay)
++                        delay -= hint_delay
+                     tokens = (
+                         previous["payload"]["prompt"]
+                         + previous["output_token_ids"][:-1]
+diff --git a/docs/BENCHMARKING.md b/docs/BENCHMARKING.md
+index 1ce996b..5683cad 100644
+--- a/docs/BENCHMARKING.md
++++ b/docs/BENCHMARKING.md
+@@ -33,6 +33,96 @@ supplied corpus; `--allow-synthetic` explicitly permits fixture qualification on
+ The default candidate is semantic-mean eviction with speculative prefetch disabled.
+ It is not the separately qualified CPU-advice research profile.
+ 
++## Real repository-agent workflow
++
++`make bench-agent` runs a read-only repository investigation application against
++the real HTTP model endpoint. Eight concurrent sessions each make four generated
++requests, accumulating actual assistant history and outputs from three executed
++tools: repository search, the relevant pytest file through the pinned runtime,
++and a final evidence search. The application selects the fixed tool pipeline;
++model-generated shell text is never executed. Initial context is actual source
++and tests, with explicit excerpt limits and hashes. There is no synthetic padding,
++recorded tool-output replay, or sleep standing in for tool execution. These are
++authored maintenance tasks about this repository, not production user traffic,
++SWE-bench task success, or an autonomous patch-writing agent.
++
++```bash
++make bench-agent PY="$PY" MODEL="$MODEL" OUT=output/my-agent-eval \
++  BENCH_ARGS='--execution graphs --require-activity store,restore,cpu_recency'
++make bench-verify PY="$PY" OUT=output/my-agent-eval
++```
++
++The default comparison is ARC versus GPU-gated CPU-retention wait-hint ARC.
++Both arms receive the same causal hint protocol and instrumentation. Hints start
++after each tool process spawns and refresh once per second only while it runs;
++the producer knows the completed prefix and that a tool is pending, never future
++output or completion time. Short searches may finish before an acknowledgement;
++reports count those explicitly rather than claiming useful advance notice.
++The test subprocess provides a genuine longer wait while other sessions use the
++GPU. Wait-hint CPU refresh is advice, not speculative prefetch or a guarantee of
++subsequent reuse. Default caches are 1,024 GPU blocks and 896 MiB CPU KV with an
++8,192-token context. Use the cached 7B AWQ model for the intended 2080 Ti pressure
++profile. This does not reproduce the historical frozen priority configuration.
++The existing runtime uses a positive prefetch enable budget before entering its
++CPU-only advice branch; that branch plus `wait_hint_diagnostic_no_dispatch` keeps
++the wait arm CPU-only. Native staging counters must remain zero. Setting that
++budget to zero suppresses CPU advice too, and the required `cpu_recency` check
++will report the arm inactive.
++
++Use `--sessions`, `--concurrency`, `--gpu-blocks`, `--cpu-bytes`, `--context-chars`,
++`--arrival-interval-s`, `--waves`, and `--repeats` to vary offered load and capacity.
++Paired order reverses on alternate repetitions. `--task-file` accepts
++`repository-investigation-tasks-v1`, using the versioned
++[task file](../benchmarks/serving_suite/repo_tasks.json) as an example. `--repo-root`
++changes the actual tool working directory; that repository must provide the
++declared files and runtime/test entrypoint. Test failures, tool timeouts, context
++overflow, request failures, and missing telemetry are retained as failures. No
++hidden retry or truncation repairs them. Outputs must use a new directory.
++`--candidate-config` supplies another semantic/prefetch/SVD arm while retaining
++the same workload; its configuration and required activation must match the claim.
++
++The normal `REPORT.md`, plan/source/model identities, raw streams, metrics,
++resources, requests, process cleanup, and offline artifact sealing still apply.
++The agent tier also freezes executed source in `executed-source.tar.gz`, including
++dirty and untracked Python inputs. Temporary `runtime-staging/` import trees are
++owned by the launcher and excluded from artifact sealing; source and wheel
++identities are retained independently.
++Each case additionally emits `agent.json`, `request-diagnostics.csv`,
++`workflow-*.jsonl`, raw tool stdout under `tools/`, and `kv-qualification.jsonl`:
++
++| Measurement | Meaning and limits |
++| --- | --- |
++| Workflow completion/rate/duration | Full four-request session including actual tool waits and client queueing. Startup is reported separately. |
++| Initial/return TTFT, p50/p95/max | Separates first requests from continuations. Tool-completion-to-first-token includes client queueing. Small-sample tails are descriptive. |
++| Tool duration, exit, bytes, truncation | Actual command, working directory, stdout hash and lifetime. Excerpt limits affect model input only; raw output remains. |
++| Hint RTT, reasons, lead time, windows | Actual acknowledgements before tool completion, GPU-gate skips, ready CPU refreshes and errors. Repeated key refreshes are observations, not unique saved keys. |
++| Prefill, reuse, recomputation | Per-request native receipts and endpoint counter deltas. CPU eviction observations on returning requests show cache competition; neither allocation nor refresh activity alone proves useful work saved. |
++| Transfers/prefetch | Demand bytes and native worker intervals; speculative submission/completion/consumption/reclamation are separate. Missing critical-path evidence stays unavailable. |
++| Pressure and queueing | Native scheduler steps, running/waiting counts, reclaimable GPU pages; sampled GPU/CPU cache gauges. Reclaimable pages include idle cached prefixes. |
++| Memory/utilization/power/cost | GPU samples, server RSS/CPU, separate client-plus-tool RSS/CPU samples, scrape RTT and sampled device energy. RSS can double-count shared pages; short child lifetimes and allocator peaks can be missed. |
++| Answer checks | Final claimed test result versus actual pytest exit status. Wrong claims, unparseable status and strict-format violations are separate. Exact answers remain for review; code-reasoning accuracy is ungraded. |
++| Comparison integrity | Exact prompt/output fingerprints, finish reasons, incomplete cases, configured geometry, provenance and cleanup. Different live outputs prevent identical-work causal claims. |
++
++Detailed native tracing and HTTP scraping have cost, enabled equally and charged
++to both arms. Gauge updates can lag the server; native scheduler/key records
++provide finer observations. A run without observed competition for returning
++CPU prefixes is inconclusive for the retention hypothesis. One complete pair
++accepts the harness, not a policy performance claim; use repetitions and inspect
++whether advice both activates and has a useful opportunity before drawing one.
++Native request counts, prompt tokens, computed prefill tokens and loaded tokens
++are cross-checked against endpoint counters; disagreement or unavailable required
++accounting fails measurement validation. `bench-verify` recomputes the diagnostic
++report from retained requests, workflow events, server records and resource samples.
++
++For prefetch qualification, `--qualification-trace` enables a default-off native
++queue/load trace in each case's `kv-qualification.jsonl`. Analyze it with
++`python -m benchmarks.research_checks.hybrid_qualification PATH`. It separates
++arrival-to-load, async-load issue-to-receipt, and receipt-to-admission intervals,
++and samples reclaimable GPU blocks. These are diagnostic observations with I/O
++overhead. Reclaimable space is not necessarily empty; CPU readiness and bandwidth
++are not observed. Reported candidate overlap is optimistic and cannot establish
++exposed restore stalls, throughput gains, or an MSR qualification by itself.
++
+ ## Commands
+ 
+ ```bash
+diff --git a/docs/CONFIGURATION.md b/docs/CONFIGURATION.md
+index 528962b..0461d80 100644
+--- a/docs/CONFIGURATION.md
++++ b/docs/CONFIGURATION.md
+@@ -170,3 +170,24 @@ on the candidate and retains the before/after Prometheus snapshots. It defaults
+ to false outside the suite. This proves applied scoring activity, not ranking
+ quality, speculative-copy usefulness, or cache-hit correctness. See the
+ [benchmarking guide](BENCHMARKING.md) for the four tiers and their evidence limits.
++
++## Isolated KV SVD experiment
++
++`kv_svd_rank` defaults to `0` (off). Ranks 1–15 enable lossy SVD compression
++of actual FP16 K/V pages in the semantic worker; this is separate from semantic
++summary/predictor features. The experimental codec supports uniform dense pages,
++head size 128, block size 16, and one CPU block per GPU block. It retains FP16
++factors only on CPU and reconstructs full GPU pages before transfer completion.
++Scheduler ownership remains fenced; no speculative or demand reader may consume
++unfinished data. Transfers currently synchronize and include codec work in their
++reported duration. `kv_svd_trace` optionally records allocation, physical factor
++bytes, operation time and reconstruction residuals to a local JSONL file.
++
++`kv_svd_expand_capacity=true` uses the same nominal CPU byte budget for more
++compressed slots, including the readiness bitmap. Default false keeps the native
++slot count and saves host payload bytes instead. Policy/summary metadata and
++transient codec workspace are additional and must be measured. The solver batches
++at most 256 matrices to bound the observed workspace spike. Rank 4 failed the
++retrieval quality screen; rank 8 passing a small assertion suite is not general
++quality qualification. All options remain experimental and default off. See
++[serving experiment](../evidence/semantic-svd-serving-20261104/PROTOCOL.md).
+diff --git a/docs/PROJECT_HISTORY.md b/docs/PROJECT_HISTORY.md
+index 8b4165d..15637e8 100644
+--- a/docs/PROJECT_HISTORY.md
++++ b/docs/PROJECT_HISTORY.md
+@@ -66,3 +66,32 @@ not distributed by Git; the retained evidence index identifies portable results.
+   isolated runtime installation, 1,381 tests and real GPU smoke; added lightweight
+   push/PR checks (31 portable tests). Preserved paused research and historical
+   reproduction files. [Verification](../evidence/workflow-finalization-20261103/README.md).
++
++- **November 4, 2026 — hybrid qualification evidence:** resolved the interrupted
++  source inspection with bounded row-group audits; verified prior pressure traces
++  and completed a longer-history diagnostic with 13 restores per arm. A 711-example
++  task-separated pilot did not establish primary one-second gains. Exploratory
++  quarter-second richer Q/K gains survived more flexible metadata controls, but remain
++  simulated cache-value evidence. Real-cache-value, causal opportunity and native
++  cost gates remain unmet; no live hybrid or policy change. 170 focused and 31
++  portable tests passed; GPU released, useful data/results retained.
++  [Findings and stopping boundary](../evidence/msr-hybrid-qualification-20261103/README.md).
++
++- **November 4, 2026 — semantic KV SVD serving factorial:** implemented actual
++  lossy KV-factor offload, tested all four semantic ablations against ARC and
++  wait-hint ARC, then refined solver batching, capacity, hint timing and staging
++  leases. 54 cases completed 972 responses. Rank 4 failed quality; rank 8 and
++  active prefetch did not beat wait-hint ARC after repairs and diagnostic-off
++  checks. No deployment; prior work preserved.
++  [Comparisons and bounded stopping decision](../evidence/semantic-svd-serving-20261104/README.md).
++
++- **November 4, 2026 — real repository-agent evaluation:** added `bench-agent` to
++  the maintained suite, replacing recorded tool observations for this workflow
++  with executed searches/tests and actual multi-request model history. Fixed
++  canonical request attribution, inactive CPU-advice configuration, cancelled
++  hint accounting and ephemeral-stage sealing. Four contended 7B cases passed
++  (128 responses, 96 tools), with active CPU refreshes, more restored tokens and
++  complete native/endpoint accounting. Two reversed-order pairs are acceptance
++  evidence, not a causal policy win. Corrected the earlier broad negative scope;
++  1,423 tests passed, 26 skipped, GPU released and prior work preserved.
++  [Measured results and reusable commands](../evidence/real-agent-eval-20261104/README.md).
+diff --git a/docs/STATUS.md b/docs/STATUS.md
+index 7a347a8..b5ba2f9 100644
+--- a/docs/STATUS.md
++++ b/docs/STATUS.md
+@@ -1,11 +1,68 @@
+ # Current work
+ 
+-Last reconciled: 2026-11-03. This is a handoff summary, not a live process monitor.
++Last reconciled: 2026-11-04. This is a handoff summary, not a live process monitor.
+ Update the affected entry at a meaningful handoff, change of direction, or finish.
+ Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
+ Verify stale ownership before using shared resources. Keep detailed records in
+ linked evidence/run directories, not a second diary here.
+ 
++## Real repository-agent benchmark — completed; GPU released
++
++- **Outcome:** `make bench-agent` executes live repository searches/tests and
++  four generated requests per session. Four 7B ARC/wait cases passed: 128 model
++  responses, 96 real tools, active CPU advice and eviction-affected returns.
++  All native/endpoint accounting checks and offline verification passed.
++- **Finding:** wait arms restored more tokens and had slightly shorter workflows;
++  different live outputs and only two pairs prevent a causal speedup claim.
++  Use this tier for policy development; broader answer quality remains ungraded.
++- **Resources:** owned tools/servers reaped, GPU idle and both locks available.
++  Prior work preserved; no deployment; paused AWQ loading remains paused.
++- **Handoff:** [commands, metrics, measurements and limits](../evidence/real-agent-eval-20261104/README.md).
++  Raw evidence and recovery backup: `output/real-agent-eval-20261104/`.
++
++## Semantic-guided KV SVD factorial — completed; limited workload evidence
++
++- **Outcome:** 54 real-serving cases / 972 completed responses; no repeatable
++  gain over wait-hint ARC. Rank-4 compression failed factual retrieval checks;
++  rank 8 passed the narrow fixture but retained cost and public-quality limits.
++  Smaller solver batches and prefetch leases repaired workspace/tail failures.
++- **Resources:** owned serving processes reaped, GPU released. Default-off
++  experimental implementation retained; no deployment. Prior qualification and
++  paused AWQ work remain preserved.
++- **Handoff:** [results, refinements and stopping decision](../evidence/semantic-svd-serving-20261104/README.md).
++  Raw runs and frozen versions: `output/semantic-svd-serving-20261104/`.
++  Subsequent review found scripted public waits gave no prefetch head start;
++  those runs establish overhead/quality observations, not a representative policy verdict.
++
++## MSR hybrid qualification — evidence phase finished; qualification incomplete
++
++- **Goal:** qualify coordinated GPU retention and queued-prefix prefetch over CPU
++  wait-hint ARC, separating MSR predictive value, transfer opportunity and net cost.
++- **Owner/resources:** resumed qualification task finished its bounded evidence
++  phase. GPU released; no compute clients or owned serving/capture processes
++  remained and both locks were available. Paused AWQ loading remains paused.
++- **Current:** retained smoke/pressure artifacts verified; new longer-history ARC
++  and wait-hint ARC diagnostic completed 54 requests and 13 restores each. Relevant
++  activity exists; usable causal headroom and victim costs remain inconclusive.
++  Source audits resolved the stalled nested-Parquet inspection and exposed
++  missing/shifted/reconstructed timing. Original LMCache source supports a limited
++  returning-only pilot, not complete absolute arrival/completion observations.
++- **Finding:** 711 examples with task-disjoint splits; none of the primary one-
++  second scalar/distribution/QK gains was established. Exploratory quarter-second
++  richer Q/K prediction and simulated retained-value gains survived more flexible cheap
++  metadata controls. This is a promising separate representation hypothesis,
++  not original scalar MSR success or real-cache-value qualification.
++- **Stopping boundary:** original real-cache-value, usable opportunity and native
++  cost gates remain unmet. No live hybrid/four-arm implementation or performance
++  claim. Further qualification needs representative causal inputs/timing/session/
++  observation-horizon semantics, observed cache competition and native costs.
++  No user source question remains pending. 170 focused and 31 portable tests pass;
++  useful sources/results retained, empty failed preparation cleaned.
++- **Handoff:** [results, limitations and remaining work](../evidence/msr-hybrid-qualification-20261103/README.md).
++  [Unchanged protocol](../evidence/msr-hybrid-qualification-20261103/PROTOCOL.md).
++  Raw runs: `output/msr-hybrid-qualification-20261103/` and
++  `output/msr-hybrid-qualification-20261104-resume/`.
++
+ ## Lower-VRAM sanity check — completed; GPU released
+ 
+ - **Goal:** test whether the qualified continuation profile retains comparable
+diff --git a/evidence/README.md b/evidence/README.md
+index 5700b5a..f40b6c5 100644
+--- a/evidence/README.md
++++ b/evidence/README.md
+@@ -4,6 +4,26 @@ Compact retained evidence, organized by experiment. Current work and next action
+ live in [STATUS](../docs/STATUS.md). Raw runs remain in ignored `output/` and may
+ not be available in a fresh clone.
+ 
++## November 4: real repository-agent serving benchmark
++
++`make bench-agent` runs actual repository search/test tools between live model
++requests. Four contended 7B ARC/wait cases passed: 128 responses, 96 tools,
++active CPU refreshes, native eviction/reuse records and consistent endpoint
++accounting. Wait arms restored more tokens and had modestly shorter workflows;
++different live outputs and two pairs prevent a causal performance claim.
++[Commands, metrics and measured acceptance](real-agent-eval-20261104/README.md).
++
++## November 4: actual KV SVD and semantic prefetch factorial
++
++54 serving cases completed 972 responses across all four semantic ablations and
++ARC controls. Batching/capacity/lease refinements did not establish a gain over
++wait-hint ARC. Aggressive rank-4 compression damaged retrieval quality; rank 8
++passed the narrow fixture but remained slower and used extra GPU workspace.
++[Results, activation proofs and stopping decision](semantic-svd-serving-20261104/README.md).
++Subsequent workload review found no public prefetch head start; that small scripted
++workload cannot support a broad policy rejection. See its scope correction and
++the real executed-tool benchmark above.
++
+ ## November 3: maintained benchmark infrastructure
+ 
+ The four maintained tiers passed real serving qualification on this host, including
+@@ -122,3 +142,9 @@ the claim. Store compact evidence here and bulky artifacts under `output/`.
+ ## Repository workflow finalization
+ 
+ [Clean installation, shared GPU locking, validator promotion and lightweight CI](workflow-finalization-20261103/README.md). Local checks passed; remote CI awaits a future push.
++
++## Hybrid qualification evidence
++
++[MSR and richer Q/K pilot, source audits and native restore diagnostics](msr-hybrid-qualification-20261103/README.md).
++The primary pilot was inconclusive; exploratory quarter-second representation
++gains remain hypothetical. Qualification gates are unmet and no live hybrid was built.
+diff --git a/semantic_offload/spec.py b/semantic_offload/spec.py
+index 23434d1..bfb1791 100644
+--- a/semantic_offload/spec.py
++++ b/semantic_offload/spec.py
+@@ -73,6 +73,20 @@ def validate_preservation_audit(extra_config) -> bool:
+ 
+ 
+ class SemanticOffloadingSpec(CPUOffloadingSpec):
++    def __init__(self, config):
++        super().__init__(config)
++        rank = self.extra_config.get("kv_svd_rank", 0)
++        expand = self.extra_config.get("kv_svd_expand_capacity", False)
++        if type(rank) is not int or not 0 <= rank <= 15:
++            raise ValueError("kv_svd_rank must be an integer in 0..15")
++        if type(expand) is not bool:
++            raise TypeError("kv_svd_expand_capacity must be a JSON boolean")
++        if rank and expand and self.kv_bytes_per_chunk:
++            # FP16 16x256 -> 16xr plus rx256. Include the ready bitmap;
++            # Python policy/summary metadata is separately measured as RSS.
++            factor_bytes = self.kv_bytes_per_chunk * rank * 272 // 4096
++            self.num_blocks = int(self.extra_config["cpu_bytes_to_use"]) // (factor_bytes + 1)
++
+     @classmethod
+     def build_metric_definitions(cls, extra_config):
+         from semantic_offload.benchmark_metrics import definitions
+@@ -252,6 +266,8 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
+             search_exploration=positive_int("search_exploration", 8),
+             query_snapshot_max_age_ms=positive_int("query_snapshot_max_age_ms", 1000),
+             query_snapshot_max_requests=positive_int("query_snapshot_max_requests", 256),
++            kv_svd_rank=self.extra_config.get("kv_svd_rank", 0),
++            kv_svd_trace=self.extra_config.get("kv_svd_trace"),
+         )
+ 
+     @override
+diff --git a/semantic_offload/worker.py b/semantic_offload/worker.py
+index f86e6a5..baf6e21 100644
+--- a/semantic_offload/worker.py
++++ b/semantic_offload/worker.py
+@@ -251,6 +251,8 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         search_exploration: int = 8,
+         query_snapshot_max_age_ms: int = 1000,
+         query_snapshot_max_requests: int = 256,
++        kv_svd_rank: int = 0,
++        kv_svd_trace: str | None = None,
+     ):
+         if method not in _SCORING_METHODS:
+             raise ValueError(
+@@ -354,12 +356,25 @@ class SemanticOffloadingWorker(CPUOffloadingWorker):
+         # (#48150 renamed it on some checkouts, not others still in use
+         # across this project's machines) -- call via whichever name the
+         # real base class actually declares. See _vllm_compat.py.
+-        init_cpu_offloading_worker_base(
+-            self,
+-            kv_caches=kv_caches,
+-            blocks_per_chunk=blocks_per_chunk,
+-            num_cpu_blocks=num_cpu_blocks,
+-        )
++        if type(kv_svd_rank) is not int or not 0 <= kv_svd_rank <= 15:
++            raise ValueError("kv_svd_rank must be an integer in 0..15")
++        if kv_svd_rank:
++            if blocks_per_chunk != 1 or vllm_config.model_config.dtype != torch.float16:
++                raise ValueError("KV SVD requires FP16 and blocks_per_chunk=1")
++            for layer in attention_layers.values():
++                if layer.head_size != 128:
++                    raise ValueError("KV SVD requires head_size=128")
++            from semantic_offload.kv_svd import SVDTransport, SVDDirection
++            transport = SVDTransport(kv_caches, num_cpu_blocks, kv_svd_rank, kv_svd_trace)
++            self._store_handler = SVDDirection(transport, True)
++            self._load_handler = SVDDirection(transport, False)
++        else:
++            init_cpu_offloading_worker_base(
++                self,
++                kv_caches=kv_caches,
++                blocks_per_chunk=blocks_per_chunk,
++                num_cpu_blocks=num_cpu_blocks,
++            )
+         self._method = method
+         self._summary_fields = summary_fields
+         self._head_aggregation = head_aggregation
+diff --git a/tests/test_serving_suite.py b/tests/test_serving_suite.py
+index 86aad29..67da870 100644
+--- a/tests/test_serving_suite.py
++++ b/tests/test_serving_suite.py
+@@ -625,7 +625,8 @@ def test_resource_row_failure_reaches_evaluation(tmp_path):
+ 
+ 
+ @pytest.mark.parametrize("valid_ack", [True, False])
+-def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
++@pytest.mark.parametrize("hint_delay", [0.0, 0.02])
++def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack, hint_delay):
+     from benchmarks.serving_suite.workload import run_wave
+ 
+     class Tokenizer:
+@@ -638,8 +639,11 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+     async def exercise():
+         payloads = []
+         published = []
++        generated_at = []
++        hinted_at = []
+ 
+         async def generate(request):
++            generated_at.append(time.monotonic())
+             payloads.append(await request.json())
+             chunk = {
+                 "choices": [
+@@ -652,6 +656,7 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+             )
+ 
+         async def hint(request):
++            hinted_at.append(time.monotonic())
+             published.append(await request.json())
+             return web.json_response(
+                 {
+@@ -672,14 +677,14 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+         site = web.TCPSite(server, "127.0.0.1", 0)
+         await site.start()
+         p = plan()
+-        p.update(tier="screen", publish_hints=True, concurrency=1)
++        p.update(tier="screen", publish_hints=True, concurrency=1, hint_delay_s=hint_delay)
+         rows = []
+         hints = []
+         try:
+             await run_wave(
+                 f"http://127.0.0.1:{site._server.sockets[0].getsockname()[1]}",
+                 p,
+-                [{"id": "s", "turns": ["one", "two"]}],
++                [{"id": "s", "turns": ["one", "two"], "wait_s": [0.04]}],
+                 Tokenizer(),
+                 0,
+                 rows.append,
+@@ -690,6 +695,8 @@ def test_hint_http_workflow_binds_full_session_identity(tmp_path, valid_ack):
+             )
+             assert len(rows) == 2 and all(r["success"] for r in rows)
+             assert len(published) == 1
++            assert hinted_at[0] - generated_at[0] >= hint_delay
++            assert generated_at[1] - generated_at[0] >= 0.04
+             for payload in payloads:
+                 params = payload["kv_transfer_params"]
+                 assert all(
+diff --git a/vendor/VLLM.md b/vendor/VLLM.md
+index cd4d073..25c508d 100644
+--- a/vendor/VLLM.md
++++ b/vendor/VLLM.md
+@@ -66,3 +66,12 @@ The retained, default-off AWQ loading experiment is recorded separately in
+ `patches/vllm-experimental-awq-loading.patch`. It is present in this checkout but
+ remains paused and unqualified; the clean-install smoke used its default-off path.
+ Do not infer endorsement from retaining its code and tests.
++
++The additive `patches/vllm-kv-qualification.patch` supplies default-off native
++scheduler trace points for hybrid qualification. The maintained suite enables
++them with `--qualification-trace`; the writer lives in
++`semantic_offload/qualification.py`. It observes queueing, restore receipts and
++reclaimable capacity without changing cache ownership or scheduling. CPU tests
++cover the trace contract. The retained live smoke and pressure runs exercised
++restore observations; opportunity and semantic qualification remain unresolved.
++See [qualification checkpoint](../evidence/msr-hybrid-qualification-20261103/qualification-checkpoint.json).
+diff --git a/vendor/vllm/vllm/v1/core/sched/scheduler.py b/vendor/vllm/vllm/v1/core/sched/scheduler.py
+index e010aa4..8d6bf93 100644
+--- a/vendor/vllm/vllm/v1/core/sched/scheduler.py
++++ b/vendor/vllm/vllm/v1/core/sched/scheduler.py
+@@ -80,6 +80,10 @@ class Scheduler(SchedulerInterface):
+         include_finished_set: bool = False,
+         log_stats: bool = False,
+     ) -> None:
++        self._kv_qualification_trace = None
++        if os.environ.get("VLLM_KV_QUALIFICATION_TRACE"):
++            from semantic_offload.qualification import create_scheduler_trace
++            self._kv_qualification_trace = create_scheduler_trace()
+         self.vllm_config = vllm_config
+         self.scheduler_config = vllm_config.scheduler_config
+         self.cache_config = vllm_config.cache_config
+@@ -1004,6 +1008,12 @@ class Scheduler(SchedulerInterface):
+                     # If loading async, allocate memory and put request
+                     # into the WAITING_FOR_REMOTE_KV state.
+                     request.status = RequestStatus.WAITING_FOR_REMOTE_KVS
++                    if getattr(self, "_kv_qualification_trace", None) is not None:
++                        self._kv_qualification_trace.emit(
++                            "load_issued", request_id=request_id,
++                            external_tokens=num_external_computed_tokens,
++                            local_tokens=num_new_local_computed_tokens,
++                        )
+                     step_skipped_waiting.prepend_request(request)
+                     # Set num_computed_tokens even though KVs are not yet loaded.
+                     # request.num_computed_tokens will not be used anywhere until
+@@ -1032,6 +1042,11 @@ class Scheduler(SchedulerInterface):
+                         )
+                     continue
+ 
++                if getattr(self, "_kv_qualification_trace", None) is not None:
++                    self._kv_qualification_trace.emit(
++                        "admitted", request_id=request_id,
++                        preemptions=request.num_preemptions,
++                    )
+                 self.running.append(request)
+                 if self.log_stats:
+                     request.record_event(
+@@ -1128,6 +1143,9 @@ class Scheduler(SchedulerInterface):
+                 for req in scheduled_new_reqs
+             ]
+ 
++        if getattr(self, "_kv_qualification_trace", None) is not None:
++            self._kv_qualification_trace.step(self, num_scheduled_tokens)
++
+         with record_function_or_nullcontext("schedule: make_cached_request_data"):
+             cached_reqs_data = self._make_cached_request_data(
+                 scheduled_running_reqs,
+@@ -2183,6 +2201,11 @@ class Scheduler(SchedulerInterface):
+             if request.resumable:
+                 request.streaming_queue = deque()
+             self._enqueue_waiting_request(request)
++            if getattr(self, "_kv_qualification_trace", None) is not None:
++                self._kv_qualification_trace.emit(
++                    "arrival", request_id=request.request_id,
++                    prompt_tokens=request.num_prompt_tokens,
++                )
+             self.requests[request.request_id] = request
+             if self.connector is not None:
+                 self.connector.on_new_request(request)
+@@ -2543,6 +2566,9 @@ class Scheduler(SchedulerInterface):
+         if self.ec_connector is not None:
+             self.ec_connector.shutdown()
+ 
++        if getattr(self, "_kv_qualification_trace", None) is not None:
++            self._kv_qualification_trace.close()
++            self._kv_qualification_trace = None
+         logger.debug_once("[shutdown] Scheduler: complete")
+ 
+     ########################################################################
+@@ -2711,6 +2737,8 @@ class Scheduler(SchedulerInterface):
+             logger.debug("Finished recving KV transfer for request %s", req_id)
+             assert req_id in self.requests
+             req = self.requests[req_id]
++            if getattr(self, "_kv_qualification_trace", None) is not None:
++                self._kv_qualification_trace.emit("load_ready", request_id=req_id)
+             if req.status == RequestStatus.WAITING_FOR_REMOTE_KVS:
+                 self.finished_recving_kv_req_ids.add(req_id)
+             else:
