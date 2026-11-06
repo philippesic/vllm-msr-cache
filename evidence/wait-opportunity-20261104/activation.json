@@ -1,0 +1,55 @@
+{
+  "cases": {
+    "00-arc": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "00-wait": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "00-semantic": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "01-wait": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "01-semantic": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "01-arc": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "02-semantic": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "02-arc": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    },
+    "02-wait": {
+      "consistency": true,
+      "quality": 16,
+      "prefetch_jobs": 0
+    }
+  },
+  "matched_initial_prompts": {
+    "0": true,
+    "1": true,
+    "2": true
+  },
+  "semantic_activation_scope": "Explicit SemanticPolicy, positive applied-relevance batches and real CPU eviction/restore activity; per-victim score counterfactuals were not traced in the timed campaign."
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "run": "backing-screen",
+    "returncode": 0,
+    "elapsed_s": 0.500096203002613,
+    "result": {
+      "verified_files": 256,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "bounded-confirm",
+    "returncode": 0,
+    "elapsed_s": 1.364316288032569,
+    "result": {
+      "verified_files": 1124,
+      "cases": 9,
+      "request_records": 576,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "fast-screen",
+    "returncode": 0,
+    "elapsed_s": 0.2921718390425667,
+    "result": {
+      "verified_files": 144,
+      "cases": 2,
+      "request_records": 64,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "headroom-screen",
+    "returncode": 0,
+    "elapsed_s": 0.538416113005951,
+    "result": {
+      "verified_files": 256,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "inconclusive",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "pressure-confirm",
+    "returncode": 0,
+    "elapsed_s": 0.764318171015475,
+    "result": {
+      "verified_files": 350,
+      "cases": 3,
+      "request_records": 177,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "screen-large",
+    "returncode": 0,
+    "elapsed_s": 13.072131257038563,
+    "result": {
+      "verified_files": 256,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "screen-medium",
+    "returncode": 0,
+    "elapsed_s": 8.347129476023838,
+    "result": {
+      "verified_files": 256,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "three-way-confirm",
+    "returncode": 0,
+    "elapsed_s": 0.7429492300143465,
+    "result": {
+      "verified_files": 405,
+      "cases": 4,
+      "request_records": 208,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  },
+  {
+    "run": "ungated-screen",
+    "returncode": 0,
+    "elapsed_s": 0.5148072789888829,
+    "result": {
+      "verified_files": 256,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  }
+]

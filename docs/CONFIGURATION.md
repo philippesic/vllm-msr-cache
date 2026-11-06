@@ -170,3 +170,24 @@ on the candidate and retains the before/after Prometheus snapshots. It defaults
 to false outside the suite. This proves applied scoring activity, not ranking
 quality, speculative-copy usefulness, or cache-hit correctness. See the
 [benchmarking guide](BENCHMARKING.md) for the four tiers and their evidence limits.
+
+## Isolated KV SVD experiment
+
+`kv_svd_rank` defaults to `0` (off). Ranks 1–15 enable lossy SVD compression
+of actual FP16 K/V pages in the semantic worker; this is separate from semantic
+summary/predictor features. The experimental codec supports uniform dense pages,
+head size 128, block size 16, and one CPU block per GPU block. It retains FP16
+factors only on CPU and reconstructs full GPU pages before transfer completion.
+Scheduler ownership remains fenced; no speculative or demand reader may consume
+unfinished data. Transfers currently synchronize and include codec work in their
+reported duration. `kv_svd_trace` optionally records allocation, physical factor
+bytes, operation time and reconstruction residuals to a local JSONL file.
+
+`kv_svd_expand_capacity=true` uses the same nominal CPU byte budget for more
+compressed slots, including the readiness bitmap. Default false keeps the native
+slot count and saves host payload bytes instead. Policy/summary metadata and
+transient codec workspace are additional and must be measured. The solver batches
+at most 256 matrices to bound the observed workspace spike. Rank 4 failed the
+retrieval quality screen; rank 8 passing a small assertion suite is not general
+quality qualification. All options remain experimental and default off. See
+[serving experiment](../evidence/semantic-svd-serving-20261104/PROTOCOL.md).

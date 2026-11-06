@@ -1,10 +1,132 @@
 # Current work
 
-Last reconciled: 2026-11-03. This is a handoff summary, not a live process monitor.
+Last reconciled: 2026-11-05. This is a handoff summary, not a live process monitor.
 Update the affected entry at a meaningful handoff, change of direction, or finish.
 Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
 linked evidence/run directories, not a second diary here.
+
+Latest completed handoff: [four-stage wait-hint qualification](../evidence/wait-qualification-20261105/README.md). Selected local execution is complete; measured ARC gains support continued use in the tested cache-pressure regimes. Broader performance, quality and production gates remain conditional. GPU released.
+
+Plan and completed local evidence: [wait-hint validation and release plan](WAIT_HINT_PRODUCT_PLAN.md).
+The original four stages cover causal validation, competitive comparison, repeatability
+across realistic conditions, and compatibility across models/environments. The
+user authorized staged execution and routine repairs; the retained protocol
+declares owner-selected cases, thresholds and bounded budgets. Completion of
+these selected runs does not establish a universal performance or quality claim.
+
+## Wait-hint release extension — Stage 5 optimization active
+
+- **Scope:** on 2026-11-05, the user agreed to record the next stages for a README,
+  posts, deeper documentation and a vLLM discussion; a formal paper is not the
+  target. On 2026-11-05 the user authorized sustained Stage 5 optimization across
+  all categories until further searching mostly yields speculative non-results.
+- **Stage 5 — optimize:** sustained queue/prefix/cadence/pressure/budget/plumbing/
+  scheduling search against plain ARC and unchanged wait-hint. Initial policy
+  panels, operating screens and live/mixed follow-ups verified; fixed repeats and
+  timing/operational comparisons active. No new winner selected.
+  Optional variants preserve default behavior.
+  [Protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md);
+  [exhaustion ledger](../evidence/stage5-optimization-20261105/EXHAUSTION.md).
+  Keeping the current rule is a valid outcome.
+- **Stage 6 — wider testing:** fresh confirmation, meaningful additional models,
+  broader operating and failure conditions, stronger useful-answer checks, and
+  another GPU/native Linux if accessible. ARC losses require diagnosis; only
+  abandon if the mechanism is genuinely unworthy and further work wasteful.
+- **Stage 7 — compile release:** reviewed commits, verified installation and
+  minimal integration, evidence-backed README/docs/post drafts, accessible
+  reproduction artifacts and a focused vLLM proposal. Throughput is primary;
+  first-token latency is secondary; memory is a constraint/control.
+- **Resources/details:** Stage 5 owns serialized local GPU campaigns;
+  each supervisor holds both reservations. Preexisting edits and paused AWQ remain
+  preserved. Raw work: `output/stage5-optimization-20261105/`. [Full stages and completion criteria](WAIT_HINT_PRODUCT_PLAN.md#stage-5-optimize--active).
+
+## Wait-hint staged qualification — selected local execution completed; GPU released
+
+- **Authority:** user authorized all four stages, routine diagnosis and continuation while unavailable. Plain ARC is primary; upstream/Continuum secondary. Only abandon if the mechanism is genuinely unworthy.
+- **Outcome:** selected execution across all four stages is complete. Batch time fell 7.51% versus ARC in the main comparison, 8.27% in the fresh repository reserve, 18.12% in the fresh full-budget document reserve, and 8.87% with timed CUDA graphs. These are conditional workload results; tight documents and several other regimes remain unresolved. Original-workload upstream confirmation is competitive within 3%, without a resolved lead; upstream/Continuum win in some regimes. Answer-quality and production gates remain unmet.
+- **Validation:** eight functional cells, four performance cells and two client examples completed. Functional checks cover actual pinned/shared buffers, restore versus fresh computation, greedy equality, and native abort/drain/recovery. All 46 retained coordinator attempts verify, including original failures and repairs. Focused runtime, benchmark-runner and portable checks pass; the isolated source/environment also passes native integration and 60 focused checks. Its dependency differences are disclosed. The finished archive verifies all 38,842 files and 93 task/source links.
+- **Scope/resources:** pinned runtime on the local RTX 2080 Ti/WSL2 host. The newer published runtime is API-incompatible; other hardware/native Linux remain untested. Owned GPU processes are reaped and both reservations are available. Disposable task caches were cleaned; useful evidence, environments, recovery backup, other work and paused AWQ are preserved. No deployment, commit or push.
+- **Handoff:** [outcomes](../evidence/wait-qualification-20261105/README.md), [support matrix](../evidence/wait-qualification-20261105/SUPPORT_MATRIX.md), [adverse findings and diagnoses](../evidence/wait-qualification-20261105/REGRESSIONS.md), [verified archive](../output/wait-qualification-20261105/release/wait-hint-qualification-20261105.tar.xz). Raw attempts and recovery backup remain in `output/wait-qualification-20261105/`; final delivery and storage receipts are adjacent to the archive.
+
+## Four-system comparison — completed; GPU released
+
+- **Outcome:** primary configurations completed 256 EOS responses / 192 tools.
+  Wait ARC 101.628 s, corrected upstream 102.711 s, ARC 108.153 s and corrected
+  Continuum 109.108 s. Different outputs, paging/runtime/backend differences,
+  one pass and explicit orchestration/correction gaps leave no established winner.
+- **Correction/quality:** Continuum's supported decode-publication setting is
+  enabled in a predeclared primary replacement; its original false row remains
+  diagnostic and unchanged. All 35 decode saves match completed stores. Strict
+  status formatting passed only 2/16 local/upstream and 6/16 Continuum; normalized
+  test outcomes were correct throughout, reasoning ungraded.
+- **Handoff:** [results, controls, two sealed source sets and provenance](../evidence/fair-four-20261104/README.md).
+  Initial four cases / 516 files and corrected case / 139 files verify; 124
+  benchmark and 31 portable checks pass. Owned processes reaped, GPU idle and
+  both locks available. Other work and paused AWQ preserved; no qualification,
+  deployment, commit or push.
+
+## Wait-hint opportunity evaluation — completed; GPU released
+
+- **Outcome:** the real-tool pressure profile completed three rotated ARC/wait/semantic comparisons: 576 responses / 432 tools. Early CPU wait retention improved workflow throughput 7.0%, token rate 6.2%, and average first-token latency 0.43 s; semantic retention added no gain over wait ARC.
+- **Handoff:** [results, controls, limits and reproduction](../evidence/wait-opportunity-20261104/README.md). All nine retained run sets verify; 453 affected tests and 31 portable checks passed. Owned servers/tools are reaped, both locks available, prior work preserved; no deployment. Paused AWQ work remains paused.
+
+## Real repository-agent benchmark — completed; GPU released
+
+- **Outcome:** `make bench-agent` executes live repository searches/tests and
+  four generated requests per session. Four 7B ARC/wait cases passed: 128 model
+  responses, 96 real tools, active CPU advice and eviction-affected returns.
+  All native/endpoint accounting checks and offline verification passed.
+- **Finding:** wait arms restored more tokens and had slightly shorter workflows;
+  different live outputs and only two pairs prevent a causal speedup claim.
+  Use this tier for policy development; broader answer quality remains ungraded.
+- **Resources:** owned tools/servers reaped, GPU idle and both locks available.
+  Prior work preserved; no deployment; paused AWQ loading remains paused.
+- **Handoff:** [commands, metrics, measurements and limits](../evidence/real-agent-eval-20261104/README.md).
+  Raw evidence and recovery backup: `output/real-agent-eval-20261104/`.
+
+## Semantic-guided KV SVD factorial — completed; limited workload evidence
+
+- **Outcome:** 54 real-serving cases / 972 completed responses; no repeatable
+  gain over wait-hint ARC. Rank-4 compression failed factual retrieval checks;
+  rank 8 passed the narrow fixture but retained cost and public-quality limits.
+  Smaller solver batches and prefetch leases repaired workspace/tail failures.
+- **Resources:** owned serving processes reaped, GPU released. Default-off
+  experimental implementation retained; no deployment. Prior qualification and
+  paused AWQ work remain preserved.
+- **Handoff:** [results, refinements and stopping decision](../evidence/semantic-svd-serving-20261104/README.md).
+  Raw runs and frozen versions: `output/semantic-svd-serving-20261104/`.
+  Subsequent review found scripted public waits gave no prefetch head start;
+  those runs establish overhead/quality observations, not a representative policy verdict.
+
+## MSR hybrid qualification — evidence phase finished; qualification incomplete
+
+- **Goal:** qualify coordinated GPU retention and queued-prefix prefetch over CPU
+  wait-hint ARC, separating MSR predictive value, transfer opportunity and net cost.
+- **Owner/resources:** resumed qualification task finished its bounded evidence
+  phase. GPU released; no compute clients or owned serving/capture processes
+  remained and both locks were available. Paused AWQ loading remains paused.
+- **Current:** retained smoke/pressure artifacts verified; new longer-history ARC
+  and wait-hint ARC diagnostic completed 54 requests and 13 restores each. Relevant
+  activity exists; usable causal headroom and victim costs remain inconclusive.
+  Source audits resolved the stalled nested-Parquet inspection and exposed
+  missing/shifted/reconstructed timing. Original LMCache source supports a limited
+  returning-only pilot, not complete absolute arrival/completion observations.
+- **Finding:** 711 examples with task-disjoint splits; none of the primary one-
+  second scalar/distribution/QK gains was established. Exploratory quarter-second
+  richer Q/K prediction and simulated retained-value gains survived more flexible cheap
+  metadata controls. This is a promising separate representation hypothesis,
+  not original scalar MSR success or real-cache-value qualification.
+- **Stopping boundary:** original real-cache-value, usable opportunity and native
+  cost gates remain unmet. No live hybrid/four-arm implementation or performance
+  claim. Further qualification needs representative causal inputs/timing/session/
+  observation-horizon semantics, observed cache competition and native costs.
+  No user source question remains pending. 170 focused and 31 portable tests pass;
+  useful sources/results retained, empty failed preparation cleaned.
+- **Handoff:** [results, limitations and remaining work](../evidence/msr-hybrid-qualification-20261103/README.md).
+  [Unchanged protocol](../evidence/msr-hybrid-qualification-20261103/PROTOCOL.md).
+  Raw runs: `output/msr-hybrid-qualification-20261103/` and
+  `output/msr-hybrid-qualification-20261104-resume/`.
 
 ## Lower-VRAM sanity check — completed; GPU released
 

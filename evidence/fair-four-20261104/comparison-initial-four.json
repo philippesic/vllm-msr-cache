@@ -1,0 +1,727 @@
+{
+  "scope": "One exploratory complete-configuration pass per system on this host; no statistical or isolated policy ranking.",
+  "orchestration_status": "interrupted_after_three_complete_cases_then_bounded_continuation",
+  "cases": [
+    {
+      "system": "wait",
+      "batch_s": 101.62842088902835,
+      "workflows_per_min": 9.446176488841225,
+      "output_tokens": 7453,
+      "output_tokens_per_s": 73.33578476180588,
+      "prompt_tokens": 202410,
+      "finish_reasons": {
+        "stop": 64
+      },
+      "responses": 64,
+      "failed_responses": 0,
+      "tools": 48,
+      "failed_tools": 0,
+      "offered_ttft": {
+        "count": 64,
+        "mean": 7.528107478078125,
+        "p50": 6.706393680500001,
+        "p95": 23.067172844149994,
+        "max": 26.915225818
+      },
+      "tool_to_first_token": {
+        "count": 48,
+        "mean": 5.25803774325,
+        "p50": 4.915922363,
+        "p95": 11.771385004899999,
+        "max": 12.96978269
+      },
+      "return_ttft": {
+        "count": 48,
+        "mean": 5.245124079333333,
+        "p50": 4.9057051345,
+        "p95": 11.76228670525,
+        "max": 12.948670457
+      },
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 16,
+        "passed": 16,
+        "failed": 0,
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 14,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2818572288,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 2560,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2348810240,
+        "device_aliases": 0,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "policy_activation": null,
+      "cache": {
+        "native_request_receipts": 64,
+        "authoritative_receipts": 64,
+        "locally_executed_prefill_tokens": 54730,
+        "returning_locally_executed_prefill_tokens": 17167,
+        "loaded_tokens": 66256,
+        "raw_counter_deltas": {
+          "vllm:kv_offload_load_bytes_total": 3799384064.0,
+          "vllm:kv_offload_store_bytes_total": 3553492992.0,
+          "vllm:num_preemptions_total": 0.0,
+          "vllm:time_to_first_token_seconds_sum": 479.5887234210968,
+          "vllm:time_to_first_token_seconds_count": 64.0,
+          "vllm:inter_token_latency_seconds_sum": 522.8292472757748,
+          "vllm:inter_token_latency_seconds_count": 7389.0,
+          "vllm:e2e_request_latency_seconds_sum": 1002.5217943191528,
+          "vllm:e2e_request_latency_seconds_count": 64.0,
+          "vllm:request_queue_time_seconds_sum": 406.5693820340093,
+          "vllm:request_queue_time_seconds_count": 64.0,
+          "vllm:request_prefill_time_seconds_sum": 62.05733180610696,
+          "vllm:request_prefill_time_seconds_count": 64.0,
+          "vllm:request_inference_time_seconds_sum": 584.8865790818818,
+          "vllm:request_inference_time_seconds_count": 64.0,
+          "vllm:request_decode_time_seconds_sum": 522.8292472757748,
+          "vllm:request_decode_time_seconds_count": 64.0,
+          "vllm:request_prefill_kv_computed_tokens_sum": 54730.0,
+          "vllm:request_prefill_kv_computed_tokens_count": 64.0,
+          "vllm:prefix_cache_queries_total": 202410.0,
+          "vllm:prefix_cache_hits_total": 81424.0,
+          "vllm:external_prefix_cache_queries_total": 120986.0,
+          "vllm:external_prefix_cache_hits_total": 66256.0,
+          "vllm:semantic_relevance_update_batches_total": 0.0
+        },
+        "first_admission_sources": {
+          "num_prompt_tokens": 202410,
+          "num_computed_tokens": 54730,
+          "num_cached_tokens": 147680,
+          "num_local_cached_tokens": 81424,
+          "num_external_cached_tokens": 66256
+        },
+        "preemptions": 0,
+        "accounting_scope": "Endpoint prefill and external-hit counters describe first-admission sources. Native locally-executed tokens accumulate scheduled original-prompt work across preemptions; loaded_tokens describes terminal-episode reuse. Physical demand load bytes count all completed transfers. These quantities are reported separately, never equated across definitions.",
+        "physical_demand_load_bytes": 3799384064.0,
+        "request_attributed_load_bytes": 3799384064,
+        "load_attribution_gap_bytes": 0.0,
+        "transfer_attribution_scope": "Engine-wide completed transfer bytes are authoritative for traffic. Per-request receipts do not exhaust engine-wide transfers under preemption; the signed gap is retained, not called zero or a counter identity."
+      },
+      "hints": {
+        "publications": 666,
+        "errors": 0,
+        "cancelled_before_ack": 37,
+        "acknowledgement_reasons": {
+          "cpu_prefix_recency_refreshed": 622,
+          "unavailable": 37,
+          "nomination_deadline_elapsed": 7
+        },
+        "ready_cpu_keys_refreshed": 119940,
+        "distinct_sessions_refreshed": 16,
+        "refresh_calls": 622,
+        "rtt_s": {
+          "count": 666,
+          "mean": 0.08720426045345345,
+          "p50": 0.0358796055,
+          "p95": 0.50771058,
+          "max": 0.919256124
+        },
+        "acknowledged_before_tool_completion": {
+          "count": 431,
+          "mean": 10.398378418774943,
+          "p50": 9.027902314,
+          "p95": 25.233172255,
+          "max": 34.26111967
+        },
+        "tool_windows": 48,
+        "windows_with_advance_ack": 48,
+        "after_completion": 0,
+        "refreshed_session_return_load_tokens": 66256,
+        "attribution": "Refresh and subsequent demand restore are separate observations, not proof that advice caused the hit. Paired arms and eviction/recompute counts establish comparative work.",
+        "gpu_gate_skipped_calls": 0,
+        "queue_publications": 198,
+        "pre_tool_publication_s": {
+          "count": 48,
+          "mean": 0.08392818756249999,
+          "p50": 0.054020223500000006,
+          "p95": 0.16296722905,
+          "max": 0.91933822
+        }
+      },
+      "supplemental_observed_transfers": {
+        "store": {
+          "completions": 559,
+          "bytes": 3553492992,
+          "failed": 0
+        },
+        "restore": {
+          "completions": 34,
+          "bytes": 3799384064,
+          "failed": 0
+        }
+      },
+      "resources": {
+        "gpu_used_bytes": {
+          "first": 8887361536,
+          "last": 9048842240,
+          "min": 8887361536,
+          "max": 9048842240
+        },
+        "rss_bytes": {
+          "first": 7013179392,
+          "last": 6173835264,
+          "min": 6169669632,
+          "max": 7043538944
+        },
+        "host_swap_used_bytes": {
+          "first": 421326848,
+          "last": 1282932736,
+          "min": 420696064,
+          "max": 1285541888
+        },
+        "gpu_temperature_c": {
+          "first": 30,
+          "last": 43,
+          "min": 30,
+          "max": 45
+        },
+        "gpu_sm_clock_mhz": {
+          "first": 1350,
+          "last": 1995,
+          "min": 435,
+          "max": 2025
+        },
+        "host_swap_in_bytes_window_delta": 13959168,
+        "host_swap_out_bytes_window_delta": 821161984
+      }
+    },
+    {
+      "system": "arc",
+      "batch_s": 108.15325338800903,
+      "workflows_per_min": 8.876293314597925,
+      "output_tokens": 7405,
+      "output_tokens_per_s": 68.46765832770588,
+      "prompt_tokens": 202360,
+      "finish_reasons": {
+        "stop": 64
+      },
+      "responses": 64,
+      "failed_responses": 0,
+      "tools": 48,
+      "failed_tools": 0,
+      "offered_ttft": {
+        "count": 64,
+        "mean": 8.822402438078125,
+        "p50": 8.829000585500001,
+        "p95": 23.282006215299994,
+        "max": 27.128375799
+      },
+      "tool_to_first_token": {
+        "count": 48,
+        "mean": 6.9266927071458335,
+        "p50": 8.159700270999998,
+        "p95": 12.5775905706,
+        "max": 13.081374404
+      },
+      "return_ttft": {
+        "count": 48,
+        "mean": 6.914788356916667,
+        "p50": 8.1461770205,
+        "p95": 12.5679304498,
+        "max": 13.073725534
+      },
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 16,
+        "passed": 16,
+        "failed": 0,
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 14,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2818572288,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 2560,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2348810240,
+        "device_aliases": 0,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "policy_activation": null,
+      "cache": {
+        "native_request_receipts": 64,
+        "authoritative_receipts": 64,
+        "locally_executed_prefill_tokens": 62664,
+        "returning_locally_executed_prefill_tokens": 25101,
+        "loaded_tokens": 54032,
+        "raw_counter_deltas": {
+          "vllm:kv_offload_load_bytes_total": 3098411008.0,
+          "vllm:kv_offload_store_bytes_total": 4135190528.0,
+          "vllm:num_preemptions_total": 0.0,
+          "vllm:time_to_first_token_seconds_sum": 562.9959156513214,
+          "vllm:time_to_first_token_seconds_count": 64.0,
+          "vllm:inter_token_latency_seconds_sum": 544.7561107057263,
+          "vllm:inter_token_latency_seconds_count": 7341.0,
+          "vllm:e2e_request_latency_seconds_sum": 1107.832132101059,
+          "vllm:e2e_request_latency_seconds_count": 64.0,
+          "vllm:request_queue_time_seconds_sum": 484.30394913215423,
+          "vllm:request_queue_time_seconds_count": 64.0,
+          "vllm:request_prefill_time_seconds_sum": 73.26432311814278,
+          "vllm:request_prefill_time_seconds_count": 64.0,
+          "vllm:request_inference_time_seconds_sum": 618.0204338238691,
+          "vllm:request_inference_time_seconds_count": 64.0,
+          "vllm:request_decode_time_seconds_sum": 544.7561107057263,
+          "vllm:request_decode_time_seconds_count": 64.0,
+          "vllm:request_prefill_kv_computed_tokens_sum": 62664.0,
+          "vllm:request_prefill_kv_computed_tokens_count": 64.0,
+          "vllm:prefix_cache_queries_total": 202360.0,
+          "vllm:prefix_cache_hits_total": 85664.0,
+          "vllm:external_prefix_cache_queries_total": 116696.0,
+          "vllm:external_prefix_cache_hits_total": 54032.0,
+          "vllm:semantic_relevance_update_batches_total": 0.0
+        },
+        "first_admission_sources": {
+          "num_prompt_tokens": 202360,
+          "num_computed_tokens": 62664,
+          "num_cached_tokens": 139696,
+          "num_local_cached_tokens": 85664,
+          "num_external_cached_tokens": 54032
+        },
+        "preemptions": 0,
+        "accounting_scope": "Endpoint prefill and external-hit counters describe first-admission sources. Native locally-executed tokens accumulate scheduled original-prompt work across preemptions; loaded_tokens describes terminal-episode reuse. Physical demand load bytes count all completed transfers. These quantities are reported separately, never equated across definitions.",
+        "physical_demand_load_bytes": 3098411008.0,
+        "request_attributed_load_bytes": 3098411008,
+        "load_attribution_gap_bytes": 0.0,
+        "transfer_attribution_scope": "Engine-wide completed transfer bytes are authoritative for traffic. Per-request receipts do not exhaust engine-wide transfers under preemption; the signed gap is retained, not called zero or a counter identity."
+      },
+      "hints": {
+        "publications": 0,
+        "errors": 0,
+        "cancelled_before_ack": 0,
+        "acknowledgement_reasons": {},
+        "ready_cpu_keys_refreshed": 0,
+        "distinct_sessions_refreshed": 0,
+        "refresh_calls": 0,
+        "rtt_s": {
+          "count": 0,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "acknowledged_before_tool_completion": {
+          "count": 0,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "max": null
+        },
+        "tool_windows": 48,
+        "windows_with_advance_ack": 0,
+        "after_completion": 0,
+        "refreshed_session_return_load_tokens": 0,
+        "attribution": "Refresh and subsequent demand restore are separate observations, not proof that advice caused the hit. Paired arms and eviction/recompute counts establish comparative work.",
+        "gpu_gate_skipped_calls": 0,
+        "queue_publications": 0,
+        "pre_tool_publication_s": {
+          "count": 0,
+          "mean": null,
+          "p50": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      "supplemental_observed_transfers": {
+        "store": {
+          "completions": 564,
+          "bytes": 4135190528,
+          "failed": 0
+        },
+        "restore": {
+          "completions": 30,
+          "bytes": 3098411008,
+          "failed": 0
+        }
+      },
+      "resources": {
+        "gpu_used_bytes": {
+          "first": 8883167232,
+          "last": 9044647936,
+          "min": 8883167232,
+          "max": 9044647936
+        },
+        "rss_bytes": {
+          "first": 7278399488,
+          "last": 6786314240,
+          "min": 6780145664,
+          "max": 7309967360
+        },
+        "host_swap_used_bytes": {
+          "first": 506122240,
+          "last": 745246720,
+          "min": 505143296,
+          "max": 748023808
+        },
+        "gpu_temperature_c": {
+          "first": 37,
+          "last": 46,
+          "min": 37,
+          "max": 49
+        },
+        "gpu_sm_clock_mhz": {
+          "first": 435,
+          "last": 1785,
+          "min": 435,
+          "max": 2010
+        },
+        "host_swap_in_bytes_window_delta": 9969664,
+        "host_swap_out_bytes_window_delta": 254431232
+      }
+    },
+    {
+      "system": "continuum",
+      "batch_s": 107.30254585901275,
+      "workflows_per_min": 8.946665638869051,
+      "output_tokens": 7560,
+      "output_tokens_per_s": 70.45499190609378,
+      "prompt_tokens": 202204,
+      "finish_reasons": {
+        "stop": 64
+      },
+      "responses": 64,
+      "failed_responses": 0,
+      "tools": 48,
+      "failed_tools": 0,
+      "offered_ttft": {
+        "count": 64,
+        "mean": 8.844556496734375,
+        "p50": 2.954347957,
+        "p95": 37.715528844249995,
+        "max": 43.040694114
+      },
+      "tool_to_first_token": {
+        "count": 48,
+        "mean": 4.647690143520833,
+        "p50": 2.0670228225000002,
+        "p95": 21.00370319394999,
+        "max": 37.32407261
+      },
+      "return_ttft": {
+        "count": 48,
+        "mean": 4.6382443023125,
+        "p50": 2.0543923195,
+        "p95": 20.99513592574999,
+        "max": 37.318235465
+      },
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 16,
+        "passed": 16,
+        "failed": 0,
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 10,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2818572288,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 2560,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2348810240,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      },
+      "policy_activation": {
+        "verified": true,
+        "pins": 22,
+        "source": "published scheduler recorder; excludes warmup"
+      },
+      "cache": {
+        "scope": "native source/transfer accounting unavailable"
+      },
+      "hints": {
+        "publications": 0,
+        "transport": "request metadata, not local wait-hint RPC"
+      },
+      "supplemental_observed_transfers": null,
+      "resources": {
+        "gpu_used_bytes": {
+          "first": 8952373248,
+          "last": 9340346368,
+          "min": 8952373248,
+          "max": 9340346368
+        },
+        "rss_bytes": {
+          "first": 5528186880,
+          "last": 5544546304,
+          "min": 5528186880,
+          "max": 5544546304
+        },
+        "host_swap_used_bytes": {
+          "first": 528396288,
+          "last": 528486400,
+          "min": 528125952,
+          "max": 528805888
+        },
+        "gpu_temperature_c": {
+          "first": 39,
+          "last": 51,
+          "min": 39,
+          "max": 52
+        },
+        "gpu_sm_clock_mhz": {
+          "first": 600,
+          "last": 1980,
+          "min": 600,
+          "max": 2010
+        },
+        "host_swap_in_bytes_window_delta": 1847296,
+        "host_swap_out_bytes_window_delta": 864256
+      }
+    },
+    {
+      "system": "upstream",
+      "batch_s": 102.71073341596639,
+      "workflows_per_min": 9.34663757206477,
+      "output_tokens": 7574,
+      "output_tokens_per_s": 73.74107601126934,
+      "prompt_tokens": 202261,
+      "finish_reasons": {
+        "stop": 64
+      },
+      "responses": 64,
+      "failed_responses": 0,
+      "tools": 48,
+      "failed_tools": 0,
+      "offered_ttft": {
+        "count": 64,
+        "mean": 7.595381894296875,
+        "p50": 7.310294928999999,
+        "p95": 22.88511010874999,
+        "max": 26.608569249000002
+      },
+      "tool_to_first_token": {
+        "count": 48,
+        "mean": 5.4427118773125,
+        "p50": 4.5566552515,
+        "p95": 11.5200176727,
+        "max": 14.146516056
+      },
+      "return_ttft": {
+        "count": 48,
+        "mean": 5.4333635103125,
+        "p50": 4.547692102999999,
+        "p95": 11.508420682399999,
+        "max": 14.135408623
+      },
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 16,
+        "passed": 16,
+        "failed": 0,
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 14,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2818572288,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 2560,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2348810240,
+        "device_aliases": 28,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "policy_activation": {
+        "verified": true,
+        "applied_priority_updates": 48,
+        "priority_selections": 550,
+        "source": "read-only Python return observer; not counterfactual victim attribution"
+      },
+      "cache": {
+        "scope": "native source/transfer accounting unavailable"
+      },
+      "hints": {
+        "publications": 0,
+        "transport": "request metadata, not local wait-hint RPC"
+      },
+      "supplemental_observed_transfers": {
+        "store": {
+          "completions": 98,
+          "bytes": 3683778560,
+          "failed": 0
+        },
+        "restore": {
+          "completions": 33,
+          "bytes": 3267231744,
+          "failed": 0
+        }
+      },
+      "resources": {
+        "gpu_used_bytes": {
+          "first": 8881070080,
+          "last": 9065619456,
+          "min": 8881070080,
+          "max": 9065619456
+        },
+        "rss_bytes": {
+          "first": 6043750400,
+          "last": 5989388288,
+          "min": 5986377728,
+          "max": 6054760448
+        },
+        "host_swap_used_bytes": {
+          "first": 62984192,
+          "last": 63074304,
+          "min": 62955520,
+          "max": 63131648
+        },
+        "gpu_temperature_c": {
+          "first": 34,
+          "last": 44,
+          "min": 34,
+          "max": 48
+        },
+        "gpu_sm_clock_mhz": {
+          "first": 1350,
+          "last": 1515,
+          "min": 1350,
+          "max": 2010
+        },
+        "host_swap_in_bytes_window_delta": 262144,
+        "host_swap_out_bytes_window_delta": 274432
+      }
+    }
+  ],
+  "initial_prompt_comparisons": [
+    {
+      "left": "wait",
+      "right": "arc",
+      "same_selected_source_ids": true,
+      "identical_initial_prompts": true,
+      "same_initial_output_count": 16,
+      "initial_requests": 16
+    },
+    {
+      "left": "wait",
+      "right": "continuum",
+      "same_selected_source_ids": true,
+      "identical_initial_prompts": true,
+      "same_initial_output_count": 1,
+      "initial_requests": 16
+    },
+    {
+      "left": "wait",
+      "right": "upstream",
+      "same_selected_source_ids": true,
+      "identical_initial_prompts": true,
+      "same_initial_output_count": 1,
+      "initial_requests": 16
+    },
+    {
+      "left": "arc",
+      "right": "continuum",
+      "same_selected_source_ids": true,
+      "identical_initial_prompts": true,
+      "same_initial_output_count": 1,
+      "initial_requests": 16
+    },
+    {
+      "left": "arc",
+      "right": "upstream",
+      "same_selected_source_ids": true,
+      "identical_initial_prompts": true,
+      "same_initial_output_count": 1,
+      "initial_requests": 16
+    },
+    {
+      "left": "continuum",
+      "right": "upstream",
+      "same_selected_source_ids": true,
+      "identical_initial_prompts": true,
+      "same_initial_output_count": 7,
+      "initial_requests": 16
+    }
+  ],
+  "continuation": {
+    "reason": "NameError: name 'check_source' is not defined",
+    "original_verification": {
+      "verified_files": 387,
+      "cases": 3,
+      "request_records": 192,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    "source_digest": "c25ff1e5fd417e400651a08c6fe5e98cee4f99ec9205ef3dae5da2111713afde",
+    "plan_sha256": "52506c23b85fbd58cace7a67540821dfc28db88160cd4d0d7dd9c3ec1f77787f",
+    "coordinator_sha256": "f9089e5f43e29192c23984de61da3041113d36d4dc7d8d836d76b45afea4c975",
+    "command": [
+      "/home/philip/.local/share/venvs/vllm-semantic-cache-ext/bin/python",
+      "/home/philip/vllm-semantic-cache-ext/output/fair-four-20261104/continue_upstream.py"
+    ],
+    "started_unix": 1793866813.2300813,
+    "gap_since_third_case_cleanup_s": 158.02696132659912,
+    "hardware_before": {
+      "name": "NVIDIA GeForce RTX 2080 Ti",
+      "uuid": "GPU-35b7b96c-d577-95f0-0050-40699c9faef7",
+      "total_bytes": 11811160064,
+      "driver": "610.88"
+    },
+    "host_memory_before": {
+      "total": 16591065088,
+      "available": 14747308032,
+      "percent": 11.1,
+      "used": 1843757056,
+      "free": 8810168320,
+      "active": 3259424768,
+      "inactive": 3568922624,
+      "buffers": 186232832,
+      "cached": 6200463360,
+      "shared": 42373120,
+      "slab": 461213696
+    },
+    "swap_before": {
+      "total": 4294967296,
+      "used": 62660608,
+      "free": 4232306688,
+      "percent": 1.5,
+      "sin": 29743636480,
+      "sout": 67680821248
+    },
+    "device_before": "temperature.gpu, clocks.current.sm [MHz], power.draw [W], memory.used [MiB]\n33, 300 MHz, 17.90 W, 272 MiB\n",
+    "scope": "Exactly one not-yet-started upstream case; same frozen source, plan, selected inputs, policy settings and measurements.",
+    "finished_unix": 1793866986.153118,
+    "previous_case_files_unchanged": true,
+    "source_unchanged": true,
+    "hardware_after": {
+      "name": "NVIDIA GeForce RTX 2080 Ti",
+      "uuid": "GPU-35b7b96c-d577-95f0-0050-40699c9faef7",
+      "total_bytes": 11811160064,
+      "driver": "610.88"
+    },
+    "host_memory_after": {
+      "total": 16591065088,
+      "available": 14298775552,
+      "percent": 13.8,
+      "used": 2292289536,
+      "free": 9356828672,
+      "active": 2902446080,
+      "inactive": 3325534208,
+      "buffers": 130842624,
+      "cached": 5276807168,
+      "shared": 42385408,
+      "slab": 497246208
+    },
+    "swap_after": {
+      "total": 4294967296,
+      "used": 63074304,
+      "free": 4231892992,
+      "percent": 1.5,
+      "sin": 29743898624,
+      "sout": 67681431552
+    }
+  }
+}

@@ -1,0 +1,788 @@
+{
+  "status": "passed",
+  "wall_s": 453.57868892600527,
+  "cases": [
+    {
+      "name": "00-arc",
+      "arm": "ARC",
+      "repeat": 0,
+      "status": "passed",
+      "requests": 32,
+      "sessions": 8,
+      "tools": 24,
+      "duration_s": 66.26078384002903,
+      "startup_s": 38.52902966400143,
+      "wall_s": 112.07499959302368,
+      "requests_per_s": 0.48294025735126256,
+      "output_tokens_per_s": 69.33211069599062,
+      "return_ttft_s": 1.44884808425,
+      "return_ttft_p95_s": 2.61081891255,
+      "tool_to_first_token_mean_s": 5.710867671041667,
+      "gpu_peak_bytes": 7748608000,
+      "rss_peak_bytes": 4308119552,
+      "server_cpu_s": 72.5,
+      "client_tool_cpu_s": 57.74,
+      "refreshed_keys": 0,
+      "refreshed_sessions": 0,
+      "hint_attempts": 65,
+      "hint_cancelled_before_ack": 10,
+      "hint_windows_advance": 8,
+      "hint_windows": 24,
+      "hint_lead_s": {
+        "count": 55,
+        "mean": 5.838157869218182,
+        "p50": 5.416702452,
+        "p95": 13.553392027299997,
+        "max": 16.399878258
+      },
+      "computed_prefill_tokens": 63049,
+      "loaded_tokens": 1008,
+      "prior_evicted_return_requests": 18,
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 8,
+        "passed": 8,
+        "failed": 0,
+        "details": [
+          {
+            "source_id": "transport-proof",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "latency-validation",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "runtime-launch",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "serving-metrics",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "suite-integrity",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "svd-cache",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-validation",
+            "test_status_claims": [
+              "PASS",
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-retention",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          }
+        ],
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 4,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "prefetch": {
+        "submitted_jobs": 0,
+        "ready_jobs": 0,
+        "consumed_sources": 0,
+        "submitted_logical_bytes": 0,
+        "completed_physical_bytes": 0,
+        "consumed_logical_bytes": 0,
+        "demand_reclaimed_blocks": 0,
+        "nomination_cpu_ns": 0,
+        "event_counts": {
+          "observed_prefix_registered": 64,
+          "hint_result": 65
+        },
+        "scope": "Native staging receipts; aggregate demand load bytes alone are never called prefetch."
+      },
+      "consistency": {
+        "computed_prefill": {
+          "native": 63049,
+          "endpoint": 63049.0,
+          "agrees": true
+        },
+        "loaded_tokens": {
+          "native": 1008,
+          "endpoint": 1008.0,
+          "agrees": true
+        },
+        "prompt_tokens": {
+          "native": 98153,
+          "endpoint": 98153.0,
+          "agrees": true
+        },
+        "request_count": {
+          "native": 32,
+          "endpoint": 32.0,
+          "agrees": true
+        }
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "00-candidate",
+      "arm": "Wait-hint ARC",
+      "repeat": 0,
+      "status": "passed",
+      "requests": 32,
+      "sessions": 8,
+      "tools": 24,
+      "duration_s": 65.10957262199372,
+      "startup_s": 37.4326009840006,
+      "wall_s": 105.0510972070042,
+      "requests_per_s": 0.49147918979260113,
+      "output_tokens_per_s": 72.86178988675312,
+      "return_ttft_s": 1.405620719125,
+      "return_ttft_p95_s": 2.8523471900999997,
+      "tool_to_first_token_mean_s": 5.562223984458333,
+      "gpu_peak_bytes": 7748608000,
+      "rss_peak_bytes": 4469059584,
+      "server_cpu_s": 71.73999999999998,
+      "client_tool_cpu_s": 55.66,
+      "refreshed_keys": 2039,
+      "refreshed_sessions": 5,
+      "hint_attempts": 68,
+      "hint_cancelled_before_ack": 12,
+      "hint_windows_advance": 11,
+      "hint_windows": 24,
+      "hint_lead_s": {
+        "count": 56,
+        "mean": 5.003298847107143,
+        "p50": 4.479560374,
+        "p95": 11.3731280055,
+        "max": 12.806347529
+      },
+      "computed_prefill_tokens": 59036,
+      "loaded_tokens": 3136,
+      "prior_evicted_return_requests": 17,
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 8,
+        "passed": 8,
+        "failed": 0,
+        "details": [
+          {
+            "source_id": "latency-validation",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "transport-proof",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "runtime-launch",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "serving-metrics",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "suite-integrity",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "svd-cache",
+            "test_status_claims": [
+              "PASS",
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-validation",
+            "test_status_claims": [
+              "PASS",
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-retention",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          }
+        ],
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 4,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "prefetch": {
+        "submitted_jobs": 0,
+        "ready_jobs": 0,
+        "consumed_sources": 0,
+        "submitted_logical_bytes": 0,
+        "completed_physical_bytes": 0,
+        "consumed_logical_bytes": 0,
+        "demand_reclaimed_blocks": 0,
+        "nomination_cpu_ns": 0,
+        "event_counts": {
+          "observed_prefix_registered": 64,
+          "hint_result": 68
+        },
+        "scope": "Native staging receipts; aggregate demand load bytes alone are never called prefetch."
+      },
+      "consistency": {
+        "computed_prefill": {
+          "native": 59036,
+          "endpoint": 59036.0,
+          "agrees": true
+        },
+        "loaded_tokens": {
+          "native": 3136,
+          "endpoint": 3136.0,
+          "agrees": true
+        },
+        "prompt_tokens": {
+          "native": 98156,
+          "endpoint": 98156.0,
+          "agrees": true
+        },
+        "request_count": {
+          "native": 32,
+          "endpoint": 32.0,
+          "agrees": true
+        }
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "01-candidate",
+      "arm": "Wait-hint ARC",
+      "repeat": 1,
+      "status": "passed",
+      "requests": 32,
+      "sessions": 8,
+      "tools": 24,
+      "duration_s": 65.24480082397349,
+      "startup_s": 36.508854592975695,
+      "wall_s": 104.0734548009932,
+      "requests_per_s": 0.49046053625535707,
+      "output_tokens_per_s": 69.85997263287241,
+      "return_ttft_s": 1.4051156491249999,
+      "return_ttft_p95_s": 2.5388268798499998,
+      "tool_to_first_token_mean_s": 6.1001496297083335,
+      "gpu_peak_bytes": 7748608000,
+      "rss_peak_bytes": 4462034944,
+      "server_cpu_s": 71.49000000000001,
+      "client_tool_cpu_s": 55.76,
+      "refreshed_keys": 2949,
+      "refreshed_sessions": 5,
+      "hint_attempts": 65,
+      "hint_cancelled_before_ack": 14,
+      "hint_windows_advance": 8,
+      "hint_windows": 24,
+      "hint_lead_s": {
+        "count": 51,
+        "mean": 5.298483967431372,
+        "p50": 5.156794079,
+        "p95": 11.3369680805,
+        "max": 12.739948875
+      },
+      "computed_prefill_tokens": 61350,
+      "loaded_tokens": 3552,
+      "prior_evicted_return_requests": 18,
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 8,
+        "passed": 8,
+        "failed": 0,
+        "details": [
+          {
+            "source_id": "transport-proof",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "latency-validation",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "runtime-launch",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "suite-integrity",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "svd-cache",
+            "test_status_claims": [
+              "PASS",
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "serving-metrics",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-validation",
+            "test_status_claims": [
+              "PASS",
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-retention",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          }
+        ],
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 4,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "prefetch": {
+        "submitted_jobs": 0,
+        "ready_jobs": 0,
+        "consumed_sources": 0,
+        "submitted_logical_bytes": 0,
+        "completed_physical_bytes": 0,
+        "consumed_logical_bytes": 0,
+        "demand_reclaimed_blocks": 0,
+        "nomination_cpu_ns": 0,
+        "event_counts": {
+          "observed_prefix_registered": 64,
+          "hint_result": 65
+        },
+        "scope": "Native staging receipts; aggregate demand load bytes alone are never called prefetch."
+      },
+      "consistency": {
+        "computed_prefill": {
+          "native": 61350,
+          "endpoint": 61350.0,
+          "agrees": true
+        },
+        "loaded_tokens": {
+          "native": 3552,
+          "endpoint": 3552.0,
+          "agrees": true
+        },
+        "prompt_tokens": {
+          "native": 98166,
+          "endpoint": 98166.0,
+          "agrees": true
+        },
+        "request_count": {
+          "native": 32,
+          "endpoint": 32.0,
+          "agrees": true
+        }
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "01-arc",
+      "arm": "ARC",
+      "repeat": 1,
+      "status": "passed",
+      "requests": 32,
+      "sessions": 8,
+      "tools": 24,
+      "duration_s": 67.42052933300147,
+      "startup_s": 37.20410301699303,
+      "wall_s": 107.26638174999971,
+      "requests_per_s": 0.47463287987471225,
+      "output_tokens_per_s": 70.02318205901614,
+      "return_ttft_s": 1.6775879343333333,
+      "return_ttft_p95_s": 3.156929774449999,
+      "tool_to_first_token_mean_s": 6.160259305791667,
+      "gpu_peak_bytes": 7746510848,
+      "rss_peak_bytes": 4206333952,
+      "server_cpu_s": 74.16,
+      "client_tool_cpu_s": 57.63,
+      "refreshed_keys": 0,
+      "refreshed_sessions": 0,
+      "hint_attempts": 70,
+      "hint_cancelled_before_ack": 15,
+      "hint_windows_advance": 9,
+      "hint_windows": 24,
+      "hint_lead_s": {
+        "count": 55,
+        "mean": 5.450064489327272,
+        "p50": 4.977510175,
+        "p95": 11.686466342899998,
+        "max": 14.174693237
+      },
+      "computed_prefill_tokens": 63148,
+      "loaded_tokens": 1072,
+      "prior_evicted_return_requests": 18,
+      "quality": {
+        "assessment": "Final claimed test outcome versus real subprocess exit status only; reasoning accuracy and task resolution ungraded.",
+        "checks": 8,
+        "passed": 8,
+        "failed": 0,
+        "details": [
+          {
+            "source_id": "latency-validation",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "transport-proof",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "runtime-launch",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "svd-cache",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-retention",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "suite-integrity",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "serving-metrics",
+            "test_status_claims": [
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": true,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          },
+          {
+            "source_id": "hint-validation",
+            "test_status_claims": [
+              "PASS",
+              "PASS"
+            ],
+            "observed_test_status": "PASS",
+            "passed": true,
+            "strict_format_satisfied": false,
+            "contradictory_claim": false,
+            "status_unparseable": false
+          }
+        ],
+        "scorer_version": "normalized-status-v2",
+        "strict_format_failures": 4,
+        "contradictory_claims": 0,
+        "unparseable_status": 0
+      },
+      "prefetch": {
+        "submitted_jobs": 0,
+        "ready_jobs": 0,
+        "consumed_sources": 0,
+        "submitted_logical_bytes": 0,
+        "completed_physical_bytes": 0,
+        "consumed_logical_bytes": 0,
+        "demand_reclaimed_blocks": 0,
+        "nomination_cpu_ns": 0,
+        "event_counts": {
+          "observed_prefix_registered": 64,
+          "hint_result": 70
+        },
+        "scope": "Native staging receipts; aggregate demand load bytes alone are never called prefetch."
+      },
+      "consistency": {
+        "computed_prefill": {
+          "native": 63148,
+          "endpoint": 63148.0,
+          "agrees": true
+        },
+        "loaded_tokens": {
+          "native": 1072,
+          "endpoint": 1072.0,
+          "agrees": true
+        },
+        "prompt_tokens": {
+          "native": 98332,
+          "endpoint": 98332.0,
+          "agrees": true
+        },
+        "request_count": {
+          "native": 32,
+          "endpoint": 32.0,
+          "agrees": true
+        }
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "comparison": {
+    "pairs": [
+      {
+        "same_prompt_tokens": false,
+        "same_output_tokens": false,
+        "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+        "repeat": 0,
+        "eligible": true,
+        "throughput_ratio": 1.0509097322341667,
+        "ttft_mean_delta_s": -0.03596027512500011,
+        "e2e_p95_delta_s": -0.7637188757499977,
+        "device_peak_delta_bytes": 0,
+        "output_tokens_arc": 4594,
+        "output_tokens_candidate": 4744
+      },
+      {
+        "same_prompt_tokens": false,
+        "same_output_tokens": false,
+        "interpretation": "Live workflows differ; rates are not identical-work causal attribution",
+        "repeat": 1,
+        "eligible": true,
+        "throughput_ratio": 0.9976692086628373,
+        "ttft_mean_delta_s": -0.22523084446875008,
+        "e2e_p95_delta_s": -0.34609871064999886,
+        "device_peak_delta_bytes": 2097152,
+        "output_tokens_arc": 4721,
+        "output_tokens_candidate": 4558
+      }
+    ],
+    "eligible_pairs": 2,
+    "geometric_throughput_ratio": 1.0239434949908786,
+    "throughput_ratio_95ci": null,
+    "interval_scope": "Paired repetitions conditional on these inputs; not population-wide generalization.",
+    "decision": "inconclusive",
+    "screen_policy": "No automatic rejection: inactive, noisy, capped, or unrepresentative tests require targeted follow-up."
+  },
+  "by_arm": {
+    "ARC": {
+      "mean_duration_s": 66.84065658651525,
+      "mean_return_ttft_s": 1.5632180092916665,
+      "computed_prefill_tokens": 126197,
+      "loaded_tokens": 2080,
+      "refreshed_keys": 0,
+      "requests": 64,
+      "tools": 48,
+      "quality_passed": 16,
+      "mean_gpu_peak_bytes": 7747559424
+    },
+    "Wait-hint ARC": {
+      "mean_duration_s": 65.1771867229836,
+      "mean_return_ttft_s": 1.4053681841249999,
+      "computed_prefill_tokens": 120386,
+      "loaded_tokens": 6688,
+      "refreshed_keys": 4988,
+      "requests": 64,
+      "tools": 48,
+      "quality_passed": 16,
+      "mean_gpu_peak_bytes": 7748608000
+    }
+  }
+}

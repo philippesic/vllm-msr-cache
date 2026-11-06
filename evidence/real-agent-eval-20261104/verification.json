@@ -1,0 +1,15 @@
+{
+  "verified_files": 282,
+  "cases": 4,
+  "request_records": 128,
+  "measurement_status": "passed",
+  "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification.",
+  "source_archive_files_verified": 2204,
+  "source_unchanged_since_execution": true,
+  "cpu_checks": {
+    "full_passed": 1423,
+    "full_skipped": 26,
+    "runner_passed": 104,
+    "portable_passed": 31
+  }
+}

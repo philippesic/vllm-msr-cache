@@ -1,0 +1,30 @@
+{
+  "schema": "hybrid-feature-pilot-protocol-v1",
+  "status": "evaluated",
+  "model": "/home/philip/.cache/huggingface/hub/models--Qwen--Qwen2.5-1.5B-Instruct/snapshots/989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+  "primary_horizon_s": 1.0,
+  "examples": 711,
+  "source_rows": 24880,
+  "selection": "One first valid completed-prefix decision at/after turn 3 per complete-start session; no truncation; label-blind token fit",
+  "split": "SHA256 of benchmark task, 60/20/20; model/run variants grouped",
+  "hypotheses": [
+    "local_last_query_mean_key_scalar",
+    "local_block_score_distribution",
+    "local_query_key_representation"
+  ],
+  "limitations": [
+    "Only recorded continuing sessions are labelled. Terminal decisions are censored, not abandonment negatives.",
+    "Local-model teacher-forced re-encoding differs from native generating-model scoring and measures no vLLM serving overhead.",
+    "External tool schemas absent from the recorded input cannot be reconstructed; this is an input-message representation hypothesis, not an exact native score reproduction.",
+    "No absolute inter-session arrivals, shared-cache competition or victim costs are supplied by pre_gap.",
+    "A predictive improvement alone is not a cache-value qualification or permission to build the live hybrid."
+  ],
+  "source_card": "https://huggingface.co/datasets/sammshen/lmcache-agentic-traces/blob/6e043b9e89865df3aec19fd5679286b683bfd70e/README.md",
+  "source_converter": "https://github.com/sammshen/agentic-dataset/blob/5f1e5a815a1f3622c65e756829365ff824184da0/convert_lmcache_to_mooncake.py",
+  "raw_protocol": "output/msr-hybrid-qualification-20261104-resume/PILOT_PROTOCOL.txt",
+  "source_download_manifest": "output/msr-hybrid-qualification-20261104-resume/lmcache-full-manifest.json",
+  "examples_sha256": "1e84d4e3593bcaef71b7d66156a9f97d2eb25ffeb7b2b830f77801c3f29bdafd",
+  "capture_source_sha256": "c4c8a3c2c0e4679504be6f6ee6c2d4528b8f1f3a28ac1a32646c45a8c1fc01d5",
+  "cheap_baseline": "Turn/history sizes, observed output tokens, previous gap, tool-call/history counts, tokenized prefix size, separate cohort/source-model/already-issued-tool categorical main effects; training-only transforms/vocabulary.",
+  "frozen_protocol_sha256": "ab8ba9423f64d0254ff2837fcad67fd7b326d8c759bc94ff3668abe6ef750f4e"
+}

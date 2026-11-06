@@ -9,6 +9,7 @@ from pathlib import Path
 
 SCHEMA = "semantic-serving-suite-v1"
 PROFILES = {
+    "agent": dict(repeats=1, sessions=8, turns=4, concurrency=4, waves=1, max_tokens=256),
     "smoke": dict(repeats=1, sessions=4, turns=2, concurrency=1, waves=1, max_tokens=8),
     "screen": dict(
         repeats=1, sessions=6, turns=2, concurrency=2, waves=1, max_tokens=32

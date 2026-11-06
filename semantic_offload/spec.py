@@ -6,6 +6,8 @@ Register via kv_connector_extra_config={"spec_name": "SemanticOffloadingSpec",
 .claude/docs/semantic-eviction-plan.md, Step 1.1.
 """
 
+import json
+
 from typing_extensions import override
 from vllm.v1.kv_offload.base import CanonicalKVCaches, OffloadingManager
 from vllm.v1.kv_offload.cpu.spec import CPUOffloadingSpec
@@ -73,6 +75,25 @@ def validate_preservation_audit(extra_config) -> bool:
 
 
 class SemanticOffloadingSpec(CPUOffloadingSpec):
+    def __init__(self, config):
+        super().__init__(config)
+        linear = self.extra_config.get("arc_linear_eviction", False)
+        if type(linear) is not bool:
+            raise TypeError("arc_linear_eviction must be a JSON boolean")
+        if linear and (self.extra_config.get("instrumentation_only") is not True or self.extra_config.get("eviction_policy") != "arc"):
+            raise ValueError("arc_linear_eviction requires native ARC")
+        rank = self.extra_config.get("kv_svd_rank", 0)
+        expand = self.extra_config.get("kv_svd_expand_capacity", False)
+        if type(rank) is not int or not 0 <= rank <= 15:
+            raise ValueError("kv_svd_rank must be an integer in 0..15")
+        if type(expand) is not bool:
+            raise TypeError("kv_svd_expand_capacity must be a JSON boolean")
+        if rank and expand and self.kv_bytes_per_chunk:
+            # FP16 16x256 -> 16xr plus rx256. Include the ready bitmap;
+            # Python policy/summary metadata is separately measured as RSS.
+            factor_bytes = self.kv_bytes_per_chunk * rank * 272 // 4096
+            self.num_blocks = int(self.extra_config["cpu_bytes_to_use"]) // (factor_bytes + 1)
+
     @classmethod
     def build_metric_definitions(cls, extra_config):
         from semantic_offload.benchmark_metrics import definitions
@@ -225,7 +246,7 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
             raise ValueError(
                 "admission_mode requires preservation_events for causal tracing"
             )
-        return SemanticOffloadingWorker(
+        worker = SemanticOffloadingWorker(
             kv_caches=kv_caches,
             blocks_per_chunk=spec_blocks_per_chunk(self),
             num_cpu_blocks=self.num_blocks,
@@ -252,7 +273,18 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
             search_exploration=positive_int("search_exploration", 8),
             query_snapshot_max_age_ms=positive_int("query_snapshot_max_age_ms", 1000),
             query_snapshot_max_requests=positive_int("query_snapshot_max_requests", 256),
+            kv_svd_rank=self.extra_config.get("kv_svd_rank", 0),
+            kv_svd_trace=self.extra_config.get("kv_svd_trace"),
         )
+        if self.extra_config.get("benchmark_telemetry") is True:
+            from semantic_offload.benchmark_metrics import allocation_receipt
+            observed = allocation_receipt(worker, num_cpu_blocks=self.num_blocks,
+                kv_bytes_per_chunk=self.kv_bytes_per_chunk,
+                requested_cpu_bytes=self.extra_config.get("cpu_bytes_to_use"),
+                blocks_per_chunk=spec_blocks_per_chunk(self),
+                model_config=self.vllm_config.model_config)
+            print("SEMANTIC_OFFLOAD_ALLOCATION " + json.dumps(observed), flush=True)
+        return worker
 
     @override
     def get_manager(self) -> OffloadingManager:
@@ -322,6 +354,7 @@ class SemanticOffloadingSpec(CPUOffloadingSpec):
                 self._manager = PreservationOffloadingManager(
                     num_blocks=self.num_blocks,
                     cache_policy=eviction_policy,
+                    arc_linear_eviction=self.extra_config.get("arc_linear_eviction", False),
                     enable_events=(
                         self.kv_events_config.enable_kv_cache_events
                         or (preservation_events and preservation_audit)

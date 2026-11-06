@@ -1,0 +1,77 @@
+{
+  "schema": "hybrid-qualification-checkpoint-v1",
+  "date": "2026-11-04",
+  "state": "qualification_incomplete;bounded_evidence_phase_complete",
+  "complete": false,
+  "gates": {
+    "transfer_opportunity": "Relevant restores/optimistic overlap established in pressure and long-history diagnostics; causal usable headroom, CPU readiness, bandwidth and victim costs remain inconclusive",
+    "semantic_value": "Primary1s pilot: no positive task-paired interval. Exploratory0.25s richer Q/K prediction and synthetic retained-value gains survive more flexible metadata controls, but source lacks full causal model-call/timestamp/observation-horizon semantics and real cache competition. No real-cache-value or original scalar MSR qualification.",
+    "net_value": "Not established; native feature fidelity and incremental capture/scoring/displacement/interference costs remain unmeasured"
+  },
+  "action": "Stop this bounded qualification phase at unmet original gates. Preserve promising richer-representation result; no live hybrid/four-arm engineering. Further qualification requires representative recorded reuse/cache competition, independent confirmation and native cost evidence.",
+  "pressure_audits": [
+    {
+      "arm": "arc",
+      "schema": "hybrid-opportunity-audit-v1",
+      "arrivals": 57,
+      "completed_loads": 30,
+      "incomplete_loads": [],
+      "errors": [],
+      "truncated_steps": 0,
+      "step_count": 469,
+      "total_async_residence_ms": 1604.050088,
+      "optimistic_direct_saving_ms": 1559.42489,
+      "loads_with_candidate_overlap": 29,
+      "qualification": "inconclusive"
+    },
+    {
+      "arm": "candidate",
+      "schema": "hybrid-opportunity-audit-v1",
+      "arrivals": 57,
+      "completed_loads": 30,
+      "incomplete_loads": [],
+      "errors": [],
+      "truncated_steps": 0,
+      "step_count": 468,
+      "total_async_residence_ms": 1632.8231289999999,
+      "optimistic_direct_saving_ms": 1597.430652,
+      "loads_with_candidate_overlap": 29,
+      "qualification": "inconclusive"
+    }
+  ],
+  "independent_verification": {
+    "files": 143,
+    "cases": 2,
+    "request_records": 110,
+    "measurement_status": "passed",
+    "scope": "integrity and aggregate consistency only"
+  },
+  "new_gpu_runs": 3,
+  "policy_changes": 0,
+  "raw": "output/msr-hybrid-qualification-20261104-resume",
+  "source_alternative": "output/msr-hybrid-qualification-20261104-resume/lmcache-full-manifest.json",
+  "bounded_evidence_phase_complete": true,
+  "gpu_owner": "released; cleanup check found no compute clients and both locks available",
+  "pending_user_question": null,
+  "external_evidence_needed": "Representative original model inputs including tools, actual arrival/completion times, session identity and terminal observation-horizon semantics; observed resource/cache competition and victim value. User does not know a source; no source request remains pending.",
+  "long_history_opportunity": "evidence/msr-hybrid-qualification-20261103/long-history-opportunity.json",
+  "exploratory_sensitivity": "evidence/msr-hybrid-qualification-20261103/deadline-sensitivity.json",
+  "retained_inventory": "output/msr-hybrid-qualification-20261104-resume/retained-inventory.json",
+  "cleanup": "output/msr-hybrid-qualification-20261104-resume/gpu-cleanup.json",
+  "validation": {
+    "focused_tests": 170,
+    "existing_warnings": 14,
+    "portable_tests": 31,
+    "compilation": "passed",
+    "long_history_artifacts": {
+      "files": 143,
+      "cases": 2,
+      "request_records": 110,
+      "status": "passed"
+    },
+    "logs": [
+      "output/msr-hybrid-qualification-20261104-resume/cpu-tests-handoff-final.log",
+      "output/msr-hybrid-qualification-20261104-resume/check-light.log"
+    ]
+  }
+}

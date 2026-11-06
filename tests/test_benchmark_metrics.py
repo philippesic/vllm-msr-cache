@@ -109,3 +109,39 @@ def test_native_receipt_disabled_by_default(monkeypatch):
     )
     Scheduler.finish_requests(scheduler, ["x"], RequestStatus.FINISHED_ABORTED)
     assert not events
+
+
+
+def test_allocation_observation_reports_actual_unpinned_backing():
+    import torch
+    from semantic_offload.benchmark_metrics import allocation_receipt
+    tensor = torch.empty((4, 8), dtype=torch.int8)
+    worker = SimpleNamespace(_store_handler=SimpleNamespace(dst_tensors=[tensor]),
+                             _load_handler=SimpleNamespace(src_tensors=[tensor]))
+    observed = allocation_receipt(worker, num_cpu_blocks=4, kv_bytes_per_chunk=8,
+        requested_cpu_bytes=35, blocks_per_chunk=1,
+        model_config=SimpleNamespace(dtype=torch.float16, quantization=None))
+    assert observed['available'] and observed['cpu_buffers'][0]['nbytes'] == 32
+    assert observed['cpu_buffers'][0]['pinned'] is False
+    assert observed['cpu_buffers'][0]['load_uses_same_storage'] is True
+
+
+def test_allocation_observation_detects_different_load_backing():
+    import torch
+    from semantic_offload.benchmark_metrics import allocation_receipt
+    left, right = torch.empty((4, 8), dtype=torch.int8), torch.empty((4, 8), dtype=torch.int8)
+    worker = SimpleNamespace(_store_handler=SimpleNamespace(dst_tensors=[left]),
+                             _load_handler=SimpleNamespace(src_tensors=[right]))
+    observed = allocation_receipt(worker, num_cpu_blocks=4, kv_bytes_per_chunk=8,
+        requested_cpu_bytes=32, blocks_per_chunk=1, model_config=SimpleNamespace())
+    assert observed['available']
+    assert observed['cpu_buffers'][0]['load_uses_same_storage'] is False
+
+
+def test_allocation_observation_missing_buffers_is_unavailable():
+    from semantic_offload.benchmark_metrics import allocation_receipt
+    observed = allocation_receipt(SimpleNamespace(), num_cpu_blocks=4,
+        kv_bytes_per_chunk=8, requested_cpu_bytes=32, blocks_per_chunk=1,
+        model_config=SimpleNamespace())
+    assert observed['available'] is False and observed['error']
+    assert observed['cpu_buffers'] == []

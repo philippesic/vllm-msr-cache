@@ -303,6 +303,16 @@ class SemanticPolicy(CachePolicy):
             ) * base + self._future_reuse_weight * utility
         return base
 
+    def refresh_wait_hint_cpu_recency(self, keys: Iterable[OffloadKey]) -> int:
+        """Advisory recency only: no relevance, session evidence or references."""
+        refreshed = 0
+        for key in reversed(list(keys)):
+            block = self._lru.get(key)
+            if block is not None and block.is_ready and key in self._lru.evictable_blocks:
+                self._lru.evictable_blocks.move_to_end(key)
+                refreshed += 1
+        return refreshed
+
     @override
     def touch(self, keys: Iterable[OffloadKey], req_context: ReqContext) -> None:
         # CachePolicy accepts any iterable, including one-shot generators.

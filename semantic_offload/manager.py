@@ -1677,9 +1677,17 @@ class PreservationOffloadingManager(
         rank_ema_mode: str = "default",
         ema_rank_weight_floor: float = 0.0,
         decision_feature_trace: bool = False,
+        arc_linear_eviction: bool = False,
         **kwargs,
     ) -> None:
         super().__init__(*args, **kwargs)
+        if type(arc_linear_eviction) is not bool:
+            raise TypeError("arc_linear_eviction must be a JSON boolean")
+        if arc_linear_eviction:
+            from semantic_offload.arc_optimization import LinearARCCachePolicy, ARCCachePolicy
+            if not isinstance(self._policy, ARCCachePolicy):
+                raise ValueError("arc_linear_eviction requires ARC")
+            self._policy = LinearARCCachePolicy(self._policy.cache_capacity)
         self._init_staging_protection_contract()
         self._init_lifecycle_contract()
         self._init_admission_contract(
@@ -1993,6 +2001,11 @@ class SemanticOffloadingManager(
     FrequencyCostAdmissionMixin,
     CPUOffloadingManager,
 ):
+    def refresh_wait_hint_cpu_recency(self, keys: Collection[OffloadKey]) -> int:
+        # Explicit CPU-only hints compose with semantic eviction; they do not
+        # fabricate a demand hit, semantic observation or ownership reference.
+        return self._policy.refresh_wait_hint_cpu_recency(keys)
+
     def __init__(
         self,
         num_blocks: int,

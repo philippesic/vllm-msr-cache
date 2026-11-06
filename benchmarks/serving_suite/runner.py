@@ -87,6 +87,7 @@ def source_identity():
         "benchmarks/serving_suite",
         "harness",
         "tools",
+        "tests",
         "vendor/vllm/vllm",
     ):
         for p in sorted((ROOT / directory).rglob("*.py")):
@@ -107,7 +108,23 @@ def source_identity():
     ):
         p = ROOT / "benchmarks" / f"{name}.py"
         files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
+    for p in sorted((ROOT / 'benchmarks/serving_suite').glob('*.json')):
+        files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
+    for p in sorted((ROOT/'benchmarks/research_checks/fixtures').glob('*.json')):
+        files[str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
     return {"digest": digest(files), "files": files}
+
+
+def freeze_source(identity, output):
+    """Keep reviewable executed inputs even when the working tree is dirty."""
+    import tarfile
+
+    with tarfile.open(output / 'executed-source.tar.gz', 'w:gz') as archive:
+        for name, expected in identity['files'].items():
+            path = ROOT / name
+            if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise RuntimeError(f'Source changed during freeze: {name}')
+            archive.add(path, arcname=name, recursive=False)
 
 
 def select_sessions(corpus, plan, repeat):
@@ -123,7 +140,23 @@ def select_sessions(corpus, plan, repeat):
 
 
 def connector(plan, arm):
-    if arm == "arc":
+    if plan.get('qualification_conditions') and arm == 'arc':
+        cfg = json.loads(json.dumps(plan['candidate_config']))
+        cfg['kv_connector_extra_config'].update(cpu_bytes_to_use=plan['cpu_bytes'],
+            prefetch_budget_fraction=0, wait_hint_cpu_retention_only=False,
+            wait_hint_cpu_retention_gpu_gate=False, benchmark_wait_hint_noop=False)
+        return cfg
+    if plan.get('published_variants') and arm == 'arc':
+        # The control shares all non-retention settings with active wait ARC.
+        cfg = json.loads(json.dumps(plan['candidate_config']))
+        cfg['kv_connector_extra_config'].update(cpu_bytes_to_use=plan['cpu_bytes'],
+            prefetch_budget_fraction=0, wait_hint_cpu_retention_only=False)
+        return cfg
+    if plan["tier"] == "agent" and (arm == "arc" or not plan["candidate_config"]):
+        from .agent_report import wait_hint_config
+
+        cfg = wait_hint_config(plan, enabled=arm == "candidate")
+    elif arm == "arc":
         cfg = kv_transfer_config("arc", plan["cpu_bytes"])
         cfg["kv_connector_extra_config"]["store_threshold"] = 0
     elif plan["candidate_config"]:
@@ -137,10 +170,15 @@ def connector(plan, arm):
         )
     if arm == "candidate":
         cfg["kv_connector_extra_config"]["benchmark_telemetry"] = True
+    if plan.get('compact_events'):
+        cfg['kv_connector_extra_config']['benchmark_compact_preservation_events'] = True
     return cfg
 
 
 def command(plan, arm, port):
+    if plan.get('published_runtime'):
+        from .published import command as published_command
+        return published_command(plan, port)
     cfg = connector(plan, arm)
     args = [
         sys.executable,
@@ -182,8 +220,12 @@ def command(plan, arm, port):
     args += (
         ["--enforce-eager"]
         if plan["execution"] == "eager"
-        else ["-cc.mode=0", "-cc.cudagraph_mode=FULL_DECODE_ONLY"]
+        else ["-cc.mode=0", "-cc.cudagraph_mode=FULL_DECODE_ONLY", "--cudagraph-metrics"]
     )
+    if plan.get('diagnostic_replay'):
+        args += ['--logits-processors', 'benchmarks.serving_suite.replay_logits:FixedTokenReplay']
+    if plan.get('continuation_credit_ms', 0):
+        args += ['--scheduling-policy', 'priority']
     return args, cfg
 
 
@@ -212,8 +254,60 @@ def settle_metrics(server, minimum_completed, timeout=12):
     )
 
 
-def run_case(plan, sessions, arm, repeat, out):
-    name = f"{repeat:02d}-{arm}"
+def case_order(plan, repeat):
+    if plan.get('published_runtimes'):
+        from .published import VARIANTS
+        variants = list(plan.get('published_variants') or VARIANTS)
+        if plan.get('published_order_seed') is not None:
+            random.Random(plan['published_order_seed']).shuffle(variants)
+        shift = repeat % len(variants)
+        return list(variants[shift:] + variants[:shift])
+    if plan.get('semantic_config'):
+        variants = ['arc','wait','semantic']
+        shift = repeat % len(variants)
+        return variants[shift:]+variants[:shift]
+    return ['candidate'] if plan['tier']=='smoke' else ['arc','candidate'] if repeat%2==0 else ['candidate','arc']
+
+
+def plan_for_variant(plan, variant):
+    case_plan = dict(plan)
+    if plan.get('published_variants') and variant == 'arc':
+        case_plan['publish_hints'] = False
+    if variant == 'semantic':
+        case_plan['candidate_config'] = plan['semantic_config']
+        case_plan['required_activity'] = ['store', 'restore', 'cpu_recency', 'scoring']
+    if variant in ('continuum', 'upstream'):
+        from .published import check_source
+        check_source(variant, plan['published_runtimes'][variant])
+        case_plan.update(published_runtime=plan['published_runtimes'][variant],
+            published_variant=variant, publish_hints=False, qualification_trace=False)
+        if variant == 'continuum':
+            case_plan['continuation_credit_ms'] = 0
+    return case_plan
+
+
+def required_activity_for_arm(plan, arm):
+    if plan.get('published_runtime'):
+        return []  # External counters have different definitions; never fabricate them.
+    if arm == 'candidate':
+        return plan['required_activity']
+    excluded = {'hint_accepted','scoring','cpu_recency'}
+    if plan['tier'] == 'agent':
+        # Zero ARC restores can be the actual baseline outcome that advice
+        # improves. Require activation on the treatment, not success on ARC.
+        excluded.add('restore')
+    return [x for x in plan['required_activity'] if x not in excluded]
+
+
+def run_case(plan, sessions, arm, repeat, out, variant=None):
+    wave_runner = run_wave
+    if plan["tier"] == "agent" or plan.get('repository_workload'):
+        from .repo_workload import run_wave as wave_runner
+    if plan.get('diagnostic_replay'):
+        from .replay_workload import run_wave as wave_runner
+    if plan.get('runtime_probe'):
+        from benchmarks.research_checks.wait_hint_runtime_probe import run_wave as wave_runner
+    name = f"{repeat:02d}-{variant or arm}"
     directory = out / name
     directory.mkdir()
     cmd, cfg = command(plan, arm, free_port())
@@ -236,6 +330,27 @@ def run_case(plan, sessions, arm, repeat, out):
         VLLM_PLUGINS="semantic_wait_hint" if plan["publish_hints"] else "",
         SEMANTIC_VLLM_STAGE_PARENT=str((directory / "runtime-staging").resolve()),
     )
+    if plan.get("qualification_trace"):
+        env["VLLM_KV_QUALIFICATION_TRACE"] = str((directory / "kv-qualification.jsonl").resolve())
+    else:
+        env.pop("VLLM_KV_QUALIFICATION_TRACE", None)
+    if plan.get('published_variants'):
+        env['PYTHONPATH'] = str(Path(__file__).with_name('published_observer').resolve())
+        env['SUITE_RUNTIME_OBSERVATION'] = str((directory/'runtime-observation.jsonl').resolve())
+    if plan.get('published_runtime'):
+        env.pop('VLLM_KV_QUALIFICATION_TRACE', None)
+        env.pop('VLLM_BENCHMARK_ABORT_RECEIPTS', None)
+        env['VLLM_PLUGINS'] = ''
+        env['RUN_OUTPUT_DIR'] = str(directory.resolve())
+        if plan['published_variant'] == 'continuum':
+            env['VLLM_ATTENTION_BACKEND'] = 'TRITON_ATTN_VLLM_V1'
+            env['VLLM_USE_V1'] = '1'
+        env.update(plan['published_runtime'].get('env', {}))
+        if plan['published_variant'] == 'upstream':
+            env['PYTHONPATH'] = os.pathsep.join(filter(None, [
+                str(Path(__file__).with_name('published_observer').resolve()),
+                plan['published_runtime'].get('execution_source')]))
+            env['SUITE_PUBLISHED_OBSERVATION'] = str((directory/'published-policy.jsonl').resolve())
     server = OwnedServer(cmd, directory, env, int(cmd[cmd.index("--port") + 1]))
     case = dict(
         name=name,
@@ -251,6 +366,10 @@ def run_case(plan, sessions, arm, repeat, out):
         operational={},
         started_unix=time.time(),
     )
+    if variant:
+        case['variant'] = variant
+    if plan.get('published_runtime'):
+        case['published_runtime'] = plan['published_runtime']
     sampler = None
     start = time.monotonic()
     load_start = None
@@ -281,6 +400,9 @@ def run_case(plan, sessions, arm, repeat, out):
 
         try:
             case["startup_s"] = server.start(plan["startup_timeout_s"])
+            if plan.get('published_variants'):
+                from .published import verify_geometry
+                case['effective_geometry'] = verify_geometry(directory, plan, variant)
             # Warm up separately; do not count startup/model compilation in serving rates.
             import aiohttp
 
@@ -310,20 +432,22 @@ def run_case(plan, sessions, arm, repeat, out):
             warm = asyncio.run(warmup())
             if not warm["success"]:
                 raise RuntimeError("Warmup failed")
-            before = settle_metrics(server, 1)
+            before = (get_text(server.url+'/metrics') if plan.get('published_runtime')
+                      else settle_metrics(server, 1))
             (directory / "metrics-before.prom").write_text(before)
             load_start = time.monotonic()
             sampler = Sampler(
                 server.proc.pid,
                 directory / "resources.jsonl",
                 plan["sample_interval_s"],
+                metrics_url=server.url + "/metrics" if plan["tier"] == "agent" or plan.get('repository_workload') else None,
             ).start()
 
             async def waves():
                 async def one(wave):
                     await asyncio.sleep(wave * plan.get("wave_interval_s", 0))
                     start = time.monotonic()
-                    wave_rows = await run_wave(
+                    wave_rows = await wave_runner(
                         server.url,
                         plan,
                         sessions,
@@ -371,7 +495,7 @@ def run_case(plan, sessions, arm, repeat, out):
 
                 async def bounded_wave():
                     return await asyncio.wait_for(
-                        run_wave(
+                        wave_runner(
                             server.url,
                             plan,
                             sessions,
@@ -408,10 +532,19 @@ def run_case(plan, sessions, arm, repeat, out):
             case["load_duration_s"] = time.monotonic() - load_start
             case["telemetry"] = sampler.close()
             sampler = None
-            after = settle_metrics(server, 1 + case["expected_requests"])
+            after = (get_text(server.url+'/metrics') if plan.get('published_runtime')
+                     else settle_metrics(server, 1 + case["expected_requests"]))
             (directory / "metrics-after.prom").write_text(after)
             case["metrics"] = metric_delta(before, after)
             case["activity"] = activity(case["metrics"], case["hints"])
+            if plan["tier"] == "agent":
+                from .agent_report import diagnose
+
+                if plan.get('published_runtime'):
+                    from .published import diagnose_external
+                    case['agent'] = diagnose_external(directory, case, plan)
+                else:
+                    case["agent"] = diagnose(directory, case, plan)
             if plan["tier"] == "operational":
                 probe = asyncio.run(
                     cancel_probe(server.url, plan, tok, record, directory / "streams")
@@ -449,6 +582,10 @@ def run_case(plan, sessions, arm, repeat, out):
             if sampler:
                 case["telemetry"] = sampler.close()
             case["cleanup"] = server.close()
+            if plan.get('published_runtime') and case.get('agent'):
+                from .published import diagnose_external
+                # Continuum writes its recorder during shutdown.
+                case['agent'] = diagnose_external(directory, case, plan)
             case["wall_s"] = time.monotonic() - start
             case.setdefault(
                 "load_duration_s", time.monotonic() - load_start if load_start else 0
@@ -487,14 +624,20 @@ def run_case(plan, sessions, arm, repeat, out):
             case.pop("requests", None)
             case["evaluation"] = evaluate_case(
                 case,
-                plan["required_activity"]
-                if arm == "candidate"
-                else [
-                    x
-                    for x in plan["required_activity"]
-                    if x not in ("hint_accepted", "scoring", "cpu_recency")
-                ],
+                required_activity_for_arm(plan, arm),
             )
+            if plan["tier"] == "agent":
+                if case.get("agent", {}).get("measurement_errors"):
+                    case["evaluation"]["errors"] += case["agent"]["measurement_errors"]
+                    case["evaluation"]["status"] = "failed"
+                case['evaluation']['cache_competition_observed_in_this_arm'] = case.get('agent',{}).get('opportunity',{}).get('cache_competition_observed')
+            if plan.get('published_runtime') and case['evaluation']['status'] == 'passed':
+                # Successful transport does not establish that the published
+                # policy activated. Keep timings, but exclude unproven policy wins.
+                receipt = case.get('agent', {}).get('policy_activation', {})
+                case['evaluation']['policy_activation'] = receipt
+                if not receipt.get('verified'):
+                    case['evaluation']['status'] = 'inconclusive'
             write_json(directory / "case.json", case)
     return case
 
@@ -521,6 +664,26 @@ def parser():
         type=Path,
         help="semantic-serving-corpus-v1 JSON; otherwise an explicitly synthetic fixture",
     )
+    p.add_argument("--repo-root", type=Path, default=ROOT, help="Agent tier: real repository in which read-only tools execute")
+    p.add_argument("--task-file", type=Path, help="Agent tier: repository-investigation-tasks-v1 JSON")
+    p.add_argument("--context-chars", type=int, default=12000, help="Agent tier: real initial source/test excerpt budget; never padded")
+    p.add_argument("--hint-refresh-s", type=float, default=1.0, help="Agent tier: refresh only while the real tool is running")
+    p.add_argument("--tool-timeout-s", type=float, default=90)
+    p.add_argument("--tool-output-chars", type=int, default=8000)
+    p.add_argument('--client-concurrency', type=int, help='Agent HTTP limit, independently of server --concurrency; 0 submits all ready sessions')
+    p.add_argument('--tool-concurrency', type=int, default=0,
+                   help='Agent subprocess worker pool; 0 allows all ready tools. Tool queue and execution are measured separately')
+    p.add_argument('--continuation-credit-ms', type=int, choices=[0,2000,8000], default=0,
+                   help='Equal released-continuation scheduling credit in both arms')
+    p.add_argument('--hint-timing', choices=['during-tool','before-tool'], default='during-tool')
+    p.add_argument('--hint-through-queue', action='store_true', help='Agent: refresh the known completed prefix until the returning request receives its first token')
+    p.add_argument('--compact-events', action='store_true', help='Retain compact native counter/timing receipts; keep audit logic but omit huge full transport histories from logs')
+    p.add_argument('--stable-tool-output', action='store_true', help='Omit pytest elapsed-time text from model input, retaining exact raw stdout')
+    p.add_argument('--semantic-config', type=Path, help='Agent: compare ARC, default wait-hint ARC and this explicit semantic + wait configuration in rotated order')
+    p.add_argument('--published-order-seed', type=int, help='One predeclared shuffle of published arm order')
+    p.add_argument('--published-variants', help='Explicit four-way selection: arc,wait,continuum,upstream; disables baseline hint machinery')
+    p.add_argument('--published-runtimes', type=Path,
+                   help='Add pinned Continuum preview and upstream PR runtimes; agent tier, eager execution')
     p.add_argument(
         "--candidate-config",
         type=Path,
@@ -538,9 +701,9 @@ def parser():
     )
     for name in ("repeats", "sessions", "turns", "concurrency", "waves", "max-tokens"):
         p.add_argument("--" + name, type=int)
-    p.add_argument("--gpu-blocks", type=int, default=128)
-    p.add_argument("--cpu-bytes", type=int, default=256 * 2**20)
-    p.add_argument("--max-model-len", type=int, default=2048)
+    p.add_argument("--gpu-blocks", type=int)
+    p.add_argument("--cpu-bytes", type=int)
+    p.add_argument("--max-model-len", type=int)
     p.add_argument("--gpu-memory-utilization", type=float, default=0.75)
     p.add_argument("--seed", type=int, default=17011)
     p.add_argument("--startup-timeout-s", type=float, default=180)
@@ -552,6 +715,7 @@ def parser():
         default="store,restore",
         help="Comma-separated store,restore,hint_accepted,scoring,cpu_recency; empty allows overhead-only tests",
     )
+    p.add_argument("--qualification-trace", action="store_true", help="Opt-in native queue/load/reclaimable-capacity trace; adds diagnostic I/O overhead")
     p.add_argument("--publish-hints", action="store_true")
     p.add_argument(
         "--arrival-interval-s",
@@ -585,6 +749,21 @@ def main(argv=None):
     a = parser().parse_args(argv)
     plan = dict(PROFILES[a.tier])
     plan.update({k: v for k, v in vars(a).items() if v is not None})
+    for key, ordinary, agent in (("gpu_blocks",128,1024), ("cpu_bytes",256*2**20,896*2**20), ("max_model_len",2048,8192)):
+        plan.setdefault(key, agent if a.tier == "agent" else ordinary)
+    if a.tier == "agent":
+        plan.update(publish_hints=True, qualification_trace=True)
+        if a.client_concurrency is not None:
+            plan['prompt_source_accounting_version'] = 3
+        if a.require_activity == 'store,restore':
+            a.require_activity = 'store,restore,cpu_recency'
+        if plan['turns'] != 4:
+            raise ValueError('Agent workflow requires four model requests and three real tools per session')
+    for name in ('hint_refresh_s', 'tool_timeout_s', 'context_chars', 'tool_output_chars'):
+        from .contracts import positive
+        positive(plan[name], name, integer=name in ('context_chars','tool_output_chars'))
+    plan['repo_root'] = str(a.repo_root.resolve())
+    plan['task_file'] = str(a.task_file.resolve()) if a.task_file else None
     plan.update(
         schema=SCHEMA,
         model=str(a.model.resolve()),
@@ -592,21 +771,64 @@ def main(argv=None):
         candidate_config=json.loads(a.candidate_config.read_text())
         if a.candidate_config
         else None,
+        semantic_config=json.loads(a.semantic_config.read_text()) if a.semantic_config else None,
         required_activity=[x for x in a.require_activity.split(",") if x],
     )
+    if a.published_runtimes:
+        from .published import load_runtimes
+        if a.tier != 'agent' or a.execution != 'eager' or (not a.semantic_config and not a.published_variants):
+            raise ValueError('Published comparison requires agent tier, explicit variants or semantic-config, and eager execution')
+        if a.published_variants:
+            variants = a.published_variants.split(',')
+            if variants != ['arc', 'wait', 'continuum', 'upstream']:
+                raise ValueError('Explicit published variants must be arc,wait,continuum,upstream')
+            plan['published_variants'] = variants
+        plan['published_runtimes'] = load_runtimes(a.published_runtimes)
+        from .published import command as published_command
+        for name, runtime in plan['published_runtimes'].items():
+            published_command({**plan, 'published_runtime': runtime,
+                               'published_variant': name}, 1)
+        plan['comparison_scope'] = ('Published/local complete systems, including differing schedulers and runtime versions; '
+            'not isolated eviction-policy attribution. Shared tool-declaration prompts; '
+            'not directly comparable to historical three-way timings.')
     plan["natural_eos"] = (
-        a.natural_eos if a.natural_eos is not None else a.tier == "operational"
+        a.natural_eos if a.natural_eos is not None else a.tier in ("operational", "agent")
     )
     plan.pop("corpus", None)
     plan.pop("require_activity", None)
     if not (a.model / "config.json").is_file():
         raise ValueError("Model must be an existing local snapshot with config.json")
     validate_plan(plan)
-    corpus = (
+    if a.semantic_config:
+        if a.tier != 'agent':
+            raise ValueError('Three-way semantic comparison requires agent tier')
+        if plan['candidate_config']:
+            control = plan['candidate_config']['kv_connector_extra_config']
+            if not (control.get('instrumentation_only') is True
+                    and control.get('eviction_policy') == 'arc'
+                    and control.get('wait_hint_cpu_retention_only') is True
+                    and control.get('wait_hint_diagnostic_no_dispatch') is True
+                    and control.get('prefetch_budget_fraction', 0) > 0
+                    and control.get('kv_svd_rank', 0) == 0):
+                raise ValueError('Three-way candidate-config must be exact-KV CPU-only wait-hint ARC')
+        validate_plan({**plan,'candidate_config':plan['semantic_config']})
+    if plan.get('client_concurrency', 0) < 0:
+        raise ValueError('client_concurrency must be zero (unbounded) or positive')
+    if plan['tool_concurrency'] < 0 or (a.tier != 'agent' and plan['tool_concurrency']):
+        raise ValueError('tool_concurrency requires agent tier and a nonnegative value')
+    if a.tier != 'agent' and (a.client_concurrency is not None or a.hint_through_queue or a.hint_timing != 'during-tool'):
+        raise ValueError('Independent admission and tool hint controls require agent tier')
+    if a.tier == 'agent':
+        if a.corpus:
+            raise ValueError('Agent tier reads live repository inputs; use --task-file to change tasks')
+        from .repo_workload import build_corpus
+        corpus = build_corpus(a.repo_root, a.task_file, a.context_chars)
+    else:
+        corpus = (
         validate_corpus(json.loads(a.corpus.read_text()))
         if a.corpus
         else fixture_corpus(max(36, plan["sessions"] * plan["repeats"]))
-    )
+        )
     if (
         corpus["synthetic"]
         and a.tier in ("confirm", "operational")
@@ -617,7 +839,7 @@ def main(argv=None):
         )
     for repeat in range(plan["repeats"]):
         select_sessions(corpus, plan, repeat)
-    if plan["publish_hints"] and not (plan["candidate_config"] or {}).get(
+    if a.tier != 'agent' and plan["publish_hints"] and not (plan["candidate_config"] or {}).get(
         "kv_connector_extra_config", {}
     ).get("admission_namespace"):
         raise ValueError(
@@ -655,6 +877,9 @@ def main(argv=None):
         with GPULock():
             result["hardware"] = available_gpu()
             initial = source_identity()
+            if plan.get('published_runtimes'):
+                from .published import freeze_sources
+                freeze_sources(plan['published_runtimes'], a.output)
             from transformers import AutoTokenizer
 
             tokenizer = AutoTokenizer.from_pretrained(
@@ -675,6 +900,9 @@ def main(argv=None):
                             + session["turns"][0],
                         },
                     ]
+                    if a.tier == 'agent':
+                        from .repo_workload import SYSTEM
+                        messages[0]['content'] = SYSTEM
                     n = len(
                         tokenizer.apply_chat_template(
                             messages,
@@ -693,6 +921,8 @@ def main(argv=None):
                 "max": max(initial_lengths),
             }
             write_json(a.output / "source.json", initial)
+            if a.tier == 'agent':
+                freeze_source(initial, a.output)
             model_files = {}
             for p in sorted(Path(plan["model"]).iterdir()):
                 if p.is_file():
@@ -723,21 +953,21 @@ def main(argv=None):
             }
             for repeat in range(plan["repeats"]):
                 selected = select_sessions(corpus, plan, repeat)
-                for arm in (
-                    ["candidate"]
-                    if a.tier == "smoke"
-                    else ["arc", "candidate"]
-                    if repeat % 2 == 0
-                    else ["candidate", "arc"]
-                ):
+                for variant in case_order(plan, repeat):
+                    arm = 'arc' if variant == 'arc' else 'candidate'
+                    case_plan = plan_for_variant(plan, variant)
                     if source_identity()["digest"] != initial["digest"]:
                         raise RuntimeError(
                             "Executed source changed during suite; results retained, no further cases"
                         )
                     available_gpu()
-                    print(f"Running {repeat:02d}-{arm}", flush=True)
-                    case = run_case(plan, selected, arm, repeat, a.output)
+                    print(f"Running {repeat:02d}-{variant}", flush=True)
+                    case = run_case(case_plan, selected, arm, repeat, a.output,
+                                    variant=variant if plan.get('semantic_config') or plan.get('published_runtimes') else None)
                     result["cases"].append(case)
+                    if variant in ('continuum', 'upstream'):
+                        from .published import check_source
+                        check_source(variant, plan['published_runtimes'][variant])
                     write_json(a.output / "result.json", result)
                     if case.get("interrupted"):
                         raise KeyboardInterrupt("Case interrupted")
@@ -746,8 +976,17 @@ def main(argv=None):
             if source_identity()["digest"] != initial["digest"]:
                 raise RuntimeError("Executed source changed during suite")
             result["comparison"] = (
-                paired_comparison(result["cases"]) if a.tier != "smoke" else None
+                paired_comparison([c for c in result['cases'] if c.get('variant') != 'semantic']) if a.tier != "smoke" else None
             )
+            if plan.get('semantic_config'):
+                result['comparisons'] = {'wait_vs_arc':result['comparison'],
+                    'semantic_vs_arc':paired_comparison([c for c in result['cases'] if c.get('variant') in ('arc','semantic')]),
+                    'semantic_vs_wait':paired_comparison([{**c,'arm':'arc' if c['variant']=='wait' else 'candidate'}
+                        for c in result['cases'] if c.get('variant') in ('wait','semantic')])}
+            if plan.get('published_runtimes'):
+                from .published import comparisons
+                result['comparisons'] = comparisons(result['cases'])
+                result['comparison'] = result['comparisons']['wait_vs_arc']
             states = [c["evaluation"]["status"] for c in result["cases"]]
             result["status"] = (
                 "failed"
@@ -762,9 +1001,9 @@ def main(argv=None):
         signal.signal(signal.SIGTERM, old)
         result["wall_s"] = time.monotonic() - started
         expected = [
-            f"{r:02d}-{arm}"
+            f"{r:02d}-{variant}"
             for r in range(plan["repeats"])
-            for arm in (["candidate"] if a.tier == "smoke" else ["arc", "candidate"])
+            for variant in case_order(plan, r)
         ]
         result["not_started"] = [
             name
