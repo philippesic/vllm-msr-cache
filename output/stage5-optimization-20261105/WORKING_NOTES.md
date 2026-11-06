@@ -493,3 +493,73 @@ results and decide credible eviction follow-up, finish remaining pass, final evi
 cleanup and coherent push. No promotion yet. Skill paths moved into p-stack checkout;
 recap and storage-steward re-read there. Storage cleanup skill announced. Current
 campaign1.9GiB, plenty space; preserve retained evidence/source recovery backup.
+
+
+Eviction round8 DONE all6pass/offlineverified;129validtotal.37real beforestates
+replayed identically; native/linear5-7x forlargercalls, n1linearslightlyslower.
+PrimarynativeARC9.97ms/111.13s;wait4.75ms/105.60s;linearwait4.16ms/103.84s.
+TightnativeARC82.15ms/184.70s;wait45.57ms/184.97s;linearwait16.05ms/177.22s.
+These arePROFILEDdiagnostics notpromotiontimings;bodydiffcannotexplain7secwallgap.
+Allrawcalls reconcile; zeroevictionfailures. Evidenceeviction-serving-profile.json
+andEVICTION.md. Nativeprimarywait186/213callsevictedoneblock. Actualstate39victims
+3074visits->101linear(~7x),64victims2017->64(~5x), soCPUleadisrealbuttinyoverall.
+Milestone3756397committed/pushed. Newstage5_closeout.pyreconstructsfinalrecipes;
+checkedplan/corpus/conditions/orderidenticaltopredeclaredremainingplans.
+CurrentGPU session48494:closeout-round9fivepanels=15cases:
+long-batch-profile2(real livedocuments,batch4096),promptstorage5,combo3,auditcontrol2,
+functional3(3waves each). No executed-sourceeditsuntilboundary. Newgeneratoroutside
+identityandunusedinround8wasaddedwithoutchangingexecutedinputs; nowpinnedincaseinputs.
+LongbatchnativeARCcompleted175.036s,465calls,159.423msbody(maxvictims250),~0.091%wall.
+LinearARCcontrolactive. Needoffline exactreplaylongbatchafterthissuite(orquietboundary),
+assessremainingcases andanycrediblefollowup; finalCPU/checklight,compactresults,
+README/finalexhaustion/status+history,chartviahtml_preview+html_render,cleanupinventory,
+finalcommit/push. EVICTION.md stillmentionslongbatchpending;updateafterdata.
+
+
+Closeout round9 performance panels DONE/pass: longdocs2,storage5,combined3,audit2;
+141validtotalnow,2retainedinvalidconfigs. LongbatchARC175.036s/159.423msevict,
+linearARC178.724s/17.859ms;465calls each,maxvictims250;output7240vs7243.
+Tenadditionalexactstatesreplaypending (doafterGPUidleforquietCPUtiming).
+StoragefullARC184.561,promptonlyARC183.921,wait172.717,promptscope189.134,
+waitpromptonly177.086;nonewins. ComboARC184.712,wait180.114,combined178.268,
+~1.04%pointbelow2%usefulmargin. Auditoffwait102.385,ARC108.491,actualabort/drain/
+recoverypassedboth;onewave+probesnotfulloperationalqualification.
+Session48494nowfinalfunctional3cases/3waves (ARC firstactive). No executedsourceedits.
+check-light-final launched (31portabletests+compileall), noCPU/GPUperfclaimforthese
+functionalchecks. CPUfocused100/bench149alreadypassedonunchangedexecutedcode;
+newcloseoutgeneratorcheckedrecipesexactandrunningcases. Don'trepeatwithoutreason.
+EvidenceREADME/EVICTION/EXHAUSTION/overview.html nowdrafted; README/selected-candidate
+stillprovisionaluntilallfunctionalpass. EVICTIONlongbatchreplaypendingtextreplace.
+Finaltasks:awaitfunctionalcompletion+offlineverify;quietofflineprofilefullrootto
+singleeviction-serving-profile.json (47statesexpected), finalstage5_reportresults,
+compactvalidation.jsonfunctionalchecks; finishREADMEandcleanfinalcategoryledger,
+updateSTATUS+PROJECT_HISTORY+Stage5plancompletedunderusernarrowedscope, selected
+candidatefreeze(noexperimentaloverrides), storageinventoryandownedprocess/lockcheck,
+chartpreview/render, finalcoherentcommit/push. Existing sourcecheckpoint3756397
+alreadyonorigin/main; currentuncommitteddeltaonlyevidence/worknotes/docs.
+
+
+FINAL CLOSEOUT: all144validGPUcasespassed;2invalidsettingsretainedseparately.
+Finalfunctional3cases/9wavesallpass,48assertions; actualCPUrestoreforbothhintarms,
+freshcomputedentireprompt/greedyoutputagreement, malformedadvice, nativeabort/drain/
+recoverypassed. ActualpinnedCPUbacking/load-storealias/bytegeometryverifiedfrom
+allocationreceipts. Eightservingprofiles/47exactstatesallreplayequivalent;long197-
+victimstate34380visits->368,~23xCPUgainbuttotalnativeeviction<0.1%workflow.
+Quietofflineprofilereplaydone; finalresults.json146attempts(144valid+2invalid).
+checklight31pass;focused100/bench149pass. Defaultselectedunchanged, noexperimental
+promotion. DocsREADME/categoryledger/selectedcandidate/status/historyupdated.
+GPUprocessesgone, bothlocksacquired/released;146emptyownedruntimecontainersremoved.
+Retain~2.23GBsource/evidence/recovery;retention-inventory.jsonoutsideGitcontains
+freebytesbefore883118055424/after883118628864/delta573440andretainedpaths.
+T3html_previewfailedhostmissingbrowserlibraries;staticchartsourceoverview.html
+saved, nohostpackagesinstalled. html_renderstilltobeattemptedforfinaldisplay.
+Needfinaldocs/linkchecks,stageownfinalevidence/docs/worknotes,commit/pushnonforce,
+verifycleantreeandremote,renderchart,finalself-containedhandback. Stage6pending;
+do notrestartGPUwork. No pending toolcells orsessions exceptnone(allreportedcomplete).
+
+Finalchartdisplayedwithhtml_renderafterhtml_previewreportedmissinghostbrowser
+libraries. No systempackageinstallationneeded;previewimagevalidationunavailable,
+staticSVGdata/sourcecheckedandrenderattachmentcreatedsuccessfully.
+FinaldocslinkchecksandJSONcountchecks passed:33offlineverificationrecordscover146
+attempts,144valid+2invalid;47stateequivalences,48functionalassertions. Cleanupremoved
+onlyemptydirectories;sealedfilesuntouched. Stage6pending; no furtherGPUworkneeded.

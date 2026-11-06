@@ -1,12 +1,12 @@
 # Current work
 
-Last reconciled: 2026-11-05. This is a handoff summary, not a live process monitor.
+Last reconciled: 2026-11-06. This is a handoff summary, not a live process monitor.
 Update the affected entry at a meaningful handoff, change of direction, or finish.
 Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
 linked evidence/run directories, not a second diary here.
 
-Latest completed handoff: [four-stage wait-hint qualification](../evidence/wait-qualification-20261105/README.md). Selected local execution is complete; measured ARC gains support continued use in the tested cache-pressure regimes. Broader performance, quality and production gates remain conditional. GPU released.
+Latest completed handoff: [Stage 5 optimization](../evidence/stage5-optimization-20261105/README.md). Keep the existing wait-hint behavior; no new serving variant qualified. The eviction CPU lead was reproduced on actual states but accounted for less than 0.1% of workflow time. Final functional checks passed; GPU released.
 
 Plan and completed local evidence: [wait-hint validation and release plan](WAIT_HINT_PRODUCT_PLAN.md).
 The original four stages cover causal validation, competitive comparison, repeatability
@@ -15,40 +15,32 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Wait-hint release extension — Stage 5 optimization active
+## Wait-hint release extension — Stage 5 complete; Stage 6 pending
 
-- **Scope:** on 2026-11-05, the user agreed to record the next stages for a README,
-  posts, deeper documentation and a vLLM discussion; a formal paper is not the
-  target. On 2026-11-05 the user authorized sustained Stage 5 optimization across
-  all categories until further searching mostly yields speculative non-results.
-- **Stage 5 — optimize:** sustained queue/prefix/cadence/pressure/budget/plumbing/
-  scheduling search against plain ARC and unchanged wait-hint. Initial policy
-  panels, operating screens, live/mixed follow-ups and fixed finalist repeats
-  verified (123 valid GPU cases, two retained invalid settings). No new winner
-  selected. Latest scope narrows remaining screens and prioritizes measured
-  eviction costs and exact replay of cache states captured in serving.
-  Optional variants preserve default behavior.
-  [Protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md);
-  [exhaustion ledger](../evidence/stage5-optimization-20261105/EXHAUSTION.md).
-  Keeping the current rule is a valid outcome.
-- **Stage 6 — wider testing:** fresh confirmation, meaningful additional models,
-  broader operating and failure conditions, stronger useful-answer checks, and
-  another GPU/native Linux if accessible. ARC losses require diagnosis; only
-  abandon if the mechanism is genuinely unworthy and further work wasteful.
-- **Stage 7 — compile release:** reviewed commits, verified installation and
-  minimal integration, evidence-backed README/docs/post drafts, accessible
-  reproduction artifacts and a focused vLLM proposal. Throughput is primary;
-  first-token latency is secondary; memory is a constraint/control.
-- **Resources/details:** Stage 5 owns serialized local GPU campaigns;
-  each supervisor holds both reservations. Preexisting edits and paused AWQ remain
-  preserved. Raw work: `output/stage5-optimization-20261105/`. [Full stages and completion criteria](WAIT_HINT_PRODUCT_PLAN.md#stage-5-optimize--active).
+- **Outcome:** the optimization pass is complete under the user's narrowed final
+  scope: 144 valid GPU cases and two retained invalid settings. Keep the existing
+  wait-hint rule; optional experiments remain disabled. Actual-state eviction
+  speedups were real but too small in total serving cost to establish a practical
+  gain. See [findings and validation](../evidence/stage5-optimization-20261105/README.md)
+  and the brief [history](PROJECT_HISTORY.md).
+- **Stage 6 — wider testing, pending:** fresh confirmation, additional models,
+  broader operating/failure conditions, stronger useful-answer checks, and another
+  GPU/native Linux if accessible. The [selected profile](../evidence/stage5-optimization-20261105/selected-candidate.json)
+  is frozen for this work; wider execution has not started.
+- **Stage 7 — compile release, pending:** verified installation and minimal
+  integration, reviewed evidence-backed README/docs/post drafts, accessible
+  reproduction artifacts and a focused vLLM proposal. A formal paper is not the
+  target. Throughput remains primary; latency is secondary and memory a constraint.
+- **Resources:** Stage 5 serving processes are reaped and GPU custody is released.
+  Raw runs and source freezes remain in `output/stage5-optimization-20261105/`.
+  The paused AWQ work is preserved. [Plan and completion criteria](WAIT_HINT_PRODUCT_PLAN.md#stage-5-optimize--completed).
 
 ## Wait-hint staged qualification — selected local execution completed; GPU released
 
 - **Authority:** user authorized all four stages, routine diagnosis and continuation while unavailable. Plain ARC is primary; upstream/Continuum secondary. Only abandon if the mechanism is genuinely unworthy.
 - **Outcome:** selected execution across all four stages is complete. Batch time fell 7.51% versus ARC in the main comparison, 8.27% in the fresh repository reserve, 18.12% in the fresh full-budget document reserve, and 8.87% with timed CUDA graphs. These are conditional workload results; tight documents and several other regimes remain unresolved. Original-workload upstream confirmation is competitive within 3%, without a resolved lead; upstream/Continuum win in some regimes. Answer-quality and production gates remain unmet.
 - **Validation:** eight functional cells, four performance cells and two client examples completed. Functional checks cover actual pinned/shared buffers, restore versus fresh computation, greedy equality, and native abort/drain/recovery. All 46 retained coordinator attempts verify, including original failures and repairs. Focused runtime, benchmark-runner and portable checks pass; the isolated source/environment also passes native integration and 60 focused checks. Its dependency differences are disclosed. The finished archive verifies all 38,842 files and 93 task/source links.
-- **Scope/resources:** pinned runtime on the local RTX 2080 Ti/WSL2 host. The newer published runtime is API-incompatible; other hardware/native Linux remain untested. Owned GPU processes are reaped and both reservations are available. Disposable task caches were cleaned; useful evidence, environments, recovery backup, other work and paused AWQ are preserved. No deployment, commit or push.
+- **Scope/resources:** pinned runtime on the local RTX 2080 Ti/WSL2 host. The newer published runtime is API-incompatible; other hardware/native Linux remain untested. Owned GPU processes are reaped and both reservations are available. Disposable task caches were cleaned; useful evidence, environments, recovery backup, other work and paused AWQ are preserved. No deployment; no commit/push at its original handoff. Stage 5 subsequently checkpointed the saved completed foundation separately.
 - **Handoff:** [outcomes](../evidence/wait-qualification-20261105/README.md), [support matrix](../evidence/wait-qualification-20261105/SUPPORT_MATRIX.md), [adverse findings and diagnoses](../evidence/wait-qualification-20261105/REGRESSIONS.md), [verified archive](../output/wait-qualification-20261105/release/wait-hint-qualification-20261105.tar.xz). Raw attempts and recovery backup remain in `output/wait-qualification-20261105/`; final delivery and storage receipts are adjacent to the archive.
 
 ## Four-system comparison — completed; GPU released

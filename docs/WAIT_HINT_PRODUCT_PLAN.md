@@ -335,14 +335,22 @@ limits, and recovery behavior before reliability qualification. Zero failures in
 a short soak does not establish a low long-run failure rate; report exposure and
 the uncertainty it actually supports.
 
-## Stage 5 Optimize — active
+## Stage 5 Optimize — completed
+
+Completed on 2026-11-06 under the user's narrowed closeout scope. The search
+retained the existing wait-hint rule after 144 valid GPU cases; no new serving
+variant qualified. The eviction CPU lead reproduced on actual states and larger
+real-document batches, but native eviction remained below 0.1% of workflow time.
+All 47 captured-state replays and nine final functional waves passed. Two invalid
+configuration attempts remain recorded. [Outcome, evidence and frozen choice](../evidence/stage5-optimization-20261105/README.md).
+The following records the authorized design; Stage 6 remains pending.
 
 Execution authorized on 2026-11-05: extend the initial panel through sustained,
 evidence-driven rounds in every optimization category until further brute-force
 search mostly yields speculative non-results. The initial five/six variants below
 are a first round, not a total search limit. Implementation, repeated comparisons,
 diagnosis and cleanup are in scope; Stage 6 fresh generalization remains separate.
-See the [active protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md)
+See the [protocol](../evidence/stage5-optimization-20261105/PROTOCOL.md)
 and [category ledger](../evidence/stage5-optimization-20261105/EXHAUSTION.md).
 
 Investigate whether a small, bounded panel improves on the current queue-refresh

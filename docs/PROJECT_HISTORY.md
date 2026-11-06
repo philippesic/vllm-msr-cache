@@ -150,3 +150,11 @@ upstream/Continuum. Quality and production gates remain unmet. Eight functional
 cells and both client examples pass; all 46 retained attempts and the finished
 archive verify. GPU released, useful evidence and recovery material preserved.
 [Findings, limits and reproduction](../evidence/wait-qualification-20261105/README.md).
+
+- **November 6, 2026:** Stage 5 optimization completed under the user's narrowed
+  final scope: 144 valid GPU cases, two retained invalid configurations, and no
+  new serving variant qualified over the existing wait-hint rule. Linear eviction
+  reproduced substantial CPU gains on 47 real cache states, but native eviction
+  stayed below 0.1% of workflow time even with large real-document batches.
+  Nine final functional waves and operational recovery checks passed. GPU released;
+  Stage 6 fresh validation remains pending. [Findings and selected profile](../evidence/stage5-optimization-20261105/README.md).

@@ -1,0 +1,1582 @@
+{
+  "gpu_cases": {
+    "passed": 144,
+    "retained_invalid_configuration_attempts": 2
+  },
+  "cpu_checks": {
+    "focused_patched_runtime": 100,
+    "benchmark_runner": 149,
+    "portable": 31,
+    "logs": [
+      "output/stage5-optimization-20261105/profile-tests.log",
+      "output/stage5-optimization-20261105/profile-bench-tests.log",
+      "output/stage5-optimization-20261105/check-light-final.log"
+    ]
+  },
+  "offline_verifications": [
+    {
+      "path": "output/stage5-optimization-20261105/calibration/00-repository-verification.json",
+      "verified_files": 241,
+      "cases": 3,
+      "request_records": 192,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/category-round2/00-repository-verification.json",
+      "verified_files": 1319,
+      "cases": 17,
+      "request_records": 1088,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/closeout-round9/00-live-documents-verification.json",
+      "verified_files": 266,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/closeout-round9/01-tight-verification.json",
+      "verified_files": 395,
+      "cases": 5,
+      "request_records": 320,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/closeout-round9/02-tight-verification.json",
+      "verified_files": 241,
+      "cases": 3,
+      "request_records": 192,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/closeout-round9/03-repository-verification.json",
+      "verified_files": 170,
+      "cases": 2,
+      "request_records": 130,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/closeout-round9/04-functional-probe-verification.json",
+      "verified_files": 370,
+      "cases": 3,
+      "request_records": 102,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/eviction-round8/00-repository-verification.json",
+      "verified_files": 250,
+      "cases": 3,
+      "request_records": 192,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/eviction-round8/01-tight-verification.json",
+      "verified_files": 250,
+      "cases": 3,
+      "request_records": 192,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/finalists-documents-round7/00-repository-verification.json",
+      "verified_files": 934,
+      "cases": 12,
+      "request_records": 768,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/finalists-documents-round7/01-live-documents-verification.json",
+      "verified_files": 635,
+      "cases": 5,
+      "request_records": 320,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/finalists-documents-round7/02-tight-verification.json",
+      "verified_files": 318,
+      "cases": 4,
+      "request_records": 256,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/followup-round4/00-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/followup-round4/01-repository-verification.json",
+      "verified_files": 241,
+      "cases": 3,
+      "request_records": 192,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/followup-round4/02-repository-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/followup-round4/03-live-repository-verification.json",
+      "verified_files": 635,
+      "cases": 5,
+      "request_records": 320,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/followup-round4/04-abandoned-mixed-verification.json",
+      "verified_files": 703,
+      "cases": 9,
+      "request_records": 576,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/00-tight-verification.json",
+      "verified_files": 395,
+      "cases": 5,
+      "request_records": 320,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/01-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/02-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/03-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/04-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/05-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/06-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/07-tight-verification.json",
+      "verified_files": 164,
+      "cases": 2,
+      "request_records": 128,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/operating-round3/08-tight-verification.json",
+      "verified_files": 20,
+      "cases": 1,
+      "request_records": 0,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/policy-round1/00-repository-verification.json",
+      "verified_files": 626,
+      "cases": 8,
+      "request_records": 512,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/policy-round1/01-ample-verification.json",
+      "verified_files": 626,
+      "cases": 8,
+      "request_records": 512,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/timing-operational-round6/00-repository-verification.json",
+      "verified_files": 626,
+      "cases": 8,
+      "request_records": 512,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/timing-operational-round6/01-repository-verification.json",
+      "verified_files": 250,
+      "cases": 3,
+      "request_records": 195,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/timing-operational-round6/02-uneven-verification.json",
+      "verified_files": 472,
+      "cases": 6,
+      "request_records": 384,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/timing-repeat-round5/00-repository-verification.json",
+      "verified_files": 703,
+      "cases": 9,
+      "request_records": 576,
+      "measurement_status": "passed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    },
+    {
+      "path": "output/stage5-optimization-20261105/timing-repeat-round5/01-repository-verification.json",
+      "verified_files": 87,
+      "cases": 1,
+      "request_records": 64,
+      "measurement_status": "failed",
+      "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+    }
+  ],
+  "eviction": {
+    "serving_profiles": 8,
+    "exact_states_replayed": 47,
+    "all_equivalent": true,
+    "raw_call_totals_reconciled": true
+  },
+  "functional": [
+    {
+      "case": "00-arc",
+      "status": "passed",
+      "waves": [
+        {
+          "wave": 0,
+          "checks": [
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w0-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w0-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        },
+        {
+          "wave": 1,
+          "checks": [
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w1-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w1-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        },
+        {
+          "wave": 2,
+          "checks": [
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w2-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w2-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        }
+      ],
+      "operational": {
+        "arrival_interval_s": 0,
+        "wave_interval_s": 0,
+        "client_cancel": true,
+        "backend_abort_receipts": [
+          {
+            "schema": "semantic-backend-abort-v1",
+            "probe_id": "51829b3a-da02-4d98-8b5b-cb806e318d93",
+            "internal_request_id": "cmpl-suite-cancel-probe-0-b5f6076c",
+            "status": "FINISHED_ABORTED",
+            "output_tokens": 1,
+            "at_ns": 419443220224345
+          }
+        ],
+        "recovery_generation": true,
+        "drain_checks": 3,
+        "passed": true,
+        "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification."
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "00-wait",
+      "status": "passed",
+      "waves": [
+        {
+          "wave": 0,
+          "checks": [
+            {
+              "check": "duplicate_is_idempotent",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "38ca36a8d4e884d077600bd7c1681b3b7d1540ae151cc6097ba7c0ad033f6e21",
+                  "status": "no_action",
+                  "reason": "cpu_prefix_recency_refreshed",
+                  "observed_at_ns": 419541268538933,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-0",
+                  "generation": 0,
+                  "nomination_deadline_ns": 419542015827692,
+                  "expires_at_ns": 419547015827692,
+                  "ready_cpu_prefix_keys": 376,
+                  "reserved_gpu_blocks": 0,
+                  "speculative_transfer_bytes": 0,
+                  "idempotent_replay": true
+                }
+              }
+            },
+            {
+              "check": "wrong_namespace_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "38120bf7056581797d0c2ec47de04827deabb470ad51b3fe1d12556d018bdbd7",
+                  "status": "rejected",
+                  "reason": "namespace_mismatch",
+                  "observed_at_ns": 419541275007697,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-0",
+                  "generation": 0
+                }
+              }
+            },
+            {
+              "check": "future_information_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 400,
+                "body": {
+                  "error": {
+                    "message": "wait hint contains forbidden future or diagnostic fields",
+                    "type": "Bad Request",
+                    "param": null,
+                    "code": 400
+                  }
+                }
+              }
+            },
+            {
+              "check": "stale_advice_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "167e530dfda4683f7921d4e40dd649d45165dc27e15eda155d9291021a04491c",
+                  "status": "rejected",
+                  "reason": "causal_clock_mismatch",
+                  "observed_at_ns": 419541279885527,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-0",
+                  "generation": 0,
+                  "source_observed_ns": 419499776428645,
+                  "decision_ns": 419541279885527
+                }
+              }
+            },
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "return_really_restored_cpu_prefix",
+              "passed": true,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 13.0,
+                "vllm:external_prefix_cache_hits_total": 6016.0,
+                "vllm:kv_offload_load_bytes_total": 344981504.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w0-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w0-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        },
+        {
+          "wave": 1,
+          "checks": [
+            {
+              "check": "duplicate_is_idempotent",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "830711e5de03addf9a8f5a5bddaf4b820bf02e0a5c2d99d19a8ba2d4faaf5d67",
+                  "status": "no_action",
+                  "reason": "cpu_prefix_recency_refreshed",
+                  "observed_at_ns": 419598324339154,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-1",
+                  "generation": 0,
+                  "nomination_deadline_ns": 419599071886952,
+                  "expires_at_ns": 419604071886952,
+                  "ready_cpu_prefix_keys": 12,
+                  "reserved_gpu_blocks": 0,
+                  "speculative_transfer_bytes": 0,
+                  "idempotent_replay": true
+                }
+              }
+            },
+            {
+              "check": "wrong_namespace_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "8b5ffc121786433df9a405e84de8edcf0bd8b3d3c235948beb5e32094b4d9904",
+                  "status": "rejected",
+                  "reason": "namespace_mismatch",
+                  "observed_at_ns": 419598329830408,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-1",
+                  "generation": 0
+                }
+              }
+            },
+            {
+              "check": "future_information_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 400,
+                "body": {
+                  "error": {
+                    "message": "wait hint contains forbidden future or diagnostic fields",
+                    "type": "Bad Request",
+                    "param": null,
+                    "code": 400
+                  }
+                }
+              }
+            },
+            {
+              "check": "stale_advice_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "570890f88a971855cbae5939f6090fc1e1c3e456c857157bbc1c9945fa2e2467",
+                  "status": "rejected",
+                  "reason": "causal_clock_mismatch",
+                  "observed_at_ns": 419598333407519,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-1",
+                  "generation": 0,
+                  "source_observed_ns": 419556791653676,
+                  "decision_ns": 419598333407519
+                }
+              }
+            },
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "return_really_restored_cpu_prefix",
+              "passed": true,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 5837.0,
+                "vllm:external_prefix_cache_hits_total": 192.0,
+                "vllm:kv_offload_load_bytes_total": 11010048.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w1-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w1-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        },
+        {
+          "wave": 2,
+          "checks": [
+            {
+              "check": "duplicate_is_idempotent",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "57067375337bc59a0943e60dbd58e4061b15e28f8627baf85d3a07517a87e280",
+                  "status": "no_action",
+                  "reason": "cpu_prefix_recency_refreshed",
+                  "observed_at_ns": 419661371832284,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-2",
+                  "generation": 0,
+                  "nomination_deadline_ns": 419662119381756,
+                  "expires_at_ns": 419667119381756,
+                  "ready_cpu_prefix_keys": 376,
+                  "reserved_gpu_blocks": 0,
+                  "speculative_transfer_bytes": 0,
+                  "idempotent_replay": true
+                }
+              }
+            },
+            {
+              "check": "wrong_namespace_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "b13fba277769f112a8734d10e89a3e9ca85cbd99b2a721e981e7d7e134db9046",
+                  "status": "rejected",
+                  "reason": "namespace_mismatch",
+                  "observed_at_ns": 419661378610874,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-2",
+                  "generation": 0
+                }
+              }
+            },
+            {
+              "check": "future_information_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 400,
+                "body": {
+                  "error": {
+                    "message": "wait hint contains forbidden future or diagnostic fields",
+                    "type": "Bad Request",
+                    "param": null,
+                    "code": 400
+                  }
+                }
+              }
+            },
+            {
+              "check": "stale_advice_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "f65eeb60e5896f2b68b570f51dc69fca56e225bd7a35829b38bd083342176239",
+                  "status": "rejected",
+                  "reason": "causal_clock_mismatch",
+                  "observed_at_ns": 419661382506403,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-2",
+                  "generation": 0,
+                  "source_observed_ns": 419619683107944,
+                  "decision_ns": 419661382506403
+                }
+              }
+            },
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "return_really_restored_cpu_prefix",
+              "passed": true,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 13.0,
+                "vllm:external_prefix_cache_hits_total": 6016.0,
+                "vllm:kv_offload_load_bytes_total": 344981504.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w2-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w2-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        }
+      ],
+      "operational": {
+        "arrival_interval_s": 0,
+        "wave_interval_s": 0,
+        "client_cancel": true,
+        "backend_abort_receipts": [
+          {
+            "schema": "semantic-backend-abort-v1",
+            "probe_id": "9007eca0-8783-49fe-87d1-a4073efe1e1d",
+            "internal_request_id": "cmpl-suite-cancel-probe-0-aeabca33",
+            "status": "FINISHED_ABORTED",
+            "output_tokens": 1,
+            "at_ns": 419670021595838
+          }
+        ],
+        "recovery_generation": true,
+        "drain_checks": 3,
+        "passed": true,
+        "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification."
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "case": "00-linear-grace-wait",
+      "status": "passed",
+      "waves": [
+        {
+          "wave": 0,
+          "checks": [
+            {
+              "check": "duplicate_is_idempotent",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "6bee5232874d07b0a88bda9cb7a650a70692031bf3242b761fb84b36b7aeb246",
+                  "status": "no_action",
+                  "reason": "cpu_prefix_recency_refreshed",
+                  "observed_at_ns": 419762857996023,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-0",
+                  "generation": 0,
+                  "nomination_deadline_ns": 419764354914233,
+                  "expires_at_ns": 419769354914233,
+                  "ready_cpu_prefix_keys": 376,
+                  "reserved_gpu_blocks": 0,
+                  "speculative_transfer_bytes": 0,
+                  "cpu_nomination_grace_ms": 750,
+                  "idempotent_replay": true
+                }
+              }
+            },
+            {
+              "check": "wrong_namespace_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "e36d2dbd442b2593cb4b01aeca0e2effb996d6edceb647aea91374b237f685c3",
+                  "status": "rejected",
+                  "reason": "namespace_mismatch",
+                  "observed_at_ns": 419762865461493,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-0",
+                  "generation": 0
+                }
+              }
+            },
+            {
+              "check": "future_information_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 400,
+                "body": {
+                  "error": {
+                    "message": "wait hint contains forbidden future or diagnostic fields",
+                    "type": "Bad Request",
+                    "param": null,
+                    "code": 400
+                  }
+                }
+              }
+            },
+            {
+              "check": "stale_advice_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "d7259973fbb43a6074f805ab0c4216de6a4f0517421bd5100ccee18854fb1e68",
+                  "status": "rejected",
+                  "reason": "causal_clock_mismatch",
+                  "observed_at_ns": 419762870074974,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-0",
+                  "generation": 0,
+                  "source_observed_ns": 419721239957429,
+                  "decision_ns": 419762870074974
+                }
+              }
+            },
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "return_really_restored_cpu_prefix",
+              "passed": true,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 13.0,
+                "vllm:external_prefix_cache_hits_total": 6016.0,
+                "vllm:kv_offload_load_bytes_total": 344981504.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w0-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w0-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        },
+        {
+          "wave": 1,
+          "checks": [
+            {
+              "check": "duplicate_is_idempotent",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "c851387807c064470bb5fe2187077ff4fc30ee5281580e47526cb878ee4fc8bd",
+                  "status": "no_action",
+                  "reason": "cpu_prefix_recency_refreshed",
+                  "observed_at_ns": 419820062969773,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-1",
+                  "generation": 0,
+                  "nomination_deadline_ns": 419821559827264,
+                  "expires_at_ns": 419826559827264,
+                  "ready_cpu_prefix_keys": 12,
+                  "reserved_gpu_blocks": 0,
+                  "speculative_transfer_bytes": 0,
+                  "cpu_nomination_grace_ms": 750,
+                  "idempotent_replay": true
+                }
+              }
+            },
+            {
+              "check": "wrong_namespace_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "ac1c4c1cd027c70d336ff7bd6fd90101b941074ee1c2c05ff8a6063f13ea85b2",
+                  "status": "rejected",
+                  "reason": "namespace_mismatch",
+                  "observed_at_ns": 419820071202410,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-1",
+                  "generation": 0
+                }
+              }
+            },
+            {
+              "check": "future_information_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 400,
+                "body": {
+                  "error": {
+                    "message": "wait hint contains forbidden future or diagnostic fields",
+                    "type": "Bad Request",
+                    "param": null,
+                    "code": 400
+                  }
+                }
+              }
+            },
+            {
+              "check": "stale_advice_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "7e73720df9fb3a1e669a8f90d562b9fa6f384cbac8fea9029035b5dd9db6537d",
+                  "status": "rejected",
+                  "reason": "causal_clock_mismatch",
+                  "observed_at_ns": 419820077301082,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-1",
+                  "generation": 0,
+                  "source_observed_ns": 419778362750262,
+                  "decision_ns": 419820077301082
+                }
+              }
+            },
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "return_really_restored_cpu_prefix",
+              "passed": true,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 5837.0,
+                "vllm:external_prefix_cache_hits_total": 192.0,
+                "vllm:kv_offload_load_bytes_total": 11010048.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w1-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w1-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        },
+        {
+          "wave": 2,
+          "checks": [
+            {
+              "check": "duplicate_is_idempotent",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "59a6590a50f4b7f8762fb7af2f48b36c3fe2bc1cae0cb20c01b117787eb48cfd",
+                  "status": "no_action",
+                  "reason": "cpu_prefix_recency_refreshed",
+                  "observed_at_ns": 419883417799897,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-2",
+                  "generation": 0,
+                  "nomination_deadline_ns": 419884915343843,
+                  "expires_at_ns": 419889915343843,
+                  "ready_cpu_prefix_keys": 376,
+                  "reserved_gpu_blocks": 0,
+                  "speculative_transfer_bytes": 0,
+                  "cpu_nomination_grace_ms": 750,
+                  "idempotent_replay": true
+                }
+              }
+            },
+            {
+              "check": "wrong_namespace_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "c875b1288ce8cf5862a9d8c425f0a0cb33f1dc4b2feee253d8de3593e9045f04",
+                  "status": "rejected",
+                  "reason": "namespace_mismatch",
+                  "observed_at_ns": 419883424506454,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-2",
+                  "generation": 0
+                }
+              }
+            },
+            {
+              "check": "future_information_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 400,
+                "body": {
+                  "error": {
+                    "message": "wait hint contains forbidden future or diagnostic fields",
+                    "type": "Bad Request",
+                    "param": null,
+                    "code": 400
+                  }
+                }
+              }
+            },
+            {
+              "check": "stale_advice_rejected",
+              "passed": true,
+              "response": {
+                "http_status": 200,
+                "body": {
+                  "schema": "semantic-known-prefix-wait-hint-ack-v1",
+                  "event_id": "f129b0c8f3e0c5b99764111bab4a46e00a2ea0f23e940044169a197a52ea7f27",
+                  "status": "rejected",
+                  "reason": "causal_clock_mismatch",
+                  "observed_at_ns": 419883428654142,
+                  "run_id": "suite",
+                  "cell_id": "case",
+                  "session_id": "probe-2",
+                  "generation": 0,
+                  "source_observed_ns": 419841472711692,
+                  "decision_ns": 419883428654142
+                }
+              }
+            },
+            {
+              "check": "fresh_reference_recomputed_entire_prompt",
+              "passed": true,
+              "prompt_tokens": 6029,
+              "computed_tokens": 6029.0,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 6029.0,
+                "vllm:external_prefix_cache_hits_total": 0.0,
+                "vllm:kv_offload_load_bytes_total": 0.0
+              }
+            },
+            {
+              "check": "return_really_restored_cpu_prefix",
+              "passed": true,
+              "metrics": {
+                "vllm:request_prefill_kv_computed_tokens_sum": 13.0,
+                "vllm:external_prefix_cache_hits_total": 6016.0,
+                "vllm:kv_offload_load_bytes_total": 344981504.0
+              }
+            },
+            {
+              "check": "cached_equals_fresh_generation",
+              "passed": true,
+              "cached_request_id": "sc|suite|case|w2-s0|sample-9",
+              "fresh_request_id": "sc|suite|case|w2-s0|sample-10",
+              "cached_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ],
+              "fresh_output_ids": [
+                576,
+                5785,
+                8129,
+                374,
+                279,
+                5042,
+                5256,
+                320,
+                269,
+                17030,
+                8,
+                315,
+                279,
+                4565,
+                476,
+                2297,
+                7481,
+                304,
+                279,
+                393,
+                9197,
+                13,
+                1084,
+                1265
+              ]
+            }
+          ]
+        }
+      ],
+      "operational": {
+        "arrival_interval_s": 0,
+        "wave_interval_s": 0,
+        "client_cancel": true,
+        "backend_abort_receipts": [
+          {
+            "schema": "semantic-backend-abort-v1",
+            "probe_id": "57709608-a485-4819-b110-20d4cc0b4041",
+            "internal_request_id": "cmpl-suite-cancel-probe-0-b0176676",
+            "status": "FINISHED_ABORTED",
+            "output_tokens": 1,
+            "at_ns": 419892068874425
+          }
+        ],
+        "recovery_generation": true,
+        "drain_checks": 3,
+        "passed": true,
+        "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification."
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "functional_checks": 48,
+  "actual_allocation": "actual-allocation.json",
+  "limitations": [
+    "Forced-token replay does not prove KV byte integrity.",
+    "Functional agreement establishes observed greedy IDs plus actual CPU restore and fresh prefill, not universal numerical equality.",
+    "Development reuse, one model/host; no fresh Stage 6 performance or production qualification."
+  ],
+  "cleanup": {
+    "available_bytes_before": 883118055424,
+    "available_bytes_after": 883118628864,
+    "observed_delta_bytes": 573440,
+    "gpu_reservations": "Both locks acquired and released successfully after serving finished",
+    "removed_empty_runtime_directories": 146,
+    "retained_inventory": "output/stage5-optimization-20261105/retention-inventory.json",
+    "retained_logical_bytes": 2226848926,
+    "serving_processes_remaining": 0
+  }
+}

@@ -1,0 +1,1033 @@
+{
+  "schema": "wait-hint-actual-allocation-receipts-v1",
+  "cases": [
+    {
+      "case": "00-arc",
+      "observations": [
+        {
+          "checks": {
+            "observed_supported_buffers": true,
+            "all_cpu": true,
+            "all_pinned": true,
+            "load_store_share_backing": true,
+            "actual_bytes_match_geometry": true,
+            "actual_bytes_match_rounded_budget": true,
+            "single_block_chunks": true
+          },
+          "passed": true,
+          "actual_cpu_bytes": 2818572288,
+          "observation": {
+            "schema": "semantic-offload-allocation-v1",
+            "available": true,
+            "num_cpu_blocks": 3072,
+            "kv_bytes_per_chunk": 917504,
+            "requested_cpu_bytes": 2818572288,
+            "blocks_per_chunk": 1,
+            "model_dtype": "torch.float16",
+            "model_quantization": "auto_awq",
+            "cpu_buffers": [
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              }
+            ],
+            "selected_store_callable": "vllm._custom_ops.swap_blocks_batch",
+            "selected_load_callable": "vllm._custom_ops.swap_blocks_batch"
+          }
+        }
+      ],
+      "malformed": [],
+      "actual_pinned_path_established": true
+    },
+    {
+      "case": "00-wait",
+      "observations": [
+        {
+          "checks": {
+            "observed_supported_buffers": true,
+            "all_cpu": true,
+            "all_pinned": true,
+            "load_store_share_backing": true,
+            "actual_bytes_match_geometry": true,
+            "actual_bytes_match_rounded_budget": true,
+            "single_block_chunks": true
+          },
+          "passed": true,
+          "actual_cpu_bytes": 2818572288,
+          "observation": {
+            "schema": "semantic-offload-allocation-v1",
+            "available": true,
+            "num_cpu_blocks": 3072,
+            "kv_bytes_per_chunk": 917504,
+            "requested_cpu_bytes": 2818572288,
+            "blocks_per_chunk": 1,
+            "model_dtype": "torch.float16",
+            "model_quantization": "auto_awq",
+            "cpu_buffers": [
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              }
+            ],
+            "selected_store_callable": "vllm._custom_ops.swap_blocks_batch",
+            "selected_load_callable": "vllm._custom_ops.swap_blocks_batch"
+          }
+        }
+      ],
+      "malformed": [],
+      "actual_pinned_path_established": true
+    },
+    {
+      "case": "00-linear-grace-wait",
+      "observations": [
+        {
+          "checks": {
+            "observed_supported_buffers": true,
+            "all_cpu": true,
+            "all_pinned": true,
+            "load_store_share_backing": true,
+            "actual_bytes_match_geometry": true,
+            "actual_bytes_match_rounded_budget": true,
+            "single_block_chunks": true
+          },
+          "passed": true,
+          "actual_cpu_bytes": 2818572288,
+          "observation": {
+            "schema": "semantic-offload-allocation-v1",
+            "available": true,
+            "num_cpu_blocks": 3072,
+            "kv_bytes_per_chunk": 917504,
+            "requested_cpu_bytes": 2818572288,
+            "blocks_per_chunk": 1,
+            "model_dtype": "torch.float16",
+            "model_quantization": "auto_awq",
+            "cpu_buffers": [
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              },
+              {
+                "device": "cpu",
+                "dtype": "torch.int8",
+                "shape": [
+                  3072,
+                  32768
+                ],
+                "nbytes": 100663296,
+                "pinned": true,
+                "load_uses_same_storage": true
+              }
+            ],
+            "selected_store_callable": "vllm._custom_ops.swap_blocks_batch",
+            "selected_load_callable": "vllm._custom_ops.swap_blocks_batch"
+          }
+        }
+      ],
+      "malformed": [],
+      "actual_pinned_path_established": true
+    }
+  ],
+  "all_actual_pinned_paths_established": true,
+  "scope": "One startup observation per single-worker selected cell: actual CPU device, Tensor.is_pinned(), backing shared by load/store, and allocated byte geometry. No inference from environment flags, no retroactive proof for older runs, and no KV-content or transfer-overlap claim."
+}

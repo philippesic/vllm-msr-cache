@@ -1,0 +1,38 @@
+{
+  "scope": "CPU-only hot path, audit disabled; network and scheduler queue excluded",
+  "rows": [
+    {
+      "kind": "scheduler_hint",
+      "keys": 64,
+      "median_ns": 38319,
+      "p95_ns": 49660
+    },
+    {
+      "kind": "scheduler_hint",
+      "keys": 256,
+      "median_ns": 103168,
+      "p95_ns": 126088
+    },
+    {
+      "kind": "scheduler_hint",
+      "keys": 512,
+      "median_ns": 194392,
+      "p95_ns": 229769
+    },
+    {
+      "kind": "client_prefix_digest",
+      "tokens": 1024,
+      "median_ns": 68570
+    },
+    {
+      "kind": "client_prefix_digest",
+      "tokens": 4096,
+      "median_ns": 277985
+    },
+    {
+      "kind": "client_prefix_digest",
+      "tokens": 8192,
+      "median_ns": 579355
+    }
+  ]
+}
