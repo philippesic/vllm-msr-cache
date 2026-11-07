@@ -2,6 +2,18 @@
 
 Status: implementation and preparation in progress; no new performance claim.
 
+The first complete four-system anchor B06 pressure block passed: all four systems
+completed 64 requests, both external policies activated and allocated pinned
+matched cache bytes, and ARC observed prior CPU eviction on all 48 returns.
+The proposed B07 roomy allocation then stalled while creating CPU tensors and
+hit its 900-second startup deadline. Both the failed ARC attempt and the stopped
+wait attempt cleaned up. Tool access was unavailable during the allocation stall;
+the exact OS/driver cause remains unverified. A separate ARC-only capacity probe
+will try 4.5 GiB instead of 7.875 GiB on the identical sixteen tasks, unchanged
+arrivals, GPU cache and generation settings. It must fit and at least halve ARC's
+eviction-affected return count before a replacement campaign is compiled. No
+candidate speed chooses capacity. See [resource failure and repair scope](roomy-resource-repair.json).
+
 The two-wave operational development probe caught a serving defect before pilot
 or confirmation: CPU-only wait retention still allowed the older preemption
 staging path to reserve GPU blocks. All requests, malformed-advice checks,
@@ -53,6 +65,14 @@ in 54/64 answers. A targeted source audit found correct paraphrases and inconsis
 source questions/references, so those mechanical scores are not an answer-correctness
 rate. Original questions and references remain unchanged. These are development
 diagnostics, not fresh confirmation quality or speed estimates.
+
+A repository development spot audit also found a useful `chunked` answer with
+the wrong requested status format, and a `windowed` answer whose claimed
+unsupported fill/step behavior is contradicted by the supplied implementation
+and `test_fillvalue_step`. These remain distinct content and instruction failures;
+no prompt or policy was tuned to remove them. The
+[two-answer source audit](../../output/stage6-2080ti-20261106/development-09/analysis/quality-screen/development-repository-spot-audit-10.json)
+does not replace the required blinded confirmation audit.
 
 A second clean reconstruction now matches the first for all three installed
 environment identities and both external executed source identities. The source

@@ -53,7 +53,11 @@ these selected runs does not establish a universal performance or quality claim.
   changing budgets or workloads; 315 focused CPU checks pass. Fresh source-native
   checks passed for all models and the registry. The two-wave operational repeat
   passed with zero native staging despite actual preemptions. Resource-regime
-  qualification and fresh development comparisons remain before pilot/confirmation;
+  qualification is active: the complete four-system pressure block passed, but
+  the proposed 7.875 GiB roomy CPU allocation stalled at startup and was cleaned
+  up. A separate 4.5 GiB ARC capacity probe keeps all sixteen tasks unchanged;
+  it must fit and halve eviction-affected returns before recompilation. Fresh
+  development comparisons remain before pilot/confirmation;
   check live state before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible

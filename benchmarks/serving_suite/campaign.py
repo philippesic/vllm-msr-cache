@@ -243,6 +243,11 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
         schedule = [dict(model=c['model'],cell='B06',repeat=0,
                          systems=['wait','registry'] if c['model']=='qwen3_8b_awq' else ['wait'])
                     for c in resolved['cells'] if c['cell']=='B06']
+    elif phase=='screen' and load(out/'campaign.json').get('diagnostic_only',{}).get('kind')=='roomy-allocation-development':
+        if locked or len(resolved['cells'])!=1 or resolved['cells'][0]['cell']!='B07' or resolved['cells'][0]['systems']!=['arc']:
+            raise ValueError('Capacity diagnostic requires one unfrozen ARC B07 cell')
+        c = resolved['cells'][0]
+        schedule = [dict(model=c['model'],cell=c['cell'],repeat=0,systems=['arc'])]
     else:
         count = 3 if phase == 'pilot' else 1
         spec = load(out / 'campaign.json')['specification']

@@ -1,0 +1,67 @@
+{
+  "schema": "stage6-resource-development-repair-v1",
+  "classification": "roomy configuration does not fit this host reliably",
+  "failed_cpu_bytes": 8455716864,
+  "unchanged_gpu_blocks": 1024,
+  "attempts": [
+    {
+      "system": "arc",
+      "state": "failed",
+      "artifacts": "output/stage6-2080ti-20261106/development-09/attempts/cf4657002eced7d698e541a83986a78f370d805426888c7bba416703e1bc7caf/03447798bbc446078286f275c1b28fe8",
+      "error": "TimeoutError: Server readiness timed out; see server.log",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "TimeoutError: Server readiness timed out; see server.log",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "system": "wait",
+      "state": "interrupted",
+      "artifacts": "output/stage6-2080ti-20261106/development-09/attempts/993e0396ba7fad667effff175626e78ebb4c3954bbe88204244abad501926d43/001d06341a4d4a8c8b60d4ce00fee678",
+      "error": "KeyboardInterrupt: Campaign worker terminated; closing owned resources",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "KeyboardInterrupt: Campaign worker terminated; closing owned resources",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "observation": "ARC stalled at CPU tensor allocation and missed its 900-second startup deadline. The tool host was unreachable during that interval. The identical wait attempt was stopped after verified ownership; cleanup passed for both.",
+  "causality_limit": "Allocation stall and connection loss are observed; OS/driver failure cause is not established. No startup resource sampler existed before readiness.",
+  "next_probe": {
+    "system": "arc",
+    "cpu_bytes": 4831838208,
+    "startup_timeout_s": 180,
+    "identical": "All sixteen tasks, arrivals, generation limits, GPU cache and base B06 capacity",
+    "decision_rule": "Accept fit only with successful actual allocation, full workflow, cleanup and at least half fewer returning requests with prior CPU eviction than base ARC (48). Never use candidate speed to choose capacity."
+  },
+  "fallback": "If reduced capacity cannot meet the contrast, reduce the matched B06/B07 working set together before a new full campaign.",
+  "probe_test": {
+    "passed": 7,
+    "log": "output/stage6-2080ti-20261106/roomy-probe-tests-11.log"
+  },
+  "scope": "Before pilot/freeze; no performance or 5080 readiness claim"
+}

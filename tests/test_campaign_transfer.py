@@ -148,6 +148,34 @@ def test_transfer_host_uses_frozen_deadlines_and_rejects_escaping_plan(tmp_path)
         frozen_limits(tmp_path,dict(cells=[cell]))
 
 
+def test_roomy_capacity_probe_keeps_tasks_and_parent_immutable(transfer):
+    from benchmarks.serving_suite.campaign_development import prepare_roomy
+    parent,host,root = transfer
+    (parent/'protocol.lock.json').unlink()
+    original = load(parent/'resolved.json')
+    original['cells'][0]['cell']='B07'
+    binding = original['cells'][0]['workload_binding']
+    plan = load(binding['plan'])
+    plan['candidate_config']={'kv_connector_extra_config':{'cpu_bytes_to_use':4096}}
+    atomic_json(binding['plan'],plan)
+    binding['plan_digest']=digest(plan)
+    atomic_json(parent/'resolved.json',original)
+    result = prepare_roomy(parent,root/'capacity-probe','fixture',2048,startup_timeout_s=180)
+    assert result['diagnostic_only']
+    assert load(parent/'resolved.json')==original
+    child = load(root/'capacity-probe/resolved.json')['cells'][0]
+    assert child['systems']==['arc'] and child['confirmation_binding'] is None
+    assert load(child['workload_binding']['corpus'])==load(binding['corpus'])
+    effective = load(child['workload_binding']['plan'])
+    assert effective['cpu_bytes']==2048 and effective['startup_timeout_s']==180
+    assert effective['candidate_config']['kv_connector_extra_config']['cpu_bytes_to_use']==2048
+    assert load(binding['plan'])['cpu_bytes']==4096
+    dry = campaign.run_phase(root/'capacity-probe','screen',dry_run=True)
+    assert dry['blocks'][0]['systems']==['arc']
+    with pytest.raises(ValueError,match='only reduces'):
+        prepare_roomy(parent,root/'bad-capacity','fixture',4096)
+
+
 def test_offline_guard_rejects_snapshot_and_direct_blob_access(tmp_path):
     model = tmp_path/'snapshots/pinned'
     model.mkdir(parents=True)
