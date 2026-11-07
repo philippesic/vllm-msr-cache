@@ -1,3 +1,15 @@
+## Pilot complete; fixed protocol frozen
+
+All 66 pilot runs completed and verified with no failed requests. Source 21 is
+frozen for 524 confirmation configurations in 210 matched blocks, plus 38 overhead
+and six operational configurations. The measured confirmation process-cost
+estimate is 41.16 hours on the RTX 2080 Ti; supplementary work, source review and
+final portability are additional. Repetitions are fixed at 6–12 before confirmation.
+Four pilot comparisons miss the desired precision target at the twelve-repeat
+ceiling; unresolved uncertainty will remain visible. Overhead acquisition is
+active. These are readiness and precision results, not a performance claim.
+[Frozen protocol, pilot measurements and cost receipts](frozen-pilot-checkpoint.json).
+
 ## Exported validation closure verified
 
 The exported source now includes the maintained benchmark and portable test inputs,

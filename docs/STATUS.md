@@ -1,6 +1,6 @@
 # Current work
 
-Last reconciled: 2026-11-06. This is a handoff summary, not a live process monitor.
+Last reconciled: 2026-11-07. This is a handoff summary, not a live process monitor.
 Update the affected entry at a meaningful handoff, change of direction, or finish.
 Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
@@ -40,8 +40,13 @@ these selected runs does not establish a universal performance or quality claim.
   cells / 54 configurations with no request failures. All three native model
   fixtures, both external-system activation checks, the registry probe, all
   three pressure checks and the matched roomy-capacity check passed. The
-  66-case pilot owns the GPU and runs immutable source 19; timed serving source
-  matches native/screen source 15. Confirmation has not started. See
+  66-case pilot is complete with no failed requests. Source 21 is frozen for
+  524 confirmation configurations / 210 matched blocks, plus 38 overhead and
+  six operational configurations. Overhead acquisition owns the GPU; primary
+  confirmation has not started. The measured primary cost estimate is 41.16 hours,
+  with supplementary work and audits additional. Four pilot comparisons still
+  miss the desired precision target at the twelve-repeat ceiling; retain that
+  uncertainty. See [frozen pilot receipts](../evidence/stage6-2080ti-20261106/frozen-pilot-checkpoint.json) and
   [complete screen receipts](../evidence/stage6-2080ti-20261106/development-complete-15.json).
   Candidate behavior stays frozen. The anchor repository cells use eight
   complete sessions at the unchanged 2.6016 GiB base CPU cache; secondary models
@@ -54,10 +59,10 @@ these selected runs does not establish a universal performance or quality claim.
   drain/recovery and all advice probes with zero speculative staging. Two public
   runtime rebuilds match; 220 benchmark checks and 31 portable checks pass from a standalone
   exported validation closure; its wheel build passes through the second runtime.
-  Confirmation will freeze source 21; pilot serving inputs remain identical. Model source review retains format failures, unsupported
+  Frozen source 21 preserves the pilot/native timed serving inputs. Model source review retains format failures, unsupported
   claims and capped answers; confirmation quality and the archive-wide capped
-  response audit remain due. After pilots: fix repetitions, freeze, run controls,
-  operations and comparisons, complete quality and final relocation proof.
+  response audit remain due. Next: complete controls, operations and fixed
+  comparisons, then quality and final relocation proof.
   Check live ownership before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
