@@ -4,6 +4,7 @@ from __future__ import annotations
 import shutil
 import copy
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -119,6 +120,54 @@ def portable_inventory(out, destination):
         raw_evidence='Retained separately; attempt seals and archive inventory identify the full local evidence')
 
 
+def export_validation_support(root, destination):
+    root,destination = Path(root),Path(destination)
+    # Validation support is part of the transfer seal, not the timed serving
+    # source identity. Keep focused native checks and their shared test fixtures.
+    validation = list((root/'tests').glob('test_campaign*.py'))
+    validation += [root/'tests'/name for name in ('__init__.py','test_config.py',
+        'test_wait_hint_cpu_recency.py','test_native_child_runtime.py','test_arc_optimization.py',
+        'test_arc_serving_profile.py','test_step_1_5_prefetch.py','test_preservation_audit_mode.py')]
+    # Keep the maintained CPU benchmark check runnable from the exported tree.
+    # These are validation inputs, not additions to the timed source identity.
+    makefile = root/'Makefile'
+    if makefile.is_file():
+        for name in ('bench-tests','check-light'):
+            recipe = re.search(r'^'+name+r':\n((?:\t[^\n]*\n)*)',makefile.read_text(),re.M)
+            if not recipe:
+                if name=='bench-tests':
+                    raise ValueError('Missing maintained bench-tests recipe')
+                continue
+            selected = re.findall(r'\btests/[A-Za-z0-9_/]+\.py\b',recipe.group(1))
+            if not selected:
+                raise ValueError('Missing maintained benchmark test inputs: '+name)
+            for relative in selected:
+                path = local_path(root,relative)
+                if not path.is_file():
+                    raise ValueError('Missing maintained benchmark test: '+relative)
+                validation.append(path)
+    # Repository runner checks read these real source/test inputs even when no
+    # GPU is launched. Include the declared files, not a replacement fixture.
+    for definition in (root/'benchmarks/serving_suite').glob('*tasks.json'):
+        for task in load(definition)['tasks']:
+            for field in ('source','tests','search'):
+                if field in task:
+                    path = local_path(root,task[field])
+                    if not path.is_file():
+                        raise ValueError('Missing repository validation input: '+task[field])
+                    validation.append(path)
+    validation += [root/'benchmarks/research_checks'/name for name in (
+        '__init__.py','http.py','wait_opportunity_report.py','stage5_optimization.py',
+        'stage5_report.py','wait_hint_qualification.py')]
+    validation.append(root/'benchmarks/latency_validation.py')
+    validation += list((root/'benchmarks/research_checks/fixtures').glob('*.json'))
+    for path in validation:
+        if path.is_file():
+            target = destination/path.relative_to(root)
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(path,target)
+
+
 def export_campaign(out, destination):
     out, destination = Path(out).resolve(), Path(destination).resolve()
     verified = verify_campaign(out)
@@ -156,17 +205,7 @@ def export_campaign(out, destination):
         target = local_path(destination,'source/'+relative)
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    # Validation support is part of the transfer seal, not the timed serving
-    # source identity. Keep focused native checks and their shared test fixtures.
-    validation = list((ROOT/'tests').glob('test_campaign*.py'))
-    validation += [ROOT/'tests'/name for name in ('__init__.py','test_config.py',
-        'test_wait_hint_cpu_recency.py','test_native_child_runtime.py','test_arc_optimization.py',
-        'test_arc_serving_profile.py','test_step_1_5_prefetch.py','test_preservation_audit_mode.py')]
-    for path in validation:
-        if path.is_file():
-            target = destination/'source/tests'/path.name
-            target.parent.mkdir(parents=True,exist_ok=True)
-            shutil.copyfile(path,target)
+    export_validation_support(ROOT,destination/'source')
     # Human setup guidance is transfer provenance, not timed serving input.
     for relative in ('AGENTS.md','docs/STAGE6_PIPELINE.md','docs/STAGE6_EXECUTION_PLAN.md',
                      'docs/BENCHMARKING.md','docs/WAIT_HINT_SUPPORT.md','vendor/VLLM.md'):

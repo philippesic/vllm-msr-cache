@@ -194,6 +194,8 @@ python3 -m benchmarks.serving_suite.runtime_setup --out "$RUNTIMES"
 PY="$RUNTIMES/local-env/bin/python"
 "$PY" -m benchmarks.serving_suite.transfer_setup --bundle "$BUNDLE" --runtimes "$RUNTIMES" --cache "$CACHE" --out "$HOST" --id rtx5080
 "$PY" -m benchmarks.serving_suite.campaign import --bundle "$BUNDLE" --host "$HOST" --out "$OUT"
+make bench-tests PY="$PY"
+make check-light PY="$PY"
 "$PY" -m benchmarks.serving_suite.campaign run --out "$OUT" --phase preflight
 "$PY" -m benchmarks.serving_suite.campaign run --out "$OUT" --phase screen
 "$PY" -m benchmarks.serving_suite.campaign qualify --out "$OUT"

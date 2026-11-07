@@ -1,3 +1,19 @@
+## Exported validation closure verified
+
+The exported source now includes the maintained benchmark and portable test inputs,
+their repository source/configuration fixtures and report helpers. A standalone
+copy using the same export helper passed all 220 benchmark checks and 31 portable
+checks, then built its wheel with the independently rebuilt runtime. A regression
+executes a relocated test/helper after removing its original fixture checkout.
+The initial incomplete-copy failures are retained. Timed serving inputs are
+unchanged; pilots remain on source 19 and confirmation will freeze source 21.
+[Validation receipts](export-validation-closure-checkpoint.json).
+
+The preliminary blinded source audit has explicit judgments covering every distinct
+context in the current 113-response cap packet. It remains provisional during
+acquisition; later caps and the confirmation audit still require review.
+[Saved source judgments](development-capped-source-ratings.json).
+
 ## Complete development screen; pilots running
 
 All 22 cells / 54 configurations completed with no request failures. Required

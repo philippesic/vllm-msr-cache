@@ -2,6 +2,7 @@ import shutil
 import subprocess
 import sys
 import copy
+import os
 from pathlib import Path
 
 import pytest
@@ -102,6 +103,37 @@ def test_transfer_relocates_both_cohorts_and_full_repo(transfer):
         campaign.run_phase(imported,'confirm',dry_run=True)
     with pytest.raises(ValueError,match='Imported repetitions'):
         campaign.freeze(imported)
+
+
+def test_export_runs_maintained_validation_from_relocated_source(transfer):
+    original,host,root = transfer
+    project = Path(host['runtime_bindings']['project_root'])
+    (project/'Makefile').write_text('bench-tests:\n\t$(PY) -m pytest -q tests/test_stage6_capped_review.py\n')
+    test = project/'tests/test_stage6_capped_review.py'
+    test.parent.mkdir()
+    test.write_text('from benchmarks.research_checks.wait_opportunity_report import VALUE\n'
+                    'def test_exported_validation():\n    assert VALUE == 42\n')
+    helper = project/'benchmarks/research_checks/wait_opportunity_report.py'
+    helper.parent.mkdir(parents=True)
+    helper.write_text('VALUE = 42\n')
+    bundle = root/'bundle'
+    export_campaign(original,bundle)
+    moved = root/'moved'
+    bundle.rename(moved)
+    shutil.rmtree(project)
+    source = moved/'source'
+    script = '''
+from pathlib import Path
+import pytest
+from benchmarks.research_checks import wait_opportunity_report
+assert Path(wait_opportunity_report.__file__).resolve().is_relative_to(Path.cwd())
+raise SystemExit(pytest.main(['-q','tests/test_stage6_capped_review.py']))
+'''
+    result = subprocess.run([sys.executable,'-c',script],cwd=source,
+        env=dict(os.environ,PYTHONPATH=str(source),PYTHONDONTWRITEBYTECODE='1'),
+        capture_output=True,text=True)
+    assert result.returncode==0,result.stdout+result.stderr
+    assert '1 passed' in result.stdout
 
 
 def test_transfer_refuses_missing_or_changed_input(transfer):

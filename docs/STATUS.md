@@ -52,8 +52,9 @@ these selected runs does not establish a universal performance or quality claim.
   Actual interruption and whole-block replacement passed. A separate full-cohort
   operational development repeat passed 128 requests per arm, cancellation,
   drain/recovery and all advice probes with zero speculative staging. Two public
-  runtime rebuilds match; 219 benchmark checks, 31 portable checks and a standalone
-  wheel build pass. Model source review retains format failures, unsupported
+  runtime rebuilds match; 220 benchmark checks and 31 portable checks pass from a standalone
+  exported validation closure; its wheel build passes through the second runtime.
+  Confirmation will freeze source 21; pilot serving inputs remain identical. Model source review retains format failures, unsupported
   claims and capped answers; confirmation quality and the archive-wide capped
   response audit remain due. After pilots: fix repetitions, freeze, run controls,
   operations and comparisons, complete quality and final relocation proof.
