@@ -1,0 +1,41 @@
+{
+  "schema": "stage6-all-attempt-cap-checkpoint-v1",
+  "source_digest": "c05af494cd686f9b8f03868ffd94628db4e19749de576174cb76ce81f7fd07a3",
+  "serving_files_match_native_screen_15": true,
+  "benchmark_tests": {
+    "passed": 219,
+    "log": "../../output/stage6-2080ti-20261106/benchmark-tests-18-final.log"
+  },
+  "focused_tests": {
+    "passed": 3,
+    "log": "../../output/stage6-2080ti-20261106/all-attempt-cap-check-18-final.log"
+  },
+  "portable_tests": {
+    "passed": 31,
+    "log": "../../output/stage6-2080ti-20261106/check-light-18.log"
+  },
+  "package_proof": "../../output/stage6-2080ti-20261106/snapshot-package-proof-18/proof.json",
+  "development_inventory": {
+    "capped_responses": 111,
+    "unique_contexts": 46,
+    "roles": {
+      "capped_intermediate": 99,
+      "final": 12
+    },
+    "phases": {
+      "screen": 111
+    },
+    "complete_inventory": false,
+    "status": "pending_source_audit"
+  },
+  "checks": [
+    "All ordinary acquisition phases",
+    "Failed and interrupted attempts, including missing final case results",
+    "Warmup/cancel fixtures excluded",
+    "Preceding graph evidence only",
+    "System/model/phase labels blinded",
+    "Changed sealed artifacts rejected",
+    "Active or changed acquisition prevents final audit"
+  ],
+  "scope": "Measured development inventory and tested review workflow; actual source ratings and complete frozen acquisition remain due"
+}

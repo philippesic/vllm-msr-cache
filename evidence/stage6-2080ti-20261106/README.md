@@ -1,3 +1,13 @@
+## Archive-wide capped-response inventory
+
+The retained cap-review command covers all ordinary phases and earlier failed or
+interrupted attempts, including captures without final case results. It verifies
+sealed inputs, separates finals/intermediates and blinding labels, and refuses a
+final audit while acquisition is active or its ledger changes. Source ratings
+remain due. The complete benchmark suite passes 219 checks; portable checks 31
+and the standalone wheel build pass. Timed serving source is unchanged.
+[Coverage checkpoint](all-attempt-cap-checkpoint.json).
+
 ## Relocated import execution before freeze
 
 The portability proof now executes binding, import and dry compilation in a fresh

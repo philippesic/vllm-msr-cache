@@ -39,7 +39,7 @@ these selected runs does not establish a universal performance or quality claim.
 - **Stage 6 active resources:** `development-15` is the fresh campaign after
   uniform canonical-tool prompt repair and the matched capacity fallback.
   All three native model fixtures and the registry probe passed again. The
-  current source passes 216 benchmark checks and 31 portable checks and builds
+  current source passes 219 benchmark checks and 31 portable checks and builds
   a standalone wheel through the independently reconstructed runtime. The
   full 54-configuration screen owns the GPU. All four fresh anchor pressure
   arms passed with identical initial token prompts and actual external activation;
@@ -54,7 +54,8 @@ these selected runs does not establish a universal performance or quality claim.
   includes every capped response, including intermediate steps with only prior
   graph evidence; final-answer denominators stay separate. Relocation import and
   dry compilation now execute from relocated exported code with an asserted new
-  project binding. The fresh full-cohort operational
+  project binding. An archive-wide cap audit covers every ordinary phase and
+  earlier failed/interrupted attempts; source ratings remain due. The fresh full-cohort operational
   development repeat passed 128 requests per arm with cancellation, drain,
   recovery, all five advice checks and zero speculative staging.
   It retains sixteen complete sessions per wave; matched anchor B05/B06/B07/B12

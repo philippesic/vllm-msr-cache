@@ -130,6 +130,19 @@ reference permits reuse of a previously made judgment; it is not an automatic
 pass. Submit explicit source-supported, instruction-following and usefulness
 judgments, unsupported claims and source notes using the versioned audit schema.
 
+The archive-wide cap audit separately covers ordinary capped responses from all
+campaigns immediately inside the acquisition root, including earlier failed or
+interrupted attempts and the pilot/control/operational phases. It excludes native
+fixtures and isolated warmup/cancellation/recovery probes. Use a new destination;
+the packet refuses finalization during acquisition or after its ledger inventory
+changes. Exact duplicate contexts permit judgment reuse, with explicit ratings
+still required for every response.
+
+```bash
+"$PY" -m benchmarks.serving_suite.campaign_capped_review --root /absolute/acquisition-root --out /absolute/new-cap-audit
+"$PY" -m benchmarks.serving_suite.campaign_capped_review --out /absolute/new-cap-audit --ratings /absolute/cap-source-audit.json
+```
+
 ```bash
 "$PY" -m benchmarks.serving_suite.campaign quality --out "$OUT" --ratings /absolute/source-audit.json
 "$PY" -m benchmarks.serving_suite.campaign verify --out "$OUT"
