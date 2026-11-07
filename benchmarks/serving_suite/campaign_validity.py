@@ -27,6 +27,12 @@ def measurement_validity(directory,event,case=None):
     evaluation = case.get('evaluation',{})
     result = dict(version=VERSION,valid=event['state']=='verified' and evaluation.get('status')=='passed',
         classification='original_measurement',raw_ledger_state=event['state'],raw_evaluation=evaluation.get('status'))
+    restore = case.get('activity',{}).get('restore')
+    if identity.get('system') in ('arc','wait') and type(restore) in (int,float):
+        result['cpu_restore_activity'] = 'active' if positive(restore) else 'inactive' if restore==0 else 'invalid'
+        native = case.get('campaign',{}).get('native_cache',{})
+        result['cpu_pressure_evidence'] = ('observed' if positive(native.get('returning_requests_with_prior_cpu_eviction'))
+            else 'inconclusive')
     if result['valid']:
         return result
     if (event['state']!='failed' or identity.get('phase') not in ('screen','pilot','confirm') or

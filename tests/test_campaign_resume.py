@@ -158,6 +158,21 @@ def test_repository_activity_interpretation_does_not_hide_failures(resident_repo
     assert not measurement_validity(directory,event,case)['valid']
 
 
+@pytest.mark.parametrize('system',['arc','wait'])
+@pytest.mark.parametrize('restore',[0,100])
+def test_original_passed_checks_still_expose_actual_restore_activity(resident_repository,system,restore):
+    from benchmarks.serving_suite.campaign_validity import measurement_validity
+    ledger,identity,event,directory,case=resident_repository
+    event['state']='verified'; event['details']['identity']['system']=system
+    case['evaluation']=dict(status='passed',errors=[],unavailable_activity=[],inactive_activity=[])
+    case['activity']['restore']=restore
+    result=measurement_validity(directory,event,case)
+    assert result['valid'] and result['classification']=='original_measurement'
+    assert result['cpu_restore_activity']==('active' if restore else 'inactive')
+    assert result['cpu_pressure_evidence']=='inconclusive'
+    assert not result.get('reinterpreted')
+
+
 def test_interrupted_case_is_new_whole_attempt(tmp_path):
     ledger = Ledger(tmp_path)
     identity = {'model': 'one', 'repeat': 1}

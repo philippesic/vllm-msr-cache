@@ -2,7 +2,7 @@
   "schema": "stage6-derived-activity-analysis-checkpoint-v1",
   "measurement_validity_version": "stage6-measurement-validity-v3",
   "acquisition_source_digest": "2b2876c2f392dab22f99a2729a6675a5fc69f85e0689e3f1bc03e05c0034d09b",
-  "analysis_source_digest": "07f7b8c30716561af5a14a4fa90bbcdac0d27df34d730ac5fd36ffa4f4fdad0d",
+  "analysis_source_digest": "e40cc40d1b323f159eb90ab625a64801a2070e49457206b1c686af19d36b6de9",
   "changed_files": [
     "benchmarks/serving_suite/campaign_portability.py",
     "benchmarks/serving_suite/campaign_report.py",
@@ -119,5 +119,41 @@
   "focused_checks_timing": {
     "scope": "Retained 55-check invocation finished during worker startup before the first measured request of the concurrent anchor ARC third repetition.",
     "finished_before_first_measured_request_s": 52.51134181022644
+  },
+  "baseline_pressure_observations": [
+    {
+      "repeat": 0,
+      "path": "../../output/stage6-2080ti-20261106/development-15/attempts/a055e49cb4f7d5e43e0e7b74b52e5f445e69e9eb7da4dece57c48fc5618d2642/aee0da2056384fc5a127a67f1cc22164",
+      "completed": 32,
+      "loaded_tokens": 0,
+      "cpu_eviction_affected_returns": 0
+    },
+    {
+      "repeat": 1,
+      "path": "../../output/stage6-2080ti-20261106/development-15/attempts/820f045204633bf0fbee3a9909a79d3762a7acedec5198bb4acea9c0be372544/41471777ac724aef971cb75449f21d8f",
+      "completed": 32,
+      "loaded_tokens": 0,
+      "cpu_eviction_affected_returns": 0
+    },
+    {
+      "repeat": 2,
+      "path": "../../output/stage6-2080ti-20261106/development-15/attempts/7106a16e65947505d4f31aa8ae85dcb9bd3084e6b1fef65c1be1177fd0d5ccd6/c2f978d2df43440597c92226619db2f4",
+      "completed": 32,
+      "loaded_tokens": 0,
+      "cpu_eviction_affected_returns": 0
+    },
+    {
+      "repeat": 3,
+      "path": "../../output/stage6-2080ti-20261106/development-15/attempts/d76908a0166ff8c82a4a84e8b220edc2a705f0f0c011d2283283d55d9829ddcd/0226f5be84a642ffbd1c6d061d6731a9",
+      "completed": 32,
+      "loaded_tokens": 0,
+      "cpu_eviction_affected_returns": 0
+    }
+  ],
+  "baseline_pressure_finding": "The first four ARC repetitions also have zero restores and CPU-eviction-affected returns. This anchor confirmation cohort does not establish a CPU-pressure/offload-benefit claim. Preserve all conditional throughput comparisons.",
+  "additional_activity_checks": {
+    "passed": 35,
+    "command": "python -m pytest -q tests/test_campaign_resume.py",
+    "log": "../../output/stage6-2080ti-20261106/restore-activity-every-arm-checks.log"
   }
 }

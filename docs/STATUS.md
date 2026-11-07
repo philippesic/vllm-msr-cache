@@ -53,7 +53,9 @@ these selected runs does not establish a universal performance or quality claim.
   five anchor cells (B01–B05) completed all 108 configurations without request
   failures; B03–B05 had no token caps. The four-system B06 comparison is active. Complete anchor repository runs with
   zero restores are retained under derived validity v3; CPU-pressure evidence in
-  those runs is inconclusive. Sealed outcomes and source-21 acquisition remain
+  those runs is inconclusive. The first four anchor ARC repetitions also have
+  zero restores/CPU-eviction-affected returns: this cohort is a GPU-reuse control,
+  not established CPU-pressure evidence. Sealed outcomes and source-21 acquisition remain
   unchanged; separately versioned analysis exports preserve both closures. See
   [activity interpretation](../evidence/stage6-2080ti-20261106/repository-resident-validity-v3.json).
   See [confirmation checkpoint](../evidence/stage6-2080ti-20261106/confirmation-progress-checkpoint.json). All
