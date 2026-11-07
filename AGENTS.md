@@ -25,6 +25,14 @@
 - Keep reusable experiment code in `benchmarks/` or `harness/`, compact findings in
   `evidence/`, and raw runs in ignored `output/`. Search project code separately
   from the full `vendor/vllm` tree unless investigating upstream behavior.
+- Long GPU acquisition runs unattended under the durable coordinator. Use supported
+  completion/failure wakeups or scheduled agent health checks, normally every
+  15–30 minutes, rather than keeping an agent turn polling unchanged logs.
+  Preserve fast internal timeout/cleanup supervision. Check progress, ownership,
+  resources, failures and workload purpose; repair actionable defects, preserve
+  attempts, then return to unattended operation. Retain unfavorable/inconclusive
+  performance. Report material changes, repairs/blockers, requested status and
+  completion instead of routine heartbeats. See [Stage 6 operation](docs/STAGE6_UNATTENDED.md).
 
 - New GPU supervisors must use `harness.gpu_lock.gpu_reserved` for the entire
   invocation, including idle gaps; direct GPU tasks use `GPULock()`. Do not unlink

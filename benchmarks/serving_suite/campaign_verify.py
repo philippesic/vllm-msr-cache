@@ -163,6 +163,7 @@ def export_validation_support(root, destination):
     validation += [root/'tests'/name for name in ('__init__.py','test_config.py',
         'test_wait_hint_cpu_recency.py','test_native_child_runtime.py','test_arc_optimization.py',
         'test_arc_serving_profile.py','test_step_1_5_prefetch.py','test_preservation_audit_mode.py')]
+    validation.append(root/'tests/test_stage6_healthcheck.py')
     # Keep the maintained CPU benchmark check runnable from the exported tree.
     # These are validation inputs, not additions to the timed source identity.
     makefile = root/'Makefile'
@@ -193,7 +194,7 @@ def export_validation_support(root, destination):
                     validation.append(path)
     validation += [root/'benchmarks/research_checks'/name for name in (
         '__init__.py','http.py','wait_opportunity_report.py','stage5_optimization.py',
-        'stage5_report.py','wait_hint_qualification.py')]
+        'stage5_report.py','wait_hint_qualification.py','stage6_healthcheck.py','stage6_resume.py')]
     validation.append(root/'benchmarks/latency_validation.py')
     validation += list((root/'benchmarks/research_checks/fixtures').glob('*.json'))
     for path in validation:
@@ -236,7 +237,7 @@ def export_campaign(out, destination):
     analysis_source = export_source_closures(ROOT,destination,locked,load(out/'host.private.json'))
     export_validation_support(ROOT,destination/analysis_source['analysis_directory'])
     # Human setup guidance is transfer provenance, not timed serving input.
-    for relative in ('AGENTS.md','docs/STAGE6_PIPELINE.md','docs/STAGE6_EXECUTION_PLAN.md',
+    for relative in ('AGENTS.md','docs/STAGE6_PIPELINE.md','docs/STAGE6_EXECUTION_PLAN.md','docs/STAGE6_UNATTENDED.md',
                      'docs/BENCHMARKING.md','docs/WAIT_HINT_SUPPORT.md','vendor/VLLM.md'):
         path = ROOT/relative
         if path.is_file():

@@ -49,13 +49,23 @@ these selected runs does not establish a universal performance or quality claim.
   probes, zero sampled speculative staging/reservations and no declared memory
   growth alarm. See [operational receipts](../evidence/stage6-2080ti-20261106/operational-checkpoint.json)
   and [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
-  Fixed primary confirmation owns the GPU from immutable source 21. The first
+  Fixed primary confirmation owns the GPU from immutable source 21. Acquisition
+  now runs unattended with a supported 20-minute scheduled health/completion task
+  bound to this thread; routine healthy checks are silent. Fast worker supervision
+  is unchanged. [Operation and recovery](STAGE6_UNATTENDED.md) and
+  [verified monitoring receipts](../evidence/stage6-2080ti-20261106/unattended-operation.json)
+  record scheduling, progress/resource/coverage checks and exact attested recovery. The first
   five anchor cells (B01–B05) completed all 108 configurations without request
   failures; B03–B05 had no token caps. The four-system B06 comparison is active. Complete anchor repository runs with
   zero restores are retained under derived validity v3; CPU-pressure evidence in
   those runs is inconclusive. The first four anchor ARC repetitions also have
   zero restores/CPU-eviction-affected returns: this cohort is a GPU-reuse control,
-  not established CPU-pressure evidence. Sealed outcomes and source-21 acquisition remain
+  not established CPU-pressure evidence. Existing full-sixteen operational runs
+  prove local pressure (ARC 265/288 and candidate 270/288 eviction-affected returns),
+  but not repeated four-system repository pressure performance. A separate bounded
+  nine-configuration supplement is declared after primary acquisition; at most one
+  diagnosed four-system block replacement, thirteen total attempts. Keep all original
+  results and report the gap if this cohort cannot qualify. Sealed outcomes and source-21 acquisition remain
   unchanged; separately versioned analysis exports preserve both closures. See
   [activity interpretation](../evidence/stage6-2080ti-20261106/repository-resident-validity-v3.json).
   See [confirmation checkpoint](../evidence/stage6-2080ti-20261106/confirmation-progress-checkpoint.json). All
