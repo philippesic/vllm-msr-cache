@@ -24,6 +24,72 @@ def test_resume_requires_exact_identity_and_seal(tmp_path):
         ledger.reusable(identity)
 
 
+@pytest.fixture
+def resident_team(tmp_path):
+    import json
+    ledger = Ledger(tmp_path)
+    identity = dict(model='fixture',cell='B10',system='wait',phase='screen',repeat=0,source='source',workload='workload')
+    attempt,directory = ledger.begin(identity,block_id='matched-block')
+    sessions = [dict(id=str(i),graph=dict(outputs=['synthesis'],nodes=[
+        dict(id=n,kind='request') for n in ('coordinator','source','validation','limitations','synthesis')]+[
+        dict(id='tool-'+str(j),kind='tool') for j in range(3)])) for i in range(4)]
+    rows = [dict(wave=0,source_id=s['id'],node_id=n['id'],success=True,terminal_complete=True)
+        for s in sessions for n in s['graph']['nodes'] if n['kind']=='request']
+    case = dict(name='case',expected_requests=20,summary=dict(completed=20,failed=0),load_duration_s=10,
+        evaluation=dict(status='inconclusive',errors=[],unavailable_activity=[],inactive_activity=['restore']),
+        cleanup=dict(verified=True),activity=dict(store=100,restore=0,cpu_recency=40),
+        metrics={'vllm:prefix_cache_hits_total':100},
+        campaign=dict(completed_units=4,offered_units=4,completed_units_per_s=.4,tools=12,native_cache=dict(
+            complete=True,receipts=20,returning_requests=4,loaded_tokens=0,returning_loaded_tokens=0,
+            prior_cpu_evicted_key_observations=0,returning_requests_with_prior_cpu_eviction=0,preemptions=0)))
+    atomic_json(directory/'result.json',dict(status='inconclusive'))
+    atomic_json(directory/'measurement/result.json',dict(plan=dict(campaign_adapter=True,waves=1),cases=[case]))
+    atomic_json(directory/'measurement/corpus.json',dict(sessions=sessions))
+    (directory/'measurement/case').mkdir()
+    (directory/'measurement/case/requests.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in rows))
+    row=ledger.index()[attempt]
+    event=ledger.event(row['case_id'],attempt,'failed',**row['details'],seal=seal_tree(directory),measurement_status='inconclusive')
+    return ledger,identity,event,directory,case
+
+
+def test_gpu_resident_team_reinterpretation_preserves_terminal_attempt(resident_team):
+    from benchmarks.serving_suite.campaign_validity import measurement_validity
+    from benchmarks.serving_suite.campaign_contracts import file_hash
+    ledger,identity,event,directory,case=resident_team
+    before=file_hash(directory/'measurement/result.json')
+    validity=measurement_validity(directory,event)
+    assert validity['valid'] and validity['reinterpreted']
+    assert validity['classification']=='valid_gpu_resident_team_control'
+    assert ledger.reusable(identity)['attempt_id']==event['attempt_id']
+    assert ledger.index()[event['attempt_id']]['state']=='failed'
+    assert file_hash(directory/'measurement/result.json')==before
+    atomic_json(directory/'result.json',dict(status='passed'))
+    with pytest.raises(ValueError,match='Changed artifact'):
+        ledger.reusable(identity)
+
+
+@pytest.mark.parametrize('problem',['missing_counter','eviction','preemption','no_gpu_hits','no_treatment',
+    'incomplete_native','request_failure','partial_graph','wrong_cell','runner_failure'])
+def test_resident_control_review_never_accepts_missing_or_failed_measurements(resident_team,problem):
+    import copy
+    from benchmarks.serving_suite.campaign_validity import measurement_validity
+    ledger,identity,original,directory,case=resident_team
+    event=copy.deepcopy(original)
+    if problem=='missing_counter': case['activity']['restore']=None
+    elif problem=='eviction': case['campaign']['native_cache']['returning_requests_with_prior_cpu_eviction']=1
+    elif problem=='preemption': case['campaign']['native_cache']['preemptions']=1
+    elif problem=='no_gpu_hits': case['metrics']['vllm:prefix_cache_hits_total']=0
+    elif problem=='no_treatment': case['activity']['cpu_recency']=0
+    elif problem=='incomplete_native': case['campaign']['native_cache']['complete']=False
+    elif problem=='request_failure': case['summary']['failed']=1
+    elif problem=='partial_graph':
+        path=directory/'measurement/case/requests.jsonl'
+        path.write_text('\n'.join(path.read_text().splitlines()[:-1])+'\n')
+    elif problem=='wrong_cell': event['details']['identity']['cell']='B06'
+    elif problem=='runner_failure': (directory/'failure.json').write_text('{}')
+    assert not measurement_validity(directory,event,case)['valid']
+
+
 def test_interrupted_case_is_new_whole_attempt(tmp_path):
     ledger = Ledger(tmp_path)
     identity = {'model': 'one', 'repeat': 1}

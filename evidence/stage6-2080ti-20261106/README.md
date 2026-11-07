@@ -1,3 +1,21 @@
+## Team-cell validity repair before freeze
+
+Both B10 arms completed all four real team graphs / twenty requests, with GPU
+prefix reuse and zero CPU restores, CPU evictions or preemptions. The treatment
+also applied CPU recency updates. The original requirement accepted zero restores
+on ARC but called the treatment inconclusive. The versioned measurement-validity
+layer now retains this as a valid GPU-resident team control under a strict raw-data
+predicate. It does not force CPU pressure or imply an offload benefit.
+
+Original sealed results and terminal ledger states remain unchanged. Collection
+and resume use the same predicate; missing counters, inactive treatment, partial
+requests, evictions, preemptions and runner failures cannot use this exception.
+The version is carried into precision planning and per-process report points.
+All 36 focused resume/report/transfer checks pass, including negative cases and
+proof that the old terminal state and file hashes do not change. Timed serving
+source is identical to the fresh native/screen source. Full acquisition continues.
+[Versioned native receipts](team-resident-validity-v2.json).
+
 The fresh anchor four-system pressure block passed all 32 requests per arm,
 with identical initial token prompts. Continuum recorded 23 real pins; upstream
 24 applied updates and 169 priority-selection calls. ARC had two eviction-affected

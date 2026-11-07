@@ -1,0 +1,94 @@
+{
+  "version": "stage6-measurement-validity-v2",
+  "rows": [
+    {
+      "system": "arc",
+      "artifacts": "attempts/f996656b24b7ea9885b25d277efec2049159db7c688a052925db309b08f91087/f38c29ad9ec4493d9086a0afcfa46b62",
+      "seal": "d67c0ac0bd884499c436ea0d6c34de9acd322a48e63447ca2d1045ef350be7d6",
+      "raw_evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "native_cache": {
+        "receipts": 20,
+        "complete": true,
+        "computed_prompt_tokens": 12358,
+        "returning_computed_prompt_tokens": 1761,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 4,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2087976960.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "gpu_prefix_hits": 27392.0,
+      "interpretation": {
+        "version": "stage6-measurement-validity-v2",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      }
+    },
+    {
+      "system": "wait",
+      "artifacts": "attempts/c0a135200323843f2c36d23d0c756c858e0ef17cba7e5c8110f32d1ff0a72abe/5d4664fed53945388312e3a39e727f2c",
+      "seal": "93765f3073c1f3a960442a26a00474cb7155e5b898aed2d2d2850a915ad7581f",
+      "raw_evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "native_cache": {
+        "receipts": 20,
+        "complete": true,
+        "computed_prompt_tokens": 12358,
+        "returning_computed_prompt_tokens": 1761,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 4,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2087976960.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 5696
+      },
+      "gpu_prefix_hits": 27392.0,
+      "interpretation": {
+        "version": "stage6-measurement-validity-v2",
+        "valid": true,
+        "classification": "valid_gpu_resident_team_control",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete team DAG with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. No CPU offload benefit is implied; original sealed status remains unchanged."
+      }
+    }
+  ],
+  "scope": "Post-measurement classification repair before protocol freeze; no serving/prompt/policy/capacity change and no original artifact or ledger mutation",
+  "campaign": "output/stage6-2080ti-20261106/development-15",
+  "focused_checks": {
+    "passed": 36,
+    "log": "output/stage6-2080ti-20261106/resident-control-validity-16.log"
+  },
+  "timed_serving_source_unchanged": true
+}

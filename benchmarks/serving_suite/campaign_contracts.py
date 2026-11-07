@@ -276,11 +276,16 @@ class Ledger:
     def reusable(self, identity):
         case_id = digest(identity)
         for row in reversed(list(self.index().values())):
-            if row['case_id'] == case_id and row['state'] == 'verified':
-                verify_tree(local_path(self.root, row['details']['path']), row['details']['seal'])
+            if row['case_id'] == case_id and row['state'] in ('verified','failed') and row['details'].get('seal'):
+                directory = local_path(self.root,row['details']['path'])
+                verify_tree(directory, row['details']['seal'])
                 if row['details']['identity'] != identity:
                     raise ValueError('Attempt identity mismatch')
-                return row
+                if row['state']=='verified':
+                    return row
+                from .campaign_validity import measurement_validity
+                if measurement_validity(directory,row)['valid']:
+                    return row
         return None
 
     def recover(self):

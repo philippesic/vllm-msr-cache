@@ -95,8 +95,9 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
  quality_status=analysis['quality']['status']))))
 '''
             from .campaign import ROOT
+            original_project = host.get('runtime_bindings',{}).get('project_root',str(ROOT))
             raw = subprocess.check_output([sys.executable,'-c',script,str(relocated),str(out),
-                json.dumps(list(host['models'].values())),str(ROOT),host['asset_cache']],cwd=moved/'source',
+                json.dumps(list(host['models'].values())),original_project,host['asset_cache']],cwd=moved/'source',
                 env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',CUDA_VISIBLE_DEVICES=''),text=True)
             verification = json.loads(raw)
         finally:

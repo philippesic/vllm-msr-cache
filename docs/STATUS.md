@@ -45,7 +45,12 @@ these selected runs does not establish a universal performance or quality claim.
   arms passed with identical initial token prompts and actual external activation;
   the main ARC capacity pair reproduced two versus zero eviction-affected returns.
   This campaign also passed actual interruption and whole-block replacement.
-  Secondary-model pressure and remaining screens are still due. The fresh full-cohort operational
+  All full/half-budget document arms passed. Team requests completed in both
+  arms with zero CPU restoration because prefixes stayed GPU-resident. A versioned
+  classification repair retains that control without rewriting its original
+  inconclusive treatment result or forcing pressure; 36 focused checks pass.
+  Mixed traffic and remaining screens, including secondary-model pressure, remain
+  due. The fresh full-cohort operational
   development repeat passed 128 requests per arm with cancellation, drain,
   recovery, all five advice checks and zero speculative staging.
   It retains sixteen complete sessions per wave; matched anchor B05/B06/B07/B12

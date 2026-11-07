@@ -78,14 +78,18 @@ def completed_blocks(out, phase, *, source=None):
     for event in ledger.index().values():
         details = event['details']
         identity = details.get('identity',{})
-        if event['state'] != 'verified' or identity.get('phase') != phase:
+        if event['state'] not in ('verified','failed') or identity.get('phase') != phase or not details.get('seal'):
             continue
         if source is not None and identity.get('source')!=source:
             continue
         attempt = local_path(out,details['path'])
         verify_tree(attempt,details['seal'])
+        if not (attempt/'measurement/result.json').is_file():
+            continue
         case = load(attempt/'measurement/result.json')['cases'][0]
-        if case['evaluation']['status'] != 'passed' or case['summary']['failed']:
+        from .campaign_validity import measurement_validity
+        validity = measurement_validity(attempt,event,case)
+        if not validity['valid'] or case['summary']['failed']:
             continue
         observed = case.get('campaign')
         if not observed or observed['completed_units'] != observed['offered_units']:
@@ -100,7 +104,7 @@ def completed_blocks(out, phase, *, source=None):
                     count = request_counts.setdefault(row.get('hint_group','ordinary'),dict(requests=0,returning=0))
                     count['requests'] += 1
                     count['returning'] += bool(row.get('is_returning'))
-        groups.setdefault(key,{})[identity['system']] = dict(event=event, case=case,
+        groups.setdefault(key,{})[identity['system']] = dict(event=event, case=case,measurement_validity=validity,
             rate=observed['completed_units_per_s'], units=observed['completed_units'],
             duration_s=case['load_duration_s'],request_observations=request_counts,
             process_elapsed_s=event['timestamp_unix']-started[event['attempt_id']])
@@ -194,9 +198,10 @@ def pilot_precision(out):
             cell_screen=screen_cost,cost_rule='Maximum of applicable pilot mean and this cell development-screen mean',
             process_cost_scope='Measured ledger running-to-terminal wall time including setup, serving, cleanup and verification; phase preparation and supplementary work are additional')
     from .campaign_quality import RUBRIC
+    from .campaign_validity import VERSION as VALIDITY_VERSION
     result = dict(schema='serving-campaign-pilot-precision-v1',status='incomplete' if missing or timeout_violations else 'complete',
         missing=missing,measured=measured,repeats=repeats,propagation=propagation,
-        timeout_violations=timeout_violations,quality_rubric=RUBRIC,
+        timeout_violations=timeout_violations,quality_rubric=RUBRIC,measurement_validity_version=VALIDITY_VERSION,
         estimated_confirmation_seconds=sum(costs.values()),per_cell_seconds=costs,
         decision_rules=dict(practical_throughput_ratio=1.02,benefit_requires_interval_lower_above=1,
             generic_throughput_interval_lower_target=.97,overhead_throughput_interval_lower_target=.97,
@@ -272,7 +277,11 @@ def report(out):
         row = dict(attempt_id=event['attempt_id'],state=event['state'],**identity,artifacts=details.get('path'))
         records.append(row)
         if details.get('seal'):
-            verify_tree(local_path(out,details['path']),details['seal'])
+            directory = local_path(out,details['path'])
+            verify_tree(directory,details['seal'])
+            if event['state']=='failed' and identity.get('cell')=='B10':
+                from .campaign_validity import measurement_validity
+                row['measurement_validity'] = measurement_validity(directory,event)
     if locked:
         for block in locked['schedule']:
             key = (block['model'],block['cell'],block['repeat'])
@@ -303,6 +312,7 @@ def report(out):
                                 completed_units_per_s=data['rate'],duration_s=data['duration_s'],startup_s=case['startup_s'],
                                 request_work=case['summary'],metrics=case['metrics'],telemetry=case['telemetry'],
                                 geometry=case.get('effective_geometry'),phases=case['campaign']['phases'])
+                            point[role]['measurement_validity'] = data['measurement_validity']
                         points.append(point)
                     record.update(estimate=estimate,status=classify(estimate),points=points,
                                   traffic_classes=compare_classes(runs,baseline,system),
