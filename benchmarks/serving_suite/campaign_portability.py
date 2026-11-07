@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 from .campaign_contracts import Ledger,atomic_json,digest,load,read_protocol,verify_tree
-from .campaign_verify import export_campaign,import_campaign
+from .campaign_verify import export_campaign
 
 
 def install_offline_guard(original,models,*,forbidden_roots=(),allowed_roots=()):
@@ -27,6 +27,51 @@ def install_offline_guard(original,models,*,forbidden_roots=(),allowed_roots=())
             if model_access or original_access:
                 raise RuntimeError('Offline verifier opened an original artifact/model path')
     sys.addaudithook(audit)
+
+
+def import_relocated(destination,moved,host,*,runtimes=None):
+    """Run binding/import/compilation from exported code in a fresh process."""
+    destination,moved = Path(destination).resolve(),Path(moved).resolve()
+    original_host = destination/'original-host.private.json'
+    atomic_json(original_host,host)
+    original_host.chmod(0o600)
+    script = '''
+import json,sys
+from pathlib import Path
+source=Path.cwd().resolve()
+from benchmarks.serving_suite import campaign,campaign_verify
+assert Path(campaign.__file__).resolve().is_relative_to(source)
+assert Path(campaign_verify.__file__).resolve().is_relative_to(source)
+from benchmarks.serving_suite.campaign_contracts import atomic_json,load
+destination,bundle,original_host=map(Path,sys.argv[1:4])
+host=load(original_host)
+host_path=destination/'import-host.private.json'
+if sys.argv[4]:
+ from benchmarks.serving_suite.transfer_setup import prepare
+ prepare(bundle,Path(sys.argv[4]),destination/'rebound-assets',host_path,host['id']+'-relocated',offline=True)
+else:
+ host=dict(host,id=host['id']+'-relocated',runtime_bindings=dict(host.get('runtime_bindings',{}),project_root=str(source)))
+ atomic_json(host_path,host)
+ host_path.chmod(0o600)
+assert Path(load(host_path)['runtime_bindings']['project_root']).resolve()==source
+imported=destination/'imported-campaign'
+result=campaign_verify.import_campaign(bundle,host_path,imported)
+dry=campaign.run_phase(imported,'preflight',dry_run=True)
+blocked=False
+try:
+ campaign.run_phase(imported,'confirm',dry_run=True)
+except ValueError as error:
+ blocked='locked protocol' in str(error)
+print(json.dumps(dict(import_result=result,preflight_dry_compile=dry,confirmation_blocked=blocked,source_root=str(source))))
+'''
+    source = moved/'source'
+    raw = subprocess.check_output([sys.executable,'-c',script,str(destination),str(moved),
+        str(original_host),str(Path(runtimes).resolve()) if runtimes else ''],cwd=source,
+        env=dict(os.environ,PYTHONPATH=str(source),PYTHONDONTWRITEBYTECODE='1',CUDA_VISIBLE_DEVICES=''),text=True)
+    result = json.loads(raw)
+    if Path(result['source_root']).resolve()!=source:
+        raise ValueError('Import/dry compilation did not use relocated source')
+    return result
 
 
 def prove(out,destination,*,runtimes=None):
@@ -102,23 +147,9 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
             verification = json.loads(raw)
         finally:
             parked.rename(out)
-    host_path = destination/'import-host.private.json'
-    if runtimes:
-        from .transfer_setup import prepare
-        prepare(moved,runtimes,destination/'rebound-assets',host_path,host['id']+'-relocated',offline=True)
-    else:
-        local_host = dict(host,id=host['id']+'-relocated')
-        atomic_json(host_path,local_host)
-        host_path.chmod(0o600)
+    rebound = import_relocated(destination,moved,host,runtimes=runtimes)
     imported = destination/'imported-campaign'
-    result = import_campaign(moved,host_path,imported)
-    from .campaign import run_phase
-    dry = run_phase(imported,'preflight',dry_run=True)
-    blocked = False
-    try:
-        run_phase(imported,'confirm',dry_run=True)
-    except ValueError as error:
-        blocked = 'locked protocol' in str(error)
+    result,dry,blocked = (rebound[k] for k in ('import_result','preflight_dry_compile','confirmation_blocked'))
     parent = read_protocol(out)
     child = load(imported/'imported-protocol.json')
     preserved = all(parent[k]==child[k] for k in ('source','schedule','supplementary_schedules','precision'))
@@ -138,6 +169,7 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
         original_path_guard_negative_tests=verification['original_path_guard_negative_tests'],
         gpu_model_imports_forbidden=True,verifier_source='relocated exported source closure',
         imported_campaign=str(imported),import_result=result,preflight_dry_compile=dry,
+        import_and_dry_compile_source=rebound['source_root'],import_from_relocated_exported_source=True,
         separately_rebuilt_runtime_bindings=bool(runtimes),
         confirmation_blocked_until_hardware_preflight=blocked,parent_protocol_preserved=preserved,
         protocol_identity=digest(parent),

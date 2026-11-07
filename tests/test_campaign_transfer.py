@@ -279,3 +279,51 @@ else:
  raise AssertionError('GPU import was allowed')
 '''
     subprocess.run([sys.executable,'-c',script,str(original),str(model),str(weight),str(allowed),str(historical)],check=True)
+
+
+@pytest.mark.parametrize('fresh_runtimes',[False,True])
+def test_portability_import_executes_relocated_code_and_binds_project(tmp_path,fresh_runtimes):
+    from benchmarks.serving_suite.campaign_portability import import_relocated
+    destination = tmp_path/'proof'
+    moved = destination/'relocated-bundle'
+    source = moved/'source'
+    package = source/'benchmarks/serving_suite'
+    package.mkdir(parents=True)
+    (source/'benchmarks/__init__.py').write_text('')
+    (package/'__init__.py').write_text('')
+    (package/'campaign_contracts.py').write_text('''
+import json
+def load(path): return json.loads(path.read_text())
+def atomic_json(path,value): path.write_text(json.dumps(value))
+''')
+    (package/'campaign_verify.py').write_text('''
+from pathlib import Path
+from .campaign_contracts import load
+def import_campaign(bundle,host_path,out):
+ assert Path(bundle).resolve()==Path.cwd().parent
+ assert Path(load(host_path)['runtime_bindings']['project_root']).resolve()==Path.cwd()
+ out.mkdir()
+ return dict(runnable=True,executed='relocated fixture')
+''')
+    (package/'campaign.py').write_text('''
+from pathlib import Path
+def run_phase(out,phase,dry_run):
+ assert dry_run and Path(out).is_dir()
+ if phase=='confirm': raise ValueError('Missing locked protocol')
+ return dict(phase=phase,executed_from=str(Path(__file__).resolve()))
+''')
+    (package/'transfer_setup.py').write_text('''
+from pathlib import Path
+from .campaign_contracts import atomic_json
+def prepare(bundle,runtimes,cache,out,host_id,offline):
+ assert offline and Path(runtimes).name=='independent-runtimes'
+ atomic_json(out,dict(runtime_bindings=dict(project_root=str(Path.cwd()))))
+''')
+    host = dict(id='fixture',runtime_bindings=dict(project_root='/unavailable/original-checkout'))
+    runtimes = tmp_path/'independent-runtimes' if fresh_runtimes else None
+    result = import_relocated(destination,moved,host,runtimes=runtimes)
+    assert result['import_result']==dict(runnable=True,executed='relocated fixture')
+    assert result['confirmation_blocked']
+    assert result['source_root']==str(source)
+    assert result['preflight_dry_compile']['executed_from']==str(package/'campaign.py')
+    assert Path(load(destination/'import-host.private.json')['runtime_bindings']['project_root'])==source

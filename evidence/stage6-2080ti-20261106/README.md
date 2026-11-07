@@ -1,3 +1,14 @@
+## Relocated import execution before freeze
+
+The portability proof now executes binding, import and dry compilation in a fresh
+process from the relocated exported source and asserts that its project binding
+uses that source. Previously only offline verification/reporting used relocated
+code. The complete benchmark suite passes 216 checks; the two new regression
+paths exercise both rebound runtime preparation and existing runtime bindings.
+Timed serving source remains unchanged. The real final relocation exercise
+remains due after frozen acquisition.
+[Source-execution checkpoint](relocated-import-source-checkpoint.json).
+
 ## Capped-response coverage before freeze
 
 Every capped response now enters the source audit, including intermediate graph

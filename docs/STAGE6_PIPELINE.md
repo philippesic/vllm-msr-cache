@@ -122,7 +122,9 @@ Missing measurements, quality checks and operational checks remain explicit.
 
 This writes objective checks for every final response and a blinded review packet
 under `analysis/quality/`. Review up to 32 responses per model/cell/system across
-repetitions and traffic classes, plus every automatic failure. Inspect actual
+repetitions and traffic classes, plus every automatic failure and every capped
+response. Capped intermediate steps are reviewed separately from final-answer
+automatic scores, using only their preceding graph dependencies and tools. Inspect actual
 source, dependency outputs and tools using the retained rubric. An exact duplicate
 reference permits reuse of a previously made judgment; it is not an automatic
 pass. Submit explicit source-supported, instruction-following and usefulness
@@ -146,8 +148,9 @@ The portability proof relocates the bundle and an evidence copy, temporarily hid
 the original evidence path under its writer lock, and runs the exported verifier
 and report with model-file access and GPU/model imports forbidden. The relocated
 comparison records must match the original report. It restores the original path
-even on failure. It then imports a separately identified host campaign and checks
-GPU-free preflight compilation and the confirmation guard. Pass `--runtimes` with
+even on failure. It then starts a fresh process from the relocated exported source,
+binds that source as the project root, imports a separately identified host campaign
+and checks GPU-free preflight compilation and the confirmation guard. Pass `--runtimes` with
 a second clean reconstruction to exercise different actual interpreter and external
 runtime bindings; pinned cached weights are checked offline. Preserve the proof
 destination and original evidence until verification succeeds.
