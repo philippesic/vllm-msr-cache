@@ -1,0 +1,916 @@
+{
+  "schema": "stage6-source-audit-v1",
+  "reviewer": "Codex gpt-6.1-sol source audit",
+  "rubric_digest": "56bcc12ade38b5d68c5a11d6e58bd66c2b711a311d897ef69da1f2d3c8abbc53",
+  "ratings": [
+    {
+      "review_id": "c3072c67057924604b0fe753",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP status verified from pyproject.tomls structure"
+      ],
+      "notes": "Catch-22 purpose and declarative pyproject.toml build-system.requires with PEP508 strings match source and are useful. PEP Status is document metadata, not project TOML contents; filename also wrongly pluralized in verification/rule. Over 70 words and missing-table rule truncates before required defaults distinction. Exact full-context reuse from earlier blinded review c3072c67057924604b0fe753."
+    },
+    {
+      "review_id": "bd2e1c67ec2b07d50d1dfe75",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Yielding sub-iterables, ordered lazy consumption, out-of-order tee caching and n=0/n=1 check ideas match the retained source. The response degenerates into an extremely repeated grep pattern, without closing the declaration or giving its target path; it does not provide a usable instructed next tool declaration despite a correct opening purpose. Exact full-context reuse from earlier blinded review e8bfb8b78af66ff21a60e2a4."
+    },
+    {
+      "review_id": "ce61553d2d1bb2a1b6d460ff",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP4451 corrects PEP451",
+        "ModuleSpec has location attribute"
+      ],
+      "notes": "Actual subject is451. Core state encapsulation is supported, but listed API has origin and has_location, not location. Supplied archived PEP explicitly lists has_location as read-only, so that statement is supported by this source. Ends mid-method name after overlong restrictions. Old methods deprecated rather than immediately removed. Exact full-context reuse from earlier blinded review ce61553d2d1bb2a1b6d460ff."
+    },
+    {
+      "review_id": "9a8f6076847befb0d274f212",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Sliding width, step, missing-value padding and deque/islice implementation match source. Left padding in the docstring requires the caller to prepend with chain, not a separate function flag. The empty/exact-width/large-step checks are concrete and usable. It exceeds the intermediate word limit, substitutes grep for the declared rg command and ends in an unfinished evidence sentence. Exact full-context reuse from earlier blinded review aaffe631295f0f5598d28d99."
+    },
+    {
+      "review_id": "07afe8ac41400c2f7a93aeec",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Actual tool reports ten passes. Too-many-groups, negative k, Stirling counts and size constraints are covered by the supplied class. It labels broader recursive correctness and normalization as assumptions rather than proof. Completed factual interpretation is useful, but over 70 words and concrete limitation truncates. Normal abc examples are also in supplied docstring. Exact full-context reuse from earlier blinded review 9167492e865de9e4d8300f75."
+    },
+    {
+      "review_id": "79f0799ff8c11b44d0da70ce",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "No tool output provided",
+        "Corrupted package-name regex with data[2] insertion"
+      ],
+      "notes": "Actual rg output identifies specification and Final/Standards Track. Dependency format, extras and marker ideas broadly align, but asserted regex contains invented data[2] characters and cannot serve as the restriction. Unfinished command, over70 words. Exact full-context reuse from earlier blinded review be191e464bc2b3ea7447eb2f."
+    },
+    {
+      "review_id": "6ec1650bfccd6a5db373e627",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Flattening, str/bytes preservation, optional base_type and levels, and deque stack traversal match the retained implementation. Tuple preservation requires base_type=tuple, as the source example and later optional-type wording clarify; the opening sentence is imprecise. Purpose and boundary-check plan are usable, and the declared rg tool is correct and closed, but the intermediate exceeds the 70-word instruction. Exact full-context reuse from earlier blinded review 6ec1650bfccd6a5db373e627."
+    },
+    {
+      "review_id": "80f1e9b1bb73b4f2c5970a92",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_basic was not executed",
+        "No floating-point precision validation"
+      ],
+      "notes": "The actual tool reports 25 passed and 20 subtests, and the retained class includes test_basic, float-boundary cases, exact Decimal/Fraction cases and inexact-step membership checks. Negative-step/type behavior is supported, but the final denies actual validation, omits test_status=PASS, and ends in an unfinished command."
+    },
+    {
+      "review_id": "f63f46288343f971a7076ece",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "with var = expr() is a deprecated usable with syntax",
+        "__exit__ exceptions are ignored",
+        "with body exceptions generally do not propagate"
+      ],
+      "notes": "Context manager entry/exit methods and canonical with expr as var are supported. Historical proposal discussion does not make with var = expr() valid syntax. Cleanup does not generally swallow exceptions; an exit-method exception propagates. Unfinished placeholder and no-direct-tool claim despite scheduled validation; over 70 words. Exact full-context reuse from earlier blinded review ec2a99ca47c02d2313b1d002."
+    },
+    {
+      "review_id": "a6075f9e18333783a9a89fe0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 421 rather than PEP 420 was tested",
+        "No Python version implements PEP 420",
+        "No implementation of the described namespace-package behavior exists"
+      ],
+      "notes": "The actual JSON tool result explicitly validates PEP 420 and its metadata. The supplied source has Python-Version 3.3 and states an implementation is available; the categorical no-implementation claim contradicts that evidence. Metadata-only validation cannot establish runtime behavior. The response is overlong and ends in an unfinished commented tool block. Exact full-context reuse from earlier blinded review a6075f9e18333783a9a89fe0."
+    },
+    {
+      "review_id": "2c6362cdf00abfc4f2f3d5bc",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "No tool output provided",
+        "PEP430 correct subject",
+        "Validator likely FAIL because no implementation",
+        "Validator checks dynamic import paths"
+      ],
+      "notes": "Actual search is present for420. Source explicitly identifies implementation and Python3.3. Validator checks document metadata, not runtime namespace implementation, so predicted FAIL is unsupported. Read-only path iterable/no file/init statements do match this archived PEP, but wrong subject and invented validation defeat interpretation. Overlong unfinished command comment. Exact full-context reuse from earlier blinded review 2c6362cdf00abfc4f2f3d5bc."
+    },
+    {
+      "review_id": "c924500d11b84b1a4af6869d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Exceptions in the with block do not propagate unless explicitly handled",
+        "No direct validation tool is provided"
+      ],
+      "notes": "The retained PEP explains factoring try/finally and enter/exit methods, but says BLOCK2 is not reached if BLOCK1 raises: cleanup does not generally suppress exceptions. The proposed validation reverses that behavior. A fixed application metadata/source tool is declared in the task, so the placeholder claiming no tool is available is also wrong. The output exceeds the budget and leaves the fenced declaration unfinished. Exact full-context reuse from earlier blinded review f4ea0e0ae029947c5da00756."
+    },
+    {
+      "review_id": "7f5c9912bc17de1211486555",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Talvethan Rainforest covers over 1.2 million square kilometers",
+        "Kaithianian Skywing Bird",
+        "Mount Kaelor highest peak 6842 meters and Kaelorian Bluebloom",
+        "Sorath River"
+      ],
+      "notes": "The current fictional-world prompt gives broad geography but none of these named landmarks, species, measurements or river names. Presenting invented specifics as factual violates the request. The capped intermediate is also unfinished; no tools or preceding evidence support these additions."
+    },
+    {
+      "review_id": "029b2011a553248efa9cfd5b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The supplied opening sections explicitly identify native coroutines, async/await syntax, Final status, Python 3.5 and the 3.5.2/3.6/3.7 __aiter__ warning/error transitions. Proposed status/protocol checks are plans, not claimed executed validation. They are useful, but the answer exceeds the 70-word instruction and ends in an unfinished grep declaration; the fixed read-only tool does not itself test runtime protocol enforcement. Exact full-context reuse from earlier blinded review 029b2011a553248efa9cfd5b."
+    },
+    {
+      "review_id": "7c4adeaf7af37b7dfc1c223f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "fillvalue is only used when the window is larger than the iterable"
+      ],
+      "notes": "Actual output has seven tests plus thirteen subtests passing. Empty input and invalid step observations match source. The claimed fillvalue restriction is contradicted by test_fillvalue_step: n=3, five inputs and step=3 yield (4,5,\"!\"). This is visible in the retained full class. The answer ends in an incomplete, wrong following pytest declaration instead of the planned source search. Exact full-context reuse from earlier blinded review b166a29465e3646f35b0f90c."
+    },
+    {
+      "review_id": "618779ac97eb53d8db4507bd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_steps_positive is FAIL",
+        "range(4) rotation contains a five-element tuple"
+      ],
+      "notes": "Source explicitly gives steps=2 on range(4) as (0,1,2,3),(2,3,0,1), and the five-element positive-step test is correct. At this graph stage only search output is available, so the invented FAIL violates the no-validation-before-tool instruction. The response is over 70 words and unfinished."
+    },
+    {
+      "review_id": "435ae28fcc4238277edefe42",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Purpose, optional k, k<1 ValueError and size filtering match source. Equal-size boundary idea is relevant but stops before input/expectation. Completed purpose is useful; over 70 words and unfinished check. Exact full-context reuse from earlier blinded review ed7ba545ea018169cd6a5771."
+    },
+    {
+      "review_id": "3b1bf8e93961db920675dca1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read complete three supplied passages. Johnston/cast/1890s plot, mixed gothic/gore, campy Baker makeup, muted del Toro and disagreement with Burr positive atmosphere review match source. Comparative-remake criticism comes from negative review; Burr instead praises fidelity versus Mummy, and summary acknowledges mixed reception. Source contains incidental reviews of other films, reasonably not central here. Useful main synthesis, but repeated reception/budget/cast/plot cycle exceeds300 words and ends unfinished. Visible source/instruction/answer identical across paired cap IDs; actual token-context digest differs. Word count 413. Exact full-context reuse from earlier blinded review 161b9704a3f3fa561a828097."
+    },
+    {
+      "review_id": "37e853b2eb2e30b57c1da2d1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read complete three supplied passages. Johnston/cast/1890s plot, mixed gothic/gore, campy Baker makeup, muted del Toro and disagreement with Burr positive atmosphere review match source. Comparative-remake criticism comes from negative review; Burr instead praises fidelity versus Mummy, and summary acknowledges mixed reception. Source contains incidental reviews of other films, reasonably not central here. Useful main synthesis, but repeated reception/budget/cast/plot cycle exceeds300 words and ends unfinished. Visible source/instruction/answer identical across paired cap IDs; actual token-context digest differs. Word count 413. Exact full-context reuse from earlier blinded review 37e853b2eb2e30b57c1da2d1."
+    },
+    {
+      "review_id": "108739f8292da9f1920763bc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Order-preserving partition purpose and powerset of split indices match source. Empty input yields one partition [[]], while collecting the generator gives [[[]]] as test_empty shows; wording can refer to yielded partition. Completed purpose/check ideas useful. Command degenerates into arbitrary numbers and is unfinished, over70 words. Exact full-context reuse from earlier blinded review 108739f8292da9f1920763bc."
+    },
+    {
+      "review_id": "c3eb218308192fe8a45cc93d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "pytest ReplaceTests executed successfully",
+        "test_basic passes from observed validation"
+      ],
+      "notes": "Replacement example, count and window_size facts match supplied implementation. At this graph node only rg search has run; there is no test result. Invented successful pytest and test_status=PASS violate the executed instruction. Over 70 words and capped mid-fact. Exact full-context reuse from earlier blinded review 0e83059faba07a78c1f56b5d."
+    },
+    {
+      "review_id": "cf627b570adc9e47964e1588",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Metadata validation confirms runtime support",
+        "Validation checks only status and title"
+      ],
+      "notes": "Source metadata gives Final, Standards Track and Python 3.6, but the actual tool validates five metadata fields and executes no f-string. Opening sentence attributes runtime support to validation despite its later qualification. Ends in a long malformed unfinished python command, beyond 70 words; cannot use as a completed interpretation. Exact full-context reuse from earlier blinded review 0f70889f7298a6df177c762a."
+    },
+    {
+      "review_id": "36aca85f71ae51b407a9f8b4",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Background callback execution, argument iteration, done/result, exception propagation, polling and cancellation are supported by the retained class. The plan is usable, though abort while running should distinguish inside-with RuntimeError from post-abort AbortThread. It exceeds the 70-word intermediate limit and ends with an unclosed search command."
+    },
+    {
+      "review_id": "7ab03c1227843dbc16658d53",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Tests include n=0 implicitly through test_none",
+        "Tests cover empty iterables",
+        "n=None with strict=True is not handled as expected"
+      ],
+      "notes": "The seven observed passes and even/odd/negative/None/strict cases are real. The retained full ChunkedTests class contains neither n=0 nor empty-iterable cases; test_none uses None, not zero. Both code and test_strict_being_true_with_size_none explicitly raise/check ValueError. The answer ends mid-assumption and omits the required following tool declaration. Exact full-context reuse from earlier blinded review 64aa12346ea1378dd9cd72ad."
+    },
+    {
+      "review_id": "f9f05bb3115a6578abdd7555",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "circular_shifts was not directly tested",
+        "negative-step validation inferred from unrelated test_negative",
+        "step divisibility validation is missing"
+      ],
+      "notes": "The actual validation tool reports all six CircularShiftsTests passing. Negative steps are supported; steps=0 raises ValueError. The last broad search listing belongs to other functions and cannot replace that validation. Final omits the requested status, gives misleading limitation/behavior, and ends in an unfinished tool command."
+    },
+    {
+      "review_id": "a4a1c4e58b4c244d5ca0c06b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "No test checks negative distance",
+        "No explicit nonconsecutive distance-one windowing checks"
+      ],
+      "notes": "Ten passing AdjacentTests are real, including test_negative_distance and exact expected-value assertions in test_typical for separated matches. Describing these direct behavioral assertions as absent is wrong. It exceeds the intermediate word limit and trails into a repeated unfinished pytest command."
+    },
+    {
+      "review_id": "5ab758c0d10a62423a7d3fad",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Context is immutable",
+        "Token usage prevents recursive usage",
+        "Actual validation verifies module and classes implementation"
+      ],
+      "notes": "Context is a read-only Mapping interface but its values can change through ContextVar.set while current; not immutable. Recursive/multiple-thread restriction concerns Context.run, not token reuse, whose rules are variable/context identity and single reset. Actual tool will validate metadata, not Python implementation. Capped unfinished limitation, over 70 words. Exact full-context reuse from earlier blinded review 5ab758c0d10a62423a7d3fad."
+    },
+    {
+      "review_id": "a21a217334aa4bb77d995e9d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The backend must raise an exception if build requirement cycles are detected"
+      ],
+      "notes": "The source supports build-system independence, pyproject build-backend naming, optional module:object suffix, and wheel/sdist hooks. Its cycle section assigns detection to frontends: frontends MAY refuse and SHOULD check with an informative failure. Testing a mandatory backend exception invents the responsible component/requirement. It omits the requested status-verification plan and ends mid-rule without the required tool declaration. Exact full-context reuse from earlier blinded review a21a217334aa4bb77d995e9d."
+    },
+    {
+      "review_id": "9f8cc3e0c77285fd5a026174",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "No concurrent_tee test result supplied",
+        "Lock sharing verified for n=0 and negative n"
+      ],
+      "notes": "The validation tool reports the one TestConcurrentTee test passing. Its source checks shared locks and full reconstruction with 100 consumers; n=0 returns empty and negative n raises. The final incorrectly dismisses this test because a later broad search shows unrelated functions, omits test_status=PASS and remains unfinished."
+    },
+    {
+      "review_id": "e7b7514bff98bfebab15a547",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "10 combination_index tests passed",
+        "No adf docstring found",
+        "Valid r greater than iterable length with multiplicity"
+      ],
+      "notes": "The actual tool reports eight tests, the source explicitly documents adf returning 10, and test_invalid_large rejects an overlong element. Tests assert valid indices and ValueError behavior, not merely error-message text. The intermediate is over 70 words and ends in an unfinished command."
+    },
+    {
+      "review_id": "c21cb4b3aa84b1b89643308f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_basic was not executed",
+        "The suite only checks integers",
+        "No floating-point precision validation"
+      ],
+      "notes": "The whole NumericRangeTests class executed with 25 passed and 20 subtests. Its visible test_basic includes floats, Decimal, Fraction and datetime examples, with explicit float-boundary expectations. The negative-step behavior is correct, but the final denies validation coverage, omits test_status=PASS and ends mid-sentence."
+    },
+    {
+      "review_id": "0dbd7d3577ede5586916725b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read complete four supplied passages. Martinez age/Fresno, Nov18 report, marijuana-farm explanation, Bachelor identification and contradictory list snapshots match. Broader report-count, cannabis, homelessness, Jeff Joseph and Stuart-case context are sourced. Omits key distinction between repeated reports and unique missing people; source gives possible explanations rather than proven causes. Factual opening remains useful, but repetitive tail exceeds300 words and ends mid-sentence. Visible source/instruction/answer identical across paired cap IDs; actual token-context digest differs. Word count 424. Exact full-context reuse from earlier blinded review abd7b47d4a0edb6a468a49aa."
+    },
+    {
+      "review_id": "5712dd09d5323d45e96ae5ac",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "distance=0 checks predecessor and successor",
+        "Only previously selected matches determine adjacency"
+      ],
+      "notes": "At distance zero, window size is one and only the current predicate matters; positive distance can mark items before or after a match. The performance limitation is unmeasured rather than established by search output. The response exceeds 70 words and ends in a repeated unfinished pytest command."
+    },
+    {
+      "review_id": "4ac997c8d785ff1e7a25cced",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "All eight named IchunkedTests exist and actual output reports eight passes. Zero/nonempty-zero, negative size, out-of-order count iterator, laziness and staged consumption checks support the described narrow coverage. The answer labels universal edge-case coverage/infinite-stream correctness as assumptions; the tests do not establish leak freedom. Its coverage interpretation is useful, but exceeds the word limit, supplies a nonexistent tests/IchunkedTests.py command and leaves the final limitation unfinished. Exact full-context reuse from earlier blinded review 4ac997c8d785ff1e7a25cced."
+    },
+    {
+      "review_id": "bcab6e21450a86b5be4ab279",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_no_result retrieves the successful result",
+        "Custom callback arguments beyond callback_kwd are unsupported"
+      ],
+      "notes": "The seven-test pass is real and most listed behaviors match. However test_no_result checks RuntimeError before completion, whereas successful retrieval is in test_basic; the callback accepts arbitrary positional and keyword payloads. The intermediate is over 70 words and its trailing command is unfinished."
+    },
+    {
+      "review_id": "5d6ae0e3c484e38df9139c41",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 526 is not a syntax for variable annotations"
+      ],
+      "notes": "The retained title and abstract explicitly specify syntax for variable annotations. The answer repeats a contradictory assertion, gives no verification plan and is capped mid-sentence, far beyond the intermediate word limit."
+    },
+    {
+      "review_id": "8d84584c6df301db6c9c338d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "strict=True raises ValueError for equal lengths",
+        "strict passed only to first zip"
+      ],
+      "notes": "Sorting purpose, custom keys and trimming match source. strict=True rejects unequal lengths; both transposed and untransposed zip explicitly receive strict=strict. Boundary expectation and stated limitation contradict implementation. Over70 words, ends opening bash fence. Exact full-context reuse from earlier blinded review 3595ed8ae5920cc987a72f51."
+    },
+    {
+      "review_id": "a746994d7b8b81c7d148fbe1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "get raises LookupError whenever no current value exists",
+        "Metadata validation checks APIs and restrictions",
+        "Value data exception"
+      ],
+      "notes": "ContextVar/Context/copy_context and token reset core facts are supported. Source get first returns supplied or variable defaults before LookupError; current-context mismatch raises ValueError, not Value data. Expected validation is metadata only, not API conformance. Overlong command and unfinished defaults limitation. Exact full-context reuse from earlier blinded review 5da2ff2b0cb550323610e2c6."
+    },
+    {
+      "review_id": "ac59b8380d026e9158e7db29",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Status and Type are in Post-History"
+      ],
+      "notes": "Purpose, replacing386, five segments and Appendix B reference are supported. Status/Type are separate metadata fields, not final resolution in Post-History. Plan degenerates into repeated comments and wrong PEP447 before truncation; over 70 words, no executable check. Exact full-context reuse from earlier blinded review f897705549fe5d091997f1fb."
+    },
+    {
+      "review_id": "9b9986bf4c39a9c58d7ba8db",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "10 tests passed",
+        "start3 stop0 step-1 includes0",
+        "IEEE754 edge cases not tested"
+      ],
+      "notes": "Tool reports25 passed and20 subtests, not10. Source negative example uses stop-1; stop0 excludes0. test_basic explicitly covers the float boundary it says missing. Argument and typed-output facts correct but interpretation materially wrong, overlong and unfinished. Exact full-context reuse from earlier blinded review 9b9986bf4c39a9c58d7ba8db."
+    },
+    {
+      "review_id": "8b03eb1f66e7b93ba5a3d362",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "steps equal to iterable length yields all rotations then original again"
+      ],
+      "notes": "For length four and steps four, n/gcd(n,steps) is one, so only the original tuple is yielded. The purpose and zero-step/empty checks are supported, but the proposed expected boundary result is wrong. It exceeds 70 words and ends with an unclosed code block."
+    },
+    {
+      "review_id": "873cda25c0ac17afa78e9ca7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Incorrect repeated split_when example output",
+        "distinct_permutations code and validation describe the requested split_when behavior"
+      ],
+      "notes": "The same retained split_when example has four finite groups. The answer degenerates into a repeated malformed list, unrelated distinct_permutations assertions and an unfinished incorrect rg declaration. Actual preceding evidence contains only the split_when search, not a permutation test. Exact full-context reuse from earlier blinded review e25eec564ba5be4fba8878c0."
+    },
+    {
+      "review_id": "1b7e32b7f5e5556337471be8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source says four but names only round-backed, carved-top and flat-backed; response accurately identifies this inconsistency and does not invent a fourth style or confuse fifth course with style. Capped fenced JSON contains raw newlines and no closing value/object, so fails exact one-string JSON instruction. Useful source-faithful substance despite format failure. Exact full-context reuse from earlier blinded review 1b7e32b7f5e5556337471be8."
+    },
+    {
+      "review_id": "418b0ff7fee45dd47ba1fbbe",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read complete four supplied passages. Martinez age/Fresno, Nov18 report, marijuana-farm explanation, Bachelor identification and contradictory list snapshots match. Broader report-count, cannabis, homelessness, Jeff Joseph and Stuart-case context are sourced. Omits key distinction between repeated reports and unique missing people; source gives possible explanations rather than proven causes. Factual opening remains useful, but repetitive tail exceeds300 words and ends mid-sentence. Visible source/instruction/answer identical across paired cap IDs; actual token-context digest differs. Word count 424. Exact full-context reuse from earlier blinded review 280f16c0cbf9fc4df584ae09."
+    },
+    {
+      "review_id": "0b674b72ea066a12c4062db4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Too-long combination fails silently or incorrectly",
+        "Input length is not validated by the supplied tests",
+        "test_even and test_odd belong to first and last"
+      ],
+      "notes": "The supplied class explicitly rejects an element longer than its iterable with ValueError, and all eight tests pass. The broad final search listing does not invalidate that result; its even/odd tests are other functions, not first/last. The final omits test_status=PASS, offers a false limitation and ends in an unfinished command."
+    },
+    {
+      "review_id": "0f9bfb0190a64dc08035e7ba",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Range extension purpose, default zero start, typed outputs, negative step and zero-step ValueError match supplied implementation/tests. Rounding numbers presented as a boundary idea, not a claimed expected two-element result. Useful plan facts, but over 70 words and mixed-types item unfinished. Exact full-context reuse from earlier blinded review b30e0e3705e25a1aef9ff5cf."
+    },
+    {
+      "review_id": "64d225c287a3c93630b9acab",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Executed tests did not validate sort_together",
+        "Equal empty strict inputs expected ValueError"
+      ],
+      "notes": "Actual class execution reports six passes and supplied full SortTogetherTest is directly about sort_together. Later broad rg output is unrelated but does not invalidate the preceding targeted run. strict raises for unequal lengths, not all empty inputs. Invents empty-input expectation; contradictory status, wrong sort_toggle name, unfinished rg, over150 words. Exact full-context reuse from earlier blinded review 64d225c287a3c93630b9acab."
+    },
+    {
+      "review_id": "17df240b0d1364e718b2d988",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The purpose, tee/padding/window approach and zero-distance reduction match the retained implementation and tests. The boundary plan is usable; the zero-distance test checks output values and a separate call-once test checks invocation count. The answer exceeds the 70-word intermediate limit and ends with an unfinished rg declaration."
+    },
+    {
+      "review_id": "a29ee759a27e96c62d25d97a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "All six named tests pass. Scalar, strings/bytes, custom base types, iterables, None and generators are covered; the narrow statement that nested iterable input with base_type=None is not explicitly tested is reasonable. It is useful evidence interpretation but exceeds 70 words and ends in an unfinished command."
+    },
+    {
+      "review_id": "e45bf5c7daacab3d0bb5a818",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Named test_AdjacentTest.py files are actual supplied validation",
+        "Too-short iterable for distance is not handled"
+      ],
+      "notes": "The real AdjacentTests validation reports ten passes. Its source explicitly handles distances exceeding input length with padded windows and tests large distance; no error is required. The final correctly includes test_status=PASS and supported behavior, but contradicts its own validation account, invents filenames, gives a false limitation and is unfinished."
+    },
+    {
+      "review_id": "43849d9513b42a0bba22e7b8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Search tool validates float numeric_range output"
+      ],
+      "notes": "Source docstring supports output [0.0,1.0,2.0,3.0] for stop3.5 and boundary coverage exists. Actual tool is rg, not execution validating output; proposed malformed pytest -w command and unfinished expected-output section violate response instruction. Completed behavior remains useful. Exact full-context reuse from earlier blinded review 3b7f2b54eff25e6ca384550b."
+    },
+    {
+      "review_id": "5f9dfd874622118eca54a272",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "CircularShiftsTests were not executed",
+        "Negative and positive steps yield the same rotation order",
+        "Noninteger steps raise ValueError based on unrelated strict tests"
+      ],
+      "notes": "The actual tool reports six CircularShiftsTests passing; negative steps reverse rotation direction. The unrelated broad search cannot establish noninteger-step behavior or replace actual validation. The final omits test_status=PASS, makes false claims and ends with an unfinished command."
+    },
+    {
+      "review_id": "87c8d5bec0e1e8968e58eea5",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Informational metadata, structural convention purpose and preferred triple double quotes match source. Status-field check is relevant. Completed purpose and proposed formatting check remain useful; over 70 words, repeated placeholder comments and unfinished next step. Exact full-context reuse from earlier blinded review 844c7372478866af99888a87."
+    },
+    {
+      "review_id": "7cabed5b8920320ce7844de8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Fourteen actual tests pass, covering just-seen/ever-seen comparisons, keys, unhashable values and mixed hashability as described. The answer labels untested empty/single-element generalization as assumption rather than observation. The interpretation is useful, but exceeds 70 words and ends mid-phrase."
+    },
+    {
+      "review_id": "314d3fef4c010375bda5c991",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The metadata validation confirms operational boundaries",
+        "break and return are exceptions"
+      ],
+      "notes": "The actual tool validates five PEP metadata fields only. Final/Standards Track, the source Python-Version 2.5 and enter/exit cleanup are supported; runtime semantics are not exercised by this validation. The answer then claims operational confirmation, mislabels control-flow statements as exceptions, and truncates the required concrete limitation. It exceeds the intermediate budget and lacks the following declared tool. Exact full-context reuse from earlier blinded review 314d3fef4c010375bda5c991."
+    },
+    {
+      "review_id": "404dc306eb181c14afcc1e5c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Duplicate iterable elements are not explicitly validated"
+      ],
+      "notes": "The ten tests and 84 subtests really pass, and the valid/invalid, empty, None and large-input descriptions are mostly accurate. However test_multiplicity explicitly validates duplicate pool elements, contradicting the unfinished final limitation. The response remains useful as a partial test summary but exceeds 70 words and is unfinished."
+    },
+    {
+      "review_id": "1044b5f877389fbe33834c01",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 526 is not syntax for variable annotations"
+      ],
+      "notes": "The actual search names Syntax for Variable Annotations and Final status. The response contradicts its first clause with repeated denial, supplies no specification restrictions, exceeds 70 words and ends mid-sentence."
+    },
+    {
+      "review_id": "671311dced2b464f4bfaf55b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "CombinationIndexTests contains relevant test_odd",
+        "Element length is an unchecked external r parameter"
+      ],
+      "notes": "There is no test_odd in the retained eight-test class; the function derives combination length from the element, and invalid elements are rejected. Actual validation reports eight passes, but the final treats status as unavailable, omits test_status=PASS and ends with an unfinished command."
+    },
+    {
+      "review_id": "4f1afe873302fb4912de1ab0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The supplied nine-element sequence yields a long ascending sequence including values through 49"
+      ],
+      "notes": "The source and actual rg output show splitting adjacent descending pairs. Its full example yields [[1,2,3,3],[2,5],[2,4],[2]]. The generated output invents values absent from the input and never completes the example or following tool declaration. Exact full-context reuse from earlier blinded review 4f1afe873302fb4912de1ab0."
+    },
+    {
+      "review_id": "5ef03809177b2b4786f7bc7e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual validator will check runtime evaluation and escape rules"
+      ],
+      "notes": "F/f prefix, runtime expressions, format protocol and original PEP backslash restriction match supplied source; useful completed specification facts. Validation is metadata only, not interpreter syntax/rule execution. Malformed examples and command unfinished; over70 words. Exact full-context reuse from earlier blinded review 5ef03809177b2b4786f7bc7e."
+    },
+    {
+      "review_id": "234a09d9defab28486cb2f19",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "numeric_range(0.1,0.30000000000000001,0.2) yields [0.1,0.3]",
+        "Zero step already tested by actual tool"
+      ],
+      "notes": "Purpose is supported, but explicit float test expects [0.1], whereas Decimal/Fraction variants yield two elements. No tools have run at this node. Calling source test already tested confuses source with execution; malformed unfinished pytest command and over 70 words. Exact full-context reuse from earlier blinded review 234a09d9defab28486cb2f19."
+    },
+    {
+      "review_id": "c35b534a6af95b2f8d72f99b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "All yielded rotations are unique even with duplicate input values"
+      ],
+      "notes": "GCD controls distinct rotation positions, not tuple-value deduplication: the explicit duplicate-input test yields repeated tuples. The rotation purpose and listed zero/empty/sign/boundary checks are useful, but the repeated all-unique description is overbroad. The intermediate exceeds 70 words and is capped mid-plan."
+    },
+    {
+      "review_id": "6b680a6c0d11d3956ce21418",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "split_at does not handle maxsplit=0"
+      ],
+      "notes": "The actual tool reports four passes and 20 subtests; maxsplit and separator checks described earlier are real. Source explicitly yields the full iterable for maxsplit=0 and test_maxsplit checks it, contradicting the last unfinished limitation. The main partial evidence summary is usable, but it exceeds 70 words and is unfinished."
+    },
+    {
+      "review_id": "ab1b2315c1c7d513b0b40323",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "yield from is not implemented in Python 3.3",
+        "Expected metadata validation FAIL due to language implementation"
+      ],
+      "notes": "Delegation, send/throw/close and subgenerator return value are sourced. Header gives Python-Version 3.3, contradicting expected FAIL for 3.3 or earlier. Metadata validator does not test interpreter yield-from support. Over 70 words, ends mid-list. Exact full-context reuse from earlier blinded review ab1b2315c1c7d513b0b40323."
+    },
+    {
+      "review_id": "1d8203a50a6d0d11d6ae3f20",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "No base_type=None case was tested",
+        "Tuple/custom iterable test coverage as described"
+      ],
+      "notes": "The actual six-test class explicitly calls always_iterable(str_obj,base_type=None) in test_base_type. It tests lists, a string iterator and generator, not a custom iterable class or tuple input; the final limitation about custom implementations can be a real scope limit, but the coverage interpretation is inaccurate. The intermediate exceeds 70 words and ends in an unfinished command."
+    },
+    {
+      "review_id": "214e7b3931d86b98f9851447",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "windowed tests were not executed",
+        "Test status is unavailable",
+        "Step beyond iterable length lacks established handling"
+      ],
+      "notes": "Seven tests and 13 subtests actually passed. The retained class explicitly checks invalid n, invalid step, fillvalue and step larger than iterable length. A later broad search listing belongs to other functions and cannot erase this evidence. The final omits test_status=PASS, gives misleading coverage claims, exceeds the final limit and ends unfinished."
+    },
+    {
+      "review_id": "59ce9b1b92ecdc35a0453dc4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_zero_distance was not explicitly tested",
+        "One predicate call and small/large-distance handling are only assumptions"
+      ],
+      "notes": "The ten-test pass includes test_zero_distance, test_call_once, test_length_one and test_large_distance, with direct assertions. The response contradicts its own earlier inclusion of zero-distance testing and ends in a fragmentary limitation after exceeding 70 words."
+    },
+    {
+      "review_id": "eaffcbc16300e853d958443f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "No combination_with_replacement_index tests executed",
+        "Input length must be divisible by element length"
+      ],
+      "notes": "The actual validation reports ten passing tests and 84 subtests, including empty/invalid/multiplicity coverage. Divisibility is not a requirement for combinations with replacement. The final substitutes unrelated search hits for validation, omits test_status=PASS and ends in a malformed unfinished command."
+    },
+    {
+      "review_id": "9d4e2a1b6a63e728bbf26087",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The set-partition purpose, k/min/max controls and echoed search output match the retained source and actual t1 tool. It does not invent a validation outcome. The supported behavior is useful, but dumping the whole dependency exceeds the intermediate word limit and trails into an unfinished test fragment."
+    },
+    {
+      "review_id": "d0b50e1719cf5741563cb431",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "find_module now returns ModuleSpec"
+      ],
+      "notes": "ModuleSpec motivation and stored state match the document, but the new find_spec methods return specs; find_module is deprecated, not changed to return specs. Proposed clear/concise document rule is not a concrete import-system rule; status command remains unfinished placeholder. Over 70 words. Exact full-context reuse from earlier blinded review d0b50e1719cf5741563cb431."
+    },
+    {
+      "review_id": "35cc247084e1ad583409f93b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Tests include n=0 implicitly through test_none",
+        "Tests cover empty iterables",
+        "n=None with strict=True is not handled as expected"
+      ],
+      "notes": "Same retained seven-test class and actual passing output as the other reviewed chunked variant. No n=0/empty tests appear, and None-plus-strict rejection is implemented and tested. This variant ends inside the word ValueError; unsupported coverage and unfinished interpretation make it unusable. Exact full-context reuse from earlier blinded review 24401cd6d01c4316e8e5ac30."
+    },
+    {
+      "review_id": "4c9f7a1839fe1f5e1bb582c2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "AdjacentTests failed or were not supplied",
+        "test_call_once was not executed"
+      ],
+      "notes": "The actual tool reports ten AdjacentTests passing; source contains the explicit invocation-count test. The final lets unrelated later search hits overwrite real validation, reports FAIL, invents test filenames and ends mid-limitation rather than meeting the requested format."
+    },
+    {
+      "review_id": "c8f2d80f2524d8f201267ed7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The one actual test verifies shared locks, complete reconstruction by 100 consumers, and n=0 as described. n=1 remains outside this test; describing shared locking as an assumption understates its explicit assertion, and concurrent_te is a typo in the quoted code. Core evidence remains useful, but the intermediate exceeds 70 words and ends in an unfinished command."
+    },
+    {
+      "review_id": "180f4d655e89c6dcf44af685",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_list expects [10,21,30] for a decade bucket"
+      ],
+      "notes": "The ten-test pass and validator/missing-key descriptions are real. The cited list example is wrong: decade buckets are [10,11,12], [20,21,22,23] and [30,31,33]. The summary still conveys useful validated cache-key behavior, but exceeds 70 words and ends in an unfinished command. Infinite input is tested with a simple validator; more complex validators are not broadly qualified."
+    },
+    {
+      "review_id": "1fe657b766368162f72723fa",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "split_at was not tested and status is FAIL",
+        "Unrelated odd/strict tests establish split_at numeric splitting",
+        "maxsplit=0 is handled differently for numbers"
+      ],
+      "notes": "The actual tool reports four passes and 20 subtests. The implementation unconditionally yields list(iterable) for maxsplit=0, regardless of element type. The final incorrectly replaces that evidence with unrelated search results, invents FAIL and ends in an unfinished command."
+    },
+    {
+      "review_id": "6880d7febdae54cecf27ab64",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_zero_distance was not explicitly tested",
+        "Predicate call count and large/small distance behavior are mere assumptions"
+      ],
+      "notes": "This distinct capped wording repeats the contradiction: the ten-test class explicitly includes zero-distance, call-once, short-input and large-distance checks. It exceeds 70 words and ends mid-limitation. Actual tool validation passes; the evidence/assumption distinction is inaccurate."
+    },
+    {
+      "review_id": "9ae5525a1f67441f93e44fb8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "test_no_group tests k=0",
+        "Correct for all cases except k greater than input length"
+      ],
+      "notes": "Ten test passes are actual. test_no_group exercises -1 only; implementation also rejects zero but that is source evidence, not an executed zero test. Broad correctness assumption excludes k>n despite explicit passing test_to_many_groups returning empty. Overlong and unfinished assumptions; most named test descriptions otherwise match. Exact full-context reuse from earlier blinded review 9ae5525a1f67441f93e44fb8."
+    },
+    {
+      "review_id": "6896e5cafa4747846b83fb8d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Purpose, optional k, recursive generation and per-block size filter match implementation. Named min_size=4/max_size=3 boundary matches an actual test, but capped before specifying expected empty result. Completed explanation is useful; over 70 words and incomplete boundary-check instruction. Exact full-context reuse from earlier blinded review 6896e5cafa4747846b83fb8d."
+    },
+    {
+      "review_id": "8cb441bce88507d2d666244d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "All ten tests pass. Invalid k, too many groups, Stirling counts, size filters, partition coverage and per-partition nonduplication match the source. The useful interpretation concerns the selected tested cases, with recursive correctness beyond them still limited; it exceeds 70 words and ends mid-sentence."
+    },
+    {
+      "review_id": "24923da1044a7a605d14d255",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 526 is not syntax for variable annotations"
+      ],
+      "notes": "Final status is supported by the metadata validation, but the repeated denial of annotation syntax contradicts title and abstract. It gives no meaningful distinction between metadata validation and runtime support, exceeds 70 words and is unfinished."
+    },
+    {
+      "review_id": "e566c123f047227f0bb8979e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Ten combination_index tests passed",
+        "No direct combination_index assertions exist",
+        "Nonstring and unsorted iterable inputs are unsupported"
+      ],
+      "notes": "The actual tool reports eight passes. The class directly asserts indices and invalid-input errors, tests integers via range(180), and tests the unsorted repeated pool abacba. The response misclassifies this evidence as assumptions, invents coverage limits, exceeds 70 words and ends in an unfinished command."
+    },
+    {
+      "review_id": "62bae2c763b19ca5bf38f14e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "str.lower on [1,2,3,b] yields False",
+        "Infinite iterables and empty inputs are not tested"
+      ],
+      "notes": "The five tests and five subtests really pass, but the quoted numeric str.lower example would raise TypeError and is not a source test. test_basic explicitly includes empty input, and test_infinite checks short-circuiting on a repeated value from an infinite source. The response exceeds 70 words and ends unfinished."
+    },
+    {
+      "review_id": "f2ac5e2adba2f4a1b1e4cc0d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The tool reported ten successful numeric_range assertions"
+      ],
+      "notes": "Actual output is 25 passed tests and 20 subtests, not ten assertions. Default/type/sign/zero-step coverage is supported, and the stated nonexhaustiveness limits are reasonable. The main partial interpretation is useful, but the count is wrong and it exceeds 70 words with an unfinished command."
+    },
+    {
+      "review_id": "5db0a0c8ff8720ee063e464b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 567 adds optional context argument to Task"
+      ],
+      "notes": "Purpose, Python 3.7 module and set/reset verification ideas are supported. Supplied PEP adds context argument to loop scheduling and Future callback methods, while Task captures its current context internally; its illustrated constructor takes only coro. No concrete metadata-status check, over 70 words and command lacks target and closing fence. Irrelevant PEP576 correction not prompted. Exact full-context reuse from earlier blinded review 5db0a0c8ff8720ee063e464b."
+    },
+    {
+      "review_id": "44bbe261aa298ebce3cda370",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The validated proposal is PEP 586",
+        "x: ClassVar[int] = 1, 2, 3 is invalid because tuple unpacking is unsupported"
+      ],
+      "notes": "Actual validated_fields and the source header identify PEP 526, never 586/527. The source explicitly distinguishes legal tuple packing on the right hand side from prohibited annotated tuple-unpacking targets, and says mismatched annotations may fail a type checker while remaining OK at runtime. The proposed ClassVar example is tuple packing, not an unpacking target. The answer invents malformed validation commands and leaves the final fence unfinished. Exact full-context reuse from earlier blinded review 44bbe261aa298ebce3cda370."
+    },
+    {
+      "review_id": "1b5d4b5b700ea72c098d2a66",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The source test calls mi.returns(10)",
+        "Generator checks are in test_regular_reversed"
+      ],
+      "notes": "The actual two-test pass supports direct reversal of sequences and list-backed reversal of generators, with a real storage limit for infinite sources. However the answer invents mi.returns and misattributes generator tests, which are test_nonseq_reversed. The core evidence is still useful; it exceeds 70 words and trails into an unfinished command."
+    },
+    {
+      "review_id": "32891dfabaaee30809b0ca6b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_long uses range(18)",
+        "Tool reports ten passes"
+      ],
+      "notes": "Source and actual eight-test validation support the correct opening example: index 2000000 for (2,12,35,126) in range(180). The later range(18) claim is a self-introduced error, not an alternate source case, and ten passes is false. The partial correct example is useful but exceeds 70 words and ends mid-sentence."
+    },
+    {
+      "review_id": "1d1f6cb94b14a37b602d94d5",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The actual ten passes and 84 subtests, valid/invalid None, multiplicity, empty/long and invalid-order examples all match the retained class. It is useful coverage interpretation; calling tested properties assumptions is imprecise, and the answer exceeds 70 words and ends in an unfinished code block."
+    },
+    {
+      "review_id": "a56ab730c8b8a8cf6ab5ce1b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "The opening sentence correctly describes pairwise-predicate splitting. The long repeated list is not the actual search/source example and has neither a completed predicate nor output, so it fails to explain a concrete supported behavior. No additional false execution outcome is asserted, but the capped repetition is unfinished and not useful."
+    }
+  ],
+  "scope": "Explicit blinded source judgments cover all 248 capped responses in the before-confirmation inventory. Confirmation is now active; a new complete inventory, new judgments and strict final audit remain required. Exact full-context duplicates reuse the recorded judgment.",
+  "packet_digest": "603df1675867b63a10aecfe4ac823c2e36347ee81883c6de52d2cd606ef23acc",
+  "covered_responses": 248,
+  "distinct_reviewed_contexts": 89
+}

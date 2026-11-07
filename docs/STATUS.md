@@ -49,8 +49,10 @@ these selected runs does not establish a universal performance or quality claim.
   probes, zero sampled speculative staging/reservations and no declared memory
   growth alarm. See [operational receipts](../evidence/stage6-2080ti-20261106/operational-checkpoint.json)
   and [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
-  Primary confirmation is the next GPU phase; archive cap inventory is running
-  while GPU acquisition is idle.
+  Fixed primary confirmation now owns the GPU from immutable source 21. All
+  248 pre-confirmation archive caps have explicit blinded source judgments across
+  89 distinct contexts; fresh confirmation outputs and strict final audit remain
+  due. See [saved judgments](../evidence/stage6-2080ti-20261106/before-confirm-capped-source-ratings.json).
   The measured primary cost estimate is 41.16 hours,
   with supplementary work and audits additional. Four pilot comparisons still
   miss the desired precision target at the twelve-repeat ceiling; retain that

@@ -1,3 +1,16 @@
+## Fixed primary confirmation running
+
+The 524-run primary schedule is acquiring immutable source 21. Before launch,
+the archive-wide capped inventory verified 248 ordinary capped responses,
+including earlier failed/interrupted attempts, 75 pilot caps, 18 overhead caps and
+39 operational caps. All 89 distinct full contexts now have explicit blinded
+source judgments; exact duplicates reuse them. Findings include useful but
+unfinished answers, false test-status/coverage claims despite actual passing
+tools, repetitive document responses and invented fictional-world specifics.
+These are failure-selected observations, not model-wide accuracy estimates.
+Confirmation outputs require a fresh inventory and strict final audit after
+acquisition. [Saved source judgments](before-confirm-capped-source-ratings.json).
+
 ## Operational confirmation complete
 
 All six frozen operational runs passed: 1,280 main requests across all three
