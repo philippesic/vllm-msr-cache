@@ -1,3 +1,14 @@
+## Overhead controls acquired; operations running
+
+All 38 frozen overhead runs verified with no request failures. The chat controls
+bound throughput loss within the declared 3% margin. Short-QA loaded-disabled and
+enabled-no-hint comparisons with unloaded native ARC remain inconclusive; their
+intervals cross the loss margin. Enabled-no-hint versus loaded-disabled meets the
+margin in both workloads. These are six-pair conditional process estimates, not
+a universal overhead guarantee. Capped chat responses remain in the source audit.
+Operational acquisition is active; primary confirmation remains due.
+[Overhead measurements, intervals and artifact links](overhead-checkpoint.json).
+
 ## Pilot complete; fixed protocol frozen
 
 All 66 pilot runs completed and verified with no failed requests. Source 21 is

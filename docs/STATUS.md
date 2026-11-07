@@ -42,8 +42,11 @@ these selected runs does not establish a universal performance or quality claim.
   three pressure checks and the matched roomy-capacity check passed. The
   66-case pilot is complete with no failed requests. Source 21 is frozen for
   524 confirmation configurations / 210 matched blocks, plus 38 overhead and
-  six operational configurations. Overhead acquisition owns the GPU; primary
-  confirmation has not started. The measured primary cost estimate is 41.16 hours,
+  six operational configurations. All 38 overhead runs verified without request
+  failures; chat meets the declared 3% loss bound while short-QA comparisons with
+  unloaded native ARC remain inconclusive. Operational acquisition owns the GPU;
+  primary confirmation has not started. See [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
+  The measured primary cost estimate is 41.16 hours,
   with supplementary work and audits additional. Four pilot comparisons still
   miss the desired precision target at the twelve-repeat ceiling; retain that
   uncertainty. See [frozen pilot receipts](../evidence/stage6-2080ti-20261106/frozen-pilot-checkpoint.json) and
