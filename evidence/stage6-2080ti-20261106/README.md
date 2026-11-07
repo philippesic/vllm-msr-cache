@@ -1,3 +1,21 @@
+## Matched envelope and prompt repair
+
+The eight-session ARC fallback completed both capacity cases: 32 requests and
+24 real tools each, with identical initial token prompts. Eviction-affected
+returns fell from two of 24 at the unchanged 2.6016 GiB baseline to zero with
+4.5 GiB CPU cache. This meets the declared contrast but pressure is modest.
+The original 7.875 GiB and attempted 5.625 GiB allocations failed startup.
+The earlier sixteen-session 4.5 GiB allocation fit, but its cross-cell pressure
+comparison is invalid: canonical tool declarations differed between cells.
+Declarations are now uniform for all systems/models whenever a real tool follows.
+
+Use eight complete anchor sessions for matched B05/B06/B07/B12 comparisons;
+other model worksets retain sixteen. Operational stress retains sixteen complete
+sessions per wave through an explicit embedded full cohort, independent of this
+primary-workload fallback. No source is truncated and no candidate speed selects
+the envelope. Fresh full acquisition and all frozen phases remain required.
+[Compact resource receipts](roomy-resource-repair.json).
+
 # Stage 6 local execution
 
 Status: implementation and preparation in progress; no new performance claim.

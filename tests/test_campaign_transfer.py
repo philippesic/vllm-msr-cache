@@ -1,6 +1,7 @@
 import shutil
 import subprocess
 import sys
+import copy
 from pathlib import Path
 
 import pytest
@@ -122,6 +123,17 @@ def test_operational_development_is_separate_and_preserves_parent(transfer):
         prepare_operation(parent,destination,'fixture')
     (parent/'protocol.lock.json').unlink()
     before = load(parent/'resolved.json')
+    binding = before['cells'][0]['workload_binding']
+    corpus = load(binding['corpus'])
+    corpus['sessions'][0]['graph'] = dict(nodes=[dict(kind='request'),dict(kind='tool')])
+    full = copy.deepcopy(corpus)
+    full['sessions'].append(dict(copy.deepcopy(full['sessions'][0]),id='second'))
+    plan = load(binding['plan'])
+    plan['operational_corpus'] = full
+    for key,value in [('plan',plan),('corpus',corpus)]:
+        atomic_json(binding[key],value)
+        binding[key+'_digest'] = digest(value)
+    atomic_json(parent/'resolved.json',before)
     result = prepare_operation(parent,destination,'fixture',waves=2)
     assert result['diagnostic_only']
     assert load(parent/'resolved.json')==before
@@ -130,6 +142,8 @@ def test_operational_development_is_separate_and_preserves_parent(transfer):
     assert child['cells'][0]['confirmation_binding'] is None
     plan = load(child['cells'][0]['workload_binding']['plan'])
     assert plan['tier']=='operational' and plan['waves']==2
+    assert plan['sessions']==2 and plan['expected_requests_per_wave']==2
+    assert load(child['cells'][0]['workload_binding']['corpus'])==full
     assert verify_campaign(destination)['attempts']=={}
     with pytest.raises(ValueError,match='locked protocol'):
         campaign.run_phase(destination,'operational',dry_run=True)
@@ -174,6 +188,44 @@ def test_roomy_capacity_probe_keeps_tasks_and_parent_immutable(transfer):
     assert dry['blocks'][0]['systems']==['arc']
     with pytest.raises(ValueError,match='only reduces'):
         prepare_roomy(parent,root/'bad-capacity','fixture',4096)
+
+
+def test_envelope_fallback_reduces_identical_complete_workflows(transfer):
+    from benchmarks.serving_suite.campaign_development import prepare_envelope
+    parent,host,root = transfer
+    (parent/'protocol.lock.json').unlink()
+    resolved = load(parent/'resolved.json')
+    original = resolved['cells'][0]
+    corpus = load(original['workload_binding']['corpus'])
+    session = corpus['sessions'][0]
+    session['graph'] = dict(outputs=['final'],nodes=[dict(id='first',kind='request'),
+        dict(id='tool',kind='tool'),dict(id='final',kind='request')])
+    corpus['sessions']=[dict(session,id='session-'+str(i)) for i in range(4)]
+    cells=[]
+    for name,cpu in [('B06',4096),('B07',8192)]:
+        cell=copy.deepcopy(original)
+        cell['cell']=name
+        plan=dict(model='fixture',cpu_bytes=cpu,candidate_config={'kv_connector_extra_config':{'cpu_bytes_to_use':cpu}})
+        for key,value in [('plan',plan),('corpus',corpus)]:
+            path=parent/name/(key+'.json')
+            atomic_json(path,value)
+            cell['workload_binding'][key]=str(path)
+            cell['workload_binding'][key+'_digest']=digest(value)
+        cells.append(cell)
+    resolved['cells']=cells
+    atomic_json(parent/'resolved.json',resolved)
+    result=prepare_envelope(parent,root/'envelope','fixture',sessions=2,roomy_cpu_bytes=6144)
+    assert result['diagnostic_only'] and load(parent/'resolved.json')==resolved
+    selected=load(root/'envelope/resolved.json')['cells']
+    corpora=[load(c['workload_binding']['corpus']) for c in selected]
+    assert corpora[0]==corpora[1] and len(corpora[0]['sessions'])==2
+    assert all(len(s['graph']['nodes'])==3 for s in corpora[0]['sessions'])
+    for cell in selected:
+        plan=load(cell['workload_binding']['plan'])
+        assert plan['sessions']==2 and plan['expected_requests_per_wave']==4 and plan['expected_tools_per_wave']==2
+    dry=campaign.run_phase(root/'envelope','screen',dry_run=True)
+    assert [b['cell'] for b in dry['blocks']]==['B06','B07']
+    assert all(b['systems']==['arc'] for b in dry['blocks'])
 
 
 def test_offline_guard_rejects_snapshot_and_direct_blob_access(tmp_path):

@@ -53,11 +53,14 @@ these selected runs does not establish a universal performance or quality claim.
   changing budgets or workloads; 315 focused CPU checks pass. Fresh source-native
   checks passed for all models and the registry. The two-wave operational repeat
   passed with zero native staging despite actual preemptions. Resource-regime
-  qualification is active: the complete four-system pressure block passed, but
-  the proposed 7.875 GiB roomy CPU allocation stalled at startup and was cleaned
-  up. A separate 4.5 GiB ARC capacity probe keeps all sixteen tasks unchanged;
-  it must fit and halve eviction-affected returns before recompilation. Fresh
-  development comparisons remain before pilot/confirmation;
+  qualification now has a matched fallback: eight complete anchor repository
+  sessions, unchanged 2.6016 GiB base CPU cache and a safe 4.5 GiB roomy cache.
+  Both ARC cases completed 32 requests/24 tools; eviction-affected returns fell
+  from two to zero. Initial token prompts match exactly after a uniform tool
+  declaration repair. Pressure is modest; this is no speed claim. The original
+  7.875 GiB and attempted 5.625 GiB roomy allocations failed startup and remain
+  retained. Operational waves still use all sixteen sessions. A fresh complete
+  campaign with the repaired prompts/envelope precedes pilot and confirmation;
   check live state before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible

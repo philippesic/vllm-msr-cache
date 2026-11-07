@@ -11,14 +11,26 @@ from .contracts import SCHEMA, validate_plan
 
 def validate_profile(profile):
     fields(profile, ('gpu_blocks', 'cpu_bytes', 'max_model_len', 'gpu_memory_utilization', 'batch_tokens', 'status'),
-           ('model_format', 'text_only', 'roomy_cpu_bytes', 'roomy_gpu_blocks', 'runtime_python', 'allocation_receipts', 'kv_bytes_per_token'))
+           ('model_format', 'text_only', 'roomy_cpu_bytes', 'roomy_gpu_blocks', 'runtime_python', 'allocation_receipts', 'kv_bytes_per_token', 'repo_pressure_sessions'))
     for name in ('gpu_blocks', 'cpu_bytes', 'max_model_len', 'batch_tokens'):
         positive(profile[name], name)
     if profile['gpu_blocks'] * 16 < profile['max_model_len']:
         raise ValueError('GPU KV capacity is smaller than one declared context')
     if profile['status'] not in ('development', 'measured') or not 0 < profile['gpu_memory_utilization'] < 1:
         raise ValueError('Invalid resource profile status/utilization')
+    if 'repo_pressure_sessions' in profile:
+        positive(profile['repo_pressure_sessions'],'repo_pressure_sessions')
     return profile
+
+
+def apply_pressure_limit(corpus,plan,limit,*,keep_operational=False):
+    positive(limit,'repo_pressure_sessions')
+    if limit>len(corpus['sessions']):
+        raise ValueError('Pressure session count exceeds complete prepared workflows')
+    if keep_operational and limit<len(corpus['sessions']):
+        plan['operational_corpus'] = copy.deepcopy(corpus)
+    corpus['sessions'] = corpus['sessions'][:limit]
+    plan['sessions'] = limit
 
 
 def b04(corpus):
@@ -109,6 +121,8 @@ def assemble(campaign, catalogs, assets, host, partition, destination):
             # does not satisfy pressure or native correctness gates elsewhere.
             for session in corpus['sessions']:
                 session['graph'] = (team_graph if adapter == 'team' else linear_graph)(session, plan)
+            if cell in ('B05','B06','B07','B12') and 'repo_pressure_sessions' in profile:
+                apply_pressure_limit(corpus,plan,profile['repo_pressure_sessions'],keep_operational=cell=='B06')
             plan['expected_requests_per_wave'] = sum(n['kind'] == 'request' for s in corpus['sessions'] for n in s['graph']['nodes'])
             plan['expected_tools_per_wave'] = sum(n['kind'] == 'tool' for s in corpus['sessions'] for n in s['graph']['nodes'])
             if len(cells[cell]) == 4:

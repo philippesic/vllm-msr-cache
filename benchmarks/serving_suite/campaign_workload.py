@@ -209,11 +209,10 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                     content = session.get('context', '') + '\n\n' + content
                 for dependency, result in dependencies.items():
                     content += f'\nACTUAL DEPENDENCY {dependency}:\n' + result.get('text', result.get('output', ''))
-                if plan.get('published_runtimes'):
-                    following = [n for n in graph['nodes'] if n['kind'] == 'tool' and node['id'] in n['depends_on']]
-                    if following:
-                        content += ('\nThe application will next execute this fixed read-only tool. Paths below are stable public source names; the application binds them to local files. End with exactly one bash fenced block containing this declaration:\n'
-                                    + tool_declaration(following[0]['tool']))
+                following = [n for n in graph['nodes'] if n['kind'] == 'tool' and node['id'] in n['depends_on']]
+                if following:
+                    content += ('\nThe application will next execute this fixed read-only tool. Paths below are stable public source names; the application binds them to local files. End with exactly one bash fenced block containing this declaration:\n'
+                                + tool_declaration(following[0]['tool']))
                 history.append(dict(role='user', content=content))
                 tokens = continuation_tokens(tokenizer,history,previous.get(stream),plan.get('chat_template_kwargs', {}))
                 observed = known_prefix_tokens(previous[stream]) if stream in previous else None

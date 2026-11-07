@@ -243,11 +243,13 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
         schedule = [dict(model=c['model'],cell='B06',repeat=0,
                          systems=['wait','registry'] if c['model']=='qwen3_8b_awq' else ['wait'])
                     for c in resolved['cells'] if c['cell']=='B06']
-    elif phase=='screen' and load(out/'campaign.json').get('diagnostic_only',{}).get('kind')=='roomy-allocation-development':
-        if locked or len(resolved['cells'])!=1 or resolved['cells'][0]['cell']!='B07' or resolved['cells'][0]['systems']!=['arc']:
-            raise ValueError('Capacity diagnostic requires one unfrozen ARC B07 cell')
-        c = resolved['cells'][0]
-        schedule = [dict(model=c['model'],cell=c['cell'],repeat=0,systems=['arc'])]
+    elif phase=='screen' and load(out/'campaign.json').get('diagnostic_only',{}).get('kind') in (
+            'roomy-allocation-development','cache-envelope-development'):
+        kind = load(out/'campaign.json')['diagnostic_only']['kind']
+        expected = ['B07'] if kind=='roomy-allocation-development' else ['B06','B07']
+        if locked or [c['cell'] for c in resolved['cells']]!=expected or any(c['systems']!=['arc'] for c in resolved['cells']):
+            raise ValueError('Capacity diagnostic requires an unfrozen ARC capacity cell or matched pair')
+        schedule = [dict(model=c['model'],cell=c['cell'],repeat=0,systems=['arc']) for c in resolved['cells']]
     else:
         count = 3 if phase == 'pilot' else 1
         spec = load(out / 'campaign.json')['specification']
@@ -355,6 +357,16 @@ def run_phase(out, phase, *, only=None, resume=False, dry_run=False):
     return acquire()
 
 
+def operational_workload(plan,corpus):
+    full = plan.get('operational_corpus',corpus)
+    if dict(full,sessions=full['sessions'][:len(corpus['sessions'])])!=corpus:
+        raise ValueError('Operational cohort must preserve the complete pressure-task prefix')
+    plan.update(sessions=len(full['sessions']),
+        expected_requests_per_wave=sum(n['kind']=='request' for s in full['sessions'] for n in s['graph']['nodes']),
+        expected_tools_per_wave=sum(n['kind']=='tool' for s in full['sessions'] for n in s['graph']['nodes']))
+    return full
+
+
 def worker(out, attempt):
     """One fresh child owns only the legacy leaf lock under its supervisor."""
     def terminate(signum, frame):
@@ -402,6 +414,7 @@ def worker(out, attempt):
             corpus['sessions'] = corpus['sessions'][:8]
             plan.update(sessions=8,expected_requests_per_wave=8)
     if identity['phase'] == 'operational':
+        corpus = operational_workload(plan,corpus)
         # Keep one server alive across six anchor waves. Secondary sequences are
         # smaller, with the same isolated cancel/drain/recovery checks.
         plan.update(tier='operational',waves=6 if identity['model']=='qwen3_8b_awq' else 2,

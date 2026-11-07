@@ -89,6 +89,8 @@ def operational(out):
             problems = []
             if len(case['waves'])!=expected_waves or not operation.get('passed') or not operation.get('native_transfer_drain_verified'):
                 problems.append('persistent_cancel_drain_recovery_incomplete')
+            if len(case['source_ids'])!=16 or case['summary']['completed']!=expected_waves*64:
+                problems.append('persistent_full_workload_coverage_incomplete')
             if system=='wait':
                 checks = observation.get('operational_advice_checks',[])
                 if not required<={c['check'] for c in checks if c['passed']} or any(not c['passed'] for c in checks):

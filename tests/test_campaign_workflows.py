@@ -66,16 +66,38 @@ def test_model_shell_cannot_be_a_tool():
         validate_tool(spec)
 
 
+def test_smaller_pressure_pair_preserves_full_operational_waves():
+    import copy
+    from benchmarks.serving_suite.campaign_setup import apply_pressure_limit
+    from benchmarks.serving_suite.campaign import operational_workload
+    corpus=dict(sessions=[dict(id=str(i),graph=dict(nodes=[
+        *[dict(id='r'+str(j),kind='request') for j in range(4)],
+        *[dict(id='t'+str(j),kind='tool') for j in range(3)]])) for i in range(16)])
+    original=copy.deepcopy(corpus)
+    plan={}
+    apply_pressure_limit(corpus,plan,8,keep_operational=True)
+    assert len(corpus['sessions'])==8 and plan['sessions']==8
+    assert plan['operational_corpus']==original
+    full=operational_workload(plan,corpus)
+    assert full==original and plan['sessions']==16
+    assert plan['expected_requests_per_wave']==64 and plan['expected_tools_per_wave']==48
+    plan['operational_corpus']['sessions'][0]['id']='wrong-cohort'
+    with pytest.raises(ValueError,match='preserve'):
+        operational_workload(plan,corpus)
+
+
 @pytest.mark.parametrize('publish',[True,False])
 def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path,publish):
     import json
     import sys
     from aiohttp import web
     from benchmarks.serving_suite.campaign_workload import linear_graph, run_wave, diagnose
+    rendered = []
     class Tokenizer:
         all_special_ids = [66]
         def apply_chat_template(self, messages, **kwargs):
             assert kwargs.get('enable_thinking') is False
+            rendered.append(messages[-1]['content'])
             if kwargs.get('tokenize') is False:
                 return messages[-2]['content']+'new turn'
             return list(range(64))
@@ -121,6 +143,9 @@ def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path,pub
             await run_wave(f'http://127.0.0.1:{port}', plan, [session], Tokenizer(), 0, rows.append,
                            'candidate', {'model_revision': 'test'}, hints, tmp_path/'streams')
             assert len(rows) == 2 and all(r['success'] for r in rows)
+            # Capacity and concurrency variants need the same tool declaration
+            # even when no external runtime is configured for the local cell.
+            assert any('End with exactly one bash fenced block' in text and 'evidence.txt' in text for text in rendered)
             assert len(hints) == int(publish)
             if publish:
                 assert sent[1]['kv_transfer_params']['observed_prefix_boundary_tokens'] == 64
