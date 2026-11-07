@@ -49,7 +49,10 @@ these selected runs does not establish a universal performance or quality claim.
   probes, zero sampled speculative staging/reservations and no declared memory
   growth alarm. See [operational receipts](../evidence/stage6-2080ti-20261106/operational-checkpoint.json)
   and [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
-  Fixed primary confirmation now owns the GPU from immutable source 21. All
+  Fixed primary confirmation owns the GPU from immutable source 21. The first
+  five anchor cells (B01–B05) completed all 108 configurations without request
+  failures; B03–B05 had no token caps. The four-system B06 comparison is active.
+  See [confirmation checkpoint](../evidence/stage6-2080ti-20261106/confirmation-progress-checkpoint.json). All
   248 pre-confirmation archive caps have explicit blinded source judgments across
   89 distinct contexts; fresh confirmation outputs and strict final audit remain
   due. See [saved judgments](../evidence/stage6-2080ti-20261106/before-confirm-capped-source-ratings.json).
@@ -71,8 +74,7 @@ these selected runs does not establish a universal performance or quality claim.
   exported validation closure; its wheel build passes through the second runtime.
   Frozen source 21 preserves the pilot/native timed serving inputs. Model source review retains format failures, unsupported
   claims and capped answers; confirmation quality and the archive-wide capped
-  response audit remain due. Next: complete controls, operations and fixed
-  comparisons, then quality and final relocation proof.
+  response audit remain due. Next: complete fixed comparisons, then quality and final relocation proof.
   Check live ownership before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
