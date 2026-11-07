@@ -91,7 +91,14 @@
       ],
       "evidence": "output/stage6-2080ti-20261106/development-09/analysis/native-repair-10.json",
       "registry_log": "output/stage6-2080ti-20261106/preflight-10.log",
-      "operational_repeat": "in progress; required before pressure qualification"
+      "operational_repeat": "passed; separate diagnostic, not confirmation"
+    },
+    "operational_repeat": {
+      "passed": true,
+      "evidence": "output/stage6-2080ti-20261106/operational-development-03/analysis/repair-proof.json",
+      "per_arm_requests": 128,
+      "waves": 2,
+      "zero_native_staging": true
     }
   },
   "scope": "Development defect found before pilot/frozen confirmation. No new speed or readiness claim."

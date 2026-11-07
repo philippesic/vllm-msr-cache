@@ -51,7 +51,9 @@ these selected runs does not establish a universal performance or quality claim.
   operational development probe then detected legacy preemption staging despite
   CPU-only retention/no-dispatch settings. The invariant is repaired without
   changing budgets or workloads; 315 focused CPU checks pass. Fresh source-native
-  checks and development comparisons are required before pilot/confirmation;
+  checks passed for all models and the registry. The two-wave operational repeat
+  passed with zero native staging despite actual preemptions. Resource-regime
+  qualification and fresh development comparisons remain before pilot/confirmation;
   check live state before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible

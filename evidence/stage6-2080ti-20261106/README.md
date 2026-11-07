@@ -10,8 +10,13 @@ correctly rejected the candidate case. The repair makes the existing retention-o
 and no-dispatch settings cover preemption enqueue, retry and direct reservation.
 Selected configuration, budgets and workloads remain unchanged. Focused CPU
 checks pass 315 tests, including regression coverage. All three native model
-fixtures and the registry fixture have passed on the repaired source; the
-two-wave operational repeat is running. All development comparisons must use
+fixtures and the registry fixture have passed on the repaired source. The
+two-wave operational repeat passed both arms: 128 workload requests each,
+native cancellation/drain/recovery, owned cleanup and all five candidate advice
+checks. The candidate's 3,687 registry observations showed no speculative jobs
+or GPU reservations despite actual preemptions and CPU restores. This remains
+a development diagnostic; frozen operational confirmation is still required.
+All development comparisons must use
 that fresh source snapshot. Earlier development
 timings under preemption cannot establish a pure retention-only effect. See the
 [finding and retained observations](preemption-dispatch-repair.json).
