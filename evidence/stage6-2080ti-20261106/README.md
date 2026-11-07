@@ -1,3 +1,12 @@
+The fresh anchor four-system pressure block passed all 32 requests per arm,
+with identical initial token prompts. Continuum recorded 23 real pins; upstream
+24 applied updates and 169 priority-selection calls. ARC had two eviction-affected
+returns, versus zero in the identical-task 4.5 GiB roomy cell. The final campaign
+also demonstrated a real interrupted measured process, verified cleanup and whole
+comparison-block replacement. These are development validity/activity receipts;
+secondary-model pressure, remaining acquisition and all frozen phases remain due.
+[Matched development receipts](matched-development-15.json).
+
 The final offline verifier guard now forbids the original source checkout,
 historical outputs and prepared asset cache as well as model snapshots and their
 resolved weight blobs. Only the relocated exported source and evidence are
