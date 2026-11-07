@@ -48,6 +48,10 @@ def transfer(tmp_path,monkeypatch):
         plan = dict(model=str(model),cpu_bytes=4096)
         corpus = dict(sessions=[dict(id=partition,repository=str(repo),input_files={str(repo/'selected.py'):file_hash(repo/'selected.py')},
             tools=[dict(cwd=str(repo),argv=['rg','VALUE',str(repo/'selected.py')])])])
+        plan['operational_corpus'] = copy.deepcopy(corpus)
+        plan['operational_corpus']['sessions'].append(dict(id=partition+'-operational-only',
+            repository=str(repo),input_files={str(repo/'helper.py'):file_hash(repo/'helper.py')},
+            tools=[dict(cwd=str(repo),argv=['rg','VALUE',str(repo/'helper.py')])]))
         atomic_json(directory/'plan.json',plan)
         atomic_json(directory/'corpus.json',corpus)
         cell[field] = dict(plan=str(directory/'plan.json'),corpus=str(directory/'corpus.json'),
@@ -85,6 +89,13 @@ def test_transfer_relocates_both_cohorts_and_full_repo(transfer):
         assert session['id']==partition
         assert (Path(session['repository'])/'helper.py').read_text()=='VALUE=1\n'
         assert str(root/'original') not in str(corpus)
+        plan = load(resolved['cells'][0][field]['plan'])
+        operational = plan['operational_corpus']['sessions']
+        assert len(operational)==2 and operational[0]==session
+        extra = operational[1]
+        assert extra['id']==partition+'-operational-only'
+        assert Path(extra['tools'][0]['argv'][-1]).read_text()=='VALUE=1\n'
+        assert str(root/'original') not in str(plan)
     assert load(imported/'imported-protocol.json')['precision']['repeats']=={'fixture:B06':6}
     assert campaign.run_phase(imported,'preflight',dry_run=True)['blocks']
     with pytest.raises(ValueError,match='locked protocol'):
