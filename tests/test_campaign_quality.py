@@ -65,3 +65,38 @@ def test_capped_finals_all_require_review_beyond_sample_limit(tmp_path,monkeypat
     result = quality.prepare_review(tmp_path)
     assert result['objective_outputs']==40 and result['automatic_failures']==0
     assert result['blind_review_items']==40
+
+
+def test_capped_intermediate_review_uses_only_available_evidence(tmp_path,monkeypatch):
+    import json
+    from benchmarks.serving_suite import campaign_quality as quality
+    measurement = tmp_path/'attempt/measurement'
+    nodes = [dict(id='r0',kind='request',depends_on=[],prompt='Plan'),
+        dict(id='t0',kind='tool',depends_on=['r0']),
+        dict(id='r1',kind='request',depends_on=['t0'],prompt='Explain search evidence'),
+        dict(id='t1',kind='tool',depends_on=['r1']),
+        dict(id='r2',kind='request',depends_on=['t1'],prompt='Report validated result')]
+    session = dict(id='one',graph=dict(outputs=['r2'],nodes=nodes),
+        quality_reference=dict(kind='investigation',symbol='subject'),context='Source',turns=['Plan','Explain','Report'])
+    atomic_json(measurement/'corpus.json',dict(sessions=[session]))
+    rows = [dict(source_id='one',node_id=node,generated_text=text,finish_reason=reason,
+        payload=dict(request_id=node),hint_group='hinted') for node,text,reason in
+        [('r0','Earlier plan','stop'),('r1','Truncated explanation','length'),('r2','subject test_status=PASS','stop')]]
+    (measurement/'case/tools').mkdir(parents=True)
+    (measurement/'case/tools/0-0-t0.txt').write_text('Search evidence')
+    (measurement/'case/tools/0-0-t1.txt').write_text('Future validation')
+    (measurement/'case/requests.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in rows))
+    data = dict(event=dict(attempt_id='attempt',details=dict(path='attempt')),
+        case=dict(name='case',load_duration_s=10))
+    monkeypatch.setattr(quality,'completed_blocks',lambda out,phase:{('model','B06',0):dict(systems=dict(arc=data))})
+    result = quality.prepare_review(tmp_path)
+    assert result['objective_outputs']==1 and result['capped_intermediate_outputs']==1
+    assert result['blind_review_items']==2 and result['automatic_failures']==0
+    packet = json.loads((tmp_path/'analysis/quality/blind-packet.json').read_text())
+    item = next(i for i in packet['items'] if i['response_role']=='capped_intermediate')
+    assert item['current_instruction']=='Explain search evidence'
+    assert item['actual_dependencies']==['Earlier plan']
+    assert item['tools']==[dict(output='Search evidence')]
+    assert item['reference']['kind']=='intermediate' and item['objective']['length_capped']
+    objective_data = json.loads((tmp_path/'analysis/quality/objective.json').read_text())
+    assert len(objective_data['outputs'])==len(objective_data['capped_intermediate_outputs'])==1

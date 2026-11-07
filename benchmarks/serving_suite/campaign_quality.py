@@ -16,7 +16,8 @@ RUBRIC = dict(version='stage6-quality-v1',
     team='Synthesis uses actual generated specialist findings and validation, without dropped or contradicted material results.',
     summary='Key source facts, unsupported claims, missing material facts and useful concise summary. Overlap alone is not a pass.',
     chat='Coherent response to the actual current instruction and source context, with no invented tool outcomes.',
-    audit='Blind system/speed labels; inspect source, actual tools/dependencies and answer. Review all automatic failures and every length-capped final separately.')
+    intermediate='Judge the current graph instruction using only preceding dependencies; no invented validation, irrelevant source claims or unfinished tool declaration. Capping is reported separately from usefulness.',
+    audit='Blind system/speed labels; inspect source, actual tools/dependencies and answer. Review all automatic failures and every length-capped response separately.')
 
 
 def normalize(text):
@@ -69,7 +70,7 @@ def prepare_review(out, phase='confirm'):
     if phase not in ('screen','confirm'):
         raise ValueError('Quality review requires screen or confirmation measurements')
     blocks = completed_blocks(out,phase)
-    entries, groups, durations = [], {}, {}
+    entries, capped_intermediates, groups, durations = [], [], {}, {}
     for (model,cell,repeat), block in sorted(blocks.items()):
         for system,data in sorted(block['systems'].items()):
             event = data['event']
@@ -80,26 +81,45 @@ def prepare_review(out, phase='confirm'):
             raw = [json.loads(line) for line in (directory/case['name']/'requests.jsonl').read_text().splitlines()]
             for session in corpus['sessions']:
                 outputs = set(session['graph']['outputs'])
-                for row in raw:
-                    if row.get('source_id')!=session['id'] or row.get('node_id') not in outputs:
+                for row_index,row in enumerate(raw):
+                    if row.get('source_id')!=session['id']:
+                        continue
+                    final = row.get('node_id') in outputs
+                    if not final and row.get('finish_reason')!='length':
                         continue
                     text = row.get('generated_text','')
                     reference = session['quality_reference']
                     if cell=='B10':
                         reference = {**reference,'kind':'team'}
+                    if not final:
+                        reference = {**reference,'kind':'intermediate'}
+                    nodes = {n['id']:n for n in session['graph'].get('nodes',[])}
+                    ancestors = set()
+                    pending = list(nodes.get(row['node_id'],{}).get('depends_on',[]))
+                    while pending:
+                        ancestor = pending.pop()
+                        if ancestor not in ancestors:
+                            ancestors.add(ancestor)
+                            pending.extend(nodes[ancestor].get('depends_on',[]))
                     check = objective(text,reference,capped=row.get('finish_reason')=='length')
                     item = dict(model=model,cell=cell,repeat=repeat,system=system,attempt=event['attempt_id'],
                         request_id=row['payload']['request_id'],source_id=session['id'],traffic_class=row['hint_group'],
+                        response_role='final' if final else 'capped_intermediate',node_id=row['node_id'],
+                        current_instruction=nodes.get(row['node_id'],{}).get('prompt'),
                         answer=text,objective=check,source_context=session.get('context',''),reference=reference,
                         instructions=session['turns'],
-                        actual_dependencies=[r['generated_text'] for r in raw if r.get('source_id')==session['id'] and
-                                             r.get('node_id')!=row['node_id']],
+                        actual_dependencies=[r['generated_text'] for r in raw[:row_index] if r.get('source_id')==session['id'] and
+                                             r.get('wave',0)==row.get('wave',0) and (not nodes or r.get('node_id') in ancestors)],
                         tools=[dict(output=re.sub(r'\bin \d+(?:\.\d+)?s\b','in [elapsed time omitted]',p.read_text(errors='replace')))
                                for p in sorted((directory/case['name']/'tools').glob('*.txt'))
-                               if p.name.startswith('0-'+str(corpus['sessions'].index(session))+'-')])
+                               if p.name.startswith(str(row.get('wave',0))+'-'+str(corpus['sessions'].index(session))+'-') and
+                               (not nodes or p.stem.split('-',2)[2] in ancestors)])
                     item['review_id'] = digest({k:item[k] for k in ('attempt','request_id','source_id')})[:24]
-                    entries.append(item)
-                    groups.setdefault((model,cell,system),[]).append(item)
+                    if final:
+                        entries.append(item)
+                        groups.setdefault((model,cell,system),[]).append(item)
+                    else:
+                        capped_intermediates.append(item)
     chosen = {}
     for key,items in sorted(groups.items()):
         # Round-robin traffic class/repetition strata; then deterministic order.
@@ -121,31 +141,35 @@ def prepare_review(out, phase='confirm'):
             chosen[item['review_id']] = 'automatic_failure'
         elif item['objective']['length_capped']:
             chosen[item['review_id']] = 'length_capped'
+    for item in capped_intermediates:
+        chosen[item['review_id']] = 'length_capped_intermediate'
     blind, mapping = [], {}
-    for item in entries:
+    for item in entries+capped_intermediates:
         if item['review_id'] not in chosen:
             continue
-        mapping[item['review_id']] = {k:item[k] for k in ('model','cell','repeat','system','attempt','request_id','source_id')}
+        mapping[item['review_id']] = {k:item[k] for k in ('model','cell','repeat','system','attempt','request_id','source_id','response_role')}
         blind.append({k:v for k,v in item.items() if k not in ('model','cell','repeat','system','attempt','request_id')})
     random.Random(17011).shuffle(blind)
     canonical = {}
     for item in blind:
-        signature = digest({k:item[k] for k in ('answer','source_context','reference','instructions','actual_dependencies','tools')})
+        signature = digest({k:item[k] for k in ('answer','source_context','reference','instructions','actual_dependencies','tools','response_role','current_instruction')})
         if signature in canonical:
             item['duplicate_of'] = canonical[signature]
         else:
             canonical[signature] = item['review_id']
     destination = out/'analysis'/('quality' if phase=='confirm' else 'quality-screen')
     atomic_json(destination/'rubric.json',RUBRIC)
-    atomic_json(destination/'objective.json',dict(schema='stage6-quality-objective-v1',rubric=RUBRIC,outputs=entries))
+    atomic_json(destination/'objective.json',dict(schema='stage6-quality-objective-v1',rubric=RUBRIC,outputs=entries,
+        capped_intermediate_outputs=capped_intermediates))
     atomic_json(destination/'blind-packet.json',dict(schema='stage6-blind-quality-packet-v1',rubric=RUBRIC,items=blind))
     atomic_json(destination/'private-labels.json',mapping)
     (destination/'private-labels.json').chmod(0o600)
     result = dict(status='pending_source_audit',phase=phase,objective_outputs=len(entries),blind_review_items=len(blind),
                   automatic_failures=sum(i['objective']['automatic_failure'] for i in entries),
+                  capped_intermediate_outputs=len(capped_intermediates),
                   objective_groups=aggregate_objective(entries,durations),
                   rubric_digest=digest(RUBRIC),packet_digest=digest(blind),
-                  scope='Objective checks cover every final output; every capped final and automatic failure requires the retained source audit')
+                  scope='Objective checks cover every final output; every capped response and automatic failure requires the retained source audit')
     atomic_json(destination/'summary.json',result)
     return result
 
@@ -204,8 +228,9 @@ def finish_review(out, ratings_path):
     groups = {}
     for key,row in values.items():
         label = labels[key]
-        group = groups.setdefault(label['model']+':'+label['cell']+':'+label['system'],dict(reviewed=0,useful=0,unsupported=0))
+        group = groups.setdefault(label['model']+':'+label['cell']+':'+label['system'],dict(reviewed=0,useful=0,unsupported=0,capped_intermediates_reviewed=0))
         group['reviewed'] += 1
+        group['capped_intermediates_reviewed'] += label.get('response_role')=='capped_intermediate'
         group['useful'] += row['useful']
         group['unsupported'] += bool(row['unsupported_claims']) or not row['source_supported']
     for group in groups.values():
@@ -213,6 +238,6 @@ def finish_review(out, ratings_path):
     atomic_json(destination/'source-audit.json',ratings)
     previous = load(destination/'summary.json')
     previous.update(status='audited',reviewer=ratings['reviewer'],reviewed=len(values),groups=groups,
-                    audit_digest=digest(ratings),sample_scope='Stratified deterministic sample plus all automatic failures and capped finals; not an unbiased population useful-rate estimate')
+                    audit_digest=digest(ratings),sample_scope='Stratified deterministic final sample plus all automatic failures and capped responses, including intermediates; not an unbiased population useful-rate estimate')
     atomic_json(destination/'summary.json',previous)
     return previous

@@ -1,3 +1,14 @@
+## Capped-response coverage before freeze
+
+Every capped response now enters the source audit, including intermediate graph
+steps. The development audit found one capped Continuum intermediate with a
+malformed example, irrelevant symbol and unfinished tool declaration; it remains
+a model-quality failure in the measured workload. Intermediate review sees only
+preceding graph dependencies and tools. Final-answer automatic denominators stay
+separate. The complete benchmark suite passes 214 checks and portable checks 31;
+timed serving source remains identical to the fresh native and screen source.
+[Coverage and validation receipts](all-capped-response-review.json).
+
 ## Team-cell validity repair before freeze
 
 Both B10 arms completed all four real team graphs / twenty requests, with GPU

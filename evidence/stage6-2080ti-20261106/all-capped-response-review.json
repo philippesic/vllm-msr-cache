@@ -1,0 +1,28 @@
+{
+  "serving_files_identical": true,
+  "previous": "7066c04c3e1e4589176cb8ea2d63d39f4c182f1130b677980d5c55bb43972b7d",
+  "current": "d1aa8a6883fcf10780393547a02248e7d78b7b2cef83e5bb3cd27e586e570a72",
+  "snapshot": "/home/philip/.cache/semantic-offload/stage6-assets/source-snapshots/d1aa8a6883fcf10780393547a02248e7d78b7b2cef83e5bb3cd27e586e570a72",
+  "scope": "Analysis-only capped-response review, validity and offline guard; native and screens retain their exact timed serving identity",
+  "benchmark_tests": {
+    "passed": 214,
+    "log": "../../output/stage6-2080ti-20261106/benchmark-tests-16.log"
+  },
+  "portable_tests": {
+    "passed": 31,
+    "log": "../../output/stage6-2080ti-20261106/check-light-16.log"
+  },
+  "focused_cap_review_tests": {
+    "passed": 34,
+    "log": "../../output/stage6-2080ti-20261106/all-capped-quality-check-16.log"
+  },
+  "review_change": "All capped intermediates enter source audit; only preceding graph dependencies/tools are available evidence. Final automatic denominators remain final outputs only.",
+  "observed_development_intermediate": {
+    "cell": "B06",
+    "system": "continuum",
+    "source_id": "more-split_when",
+    "node": "r1",
+    "quality": "Malformed repeated example, irrelevant distinct_permutations material and unfinished incorrect tool declaration; retain as model-quality failure, not discarded timing."
+  },
+  "confirmation_status": "not yet frozen or started"
+}

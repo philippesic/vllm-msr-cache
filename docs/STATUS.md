@@ -39,7 +39,7 @@ these selected runs does not establish a universal performance or quality claim.
 - **Stage 6 active resources:** `development-15` is the fresh campaign after
   uniform canonical-tool prompt repair and the matched capacity fallback.
   All three native model fixtures and the registry probe passed again. The
-  current source passes 201 benchmark checks and 31 portable checks and builds
+  current source passes 214 benchmark checks and 31 portable checks and builds
   a standalone wheel through the independently reconstructed runtime. The
   full 54-configuration screen owns the GPU. All four fresh anchor pressure
   arms passed with identical initial token prompts and actual external activation;
@@ -49,8 +49,10 @@ these selected runs does not establish a universal performance or quality claim.
   arms with zero CPU restoration because prefixes stayed GPU-resident. A versioned
   classification repair retains that control without rewriting its original
   inconclusive treatment result or forcing pressure; 36 focused checks pass.
-  Mixed traffic and remaining screens, including secondary-model pressure, remain
-  due. The fresh full-cohort operational
+  Mixed traffic passed all four arms. The last anchor control and secondary
+  screens, including secondary-model pressure, remain due. Source review now
+  includes every capped response, including intermediate steps with only prior
+  graph evidence; final-answer denominators stay separate. The fresh full-cohort operational
   development repeat passed 128 requests per arm with cancellation, drain,
   recovery, all five advice checks and zero speculative staging.
   It retains sixteen complete sessions per wave; matched anchor B05/B06/B07/B12
