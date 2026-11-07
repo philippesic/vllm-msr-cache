@@ -41,7 +41,9 @@ these selected runs does not establish a universal performance or quality claim.
   All three native model fixtures and the registry probe passed again. The
   current source passes 201 benchmark checks and 31 portable checks and builds
   a standalone wheel through the independently reconstructed runtime. The
-  local operational development probe owns the GPU before the full screen.
+  full 54-configuration screen owns the GPU. The fresh full-cohort operational
+  development repeat passed 128 requests per arm with cancellation, drain,
+  recovery, all five advice checks and zero speculative staging.
   It retains sixteen complete sessions per wave; matched anchor B05/B06/B07/B12
   use eight complete sessions, unchanged 2.6016 GiB base CPU cache and a safe
   4.5 GiB roomy cache. The ARC capacity diagnostic completed both 32-request,

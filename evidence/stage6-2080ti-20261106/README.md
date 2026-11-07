@@ -1,3 +1,11 @@
+The fresh full-cohort operational development repeat passed in both arms:
+128 requests each across two sixteen-session waves, native cancellation,
+transfer drain, recovery and cleanup. The candidate passed all five advice
+perturbations and retained zero speculative jobs or reserved GPU blocks in
+native registry observations. [Stress receipts](full-cohort-operation-15.json).
+The full 54-configuration development screen is running; this remains separate
+from frozen confirmation and its longer operational sequence.
+
 ## Fresh acquisition checkpoint
 
 `development-15` has immutable bindings for all 22 cells / 54 configurations.
