@@ -1,4 +1,16 @@
-## Overhead controls acquired; operations running
+## Operational confirmation complete
+
+All six frozen operational runs passed: 1,280 main requests across all three
+models, with six full sixteen-session waves per anchor arm and two per secondary
+arm. Every run established exact backend cancellation, native transfer drain and
+recovery. All candidate advice probes passed, abandoned advice was covered on
+every wave, and every registry sample had zero speculative jobs and reserved GPU
+blocks. No declared 512 MiB resident-memory growth alarm fired. Registries stayed
+within their bounded sequence limits; this does not prove leak freedom or
+production reliability. Capped answers remain subject to source review.
+[Operational receipts and resource observations](operational-checkpoint.json).
+
+## Overhead controls acquired
 
 All 38 frozen overhead runs verified with no request failures. The chat controls
 bound throughput loss within the declared 3% margin. Short-QA loaded-disabled and
@@ -6,7 +18,7 @@ enabled-no-hint comparisons with unloaded native ARC remain inconclusive; their
 intervals cross the loss margin. Enabled-no-hint versus loaded-disabled meets the
 margin in both workloads. These are six-pair conditional process estimates, not
 a universal overhead guarantee. Capped chat responses remain in the source audit.
-Operational acquisition is active; primary confirmation remains due.
+Operational acquisition is complete; primary confirmation remains due.
 [Overhead measurements, intervals and artifact links](overhead-checkpoint.json).
 
 ## Pilot complete; fixed protocol frozen

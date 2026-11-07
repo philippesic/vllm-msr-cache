@@ -23,7 +23,7 @@ these selected runs does not establish a universal performance or quality claim.
   speedups were real but too small in total serving cost to establish a practical
   gain. See [findings and validation](../evidence/stage5-optimization-20261105/README.md)
   and the brief [history](PROJECT_HISTORY.md).
-- **Stage 6 — implementation and preparation in progress:** the
+- **Stage 6 — fixed acquisition in progress:** the
   [agent execution plan](STAGE6_EXECUTION_PLAN.md) specifies a durable campaign
   layer over the maintained serving suite, vLLM only, and Qwen3-8B-AWQ,
   Ministral 3-3B Instruct, and Qwen3-4B-Instruct-2507. Complete the 2080 Ti matrix
@@ -33,8 +33,8 @@ these selected runs does not establish a universal performance or quality claim.
   remains frozen. Execution authorized 2026-11-06; durable orchestration and pinned
   public inputs are implemented. Independently rebuilt runtimes passed all three
   native model correctness fixtures and both external 64-request activation checks.
-  Recovery/relocation CPU checks pass. Resource screens and the complete acquisition
-  remain in progress; failed development attempts are retained. No Stage 6
+  Recovery/relocation CPU checks and all resource screens pass. Fixed confirmation
+  remains in progress; failed development attempts are retained. No Stage 6
   confirmation or performance claim yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
 - **Stage 6 active resources:** `development-15` completed all 22 development
   cells / 54 configurations with no request failures. All three native model
@@ -44,8 +44,13 @@ these selected runs does not establish a universal performance or quality claim.
   524 confirmation configurations / 210 matched blocks, plus 38 overhead and
   six operational configurations. All 38 overhead runs verified without request
   failures; chat meets the declared 3% loss bound while short-QA comparisons with
-  unloaded native ARC remain inconclusive. Operational acquisition owns the GPU;
-  primary confirmation has not started. See [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
+  unloaded native ARC remain inconclusive. All six operational runs pass: 1,280
+  main requests, exact cancellation/abort, drain/recovery, all candidate advice
+  probes, zero sampled speculative staging/reservations and no declared memory
+  growth alarm. See [operational receipts](../evidence/stage6-2080ti-20261106/operational-checkpoint.json)
+  and [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
+  Primary confirmation is the next GPU phase; archive cap inventory is running
+  while GPU acquisition is idle.
   The measured primary cost estimate is 41.16 hours,
   with supplementary work and audits additional. Four pilot comparisons still
   miss the desired precision target at the twelve-repeat ceiling; retain that
