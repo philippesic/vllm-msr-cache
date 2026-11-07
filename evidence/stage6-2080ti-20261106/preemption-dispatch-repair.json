@@ -82,7 +82,17 @@
   "validation": {
     "cpu_checks": 315,
     "log": "output/stage6-2080ti-20261106/preemption-retention-cpu-check-01.log",
-    "native_recheck": "pending"
+    "native_recheck": {
+      "passed": true,
+      "models": [
+        "ministral3_3b",
+        "qwen3_4b_2507",
+        "qwen3_8b_awq"
+      ],
+      "evidence": "output/stage6-2080ti-20261106/development-09/analysis/native-repair-10.json",
+      "registry_log": "output/stage6-2080ti-20261106/preflight-10.log",
+      "operational_repeat": "in progress; required before pressure qualification"
+    }
   },
   "scope": "Development defect found before pilot/frozen confirmation. No new speed or readiness claim."
 }

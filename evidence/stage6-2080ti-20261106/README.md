@@ -9,8 +9,10 @@ cancellation, recovery and cleanup completed, but native registry validation
 correctly rejected the candidate case. The repair makes the existing retention-only
 and no-dispatch settings cover preemption enqueue, retry and direct reservation.
 Selected configuration, budgets and workloads remain unchanged. Focused CPU
-checks pass 315 tests, including regression coverage; all native capability and
-development comparisons must now use a fresh source snapshot. Earlier development
+checks pass 315 tests, including regression coverage. All three native model
+fixtures and the registry fixture have passed on the repaired source; the
+two-wave operational repeat is running. All development comparisons must use
+that fresh source snapshot. Earlier development
 timings under preemption cannot establish a pure retention-only effect. See the
 [finding and retained observations](preemption-dispatch-repair.json).
 
