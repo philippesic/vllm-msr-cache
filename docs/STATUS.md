@@ -36,32 +36,24 @@ these selected runs does not establish a universal performance or quality claim.
   Recovery/relocation CPU checks pass. Resource screens and the complete acquisition
   remain in progress; failed development attempts are retained. No Stage 6
   confirmation or performance claim yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
-- **Stage 6 active resources:** the local coordinator owns the GPU reservation
-  across native checks and the complete development screen. A real interrupted
-  comparison was cleaned up and replaced as a whole; two clean public-recipe
-  reconstructions match. Development source review caught invented test-status
-  claims in ordinary chat, prompting a uniform task-specific instruction repair
-  before confirmation. The corrected source passed all three native fixtures and
-  the registry probe. Screens, pilots, confirmation and final portability remain
-  due. The active campaign is now `development-09`: four queued long summaries
-  exposed an insufficient 180-second request deadline. Uniform immutable bindings
-  now allow 900 seconds per request and 3,600 seconds per case; tasks, policy and
-  output budgets remain fixed. Fresh native/registry checks passed again. Raw
-  ownership and recovery receipts are linked in the execution record. The separate
-  operational development probe then detected legacy preemption staging despite
-  CPU-only retention/no-dispatch settings. The invariant is repaired without
-  changing budgets or workloads; 315 focused CPU checks pass. Fresh source-native
-  checks passed for all models and the registry. The two-wave operational repeat
-  passed with zero native staging despite actual preemptions. Resource-regime
-  qualification now has a matched fallback: eight complete anchor repository
-  sessions, unchanged 2.6016 GiB base CPU cache and a safe 4.5 GiB roomy cache.
-  Both ARC cases completed 32 requests/24 tools; eviction-affected returns fell
-  from two to zero. Initial token prompts match exactly after a uniform tool
-  declaration repair. Pressure is modest; this is no speed claim. The original
-  7.875 GiB and attempted 5.625 GiB roomy allocations failed startup and remain
-  retained. Operational waves still use all sixteen sessions. A fresh complete
-  campaign with the repaired prompts/envelope precedes pilot and confirmation;
-  check live state before starting other GPU work.
+- **Stage 6 active resources:** `development-15` is the fresh campaign after
+  uniform canonical-tool prompt repair and the matched capacity fallback.
+  All three native model fixtures and the registry probe passed again. The
+  current source passes 201 benchmark checks and 31 portable checks and builds
+  a standalone wheel through the independently reconstructed runtime. The
+  local operational development probe owns the GPU before the full screen.
+  It retains sixteen complete sessions per wave; matched anchor B05/B06/B07/B12
+  use eight complete sessions, unchanged 2.6016 GiB base CPU cache and a safe
+  4.5 GiB roomy cache. The ARC capacity diagnostic completed both 32-request,
+  24-tool cases with identical initial token prompts; eviction-affected returns
+  fell from two to zero. Pressure is modest; this is no speed claim. Failed
+  7.875 GiB and 5.625 GiB startup attempts are retained. Earlier preemption
+  staging under CPU-only/no-dispatch settings was repaired and passed 315
+  focused CPU checks and a two-wave native stress repeat with zero staging.
+  A real interrupted comparison was cleaned up and replaced as a whole; two
+  independent public-recipe runtime builds match. Full development acquisition,
+  pilots, frozen comparisons/controls/stress, quality audit and final relocation
+  remain due. Check live ownership before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
   reproduction artifacts and a focused vLLM proposal. A formal paper is not the

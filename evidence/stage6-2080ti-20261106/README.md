@@ -1,3 +1,13 @@
+## Fresh acquisition checkpoint
+
+`development-15` has immutable bindings for all 22 cells / 54 configurations.
+All three fresh native model fixtures and the registry probe passed on the
+repaired source. The current benchmark suite passes 201 checks, portable checks
+31, and an isolated source copy builds the extension wheel through the second
+independently rebuilt runtime. The operational development probe still executes
+sixteen complete sessions per wave. Full acquisition and final quality/portability
+proof remain due. [Checkpoint receipts](preacquisition-checkpoint-15.json).
+
 ## Matched envelope and prompt repair
 
 The eight-session ARC fallback completed both capacity cases: 32 requests and
