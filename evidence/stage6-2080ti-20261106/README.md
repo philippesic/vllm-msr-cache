@@ -1,3 +1,16 @@
+## Complete development screen; pilots running
+
+All 22 cells / 54 configurations completed with no request failures. Required
+native correctness, external activation, registry, model pressure and matched
+roomy-cache gates passed. The 66-case pilot now runs immutable source 19;
+its timed serving inputs match source 15. Candidate settings are unchanged.
+This establishes development measurement readiness, not a performance win.
+[Complete screen and gate receipts](development-complete-15.json).
+
+Model quality remains a separate limitation: source review retains strict-format
+failures, unsupported test claims and capped responses. Frozen confirmation,
+controls, operations, complete source audit and final relocation remain due.
+
 ## Archive-wide capped-response inventory
 
 The retained cap-review command covers all ordinary phases and earlier failed or

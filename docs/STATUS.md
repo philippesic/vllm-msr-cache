@@ -36,40 +36,28 @@ these selected runs does not establish a universal performance or quality claim.
   Recovery/relocation CPU checks pass. Resource screens and the complete acquisition
   remain in progress; failed development attempts are retained. No Stage 6
   confirmation or performance claim yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
-- **Stage 6 active resources:** `development-15` is the fresh campaign after
-  uniform canonical-tool prompt repair and the matched capacity fallback.
-  All three native model fixtures and the registry probe passed again. The
-  current source passes 219 benchmark checks and 31 portable checks and builds
-  a standalone wheel through the independently reconstructed runtime. The
-  full 54-configuration screen owns the GPU. All four fresh anchor pressure
-  arms passed with identical initial token prompts and actual external activation;
-  the main ARC capacity pair reproduced two versus zero eviction-affected returns.
-  This campaign also passed actual interruption and whole-block replacement.
-  All full/half-budget document arms passed. Team requests completed in both
-  arms with zero CPU restoration because prefixes stayed GPU-resident. A versioned
-  classification repair retains that control without rewriting its original
-  inconclusive treatment result or forcing pressure; 36 focused checks pass.
-  Mixed traffic passed all four arms. The last anchor control and secondary
-  screens, including secondary-model pressure, remain due. Source review now
-  includes every capped response, including intermediate steps with only prior
-  graph evidence; final-answer denominators stay separate. Relocation import and
-  dry compilation now execute from relocated exported code with an asserted new
-  project binding. An archive-wide cap audit covers every ordinary phase and
-  earlier failed/interrupted attempts; source ratings remain due. The fresh full-cohort operational
-  development repeat passed 128 requests per arm with cancellation, drain,
-  recovery, all five advice checks and zero speculative staging.
-  It retains sixteen complete sessions per wave; matched anchor B05/B06/B07/B12
-  use eight complete sessions, unchanged 2.6016 GiB base CPU cache and a safe
-  4.5 GiB roomy cache. The ARC capacity diagnostic completed both 32-request,
-  24-tool cases with identical initial token prompts; eviction-affected returns
-  fell from two to zero. Pressure is modest; this is no speed claim. Failed
-  7.875 GiB and 5.625 GiB startup attempts are retained. Earlier preemption
-  staging under CPU-only/no-dispatch settings was repaired and passed 315
-  focused CPU checks and a two-wave native stress repeat with zero staging.
-  A real interrupted comparison was cleaned up and replaced as a whole; two
-  independent public-recipe runtime builds match. Full development acquisition,
-  pilots, frozen comparisons/controls/stress, quality audit and final relocation
-  remain due. Check live ownership before starting other GPU work.
+- **Stage 6 active resources:** `development-15` completed all 22 development
+  cells / 54 configurations with no request failures. All three native model
+  fixtures, both external-system activation checks, the registry probe, all
+  three pressure checks and the matched roomy-capacity check passed. The
+  66-case pilot owns the GPU and runs immutable source 19; timed serving source
+  matches native/screen source 15. Confirmation has not started. See
+  [complete screen receipts](../evidence/stage6-2080ti-20261106/development-complete-15.json).
+  Candidate behavior stays frozen. The anchor repository cells use eight
+  complete sessions at the unchanged 2.6016 GiB base CPU cache; secondary models
+  and operational waves retain sixteen. The 4.5 GiB roomy control reduced ARC
+  eviction-affected returns from two to zero; pressure is modest, not a speed
+  claim. B10 remains a GPU-resident team control under versioned validity;
+  original inconclusive raw treatment result is preserved.
+  Actual interruption and whole-block replacement passed. A separate full-cohort
+  operational development repeat passed 128 requests per arm, cancellation,
+  drain/recovery and all advice probes with zero speculative staging. Two public
+  runtime rebuilds match; 219 benchmark checks, 31 portable checks and a standalone
+  wheel build pass. Model source review retains format failures, unsupported
+  claims and capped answers; confirmation quality and the archive-wide capped
+  response audit remain due. After pilots: fix repetitions, freeze, run controls,
+  operations and comparisons, complete quality and final relocation proof.
+  Check live ownership before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible
   reproduction artifacts and a focused vLLM proposal. A formal paper is not the
