@@ -157,6 +157,58 @@ def test_import_checks_bundle_and_executed_source(transfer,monkeypatch):
         import_campaign(bundle,host_path,root/'missing-import')
 
 
+def test_export_separates_revised_analysis_from_exact_acquisition(transfer,monkeypatch):
+    from benchmarks.serving_suite.campaign_contracts import read_protocol
+    parent,host,root=transfer
+    project=Path(host['runtime_bindings']['project_root'])
+    original=read_protocol(parent)['source']
+    frozen=Path(host['asset_cache'])/'source-snapshots'/original['digest']
+    shutil.copytree(project,frozen)
+    relative='benchmarks/serving_suite/campaign_validity.py'
+    path=project/relative
+    path.parent.mkdir(parents=True,exist_ok=True)
+    path.write_text("VERSION='new-derived-interpretation'\n")
+    current=dict(files={**original['files'],relative:file_hash(path)})
+    current['digest']=digest(current['files'])
+    monkeypatch.setattr(campaign,'source_snapshot',lambda:current)
+    bundle=root/'analysis-export'
+    export_campaign(parent,bundle)
+    portable=load(bundle/'portable.json')
+    revision=portable['derived_analysis_source']
+    assert revision['revised'] and revision['changed_files']==[relative]
+    assert revision['analysis_source']==current
+    assert portable['protocol']['parent_acquisition_source']==original==revision['acquisition_source']
+    assert portable['protocol']['source']==current
+    assert not (bundle/'parent-source'/relative).exists()
+    assert (bundle/'source'/relative).read_text()==path.read_text()
+    assert (bundle/'parent-source/module.py').read_text()==(bundle/'source/module.py').read_text()
+    host_path=root/'host.json'; atomic_json(host_path,host)
+    result=import_campaign(bundle,host_path,root/'imported-analysis-export')
+    assert result['runnable'] and not result['confirmation_ready']
+    assert read_protocol(parent)['source']==original
+
+
+@pytest.mark.parametrize('problem',['serving_change','corrupt_frozen_analysis'])
+def test_analysis_export_cannot_excuse_timed_source_changes(tmp_path,monkeypatch,problem):
+    from benchmarks.serving_suite.campaign_verify import export_source_closures
+    project=tmp_path/'project'; project.mkdir()
+    relative='benchmarks/serving_suite/campaign_validity.py'
+    path=project/relative; path.parent.mkdir(parents=True); path.write_text('old\n')
+    (project/'serving.py').write_text('frozen\n')
+    original=dict(files={relative:file_hash(path),'serving.py':file_hash(project/'serving.py')})
+    original['digest']=digest(original['files'])
+    cache=tmp_path/'cache'; frozen=cache/'source-snapshots'/original['digest']
+    shutil.copytree(project,frozen)
+    path.write_text('new analysis\n')
+    if problem=='serving_change': (project/'serving.py').write_text('changed\n')
+    else: (frozen/relative).write_text('corrupted old analysis\n')
+    current=dict(files={k:file_hash(project/k) for k in original['files']})
+    current['digest']=digest(current['files'])
+    monkeypatch.setattr(campaign,'source_snapshot',lambda:current)
+    with pytest.raises(ValueError,match='Executed source changed'):
+        export_source_closures(project,tmp_path/'bundle',dict(source=original),dict(asset_cache=str(cache)))
+
+
 def test_operational_development_is_separate_and_preserves_parent(transfer):
     from benchmarks.serving_suite.campaign_development import prepare_operation
     from benchmarks.serving_suite.campaign_verify import verify_campaign

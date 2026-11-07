@@ -1,0 +1,123 @@
+{
+  "schema": "stage6-derived-activity-analysis-checkpoint-v1",
+  "measurement_validity_version": "stage6-measurement-validity-v3",
+  "acquisition_source_digest": "2b2876c2f392dab22f99a2729a6675a5fc69f85e0689e3f1bc03e05c0034d09b",
+  "analysis_source_digest": "07f7b8c30716561af5a14a4fa90bbcdac0d27df34d730ac5fd36ffa4f4fdad0d",
+  "changed_files": [
+    "benchmarks/serving_suite/campaign_portability.py",
+    "benchmarks/serving_suite/campaign_report.py",
+    "benchmarks/serving_suite/campaign_validity.py",
+    "benchmarks/serving_suite/campaign_verify.py"
+  ],
+  "source_file_count": 2191,
+  "all_other_source_bytes_unchanged": true,
+  "fixed_order_repetitions_and_resource_budgets_unchanged": true,
+  "original_sealed_attempts_unchanged": true,
+  "original_protocol_unchanged": true,
+  "focus_checks": {
+    "passed": 55,
+    "command": "python -m pytest -q tests/test_campaign_resume.py tests/test_campaign_transfer.py tests/test_campaign_reporting.py",
+    "log": "../../output/stage6-2080ti-20261106/derived-analysis-v3-checks.log"
+  },
+  "scope": "Derived analysis repair under Stage 6 Phase G. Complete GPU-reuse controls are retained; CPU-pressure/offload-benefit evidence remains inconclusive. No serving, model, task or policy adjustment.",
+  "attempts": [
+    {
+      "path": "../../output/stage6-2080ti-20261106/development-15/attempts/b3b5fb1c8417762d9e9973e3abdbd264a7cf02ec7e29cc37ac0f6b58c7d711e7/eea0ec3a22114848bbb4fedf89bfd759",
+      "cell": "B06",
+      "system": "wait",
+      "repeat": 0,
+      "raw_state": "failed",
+      "raw_evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "reinterpreted": true,
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "completed": 32,
+      "failed": 0,
+      "tools": 24,
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14995,
+        "returning_computed_prompt_tokens": 6652,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "sealed_files_verified": 81
+    },
+    {
+      "path": "../../output/stage6-2080ti-20261106/development-15/attempts/b724a9f3fb04784bdec707581f42ee53c85d169b0beee6822965393d4f00fa44/43ce590dc2f74896b6a5baa3fa8dc4b5",
+      "cell": "B06",
+      "system": "wait",
+      "repeat": 1,
+      "raw_state": "failed",
+      "raw_evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "reinterpreted": true,
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "completed": 32,
+      "failed": 0,
+      "tools": 24,
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14979,
+        "returning_computed_prompt_tokens": 6636,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "sealed_files_verified": 81
+    }
+  ],
+  "raw_source_manifest": "../../output/stage6-2080ti-20261106/derived-analysis-revision-22.json",
+  "transfer_contract": {
+    "original_acquisition_directory": "parent-source",
+    "replication_and_analysis_directory": "source",
+    "original_frozen_source_retained": true,
+    "derived_analysis_source_explicitly_bound_in_imported_protocol": true,
+    "original_task_order_repetitions_and_serving_bytes_unchanged": true
+  },
+  "focused_checks_timing": {
+    "scope": "Retained 55-check invocation finished during worker startup before the first measured request of the concurrent anchor ARC third repetition.",
+    "finished_before_first_measured_request_s": 52.51134181022644
+  }
+}

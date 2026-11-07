@@ -12,6 +12,41 @@ from .campaign_contracts import (SCHEMA, Ledger, atomic_json, cell_inputs, diges
                                  load, local_path, seal_tree, validate_host, verify_tree)
 from .campaign_contracts import read_protocol,write_protocol
 
+# These modules are used for derived interpretation/transfer, never timed
+# serving. A revised analysis may accompany an exact frozen acquisition closure;
+# all other source changes still require new acquisition/protocol qualification.
+DERIVED_ANALYSIS_FILES = frozenset('benchmarks/serving_suite/'+name+'.py' for name in
+    ('campaign_validity','campaign_report','campaign_verify','campaign_portability'))
+
+
+def export_source_closures(root,destination,locked,host):
+    from .campaign import source_snapshot
+    root,destination = Path(root),Path(destination)
+    original,current = locked['source'],source_snapshot()
+    if any(identity['digest']!=digest(identity['files']) for identity in (original,current)):
+        raise ValueError('Source manifest digest mismatch')
+    changed = sorted(k for k in set(original['files'])|set(current['files'])
+        if original['files'].get(k)!=current['files'].get(k))
+    if set(changed)-DERIVED_ANALYSIS_FILES:
+        raise ValueError('Executed source changed before export: '+', '.join(changed))
+    frozen = root if not changed else Path(host['asset_cache'])/'source-snapshots'/original['digest']
+    closures = [('source',root,current)]
+    if changed:
+        closures.append(('parent-source',frozen,original))
+    for name,source_root,identity in closures:
+        for relative,expected in identity['files'].items():
+            source = local_path(source_root,relative)
+            if file_hash(source)!=expected:
+                raise ValueError(f'Executed source changed before export: {relative}')
+            target = local_path(destination,name+'/'+relative)
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(source,target)
+    return dict(schema='stage6-derived-analysis-source-v1',revised=bool(changed),
+        acquisition_source=original,analysis_source=current,changed_files=changed,
+        acquisition_directory='parent-source' if changed else 'source',analysis_directory='source',
+        replication_directory='source',
+        scope='Exact original acquisition closure retained separately when revised. Replication uses the current closure; only the listed derived analysis/transfer modules differ. Serving inputs, locked order, budgets and repetitions are unchanged.')
+
 
 def verify_campaign(out):
     out = Path(out)
@@ -198,14 +233,8 @@ def export_campaign(out, destination):
                 binding[key] = '${bundle}/'+relative
                 binding[key+'_digest'] = digest(content)
     from .campaign import ROOT
-    for relative,expected in locked['source']['files'].items():
-        source = local_path(ROOT,relative)
-        if file_hash(source)!=expected:
-            raise ValueError(f'Executed source changed before export: {relative}')
-        target = local_path(destination,'source/'+relative)
-        target.parent.mkdir(parents=True,exist_ok=True)
-        shutil.copyfile(source,target)
-    export_validation_support(ROOT,destination/'source')
+    analysis_source = export_source_closures(ROOT,destination,locked,load(out/'host.private.json'))
+    export_validation_support(ROOT,destination/analysis_source['analysis_directory'])
     # Human setup guidance is transfer provenance, not timed serving input.
     for relative in ('AGENTS.md','docs/STAGE6_PIPELINE.md','docs/STAGE6_EXECUTION_PLAN.md',
                      'docs/BENCHMARKING.md','docs/WAIT_HINT_SUPPORT.md','vendor/VLLM.md'):
@@ -220,7 +249,11 @@ def export_campaign(out, destination):
     portable = dict(schema='serving-campaign-transfer-v2',parent_campaign_id=resolved['campaign_id'],
         cells=portable_cells,protocol={k:locked[k] for k in ('source','schedule','supplementary_schedules','precision')},
         specification=campaign['specification'],catalogs=campaign['catalogs'],inventory=inventory,
-        verification=verified,raw_evidence_identity=digest(Ledger(out).events()))
+        verification=verified,raw_evidence_identity=digest(Ledger(out).events()),
+        derived_analysis_source=analysis_source)
+    if analysis_source['revised']:
+        portable['protocol']['parent_acquisition_source'] = portable['protocol']['source']
+        portable['protocol']['source'] = analysis_source['analysis_source']
     commit = subprocess.run(['git','-C',str(ROOT),'rev-parse','HEAD'],capture_output=True,text=True)
     portable['repository_commit'] = commit.stdout.strip() if commit.returncode==0 else None
     portable['source_authority'] = 'Included exact executed file manifest; repository commit is additional provenance'
@@ -235,12 +268,17 @@ def export_campaign(out, destination):
     if instructions.is_file():
         text = instructions.read_text().replace('(STAGE6_EXECUTION_PLAN.md)','(source/docs/STAGE6_EXECUTION_PLAN.md)')
         text = text.replace('(../evidence/stage6-2080ti-20261106/README.md)','(findings.json)')
+        if analysis_source['revised']:
+            text = ('Use `source/` for replication, verification and CPU validation. Its separately '
+                'recorded revision changes only derived analysis/transfer modules. `parent-source/` '
+                'retains the exact original acquisition closure. Timed serving inputs, task order, '
+                'budgets and repetitions are unchanged. The imported protocol records both source identities.\n\n'+text)
         (destination/'README.md').write_text(text)
     from .campaign_report import report
     analysis = report(out)
     atomic_json(destination/'findings.json',dict(schema='serving-campaign-portable-findings-v1',
         complete=analysis['complete'],throughput_acquisition_complete=analysis['throughput_acquisition_complete'],
-        comparisons=[{k:row[k] for k in ('model','cell','candidate','baseline','status','process_pairs','estimate') if k in row}
+        comparisons=[{k:row[k] for k in ('model','cell','candidate','baseline','status','process_pairs','estimate','activity_evidence') if k in row}
                      for row in analysis['comparisons']],
         quality={k:analysis['quality'][k] for k in ('status','reviewed','objective_outputs','automatic_failures','groups') if k in analysis['quality']},
         scope='Within-model/system comparisons on the parent host; raw evidence retained separately. RTX 5080 native execution remains required.'))

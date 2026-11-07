@@ -1,16 +1,15 @@
-"""Versioned measurement interpretation without rewriting sealed attempts.
+"""Separate complete measurements from absent CPU-restore activity.
 
-The B10 team DAG can reuse GPU-resident prefixes without any CPU restoration.
-Its original treatment-only restore requirement incorrectly rejected that valid
-control. Keep the raw result and ledger state; apply the same bounded predicate
-on collection and resume. This never qualifies a pressure or native fixture.
+Keep original sealed results and ledger states. B10 and the eight-session anchor
+repository cohort can finish through GPU prefix reuse without CPU restoration.
+This interpretation never qualifies a pressure or native-correctness fixture.
 """
 from pathlib import Path
 import json
 
 from .campaign_contracts import load
 
-VERSION = 'stage6-measurement-validity-v2'
+VERSION = 'stage6-measurement-validity-v3'
 
 
 def positive(value):
@@ -31,7 +30,7 @@ def measurement_validity(directory,event,case=None):
     if result['valid']:
         return result
     if (event['state']!='failed' or identity.get('phase') not in ('screen','pilot','confirm') or
-        identity.get('cell')!='B10' or identity.get('system') not in ('arc','wait') or
+        identity.get('cell') not in ('B06','B10','B12') or identity.get('system') not in ('arc','wait') or
         event['details'].get('measurement_status')!='inconclusive' or
         (directory/'failure.json').exists() or not (directory/'result.json').is_file() or
         load(directory/'result.json').get('status')!='inconclusive' or
@@ -44,8 +43,12 @@ def measurement_validity(directory,event,case=None):
     activity = case.get('activity',{})
     summary = case.get('summary',{})
     expected = case.get('expected_requests',0)
-    if (not plan.get('campaign_adapter') or plan.get('waves')!=1 or len(corpus['sessions'])!=4 or
-        summary.get('completed')!=expected or expected!=20 or summary.get('failed')!=0 or
+    team = identity['cell']=='B10'
+    sessions, requests, tools = (4,20,12) if team else (8,32,24)
+    if (not team and (identity.get('model')!='qwen3_8b_awq' or
+            identity.get('profile',{}).get('repo_pressure_sessions')!=8) or
+        not plan.get('campaign_adapter') or plan.get('waves')!=1 or len(corpus['sessions'])!=sessions or
+        summary.get('completed')!=expected or expected!=requests or summary.get('failed')!=0 or
         not case.get('cleanup',{}).get('verified') or not native.get('complete') or
         native.get('receipts')!=expected or not positive(native.get('returning_requests')) or
         any(native.get(k)!=0 for k in ('loaded_tokens','returning_loaded_tokens',
@@ -53,9 +56,9 @@ def measurement_validity(directory,event,case=None):
         activity.get('restore')!=0 or not positive(activity.get('store')) or
         identity['system']=='wait' and not positive(activity.get('cpu_recency')) or
         not positive(case.get('metrics',{}).get('vllm:prefix_cache_hits_total')) or
-        case['campaign'].get('tools')!=12 or
-        sum(n['kind']=='tool' for s in corpus['sessions'] for n in s['graph']['nodes'])!=12 or
-        case['campaign'].get('completed_units')!=4 or case['campaign'].get('offered_units')!=4):
+        case['campaign'].get('tools')!=tools or
+        sum(n['kind']=='tool' for s in corpus['sessions'] for n in s['graph']['nodes'])!=tools or
+        case['campaign'].get('completed_units')!=sessions or case['campaign'].get('offered_units')!=sessions):
         return result
     rows = [json.loads(line) for line in (directory/'measurement'/case['name']/'requests.jsonl').read_text().splitlines()]
     expected_keys = {(0,s['id'],n['id']) for s in corpus['sessions'] for n in s['graph']['nodes'] if n['kind']=='request'}
@@ -63,6 +66,8 @@ def measurement_validity(directory,event,case=None):
     if (len(actual)!=expected or len(set(actual))!=expected or set(actual)!=expected_keys or
         any(not r.get('success') or not r.get('terminal_complete') for r in rows)):
         return result
-    result.update(valid=True,reinterpreted=True,classification='valid_gpu_resident_team_control',
-        scope='Complete team DAG with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. No CPU offload benefit is implied; original sealed status remains unchanged.')
+    result.update(valid=True,reinterpreted=True,
+        classification='valid_gpu_resident_team_control' if team else 'complete_repository_without_cpu_restore',
+        cpu_restore_activity='inactive',cpu_pressure_evidence='inconclusive',
+        scope='Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged.')
     return result

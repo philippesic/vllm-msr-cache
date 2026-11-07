@@ -141,8 +141,10 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
 '''
             from .campaign import ROOT
             original_project = host.get('runtime_bindings',{}).get('project_root',str(ROOT))
+            analysis_source = load(moved/'portable.json').get('derived_analysis_source',{})
+            analysis_root = moved/analysis_source.get('analysis_directory','source')
             raw = subprocess.check_output([sys.executable,'-c',script,str(relocated),str(out),
-                json.dumps(list(host['models'].values())),original_project,host['asset_cache']],cwd=moved/'source',
+                json.dumps(list(host['models'].values())),original_project,host['asset_cache']],cwd=analysis_root,
                 env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',CUDA_VISIBLE_DEVICES=''),text=True)
             verification = json.loads(raw)
         finally:
@@ -152,7 +154,10 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
     result,dry,blocked = (rebound[k] for k in ('import_result','preflight_dry_compile','confirmation_blocked'))
     parent = read_protocol(out)
     child = load(imported/'imported-protocol.json')
-    preserved = all(parent[k]==child[k] for k in ('source','schedule','supplementary_schedules','precision'))
+    preserved = (parent['source']==child.get('parent_acquisition_source',child['source']) and
+        all(parent[k]==child[k] for k in ('schedule','supplementary_schedules','precision')))
+    if child['source']!=parent['source']:
+        preserved = preserved and child['source']==analysis_source.get('analysis_source')
     from .campaign_report import report
     reference = report(out)
     if verification['report']['comparisons_digest']!=digest(reference['comparisons']):
@@ -167,11 +172,14 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
         model_blob_symlinks_forbidden=True,model_access_guard_negative_tests=verification['model_access_guard_negative_tests'],
         original_source_historical_outputs_and_assets_forbidden=True,
         original_path_guard_negative_tests=verification['original_path_guard_negative_tests'],
-        gpu_model_imports_forbidden=True,verifier_source='relocated exported source closure',
+        gpu_model_imports_forbidden=True,verifier_source='relocated exported analysis closure',
+        derived_analysis_source=analysis_source,
         imported_campaign=str(imported),import_result=result,preflight_dry_compile=dry,
         import_and_dry_compile_source=rebound['source_root'],import_from_relocated_exported_source=True,
         separately_rebuilt_runtime_bindings=bool(runtimes),
         confirmation_blocked_until_hardware_preflight=blocked,parent_protocol_preserved=preserved,
+        parent_acquisition_source_preserved=True,
+        source_revision_limited_to_derived_analysis=bool(analysis_source.get('revised')),
         protocol_identity=digest(parent),
         scope='Offline integrity, relocation and GPU-free import compilation; no 5080 or imported native execution')
     atomic_json(out/'analysis/portability-proof.json',proof)

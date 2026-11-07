@@ -314,7 +314,14 @@ def report(out):
                                 geometry=case.get('effective_geometry'),phases=case['campaign']['phases'])
                             point[role]['measurement_validity'] = data['measurement_validity']
                         points.append(point)
+                    inactive = [dict(block=r['block_id'],system=name,
+                        classification=data['measurement_validity']['classification'])
+                        for r in runs for name,data in r['systems'].items()
+                        if data['measurement_validity'].get('cpu_restore_activity')=='inactive']
                     record.update(estimate=estimate,status=classify(estimate),points=points,
+                                  activity_evidence=dict(complete_runs_without_cpu_restore=inactive,
+                                      cpu_pressure_scope='Inconclusive in the listed runs; conditional throughput is retained and does not establish CPU-offload benefit.' if inactive else
+                                          'See per-attempt native receipts and declared activity checks; throughput alone does not attribute a mechanism.'),
                                   traffic_classes=compare_classes(runs,baseline,system),
                                   work_scope='All matched offered units complete; live outputs can differ; quality remains separate')
                 comparisons.append(record)
@@ -323,7 +330,9 @@ def report(out):
     acquisition_complete = not missing
     from .campaign_completion import readiness
     completion = readiness(out,acquisition_complete,quality) if locked else dict(complete=False)
+    from .campaign_validity import VERSION as VALIDITY_VERSION
     result = dict(schema='serving-campaign-report-v2',campaign_id=resolved['campaign_id'],
+        measurement_validity_version=VALIDITY_VERSION,
         complete=completion['complete'],completion=completion,throughput_acquisition_complete=acquisition_complete,missing_blocks=missing,
         comparisons=comparisons,all_attempts=records,quality=quality,
         limitation='Readiness also requires verified controls, operational, recovery and portability evidence')

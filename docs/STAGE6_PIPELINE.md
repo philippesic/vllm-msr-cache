@@ -183,6 +183,13 @@ exported source closure, using a bootstrap Python with `uv` installed. Use new
 runtime, cache, host-binding and output paths. No local 2080 Ti environment or
 historical `output/` tree is needed to reconstruct the runtimes.
 
+If a derived analysis repair followed the parent acquisition, `parent-source/`
+retains that exact original closure and `source/` includes the explicitly listed
+analysis/transfer revision. Export rejects changes to every other source file.
+The imported protocol records both identities while preserving the original
+tasks, budgets, order and repetitions. Use `source/` for all commands below so
+qualification and offline reports apply the same versioned interpretation.
+
 ```bash
 BUNDLE=/absolute/relocated-transfer-bundle
 RUNTIMES=/absolute/new-cache/stage6-runtimes
