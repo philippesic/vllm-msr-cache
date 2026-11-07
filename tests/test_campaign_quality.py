@@ -46,3 +46,22 @@ def test_audit_requires_every_blind_item_and_source_notes(tmp_path):
     atomic_json(path,ratings)
     with pytest.raises(ValueError,match='complete sample'):
         finish_review(tmp_path,path)
+
+
+def test_capped_finals_all_require_review_beyond_sample_limit(tmp_path,monkeypatch):
+    import json
+    from benchmarks.serving_suite import campaign_quality as quality
+    measurement = tmp_path/'attempt/measurement'
+    sessions = [dict(id=str(i),graph=dict(outputs=['final']),quality_reference=dict(kind='summary'),
+        context='Full source',turns=['Summarize the source']) for i in range(40)]
+    atomic_json(measurement/'corpus.json',dict(sessions=sessions))
+    rows = [dict(source_id=str(i),node_id='final',generated_text='A nonempty capped summary',
+        finish_reason='length',payload=dict(request_id=str(i)),hint_group='unhinted') for i in range(40)]
+    (measurement/'case').mkdir()
+    (measurement/'case/requests.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in rows))
+    data = dict(event=dict(attempt_id='attempt',details=dict(path='attempt')),
+        case=dict(name='case',load_duration_s=10))
+    monkeypatch.setattr(quality,'completed_blocks',lambda out,phase:{('model','B03',0):dict(systems=dict(arc=data))})
+    result = quality.prepare_review(tmp_path)
+    assert result['objective_outputs']==40 and result['automatic_failures']==0
+    assert result['blind_review_items']==40

@@ -16,7 +16,7 @@ RUBRIC = dict(version='stage6-quality-v1',
     team='Synthesis uses actual generated specialist findings and validation, without dropped or contradicted material results.',
     summary='Key source facts, unsupported claims, missing material facts and useful concise summary. Overlap alone is not a pass.',
     chat='Coherent response to the actual current instruction and source context, with no invented tool outcomes.',
-    audit='Blind system/speed labels; inspect source, actual tools/dependencies and answer. Review all automatic failures separately.')
+    audit='Blind system/speed labels; inspect source, actual tools/dependencies and answer. Review all automatic failures and every length-capped final separately.')
 
 
 def normalize(text):
@@ -119,6 +119,8 @@ def prepare_review(out, phase='confirm'):
     for item in entries:
         if item['objective']['automatic_failure']:
             chosen[item['review_id']] = 'automatic_failure'
+        elif item['objective']['length_capped']:
+            chosen[item['review_id']] = 'length_capped'
     blind, mapping = [], {}
     for item in entries:
         if item['review_id'] not in chosen:
@@ -143,7 +145,7 @@ def prepare_review(out, phase='confirm'):
                   automatic_failures=sum(i['objective']['automatic_failure'] for i in entries),
                   objective_groups=aggregate_objective(entries,durations),
                   rubric_digest=digest(RUBRIC),packet_digest=digest(blind),
-                  scope='Objective checks cover every final output; usefulness requires the retained source audit')
+                  scope='Objective checks cover every final output; every capped final and automatic failure requires the retained source audit')
     atomic_json(destination/'summary.json',result)
     return result
 
@@ -211,6 +213,6 @@ def finish_review(out, ratings_path):
     atomic_json(destination/'source-audit.json',ratings)
     previous = load(destination/'summary.json')
     previous.update(status='audited',reviewer=ratings['reviewer'],reviewed=len(values),groups=groups,
-                    audit_digest=digest(ratings),sample_scope='Stratified deterministic sample plus all automatic failures; not an unbiased population useful-rate estimate')
+                    audit_digest=digest(ratings),sample_scope='Stratified deterministic sample plus all automatic failures and capped finals; not an unbiased population useful-rate estimate')
     atomic_json(destination/'summary.json',previous)
     return previous

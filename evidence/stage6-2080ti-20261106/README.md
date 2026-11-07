@@ -1,3 +1,11 @@
+The quality packet now requires source review of every length-capped final in
+addition to the stratified sample and all automatic failures. Nonempty capped
+summaries previously could fall outside the sample. A 40-capped-answer fixture
+proves all forty enter the review packet despite the 32-answer sampling limit;
+15 focused quality/report checks pass. This is a pre-freeze analysis repair;
+serving inputs, generation budgets and acquisition source remain unchanged.
+[Focused check log](../../output/stage6-2080ti-20261106/capped-quality-check-16.log).
+
 The fresh full-cohort operational development repeat passed in both arms:
 128 requests each across two sixteen-session waves, native cancellation,
 transfer drain, recovery and cleanup. The candidate passed all five advice
