@@ -1,29 +1,29 @@
 {
   "schema": "stage6-all-attempt-cap-checkpoint-v1",
-  "source_digest": "c05af494cd686f9b8f03868ffd94628db4e19749de576174cb76ce81f7fd07a3",
+  "source_digest": "901435e5d62beb0ae7ec383f588ba89d69df12517d863dcab755e247559e74bb",
   "serving_files_match_native_screen_15": true,
   "benchmark_tests": {
     "passed": 219,
-    "log": "../../output/stage6-2080ti-20261106/benchmark-tests-18-final.log"
+    "log": "../../output/stage6-2080ti-20261106/benchmark-tests-19.log"
   },
   "focused_tests": {
     "passed": 3,
-    "log": "../../output/stage6-2080ti-20261106/all-attempt-cap-check-18-final.log"
+    "log": "../../output/stage6-2080ti-20261106/cap-instruction-source-check-19.log"
   },
   "portable_tests": {
     "passed": 31,
-    "log": "../../output/stage6-2080ti-20261106/check-light-18.log"
+    "log": "../../output/stage6-2080ti-20261106/check-light-19.log"
   },
-  "package_proof": "../../output/stage6-2080ti-20261106/snapshot-package-proof-18/proof.json",
+  "package_proof": "../../output/stage6-2080ti-20261106/snapshot-package-proof-19/proof.json",
   "development_inventory": {
-    "capped_responses": 111,
+    "capped_responses": 113,
     "unique_contexts": 46,
     "roles": {
-      "capped_intermediate": 99,
+      "capped_intermediate": 101,
       "final": 12
     },
     "phases": {
-      "screen": 111
+      "screen": 113
     },
     "complete_inventory": false,
     "status": "pending_source_audit"
@@ -37,5 +37,6 @@
     "Changed sealed artifacts rejected",
     "Active or changed acquisition prevents final audit"
   ],
-  "scope": "Measured development inventory and tested review workflow; actual source ratings and complete frozen acquisition remain due"
+  "scope": "Measured development inventory and tested review workflow; actual source ratings and complete frozen acquisition remain due",
+  "instruction_evidence": "Readable SYSTEM and task-dispatch function from exact archived executed source, verified against source manifest; no execution of archived code"
 }

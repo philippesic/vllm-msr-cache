@@ -1,5 +1,8 @@
 """Archive coverage, blinding and tamper checks for the retained cap audit."""
 import json
+import hashlib
+import io
+import tarfile
 
 import pytest
 
@@ -17,7 +20,13 @@ def capped_attempt(root,phase,state):
             dict(id='r0',prompt='Plan',depends_on=[]),dict(id='t0',depends_on=['r0']),
             dict(id='r1',prompt='Report',depends_on=['t0'])]))
     atomic_json(measurement/'corpus.json',dict(sessions=[session]))
-    atomic_json(measurement/'source.json',dict(files={'benchmarks/serving_suite/campaign_workload.py':'source-version'}))
+    code = b'SYSTEM = "Keep intermediate answers under 70 words."\n'
+    name = 'benchmarks/serving_suite/campaign_workload.py'
+    atomic_json(measurement/'source.json',dict(files={name:hashlib.sha256(code).hexdigest()}))
+    with tarfile.open(measurement/'executed-source.tar.gz','w:gz') as archive:
+        member = tarfile.TarInfo(name)
+        member.size = len(code)
+        archive.addfile(member,io.BytesIO(code))
     if state!='interrupted':
         atomic_json(measurement/'result.json',dict(cases=[dict(name='case')]))
     (measurement/'case/tools').mkdir(parents=True)
@@ -49,6 +58,7 @@ def test_all_phases_failed_interrupted_and_capped_intermediates_are_blind_and_se
     packet = load(out/'blind-packet.json')
     for item in packet['items']:
         assert not {'model','system','phase','attempt','request_id'} & item.keys()
+        assert item['executed_system_instruction_source']=='SYSTEM = "Keep intermediate answers under 70 words."'
         if item['response_role']=='capped_intermediate':
             assert item['actual_dependencies']==item['tools']==[]
         else:

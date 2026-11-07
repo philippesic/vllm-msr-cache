@@ -134,7 +134,8 @@ The archive-wide cap audit separately covers ordinary capped responses from all
 campaigns immediately inside the acquisition root, including earlier failed or
 interrupted attempts and the pilot/control/operational phases. It excludes native
 fixtures and isolated warmup/cancellation/recovery probes. Use a new destination;
-the packet refuses finalization during acquisition or after its ledger inventory
+the packet retains the archived system-instruction source and verifies its hash.
+It refuses finalization during acquisition or after its ledger inventory
 changes. Exact duplicate contexts permit judgment reuse, with explicit ratings
 still required for every response.
 

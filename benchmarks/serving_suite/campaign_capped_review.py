@@ -7,9 +7,12 @@ fixtures, warmups, cancellation probes and recovery requests are not task answer
 from __future__ import annotations
 
 import argparse
+import ast
+import hashlib
 import json
 import random
 import re
+import tarfile
 from collections import Counter
 from pathlib import Path
 
@@ -22,6 +25,22 @@ PHASES = {'screen','pilot','confirm','overhead','operational'}
 
 def ledger_inputs(root):
     return {p.name:digest(Ledger(p).events()) for p in sorted(root.iterdir()) if (p/'ledger.jsonl').is_file()}
+
+
+def instruction_source(measurement):
+    name = 'benchmarks/serving_suite/campaign_workload.py'
+    expected = load(measurement/'source.json')['files'][name]
+    with tarfile.open(measurement/'executed-source.tar.gz','r:gz') as archive:
+        code = archive.extractfile(name).read()
+    if hashlib.sha256(code).hexdigest()!=expected:
+        raise ValueError('Archived instruction source differs from executed identity')
+    text = code.decode()
+    snippets = [ast.get_source_segment(text,node) for node in ast.parse(text).body if
+        isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='SYSTEM' for t in node.targets) or
+        isinstance(node,ast.FunctionDef) and node.name=='system_instruction']
+    if not snippets:
+        raise ValueError('Missing archived system instruction evidence')
+    return '\n\n'.join(snippets),expected
 
 
 def prepare(root,out):
@@ -48,6 +67,7 @@ def prepare(root,out):
             attempts.append(dict(campaign=campaign.name,attempt=event['attempt_id'],seal=details['seal']))
             corpus_path = measurement/'corpus.json'
             sessions = load(corpus_path)['sessions'] if corpus_path.exists() else []
+            instructions = None
             cases = load(result)['cases'] if result.is_file() else [dict(name=p.parent.name)
                 for p in measurement.glob('*/requests.jsonl')]
             for case in cases:
@@ -76,6 +96,8 @@ def prepare(root,out):
                     if row['source_id'] not in by_id:
                         raise ValueError('Capped task has no retained source reference')
                     slot,session = by_id[row['source_id']]
+                    if instructions is None:
+                        instructions = instruction_source(measurement)
                     graph = session['graph']
                     nodes = {n['id']:n for n in graph['nodes']}
                     node = nodes[row['node_id']]
@@ -94,6 +116,7 @@ def prepare(root,out):
                     item = dict(source_id=session['id'],node_id=row['node_id'],
                         response_role='final' if final else 'capped_intermediate',
                         current_instruction=node['prompt'],instructions=session['turns'],
+                        executed_system_instruction_source=instructions[0],task_uses_tools=bool(session.get('tools')),
                         source_context=session.get('context',''),reference=reference,
                         answer=row.get('generated_text',''),objective=objective(row.get('generated_text',''),reference,capped=True),
                         actual_dependencies=[r['generated_text'] for r in raw[:row_index] if
@@ -102,7 +125,7 @@ def prepare(root,out):
                             for p in sorted((measurement/case['name']/'tools').glob(f'{row.get("wave",0)}-{slot}-*.txt'))
                             if p.stem.split('-',2)[2] in ancestors],
                         instruction_context_digest=digest(dict(prompt=row['payload']['prompt'],
-                            workload_source=load(measurement/'source.json')['files'].get('benchmarks/serving_suite/campaign_workload.py'))))
+                            workload_source=instructions[1])))
                     label = dict(campaign=campaign.name,phase=identity['phase'],model=identity['model'],
                         cell=identity['cell'],system=identity['system'],attempt=event['attempt_id'],
                         request_id=row['payload']['request_id'],wave=row.get('wave',0),node_id=row['node_id'])
