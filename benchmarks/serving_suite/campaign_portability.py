@@ -10,9 +10,11 @@ from .campaign_contracts import Ledger,atomic_json,digest,load,read_protocol,ver
 from .campaign_verify import export_campaign,import_campaign
 
 
-def install_offline_guard(original,models):
+def install_offline_guard(original,models,*,forbidden_roots=(),allowed_roots=()):
     original = Path(original).resolve()
     models = [Path(p).resolve() for p in models]
+    forbidden = [original,*[Path(p).resolve() for p in forbidden_roots]]
+    allowed = [Path(p).resolve() for p in allowed_roots]
     # Snapshot files may resolve outside the snapshot into sibling blobs/.
     model_files = {p.resolve() for root in models for p in root.rglob('*') if p.is_file()}
     def audit(event,args):
@@ -20,7 +22,9 @@ def install_offline_guard(original,models):
             raise RuntimeError('GPU/model dependency imported during offline verification')
         if event=='open' and isinstance(args[0],(str,bytes)):
             path = Path(os.fsdecode(args[0])).resolve()
-            if path.is_relative_to(original) or path in model_files or any(path.is_relative_to(p) for p in models):
+            model_access = path in model_files or any(path.is_relative_to(p) for p in models)
+            original_access = any(path.is_relative_to(p) for p in forbidden) and not any(path.is_relative_to(p) for p in allowed)
+            if model_access or original_access:
                 raise RuntimeError('Offline verifier opened an original artifact/model path')
     sys.addaudithook(audit)
 
@@ -55,8 +59,9 @@ import json,os,sys
 from pathlib import Path
 original=Path(sys.argv[2]).resolve()
 models=[Path(p).resolve() for p in json.loads(sys.argv[3])]
+source,cache=map(Path,sys.argv[4:6])
 from benchmarks.serving_suite.campaign_portability import install_offline_guard
-install_offline_guard(original,models)
+install_offline_guard(original,models,forbidden_roots=[source,cache],allowed_roots=[Path.cwd(),Path(sys.argv[1])])
 guard_checks=0
 for root in models:
  weight=next(root.rglob('*.safetensors'))
@@ -68,6 +73,15 @@ for root in models:
    guard_checks+=1
   else:
    raise AssertionError('Model/symlink access guard failed')
+original_checks=0
+for path in (source/'pyproject.toml',cache/'sources.json'):
+ try:
+  path.read_bytes()
+ except RuntimeError as error:
+  assert 'original artifact/model path' in str(error)
+  original_checks+=1
+ else:
+  raise AssertionError('Original source/asset path guard failed')
 from benchmarks.serving_suite import campaign_verify
 assert Path(campaign_verify.__file__).resolve().is_relative_to(Path.cwd())
 result=campaign_verify.verify_campaign(sys.argv[1])
@@ -75,13 +89,14 @@ from benchmarks.serving_suite.campaign_report import report
 analysis=report(sys.argv[1])
 from benchmarks.serving_suite.campaign_contracts import digest
 assert not original.exists()
-print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guard_checks,report=dict(
+print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guard_checks,original_path_guard_negative_tests=original_checks,report=dict(
  throughput_acquisition_complete=analysis['throughput_acquisition_complete'],
  comparisons=len(analysis['comparisons']),comparisons_digest=digest(analysis['comparisons']),
  quality_status=analysis['quality']['status']))))
 '''
+            from .campaign import ROOT
             raw = subprocess.check_output([sys.executable,'-c',script,str(relocated),str(out),
-                json.dumps(list(host['models'].values()))],cwd=moved/'source',
+                json.dumps(list(host['models'].values())),str(ROOT),host['asset_cache']],cwd=moved/'source',
                 env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',CUDA_VISIBLE_DEVICES=''),text=True)
             verification = json.loads(raw)
         finally:
@@ -118,6 +133,8 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
         offline_report=verification['report'],relocated_comparisons_match_original=True,
         original_evidence_path_absent_during_verification=True,model_files_forbidden_during_verification=True,
         model_blob_symlinks_forbidden=True,model_access_guard_negative_tests=verification['model_access_guard_negative_tests'],
+        original_source_historical_outputs_and_assets_forbidden=True,
+        original_path_guard_negative_tests=verification['original_path_guard_negative_tests'],
         gpu_model_imports_forbidden=True,verifier_source='relocated exported source closure',
         imported_campaign=str(imported),import_result=result,preflight_dry_compile=dry,
         separately_rebuilt_runtime_bindings=bool(runtimes),

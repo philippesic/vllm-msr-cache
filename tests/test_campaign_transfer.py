@@ -251,15 +251,19 @@ def test_offline_guard_rejects_snapshot_and_direct_blob_access(tmp_path):
     original = tmp_path/'original'
     original.mkdir()
     (original/'result.json').write_text('{}')
-    allowed = tmp_path/'relocated-result.json'
+    historical = tmp_path/'historical'
+    historical.mkdir()
+    (historical/'old-input.json').write_text('{}')
+    allowed = historical/'relocated/result.json'
+    allowed.parent.mkdir()
     allowed.write_text('{}')
     script = '''
 import sys
 from pathlib import Path
 from benchmarks.serving_suite.campaign_portability import install_offline_guard
-original,model,blob,allowed = map(Path,sys.argv[1:])
-install_offline_guard(original,[model])
-for path in (model/'config.json',model/'model.safetensors',blob,original/'result.json'):
+original,model,blob,allowed,historical = map(Path,sys.argv[1:])
+install_offline_guard(original,[model],forbidden_roots=[historical],allowed_roots=[allowed.parent])
+for path in (model/'config.json',model/'model.safetensors',blob,original/'result.json',historical/'old-input.json'):
  try:
   path.read_bytes()
  except RuntimeError as error:
@@ -274,4 +278,4 @@ except RuntimeError as error:
 else:
  raise AssertionError('GPU import was allowed')
 '''
-    subprocess.run([sys.executable,'-c',script,str(original),str(model),str(weight),str(allowed)],check=True)
+    subprocess.run([sys.executable,'-c',script,str(original),str(model),str(weight),str(allowed),str(historical)],check=True)

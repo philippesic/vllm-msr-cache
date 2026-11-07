@@ -1,3 +1,12 @@
+The final offline verifier guard now forbids the original source checkout,
+historical outputs and prepared asset cache as well as model snapshots and their
+resolved weight blobs. Only the relocated exported source and evidence are
+allowed inside those original directory trees. Negative probes cover original
+source/asset reads; focused tests also prove relocated reads remain usable under
+a forbidden parent. All 23 transfer/quality/report checks pass. The real final
+relocation exercise remains due after acquisition.
+[Focused log](../../output/stage6-2080ti-20261106/offline-all-original-paths-16.log).
+
 The quality packet now requires source review of every length-capped final in
 addition to the stratified sample and all automatic failures. Nonempty capped
 summaries previously could fall outside the sample. A 40-capped-answer fixture
