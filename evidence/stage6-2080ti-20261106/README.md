@@ -1,4 +1,4 @@
-## Acquisition ended; final audits in progress
+## Acquisition and audits complete; primary transfer in progress
 
 Primary acquisition completed 524 configurations in 210 matched blocks. The
 addendum completed all 24 QA pairs and four three-arm advice blocks; repository
@@ -15,13 +15,18 @@ The primary integrity audit verified 73,849 files; addendum verified 6,009. All
 699 capped responses across retained phases/failed attempts now have explicit
 source judgments. The addendum source review covers 2,467 entries / 96 distinct
 contexts. Primary final-answer source review now covers 6,998 entries / 638 distinct full
-contexts. Actual relocation/import proofs remain in progress; this checkpoint does not certify quality equivalence or readiness.
+contexts. The separate addendum relocation/import proof passed. Primary relocation/import remains in progress; quality equivalence is not certified.
 [Measured whole-block results and qualifications](RESULTS.md).
 [Receipts, comparisons and outstanding work](post-acquisition-audit-checkpoint.json).
 [Additional archive-cap judgments](final-capped-new-context-ratings.json).
 [Addendum source judgments](addendum-source-judgments.json).
 
-## Primary acquired; bounded addendum running
+## Historical acquisition checkpoints
+
+The entries below record earlier milestones. The current outcome is above and
+in [RESULTS.md](RESULTS.md); past pending/running statements are historical.
+
+### Primary acquired; bounded addendum launched
 
 Philip authorized a separate [PR-evidence addendum](../../docs/STAGE6_ADDENDUM.md)
 after primary acquisition: a held-out pressure gate and four repeated matched

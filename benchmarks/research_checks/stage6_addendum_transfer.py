@@ -126,12 +126,12 @@ for block in p['schedule']:
   plan,corpus=compiled[cell];effective=plan_for_variant(copy.deepcopy(plan),base)
   if base=='arc':effective.update(publish_hints=False,qualification_conditions=['arc','wait'])
   if system in ('O0','O2'):effective.update(publish_hints=False,load_plugin=system!='O0',native_arc_control=system=='O0',qualification_trace=False,required_activity=[],control=system)
-  args,environment=command(effective,base,8123)
+  args,configuration=command(effective,base,8123)
   compiled_command=[python if a==sys.executable else a for a in args]
   assert compiled_command[0].startswith(str(runtimes))
   if system=='O0':assert 'SemanticOffloadingConnector' not in ' '.join(compiled_command)
   if system=='O2':assert 'SemanticOffloadingConnector' in ' '.join(compiled_command)
-  commands.append(dict(block=block['id'],cell=cell,system=system,command=compiled_command,environment={k:v for k,v in environment.items() if k.startswith(('VLLM_','LMCACHE_')) or k in ('PYTHONPATH','CUDA_VISIBLE_DEVICES')},sessions=len(corpus['sessions'])))
+  commands.append(dict(block=block['id'],cell=cell,system=system,command=compiled_command,connector_configuration=configuration,load_plugin=effective.get('load_plugin',effective['publish_hints']),sessions=len(corpus['sessions'])))
 assert len(commands)==78
 assert all(str(source) in json.dumps(x['command']) or x['system'] in ('continuum','upstream') for x in commands)
 record=dict(schema='stage6-addendum-import-v1',parent_campaign_id=p['parent_campaign_id'],source=p['source']['digest'],original_protocol_sha256=p['original_protocol_sha256'],schedule=p['schedule'],limits=p['limits'],models=models,runtime_python=python,runtime_identity_digest=digest(runtime),published_runtime_root=str(runtimes),cells=cells,compiled_configurations=commands,hardware_preflight_required=True,execution_authorized=False,scope='GPU-free relocated source/input/runtime rebinding and command compilation; no native serving or renewed measurement authorization')

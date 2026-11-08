@@ -1,5 +1,10 @@
 # Stage 6 unattended operation
 
+Acquisition and source/capped-output audits have ended. Final transfer and
+completion closure are in progress; see [current findings](../evidence/stage6-2080ti-20261106/RESULTS.md)
+and [STATUS.md](STATUS.md). Commands below preserve the historical recovery
+contract; they are not instructions to restart a completed study.
+
 The durable GPU coordinator owns acquisition, including idle gaps between cases.
 Agent work is a bounded health check every 20 minutes, plus repairs, analysis and
 completion work. Do not keep an active turn polling or waiting for the next check.

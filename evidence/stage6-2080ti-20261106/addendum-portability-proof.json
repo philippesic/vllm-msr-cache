@@ -24,19 +24,20 @@
     "compiled_configurations": 78,
     "schedule_digest": "a92243714697b863cf0de55c9e2c91c3d2f7fded15d2f9f2ede39766c16b4285",
     "limits_digest": "865de1dfd269769879671f80c2b456adf69b474961cdf2419075d32e80cc1290",
-    "imported_receipt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-portability-final-01/imported-addendum-repaired.json",
+    "imported_receipt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-portability-final-01/imported-addendum-final.json",
     "hardware_preflight_required": true,
     "execution_authorized": false,
-    "rebound_input_files": 14,
-    "imported_receipt_digest": "02dcaf6ab6a090225b3f11d000f98cde3ef7f988f0118d4d5ffe7f3cbb777773",
-    "input_cells": 7
+    "imported_receipt_digest": "f23b95e6d2fc9ad162794639218b3461a1fa2eaa1ce8b1e37c6ce838cfb67d50",
+    "input_cells": 7,
+    "rebound_input_files": 14
   },
   "rebuilt_runtime": "/home/philip/.cache/semantic-offload/stage6-assets/runtimes-rebuilt-02",
   "original_evidence_absent_during_verification": true,
   "scope": "Real bundle/evidence relocation, model-forbidden integrity verification and separate rebuilt-runtime GPU-free input import/78-command compilation; no native execution or new budget",
   "import_repair": {
-    "diagnosis": "Launcher returns arguments/environment pair; split tuple and bind every native interpreter argument to runtime02; assert native unloaded/enabled connector identities.",
+    "diagnosis": "Launcher returns arguments/connector-configuration pair; split tuple and bind every native interpreter argument to runtime02; assert native unloaded/enabled connector identities.",
     "preserved_initial": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-portability-final-01/initial-proof-diagnostic.json",
-    "new_receipt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-portability-final-01/imported-addendum-repaired.json"
+    "new_receipt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-portability-final-01/imported-addendum-final.json",
+    "latest_authored_import_script_executed": true
   }
 }

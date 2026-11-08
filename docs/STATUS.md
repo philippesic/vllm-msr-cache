@@ -15,116 +15,53 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Wait-hint release extension — Stage 5 complete; Stage 6 in progress
+## Wait-hint release extension — Stage 6 final transfer in progress
 
-- **Outcome:** the optimization pass is complete under the user's narrowed final
-  scope: 144 valid GPU cases and two retained invalid settings. Keep the existing
-  wait-hint rule; optional experiments remain disabled. Actual-state eviction
-  speedups were real but too small in total serving cost to establish a practical
-  gain. See [findings and validation](../evidence/stage5-optimization-20261105/README.md)
-  and the brief [history](PROJECT_HISTORY.md).
-- **Stage 6 — acquisition ended; final audits in progress:** the
-  [agent execution plan](STAGE6_EXECUTION_PLAN.md) specifies a durable campaign
-  layer over the maintained serving suite, vLLM only, and Qwen3-8B-AWQ,
-  Ministral 3-3B Instruct, and Qwen3-4B-Instruct-2507. Complete the 2080 Ti matrix
-  and portable handoff first; 5080 execution and release writing follow. Other
-  engines and hybrid models are deferred. The
-  [selected profile](../evidence/stage5-optimization-20261105/selected-candidate.json)
-  remains frozen. Execution authorized 2026-11-06; durable orchestration and pinned
-  public inputs are implemented. Independently rebuilt runtimes passed all three
-  native model correctness fixtures and both external 64-request activation checks.
-  Recovery/relocation CPU checks and all resource screens pass. Fixed confirmation
-  remains in progress; failed development attempts are retained. No Stage 6
-  confirmation or performance claim yet. See [execution record](../evidence/stage6-2080ti-20261106/README.md).
-- **Stage 6 active resources:** `development-15` completed all 22 development
-  cells / 54 configurations with no request failures. All three native model
-  fixtures, both external-system activation checks, the registry probe, all
-  three pressure checks and the matched roomy-capacity check passed. The
-  66-case pilot is complete with no failed requests. Source 21 is frozen for
-  524 confirmation configurations / 210 matched blocks, plus 38 overhead and
-  six operational configurations. All 38 overhead runs verified without request
-  failures; chat meets the declared 3% loss bound while short-QA comparisons with
-  unloaded native ARC remain inconclusive. All six operational runs pass: 1,280
-  main requests, exact cancellation/abort, drain/recovery, all candidate advice
-  probes, zero sampled speculative staging/reservations and no declared memory
-  growth alarm. See [operational receipts](../evidence/stage6-2080ti-20261106/operational-checkpoint.json)
-  and [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
-  Primary confirmation completed all 524 configurations in 210 whole matched
-  blocks on 2026-11-08. Primary workers/coordinator exited, the GPU had no clients
-  and both reservations were free before the hash-verified `addendum-02` launch.
-  The separate bounded addendum has ended: all 48 QA and 12 advice configurations
-  verified, with 28 matched blocks; its repository section remains closed.
-  QA enabled/no-hints throughput ratio is 0.9667 (95% CI 0.9539–0.9797),
-  leaving the 3% bound unresolved. Misleading/ARC unhinted mean TTFT ratio is
-  1.1456 (95% CI 1.1066–1.1860), a measured interference cost. All four advice
-  blocks recorded CPU pressure and false-positive recency touches.
-  [Post-acquisition audit checkpoint](../evidence/stage6-2080ti-20261106/post-acquisition-audit-checkpoint.json)
-  retains 660 verified primary attempts plus historical failures/interruption,
-  and 60 verified addendum attempts plus the failed gate. All 699 archive caps
-  now have explicit source judgments. Primary final-answer review is audited:
-  6,998 items across 638 distinct full contexts, alongside 2,467 addendum items.
-  Transfer proofs and completion handoff remain in progress.
-  Its initial repository gate failed before serving because the coordinator used
-  the test interpreter. The pinned serving runtime matches its frozen identity;
-  QA/advice resume with that runtime. Repository is closed without a forbidden
-  gate replacement, retaining the repeated four-system pressure gap;
-  [completion and launch receipts](../evidence/stage6-2080ti-20261106/primary-acquired-addendum-launch.json)
-  preserve the exact ownership/session and limits. Acquisition runs unattended with a supported 20-minute scheduled health/completion task
-  bound to this thread; routine healthy checks are silent. Fast worker supervision
-  is unchanged. [Operation and recovery](STAGE6_UNATTENDED.md) and
-  [verified monitoring receipts](../evidence/stage6-2080ti-20261106/unattended-operation.json)
-  record scheduling, progress/resource/coverage checks and exact attested recovery. All primary model/workload blocks have completed; live addendum progress is
-  retained in its execution and health receipts. Complete anchor repository runs with
-  zero restores are retained under derived validity v3; CPU-pressure evidence in
-  those runs is inconclusive. The anchor ARC repetitions also have
-  zero restores/CPU-eviction-affected returns: this cohort is a GPU-reuse control,
-  not established CPU-pressure evidence. Existing full-sixteen operational runs
-  prove local pressure (ARC 265/288 and candidate 270/288 eviction-affected returns),
-  but not repeated four-system repository pressure performance. Philip authorized
-  the [bounded PR-evidence addendum](STAGE6_ADDENDUM.md), replacing the unlaunched
-  nine-case supplement: held-out pressure gate plus four matched four-system
-  repository blocks and one roomy control (18 cases), 24 fresh QA O0/O2 pairs
-  (48 cases), and four three-arm prediction/fairness blocks with valid no-return
-  and late hints (12 cases). At most 85 attempts, six elapsed hours overall/two
-  per section; no optional stopping, capacity tuning, new upstream base or SAE
-  integration. Preparation is CPU-only during acquisition; GPU launch followed verified
-  primary completion/resource release. The original primary
-  analysis/export closure is preserved separately, and recovery stays attested.
-  [Prepared scope and validation](../evidence/stage6-2080ti-20261106/addendum-preparation.json).
-  Keep all original results and report purpose/precision gaps honestly. Sealed outcomes and source-21 acquisition remain
-  unchanged; separately versioned analysis exports preserve both closures. See
-  [activity interpretation](../evidence/stage6-2080ti-20261106/repository-resident-validity-v3.json).
-  See [confirmation checkpoint](../evidence/stage6-2080ti-20261106/confirmation-progress-checkpoint.json). All
-  248 pre-confirmation archive caps have explicit blinded source judgments across
-  89 distinct contexts; fresh confirmation outputs and strict final audit remain
-  due. See [saved judgments](../evidence/stage6-2080ti-20261106/before-confirm-capped-source-ratings.json).
-  The measured primary cost estimate is 41.16 hours,
-  with supplementary work and audits additional. Four pilot comparisons still
-  miss the desired precision target at the twelve-repeat ceiling; retain that
-  uncertainty. See [frozen pilot receipts](../evidence/stage6-2080ti-20261106/frozen-pilot-checkpoint.json) and
-  [complete screen receipts](../evidence/stage6-2080ti-20261106/development-complete-15.json).
-  Candidate behavior stays frozen. The anchor repository cells use eight
-  complete sessions at the unchanged 2.6016 GiB base CPU cache; secondary models
-  and operational waves retain sixteen. The 4.5 GiB roomy control reduced ARC
-  eviction-affected returns from two to zero; pressure is modest, not a speed
-  claim. B10 remains a GPU-resident team control under versioned validity;
-  original inconclusive raw treatment result is preserved.
-  Actual interruption and whole-block replacement passed. A separate full-cohort
-  operational development repeat passed 128 requests per arm, cancellation,
-  drain/recovery and all advice probes with zero speculative staging. Two public
-  runtime rebuilds match; 220 benchmark checks and 31 portable checks pass from a standalone
-  exported validation closure; its wheel build passes through the second runtime.
-  Frozen source 21 preserves the pilot/native timed serving inputs. Model source review retains format failures, unsupported
-  claims and capped answers; confirmation quality and the archive-wide capped
-  response audit remain due. Next: complete primary quality review, final comparisons and real relocation/import proofs.
-  Check live ownership before starting other GPU work.
-- **Stage 7 — compile release, pending:** verified installation and minimal
-  integration, reviewed evidence-backed README/docs/post drafts, accessible
-  reproduction artifacts and a focused vLLM proposal. A formal paper is not the
-  target. Throughput remains primary; latency is secondary and memory a constraint.
-- **Resources:** Stage 5 serving processes are reaped and GPU custody is released.
-  Raw runs and source freezes remain in `output/stage5-optimization-20261105/`.
-  The paused AWQ work is preserved. [Plan and completion criteria](WAIT_HINT_PRODUCT_PLAN.md#stage-5-optimize--completed).
+- **Stage 6 acquisition and audits:** all 524 primary configurations / 210 whole
+  matched blocks completed. The separate bounded addendum completed 24 QA pairs
+  and four three-arm advice blocks (60 configurations / 28 blocks). Its repository
+  gate failed before serving under the test interpreter; the failed attempt is
+  preserved and the section is closed under the no-replacement rule. Repeated
+  four-system repository performance under CPU pressure remains unmeasured.
+- **Measured outcome:** performance depends on workload/model. Anchor mixed
+  traffic candidate/ARC throughput is 1.1244 [1.1090, 1.1401], while Continuum is
+  faster on documents and secondary Qwen3-4B documents favor ARC. All intervals
+  use independent matched processes, not request-level repetitions. Anchor B06
+  is a GPU-reuse control with zero CPU pressure; all completed secondary native
+  B06/B08/B09/B11 processes have actual pressure receipts. Configured external
+  systems differ in runtime/backend/chunking/hint interface. See
+  [results and limitations](../evidence/stage6-2080ti-20261106/RESULTS.md).
+- **Adverse findings:** fresh enabled/no-hints QA throughput is 0.9667
+  [0.9539, 0.9797], leaving the declared 3% loss bound unresolved. Misleading hints
+  raise unhinted mean first-token latency to 1.1456 [1.1066, 1.1860] versus ARC.
+  All four stress blocks recorded CPU pressure and false-positive recency touches.
+  These findings are retained; the selected policy, original acquisition and
+  frozen schedules were not tuned or replaced for favorable results.
+- **Quality/integrity:** objective checks cover 10,616 primary and 3,504 addendum
+  final outputs. Explicit source review is audited for 6,998 primary items / 638
+  full contexts and 2,467 addendum items / 96 contexts, plus all 699 archived
+  capped intermediate/final outputs, including retained failed attempts. Review
+  retains unsupported claims, strict-format failures and truncation; it does not
+  establish answer-quality equivalence or unbiased population accuracy. Primary
+  verification covers 73,849 files; addendum covers 6,009. See
+  [audit checkpoint](../evidence/stage6-2080ti-20261106/post-acquisition-audit-checkpoint.json).
+- **Transfer:** addendum relocation and GPU-free source/input import against
+  independently rebuilt runtime02 passed. Primary relocation/offline verification
+  and runtime02 import are running from the attested pre-addendum analysis closure;
+  original source 21 and the four-module derived allowlist are unchanged. The
+  [5080 handoff](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md) records exact
+  separately gated commands. No 5080 jobs, new base check or SAE integration.
+- **Resources:** GPU acquisition has ended. The existing scheduled task remains
+  enabled until final transfer/completion closure; no new schedule is created.
+  Fast worker supervision is unchanged. [Unattended recovery](STAGE6_UNATTENDED.md)
+  and the saved queue retain exact identities. Preserve raw evidence, reusable
+  caches and the paused AWQ work; check current ownership before new GPU work.
+- **Stage 7 remains pending:** integration/release writing, actual new-hardware
+  qualification and any separately authorized closure of competitive-evidence
+  gaps. Stage 6 supports scoped preliminary PR evidence, not production or broad
+  architecture/performance claims. Earlier Stage 5 optimization remains complete;
+  [history](PROJECT_HISTORY.md) and [its findings](../evidence/stage5-optimization-20261105/README.md)
+  preserve that outcome.
 
 ## Wait-hint staged qualification — selected local execution completed; GPU released
 

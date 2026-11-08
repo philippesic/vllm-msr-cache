@@ -1,5 +1,10 @@
 # Stage 6 bounded PR-evidence addendum
 
+The bounded acquisition has ended: 24 QA pairs and four advice blocks completed;
+the repository section closed after its preserved pre-serving setup failure.
+[Actual results and remaining gaps](../evidence/stage6-2080ti-20261106/RESULTS.md)
+supersede preparation estimates. The prespecified contract below is retained.
+
 Philip authorized this addendum through Pip after the read-only protocol audit.
 It supersedes the unlaunched nine-configuration repository supplement, not any
 primary acquisition. Prepare and CPU checks may run during primary acquisition;

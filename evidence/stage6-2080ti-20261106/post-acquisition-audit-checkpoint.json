@@ -4659,7 +4659,7 @@
     "reviewer": "Codex source review",
     "audit_digest": "563417378389f73b58480e39ee0887a60e03840f2a0ae4f9589eb72ab36b93e8"
   },
-  "scope": "Acquisition complete; quality, real relocation/import, rendered comparisons and final handoff remain in progress. Repeated four-system repository pressure gap remains; no retry/new measurements authorized.",
+  "scope": "Primary/addendum acquisition and source/cap audits complete; comparisons rendered, addendum transfer verified, primary preserved-closure transfer in progress. Repeated four-system repository pressure gap retained; no new measurements authorized.",
   "primary_source_review": {
     "status": "audited",
     "reviewed": 6998,
@@ -4668,5 +4668,11 @@
     "distinct_full_contexts": 638,
     "new_explicit_contexts": 559,
     "exact_capped_context_reuses": 79
-  }
+  },
+  "addendum_portability_proof": "addendum-portability-proof.json",
+  "quality_summary": "quality-final-summary.json",
+  "comparisons": "results/comparisons.json",
+  "findings": "RESULTS.md",
+  "handoff": "HANDOFF_5080.md",
+  "primary_portability": "in_progress_from_preserved_analysis_closure"
 }

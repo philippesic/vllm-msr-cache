@@ -32,12 +32,12 @@ Within-run requests are not independent repetitions.
 | qwen3_8b_awq / B11 mixed repository + QA | 8 | 70.406 | 79.162 | 1.1244 [1.1090, 1.1401] |
 | qwen3_8b_awq / B12 external-priority repository control | 12 | 30.444 | 30.181 | 0.9914 [0.9788, 1.0042] |
 | ministral3_3b / B02 independent QA | 6 | 22.379 | 22.037 | 0.9850 [0.9520, 1.0192] |
-| ministral3_3b / B06 repository GPU-reuse control | 6 | 90.364 | 93.574 | 1.0355 [1.0206, 1.0507] |
+| ministral3_3b / B06 repository pressure | 6 | 90.364 | 93.574 | 1.0355 [1.0206, 1.0507] |
 | ministral3_3b / B08 tight documents | 6 | 170.319 | 172.294 | 1.0117 [0.9980, 1.0256] |
 | ministral3_3b / B09 standard documents | 6 | 172.832 | 172.842 | 1.0001 [0.9986, 1.0015] |
 | ministral3_3b / B11 mixed repository + QA | 6 | 93.226 | 97.288 | 1.0438 [1.0143, 1.0740] |
 | qwen3_4b_2507 / B02 independent QA | 10 | 13.661 | 13.617 | 0.9966 [0.9775, 1.0160] |
-| qwen3_4b_2507 / B06 repository GPU-reuse control | 10 | 123.428 | 124.226 | 1.0067 [0.9899, 1.0238] |
+| qwen3_4b_2507 / B06 repository pressure | 10 | 123.428 | 124.226 | 1.0067 [0.9899, 1.0238] |
 | qwen3_4b_2507 / B08 tight documents | 10 | 243.334 | 238.091 | 0.9786 [0.9657, 0.9917] |
 | qwen3_4b_2507 / B09 standard documents | 10 | 241.328 | 235.701 | 0.9766 [0.9685, 0.9848] |
 | qwen3_4b_2507 / B11 mixed repository + QA | 10 | 123.866 | 127.848 | 1.0322 [1.0193, 1.0453] |
