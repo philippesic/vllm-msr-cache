@@ -1,0 +1,92 @@
+{
+  "schema": "stage6-primary-acquired-addendum-launch-v1",
+  "checked_unix": 1794152678.0120285,
+  "primary": {
+    "out": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/development-15",
+    "valid_configurations": 524,
+    "complete_matched_blocks": 210,
+    "ledger_sequence": 2081,
+    "acquisition_complete": true
+  },
+  "launch_preflight": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/unattended-health/addendum-launch-ready.json",
+  "addendum": {
+    "out": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-02",
+    "protocol_sha256": "db212d2899c49870e5e2a087ec6810e5b83be73cbc50cb8243e23dfdeb0a5b0b",
+    "source": "9ba851ccc31e168fd1968f903021d2699380fe7c6b3bd1bb6f46d9d9b612db11",
+    "snapshot": "/home/philip/.cache/semantic-offload/stage6-assets/source-snapshots/9ba851ccc31e168fd1968f903021d2699380fe7c6b3bd1bb6f46d9d9b612db11",
+    "initial_execution_session": {
+      "tool": "exec_command",
+      "session_id": 50802
+    },
+    "execution_session": {
+      "tool": "exec_command",
+      "session_id": 7418
+    },
+    "owner": {
+      "pid": 932890,
+      "create_time": 1794152640.85
+    },
+    "started_unix": 1794152499.3343282,
+    "active_attempt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-02/attempts/1230c55bc17ba2e8ba26eda8a7c026cc0c2bbdbc9877b14c81507bb4342706de/f3d3b765e454482d8f1aa7b0e8c2567c",
+    "active_block": "overhead-0",
+    "attempts": 2,
+    "scheduled_configurations": 78,
+    "maximum_attempts": 85,
+    "limits": {
+      "overall_s": 21600,
+      "repository_s": 7200,
+      "overhead_s": 7200,
+      "advice_s": 7200,
+      "repository_attempts": 22,
+      "overhead_attempts": 48,
+      "advice_attempts": 15
+    },
+    "closed_sections": {
+      "repository": {
+        "reason": "Pressure gate stopped before serving due to wrong coordinator interpreter; pinned serving runtime verified unchanged. Gate replacement forbidden; retain comparison gap and continue independent sections without resetting budgets.",
+        "evidence": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-02/diagnostics/runtime-identity.json",
+        "evidence_sha256": "ae9cc196ce8107506e5890626dabcde2a477fc083855e43727f39ea08f01eb07",
+        "closed_unix": 1794152634.4505699
+      }
+    },
+    "verified_runtime_python": "/home/philip/.cache/semantic-offload/stage6-assets/runtimes-rebuilt-01/local-env/bin/python"
+  },
+  "diagnosis": {
+    "current_digest": "38a109c653447109ca1cdb1d92b66e583b7366ad89423ea23bfbee45c9df2fbd",
+    "primary_digest": "f34f03ae56670ef993ea66b918382ee39f1c25c0a613686f92e81f945479e9bf",
+    "primary_environment": "output/stage6-2080ti-20261106/development-15/attempts/a489dad8e51bfd0f4f563d8eca609356fc919f6d113758bc42ad02d89c625f5c/f73328fc01fe4013b68c9386553bfb6c/measurement/environment.json",
+    "packages_changed": {
+      "tokenizers": {
+        "old": "0.22.2",
+        "current": "0.23.3"
+      },
+      "transformers": {
+        "old": "5.5.3",
+        "current": "5.22.1"
+      },
+      "pip": {
+        "old": "26.3",
+        "current": null
+      },
+      "huggingface_hub": {
+        "old": "1.33.0",
+        "current": "2.4.0"
+      }
+    },
+    "native_assets_equal": true,
+    "python_equal": true,
+    "diagnosis": "Coordinator was launched with the project test venv; frozen workers inherit sys.executable and require the host runtime_python. The pinned rebuilt-01 runtime is unchanged and matches the declared digest. No packages/native libraries need alteration.",
+    "verified_runtime_python": "/home/philip/.cache/semantic-offload/stage6-assets/runtimes-rebuilt-01/local-env/bin/python",
+    "verified_runtime_digest": "f34f03ae56670ef993ea66b918382ee39f1c25c0a613686f92e81f945479e9bf",
+    "gate_failed_before_server_start": true,
+    "requests_served": 0,
+    "handling": "Preserve failed repository gate and close repository section: gate replacement is forbidden. Resume only independent overhead/advice using the already attested host runtime; persist all original budgets.",
+    "checked_unix": 1794152617.1011295
+  },
+  "unattended": {
+    "existing_schedule_retained": true,
+    "cadence_minutes": 20,
+    "queue": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/unattended-health/addendum-queue.json"
+  },
+  "readiness": "Not certified. Repeated four-system repository pressure gap remains; QA/advice acquiring. Full quality/caps, comparisons, integrity, relocation/import and rendered charts still required. No 5080 jobs launched."
+}

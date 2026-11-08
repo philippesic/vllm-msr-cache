@@ -1,4 +1,4 @@
-## Bounded addendum prepared; primary acquisition preserved
+## Primary acquired; bounded addendum running
 
 Philip authorized a separate [PR-evidence addendum](../../docs/STAGE6_ADDENDUM.md)
 after primary acquisition: a held-out pressure gate and four repeated matched
@@ -6,17 +6,24 @@ repository comparisons across candidate/ARC/Continuum/pinned upstream; 24 fresh
 enabled/no-hints QA pairs; and four matched three-arm prediction/fairness blocks.
 There are 78 scheduled configurations, at most 85 attempts, a six-hour overall
 cap and two-hour section caps. Expected additional GPU cost is 3–5 hours, not a
-guarantee of precision or favorable results. The existing scheduled wakeup launches
-it only after primary completion and resource release. No new GPU measurement is
-part of preparation. The original protocol, results, source 21 and pre-addendum
+guarantee of precision or favorable results. All 524 primary configurations in 210 whole matched blocks completed on
+2026-11-08. After verifying frozen inputs/source, coordinator/worker exit, an empty
+GPU and both free reservations, the bounded addendum launched from its attested
+snapshot. The same 20-minute schedule handles health, completion and recovery.
+[Primary completion and addendum launch](primary-acquired-addendum-launch.json).
+The first repository gate failed before server startup because the launch used
+the test interpreter. The pinned serving runtime is unchanged and verified;
+QA/advice continue with it. Repository is closed under the no-gate-replacement
+rule, leaving the repeated four-system repository pressure comparison unresolved. The original protocol, results, source 21 and pre-addendum
 analysis/validation closure are preserved. SAE refers to CPU-offload PR #50422;
 the bounded source-only check found a relevant factory policy with additional
 session hooks, not a ready verified fifth arm. No SAE run or recent-base rerun.
 [Preparation, fixed budgets and CPU validation](addendum-preparation.json).
 
-## Fixed primary confirmation running
+## Fixed primary confirmation acquired
 
-The 524-run primary schedule is acquiring immutable source 21. Before launch,
+The 524-run primary schedule completed acquisition from immutable source 21.
+Quality review, comparisons and final portability remain due. Before launch,
 the archive-wide capped inventory verified 248 ordinary capped responses,
 including earlier failed/interrupted attempts, 75 pilot caps, 18 overhead caps and
 39 operational caps. All 89 distinct full contexts now have explicit blinded

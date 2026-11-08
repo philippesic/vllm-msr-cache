@@ -23,7 +23,7 @@ these selected runs does not establish a universal performance or quality claim.
   speedups were real but too small in total serving cost to establish a practical
   gain. See [findings and validation](../evidence/stage5-optimization-20261105/README.md)
   and the brief [history](PROJECT_HISTORY.md).
-- **Stage 6 — fixed acquisition in progress:** the
+- **Stage 6 — primary acquired; bounded addendum running:** the
   [agent execution plan](STAGE6_EXECUTION_PLAN.md) specifies a durable campaign
   layer over the maintained serving suite, vLLM only, and Qwen3-8B-AWQ,
   Ministral 3-3B Instruct, and Qwen3-4B-Instruct-2507. Complete the 2080 Ti matrix
@@ -49,14 +49,21 @@ these selected runs does not establish a universal performance or quality claim.
   probes, zero sampled speculative staging/reservations and no declared memory
   growth alarm. See [operational receipts](../evidence/stage6-2080ti-20261106/operational-checkpoint.json)
   and [overhead receipts](../evidence/stage6-2080ti-20261106/overhead-checkpoint.json).
-  Fixed primary confirmation owns the GPU from immutable source 21. Acquisition
-  now runs unattended with a supported 20-minute scheduled health/completion task
+  Primary confirmation completed all 524 configurations in 210 whole matched
+  blocks on 2026-11-08. Primary workers/coordinator exited, the GPU had no clients
+  and both reservations were free before the hash-verified `addendum-02` launch.
+  The separate bounded addendum owns acquisition from its attested snapshot.
+  Its initial repository gate failed before serving because the coordinator used
+  the test interpreter. The pinned serving runtime matches its frozen identity;
+  QA/advice resume with that runtime. Repository is closed without a forbidden
+  gate replacement, retaining the repeated four-system pressure gap;
+  [completion and launch receipts](../evidence/stage6-2080ti-20261106/primary-acquired-addendum-launch.json)
+  preserve the exact ownership/session and limits. Acquisition runs unattended with a supported 20-minute scheduled health/completion task
   bound to this thread; routine healthy checks are silent. Fast worker supervision
   is unchanged. [Operation and recovery](STAGE6_UNATTENDED.md) and
   [verified monitoring receipts](../evidence/stage6-2080ti-20261106/unattended-operation.json)
-  record scheduling, progress/resource/coverage checks and exact attested recovery. The first
-  anchor B01–B11 comparisons have completed; live progress is retained in the
-  scheduled health receipts. Complete anchor repository runs with
+  record scheduling, progress/resource/coverage checks and exact attested recovery. All primary model/workload blocks have completed; live addendum progress is
+  retained in its execution and health receipts. Complete anchor repository runs with
   zero restores are retained under derived validity v3; CPU-pressure evidence in
   those runs is inconclusive. The anchor ARC repetitions also have
   zero restores/CPU-eviction-affected returns: this cohort is a GPU-reuse control,
@@ -69,8 +76,8 @@ these selected runs does not establish a universal performance or quality claim.
   (48 cases), and four three-arm prediction/fairness blocks with valid no-return
   and late hints (12 cases). At most 85 attempts, six elapsed hours overall/two
   per section; no optional stopping, capacity tuning, new upstream base or SAE
-  integration. Preparation is CPU-only during acquisition; GPU launch is queued
-  strictly after primary completion/resource release. The original primary
+  integration. Preparation is CPU-only during acquisition; GPU launch followed verified
+  primary completion/resource release. The original primary
   analysis/export closure is preserved separately, and recovery stays attested.
   [Prepared scope and validation](../evidence/stage6-2080ti-20261106/addendum-preparation.json).
   Keep all original results and report purpose/precision gaps honestly. Sealed outcomes and source-21 acquisition remain
@@ -98,7 +105,7 @@ these selected runs does not establish a universal performance or quality claim.
   exported validation closure; its wheel build passes through the second runtime.
   Frozen source 21 preserves the pilot/native timed serving inputs. Model source review retains format failures, unsupported
   claims and capped answers; confirmation quality and the archive-wide capped
-  response audit remain due. Next: complete fixed comparisons, then quality and final relocation proof.
+  response audit remain due. Next: complete the bounded addendum, then quality, comparisons and final relocation proof.
   Check live ownership before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible

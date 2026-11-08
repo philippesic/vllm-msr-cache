@@ -119,8 +119,17 @@ execution session (not a background shell without a receipt):
 
 ```bash
 ADDENDUM=/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-02
-"$PY" -m benchmarks.serving_suite.campaign_addendum run --out "$ADDENDUM" > "$STATE/addendum-coordinator.log" 2>&1
+ADDENDUM_PY=/home/philip/.cache/semantic-offload/stage6-assets/runtimes-rebuilt-01/local-env/bin/python
+"$ADDENDUM_PY" -m benchmarks.serving_suite.campaign_addendum run --out "$ADDENDUM" > "$STATE/addendum-coordinator.log" 2>&1
 ```
+
+Use the host receipt's pinned `runtime_python` for launch/resume: workers inherit
+`sys.executable`. The project test venv is suitable for bounded health checks but
+has a different package identity. The initial launch used that test interpreter
+and the repository gate failed before server startup. Its failed attempt remains
+sealed; repository is closed because gate replacement is forbidden. The independent
+QA/advice sections resumed with the verified unchanged pinned runtime and original
+start times. See [diagnosis and launch](../evidence/stage6-2080ti-20261106/primary-acquired-addendum-launch.json).
 
 The entry point independently refuses incomplete primary whole blocks, a live
 primary coordinator, occupied GPU/locks, changed inputs/source/policy or exceeded
@@ -138,7 +147,7 @@ checking the finished primary:
 Healthy ends silently until the next existing 20-minute wakeup. `attention`
 requires preserved diagnosis and ownership/resource checks. A stopped coordinator
 is actionable even if its last state says running. Reuse complete sealed whole
-blocks with `run --out "$ADDENDUM" --resume` from the same attested snapshot;
+blocks with `"$ADDENDUM_PY" -m benchmarks.serving_suite.campaign_addendum run --out "$ADDENDUM" --resume` from the same attested snapshot;
 unfinished blocks need a linked `repair` authorization (CLI `--help`), at most one
 four-arm repository and one three-arm prediction replacement. There are no QA
 pair replacements. If repair is outside scope/budget, use `close-section` with
