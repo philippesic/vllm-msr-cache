@@ -28,7 +28,12 @@
     "Three dense GQA models/two families on one host; no 5080, broad architecture or production qualification.",
     "SAE CPU-offload PR50422 not integrated or measured; no new upstream-base rerun."
   ],
-  "schedule": "Existing task pending final disable receipt; saved private state only",
+  "schedule": {
+    "enabled": false,
+    "next_run": null,
+    "receipt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/unattended-health/schedule-disabled.json",
+    "disabled_after_full_completion": true
+  },
   "resources": {
     "released": true,
     "receipt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/unattended-health/final-resource-release.json",
@@ -56,5 +61,6 @@
     "seal": "5fb1f5ca457ab17ac799e3ea2886e3f67c7a13a5d60a70b82206d21144184b4e",
     "files": 17
   },
-  "primary_final_report": "primary-final-report.json"
+  "primary_final_report": "primary-final-report.json",
+  "closure_utc": "2026-11-08T18:49:27.107254+00:00"
 }

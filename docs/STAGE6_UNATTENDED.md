@@ -1,7 +1,7 @@
 # Stage 6 unattended operation
 
 Acquisition, audits and both relocation/import proofs have ended. The bounded
-Stage 6 task is complete; see [current findings](../evidence/stage6-2080ti-20261106/RESULTS.md)
+Stage 6 task is complete and its saved health schedule is disabled; see [current findings](../evidence/stage6-2080ti-20261106/RESULTS.md)
 and [STATUS.md](STATUS.md). Commands below preserve the historical recovery
 contract; they are not instructions to restart a completed study.
 

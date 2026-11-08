@@ -51,8 +51,8 @@ these selected runs does not establish a universal performance or quality claim.
   original source 21 and the four-module derived allowlist are unchanged. The
   [5080 handoff](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md) records exact
   separately gated commands. No 5080 jobs, new base check or SAE integration.
-- **Resources:** GPU acquisition has ended and both reservations are free. Final
-  completion closure is disabling the existing scheduled task; no new schedule is created.
+- **Resources:** GPU acquisition has ended and both reservations are free. The
+  existing scheduled task is disabled with no next run; no new schedule was created.
   Fast worker supervision is unchanged. [Unattended recovery](STAGE6_UNATTENDED.md)
   and the saved queue retain exact identities. Preserve raw evidence, reusable
   caches and the paused AWQ work; check current ownership before new GPU work.

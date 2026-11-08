@@ -18,6 +18,7 @@ contexts. Primary final-answer source review now covers 6,998 entries / 638 dist
 contexts. Both real relocation/offline verification and GPU-free runtime02 import proofs passed. Hardware preflight remains mandatory for future replication; answer-quality equivalence and production readiness are not certified.
 [Measured whole-block results and qualifications](RESULTS.md).
 [Exact 5080 handoff](HANDOFF_5080.md).
+[Completion, released resources and disabled schedule](completion.json).
 [Primary transfer proof](primary-portability-proof.json) and [separate addendum proof](addendum-portability-proof.json).
 [Receipts, comparisons and outstanding work](post-acquisition-audit-checkpoint.json).
 [Additional archive-cap judgments](final-capped-new-context-ratings.json).
