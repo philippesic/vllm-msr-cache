@@ -1,0 +1,2028 @@
+{
+  "development-15": {
+    "objective_outputs": 10616,
+    "automatic_failures": 5789,
+    "reviewed": 6998,
+    "status": "audited",
+    "audit_digest": "31c5acfae97717f6dc858ebde7a5acd245dad49d44a4e614a81a8b5e314ec51d",
+    "sample_scope": "Stratified deterministic final sample plus all automatic failures and capped responses, including intermediates; not an unbiased population useful-rate estimate",
+    "objective_groups": {
+      "ministral3_3b:B02:arc": {
+        "final_outputs": 384,
+        "automatic_failures": 384,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 384,
+            "observed": 384
+          },
+          "schema_valid": {
+            "passed": 0,
+            "observed": 384
+          },
+          "reference_exact": {
+            "passed": 0,
+            "observed": 384
+          },
+          "reference_span_present": {
+            "passed": 300,
+            "observed": 384
+          }
+        }
+      },
+      "ministral3_3b:B02:wait": {
+        "final_outputs": 384,
+        "automatic_failures": 384,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 384,
+            "observed": 384
+          },
+          "schema_valid": {
+            "passed": 0,
+            "observed": 384
+          },
+          "reference_exact": {
+            "passed": 0,
+            "observed": 384
+          },
+          "reference_span_present": {
+            "passed": 299,
+            "observed": 384
+          }
+        }
+      },
+      "ministral3_3b:B06:arc": {
+        "final_outputs": 96,
+        "automatic_failures": 79,
+        "length_capped": 4,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 17,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 17,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 91,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B06:wait": {
+        "final_outputs": 96,
+        "automatic_failures": 83,
+        "length_capped": 11,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 13,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 13,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 90,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B08:arc": {
+        "final_outputs": 96,
+        "automatic_failures": 84,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 78,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 30,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 12,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B08:wait": {
+        "final_outputs": 96,
+        "automatic_failures": 94,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 77,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 33,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 2,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B09:arc": {
+        "final_outputs": 96,
+        "automatic_failures": 84,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 78,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 30,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 12,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B09:wait": {
+        "final_outputs": 96,
+        "automatic_failures": 84,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 78,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 30,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 12,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B11:arc": {
+        "final_outputs": 192,
+        "automatic_failures": 178,
+        "length_capped": 11,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 94,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 17,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 14,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 87,
+            "observed": 96
+          },
+          "schema_valid": {
+            "passed": 0,
+            "observed": 96
+          },
+          "reference_exact": {
+            "passed": 0,
+            "observed": 96
+          },
+          "reference_span_present": {
+            "passed": 78,
+            "observed": 96
+          }
+        }
+      },
+      "ministral3_3b:B11:wait": {
+        "final_outputs": 192,
+        "automatic_failures": 177,
+        "length_capped": 11,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 92,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 16,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 15,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 93,
+            "observed": 96
+          },
+          "schema_valid": {
+            "passed": 0,
+            "observed": 96
+          },
+          "reference_exact": {
+            "passed": 0,
+            "observed": 96
+          },
+          "reference_span_present": {
+            "passed": 78,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_4b_2507:B02:arc": {
+        "final_outputs": 640,
+        "automatic_failures": 290,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 640,
+            "observed": 640
+          },
+          "schema_valid": {
+            "passed": 610,
+            "observed": 640
+          },
+          "reference_exact": {
+            "passed": 350,
+            "observed": 640
+          },
+          "reference_span_present": {
+            "passed": 500,
+            "observed": 640
+          }
+        }
+      },
+      "qwen3_4b_2507:B02:wait": {
+        "final_outputs": 640,
+        "automatic_failures": 290,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 640,
+            "observed": 640
+          },
+          "schema_valid": {
+            "passed": 610,
+            "observed": 640
+          },
+          "reference_exact": {
+            "passed": 350,
+            "observed": 640
+          },
+          "reference_span_present": {
+            "passed": 500,
+            "observed": 640
+          }
+        }
+      },
+      "qwen3_4b_2507:B06:arc": {
+        "final_outputs": 160,
+        "automatic_failures": 10,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 160,
+            "observed": 160
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 150,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 150,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B06:wait": {
+        "final_outputs": 160,
+        "automatic_failures": 10,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 160,
+            "observed": 160
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 150,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 150,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B08:arc": {
+        "final_outputs": 160,
+        "automatic_failures": 14,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 160,
+            "observed": 160
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 146,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 146,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B08:wait": {
+        "final_outputs": 160,
+        "automatic_failures": 11,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 160,
+            "observed": 160
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 149,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 149,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B09:arc": {
+        "final_outputs": 160,
+        "automatic_failures": 18,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 160,
+            "observed": 160
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 142,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 142,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B09:wait": {
+        "final_outputs": 160,
+        "automatic_failures": 11,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 160,
+            "observed": 160
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 149,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 149,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B11:arc": {
+        "final_outputs": 320,
+        "automatic_failures": 90,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 320,
+            "observed": 320
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 150,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 150,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          },
+          "schema_valid": {
+            "passed": 150,
+            "observed": 160
+          },
+          "reference_exact": {
+            "passed": 80,
+            "observed": 160
+          },
+          "reference_span_present": {
+            "passed": 110,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_4b_2507:B11:wait": {
+        "final_outputs": 320,
+        "automatic_failures": 90,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 320,
+            "observed": 320
+          },
+          "subject_named": {
+            "passed": 160,
+            "observed": 160
+          },
+          "actual_validation_status_stated": {
+            "passed": 150,
+            "observed": 160
+          },
+          "requested_status_format": {
+            "passed": 150,
+            "observed": 160
+          },
+          "limitation_signal": {
+            "passed": 160,
+            "observed": 160
+          },
+          "schema_valid": {
+            "passed": 150,
+            "observed": 160
+          },
+          "reference_exact": {
+            "passed": 80,
+            "observed": 160
+          },
+          "reference_span_present": {
+            "passed": 110,
+            "observed": 160
+          }
+        }
+      },
+      "qwen3_8b_awq:B01:arc": {
+        "final_outputs": 12,
+        "automatic_failures": 0,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 12,
+            "observed": 12
+          }
+        }
+      },
+      "qwen3_8b_awq:B01:wait": {
+        "final_outputs": 12,
+        "automatic_failures": 0,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 12,
+            "observed": 12
+          }
+        }
+      },
+      "qwen3_8b_awq:B02:arc": {
+        "final_outputs": 384,
+        "automatic_failures": 252,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 384,
+            "observed": 384
+          },
+          "schema_valid": {
+            "passed": 384,
+            "observed": 384
+          },
+          "reference_exact": {
+            "passed": 132,
+            "observed": 384
+          },
+          "reference_span_present": {
+            "passed": 312,
+            "observed": 384
+          }
+        }
+      },
+      "qwen3_8b_awq:B02:wait": {
+        "final_outputs": 384,
+        "automatic_failures": 252,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 384,
+            "observed": 384
+          },
+          "schema_valid": {
+            "passed": 384,
+            "observed": 384
+          },
+          "reference_exact": {
+            "passed": 132,
+            "observed": 384
+          },
+          "reference_span_present": {
+            "passed": 312,
+            "observed": 384
+          }
+        }
+      },
+      "qwen3_8b_awq:B03:arc": {
+        "final_outputs": 192,
+        "automatic_failures": 0,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B03:wait": {
+        "final_outputs": 192,
+        "automatic_failures": 0,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B04:arc": {
+        "final_outputs": 576,
+        "automatic_failures": 492,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 576,
+            "observed": 576
+          },
+          "schema_valid": {
+            "passed": 576,
+            "observed": 576
+          },
+          "reference_exact": {
+            "passed": 84,
+            "observed": 576
+          },
+          "reference_span_present": {
+            "passed": 540,
+            "observed": 576
+          }
+        }
+      },
+      "qwen3_8b_awq:B04:wait": {
+        "final_outputs": 576,
+        "automatic_failures": 492,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 576,
+            "observed": 576
+          },
+          "schema_valid": {
+            "passed": 576,
+            "observed": 576
+          },
+          "reference_exact": {
+            "passed": 84,
+            "observed": 576
+          },
+          "reference_span_present": {
+            "passed": 540,
+            "observed": 576
+          }
+        }
+      },
+      "qwen3_8b_awq:B05:arc": {
+        "final_outputs": 96,
+        "automatic_failures": 72,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 24,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B05:wait": {
+        "final_outputs": 96,
+        "automatic_failures": 72,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 24,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B06:arc": {
+        "final_outputs": 64,
+        "automatic_failures": 43,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 64,
+            "observed": 64
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 21,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:B06:continuum": {
+        "final_outputs": 64,
+        "automatic_failures": 56,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 64,
+            "observed": 64
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 8,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:B06:upstream": {
+        "final_outputs": 64,
+        "automatic_failures": 44,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 64,
+            "observed": 64
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 20,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:B06:wait": {
+        "final_outputs": 64,
+        "automatic_failures": 42,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 64,
+            "observed": 64
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 22,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:B07:arc": {
+        "final_outputs": 96,
+        "automatic_failures": 65,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 31,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B07:wait": {
+        "final_outputs": 96,
+        "automatic_failures": 63,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 33,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B08:arc": {
+        "final_outputs": 192,
+        "automatic_failures": 36,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 168,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 156,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B08:continuum": {
+        "final_outputs": 192,
+        "automatic_failures": 31,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 188,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 161,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 161,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 188,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B08:upstream": {
+        "final_outputs": 192,
+        "automatic_failures": 36,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 156,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 156,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B08:wait": {
+        "final_outputs": 192,
+        "automatic_failures": 28,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 168,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 164,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B09:arc": {
+        "final_outputs": 192,
+        "automatic_failures": 36,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 168,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 156,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B09:continuum": {
+        "final_outputs": 192,
+        "automatic_failures": 48,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 144,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 144,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B09:upstream": {
+        "final_outputs": 192,
+        "automatic_failures": 36,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 168,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 156,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B09:wait": {
+        "final_outputs": 192,
+        "automatic_failures": 36,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 192,
+            "observed": 192
+          },
+          "subject_named": {
+            "passed": 192,
+            "observed": 192
+          },
+          "actual_validation_status_stated": {
+            "passed": 164,
+            "observed": 192
+          },
+          "requested_status_format": {
+            "passed": 156,
+            "observed": 192
+          },
+          "limitation_signal": {
+            "passed": 192,
+            "observed": 192
+          }
+        }
+      },
+      "qwen3_8b_awq:B10:arc": {
+        "final_outputs": 48,
+        "automatic_failures": 0,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 48,
+            "observed": 48
+          }
+        }
+      },
+      "qwen3_8b_awq:B10:wait": {
+        "final_outputs": 48,
+        "automatic_failures": 0,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 48,
+            "observed": 48
+          }
+        }
+      },
+      "qwen3_8b_awq:B11:arc": {
+        "final_outputs": 256,
+        "automatic_failures": 193,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 256,
+            "observed": 256
+          },
+          "subject_named": {
+            "passed": 128,
+            "observed": 128
+          },
+          "actual_validation_status_stated": {
+            "passed": 128,
+            "observed": 128
+          },
+          "requested_status_format": {
+            "passed": 31,
+            "observed": 128
+          },
+          "limitation_signal": {
+            "passed": 128,
+            "observed": 128
+          },
+          "schema_valid": {
+            "passed": 128,
+            "observed": 128
+          },
+          "reference_exact": {
+            "passed": 32,
+            "observed": 128
+          },
+          "reference_span_present": {
+            "passed": 104,
+            "observed": 128
+          }
+        }
+      },
+      "qwen3_8b_awq:B11:continuum": {
+        "final_outputs": 256,
+        "automatic_failures": 208,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 256,
+            "observed": 256
+          },
+          "subject_named": {
+            "passed": 128,
+            "observed": 128
+          },
+          "actual_validation_status_stated": {
+            "passed": 128,
+            "observed": 128
+          },
+          "requested_status_format": {
+            "passed": 16,
+            "observed": 128
+          },
+          "limitation_signal": {
+            "passed": 128,
+            "observed": 128
+          },
+          "schema_valid": {
+            "passed": 128,
+            "observed": 128
+          },
+          "reference_exact": {
+            "passed": 32,
+            "observed": 128
+          },
+          "reference_span_present": {
+            "passed": 104,
+            "observed": 128
+          }
+        }
+      },
+      "qwen3_8b_awq:B11:upstream": {
+        "final_outputs": 256,
+        "automatic_failures": 206,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 256,
+            "observed": 256
+          },
+          "subject_named": {
+            "passed": 128,
+            "observed": 128
+          },
+          "actual_validation_status_stated": {
+            "passed": 128,
+            "observed": 128
+          },
+          "requested_status_format": {
+            "passed": 18,
+            "observed": 128
+          },
+          "limitation_signal": {
+            "passed": 128,
+            "observed": 128
+          },
+          "schema_valid": {
+            "passed": 128,
+            "observed": 128
+          },
+          "reference_exact": {
+            "passed": 32,
+            "observed": 128
+          },
+          "reference_span_present": {
+            "passed": 104,
+            "observed": 128
+          }
+        }
+      },
+      "qwen3_8b_awq:B11:wait": {
+        "final_outputs": 256,
+        "automatic_failures": 199,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 256,
+            "observed": 256
+          },
+          "subject_named": {
+            "passed": 128,
+            "observed": 128
+          },
+          "actual_validation_status_stated": {
+            "passed": 128,
+            "observed": 128
+          },
+          "requested_status_format": {
+            "passed": 25,
+            "observed": 128
+          },
+          "limitation_signal": {
+            "passed": 128,
+            "observed": 128
+          },
+          "schema_valid": {
+            "passed": 128,
+            "observed": 128
+          },
+          "reference_exact": {
+            "passed": 32,
+            "observed": 128
+          },
+          "reference_span_present": {
+            "passed": 104,
+            "observed": 128
+          }
+        }
+      },
+      "qwen3_8b_awq:B12:arc": {
+        "final_outputs": 96,
+        "automatic_failures": 67,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 29,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B12:continuum": {
+        "final_outputs": 96,
+        "automatic_failures": 84,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 12,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B12:upstream": {
+        "final_outputs": 96,
+        "automatic_failures": 68,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 28,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      },
+      "qwen3_8b_awq:B12:wait": {
+        "final_outputs": 96,
+        "automatic_failures": 67,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 96,
+            "observed": 96
+          },
+          "subject_named": {
+            "passed": 96,
+            "observed": 96
+          },
+          "actual_validation_status_stated": {
+            "passed": 96,
+            "observed": 96
+          },
+          "requested_status_format": {
+            "passed": 29,
+            "observed": 96
+          },
+          "limitation_signal": {
+            "passed": 96,
+            "observed": 96
+          }
+        }
+      }
+    },
+    "review_groups": {
+      "qwen3_8b_awq:B11:continuum": {
+        "reviewed": 210,
+        "useful": 185,
+        "unsupported": 33,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8809523809523809
+      },
+      "qwen3_8b_awq:B09:continuum": {
+        "reviewed": 71,
+        "useful": 64,
+        "unsupported": 7,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9014084507042254
+      },
+      "qwen3_8b_awq:B02:wait": {
+        "reviewed": 262,
+        "useful": 262,
+        "unsupported": 6,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 1.0
+      },
+      "ministral3_3b:B02:wait": {
+        "reviewed": 384,
+        "useful": 366,
+        "unsupported": 72,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.953125
+      },
+      "ministral3_3b:B08:arc": {
+        "reviewed": 125,
+        "useful": 59,
+        "unsupported": 96,
+        "capped_intermediates_reviewed": 36,
+        "useful_fraction_in_reviewed_sample": 0.472
+      },
+      "qwen3_8b_awq:B06:continuum": {
+        "reviewed": 60,
+        "useful": 56,
+        "unsupported": 4,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9333333333333333
+      },
+      "qwen3_8b_awq:B07:arc": {
+        "reviewed": 75,
+        "useful": 68,
+        "unsupported": 10,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9066666666666666
+      },
+      "ministral3_3b:B02:arc": {
+        "reviewed": 384,
+        "useful": 366,
+        "unsupported": 72,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.953125
+      },
+      "ministral3_3b:B06:wait": {
+        "reviewed": 125,
+        "useful": 46,
+        "unsupported": 109,
+        "capped_intermediates_reviewed": 37,
+        "useful_fraction_in_reviewed_sample": 0.368
+      },
+      "qwen3_8b_awq:B04:arc": {
+        "reviewed": 498,
+        "useful": 498,
+        "unsupported": 0,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 1.0
+      },
+      "qwen3_8b_awq:B11:arc": {
+        "reviewed": 202,
+        "useful": 172,
+        "unsupported": 39,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8514851485148515
+      },
+      "qwen3_4b_2507:B02:arc": {
+        "reviewed": 308,
+        "useful": 298,
+        "unsupported": 10,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9675324675324676
+      },
+      "qwen3_8b_awq:B02:arc": {
+        "reviewed": 261,
+        "useful": 261,
+        "unsupported": 6,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 1.0
+      },
+      "qwen3_4b_2507:B11:arc": {
+        "reviewed": 116,
+        "useful": 93,
+        "unsupported": 27,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8017241379310345
+      },
+      "ministral3_3b:B09:wait": {
+        "reviewed": 125,
+        "useful": 59,
+        "unsupported": 96,
+        "capped_intermediates_reviewed": 36,
+        "useful_fraction_in_reviewed_sample": 0.472
+      },
+      "qwen3_4b_2507:B02:wait": {
+        "reviewed": 310,
+        "useful": 300,
+        "unsupported": 10,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.967741935483871
+      },
+      "ministral3_3b:B06:arc": {
+        "reviewed": 116,
+        "useful": 39,
+        "unsupported": 104,
+        "capped_intermediates_reviewed": 31,
+        "useful_fraction_in_reviewed_sample": 0.33620689655172414
+      },
+      "qwen3_8b_awq:B11:upstream": {
+        "reviewed": 211,
+        "useful": 185,
+        "unsupported": 42,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8767772511848341
+      },
+      "qwen3_8b_awq:B09:arc": {
+        "reviewed": 64,
+        "useful": 50,
+        "unsupported": 14,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.78125
+      },
+      "qwen3_8b_awq:B04:wait": {
+        "reviewed": 495,
+        "useful": 495,
+        "unsupported": 0,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 1.0
+      },
+      "qwen3_8b_awq:B05:arc": {
+        "reviewed": 78,
+        "useful": 75,
+        "unsupported": 3,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9615384615384616
+      },
+      "qwen3_4b_2507:B09:wait": {
+        "reviewed": 39,
+        "useful": 31,
+        "unsupported": 8,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7948717948717948
+      },
+      "qwen3_8b_awq:B12:wait": {
+        "reviewed": 74,
+        "useful": 67,
+        "unsupported": 8,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9054054054054054
+      },
+      "qwen3_8b_awq:B08:arc": {
+        "reviewed": 61,
+        "useful": 46,
+        "unsupported": 15,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7540983606557377
+      },
+      "ministral3_3b:B11:arc": {
+        "reviewed": 244,
+        "useful": 148,
+        "unsupported": 154,
+        "capped_intermediates_reviewed": 61,
+        "useful_fraction_in_reviewed_sample": 0.6065573770491803
+      },
+      "qwen3_8b_awq:B08:continuum": {
+        "reviewed": 126,
+        "useful": 42,
+        "unsupported": 84,
+        "capped_intermediates_reviewed": 67,
+        "useful_fraction_in_reviewed_sample": 0.3333333333333333
+      },
+      "qwen3_8b_awq:B09:wait": {
+        "reviewed": 58,
+        "useful": 45,
+        "unsupported": 13,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7758620689655172
+      },
+      "ministral3_3b:B09:arc": {
+        "reviewed": 124,
+        "useful": 58,
+        "unsupported": 96,
+        "capped_intermediates_reviewed": 36,
+        "useful_fraction_in_reviewed_sample": 0.46774193548387094
+      },
+      "qwen3_8b_awq:B12:upstream": {
+        "reviewed": 76,
+        "useful": 69,
+        "unsupported": 7,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9078947368421053
+      },
+      "ministral3_3b:B11:wait": {
+        "reviewed": 236,
+        "useful": 142,
+        "unsupported": 146,
+        "capped_intermediates_reviewed": 57,
+        "useful_fraction_in_reviewed_sample": 0.6016949152542372
+      },
+      "qwen3_8b_awq:B05:wait": {
+        "reviewed": 77,
+        "useful": 75,
+        "unsupported": 2,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.974025974025974
+      },
+      "ministral3_3b:B08:wait": {
+        "reviewed": 124,
+        "useful": 50,
+        "unsupported": 95,
+        "capped_intermediates_reviewed": 29,
+        "useful_fraction_in_reviewed_sample": 0.4032258064516129
+      },
+      "qwen3_8b_awq:B11:wait": {
+        "reviewed": 208,
+        "useful": 181,
+        "unsupported": 42,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8701923076923077
+      },
+      "qwen3_4b_2507:B06:wait": {
+        "reviewed": 42,
+        "useful": 22,
+        "unsupported": 26,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.5238095238095238
+      },
+      "qwen3_8b_awq:B12:continuum": {
+        "reviewed": 85,
+        "useful": 84,
+        "unsupported": 1,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9882352941176471
+      },
+      "qwen3_8b_awq:B08:upstream": {
+        "reviewed": 60,
+        "useful": 45,
+        "unsupported": 15,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.75
+      },
+      "qwen3_8b_awq:B07:wait": {
+        "reviewed": 70,
+        "useful": 66,
+        "unsupported": 6,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9428571428571428
+      },
+      "qwen3_8b_awq:B06:arc": {
+        "reviewed": 53,
+        "useful": 52,
+        "unsupported": 1,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9811320754716981
+      },
+      "qwen3_8b_awq:B06:wait": {
+        "reviewed": 55,
+        "useful": 49,
+        "unsupported": 7,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8909090909090909
+      },
+      "qwen3_8b_awq:B12:arc": {
+        "reviewed": 78,
+        "useful": 66,
+        "unsupported": 12,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8461538461538461
+      },
+      "qwen3_4b_2507:B08:arc": {
+        "reviewed": 43,
+        "useful": 31,
+        "unsupported": 12,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7209302325581395
+      },
+      "qwen3_8b_awq:B08:wait": {
+        "reviewed": 56,
+        "useful": 49,
+        "unsupported": 7,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.875
+      },
+      "qwen3_8b_awq:B10:wait": {
+        "reviewed": 32,
+        "useful": 25,
+        "unsupported": 10,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.78125
+      },
+      "qwen3_8b_awq:B06:upstream": {
+        "reviewed": 53,
+        "useful": 48,
+        "unsupported": 8,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9056603773584906
+      },
+      "qwen3_4b_2507:B09:arc": {
+        "reviewed": 46,
+        "useful": 37,
+        "unsupported": 9,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8043478260869565
+      },
+      "qwen3_8b_awq:B10:arc": {
+        "reviewed": 32,
+        "useful": 22,
+        "unsupported": 13,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.6875
+      },
+      "qwen3_8b_awq:B03:wait": {
+        "reviewed": 32,
+        "useful": 22,
+        "unsupported": 10,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.6875
+      },
+      "qwen3_8b_awq:B09:upstream": {
+        "reviewed": 61,
+        "useful": 45,
+        "unsupported": 16,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7377049180327869
+      },
+      "qwen3_4b_2507:B06:arc": {
+        "reviewed": 41,
+        "useful": 27,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.6585365853658537
+      },
+      "qwen3_4b_2507:B11:wait": {
+        "reviewed": 110,
+        "useful": 87,
+        "unsupported": 25,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7909090909090909
+      },
+      "qwen3_8b_awq:B01:arc": {
+        "reviewed": 24,
+        "useful": 0,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 12,
+        "useful_fraction_in_reviewed_sample": 0.0
+      },
+      "qwen3_8b_awq:B03:arc": {
+        "reviewed": 32,
+        "useful": 22,
+        "unsupported": 10,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.6875
+      },
+      "qwen3_4b_2507:B08:wait": {
+        "reviewed": 42,
+        "useful": 25,
+        "unsupported": 17,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.5952380952380952
+      },
+      "qwen3_8b_awq:B01:wait": {
+        "reviewed": 24,
+        "useful": 0,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 12,
+        "useful_fraction_in_reviewed_sample": 0.0
+      }
+    }
+  },
+  "addendum-02": {
+    "objective_outputs": 3504,
+    "automatic_failures": 2401,
+    "reviewed": 2467,
+    "status": "audited",
+    "audit_digest": "83558fa7d8f19c9d2f09255ea1d8ef1a3cde9a07ea2c04ca68adb38d82462c1a",
+    "sample_scope": "Stratified deterministic final sample plus all automatic failures and capped responses, including intermediates; not an unbiased population useful-rate estimate",
+    "objective_groups": {
+      "qwen3_8b_awq:H00:arc": {
+        "final_outputs": 144,
+        "automatic_failures": 96,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 144,
+            "observed": 144
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 8,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          },
+          "schema_valid": {
+            "passed": 64,
+            "observed": 64
+          },
+          "reference_exact": {
+            "passed": 24,
+            "observed": 64
+          },
+          "reference_span_present": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:H01:wait": {
+        "final_outputs": 144,
+        "automatic_failures": 96,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 144,
+            "observed": 144
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 8,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          },
+          "schema_valid": {
+            "passed": 64,
+            "observed": 64
+          },
+          "reference_exact": {
+            "passed": 24,
+            "observed": 64
+          },
+          "reference_span_present": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:H02:wait": {
+        "final_outputs": 144,
+        "automatic_failures": 96,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 144,
+            "observed": 144
+          },
+          "subject_named": {
+            "passed": 64,
+            "observed": 64
+          },
+          "actual_validation_status_stated": {
+            "passed": 64,
+            "observed": 64
+          },
+          "requested_status_format": {
+            "passed": 8,
+            "observed": 64
+          },
+          "limitation_signal": {
+            "passed": 64,
+            "observed": 64
+          },
+          "schema_valid": {
+            "passed": 64,
+            "observed": 64
+          },
+          "reference_exact": {
+            "passed": 24,
+            "observed": 64
+          },
+          "reference_span_present": {
+            "passed": 64,
+            "observed": 64
+          }
+        }
+      },
+      "qwen3_8b_awq:Q01:O0": {
+        "final_outputs": 1536,
+        "automatic_failures": 1056,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 1536,
+            "observed": 1536
+          },
+          "schema_valid": {
+            "passed": 1536,
+            "observed": 1536
+          },
+          "reference_exact": {
+            "passed": 480,
+            "observed": 1536
+          },
+          "reference_span_present": {
+            "passed": 1416,
+            "observed": 1536
+          }
+        }
+      },
+      "qwen3_8b_awq:Q01:O2": {
+        "final_outputs": 1536,
+        "automatic_failures": 1057,
+        "length_capped": 0,
+        "observed_checks": {
+          "nonempty": {
+            "passed": 1536,
+            "observed": 1536
+          },
+          "schema_valid": {
+            "passed": 1536,
+            "observed": 1536
+          },
+          "reference_exact": {
+            "passed": 479,
+            "observed": 1536
+          },
+          "reference_span_present": {
+            "passed": 1416,
+            "observed": 1536
+          }
+        }
+      }
+    },
+    "review_groups": {
+      "qwen3_8b_awq:Q01:O0": {
+        "reviewed": 1065,
+        "useful": 1041,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9774647887323944
+      },
+      "qwen3_8b_awq:Q01:O2": {
+        "reviewed": 1069,
+        "useful": 1045,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.9775491113189897
+      },
+      "qwen3_8b_awq:H02:wait": {
+        "reviewed": 110,
+        "useful": 87,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7909090909090909
+      },
+      "qwen3_8b_awq:H01:wait": {
+        "reviewed": 111,
+        "useful": 86,
+        "unsupported": 27,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.7747747747747747
+      },
+      "qwen3_8b_awq:H00:arc": {
+        "reviewed": 112,
+        "useful": 91,
+        "unsupported": 24,
+        "capped_intermediates_reviewed": 0,
+        "useful_fraction_in_reviewed_sample": 0.8125
+      }
+    }
+  }
+}

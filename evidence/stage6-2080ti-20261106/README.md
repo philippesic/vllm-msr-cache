@@ -14,8 +14,9 @@ recency touches. These adverse results are retained without tuning or retries.
 The primary integrity audit verified 73,849 files; addendum verified 6,009. All
 699 capped responses across retained phases/failed attempts now have explicit
 source judgments. The addendum source review covers 2,467 entries / 96 distinct
-contexts. Primary final-answer review and actual relocation/import proofs remain
-in progress; this checkpoint does not certify quality equivalence or readiness.
+contexts. Primary final-answer source review now covers 6,998 entries / 638 distinct full
+contexts. Actual relocation/import proofs remain in progress; this checkpoint does not certify quality equivalence or readiness.
+[Measured whole-block results and qualifications](RESULTS.md).
 [Receipts, comparisons and outstanding work](post-acquisition-audit-checkpoint.json).
 [Additional archive-cap judgments](final-capped-new-context-ratings.json).
 [Addendum source judgments](addendum-source-judgments.json).
