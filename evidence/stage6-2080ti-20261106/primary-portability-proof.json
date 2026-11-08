@@ -1,0 +1,72 @@
+{
+  "schema": "stage6-portability-proof-v1",
+  "complete": true,
+  "relocated_bundle": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/portability-final-01/relocated-bundle",
+  "bundle_seal": "69d0126fc1a5003ef0184f0032d88df162c67fe621d9d42e00c6772ce45256bc",
+  "bundle_files": 4606,
+  "relocated_evidence": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/portability-final-01/relocated-evidence",
+  "offline_verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 660,
+      "interrupted": 1,
+      "failed": 33
+    },
+    "verified_files": 73849,
+    "protocol_frozen": true,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "offline_report": {
+    "throughput_acquisition_complete": true,
+    "comparisons": 42,
+    "comparisons_digest": "ac21f798b07f186b98e96f06d040ce11b1d2c41ab171bf7e4c82c64180afcbd3",
+    "quality_status": "audited"
+  },
+  "relocated_comparisons_match_original": true,
+  "original_evidence_path_absent_during_verification": true,
+  "model_files_forbidden_during_verification": true,
+  "model_blob_symlinks_forbidden": true,
+  "model_access_guard_negative_tests": 9,
+  "original_source_historical_outputs_and_assets_forbidden": true,
+  "original_path_guard_negative_tests": 2,
+  "gpu_model_imports_forbidden": true,
+  "verifier_source": "relocated exported analysis closure",
+  "imported_campaign": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/portability-final-01/imported-campaign",
+  "import_result": {
+    "out": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/portability-final-01/imported-campaign",
+    "campaign_id": "482672a1d1813a86a78a1f45e38b9ce3d39ff375ab51d8a1f4e67cc3db30441a",
+    "parent_campaign_id": "fb4036f77c0761d08d66b32f0710abdd34a6cffe30c2144b22c8c1461a4c9baa",
+    "runnable": true,
+    "confirmation_ready": false,
+    "unresolved": [],
+    "next": "Run preflight and all development screens, then activate-import; confirmation repeats/order remain frozen"
+  },
+  "import_and_dry_compile_source": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/portability-final-01/relocated-bundle/source",
+  "import_from_relocated_exported_source": true,
+  "separately_rebuilt_runtime_bindings": true,
+  "confirmation_blocked_until_hardware_preflight": true,
+  "parent_protocol_preserved": true,
+  "parent_acquisition_source_preserved": true,
+  "source_revision_limited_to_derived_analysis": true,
+  "protocol_identity": "60ea40d0ac6a722d768dbb79dc1894189eebb3b8207369ddfe7e1dd2faf21f0e",
+  "scope": "Offline integrity, relocation and GPU-free import compilation; no 5080 or imported native execution",
+  "derived_analysis_source": {
+    "schema": "stage6-derived-analysis-source-v1",
+    "revised": true,
+    "acquisition_source": "2b2876c2f392dab22f99a2729a6675a5fc69f85e0689e3f1bc03e05c0034d09b",
+    "analysis_source": "8a986df6e8e261976baa9a9e09e2e1d8d0d11ed911556dafdae3244fcdc593d1",
+    "changed_files": [
+      "benchmarks/serving_suite/campaign_portability.py",
+      "benchmarks/serving_suite/campaign_report.py",
+      "benchmarks/serving_suite/campaign_validity.py",
+      "benchmarks/serving_suite/campaign_verify.py"
+    ],
+    "acquisition_directory": "parent-source",
+    "analysis_directory": "source",
+    "replication_directory": "source",
+    "scope": "Exact original acquisition closure retained separately when revised. Replication uses the current closure; only the listed derived analysis/transfer modules differ. Serving inputs, locked order, budgets and repetitions are unchanged."
+  },
+  "preflight_dry_compile_scope": "Fresh relocated-source compilation; full result retained at raw_proof",
+  "raw_proof": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/development-15/analysis/portability-proof.json",
+  "raw_proof_digest": "640c167bbd6b05fa74e92f5f66931551921bc50759e201f9a509e7a2ea5ed63b"
+}
