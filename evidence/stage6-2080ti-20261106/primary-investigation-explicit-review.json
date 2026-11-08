@@ -1,0 +1,334 @@
+[
+  {
+    "review_id": "ae1e39603d07fb8888b9767f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual test_consumer execution and substitutes unrelated first/last cases."
+    ],
+    "notes": "Denies actual test_consumer execution and substitutes unrelated first/last cases."
+  },
+  {
+    "review_id": "585700146c914d1f5cb692ae",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Priming permits immediate send; no-yield generator exhausts on next. PASS accurate but requested literal test_status absent."
+  },
+  {
+    "review_id": "b214a415f2d4ed823f52c926",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual class/test and invents single-consumer prohibition."
+    ],
+    "notes": "Denies actual class/test and invents single-consumer prohibition."
+  },
+  {
+    "review_id": "85be62a96d736d4cc5bb5810",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Priming and passing test accurate; no-yield coverage absent. Prose status does not follow requested literal."
+  },
+  {
+    "review_id": "7e16ed993a22c0cf3624b192",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "One passing test validates priming; exhausted/exception cases untested. Extra command is proposed, not execution."
+  },
+  {
+    "review_id": "d8eaa896060f3d8ea32a5001",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Immediate send and no-yield limitation supported; prose status instead of requested literal."
+  },
+  {
+    "review_id": "d9f067a9304893609d83130b",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Priming and one passing test accurate; no invented edge-case outcome."
+  },
+  {
+    "review_id": "2f8ebbe35728b8f381d0c9b2",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Priming, one executed basic test and untested edge cases correctly distinguished."
+  },
+  {
+    "review_id": "45b6f4fce20bd0861e73cf78",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual test and invents failure to propagate generator exceptions; wrapper does not intercept them."
+    ],
+    "notes": "Denies actual test and invents failure to propagate generator exceptions; wrapper does not intercept them."
+  },
+  {
+    "review_id": "776da8d6ebd958c7a3b54a60",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Priming and no-yield limitation supported; prose status misses literal format."
+  },
+  {
+    "review_id": "d3a292202f72a7570d8ae073",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual one passing direct test and invents test_conconsumer name."
+    ],
+    "notes": "Denies actual one passing direct test and invents test_conconsumer name."
+  },
+  {
+    "review_id": "2dafcc145a78513b3f1b0d58",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Contradictory denial of actual test results and invented test_con name; status missing."
+    ],
+    "notes": "Contradictory denial of actual test results and invented test_con name; status missing."
+  },
+  {
+    "review_id": "82929f77e4c5fe073c38465c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents multiple-consumer support, denies actual direct test and reports FAIL despite one passed."
+    ],
+    "notes": "Invents multiple-consumer support, denies actual direct test and reports FAIL despite one passed."
+  },
+  {
+    "review_id": "9c2f357fc6645cccd55397e9",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Three tests passed; negative n correctly returns empty. Invented ValueError requirement/docstring contradiction."
+    ],
+    "notes": "Three tests passed; negative n correctly returns empty. Invented ValueError requirement/docstring contradiction."
+  },
+  {
+    "review_id": "5a16816edbc10522d458395a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Cycle behavior is real, but divisibility ValueError restriction belongs to unrelated chunked tests."
+    ],
+    "notes": "Cycle behavior is real, but divisibility ValueError restriction belongs to unrelated chunked tests."
+  },
+  {
+    "review_id": "ca1952a3da612e4beaa6c3f6",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Negative-n empty behavior real but fabricated FAIL and divisibility requirement contradict source and three passed tests."
+    ],
+    "notes": "Negative-n empty behavior real but fabricated FAIL and divisibility requirement contradict source and three passed tests."
+  },
+  {
+    "review_id": "fb1251ba6e0789ef1fe49dc8",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents negative-n ValueError and failed updated tests; actual three passed, negative returns empty."
+    ],
+    "notes": "Invents negative-n ValueError and failed updated tests; actual three passed, negative returns empty."
+  },
+  {
+    "review_id": "898f48bf6140f79577941f76",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents divisibility restriction; range/product cycles do not require division."
+    ],
+    "notes": "Invents divisibility restriction; range/product cycles do not require division."
+  },
+  {
+    "review_id": "b809bb02da7c559d39830154",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Empty case correctly returns empty; falsely says this passing test failed expecting ValueError."
+    ],
+    "notes": "Empty case correctly returns empty; falsely says this passing test failed expecting ValueError."
+  },
+  {
+    "review_id": "dc4ab50a9da0896ec357dea9",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents strict-divisibility test, failed negative-n and infinite-loop behavior; actual three tests passed."
+    ],
+    "notes": "Invents strict-divisibility test, failed negative-n and infinite-loop behavior; actual three tests passed."
+  },
+  {
+    "review_id": "3b5d1363be76336e895ce2ff",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies two executed tests and invents incorrect items_seen on partial consumption; source increments only successful next."
+    ],
+    "notes": "Denies two executed tests and invents incorrect items_seen on partial consumption; source increments only successful next."
+  },
+  {
+    "review_id": "96e039810e933b1209b54421",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Counting and PASS correct; no explicit input validation beyond iter. Prose status misses literal."
+  },
+  {
+    "review_id": "b407c9ad33078cb4c878d0bb",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Noniterable TypeError is supported but denies actual two direct tests and omits requested status."
+    ],
+    "notes": "Noniterable TypeError is supported but denies actual two direct tests and omits requested status."
+  },
+  {
+    "review_id": "11d5c1967a962981012ab78d",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Counting/PASS supported; implicit iter TypeError is not custom error handling. Prose status misses literal."
+  },
+  {
+    "review_id": "ec9790d8fce34fe67f6e2024",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual tests, substitutes nonexistent count evidence and omits requested final limitation/status."
+    ],
+    "notes": "Denies actual tests, substitutes nonexistent count evidence and omits requested final limitation/status."
+  },
+  {
+    "review_id": "40c3c702b7bbd23289b2f125",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Actual empty/basic tests, count initialization/increments and bounded untested cases supported."
+  },
+  {
+    "review_id": "6162d61971fde4f03ff7a062",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Counting and two passing cases correct; large/noniterable coverage absent. Prose status misses literal."
+  },
+  {
+    "review_id": "b0d4a8da44e206eb49cb85ea",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual tests and calls normal exhaustion handling absent despite __next__ forwarding StopIteration."
+    ],
+    "notes": "Denies actual tests and calls normal exhaustion handling absent despite __next__ forwarding StopIteration."
+  },
+  {
+    "review_id": "5dde6072d7f636d90c2b68b9",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Two passing tests and correct increment/empty behavior; concurrent/infinite scenarios untested."
+  },
+  {
+    "review_id": "869616150b65afa525c34605",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Counting and PASS correct but exhaustion limitation misleading: next correctly raises StopIteration without increment."
+    ],
+    "notes": "Counting and PASS correct but exhaustion limitation misleading: next correctly raises StopIteration without increment."
+  },
+  {
+    "review_id": "6c2ee7a56c2878410aadd70d",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents test_most_important path, denies executed tests and missing partial coverage though test_basic checks count after one next."
+    ],
+    "notes": "Invents test_most_important path, denies executed tests and missing partial coverage though test_basic checks count after one next."
+  },
+  {
+    "review_id": "f0c85988aa4d0cfa78b2b06a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies executed tests, replaces them with unrelated count evidence and omits final status/limitation."
+    ],
+    "notes": "Denies executed tests, replaces them with unrelated count evidence and omits final status/limitation."
+  },
+  {
+    "review_id": "a7571b19ef137e970f5918a4",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Count increment and PASS supported; no infinite/noniterable tests. Requested literal missing."
+  },
+  {
+    "review_id": "d778707791b5d5a096a30ed4",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual two direct tests and partial-consumption check after first next."
+    ],
+    "notes": "Denies actual two direct tests and partial-consumption check after first next."
+  },
+  {
+    "review_id": "37bb26e192a833c4676202c5",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Count initialization/increment and two actual passing tests accurately described; scope limitations honest."
+  },
+  {
+    "review_id": "11cf8f3c1007728e34d31e58",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual executed class and partial next/count check; requested status missing."
+    ],
+    "notes": "Denies actual executed class and partial next/count check; requested status missing."
+  }
+]

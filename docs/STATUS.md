@@ -1,6 +1,6 @@
 # Current work
 
-Last reconciled: 2026-11-07. This is a handoff summary, not a live process monitor.
+Last reconciled: 2026-11-08. This is a handoff summary, not a live process monitor.
 Update the affected entry at a meaningful handoff, change of direction, or finish.
 Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
@@ -23,7 +23,7 @@ these selected runs does not establish a universal performance or quality claim.
   speedups were real but too small in total serving cost to establish a practical
   gain. See [findings and validation](../evidence/stage5-optimization-20261105/README.md)
   and the brief [history](PROJECT_HISTORY.md).
-- **Stage 6 — primary acquired; bounded addendum running:** the
+- **Stage 6 — acquisition ended; final audits in progress:** the
   [agent execution plan](STAGE6_EXECUTION_PLAN.md) specifies a durable campaign
   layer over the maintained serving suite, vLLM only, and Qwen3-8B-AWQ,
   Ministral 3-3B Instruct, and Qwen3-4B-Instruct-2507. Complete the 2080 Ti matrix
@@ -52,7 +52,17 @@ these selected runs does not establish a universal performance or quality claim.
   Primary confirmation completed all 524 configurations in 210 whole matched
   blocks on 2026-11-08. Primary workers/coordinator exited, the GPU had no clients
   and both reservations were free before the hash-verified `addendum-02` launch.
-  The separate bounded addendum owns acquisition from its attested snapshot.
+  The separate bounded addendum has ended: all 48 QA and 12 advice configurations
+  verified, with 28 matched blocks; its repository section remains closed.
+  QA enabled/no-hints throughput ratio is 0.9667 (95% CI 0.9539–0.9797),
+  leaving the 3% bound unresolved. Misleading/ARC unhinted mean TTFT ratio is
+  1.1456 (95% CI 1.1066–1.1860), a measured interference cost. All four advice
+  blocks recorded CPU pressure and false-positive recency touches.
+  [Post-acquisition audit checkpoint](../evidence/stage6-2080ti-20261106/post-acquisition-audit-checkpoint.json)
+  retains 660 verified primary attempts plus historical failures/interruption,
+  and 60 verified addendum attempts plus the failed gate. All 699 archive caps
+  now have explicit source judgments; primary final-answer review, transfer
+  proofs and completion handoff remain in progress.
   Its initial repository gate failed before serving because the coordinator used
   the test interpreter. The pinned serving runtime matches its frozen identity;
   QA/advice resume with that runtime. Repository is closed without a forbidden
@@ -105,7 +115,7 @@ these selected runs does not establish a universal performance or quality claim.
   exported validation closure; its wheel build passes through the second runtime.
   Frozen source 21 preserves the pilot/native timed serving inputs. Model source review retains format failures, unsupported
   claims and capped answers; confirmation quality and the archive-wide capped
-  response audit remain due. Next: complete the bounded addendum, then quality, comparisons and final relocation proof.
+  response audit remain due. Next: complete primary quality review, final comparisons and real relocation/import proofs.
   Check live ownership before starting other GPU work.
 - **Stage 7 — compile release, pending:** verified installation and minimal
   integration, reviewed evidence-backed README/docs/post drafts, accessible

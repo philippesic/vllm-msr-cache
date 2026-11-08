@@ -1,3 +1,25 @@
+## Acquisition ended; final audits in progress
+
+Primary acquisition completed 524 configurations in 210 matched blocks. The
+addendum completed all 24 QA pairs and four three-arm advice blocks; repository
+closed after the preserved pre-serving setup failure. Its four-system repository
+pressure comparison remains unmeasured. No replacement gate or timing retry.
+
+Enabled/no-hints QA throughput was 3.33% lower (95% interval 2.03–4.61% lower),
+leaving the declared 3% noninferiority bound unresolved. Misleading hints raised
+unhinted mean time to first token 14.56% versus ARC (95% interval 10.66–18.60%).
+All four stress blocks establish baseline CPU pressure and false-positive ready-CPU
+recency touches. These adverse results are retained without tuning or retries.
+
+The primary integrity audit verified 73,849 files; addendum verified 6,009. All
+699 capped responses across retained phases/failed attempts now have explicit
+source judgments. The addendum source review covers 2,467 entries / 96 distinct
+contexts. Primary final-answer review and actual relocation/import proofs remain
+in progress; this checkpoint does not certify quality equivalence or readiness.
+[Receipts, comparisons and outstanding work](post-acquisition-audit-checkpoint.json).
+[Additional archive-cap judgments](final-capped-new-context-ratings.json).
+[Addendum source judgments](addendum-source-judgments.json).
+
 ## Primary acquired; bounded addendum running
 
 Philip authorized a separate [PR-evidence addendum](../../docs/STAGE6_ADDENDUM.md)

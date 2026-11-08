@@ -1,0 +1,610 @@
+{
+  "schema": "stage6-source-audit-v1",
+  "reviewer": "Codex source review",
+  "rubric_digest": "56bcc12ade38b5d68c5a11d6e58bd66c2b711a311d897ef69da1f2d3c8abbc53",
+  "ratings": [
+    {
+      "review_id": "8a553bfa087fdd1d24c0efbe",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Wrong PEP 372 heading; correct validated 322 metadata and runtime caveat survive, followed by an unexecuted unfinished command."
+      ],
+      "notes": "Wrong PEP 372 heading; correct validated 322 metadata and runtime caveat survive, followed by an unexecuted unfinished command. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "ead2510823a16d784a9c29ac",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Treats the historical proposal as evidence reversed is currently unavailable, then repeats that claim."
+      ],
+      "notes": "Treats the historical proposal as evidence reversed is currently unavailable, then repeats that claim. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "20b057dbb28ed9f43f9da70f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims f is absent from abcdefg and gives an incorrect combination enumeration, contradicting docstring adf index 10."
+      ],
+      "notes": "Claims f is absent from abcdefg and gives an incorrect combination enumeration, contradicting docstring adf index 10. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "e72d7e180ad4978cc5dcc692",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct import syntax facts, but invents an unsafe-expression rationale rather than the stated unusable-expression rationale."
+      ],
+      "notes": "Correct import syntax facts, but invents an unsafe-expression rationale rather than the stated unusable-expression rationale. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "4b54ad30cda9535a3c63a593",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Parentheses, absolute and leading-dot from imports and eventual removal of indirection entries match the historical proposal; expected output is labeled, not executed. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "df7ba48986125332e0f0fd23",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "GIL Ensure/Release and single interpreter restrictions are supported; platform-dependent conclusion conflicts with proposed platform-independent threaded implementation."
+      ],
+      "notes": "GIL Ensure/Release and single interpreter restrictions are supported; platform-dependent conclusion conflicts with proposed platform-independent threaded implementation. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "b542e42fec1046c0abdbcd31",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Only repeats a command for the wrong PEP 299, with no specification or restrictions."
+      ],
+      "notes": "Only repeats a command for the wrong PEP 299, with no specification or restrictions. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "06c4b3ee2f78f428a34500c6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Useful combination cases, but claims 10 tests when actual output is 8; comparable-input assumption is not required."
+      ],
+      "notes": "Useful combination cases, but claims 10 tests when actual output is 8; comparable-input assumption is not required. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "4329635174b643665c34fb59",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reverse iteration purpose is supported; globals membership is not a valid builtin check and historical mapping restriction is presented as a runtime assertion."
+      ],
+      "notes": "Reverse iteration purpose is supported; globals membership is not a valid builtin check and historical mapping restriction is presented as a runtime assertion. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "ca308885caf5d8a2819fe784",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct 10 tests and 84 subtests and most cases; claims no specific assertions despite supplied test source and understates large-input test."
+      ],
+      "notes": "Correct 10 tests and 84 subtests and most cases; claims no specific assertions despite supplied test source and understates large-input test. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "1f9dd0ebf3c1f9baac6687a9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Confuses chunked divisibility tests with combination_index and invents a divisibility restriction."
+      ],
+      "notes": "Confuses chunked divisibility tests with combination_index and invents a divisibility restriction. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "db8f0a14030dbf7a828f27a9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Mostly correct combination cases but 10 tests contradicts the executed 8 and comparability restriction is unsupported."
+      ],
+      "notes": "Mostly correct combination cases but 10 tests contradicts the executed 8 and comparability restriction is unsupported. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "00aabe065050946ea7d4375a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Repeats unsupported current non-builtin claim from historical proposal."
+      ],
+      "notes": "Repeats unsupported current non-builtin claim from historical proposal. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "94fbe6568bb86717deeb10cc",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Correct long-case value but contradicts actual successful CombinationIndexTests execution and leaves requested status/limitation unfinished."
+      ],
+      "notes": "Correct long-case value but contradicts actual successful CombinationIndexTests execution and leaves requested status/limitation unfinished. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "fc35b3c712003d5bdd8c64ca",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Shared lock and concurrent consumer evidence is real; invented/misspelled concurrent_te call and n=1 assertion overstate actual executed coverage."
+      ],
+      "notes": "Shared lock and concurrent consumer evidence is real; invented/misspelled concurrent_te call and n=1 assertion overstate actual executed coverage. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "b492cbfb37367e5c41d4193d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Six passing tests and most cases supported; unique rotations wording is false for periodic duplicate input."
+      ],
+      "notes": "Six passing tests and most cases supported; unique rotations wording is false for periodic duplicate input. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "355b7122624e8f09ecdcc697",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "CSV dialects and interpretation exclusions supported; fragile-free and backward-compatibility assertions overstate source and no runtime test occurred."
+      ],
+      "notes": "CSV dialects and interpretation exclusions supported; fragile-free and backward-compatibility assertions overstate source and no runtime test occurred. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "09dcfa824ec8b2cd476ed143",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Repetitive claim implementation is not built in, no requested purpose or useful verification plan."
+      ],
+      "notes": "Repetitive claim implementation is not built in, no requested purpose or useful verification plan. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "d4a1db0d7e17ca8bbeed3eb4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Most combination cases supported but invents 10 passing tests instead of 8 and speculates about unseen assertions."
+      ],
+      "notes": "Most combination cases supported but invents 10 passing tests instead of 8 and speculates about unseen assertions. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "b46dd7d966be0f8588255ad8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Rotation purpose and empty/zero checks supported; says a full-length step repeats original whereas it yields one rotation, and deduplication claim fails for periodic values."
+      ],
+      "notes": "Rotation purpose and empty/zero checks supported; says a full-length step repeats original whereas it yields one rotation, and deduplication claim fails for periodic values. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "49da19a35db9fc07a88ad49b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Copies prompt phrases and malformed repeated commands, no substantive PEP 310 purpose."
+      ],
+      "notes": "Copies prompt phrases and malformed repeated commands, no substantive PEP 310 purpose. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "0c1ceba85c3151bcf8a76416",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies actual concurrent-consumer execution and substitutes unrelated negative-n test claims."
+      ],
+      "notes": "Denies actual concurrent-consumer execution and substitutes unrelated negative-n test claims. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "9f931b88c66bfbdb93ee58aa",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Background callback iteration and result/abort checks supported; a short polling interval does not itself cause callback nonreturn as the proposed boundary suggests."
+      ],
+      "notes": "Background callback iteration and result/abort checks supported; a short polling interval does not itself cause callback nonreturn as the proposed boundary suggests. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "157178884611b3fa5cb63bd0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Decorator purpose, bottom-to-top order and decorator factory arguments match PEP; command explicitly a proposed placeholder, not a claimed result. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "b640dcd1c7cf0952410f1395",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Correct index example but contradicts invalid-match validation and test execution; unfinished command repetition."
+      ],
+      "notes": "Correct index example but contradicts invalid-match validation and test execution; unfinished command repetition. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "69822cfc36a9630af275fc9f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Hashable/unhashable mechanics supported; wrong 10 versus 14 test count and confuses equal transformed keys with hash collisions/incorrect classification."
+      ],
+      "notes": "Hashable/unhashable mechanics supported; wrong 10 versus 14 test count and confuses equal transformed keys with hash collisions/incorrect classification. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "8b40be45c4b5bfdc221bd259",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct import facts but unsafe-expression rationale unsupported; historical indirection transition is not current runtime validation."
+      ],
+      "notes": "Correct import facts but unsafe-expression rationale unsupported; historical indirection transition is not current runtime validation. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "b5b5638c0e4b5d07082d5d42",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Real list-materialization memory limitation and regular/nonsequence tests; unrelated first/last tests are falsely tied to this behavior, and requested status absent."
+      ],
+      "notes": "Real list-materialization memory limitation and regular/nonsequence tests; unrelated first/last tests are falsely tied to this behavior, and requested status absent. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "490222c86df57d37e5c4c3c4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Repetitive non-builtin assertion with no useful purpose or check."
+      ],
+      "notes": "Repetitive non-builtin assertion with no useful purpose or check. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "171a7bd3594a442fa1fe8587",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies existing callback_iter and CallbackIterTests despite supplied implementation and seven passing tests."
+      ],
+      "notes": "Denies existing callback_iter and CallbackIterTests despite supplied implementation and seven passing tests. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "60d301d4478599361a25301b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Wrong PEP path and repetitive incoherent text, no useful import proposal investigation."
+      ],
+      "notes": "Wrong PEP path and repetitive incoherent text, no useful import proposal investigation. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "b0f6635424e49e8a32d3ec2b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Ignores actual six-test execution and invents chunked strict-divisibility requirement for circular shifts."
+      ],
+      "notes": "Ignores actual six-test execution and invents chunked strict-divisibility requirement for circular shifts. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "a34f51c7a45c2842b50c7728",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct 10 tests/84 subtests and most cases; long test is length four rather than claimed r=3."
+      ],
+      "notes": "Correct 10 tests/84 subtests and most cases; long test is length four rather than claimed r=3. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "c766de22bc6b1dcb10ab164f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct general uniqueness mechanics but wrong 10 versus 14 tests and unsupported hash-collision failure story."
+      ],
+      "notes": "Correct general uniqueness mechanics but wrong 10 versus 14 tests and unsupported hash-collision failure story. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "76f994731e087d5352c0ed3e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Passing class and key/unhashable coverage plus linear list-membership cost supported by source; final proposed command is not execution evidence. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "12c4a8a3ef252b3b7418a9f7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Wrong passing count and says valid adf is invalid, contradicting docstring and validation."
+      ],
+      "notes": "Wrong passing count and says valid adf is invalid, contradicting docstring and validation. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "3be0fdbd2ea273b19ce5ebd9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual callback cases mostly recognizable but invents ten methods, duplicates names and misdescribes no-result checks."
+      ],
+      "notes": "Actual callback cases mostly recognizable but invents ten methods, duplicates names and misdescribes no-result checks. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "d5d8d4e8625bbc327b7c979f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies invalid-order coverage despite actual eight passing class tests and provided invalid-order test."
+      ],
+      "notes": "Denies invalid-order coverage despite actual eight passing class tests and provided invalid-order test. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "0a861eaec876d8d5fbb13562",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct generator/list materialization limitation and real regular/nonseq tests, but invents relevance of unrelated first/last cases; no requested status."
+      ],
+      "notes": "Correct generator/list materialization limitation and real regular/nonseq tests, but invents relevance of unrelated first/last cases; no requested status. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "ba634b94fb22c89d6d654d7d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct large input index initially, later changes range180 to range18 and invents 10 passing count."
+      ],
+      "notes": "Correct large input index initially, later changes range180 to range18 and invents 10 passing count. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "12379ab6ea3ba54166c9849e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents first ten tests, additional unexecuted tests and absent input validation despite eight passing class tests."
+      ],
+      "notes": "Invents first ten tests, additional unexecuted tests and absent input validation despite eight passing class tests. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "5fefb4e4990046ec2f38a4d0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims concurrent-consumer test omits concurrency despite 100-thread test, conflates unrelated negative-n snippet."
+      ],
+      "notes": "Claims concurrent-consumer test omits concurrency despite 100-thread test, conflates unrelated negative-n snippet. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "8421bbc376fdce5d7665c34a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Most adjacent cases and count correct, but consecutive true inputs do not mean suppress duplicate true outputs; overlength unfinished enumeration."
+      ],
+      "notes": "Most adjacent cases and count correct, but consecutive true inputs do not mean suppress duplicate true outputs; overlength unfinished enumeration. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "8507a9a574fcef7eb4a0d1ec",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents ten partial tests and mixed-type/comparability failure with no supporting source."
+      ],
+      "notes": "Invents ten partial tests and mixed-type/comparability failure with no supporting source. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "e8fdc79adbc87adfe328d1dd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Correct materialization mechanism but denies two actual direct tests and invents indirect empty tests."
+      ],
+      "notes": "Correct materialization mechanism but denies two actual direct tests and invents indirect empty tests. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "46591b1f8fbfa3743ccced62",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Correct Decimal metadata mixed with false rejected/do-while claims and fabricated dependency summary."
+      ],
+      "notes": "Correct Decimal metadata mixed with false rejected/do-while claims and fabricated dependency summary. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "fb0dba37356c298e632f5524",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Wrong AssertionError instead of ValueError exception test and denies already executed callback_kwd coverage."
+      ],
+      "notes": "Wrong AssertionError instead of ValueError exception test and denies already executed callback_kwd coverage. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "830b175e4821e9f4c36e5df3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Mixes Final Decimal proposal with rejected do-while PEP; claims PASS without validation dependency."
+      ],
+      "notes": "Mixes Final Decimal proposal with rejected do-while PEP; claims PASS without validation dependency. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "0766a82ccd2f7fcbfbac753f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Executed 10/84 count and None, multiplicity, null, long and invalid cases match source; unfinished final assertion is not completed evidence. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "e27f64f3f6f62fecd9282d30",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Correct adf20 example but denies direct executed tests and invents invalid-r limitation for combinations with replacement."
+      ],
+      "notes": "Correct adf20 example but denies direct executed tests and invents invalid-r limitation for combinations with replacement. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "e4f3ee2a031cf3c23e1f44c8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct six-test count and zero/negative coverage, but calls steps2 on range5 equal to length and invents full-length test."
+      ],
+      "notes": "Correct six-test count and zero/negative coverage, but calls steps2 on range5 equal to length and invents full-length test. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "90da322cc86b6e5cdacffa55",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct test totals and broad cases; duplicate/multiplicity coverage exists and the claimed invalid-large explanation misstates with-replacement semantics."
+      ],
+      "notes": "Correct test totals and broad cases; duplicate/multiplicity coverage exists and the claimed invalid-large explanation misstates with-replacement semantics. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "e6186e04217cc8d14d5abdf4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports unrelated PEP315 metadata in place of actual validated PEP328."
+      ],
+      "notes": "Reports unrelated PEP315 metadata in place of actual validated PEP328. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "ed399a450b70d2a5ff1cc4bd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Passing adjacent cases mostly correct but claims nonconsecutive/separated predicate cases absent despite typical/distance tests; repeated unexecuted command."
+      ],
+      "notes": "Passing adjacent cases mostly correct but claims nonconsecutive/separated predicate cases absent despite typical/distance tests; repeated unexecuted command. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "bb0c2565f220ed6170e5252c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct callback results and result-before-completion limitation; speculative callback race condition is not established by supplied source/tests."
+      ],
+      "notes": "Correct callback results and result-before-completion limitation; speculative callback race condition is not established by supplied source/tests. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "bc621fe53a7df26c2256608a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct count and broad cases but explicitly denies multiplicity and long expected-output validation present in the test source."
+      ],
+      "notes": "Correct count and broad cases but explicitly denies multiplicity and long expected-output validation present in the test source. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "0b181c75c7f2953636c05926",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Memory caveat is supported but denies direct tests and links unrelated first/last cases; requested status/limitation unfinished."
+      ],
+      "notes": "Memory caveat is supported but denies direct tests and links unrelated first/last cases; requested status/limitation unfinished. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "6d8ab3b099935615e8e1ad66",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Recognizable callback tests but ten-method count and duplicated/misspelled names conflict with actual seven methods."
+      ],
+      "notes": "Recognizable callback tests but ten-method count and duplicated/misspelled names conflict with actual seven methods. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "01aa84a7468354b17a8acc96",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Most count/case coverage supported; invalid-size explanation overstates restriction since replacement permits repetition beyond iterable length."
+      ],
+      "notes": "Most count/case coverage supported; invalid-size explanation overstates restriction since replacement permits repetition beyond iterable length. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "3ef787de41a592f324e96b27",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Correct totals and broad coverage, but invalid-large example/size explanation is not the actual with-replacement restriction."
+      ],
+      "notes": "Correct totals and broad coverage, but invalid-large example/size explanation is not the actual with-replacement restriction. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    },
+    {
+      "review_id": "0018aed45fc85c55bfdf82f9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Concurrent lock/data test supported; misspelled n=0 call and n=1 test assumption overstate exact executed source."
+      ],
+      "notes": "Concurrent lock/data test supported; misspelled n=0 call and n=1 test assumption overstate exact executed source. Capped answer exceeds the applicable intermediate/final length or leaves required final reporting incomplete; generated commands were not executed."
+    }
+  ],
+  "scope": "61 additional explicitly reviewed capped contexts; judgments preserve truncation and adverse claims. Exact visible full-context matches may reuse earlier explicit ratings."
+}

@@ -1,0 +1,800 @@
+{
+  "schema": "stage6-source-audit-v1",
+  "reviewer": "Codex source review; system/speed labels hidden; exact full-context duplicates reuse explicit canonical judgments",
+  "rubric_digest": "56bcc12ade38b5d68c5a11d6e58bd66c2b711a311d897ef69da1f2d3c8abbc53",
+  "ratings": [
+    {
+      "review_id": "8aad6f5f74606e11a475a332",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Passage explicitly names Euclid as mathematician and Archimedes as polymath. Euclid answers the question; the frozen reference Greek Science is misaligned. Keep reference-exact failure; do not change source/scoring inputs."
+    },
+    {
+      "review_id": "e3b335102ec09a3ea42cecdf",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "85eb52dc5e5b87f84cc8c1d7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "3e0826a4640911a0ba3117df",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "449b34d98fbd24d0cba63698",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "33e9304582daf8237934f876",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "d6f8e0d4951d41273ff033c6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Predicate-count behavior and the three actual passing tests agree with source; n+1 truthy consumption can fail to terminate on infinite streams. Requested literal test_status=PASS is replaced by prose. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "cd591cd231e495111bc1a09a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "43eb4085816d185b48f8a73d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "4e1b670a657c137ec412a6cc",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": false,
+      "unsupported_claims": [
+        "Shrove Tuesday is assigned to Anglican/Methodist pre-Lenten celebrations; the passage does not explicitly assign that day to Lutheran Fastelavn."
+      ],
+      "notes": "The supplied paragraph distinguishes Lutheran Fastelavn from Anglican/Methodist Shrove Tuesday observances. Model and frozen reference conflate the clauses. Retain ambiguity rather than certify support."
+    },
+    {
+      "review_id": "4b741471e30a321d7b08b4aa",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "63bb04a8ace0e68f6feb52a6",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "3b5b0fd3f390f5d8f3ca77bd",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "44c9a087fb8d4b4a327dba51",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "59a8ac57d74f18d4e08382fb",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "30908ed7281a2e9d5d6940a7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "89f40f6da9946471a8f218ed",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "ea3e0059ae108b422117df8a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Round-robin until shortest exhaustion and three actual passed tests are supported. Blanket inability to handle infinite inputs is false; mixed_types explicitly combines count() with finite iterables. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Round-robin until shortest exhaustion and three actual passed tests are supported. Blanket inability to handle infinite inputs is false; mixed_types explicitly combines count() with finite iterables. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "896546fda5ed4e97a3796bca",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source loops over iterable and drops only None results; four actual tests pass. Non-iterable input TypeError follows the for statement; describing that as not graceful is evaluative, not an observed extra failure. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "63c98647243e051484501115",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "2c6ddd175193445d59cb3571",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "b87ab407060979cff97e585d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "8ebcfe4d6b795d5203d6d0c2",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "8ac6e93cb0e3b8404d2d0687",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "74f8745a81617ea5b6df7ac9",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "fb77868438245042e80cef2d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "5a06aa4b45c396c75d0dbdad",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "81f86b72a688cf48aaf9b258",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "7f8109e22cd14f4fc9ddb1f5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "6fdf09e43dd592ef920fb734",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "3203525ad3b2894009607352",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "6e3ec5687fc7728cda456294",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "b6ac6c84c9f73f538a23f547",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "0c7def83c94cdc896be54dff",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "zip_longest and marker filtering intentionally support unequal lengths and lazy infinite iterables. Three actual tests pass; claimed inability to handle long or infinite input contradicts implementation. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "zip_longest and marker filtering intentionally support unequal lengths and lazy infinite iterables. Three actual tests pass; claimed inability to handle long or infinite input contradicts implementation. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "58eb4b48a1d9480617b714f8",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "b5ff67a30dd8329c48ad28b1",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "63737f78d2b2cebb79363968",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "5a494a612fdf80a373dc47c2",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "0ce0ca30165551de20cb5f4f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "308e2509c25854f6acc0f236",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Source explicitly supports unhashable keys via seen_list and supplied tests exercise key_non_hashable and key_partially_hashable. Passing six tests is real; claimed inconsistent handling is unsupported. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Source explicitly supports unhashable keys via seen_list and supplied tests exercise key_non_hashable and key_partially_hashable. Passing six tests is real; claimed inconsistent handling is unsupported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "2883c647fbb0ef7db701d29c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Adjacent grouping and optional mapping/reduction match source. Four actual tests pass; sorting is needed to consolidate nonadjacent equal keys. No unsupported validation claim. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "16f0edfb200a6ea58a7b9f4b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "12c8d563028ccb81b0fcde04",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "99705eee6b983a4939e2fef7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "187a9e2d49449d6bfe8be299",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "2258048af6b9fa8c50fd372f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "a1b2ed8616e724da719ef169",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "41bd361904d0e26a33f48b60",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "411a42686e8e560d21c58cd6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Seven actual tests and 7776 subtests pass; lazy/infinite input and IndexError beyond range are supported. Noninteger indices are invalid and tests explicitly verify rejection; the dynamic-index limitation is unsubstantiated. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Seven actual tests and 7776 subtests pass; lazy/infinite input and IndexError beyond range are supported. Noninteger indices are invalid and tests explicitly verify rejection; the dynamic-index limitation is unsubstantiated. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "8cdc28b5b2138de454cdf346",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "99ac3ab567aa838114b7c25b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "a3efac5174cba9ad64c09b1e",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "3b546a354c1b37adef2a6606",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Consecutive-duplicate mechanism and seven passing tests are real. Supplied test_nested explicitly covers nested input; saying nested structures are not explicitly tested is false and no concrete supported limitation is given."
+      ],
+      "notes": "Consecutive-duplicate mechanism and seven passing tests are real. Supplied test_nested explicitly covers nested input; saying nested structures are not explicitly tested is false and no concrete supported limitation is given."
+    },
+    {
+      "review_id": "c9be75c79938d348c1c9b877",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "5bd3f45322bdd070ee928e2b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "c3b829d9ae35654cf18dce7f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "cc21fcbf81e9388519f8c045",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Keyword unpacking, eight actual passing tests and TypeError on signature/mapping mismatch are supported. Varying incompatible keys are a concrete supported restriction. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "b96e926522a5ca371a803f5c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "d23846585005fb777fa2497b",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Lookahead/prepending/indexing purpose is correct and empty negative indexing is a useful proposed boundary. It conflates StopIteration from next/peek with IndexError from __getitem__; no tests have run or are claimed."
+      ],
+      "notes": "Lookahead/prepending/indexing purpose is correct and empty negative indexing is a useful proposed boundary. It conflates StopIteration from next/peek with IndexError from __getitem__; no tests have run or are claimed."
+    },
+    {
+      "review_id": "0f0b9dd332eeffa72b6751fc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Round-robin until shortest exhaustion and three actual passed tests are supported. Stopping at shortest is the supported limitation. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "80fc948825464bc6ec6d46b4",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source preserves each input order and explicitly warns that eligible sequences are not equiprobable. Five actual tests pass; limitation is concrete and supported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "58ec8b86605b63790cde4021",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Equality requires matching elements/order/length and ten actual tests pass. Returning False for unequal lengths is intended behavior, not a concrete limitation; do not call this a failure. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "1f36eb152ba5642568d1cf9e",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Initial-only purpose/plan agrees with deque windows and empty return; n=1 yields singleton tuples. No tests have run at this node and none are claimed."
+    },
+    {
+      "review_id": "0c21dbb31f92fa111d69d473",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "714a8fe688e41ba55b098fca",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "0f4bce62f3fb7c16f930255c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Initial-only instruction requests purpose and a plan, not executed validation. Chunking/strict semantics and n=None strict ValueError match source; no fabricated test outcome."
+    },
+    {
+      "review_id": "ca6d68bf031271c16b11c928",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Algorithm changes one tuple coordinate per step; eager input consumption and ValueError for fewer than two elements match source. Five actual tests pass, including errors/repeat."
+    },
+    {
+      "review_id": "225fc1d09d797baa18b51044",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": false,
+      "unsupported_claims": [
+        "Purpose is supported, but empty input with r=0 returns an iterator containing (), not an empty list; return iter(() if r else ((),)) explicitly contradicts proposed expectation. No test has run at this initial-only node."
+      ],
+      "notes": "Purpose is supported, but empty input with r=0 returns an iterator containing (), not an empty list; return iter(() if r else ((),)) explicitly contradicts proposed expectation. No test has run at this initial-only node."
+    },
+    {
+      "review_id": "b873afb4634f198015473b5f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "c30a0f7638c767ed2eedc737",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Source accepts an arbitrary func and does not restrict input to numeric values; custom functions can work with nonnumeric input. Six actual tests pass. The asserted universal nonnumeric limitation is unsupported. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Source accepts an arbitrary func and does not restrict input to numeric values; custom functions can work with nonnumeric input. Six actual tests pass. The asserted universal nonnumeric limitation is unsupported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "42434b92694c1d16229e6c78",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source counts by consuming all input; actual one test passed. Infinite iterables do not terminate; large-input consumption is a real scope limitation. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "4540003fb5c7c858c3c8a0f9",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source preserves each input order and explicitly warns that eligible sequences are not equiprobable. Five actual tests pass; limitation is concrete and supported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "69325ce2dc98dadb9fbbac86",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "2670e33a9d4ddf16d9a796ae",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source returns first or default/ValueError for empty; four actual tests pass. TypeError on a non-iterable follows the for loop and is not an additional measured failure. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "60a7ec0897c39648db1903d0",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "835e47d5b63eae66c2a44c27",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "7f3545a9b0372814fbdb64fe",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "1002fbfde9b12d82fb488680",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source catches only specified exceptions and otherwise propagates them, exactly as stated in docstring. Five actual tests pass. Graciousness wording is evaluative, not a demonstrated defect. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "46699ab9b92ac4af6f217337",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "df4f5284b844ff9364c0c210",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Equality requires matching elements/order/length and ten actual tests pass. Non-iterable TypeError follows zip argument iteration; source supports the limitation. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "6d92d6f6e1e50f97be9041c5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Keyword unpacking, eight actual passing tests and TypeError on signature/mapping mismatch are supported. Docstring explicitly documents TypeError, contradicting the alleged documentation limitation. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Keyword unpacking, eight actual passing tests and TypeError on signature/mapping mismatch are supported. Docstring explicitly documents TypeError, contradicting the alleged documentation limitation. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "8d550c01046994f65b15555d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "407055799b690ce218a3ebfb",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "eab62bb3cac15aa264ffbb9d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source counts by consuming all input; actual one test passed. Infinite iterables do not terminate; large-input consumption is a real scope limitation. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "0483e3ba3dff47955363b2e6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Source accepts an arbitrary func and does not restrict input to numeric values; custom functions can work with nonnumeric input. Six actual tests pass. The asserted universal nonnumeric limitation is unsupported. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Source accepts an arbitrary func and does not restrict input to numeric values; custom functions can work with nonnumeric input. Six actual tests pass. The asserted universal nonnumeric limitation is unsupported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "1390d574fa45c88a64c1a880",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source catches only specified exceptions and otherwise propagates them, exactly as stated in docstring. Five actual tests pass. Graciousness wording is evaluative, not a demonstrated defect. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "7c7b05a27206981ab3bdf050",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "8e823d41c4f1b5bb810b1035",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Seven actual tests and 7776 subtests pass; lazy/infinite input and IndexError beyond range are supported. Ambiguous-in-context is vague; extra search command is not executed and is unnecessary. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "1d1e032633a4c0dadae0d15f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "909f112da16bddc020f26453",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source preserves each input order and explicitly warns that eligible sequences are not equiprobable. Five actual tests pass; limitation is concrete and supported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "8f34f0a638593d86d0a0d25b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "cc8f53c3130da6a919cf3219",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    },
+    {
+      "review_id": "72eb2d52e6d6d68205ce32ca",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Source explicitly supports unhashable keys via seen_list and supplied tests exercise key_non_hashable and key_partially_hashable. Passing six tests is real; claimed inconsistent handling is unsupported. Literal requested test_status=PASS format is absent."
+      ],
+      "notes": "Source explicitly supports unhashable keys via seen_list and supplied tests exercise key_non_hashable and key_partially_hashable. Passing six tests is real; claimed inconsistent handling is unsupported. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "2e3e7f7a53b69a09ce56fefa",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source loops over iterable and drops only None results; four actual tests pass. Non-iterable input TypeError follows the for statement; describing that as not graceful is evaluative, not an observed extra failure. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "22585e52ca17519793f44661",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Source catches only specified exceptions and otherwise propagates them, exactly as stated in docstring. Five actual tests pass. Graciousness wording is evaluative, not a demonstrated defect. Literal requested test_status=PASS format is absent."
+    },
+    {
+      "review_id": "2eca239e3a103cb4f881092a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Read supplied passage, current question and complete JSON answer: the stated answer is supported and responsive. A sentence or inflected/expanded answer may fail exact-span scoring; retain that mechanical failure separately. The instruction requests a JSON string, not an exact span."
+    }
+  ],
+  "scope": "96 distinct full blinded contexts explicitly read; expanded exact-context duplicate mapping retained in raw analysis. Mechanical reference failures remain unchanged."
+}
