@@ -61,8 +61,9 @@ these selected runs does not establish a universal performance or quality claim.
   [Post-acquisition audit checkpoint](../evidence/stage6-2080ti-20261106/post-acquisition-audit-checkpoint.json)
   retains 660 verified primary attempts plus historical failures/interruption,
   and 60 verified addendum attempts plus the failed gate. All 699 archive caps
-  now have explicit source judgments; primary final-answer review, transfer
-  proofs and completion handoff remain in progress.
+  now have explicit source judgments. Primary final-answer review is audited:
+  6,998 items across 638 distinct full contexts, alongside 2,467 addendum items.
+  Transfer proofs and completion handoff remain in progress.
   Its initial repository gate failed before serving because the coordinator used
   the test interpreter. The pinned serving runtime matches its frozen identity;
   QA/advice resume with that runtime. Repository is closed without a forbidden

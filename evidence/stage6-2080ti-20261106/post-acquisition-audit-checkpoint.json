@@ -4659,5 +4659,14 @@
     "reviewer": "Codex source review",
     "audit_digest": "563417378389f73b58480e39ee0887a60e03840f2a0ae4f9589eb72ab36b93e8"
   },
-  "scope": "Acquisition complete; quality, real relocation/import, rendered comparisons and final handoff remain in progress. Repeated four-system repository pressure gap remains; no retry/new measurements authorized."
+  "scope": "Acquisition complete; quality, real relocation/import, rendered comparisons and final handoff remain in progress. Repeated four-system repository pressure gap remains; no retry/new measurements authorized.",
+  "primary_source_review": {
+    "status": "audited",
+    "reviewed": 6998,
+    "audit_digest": "31c5acfae97717f6dc858ebde7a5acd245dad49d44a4e614a81a8b5e314ec51d",
+    "sample_scope": "Stratified deterministic final sample plus all automatic failures and capped responses, including intermediates; not an unbiased population useful-rate estimate",
+    "distinct_full_contexts": 638,
+    "new_explicit_contexts": 559,
+    "exact_capped_context_reuses": 79
+  }
 }

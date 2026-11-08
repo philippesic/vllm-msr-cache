@@ -330,5 +330,3139 @@
       "Denies actual executed class and partial next/count check; requested status missing."
     ],
     "notes": "Denies actual executed class and partial next/count check; requested status missing."
+  },
+  {
+    "review_id": "825e6caf6c03bbe5337c8dc9",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Noniterable wrapping, passing tests and default atomic strings/bytes match source; prose status misses requested literal."
+  },
+  {
+    "review_id": "33c6a866a435b176b4b53496",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Same supported wrapping and default string behavior under separate context; requested status literal missing."
+  },
+  {
+    "review_id": "b4f8ef3bbe13381c06af2e41",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Wrapping supported but falsely excludes custom iterable types; iter(obj) supports arbitrary compliant types."
+    ],
+    "notes": "Wrapping supported but falsely excludes custom iterable types; iter(obj) supports arbitrary compliant types."
+  },
+  {
+    "review_id": "81eaeefc559f6f6db0d15e0f",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [],
+    "notes": "Unexecuted source-search command contains no purpose/finding/status/limitation needed for current task."
+  },
+  {
+    "review_id": "f4c3f2dcc1059992a914c521",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Wrapping, passing validation and default atomic strings/bytes supported; literal test_status absent."
+  },
+  {
+    "review_id": "e816157d5f849f838583e281",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Base_type behavior supported; returning None from __iter__ raises TypeError caught by source, not categorical failure. Conflates unrelated search snippet with actual executed tests."
+    ],
+    "notes": "Base_type behavior supported; returning None from __iter__ raises TypeError caught by source, not categorical failure. Conflates unrelated search snippet with actual executed tests."
+  },
+  {
+    "review_id": "41295d06c68e498790ec2a32",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct wrapping and default strings/bytes limitation, prose status misses requested literal."
+  },
+  {
+    "review_id": "cedce589b5171833251964c0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "None handling and passing tests correct; falsely says custom noniterables/other types unsupported despite generic iter/TypeError fallback."
+    ],
+    "notes": "None handling and passing tests correct; falsely says custom noniterables/other types unsupported despite generic iter/TypeError fallback."
+  },
+  {
+    "review_id": "1fc634b412cd2d014893237c",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [],
+    "notes": "Only proposed search command; no substantive response to requested current task."
+  },
+  {
+    "review_id": "4d6bcad65341df1d9b408643",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual executed TestAlwaysIterable and existing base_type=None string test."
+    ],
+    "notes": "Denies actual executed TestAlwaysIterable and existing base_type=None string test."
+  },
+  {
+    "review_id": "862d44bda1c73f6a8df89c00",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Generic synthesis invents nested/custom-type exclusion, omits named concrete behavior and requested status format."
+    ],
+    "notes": "Generic synthesis invents nested/custom-type exclusion, omits named concrete behavior and requested status format."
+  },
+  {
+    "review_id": "c4327d8d6bfd2c58fd6849c0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Correct base_type dictionary example but invented nonstandard __iter__ exclusion and confused unrelated test snippet."
+    ],
+    "notes": "Correct base_type dictionary example but invented nonstandard __iter__ exclusion and confused unrelated test snippet."
+  },
+  {
+    "review_id": "b582436fad53288bedee49bf",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "None empty supported, but denies direct executed tests and conflates __reversed__ None with __iter__; TypeError fallback handles None return."
+    ],
+    "notes": "None empty supported, but denies direct executed tests and conflates __reversed__ None with __iter__; TypeError fallback handles None return."
+  },
+  {
+    "review_id": "85b1b52935eb92781e79fa49",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [],
+    "notes": "Generic passing synthesis does not preserve concrete specialist findings or specify named behavior; misses exact status format."
+  },
+  {
+    "review_id": "524e64da4df3a2d59f0e23c9",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Correct None behavior but denies actual validation and falsely claims TypeError-causing __iter__ None is unsupported."
+    ],
+    "notes": "Correct None behavior but denies actual validation and falsely claims TypeError-causing __iter__ None is unsupported."
+  },
+  {
+    "review_id": "815a709e082bacb84f8542b3",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Key-based duplicate detection and slower unhashable list fallback supported; literal status missing."
+  },
+  {
+    "review_id": "0cde5f7491b3ea32ad1da242",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Hybrid lookup behavior supported but denies actual five passing direct class tests."
+    ],
+    "notes": "Hybrid lookup behavior supported but denies actual five passing direct class tests."
+  },
+  {
+    "review_id": "ff933dbe0db06c5fa2456ca4",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Duplicate detection and unhashable cost supported; prose status misses literal."
+  },
+  {
+    "review_id": "796c2876de29c5ce6abe1729",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Five passing tests, lowercase-key duplicate example and list-membership cost supported."
+  },
+  {
+    "review_id": "3b75d33a58eb8d60065e7511",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies five direct executed tests and explicit infinite-iterator early-duplicate test."
+    ],
+    "notes": "Denies five direct executed tests and explicit infinite-iterator early-duplicate test."
+  },
+  {
+    "review_id": "2a36d18c169f954f0d569aab",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Key/hashability behavior and five-test passing result supported; correct cost caveat, literal format absent."
+  },
+  {
+    "review_id": "a9536fb44a260aaa8a34d92c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Core key/count facts supported; says infinite-test generator assumed not to produce infinite output despite actual count() generator. Honest all-unique infinite termination limit would need different wording."
+    ],
+    "notes": "Core key/count facts supported; says infinite-test generator assumed not to produce infinite output despite actual count() generator. Honest all-unique infinite termination limit would need different wording."
+  },
+  {
+    "review_id": "656f2d96337d185d36e81d9a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Key example useful but falsely denies actual direct tests; no final validation reporting."
+    ],
+    "notes": "Key example useful but falsely denies actual direct tests; no final validation reporting."
+  },
+  {
+    "review_id": "66356d9b02f7b16572be7207",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct lowercase duplicate, five passed tests and slower unhashable list membership."
+  },
+  {
+    "review_id": "5e8f8bf400f96386cb95a55f",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct key comparison and actual five passing tests, with source-supported unhashable cost."
+  },
+  {
+    "review_id": "afac56abb0670ffc2cf1054a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Reports FAIL from five passing tests, denies direct/infinite test, invents CLI flags."
+    ],
+    "notes": "Reports FAIL from five passing tests, denies direct/infinite test, invents CLI flags."
+  },
+  {
+    "review_id": "6486374647b54f78cde1b969",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Correct hybrid mechanism/PASS appears but contradicts it by denying actual direct tests and explicit infinite test."
+    ],
+    "notes": "Correct hybrid mechanism/PASS appears but contradicts it by denying actual direct tests and explicit infinite test."
+  },
+  {
+    "review_id": "9da530c10918c3264ad45639",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Five passed, uniqueness result and absent complex-key/performance checks supported; prose status misses literal."
+  },
+  {
+    "review_id": "a832c8c653a17922a5fc376e",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Five passed and hybrid hash/list lookup cost supported; literal requested format missing."
+  },
+  {
+    "review_id": "8cc77a29231a97ae42c3c34b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Contradictory PASS then invented FAIL, denies explicit infinite test; not reliable synthesis."
+    ],
+    "notes": "Contradictory PASS then invented FAIL, denies explicit infinite test; not reliable synthesis."
+  },
+  {
+    "review_id": "7c7592166da62cfc3118e32f",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Five passed and slower unhashable path supported; prose status misses literal."
+  },
+  {
+    "review_id": "7e10fdbce7a8e0dc01794a4c",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct key/no-key duplicate and unhashable cost statements; literal missing."
+  },
+  {
+    "review_id": "587336e0a3d3c58f9d265a5f",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Reverses reversible/nonreversible inputs; list materialization memory caveat supported. Prose status misses literal."
+  },
+  {
+    "review_id": "93f03572713a95d7e63b93b2",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Two passing tests, list fallback and memory limitation correct; requested status format absent."
+  },
+  {
+    "review_id": "8acd64dc1be79eedeb332a6b",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct reversible/list fallback and memory caveat; prose status misses literal."
+  },
+  {
+    "review_id": "3ddbff0551bf6f152a493afc",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Useful memory/caching facts but invented test_regular_reverses and denial of relevant actual tests; wrong proposed test path."
+    ],
+    "notes": "Useful memory/caching facts but invented test_regular_reverses and denial of relevant actual tests; wrong proposed test path."
+  },
+  {
+    "review_id": "05fb196c0bf558ae94980c50",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct list fallback and passed validation/memory caveat; words Test status not literal test_status."
+  },
+  {
+    "review_id": "b486293e8776dbc6c610e640",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct reversal/storage caveat and observed PASS; requested literal missing."
+  },
+  {
+    "review_id": "b7c5d4b1e5ea21fa9094089a",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Generator list fallback and actual PASS correct; literal missing."
+  },
+  {
+    "review_id": "7028f8933d5507b1feafc270",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Generator fallback, passing tests and memory limitation supported; literal missing."
+  },
+  {
+    "review_id": "187e4d8654e87eec7f99ae8d",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Caching caveat useful but invents relationship of chunked/first/last tests and nonexistent negative test; no actual status."
+    ],
+    "notes": "Caching caveat useful but invents relationship of chunked/first/last tests and nonexistent negative test; no actual status."
+  },
+  {
+    "review_id": "38944f18c57ad7d98bfa809c",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct list fallback, PASS and memory caveat; literal missing."
+  },
+  {
+    "review_id": "0f0cd2159d8845934f33a371",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Actual nonseq test and generator reversal plus full materialization caveat supported; exact PASS format present."
+  },
+  {
+    "review_id": "fd7ac9fc3214ebc745d25a72",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Substitutes unrelated first/last cases and denies explicit nonseq caching test."
+    ],
+    "notes": "Substitutes unrelated first/last cases and denies explicit nonseq caching test."
+  },
+  {
+    "review_id": "1427cc23148d09a8c0961139",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Real list fallback but denies two direct tests and invents missing source/test file."
+    ],
+    "notes": "Real list fallback but denies two direct tests and invents missing source/test file."
+  },
+  {
+    "review_id": "0170f979c286b1a652a8e8d7",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Storage caveat supported but denies actual direct tests and invents test paths."
+    ],
+    "notes": "Storage caveat supported but denies actual direct tests and invents test paths."
+  },
+  {
+    "review_id": "b0e79d61075d4f58efbb7177",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct tests and invents first/last test relevance, omits concrete limitation/status."
+    ],
+    "notes": "Denies direct tests and invents first/last test relevance, omits concrete limitation/status."
+  },
+  {
+    "review_id": "e8e2c23dc02487af4e20cf55",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Real memory caveat but denies executed two-test class and says status unavailable."
+    ],
+    "notes": "Real memory caveat but denies executed two-test class and says status unavailable."
+  },
+  {
+    "review_id": "6ac8ac55eb3adb07dcf9f25c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual concurrent-consumer test and multithread data check; zero n is valid and returns empty."
+    ],
+    "notes": "Denies actual concurrent-consumer test and multithread data check; zero n is valid and returns empty."
+  },
+  {
+    "review_id": "8cea38666afd56801ddefc4e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Full-data concurrency behavior supported; falsely excludes already-thread-safe input sources."
+    ],
+    "notes": "Full-data concurrency behavior supported; falsely excludes already-thread-safe input sources."
+  },
+  {
+    "review_id": "69836eca359ed4b71738323c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Zero-n return supported but false requirement input must be nonthreadsafe."
+    ],
+    "notes": "Zero-n return supported but false requirement input must be nonthreadsafe."
+  },
+  {
+    "review_id": "2a78dc9bf90f5452ec5ea678",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Correct zero-n, unsupported exclusion of thread-safe inputs; status format absent."
+    ],
+    "notes": "Correct zero-n, unsupported exclusion of thread-safe inputs; status format absent."
+  },
+  {
+    "review_id": "354bc67da55e3ab2278024c3",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct test and falsely claims simultaneous consumption across distinct tees unsupported."
+    ],
+    "notes": "Denies direct test and falsely claims simultaneous consumption across distinct tees unsupported."
+  },
+  {
+    "review_id": "da7685e0b3269c405eec7ea5",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents separate negative test, denies actual 100-consumer/n0 test and misreads shared test scope."
+    ],
+    "notes": "Invents separate negative test, denies actual 100-consumer/n0 test and misreads shared test scope."
+  },
+  {
+    "review_id": "400b01f69b3ff9d00eabf973",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Core complete stream/shared lock and PASS supported; heavy-load concurrency is tested with100 threads100000 items, contrary to stated limitation."
+    ],
+    "notes": "Core complete stream/shared lock and PASS supported; heavy-load concurrency is tested with100 threads100000 items, contrary to stated limitation."
+  },
+  {
+    "review_id": "cfa5ba0f2bbbd0767bd0fe0a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual test and core concurrency guarantee, claims unsupported first-tee restriction."
+    ],
+    "notes": "Denies actual test and core concurrency guarantee, claims unsupported first-tee restriction."
+  },
+  {
+    "review_id": "d7cc1027cafff4dba452dd0e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Correct lock/full-data test purpose but falsely says it was not executed and substitutes unrelated last tests."
+    ],
+    "notes": "Correct lock/full-data test purpose but falsely says it was not executed and substitutes unrelated last tests."
+  },
+  {
+    "review_id": "4e74f37e52874e35b8d69748",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Separate tees per thread and PASS supported; same-tee cross-thread sharing needs serialize, but heavy-load absence overstates100-thread test gap."
+    ],
+    "notes": "Separate tees per thread and PASS supported; same-tee cross-thread sharing needs serialize, but heavy-load absence overstates100-thread test gap."
+  },
+  {
+    "review_id": "d5cc76e4dc37459fb89f0675",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents FAIL and denies real concurrent test; actual one test passed with100 consuming threads."
+    ],
+    "notes": "Invents FAIL and denies real concurrent test; actual one test passed with100 consuming threads."
+  },
+  {
+    "review_id": "6d3992b4861bc712367b61e1",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents test_connegative and denies actual concurrency validation; negative ValueError correct but attribution false."
+    ],
+    "notes": "Invents test_connegative and denies actual concurrency validation; negative ValueError correct but attribution false."
+  },
+  {
+    "review_id": "5ef1e3c9e5c7af510dad4806",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Zero n supported; false restriction nonthreadsafe input required."
+    ],
+    "notes": "Zero n supported; false restriction nonthreadsafe input required."
+  },
+  {
+    "review_id": "0cea9544c7d8d61669d1cd79",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Real shared-lock mechanism but falsely denies executed test; input nonthreadsafe is intended supported use, not excluded."
+    ],
+    "notes": "Real shared-lock mechanism but falsely denies executed test; input nonthreadsafe is intended supported use, not excluded."
+  },
+  {
+    "review_id": "d019426305d4a5bc22b970aa",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Actual six tests pass; zero step ValueError and integer-step requirement supported. Literal test_status missing."
+  },
+  {
+    "review_id": "252d8ebb4dcbb025c03a58dc",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Valid shifts and PASS supported; invalid types propagate TypeError. Prose status misses literal."
+  },
+  {
+    "review_id": "6f890124a887611f545ba049",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Shift behavior/PASS supported, noninteger steps unsupported by deque/gcd; literal format absent."
+  },
+  {
+    "review_id": "d7b07a7099dc8347b92fcf80",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Valid shifts/PASS and invalid-type limitation supported; literal missing."
+  },
+  {
+    "review_id": "412fbf0d4986a12b35d90647",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual tests and invents failure for indivisible length/steps; gcd explicitly supports it."
+    ],
+    "notes": "Denies actual tests and invents failure for indivisible length/steps; gcd explicitly supports it."
+  },
+  {
+    "review_id": "473a3249b15c65b6a41458d7",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct valid shift/PASS and invalid-type restriction; literal missing."
+  },
+  {
+    "review_id": "a51a3c9a3ea4d71880e46a0f",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct shifts and invalid-type caveat; prose status misses requested literal."
+  },
+  {
+    "review_id": "ee7606521ab50acc51334591",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Four-element rotations and duplicate periodic outputs directly in source; literal missing."
+  },
+  {
+    "review_id": "84ce0b62d1f4a175f55189f7",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Shifts and invalid-type restriction supported; literal missing."
+  },
+  {
+    "review_id": "ac6a2377905cde753d379404",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct validation and invents empty-input failure despite explicit empty test; unique-output claim overbroad."
+    ],
+    "notes": "Denies direct validation and invents empty-input failure despite explicit empty test; unique-output claim overbroad."
+  },
+  {
+    "review_id": "f5d8f2c56f0ef17cb6a7c57c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct tests and says odd-length nonzero steps absent despite range5 positive/negative tests."
+    ],
+    "notes": "Denies direct tests and says odd-length nonzero steps absent despite range5 positive/negative tests."
+  },
+  {
+    "review_id": "d7ec7b13860044e6cc866072",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Zero/negative facts useful, but wrong test names and irrelevant chunked strict-divisibility requirement."
+    ],
+    "notes": "Zero/negative facts useful, but wrong test names and irrelevant chunked strict-divisibility requirement."
+  },
+  {
+    "review_id": "a193de5ae2d7532887ce8312",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct validation and invents strict-divisibility requirement/test names; periodic duplicate output retained by design."
+    ],
+    "notes": "Denies direct validation and invents strict-divisibility requirement/test names; periodic duplicate output retained by design."
+  },
+  {
+    "review_id": "f9855495f697a4d9aff61ca6",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents strict-divisibility requirement and nonexistent test; range5 steps2 intentionally yields five rotations."
+    ],
+    "notes": "Invents strict-divisibility requirement and nonexistent test; range5 steps2 intentionally yields five rotations."
+  },
+  {
+    "review_id": "c7e3e004fb99976adb1008cf",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Actual duplicate test demonstrates repeated values can yield repeated rotations; literal status missing."
+  },
+  {
+    "review_id": "7b7ee544677a9052460ec56b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Actual PASS/invalid-input caveat supported, but all-unique output assertion contradicts duplicate test."
+    ],
+    "notes": "Actual PASS/invalid-input caveat supported, but all-unique output assertion contradicts duplicate test."
+  },
+  {
+    "review_id": "1da14717605d9f4b87da1602",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "No strict parameter and zero-step error true; falsely denies actual six executed tests."
+    ],
+    "notes": "No strict parameter and zero-step error true; falsely denies actual six executed tests."
+  },
+  {
+    "review_id": "c96d3d59e8af6f8aca356164",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents negative-step error test, missing validation and divisibility problem; gcd supports arbitrary nonzero integer steps."
+    ],
+    "notes": "Invents negative-step error test, missing validation and divisibility problem; gcd supports arbitrary nonzero integer steps."
+  },
+  {
+    "review_id": "30d7aad3dec448aa7c75a672",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Six passed and range5 behavior true, but invents truly-circular-input requirement distinguishing list/range."
+    ],
+    "notes": "Six passed and range5 behavior true, but invents truly-circular-input requirement distinguishing list/range."
+  },
+  {
+    "review_id": "d59bd7251813e19966fd43a0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual tests, equates negative/positive rotation order, invents noninteger ValueError and empty failure."
+    ],
+    "notes": "Denies actual tests, equates negative/positive rotation order, invents noninteger ValueError and empty failure."
+  },
+  {
+    "review_id": "1e973ec90f1d1579721ab513",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented negative-step ValueError and strict-divisibility requirements; actual negative-step tests pass."
+    ],
+    "notes": "Invented negative-step ValueError and strict-divisibility requirements; actual negative-step tests pass."
+  },
+  {
+    "review_id": "4736af80008176361d2561fd",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong negative/odd/even test attribution and universal unique-shift claim contradict actual tests."
+    ],
+    "notes": "Wrong negative/odd/even test attribution and universal unique-shift claim contradict actual tests."
+  },
+  {
+    "review_id": "d1cfc6cdc3fd3ff528a5c2a9",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Six passing, zero-step error and integer-step requirement supported; prose status misses literal."
+  },
+  {
+    "review_id": "435a08acdd86f5b99d37f29a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct ABC-method tests despite view variable and executed five-test class; confuses indexing with nonsequence target."
+    ],
+    "notes": "Denies direct ABC-method tests despite view variable and executed five-test class; confuses indexing with nonsequence target."
+  },
+  {
+    "review_id": "d37c2e221813c11a347b1d58",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dynamic view reflects target mutation; read-only assignment limitation and exact PASS supported."
+  },
+  {
+    "review_id": "93b2c8735971dc9364f3e8b4",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Actual update behavior noted but denies direct tests and negative-index coverage already explicit."
+    ],
+    "notes": "Actual update behavior noted but denies direct tests and negative-index coverage already explicit."
+  },
+  {
+    "review_id": "4320f4567358313e1c2e058e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Assignment-error test absence is true, but denies actual executed class and gives no positive behavior/status."
+    ],
+    "notes": "Assignment-error test absence is true, but denies actual executed class and gives no positive behavior/status."
+  },
+  {
+    "review_id": "58a255e67bbe4c28577970fc",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Five tests, dynamic updates and read-only design supported; prose status misses literal."
+  },
+  {
+    "review_id": "641894f90029af5412868274",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Mostly correct view behavior/PASS but imports false specialist claim that direct results absent despite actual five passed, leaving contradictory synthesis."
+    ],
+    "notes": "Mostly correct view behavior/PASS but imports false specialist claim that direct results absent despite actual five passed, leaving contradictory synthesis."
+  },
+  {
+    "review_id": "0c4a66c401a04eb5e7ddf787",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Dynamic update and PASS correct, but out-of-bounds slices are explicitly covered by -n-1 through n+1 slice loop; large mutation performance remains untested."
+    ],
+    "notes": "Dynamic update and PASS correct, but out-of-bounds slices are explicitly covered by -n-1 through n+1 slice loop; large mutation performance remains untested."
+  },
+  {
+    "review_id": "a3d23c3a313e2b9806731fec",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Core view/PASS facts correct but claims no contradictions despite supplied specialist FAIL/no-results conflicting with other specialist PASS; fails required reconciliation."
+    ],
+    "notes": "Core view/PASS facts correct but claims no contradictions despite supplied specialist FAIL/no-results conflicting with other specialist PASS; fails required reconciliation."
+  },
+  {
+    "review_id": "0d4e02903e1f9af114bef5c5",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dynamic read-only behavior and exact actual PASS supported."
+  },
+  {
+    "review_id": "fa46a03d136d53e8d48fed69",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dynamic update/five passed correct; empty targets and step0 not tested (steps.remove(0))."
+  },
+  {
+    "review_id": "50e24757186c334c31f08e60",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Update/PASS and missing empty/step0 tests correct, but undefined or silent failure speculation unsupported: target slice forwards standard ValueError."
+    ],
+    "notes": "Update/PASS and missing empty/step0 tests correct, but undefined or silent failure speculation unsupported: target slice forwards standard ValueError."
+  },
+  {
+    "review_id": "b9aaad8d1f708ecba14ea70b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct tests, negative indices and actual PASS; reports invented FAIL and treats view mutation as supported expectation."
+    ],
+    "notes": "Denies direct tests, negative indices and actual PASS; reports invented FAIL and treats view mutation as supported expectation."
+  },
+  {
+    "review_id": "0938a2b564f83922fdb4ff3e",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Read-only dynamic view and exact observed PASS supported."
+  },
+  {
+    "review_id": "b709de7e2e066edd1f4682ea",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Five passing tests, dynamic update and no assignment supported; literal format missing."
+  },
+  {
+    "review_id": "68ad3d0ece73b7d2f0bd42e0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [
+      "Correct view/PASS facts mixed with specialist false no-direct-results claim; contradiction unreconciled."
+    ],
+    "notes": "Correct view/PASS facts mixed with specialist false no-direct-results claim; contradiction unreconciled."
+  },
+  {
+    "review_id": "a82d7904c5636db170fc82f1",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct tests and invalid target check despite test_init TypeError; requested fact/status missing."
+    ],
+    "notes": "Denies direct tests and invalid target check despite test_init TypeError; requested fact/status missing."
+  },
+  {
+    "review_id": "041d33b7d96739f46dc6b628",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dynamic update and five passed supported; empty target and step0 coverage absent."
+  },
+  {
+    "review_id": "ba7c6f31c1b62a34f2bf8eb9",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Source-supported dynamic view/PASS/coverage caveats; synthesis omits conflicting supplied specialist denial of actual results, so reconciliation incomplete."
+  },
+  {
+    "review_id": "d64696ff38d09a53a414b3bc",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies direct executed tests and leaves requested positive behavior/status out; no assignment test is only true narrower caveat."
+    ],
+    "notes": "Denies direct executed tests and leaves requested positive behavior/status out; no assignment test is only true narrower caveat."
+  },
+  {
+    "review_id": "ed229ef7a96b2e1287c795d1",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Background callback iteration and exception propagation supported; lacks literal test_status=PASS."
+  },
+  {
+    "review_id": "4f91aa58ce970af2c217455f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies CallbackIterTests and explicit abort test which are present."
+    ],
+    "notes": "Denies CallbackIterTests and explicit abort test which are present."
+  },
+  {
+    "review_id": "e517e442062f7c48ef13fd8a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Premature termination and exception edge cases are explicitly covered; asserted limitation unsupported."
+    ],
+    "notes": "Premature termination and exception edge cases are explicitly covered; asserted limitation unsupported."
+  },
+  {
+    "review_id": "24649f3cdd14b1fff4eda14b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly treats mi.callback_iter tests as unrelated functions and withholds actual passing status."
+    ],
+    "notes": "Incorrectly treats mi.callback_iter tests as unrelated functions and withholds actual passing status."
+  },
+  {
+    "review_id": "dc740081f7f0efa2f45927dd",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly claims callback_iter is untested despite seven supplied tests."
+    ],
+    "notes": "Incorrectly claims callback_iter is untested despite seven supplied tests."
+  },
+  {
+    "review_id": "850a62f94e089359fe16f654",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Confuses unrelated test searches and a nonexistent result method timeout parameter."
+    ],
+    "notes": "Confuses unrelated test searches and a nonexistent result method timeout parameter."
+  },
+  {
+    "review_id": "df2a332319d89a8deabd82fb",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "done/iteration behavior and internal executor portability caveat supported; status token capitalization fails exact instruction."
+  },
+  {
+    "review_id": "b46b20e019b6fb6fd4043dd6",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "wait_seconds is configurable and tested at .01; missing-test and fixed-wait limitation false."
+    ],
+    "notes": "wait_seconds is configurable and tested at .01; missing-test and fixed-wait limitation false."
+  },
+  {
+    "review_id": "f948fc40413617fee1d39750",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Explicit CallbackIterTests and abort test are present, contrary to answer."
+    ],
+    "notes": "Explicit CallbackIterTests and abort test are present, contrary to answer."
+  },
+  {
+    "review_id": "eb939eb9304c891431cb847f",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Tuple callbacks, background execution, seven passing tests and result exception propagation supported."
+  },
+  {
+    "review_id": "8050aa4864efd586379c7020",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Background tuple iteration and exception propagation supported; qualifies production limitation as possible."
+  },
+  {
+    "review_id": "9e7e7e1eb655fa159af6a446",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Acknowledges seven passes but falsely claims polling interval cannot be customized."
+    ],
+    "notes": "Acknowledges seven passes but falsely claims polling interval cannot be customized."
+  },
+  {
+    "review_id": "c9488f7ee0ba87ee33093aeb",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly rejects supplied mi.callback_iter tests and asserts unsupported custom-exception restriction."
+    ],
+    "notes": "Incorrectly rejects supplied mi.callback_iter tests and asserts unsupported custom-exception restriction."
+  },
+  {
+    "review_id": "c851355058a04ae75d9c4c50",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False fixed-polling limitation and invented test filename despite actual passing tests."
+    ],
+    "notes": "False fixed-polling limitation and invented test filename despite actual passing tests."
+  },
+  {
+    "review_id": "1df1e4d0231c98a0e052321d",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Confuses mi namespace with unrelated tests and claims default polling interval is a restriction."
+    ],
+    "notes": "Confuses mi namespace with unrelated tests and claims default polling interval is a restriction."
+  },
+  {
+    "review_id": "7e40a950b614d92954c16267",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Uniqueness tracking and possible growing set/list cost supported; lacks exact status token."
+  },
+  {
+    "review_id": "3f3bcae7e50a203e143bd83d",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly denies supplied ClassifyUniqueTests execution."
+    ],
+    "notes": "Incorrectly denies supplied ClassifyUniqueTests execution."
+  },
+  {
+    "review_id": "40d5c4f670d7e6d57cb179a6",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Basic uniqueness and growing tracking memory supported; exact status token absent."
+  },
+  {
+    "review_id": "556ff1a701e2c79750ebb990",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Basic uniqueness and growing tracking memory supported; exact status token absent."
+  },
+  {
+    "review_id": "56e6968046f959bc6d61307c",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Correct fourteen passes, but streaming generator can handle infinite input; growing history is not inability to iterate."
+    ],
+    "notes": "Correct fourteen passes, but streaming generator can handle infinite input; growing history is not inability to iterate."
+  },
+  {
+    "review_id": "f6f6f697242dbbef84203fa2",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents classify_everseen/test filename and falsely claims nonhashable key tests fail."
+    ],
+    "notes": "Invents classify_everseen/test filename and falsely claims nonhashable key tests fail."
+  },
+  {
+    "review_id": "403595a43a7bf501667cf5b8",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual tests including nonhashable and mixed key coverage."
+    ],
+    "notes": "Denies actual tests including nonhashable and mixed key coverage."
+  },
+  {
+    "review_id": "c608133f9fb8ca66fe735d38",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies supplied tests and incorrectly suggests empty input unsupported."
+    ],
+    "notes": "Denies supplied tests and incorrectly suggests empty input unsupported."
+  },
+  {
+    "review_id": "e3f2f7efbf7f29120eea62db",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Basic uniqueness and growing tracking memory supported; exact status token absent."
+  },
+  {
+    "review_id": "047d733e5c64dea865a6d374",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies supplied tests for mixed hashability and keys."
+    ],
+    "notes": "Denies supplied tests for mixed hashability and keys."
+  },
+  {
+    "review_id": "214e1860d80a54fc28cee262",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Contradictory missing-results claim and wrong ten-test count; actual fourteen pass."
+    ],
+    "notes": "Contradictory missing-results claim and wrong ten-test count; actual fourteen pass."
+  },
+  {
+    "review_id": "9d62507070f896a921df398e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Missing-tests claim false; sum produces hashable numeric keys and list fallback is supported."
+    ],
+    "notes": "Missing-tests claim false; sum produces hashable numeric keys and list fallback is supported."
+  },
+  {
+    "review_id": "4ce9b3ea979f115470605cb1",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Custom-object inconsistency is speculative and not established by supplied implementation/tests."
+    ],
+    "notes": "Custom-object inconsistency is speculative and not established by supplied implementation/tests."
+  },
+  {
+    "review_id": "095e581ea01a0c6c524ce5bc",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Acknowledges behavior but falsely denies executed tests and covered nonhashable keys."
+    ],
+    "notes": "Acknowledges behavior but falsely denies executed tests and covered nonhashable keys."
+  },
+  {
+    "review_id": "d0760c1491d7921e619aa9ed",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False missing-test claim and invented classify_everseen/classify_justseen function names."
+    ],
+    "notes": "False missing-test claim and invented classify_everseen/classify_justseen function names."
+  },
+  {
+    "review_id": "8322843fb379ff0ca9816572",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly suggests supplied nonhashable key tests fail and invents missing execution."
+    ],
+    "notes": "Incorrectly suggests supplied nonhashable key tests fail and invents missing execution."
+  },
+  {
+    "review_id": "f60dbb0542c2032dc57e8e80",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False nonhashable failure claim; supplied tests pass with fallback list."
+    ],
+    "notes": "False nonhashable failure claim; supplied tests pass with fallback list."
+  },
+  {
+    "review_id": "2fe6b282508089368fc494a8",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Distance and once-per-item predicate supported; untested input-type boundary explicitly qualified, exact status absent."
+  },
+  {
+    "review_id": "81d29cd562fda947bcc824bd",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Negative distance ValueError and finite coverage boundary supported."
+  },
+  {
+    "review_id": "ee90f09d8eae4f001b9ce542",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Integer distance/iterable input contract supported; exact status absent."
+  },
+  {
+    "review_id": "3161e2960a9946aa814d6a3e",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Zero-distance behavior and ten passes correct, but strings are iterable and not generally invalid inputs."
+    ],
+    "notes": "Zero-distance behavior and ten passes correct, but strings are iterable and not generally invalid inputs."
+  },
+  {
+    "review_id": "93070beab61c5d3c802431c3",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Custom iterable undefined-distance restriction is not a supported concrete limitation."
+    ],
+    "notes": "Custom iterable undefined-distance restriction is not a supported concrete limitation."
+  },
+  {
+    "review_id": "214c39835a75dd8f760df6d3",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Zero-distance behavior correct, but strings are valid iterables; invalid-type claim overbroad."
+    ],
+    "notes": "Zero-distance behavior correct, but strings are valid iterables; invalid-type claim overbroad."
+  },
+  {
+    "review_id": "1c77dbf95c718b21ac159ff3",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Negative distance ValueError and finite coverage boundary supported."
+  },
+  {
+    "review_id": "e74cf1bbe76617c714375a91",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Contradictory missing-tests claim; distance zero uses only current item, not neighbors; call_once is tested."
+    ],
+    "notes": "Contradictory missing-tests claim; distance zero uses only current item, not neighbors; call_once is tested."
+  },
+  {
+    "review_id": "30352c6990ba6ec9d3ee0f55",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly substitutes unrelated tests and omits actual ten passing AdjacentTests."
+    ],
+    "notes": "Incorrectly substitutes unrelated tests and omits actual ten passing AdjacentTests."
+  },
+  {
+    "review_id": "aebbecfa9ca8078200ded915",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Confuses supplied test file and denies covered multiple-match/grouping cases; malformed command is not evidence."
+    ],
+    "notes": "Confuses supplied test file and denies covered multiple-match/grouping cases; malformed command is not evidence."
+  },
+  {
+    "review_id": "95f6e7fcbea2c1dc0f28a081",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Predicate adjacency and ordinary mutation caveat reasonable; exact status absent."
+  },
+  {
+    "review_id": "12791387e0d5514ad196ced6",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented failing tests/error-message mismatch; empty and zero n correctly yield nothing and are tested."
+    ],
+    "notes": "Invented failing tests/error-message mismatch; empty and zero n correctly yield nothing and are tested."
+  },
+  {
+    "review_id": "7aafcf9bfde71a95bbb8a7c0",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Even chunk lengths and integer/iterable contract supported; capitalization misses required exact token."
+  },
+  {
+    "review_id": "7f4bc685f1d4f5e35c855ef9",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Empty iterable works and is explicitly tested, contrary to asserted limitation."
+    ],
+    "notes": "Empty iterable works and is explicitly tested, contrary to asserted limitation."
+  },
+  {
+    "review_id": "c39f1c7fc91e0dbcceee4a54",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented FAIL and empty/zero handling defect contradict ten passing tests."
+    ],
+    "notes": "Invented FAIL and empty/zero handling defect contradict ten passing tests."
+  },
+  {
+    "review_id": "45349b6c1cab2bd6404ac950",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Ten passes correct, but categorical inefficient infinite-iterator claim unsupported by bounded lookahead test."
+    ],
+    "notes": "Ten passes correct, but categorical inefficient infinite-iterator claim unsupported by bounded lookahead test."
+  },
+  {
+    "review_id": "49e2d6eadc98b13a3d3c05e8",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Even lengths and ten passes correct; n-squared lookahead boundary is explicitly tested, no claim of measured cost."
+  },
+  {
+    "review_id": "3cfcad963e40e11f10f59d8f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Nonzero-n empty input yields no chunks as tested; asserted failure false."
+    ],
+    "notes": "Nonzero-n empty input yields no chunks as tested; asserted failure false."
+  },
+  {
+    "review_id": "ecb792a65ce193af7ceccadb",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Noninteger sizes violate input contract, but infinite-loop claim unsupported."
+    ],
+    "notes": "Noninteger sizes violate input contract, but infinite-loop claim unsupported."
+  },
+  {
+    "review_id": "e79428c42e3105e96bf8bd56",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents unrelated divisibility tests and incorrectly denies executed zero-chunk test."
+    ],
+    "notes": "Invents unrelated divisibility tests and incorrectly denies executed zero-chunk test."
+  },
+  {
+    "review_id": "e9010a00f6c4fd19cca07877",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual supplied tests and invents test filename; multiplicity is explicitly supported/tested."
+    ],
+    "notes": "Denies actual supplied tests and invents test filename; multiplicity is explicitly supported/tested."
+  },
+  {
+    "review_id": "9faf9136929eaff1a03fb16e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents unsupported r=n failure and missing tests; range90/r4 is not r=n."
+    ],
+    "notes": "Invents unsupported r=n failure and missing tests; range90/r4 is not r=n."
+  },
+  {
+    "review_id": "46973122ef2b2c3fbd7e9fd0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Nonhashable/noncomparable restriction unsupported; index uses equality, not hash/order comparisons."
+    ],
+    "notes": "Nonhashable/noncomparable restriction unsupported; index uses equality, not hash/order comparisons."
+  },
+  {
+    "review_id": "5e1cf5ad7c1564f6bf2a1284",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies supplied tests including explicit large-index and invalid cases."
+    ],
+    "notes": "Denies supplied tests including explicit large-index and invalid cases."
+  },
+  {
+    "review_id": "a1bf06d199e47c231bd6a224",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Ten passes and relative input-order requirement supported; invalid acb is tested."
+  },
+  {
+    "review_id": "c5e24f144a6411d32d99d67b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly denies correct test class and all relevant execution."
+    ],
+    "notes": "Incorrectly denies correct test class and all relevant execution."
+  },
+  {
+    "review_id": "07b4ddf69fd6308ce18c66e2",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly substitutes unrelated namespace functions for supplied test results."
+    ],
+    "notes": "Incorrectly substitutes unrelated namespace functions for supplied test results."
+  },
+  {
+    "review_id": "8d7a0c448b41b846143cb4e7",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented test filename and unsupported measured scaling limitation; supplied long case passes."
+    ],
+    "notes": "Invented test filename and unsupported measured scaling limitation; supplied long case passes."
+  },
+  {
+    "review_id": "b337b6d20273c7e042ef3089",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Incorrectly denies actual supplied ten tests."
+    ],
+    "notes": "Incorrectly denies actual supplied ten tests."
+  },
+  {
+    "review_id": "63c70e3f3f9c79bac59a333f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Unique-list requirement false; multiplicity test explicitly covers repeated pool elements."
+    ],
+    "notes": "Unique-list requirement false; multiplicity test explicitly covers repeated pool elements."
+  },
+  {
+    "review_id": "b55df8a16642275041b7845f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Missing-tests claim false and multiplicity behavior explicitly tested."
+    ],
+    "notes": "Missing-tests claim false and multiplicity behavior explicitly tested."
+  },
+  {
+    "review_id": "e2fd6054d69bddd9c002738b",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Returns earliest matching occurrence with repeated values; legitimate ambiguity boundary, no assertion that tests absent."
+  },
+  {
+    "review_id": "dc28257284570305a4617fda",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Eight passes correct, categorical duplicate-unsupported claim contradicted by multiplicity test."
+    ],
+    "notes": "Eight passes correct, categorical duplicate-unsupported claim contradicted by multiplicity test."
+  },
+  {
+    "review_id": "e80f95f69faf01a8483dd43c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents odd-length/r2 restriction and misstates 180 as odd; malformed call is not supplied test."
+    ],
+    "notes": "Invents odd-length/r2 restriction and misstates 180 as odd; malformed call is not supplied test."
+  },
+  {
+    "review_id": "6d8bc3d6b66ad59d478b4a2c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Duplicate-unsupported limitation contradicts supplied multiplicity test."
+    ],
+    "notes": "Duplicate-unsupported limitation contradicts supplied multiplicity test."
+  },
+  {
+    "review_id": "98de6cfa96c3729a3ee7dee8",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Duplicate ambiguity exists but falsely says it is not tested/addressed."
+    ],
+    "notes": "Duplicate ambiguity exists but falsely says it is not tested/addressed."
+  },
+  {
+    "review_id": "1cbebed7c86eb810da2a56eb",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Invalid element/order both use ValueError; exact token absent."
+  },
+  {
+    "review_id": "2298ff177edab5f1a1aae893",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Duplicate case is tested; falsely denies coverage and claims incorrect order."
+    ],
+    "notes": "Duplicate case is tested; falsely denies coverage and claims incorrect order."
+  },
+  {
+    "review_id": "f26f50f69825416a3f131078",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Categorical duplicate failure false; repeated values supported by multiplicity test."
+    ],
+    "notes": "Categorical duplicate failure false; repeated values supported by multiplicity test."
+  },
+  {
+    "review_id": "c7bb1e751630d3036bb5a92a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invalid-order/match tests are supplied and pass; false missing-validation claim."
+    ],
+    "notes": "Invalid-order/match tests are supplied and pass; false missing-validation claim."
+  },
+  {
+    "review_id": "ba870dff9626bfa32621b061",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Correct basic behavior but falsely denies explicit multiplicity test coverage."
+    ],
+    "notes": "Correct basic behavior but falsely denies explicit multiplicity test coverage."
+  },
+  {
+    "review_id": "e57852e42c88dab9ecc064d1",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Explicitly recognizes multiplicity test passes and position/value ambiguity; no false unsupported-input claim."
+  },
+  {
+    "review_id": "f253d670642ac1bafeefc6df",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invalid axe raises ValueError as tested; missing-validation and silent-failure claims false."
+    ],
+    "notes": "Invalid axe raises ValueError as tested; missing-validation and silent-failure claims false."
+  },
+  {
+    "review_id": "e7bfeea1e36db60fea8b2dfc",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Noninteger max_size can be compared to sizes; blanket noninteger rejection claim unsupported; exact status absent."
+    ],
+    "notes": "Noninteger max_size can be compared to sizes; blanket noninteger rejection claim unsupported; exact status absent."
+  },
+  {
+    "review_id": "d6b6a81f75f1c141b6c8d3db",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False missing max_count tests and unsupported max_size=None contract."
+    ],
+    "notes": "False missing max_count tests and unsupported max_size=None contract."
+  },
+  {
+    "review_id": "4ca62fb0d6a7f83624313a05",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Denies actual seven tests and invents alternative strict test names."
+    ],
+    "notes": "Denies actual seven tests and invents alternative strict test names."
+  },
+  {
+    "review_id": "9610466d79e251389a881cc5",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Size/count batching supported with numeric size-function contract; exact status absent."
+  },
+  {
+    "review_id": "024f6029e48d31158da138ff",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Seven passes and explicit strict=False permits oversized items supported despite loose does-not-handle wording."
+  },
+  {
+    "review_id": "c3dfa71653964265bf80b889",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False missing max_count test and invented strict test names."
+    ],
+    "notes": "False missing max_count test and invented strict test names."
+  },
+  {
+    "review_id": "f7fba9a4956f9d715fd38fcc",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "max_count equality check does not validate integer type; noninteger count can bypass limit, exact status absent."
+  },
+  {
+    "review_id": "6898ada4a67288f58cc62688",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents divisibility failure and missing tests; strict checks individual item size."
+    ],
+    "notes": "Invents divisibility failure and missing tests; strict checks individual item size."
+  },
+  {
+    "review_id": "fe19932b3ca133d5df043ef2",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "False order-loss limitation; batching preserves original item sequence."
+    ],
+    "notes": "False order-loss limitation; batching preserves original item sequence."
+  },
+  {
+    "review_id": "a740480dc58f3d058edcf892",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Confuses divisibility with item-size constraints and denies actual tests."
+    ],
+    "notes": "Confuses divisibility with item-size constraints and denies actual tests."
+  },
+  {
+    "review_id": "01a18ad5560bfa71366a469c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented divisibility error contradicts implementation and seven passing tests."
+    ],
+    "notes": "Invented divisibility error contradicts implementation and seven passing tests."
+  },
+  {
+    "review_id": "8fef44d3fae4378e9d3b06e0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invalid get_len result boundary reasonable but false not-executed test claim material."
+    ],
+    "notes": "Invalid get_len result boundary reasonable but false not-executed test claim material."
+  },
+  {
+    "review_id": "d62c60ea254a45ea1ef631cc",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Size-based splitting never reorders items; stated design tradeoff false."
+    ],
+    "notes": "Size-based splitting never reorders items; stated design tradeoff false."
+  },
+  {
+    "review_id": "3ce12fff2c042fe19405cf15",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "get_len invalid input boundary plausible but materially false missing execution claim."
+    ],
+    "notes": "get_len invalid input boundary plausible but materially false missing execution claim."
+  },
+  {
+    "review_id": "d37fbfadaaa994ad4a4e74dc",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented divisibility behavior and unrelated tests, not actual size contract."
+    ],
+    "notes": "Invented divisibility behavior and unrelated tests, not actual size contract."
+  },
+  {
+    "review_id": "00b289a98533d42770e4f10f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Divisibility by max_count not required; false silent-failure claim and missing actual tests."
+    ],
+    "notes": "Divisibility by max_count not required; false silent-failure claim and missing actual tests."
+  },
+  {
+    "review_id": "823138893d6fd635502f92e0",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents test and divisibility semantics; max_count=None is explicitly supported default."
+    ],
+    "notes": "Invents test and divisibility semantics; max_count=None is explicitly supported default."
+  },
+  {
+    "review_id": "ccdf59034c254076e25cb441",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents strict divisibility errors; strict checks oversized item only."
+    ],
+    "notes": "Invents strict divisibility errors; strict checks oversized item only."
+  },
+  {
+    "review_id": "8265a69c1aa35243b40e4170",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final/Standards Track, protocol2 superset and removed unpickling safety checks supported; exact status absent."
+  },
+  {
+    "review_id": "df4443443865f58ae68a94b4",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP317 and fabricated validation FAIL; actual metadata validates PEP307."
+    ],
+    "notes": "Wrong PEP317 and fabricated validation FAIL; actual metadata validates PEP307."
+  },
+  {
+    "review_id": "1aedf9a4587e3420399dd36c",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Protocol2 superset and untrusted pickle warning supported; exact status absent."
+  },
+  {
+    "review_id": "02fc021c9a960016f7507250",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "PEP explicitly discusses older-reader compatibility and cannot-read-newer-protocol boundary, contrary to omission claim."
+    ],
+    "notes": "PEP explicitly discusses older-reader compatibility and cannot-read-newer-protocol boundary, contrary to omission claim."
+  },
+  {
+    "review_id": "22e564daaf701d8931dfe2c9",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Protocol2 reduces bloat and removes unaudited safety checks; exact status absent."
+  },
+  {
+    "review_id": "665fd43152ec23c015a1dc8a",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents universal adoption rule requiring Final/Standards Track, not a pickle rule in supplied PEP."
+    ],
+    "notes": "Invents universal adoption rule requiring Final/Standards Track, not a pickle rule in supplied PEP."
+  },
+  {
+    "review_id": "b3706f37fb6cff7127c19065",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Unsupported universal adoption rule substitutes for actual pickle specification."
+    ],
+    "notes": "Unsupported universal adoption rule substitutes for actual pickle specification."
+  },
+  {
+    "review_id": "2af2748b14e1f84ccd298f87",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Confuses test PASS with PEP Status Final; exception hierarchy rule awkwardly excepts subclasses and transition has explicit plan."
+    ],
+    "notes": "Confuses test PASS with PEP Status Final; exception hierarchy rule awkwardly excepts subclasses and transition has explicit plan."
+  },
+  {
+    "review_id": "85f833919e125c08906fdcbf",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "args removal was retracted; answer states removal as accomplished and misses exact status capitalization."
+    ],
+    "notes": "args removal was retracted; answer states removal as accomplished and misses exact status capitalization."
+  },
+  {
+    "review_id": "13a5e6a8cc3df1e89bb7dc8a",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final/Standards Track, BaseException hierarchy and retained multiargument constructor supported; distinguishes metadata validation."
+  },
+  {
+    "review_id": "abb265862786df5448b7d4dc",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "PEP Status is Final, not PASS; hierarchy does not prevent interpreter exits generally."
+    ],
+    "notes": "PEP Status is Final, not PASS; hierarchy does not prevent interpreter exits generally."
+  },
+  {
+    "review_id": "cce60f7350811d2b6660c9f3",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final metadata and staged warning transition before Python3 removal supported as historical specification."
+  },
+  {
+    "review_id": "896d1a58fc0b04db41d0733c",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final metadata and staged warnings before removal supported in historical transition scope."
+  },
+  {
+    "review_id": "7c728396c0976a59187cb578",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP Status PASS and presents speculative Python2.9 plan as actual supported release behavior."
+    ],
+    "notes": "Wrong PEP Status PASS and presents speculative Python2.9 plan as actual supported release behavior."
+  },
+  {
+    "review_id": "7b6c4454e85a12f8b421fe35",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "License choices supported but blanket modern-PyPI incompatibility unsupported; supersession is narrower."
+    ],
+    "notes": "License choices supported but blanket modern-PyPI incompatibility unsupported; supersession is narrower."
+  },
+  {
+    "review_id": "49b1296aae4cbf46165a94eb",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Superseded/Standards Track, sdist PKG-INFO rejection and absent Python-Version field supported; exact token absent."
+  },
+  {
+    "review_id": "6883a90892d0c10b69ee7517",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "License choice list and superseded metadata supported; exact status absent."
+  },
+  {
+    "review_id": "9a1080929bf2ab938f580ec3",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "License choice list and superseded metadata supported; exact status absent."
+  },
+  {
+    "review_id": "786a6c60bc5d0def5a26d718",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents never-implemented metadata history and PEP300 replacement; actual superseded-by314."
+    ],
+    "notes": "Invents never-implemented metadata history and PEP300 replacement; actual superseded-by314."
+  },
+  {
+    "review_id": "6b59ec130487b808cec735bb",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "RFC822 fields and missing Python-version requirement supported as format limitation; validation does not execute modern packaging."
+  },
+  {
+    "review_id": "597a634dddc088a73442c756",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "License choices and superseded status supported; exact status absent."
+  },
+  {
+    "review_id": "cc76b98cf72497132d4db73b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invents PACKAGE.metapackage fields and PEP27/300 history; not supported by source."
+    ],
+    "notes": "Invents PACKAGE.metapackage fields and PEP27/300 history; not supported by source."
+  },
+  {
+    "review_id": "da42232dee60237929e5fa98",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final/Standards Track, bounded ANSI decimal and Python2.4 implementation supported; performance overhead explicitly hypothetical."
+  },
+  {
+    "review_id": "8c5b6a1daf48599f28fe9e59",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "ANSI decimal metadata supported; no runtime performance qualification from source validation, exact token absent."
+  },
+  {
+    "review_id": "2d75ac5df20317917f497bd7",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Decimal representation within bounded context supported; explicitly limits metadata validation, exact token absent."
+  },
+  {
+    "review_id": "6e27da3099210aa11782a678",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "ANSI decimal metadata supported; validation not performance benchmark, exact token absent."
+  },
+  {
+    "review_id": "f84c24548125c328184afc14",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP Status PASS and unsupported overflow/underflow omission claim; context specification covers conditions."
+    ],
+    "notes": "Wrong PEP Status PASS and unsupported overflow/underflow omission claim; context specification covers conditions."
+  },
+  {
+    "review_id": "44f3800ce03721cb88ac3e8e",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Bounded precision and metadata supported; exact status absent."
+  },
+  {
+    "review_id": "10a7429eb5666010d4bb53b2",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Decimal bounded precision/2.4 support and unmeasured high-precision resource limitation supported; not a current runtime test."
+  },
+  {
+    "review_id": "f870b7ab693951f03412ea33",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "PEP Status is Final not PASS; replaces concrete supported limitation with operator-specific omission."
+    ],
+    "notes": "PEP Status is Final not PASS; replaces concrete supported limitation with operator-specific omission."
+  },
+  {
+    "review_id": "891a264af22237fc8c957491",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Omitted Type, wrong Status PASS and context omission unsupported; no literal required status."
+    ],
+    "notes": "Omitted Type, wrong Status PASS and context omission unsupported; no literal required status."
+  },
+  {
+    "review_id": "9bcb467f328152bfb93d121a",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong Status PASS, omits Type and validation status; sNaN omission not established."
+    ],
+    "notes": "Wrong Status PASS, omits Type and validation status; sNaN omission not established."
+  },
+  {
+    "review_id": "a8f6004bb45b7568abab00da",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-supported-in-Python3 claim and exact status absent."
+    ],
+    "notes": "False not-supported-in-Python3 claim and exact status absent."
+  },
+  {
+    "review_id": "81264dc58d6ad45874302a8f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Validation passed metadata; rejection is not test FAIL; invented lack-of-else rejection reason contradicts proposed grammar."
+    ],
+    "notes": "Validation passed metadata; rejection is not test FAIL; invented lack-of-else rejection reason contradicts proposed grammar."
+  },
+  {
+    "review_id": "606c9496ca29048bdc3e1a00",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Rejected metadata and unadopted proposed do-while supported; exact token absent."
+  },
+  {
+    "review_id": "9141af2eddc6f385d8f4bf4b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Reports validation PASS as document Status and overstates only workaround; fails requested rejected status/rule."
+    ],
+    "notes": "Reports validation PASS as document Status and overstates only workaround; fails requested rejected status/rule."
+  },
+  {
+    "review_id": "d307c3afd158ad55846193ed",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct rejected proposal and metadata-only validation; exact lowercase status token absent."
+  },
+  {
+    "review_id": "dffbd3bc0fafeafd8678bc03",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Rejected proposed do-while and nonadoption supported; exact status capitalization absent."
+  },
+  {
+    "review_id": "a6f4fb984d4ec9a129af47da",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final CSV API and excluded locale/data interpretation supported; exact status absent."
+  },
+  {
+    "review_id": "c693e39eb584f1a196e6cba0",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final CSV API and excluded locale/data interpretation supported; exact status absent."
+  },
+  {
+    "review_id": "8d58c8667d251001a8f4b99f",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "CSV API and interpretation exclusion supported; clearly metadata-only PASS, exact token absent."
+  },
+  {
+    "review_id": "dc0c522937dbe71436c5aed7",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dialect override and excluded data interpretation supported; exact token absent."
+  },
+  {
+    "review_id": "0f0fdd07eef690cb76465c9e",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dialect override and excluded locale/data interpretation supported; exact token absent."
+  },
+  {
+    "review_id": "57f499bacff65e382874b255",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Custom escapechar is provided parameter; claims absent custom-escape support and invents validation command."
+    ],
+    "notes": "Custom escapechar is provided parameter; claims absent custom-escape support and invents validation command."
+  },
+  {
+    "review_id": "084cfd75ea2cf01e75a904a6",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "No-built-in-iterator-module limitation unrelated to supplied CSV API and unsupported."
+    ],
+    "notes": "No-built-in-iterator-module limitation unrelated to supplied CSV API and unsupported."
+  },
+  {
+    "review_id": "bbbd3bcf76ad5f0f877dd5fa",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Fabricates validation FAIL and falsely denies implemented send/throw/close in Python2.7/3.x."
+    ],
+    "notes": "Fabricates validation FAIL and falsely denies implemented send/throw/close in Python2.7/3.x."
+  },
+  {
+    "review_id": "1a9f8070db9c92bde39fbc94",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Invented command and false unsupported generator APIs; omits requested metadata."
+    ],
+    "notes": "Invented command and false unsupported generator APIs; omits requested metadata."
+  },
+  {
+    "review_id": "04173cb391a5b42d64d6e97f",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Coroutine APIs correct but blanket nested-generator undefined claim too broad; specification describes coroutine chaining."
+    ],
+    "notes": "Coroutine APIs correct but blanket nested-generator undefined claim too broad; specification describes coroutine chaining."
+  },
+  {
+    "review_id": "b0230b08bb5c2248d9fde022",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final generator API and Python2.5 introduction supported; exact token absent."
+  },
+  {
+    "review_id": "21ad0174e62d66c4a3e5d458",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Correct generator API and explicitly metadata validation not current runtime proof; exact token absent."
+  },
+  {
+    "review_id": "6f6a6a99dedf79375cd5daac",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Source explicitly discusses backward compatibility; unsupported omission claim."
+    ],
+    "notes": "Source explicitly discusses backward compatibility; unsupported omission claim."
+  },
+  {
+    "review_id": "812d2b2e2e77da42e81b967f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Python2.5 implements these APIs; invented FAIL and missing implementation claim false."
+    ],
+    "notes": "Python2.5 implements these APIs; invented FAIL and missing implementation claim false."
+  },
+  {
+    "review_id": "21a8026f576e14643ee10373",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "APIs supported but nested-generator undefined assertion overbroad against coroutine specification."
+    ],
+    "notes": "APIs supported but nested-generator undefined assertion overbroad against coroutine specification."
+  },
+  {
+    "review_id": "ae730328ad9144fe7883da82",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-implemented in Python2.7+ and invented validation FAIL."
+    ],
+    "notes": "False not-implemented in Python2.7+ and invented validation FAIL."
+  },
+  {
+    "review_id": "6941e6fe12eab9b29c81b2a3",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP Status PASS and fails exception to fresh-send rule: send(None) can start generator."
+    ],
+    "notes": "Wrong PEP Status PASS and fails exception to fresh-send rule: send(None) can start generator."
+  },
+  {
+    "review_id": "fc45a2add067aed07a3fbc84",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Source explicitly discusses Python3 list-comprehension changes, contrary to claimed omission."
+    ],
+    "notes": "Source explicitly discusses Python3 list-comprehension changes, contrary to claimed omission."
+  },
+  {
+    "review_id": "05b517086a9a735857ba15da",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Parenthesization in function argument context, binding and isolation reflect historical source; exact token absent."
+  },
+  {
+    "review_id": "73c7c68cf98710830865ea49",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Deferred inner iteration and isolated variables supported in historical scope; exact token absent."
+  },
+  {
+    "review_id": "bfcc9d17531693eb08bb5277",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Source provides grammar productions beyond examples; false missing syntax specification."
+    ],
+    "notes": "Source provides grammar productions beyond examples; false missing syntax specification."
+  },
+  {
+    "review_id": "71f82ae557e31b87d8011561",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Source provides explicit grammar, not only examples."
+    ],
+    "notes": "Source provides explicit grammar, not only examples."
+  },
+  {
+    "review_id": "071049f319a1483cbdbc26a3",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Parenthesization/binding and isolated loop variables supported in historical Python2 scope; exact token absent."
+  },
+  {
+    "review_id": "16e51d67580a57fc04025f4c",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Metadata-only limitation honest but wrong Status PASS and missing Type/Final."
+    ],
+    "notes": "Metadata-only limitation honest but wrong Status PASS and missing Type/Final."
+  },
+  {
+    "review_id": "c27d8e7d5b839b3e914079c5",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical generator binding/isolation supported; exact token absent."
+  },
+  {
+    "review_id": "f78ab129b7531dc4e5cfcc60",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False missing syntax specification; explicit grammar appears in source."
+    ],
+    "notes": "False missing syntax specification; explicit grammar appears in source."
+  },
+  {
+    "review_id": "e8a7e3077c887bdf66342475",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP Status PASS and confuses source scope with actual tool class-decorator support; invented command."
+    ],
+    "notes": "Wrong PEP Status PASS and confuses source scope with actual tool class-decorator support; invented command."
+  },
+  {
+    "review_id": "f11c10d2345462d0d78075f4",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong document Status PASS and unsupported tool capability claim."
+    ],
+    "notes": "Wrong document Status PASS and unsupported tool capability claim."
+  },
+  {
+    "review_id": "1b8cbac8f4818122688f7cd9",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final function decorators, bottom-up application and original restricted expression grammar supported; exact token absent."
+  },
+  {
+    "review_id": "f44c6479ef7e2f1fb354db18",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical function decorator scope and later class decorator separation supported; exact token absent."
+  },
+  {
+    "review_id": "eb32a74c86393f2d038c6879",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Function decorator scope and later class decorator separation supported; exact token absent."
+  },
+  {
+    "review_id": "1cce8f851c564be99c602485",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP Status and fabricated FAIL; source includes examples despite no current-runtime execution."
+    ],
+    "notes": "Wrong PEP Status and fabricated FAIL; source includes examples despite no current-runtime execution."
+  },
+  {
+    "review_id": "120823145c20608210f82d93",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Omission of argument-passing order is not a concrete decorator restriction supported by source; no exact status."
+    ],
+    "notes": "Omission of argument-passing order is not a concrete decorator restriction supported by source; no exact status."
+  },
+  {
+    "review_id": "6920a0f38bf2e4c22c3a6818",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Degenerate repetition, fabricated FAIL and denies document identity."
+    ],
+    "notes": "Degenerate repetition, fabricated FAIL and denies document identity."
+  },
+  {
+    "review_id": "af7a937c13bd8c43be9f0fd3",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Rejected proposed with statement superseded by343 supported; exact token absent."
+  },
+  {
+    "review_id": "f370205389eacf855271cadf",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Fabricates validation FAIL and overstates absence of resource-management with syntax in modern Python."
+    ],
+    "notes": "Fabricates validation FAIL and overstates absence of resource-management with syntax in modern Python."
+  },
+  {
+    "review_id": "0de4c0c8d921a04065c790b1",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "PEP310 rejected, but blanket no with-based resource-management runtime support is false; distinguishes original syntax insufficiently."
+    ],
+    "notes": "PEP310 rejected, but blanket no with-based resource-management runtime support is false; distinguishes original syntax insufficiently."
+  },
+  {
+    "review_id": "49ec1f375394d8286feb8ffb",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Rejected proposal and343 replacement supported; exact token absent."
+  },
+  {
+    "review_id": "7ba66d67a2da64afb2366f1e",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "False blanket no with-based acquisition/release runtime support; original proposal rejection not modern feature absence."
+    ],
+    "notes": "False blanket no with-based acquisition/release runtime support; original proposal rejection not modern feature absence."
+  },
+  {
+    "review_id": "ec9651c6f0d9db1b82dc297c",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final imports rule and discouraged cross-package sys example supported as historical specification."
+  },
+  {
+    "review_id": "375c64cc9a7244d58afc25cc",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "from-only relative syntax, multiline parentheses and historical indirection deprecation supported; exact status absent."
+  },
+  {
+    "review_id": "b3d5fcedc5846a6d5426f1a3",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Import semantics correct and metadata-only validation scope honest; exact status absent."
+  },
+  {
+    "review_id": "573cc5ee2266c41be3fd1459",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Final import metadata and from-only relative syntax supported; exact token absent."
+  },
+  {
+    "review_id": "ac00c44effe2fb473f51d3cd",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Degenerate repeated wrong PEP/title from decorator document; no requested import rule."
+    ],
+    "notes": "Degenerate repeated wrong PEP/title from decorator document; no requested import rule."
+  },
+  {
+    "review_id": "cff593d572da56837a80c666",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Calls leading-dot import absolute and claims omitted handling despite source example; wrong status syntax."
+    ],
+    "notes": "Calls leading-dot import absolute and claims omitted handling despite source example; wrong status syntax."
+  },
+  {
+    "review_id": "dce3d1903ad797f39c49f39e",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "False assertion metadata validation confirms runtime implementation."
+    ],
+    "notes": "False assertion metadata validation confirms runtime implementation."
+  },
+  {
+    "review_id": "eb08f249efde3bf0ed15c867",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Multiline and from-only relative syntax supported; no literal exact status."
+  },
+  {
+    "review_id": "1b9f8ef340497844c30bf338",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Relative imports can occur at module top level within package; unsupported blanket restriction."
+    ],
+    "notes": "Relative imports can occur at module top level within package; unsupported blanket restriction."
+  },
+  {
+    "review_id": "a4352abf6005555d2817808e",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Import semantics correct and validation not runtime test; exact status absent."
+  },
+  {
+    "review_id": "523a7e5c1b238912d7181586",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP315/status/title; no PEP328 rule or validation."
+    ],
+    "notes": "Wrong PEP315/status/title; no PEP328 rule or validation."
+  },
+  {
+    "review_id": "67e445c6f6383cb283eddd91",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical PEP sequence-only reversed proposal supported; not treated as evidence about present dictionary reversal; exact token absent."
+  },
+  {
+    "review_id": "c59fb6a116d8d6fe2a9a01d0",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Source backwards-compatibility and sequence protocol limitation supported in historical scope; exact status absent."
+  },
+  {
+    "review_id": "8d16a8c21b132488c3d76824",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-implemented in Python2.4 claim, omits required Final/Type."
+    ],
+    "notes": "False not-implemented in Python2.4 claim, omits required Final/Type."
+  },
+  {
+    "review_id": "02081e02eec0604c7757e3f4",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Withholds actual passing metadata status and invents runtime command; proposal scope correct but status unmet."
+    ],
+    "notes": "Withholds actual passing metadata status and invents runtime command; proposal scope correct but status unmet."
+  },
+  {
+    "review_id": "086263f51fbcab464b7c3ca8",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical sequence protocol and backwards compatibility supported; exact token absent."
+  },
+  {
+    "review_id": "69e33f99bbd9fbcc02968303",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Falsely denies Python2.4 builtin; placeholder unsupported test not actual validation."
+    ],
+    "notes": "Falsely denies Python2.4 builtin; placeholder unsupported test not actual validation."
+  },
+  {
+    "review_id": "ab3a39459287789b6840a3df",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical sequence-only proposal boundary supported; exact status absent."
+  },
+  {
+    "review_id": "622ee7dc6f1da66d3e74e8c1",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical reverse-iterator protocol and non-all-iterables boundary supported; exact status absent."
+  },
+  {
+    "review_id": "79ef7e397cc0164c5dac45c2",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-implemented in Python2.4 and fabricated FAIL."
+    ],
+    "notes": "False not-implemented in Python2.4 and fabricated FAIL."
+  },
+  {
+    "review_id": "c0cd3e6c8adb4b2e27b05256",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-implemented in Python2.4 and fabricated FAIL; historical sample is not current runtime validation."
+    ],
+    "notes": "False not-implemented in Python2.4 and fabricated FAIL; historical sample is not current runtime validation."
+  },
+  {
+    "review_id": "46fc147b25efc4e5326bcc9e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Degenerate contradiction/repetition, missing required metadata/status."
+    ],
+    "notes": "Degenerate contradiction/repetition, missing required metadata/status."
+  },
+  {
+    "review_id": "07377a82dcbc54624c3cacde",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False claim reversed is not a builtin; exact status absent."
+    ],
+    "notes": "False claim reversed is not a builtin; exact status absent."
+  },
+  {
+    "review_id": "35b3010cf471c07bb3dbc5f4",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Source supports optional Filters beyond basic level thresholds; asserted no filtering too broad."
+    ],
+    "notes": "Source supports optional Filters beyond basic level thresholds; asserted no filtering too broad."
+  },
+  {
+    "review_id": "cfe46e5d9303bbc4467a3c2d",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PEP Status PASS and unmeasured runtime validation limitation presented as fact."
+    ],
+    "notes": "Wrong PEP Status PASS and unmeasured runtime validation limitation presented as fact."
+  },
+  {
+    "review_id": "c86ddfbc4fa7b7e212e5ba9b",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Logging hierarchy and thresholds supported; selected opening excerpt does not establish legacy integration compatibility, exact token absent."
+  },
+  {
+    "review_id": "d91a211a2de954b21590651d",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Source explicitly supports Filters beyond basic thresholds; blanket filtering limitation false."
+    ],
+    "notes": "Source explicitly supports Filters beyond basic thresholds; blanket filtering limitation false."
+  },
+  {
+    "review_id": "c8514d1797b99136baa88ac7",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong Status PASS and invented lack of thread-safe behavior; no runtime race evidence."
+    ],
+    "notes": "Wrong Status PASS and invented lack of thread-safe behavior; no runtime race evidence."
+  },
+  {
+    "review_id": "dd2d7bcfd5dc75c21b9d97bc",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Source/API description not runtime implementation test; level ordering supported, exact token absent."
+  },
+  {
+    "review_id": "3928733eb3abf1a7b6553b9e",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical version1.0/1.1 format and no current-tool qualification supported; exact token absent."
+  },
+  {
+    "review_id": "8a2c378003ad5cff4f9a4c13",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Fabricated validation FAIL; Requires has explicit StrictVersion grammar, not no standardized syntax."
+    ],
+    "notes": "Fabricated validation FAIL; Requires has explicit StrictVersion grammar, not no standardized syntax."
+  },
+  {
+    "review_id": "83ac5deeff43d7ce22d785a9",
+    "source_supported": false,
+    "instruction_followed": true,
+    "useful": false,
+    "unsupported_claims": [
+      "Superseded-by345 correct but blanket modern-tools do not support any fields false/unsupported."
+    ],
+    "notes": "Superseded-by345 correct but blanket modern-tools do not support any fields false/unsupported."
+  },
+  {
+    "review_id": "77d1b71c83ae028f15767ab7",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Wrong PACKAGING-INFO filename and fabricated FAIL; actual PKG-INFO metadata validates."
+    ],
+    "notes": "Wrong PACKAGING-INFO filename and fabricated FAIL; actual PKG-INFO metadata validates."
+  },
+  {
+    "review_id": "391b5e00e664a030eef76c2a",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical legal format values and absence of current-tool validation supported; exact token absent."
+  },
+  {
+    "review_id": "b846ef3ae9c79be1dfb0a128",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Fabricated validation FAIL and unmeasured actual packaging enforcement claims."
+    ],
+    "notes": "Fabricated validation FAIL and unmeasured actual packaging enforcement claims."
+  },
+  {
+    "review_id": "5727ec971c6d39804a3b6ce6",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Fabricated FAIL and no standardized version-format claim false; explicit StrictVersion requirement supplied."
+    ],
+    "notes": "Fabricated FAIL and no standardized version-format claim false; explicit StrictVersion requirement supplied."
+  },
+  {
+    "review_id": "630a14dcdbfa1ac8bdd05b53",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical version field supported; no current-tool enforcement demonstrated, appropriately limited."
+  },
+  {
+    "review_id": "2c3a53042360583d9a49724e",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False platform-dependent and not-implemented Python2.3 claims; fabricated validation FAIL."
+    ],
+    "notes": "False platform-dependent and not-implemented Python2.3 claims; fabricated validation FAIL."
+  },
+  {
+    "review_id": "24ea82f66d91d2b88960de56",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Manual initialization and single-interpreter assumption supported; exact token absent."
+  },
+  {
+    "review_id": "b02fecf60c1afa4f0e2c8ddc",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Portable GIL API, explicit initialization and single-interpreter limitation supported as historical specification, metadata not runtime."
+  },
+  {
+    "review_id": "623a225f600173879bdc4d8b",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Manual initialization and single-interpreter limitation supported; exact token absent."
+  },
+  {
+    "review_id": "d73623ccd3b9e2130033ae0b",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Paired portable thread API and explicit initialization/single interpreter limitation supported in historical source."
+  },
+  {
+    "review_id": "aeaea5d8983787c5f858201d",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-implemented Python2.3 and platform-specific requirement claims."
+    ],
+    "notes": "False not-implemented Python2.3 and platform-specific requirement claims."
+  },
+  {
+    "review_id": "42affea575eb2e29fe9d0c02",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "False not-implemented Python2.3, platform-specific API and fabricated FAIL."
+    ],
+    "notes": "False not-implemented Python2.3, platform-specific API and fabricated FAIL."
+  },
+  {
+    "review_id": "ff8eac7b8e8210e457c3cdd4",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical PEP drops optional start/stop args and supports iterable enumeration; invented suggested command not executed, exact token absent."
+  },
+  {
+    "review_id": "fb2fa2e3eaee1b779abb5fd2",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical original proposal excludes start/stop arguments; no current-runtime inference; exact token absent."
+  },
+  {
+    "review_id": "fdd699e2d9417d88da0581b5",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical Python2.3 enumerate and source-only modern compatibility boundary supported; exact token absent."
+  },
+  {
+    "review_id": "8105bad2ebf10edb66bf759f",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Dropped original args for slice ambiguity supported as historical PEP scope; exact token absent."
+  },
+  {
+    "review_id": "b284ecf7c851dc8054930495",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Presents historical dropped start argument as current enumerate(seq,1) limitation; modern unsupported-functionality claim unjustified."
+    ],
+    "notes": "Presents historical dropped start argument as current enumerate(seq,1) limitation; modern unsupported-functionality claim unjustified."
+  },
+  {
+    "review_id": "2e993ec2d0e2cd5351735c60",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical proposal dropped optional args, iterable indexing supported; suggested command not actual runtime evidence, exact token absent."
+  },
+  {
+    "review_id": "eda2b4201d79cf309dd39f2b",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Bird sample52/208 and pouch mechanism supported, but sixteen independent origins were within Aves, not demonstrated across dinosaurs/crocodiles; soft-tissue fossilization certainty overstated."
+    ],
+    "notes": "Bird sample52/208 and pouch mechanism supported, but sixteen independent origins were within Aves, not demonstrated across dinosaurs/crocodiles; soft-tissue fossilization certainty overstated."
+  },
+  {
+    "review_id": "0040af12865f9fa27b28588d",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Shooting/crash, three deaths, six injuries, identified victims and evolving investigation supported; later source explicitly corrects early propane speculation."
+  },
+  {
+    "review_id": "c05807fc0e93a714a4459b88",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Prank aftermath, apologies and suspended show supported, but says ACMA is investigating while supplied report says considering whether to initiate inquiry; causation remains unconfirmed."
+    ],
+    "notes": "Prank aftermath, apologies and suspended show supported, but says ACMA is investigating while supplied report says considering whether to initiate inquiry; causation remains unconfirmed."
+  },
+  {
+    "review_id": "67ca0c411784413db5bf8196",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Forecasts, evacuation preparations,115mph,50million and13.9b loss scenario supported across historical reports;331 words exceeds300-word instruction; Category3/2 snapshots not current forecast."
+  },
+  {
+    "review_id": "c08b24f7e2a903525dce8046",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Olorgesailie320k tools,55mile raw material, pigment and uncertain hominin identity supported; environmental/social interpretations qualified."
+  },
+  {
+    "review_id": "7a9709d80451fe33cdee759c",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical impending parole,2008 sentence,2013 partial parole and protected25000monthly pension supported; outcome remains prospective in supplied reports."
+  },
+  {
+    "review_id": "89c3fadcd332eb3c1ff0668f",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Mohawk killing, crowd, Sylvester and50percent decline supported, but friendly tourist interactions unsupported embellishment;333words exceeds300; death-pronoun wording ambiguous."
+    ],
+    "notes": "Mohawk killing, crowd, Sylvester and50percent decline supported, but friendly tourist interactions unsupported embellishment;333words exceeds300; death-pronoun wording ambiguous."
+  },
+  {
+    "review_id": "5777aef4e662f840b66d7b30",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical Gaza mobilization, rocket/interception counts, evolving29/3 casualty reports and failed temporary ceasefire supported; prospective invasion uncertainty retained."
+  },
+  {
+    "review_id": "e9412bf72d05e9147ced34fc",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Film review synthesis accurately retains1967 brutality, filmmakers, dramatization, divided critical reactions and budget/location constraints; historical uncertainties qualified."
+  },
+  {
+    "review_id": "b6996a855fe585f620782758",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Claimed53m debt/crowdfunding supported, but Taylor Swift rebutted appropriation of credit rather than acknowledged West caused fame; pulled-from-Tidal claim unsupported/misstates exclusive distribution; fundraising snapshots differ."
+    ],
+    "notes": "Claimed53m debt/crowdfunding supported, but Taylor Swift rebutted appropriation of credit rather than acknowledged West caused fame; pulled-from-Tidal claim unsupported/misstates exclusive distribution; fundraising snapshots differ."
+  },
+  {
+    "review_id": "4195682b464b9f5b106d7810",
+    "source_supported": true,
+    "instruction_followed": false,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "PlanetNine inference,5\u201310Earthmasses, Eris/Pluto history and lack of direct observation supported;313words exceeds300; discovery remains hypothetical."
+  },
+  {
+    "review_id": "c2d21c6562549e0f2a3072aa",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical unconfirmed37.5kHz signal, coordinates,1020miles, search assets/area and recorder battery urgency supported; no claimed identification of plane debris."
+  },
+  {
+    "review_id": "0ba8028dadf8ef05cc5b401e",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Cruz/Hooper relationship, dyslexia, abuse, academic improvement and1998formal adoption supported; some timeline is explicitly documented despite broad uncertainty wording."
+  },
+  {
+    "review_id": "f4a7be80cebfe8d5b1bb3649",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Two boarding lanes,groups,Chase/mobile notifications and separate pending Copa/Avianca19country JBA supported; regulatory/operational effects prospective."
+  },
+  {
+    "review_id": "fe76c826da6fd6115ba29006",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Gun incident/party and potential legal consequences supported, but merges conflicting reports into certain police investigation and confirmed fake gun; source also says no complaint/no investigation and spokesperson claim only."
+    ],
+    "notes": "Gun incident/party and potential legal consequences supported, but merges conflicting reports into certain police investigation and confirmed fake gun; source also says no complaint/no investigation and spokesperson claim only."
+  },
+  {
+    "review_id": "0a26f486dd35f4e97487b573",
+    "source_supported": true,
+    "instruction_followed": true,
+    "useful": true,
+    "unsupported_claims": [],
+    "notes": "Historical AirAsia search,162persons,40minute disappearance,four sonar pieces,30bodies and license breach supported; weather remains suspected and crash cause explicitly unknown."
+  },
+  {
+    "review_id": "4f180f708b91e4ef7f39afa4",
+    "source_supported": false,
+    "instruction_followed": false,
+    "useful": false,
+    "unsupported_claims": [
+      "Concise final repeats solely-provided-context assurance even though prior landmarks/species/numeric elevations were invented beyond user geography; fails to correct unsupported detail, no useful landmark conclusion."
+    ],
+    "notes": "Concise final repeats solely-provided-context assurance even though prior landmarks/species/numeric elevations were invented beyond user geography; fails to correct unsupported detail, no useful landmark conclusion."
   }
 ]
