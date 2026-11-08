@@ -22,7 +22,7 @@ test-harness:
 benchmark-help:
 	"$(PY)" -m benchmarks.serving_suite.runner --help
 bench-tests:
-	$(RUNTIME) -m pytest -q tests/test_serving_suite.py tests/test_benchmark_metrics.py tests/test_repo_workload.py tests/test_wait_opportunity_report.py tests/test_published_benchmark.py tests/test_stage5_optimization.py tests/test_campaign_contracts.py tests/test_campaign_resume.py tests/test_campaign_reporting.py tests/test_campaign_workflows.py tests/test_campaign_execution.py tests/test_campaign_quality.py tests/test_campaign_transfer.py tests/test_stage6_capped_review.py
+	$(RUNTIME) -m pytest -q tests/test_serving_suite.py tests/test_benchmark_metrics.py tests/test_repo_workload.py tests/test_wait_opportunity_report.py tests/test_published_benchmark.py tests/test_stage5_optimization.py tests/test_campaign_contracts.py tests/test_campaign_resume.py tests/test_campaign_reporting.py tests/test_campaign_workflows.py tests/test_campaign_execution.py tests/test_campaign_quality.py tests/test_campaign_transfer.py tests/test_stage6_capped_review.py tests/test_stage6_addendum.py
 bench-smoke bench-screen bench-confirm bench-operational bench-agent:
 	@test -n "$(MODEL)" -a -n "$(OUT)" || { echo 'Set MODEL to a local snapshot and OUT to a new artifact directory'; exit 2; }
 	"$(PY)" -m benchmarks.serving_suite.runner $(patsubst bench-%,%,$@) --model "$(MODEL)" --output "$(OUT)" $(BENCH_ARGS)

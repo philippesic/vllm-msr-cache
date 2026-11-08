@@ -126,7 +126,7 @@ def source_snapshot():
     # and unrelated research scripts are validation/provenance, not serving inputs.
     identity['files'] = {k:v for k,v in identity['files'].items() if not k.startswith('tests/') and
         (not k.startswith('benchmarks/') or k.startswith('benchmarks/serving_suite/') or k in ('benchmarks/csv_utils.py','benchmarks/cell_lifecycle.py'))}
-    for name in ('qualification_inputs','wait_hint_runtime_probe'):
+    for name in ('qualification_inputs','wait_hint_runtime_probe','stage6_healthcheck'):
         relative = f'benchmarks/research_checks/{name}.py'
         identity['files'][relative] = file_hash(ROOT/relative)
     for directory in ('benchmarks/serving_suite/catalogs', 'benchmarks/serving_suite/campaigns',

@@ -1,3 +1,19 @@
+## Bounded addendum prepared; primary acquisition preserved
+
+Philip authorized a separate [PR-evidence addendum](../../docs/STAGE6_ADDENDUM.md)
+after primary acquisition: a held-out pressure gate and four repeated matched
+repository comparisons across candidate/ARC/Continuum/pinned upstream; 24 fresh
+enabled/no-hints QA pairs; and four matched three-arm prediction/fairness blocks.
+There are 78 scheduled configurations, at most 85 attempts, a six-hour overall
+cap and two-hour section caps. Expected additional GPU cost is 3–5 hours, not a
+guarantee of precision or favorable results. The existing scheduled wakeup launches
+it only after primary completion and resource release. No new GPU measurement is
+part of preparation. The original protocol, results, source 21 and pre-addendum
+analysis/validation closure are preserved. SAE refers to CPU-offload PR #50422;
+the bounded source-only check found a relevant factory policy with additional
+session hooks, not a ready verified fifth arm. No SAE run or recent-base rerun.
+[Preparation, fixed budgets and CPU validation](addendum-preparation.json).
+
 ## Fixed primary confirmation running
 
 The 524-run primary schedule is acquiring immutable source 21. Before launch,

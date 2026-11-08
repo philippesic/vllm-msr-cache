@@ -9,6 +9,15 @@ RTX 2080 Ti campaign, and leave a verified reproduction package for the RTX 5080
 The remaining work at a successful handoff must be the 5080 acquisition and the
 release write-up. Produce technical findings now; public release writing is Stage 7.
 
+**Later authorized addendum:** after the untouched primary acquisition, execute
+the separately frozen [bounded PR-evidence addendum](STAGE6_ADDENDUM.md). It
+supersedes the unlaunched nine-case pressure supplement: 18 repository cases,
+48 enabled/no-hint QA cases and 12 misleading-advice/fairness cases, at most 85
+attempts and six elapsed hours. Its fixed precision and stopping rules apply to
+that addendum only. Skip recent-upstream-base checking/reruns. SAE PR #50422 was
+checked for feasibility only; no integration/run is added. Original confirmation
+and all adverse/inconclusive findings remain intact.
+
 ## 1 Scope and execution mandate
 
 The user selected vLLM only and these three models:

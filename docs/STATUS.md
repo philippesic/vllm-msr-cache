@@ -55,17 +55,25 @@ these selected runs does not establish a universal performance or quality claim.
   is unchanged. [Operation and recovery](STAGE6_UNATTENDED.md) and
   [verified monitoring receipts](../evidence/stage6-2080ti-20261106/unattended-operation.json)
   record scheduling, progress/resource/coverage checks and exact attested recovery. The first
-  five anchor cells (B01–B05) completed all 108 configurations without request
-  failures; B03–B05 had no token caps. The four-system B06 comparison is active. Complete anchor repository runs with
+  anchor B01–B11 comparisons have completed; live progress is retained in the
+  scheduled health receipts. Complete anchor repository runs with
   zero restores are retained under derived validity v3; CPU-pressure evidence in
-  those runs is inconclusive. The first four anchor ARC repetitions also have
+  those runs is inconclusive. The anchor ARC repetitions also have
   zero restores/CPU-eviction-affected returns: this cohort is a GPU-reuse control,
   not established CPU-pressure evidence. Existing full-sixteen operational runs
   prove local pressure (ARC 265/288 and candidate 270/288 eviction-affected returns),
-  but not repeated four-system repository pressure performance. A separate bounded
-  nine-configuration supplement is declared after primary acquisition; at most one
-  diagnosed four-system block replacement, thirteen total attempts. Keep all original
-  results and report the gap if this cohort cannot qualify. Sealed outcomes and source-21 acquisition remain
+  but not repeated four-system repository pressure performance. Philip authorized
+  the [bounded PR-evidence addendum](STAGE6_ADDENDUM.md), replacing the unlaunched
+  nine-case supplement: held-out pressure gate plus four matched four-system
+  repository blocks and one roomy control (18 cases), 24 fresh QA O0/O2 pairs
+  (48 cases), and four three-arm prediction/fairness blocks with valid no-return
+  and late hints (12 cases). At most 85 attempts, six elapsed hours overall/two
+  per section; no optional stopping, capacity tuning, new upstream base or SAE
+  integration. Preparation is CPU-only during acquisition; GPU launch is queued
+  strictly after primary completion/resource release. The original primary
+  analysis/export closure is preserved separately, and recovery stays attested.
+  [Prepared scope and validation](../evidence/stage6-2080ti-20261106/addendum-preparation.json).
+  Keep all original results and report purpose/precision gaps honestly. Sealed outcomes and source-21 acquisition remain
   unchanged; separately versioned analysis exports preserve both closures. See
   [activity interpretation](../evidence/stage6-2080ti-20261106/repository-resident-validity-v3.json).
   See [confirmation checkpoint](../evidence/stage6-2080ti-20261106/confirmation-progress-checkpoint.json). All

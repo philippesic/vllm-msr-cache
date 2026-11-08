@@ -187,7 +187,7 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=plan['request_timeout_s']),
                                     connector=aiohttp.TCPConnector(force_close=True)) as client:
         async def run_session(slot, session):
-            await asyncio.sleep(slot * plan.get('arrival_interval_s', 0))
+            await asyncio.sleep(slot * plan.get('arrival_interval_s', 0) + session.get('arrival_s', 0))
             sid = f'w{wave}:{session["id"]}'
             group = session.get('traffic_class', 'hinted' if session.get('publish_hints', False) else 'unhinted')
             emit('session_start', session_id=sid, source_id=session['id'], traffic_class=group)
@@ -264,7 +264,18 @@ async def run_wave(url, plan, sessions, tokenizer, wave, writer, arm, namespace,
                 history.append(dict(role='assistant', content=text))
                 previous[stream] = row
                 later = [n for n in graph['nodes'] if n['kind'] == 'request' and n.get('session', 'main') == stream and numbered[n['id']] > index]
-                if publish and later:
+                if publish and plan.get('addendum_advice'):
+                    from .addendum_advice import schedule
+                    async def announce_addendum():
+                        return await publish_hint(client, url, row, sid + ':' + stream, rid, namespace, hints,
+                                                  declared_wait_ms=750, completed_transcript=True)
+                    task = await schedule(mode=plan['addendum_advice'],
+                        scenario=session.get('advice_scenario', 'ordinary'), index=index, later=later,
+                        event=event, announce=announce_addendum,
+                        emit=lambda name, **fields: emit(name, session_id=sid, **fields))
+                    if task is not None:
+                        hint_tasks[(sid, stream)] = task
+                elif publish and later:
                     owner = rid
                     async def announce():
                         return await publish_hint(client, url, row, sid + ':' + stream, owner, namespace, hints,

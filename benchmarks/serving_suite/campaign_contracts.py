@@ -288,7 +288,7 @@ class Ledger:
                     return row
         return None
 
-    def recover(self):
+    def recover(self, *, seal_pending=False):
         path = self.root / 'ledger.jsonl'
         if path.exists():
             raw = path.read_bytes()
@@ -301,5 +301,16 @@ class Ledger:
                     os.fsync(stream.fileno())
         for row in list(self.index().values()):
             if row['state'] in {'planned', 'running'}:
-                self.event(row['case_id'], row['attempt_id'], 'interrupted', **row['details'], recovery='New whole-case attempt required')
+                details = dict(row['details'])
+                if seal_pending:
+                    directory = local_path(self.root,details['path'])
+                    directory.mkdir(parents=True,exist_ok=True)
+                    identity_path = directory/'identity.json'
+                    if not identity_path.exists():
+                        atomic_json(identity_path,details['identity'])
+                    atomic_json(directory/'recovery.json',dict(reason='Coordinator stopped before terminal receipt',
+                        previous_state=row['state'],recovered_unix=time.time(),
+                        scope='Preserved incomplete attempt; no measurement credit or fabricated responses'))
+                    details['seal'] = seal_tree(directory)
+                self.event(row['case_id'], row['attempt_id'], 'interrupted', **details, recovery='New whole-case attempt required')
         return self.index()

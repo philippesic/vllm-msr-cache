@@ -93,39 +93,81 @@ repository and four-system document results must also retain their actual native
 activity; do not infer activity from the workload label.
 
 The remaining precise gap is anchor **four-system repository performance under
-pressure**, not all local CPU-offload activity. Fill it after the healthy frozen
-acquisition releases the GPU using a separately declared bounded supplement:
+pressure**, not all local CPU-offload activity. Philip subsequently authorized the
+[bounded PR-evidence addendum](STAGE6_ADDENDUM.md). It supersedes the unlaunched
+nine-configuration supplement: do not run both. The original 524 cases are intact.
 
-- Use the existing complete sixteen-session confirmation repository cohort used
-  by the operational runs, with the same real tools, model, output budgets and
-  frozen candidate. No padding, task selection by speed or policy changes.
-- Base GPU/CPU budgets remain 1,024 blocks / 2,793,406,464 CPU bytes. Declare sixteen
-  active sessions/concurrency uniformly for all four systems. Freeze the executed
-  supplement inputs and code before launch in a new raw directory.
-- Two predeclared whole four-system blocks, using the existing balanced `order`
-  function for repetitions 0 and 1, plus one ARC roomy control on the identical
-  cohort at 4,831,838,208 CPU bytes and the unchanged GPU budget: nine scheduled
-  configurations. Run the roomy case between the two base blocks.
-- The first base block must complete with real native ARC restores and at least
-  one CPU-eviction-affected returning request, all declared tool/request identities,
-  active external policies and clean owned shutdown. If purpose/resource fit fails,
-  preserve the block and report the gap; do not change capacities or chase activity.
-- Allow at most one whole four-system block replacement for a diagnosed setup or
-  execution defect, capped at thirteen total attempts. No optional stopping based
-  on timing, no broad-matrix restart. Retain unfavorable or inconclusive results.
-- Two repetitions establish bounded coverage and conditional observations, not the
-  primary precision target or a new policy win. Keep this supplement separate from
-  the frozen primary estimates and from the sustained-operation measurements.
+The frozen addendum is `output/stage6-2080ti-20261106/addendum-02`; its queue receipt
+is `unattended-health/addendum-queue.json` beside this campaign. It schedules 18
+repository configurations (held-out ARC pressure gate, four four-system blocks,
+one roomy ARC), 48 new QA O0/O2 configurations (24 fixed pairs), and 12 prediction
+stress configurations (four matched three-arm blocks with abandoned/late sessions
+and unhinted traffic). Maximum 85 attempts, six elapsed hours overall and two per
+section. Inputs, orders, estimators, purpose gates, retries and stopping rules are
+prespecified in the addendum. Preparation/CPU checks do not authorize an early GPU
+launch. No recent-upstream-base investigation; SAE PR #50422 feasibility only,
+no integration or measurements.
 
-Do not interrupt primary acquisition to run or prepare a new GPU diagnostic.
-Implement the supplement through the existing serving runner/locks, with an
-explicit manifest and receipts; avoid another campaign framework. If this small
-scope cannot run faithfully, disclose the remaining coverage limitation.
+## Addendum launch, completion and recovery
+
+Once the primary check reports `acquisition_complete`, verify the primary
+coordinator and worker have exited, GPU clients are absent and both reservations
+are free. Verify the queued protocol hash and source manifest. Read `snapshot`
+from the addendum `protocol.lock.json` and use it as the command's working
+directory; the launcher refuses a different source. Then launch in a persistent
+execution session (not a background shell without a receipt):
+
+```bash
+ADDENDUM=/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-02
+"$PY" -m benchmarks.serving_suite.campaign_addendum run --out "$ADDENDUM" > "$STATE/addendum-coordinator.log" 2>&1
+```
+
+The entry point independently refuses incomplete primary whole blocks, a live
+primary coordinator, occupied GPU/locks, changed inputs/source/policy or exceeded
+persisted budgets. It keeps the fast existing worker supervision and fresh
+processes. Record the returned execution-session/owner identity in the queue
+receipt, establish the first attempt, and end the turn; do not wait for acquisition.
+
+During addendum acquisition run **one** bounded check instead of repeatedly
+checking the finished primary:
+
+```bash
+"$PY" -m benchmarks.serving_suite.campaign_addendum status --out "$ADDENDUM"
+```
+
+Healthy ends silently until the next existing 20-minute wakeup. `attention`
+requires preserved diagnosis and ownership/resource checks. A stopped coordinator
+is actionable even if its last state says running. Reuse complete sealed whole
+blocks with `run --out "$ADDENDUM" --resume` from the same attested snapshot;
+unfinished blocks need a linked `repair` authorization (CLI `--help`), at most one
+four-arm repository and one three-arm prediction replacement. There are no QA
+pair replacements. If repair is outside scope/budget, use `close-section` with
+retained evidence and a reason, then resume the independent sections. No favorable
+timing/quality retries or resetting start times. An exhausted cap is a retained
+coverage limitation; finish independent audits and report it.
+
+After `complete` or `budget_exhausted`, verify addendum attempts with
+`benchmarks.serving_suite.campaign_verify.verify_campaign`, generate the actual
+`benchmarks.serving_suite.addendum_report --out "$ADDENDUM"` comparisons and
+secondary pressure audit, and prepare its source review with
+`campaign_quality.prepare_review(Path(ADDENDUM), 'screen')`. The ordinary all-attempt
+capped inventory automatically includes the addendum ledger. Complete its final
+answer/blinded review too; acquisition does not establish quality equivalence.
+
+The pre-addendum primary analysis/validation closure is preserved separately in
+`output/stage6-2080ti-20261106/preserved-primary-analysis.json` (`closure` field).
+Only the four already allowed derived analysis/transfer modules differ there
+from primary source 21. Run the original primary report/export/relocation proof
+from that attested closure, not the new addendum driver: do not broaden the
+primary derived-source allowlist or relabel its timed inputs. The original
+`derived-analysis-revision-22.json` still attests the unchanged recovery predicate.
+Package the distinct addendum source/input/schedule closure and its findings
+alongside the primary reproduction bundle; prove imports/relocation for both.
 
 ## After acquisition
 
 A completed GPU phase is not completion of the user's task. Verify all 524 logical
-configurations in 210 whole blocks; run the bounded coverage supplement above;
+configurations in 210 whole blocks; run the bounded addendum above;
 finish objective/blinded source quality and every archived capped response; verify
 retained attempts; prove relocation and GPU-free import against runtime rebuild 02;
 retain model/workload/system comparisons, CIs and adverse findings; render the

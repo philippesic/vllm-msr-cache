@@ -87,7 +87,8 @@ def test_smaller_pressure_pair_preserves_full_operational_waves():
 
 
 @pytest.mark.parametrize('publish',[True,False])
-def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path,publish):
+@pytest.mark.parametrize('advice_mode',[None,'accurate','misleading'])
+def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path,publish,advice_mode):
     import json
     import sys
     from aiohttp import web
@@ -138,6 +139,8 @@ def test_live_graph_adapter_streams_and_runs_real_allowlisted_tools(tmp_path,pub
         plan = dict(concurrency=2, client_concurrency=2, tool_concurrency=1, tool_timeout_s=5,
                     request_timeout_s=5, publish_hints=True, max_tokens=8, max_model_len=128,
                     seed=17, chat_template_kwargs={'enable_thinking': False}, expected_tools_per_wave=1, waves=1)
+        if advice_mode:
+            plan['addendum_advice'] = advice_mode
         session['graph'] = linear_graph(session, plan)
         try:
             await run_wave(f'http://127.0.0.1:{port}', plan, [session], Tokenizer(), 0, rows.append,
