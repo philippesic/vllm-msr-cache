@@ -1,4 +1,4 @@
-## Acquisition and audits complete; primary transfer in progress
+## Stage 6 complete within bounded scope
 
 Primary acquisition completed 524 configurations in 210 matched blocks. The
 addendum completed all 24 QA pairs and four three-arm advice blocks; repository
@@ -15,8 +15,10 @@ The primary integrity audit verified 73,849 files; addendum verified 6,009. All
 699 capped responses across retained phases/failed attempts now have explicit
 source judgments. The addendum source review covers 2,467 entries / 96 distinct
 contexts. Primary final-answer source review now covers 6,998 entries / 638 distinct full
-contexts. The separate addendum relocation/import proof passed. Primary relocation/import remains in progress; quality equivalence is not certified.
+contexts. Both real relocation/offline verification and GPU-free runtime02 import proofs passed. Hardware preflight remains mandatory for future replication; answer-quality equivalence and production readiness are not certified.
 [Measured whole-block results and qualifications](RESULTS.md).
+[Exact 5080 handoff](HANDOFF_5080.md).
+[Primary transfer proof](primary-portability-proof.json) and [separate addendum proof](addendum-portability-proof.json).
 [Receipts, comparisons and outstanding work](post-acquisition-audit-checkpoint.json).
 [Additional archive-cap judgments](final-capped-new-context-ratings.json).
 [Addendum source judgments](addendum-source-judgments.json).

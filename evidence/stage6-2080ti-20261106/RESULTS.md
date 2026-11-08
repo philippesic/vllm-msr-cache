@@ -3,7 +3,9 @@
 Acquisition and source review are complete. Results are conditional on the
 2080 Ti/WSL2 host, frozen inputs and configured systems. They support
 workload-dependent performance, not universal dominance or quality equivalence.
-Transfer verification is recorded separately before the completion handoff.
+Both [primary](primary-portability-proof.json) and [addendum](addendum-portability-proof.json)
+real relocation/offline verification and GPU-free rebuilt-runtime imports passed.
+The [handoff](HANDOFF_5080.md) requires new-host hardware preflight; no 5080 job ran.
 
 The primary matrix completed 524 configurations in 210 matched blocks: twelve
 workloads on Qwen3-8B-AWQ, and five each on Ministral3-3B and Qwen3-4B. External

@@ -16,7 +16,8 @@
       "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
     },
     "comparisons": "../../output/stage6-2080ti-20261106/development-15/analysis/current/results.json",
-    "source_quality": "pending_source_audit"
+    "source_quality": "audited; 6998 reviewed items / 638 distinct full contexts; quality equivalence unestablished",
+    "final_report": "primary-final-report.json"
   },
   "addendum": {
     "status": "complete",
@@ -4659,7 +4660,7 @@
     "reviewer": "Codex source review",
     "audit_digest": "563417378389f73b58480e39ee0887a60e03840f2a0ae4f9589eb72ab36b93e8"
   },
-  "scope": "Primary/addendum acquisition and source/cap audits complete; comparisons rendered, addendum transfer verified, primary preserved-closure transfer in progress. Repeated four-system repository pressure gap retained; no new measurements authorized.",
+  "scope": "Bounded Stage 6 acquisition, comparisons, source/cap audits, real relocation and rebuilt-runtime imports complete. Repository repeated four-system pressure comparison remains unmeasured after closed gate; no quality-equivalence, production or 5080 performance claim.",
   "primary_source_review": {
     "status": "audited",
     "reviewed": 6998,
@@ -4674,5 +4675,8 @@
   "comparisons": "results/comparisons.json",
   "findings": "RESULTS.md",
   "handoff": "HANDOFF_5080.md",
-  "primary_portability": "in_progress_from_preserved_analysis_closure"
+  "primary_portability": "primary-portability-proof.json",
+  "completion_recorded_utc": "2026-11-08T18:48:11.309621+00:00",
+  "primary_report_complete": true,
+  "remaining_stage6": []
 }

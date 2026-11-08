@@ -6,7 +6,7 @@ Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
 linked evidence/run directories, not a second diary here.
 
-Latest completed handoff: [Stage 5 optimization](../evidence/stage5-optimization-20261105/README.md). Keep the existing wait-hint behavior; no new serving variant qualified. The eviction CPU lead was reproduced on actual states but accounted for less than 0.1% of workflow time. Final functional checks passed; GPU released.
+Latest completed handoff: [Stage 6 findings](../evidence/stage6-2080ti-20261106/RESULTS.md) and [gated 5080 replication](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md). Workload-dependent gains and adverse results remain qualified; repeated four-system repository pressure evidence is missing. No 5080 jobs or production qualification.
 
 Plan and completed local evidence: [wait-hint validation and release plan](WAIT_HINT_PRODUCT_PLAN.md).
 The original four stages cover causal validation, competitive comparison, repeatability
@@ -15,7 +15,7 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Wait-hint release extension — Stage 6 final transfer in progress
+## Wait-hint release extension — Stage 6 complete within bounded scope
 
 - **Stage 6 acquisition and audits:** all 524 primary configurations / 210 whole
   matched blocks completed. The separate bounded addendum completed 24 QA pairs
@@ -47,12 +47,12 @@ these selected runs does not establish a universal performance or quality claim.
   [audit checkpoint](../evidence/stage6-2080ti-20261106/post-acquisition-audit-checkpoint.json).
 - **Transfer:** addendum relocation and GPU-free source/input import against
   independently rebuilt runtime02 passed. Primary relocation/offline verification
-  and runtime02 import are running from the attested pre-addendum analysis closure;
+  and runtime02 import also passed from the attested pre-addendum analysis closure;
   original source 21 and the four-module derived allowlist are unchanged. The
   [5080 handoff](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md) records exact
   separately gated commands. No 5080 jobs, new base check or SAE integration.
-- **Resources:** GPU acquisition has ended. The existing scheduled task remains
-  enabled until final transfer/completion closure; no new schedule is created.
+- **Resources:** GPU acquisition has ended and both reservations are free. Final
+  completion closure is disabling the existing scheduled task; no new schedule is created.
   Fast worker supervision is unchanged. [Unattended recovery](STAGE6_UNATTENDED.md)
   and the saved queue retain exact identities. Preserve raw evidence, reusable
   caches and the paused AWQ work; check current ownership before new GPU work.

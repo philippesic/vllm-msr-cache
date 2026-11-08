@@ -22,9 +22,16 @@ Copy both sealed bundle directories, the completion audit packet, and this
 repository checkpoint to the new host using the configured Tailscale SSH alias
 (LAN fallback only if needed). Keep SSH host-key/private-key authentication.
 The primary proof also retains `relocated-evidence/` for offline analysis; copy
-it when the full original raw measurements are needed. Verify seals after copy
+it when the full original raw measurements are needed. The final review packet is
+`output/stage6-2080ti-20261106/completion-audit-packet-02/`; its seal and final
+proof links are in [completion.json](completion.json). Verify seals after copy
 with the exported verifier, before using inputs. Directory names below are
 explicit new-host variables, not paths to this WSL host.
+
+The primary bundle was sealed before proving its own relocation. Its embedded
+pre-transfer report can therefore retain `complete: false`. Preserve that sealed
+snapshot; the adjacent final completion and transfer receipts close the audit.
+They do not waive the new host's hardware-preflight requirement.
 
 Run primary replication from **its exported source**, not the addendum source
 or mutable checkout. Keep the exact pinned base and selected policy.

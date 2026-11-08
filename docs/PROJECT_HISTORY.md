@@ -158,3 +158,18 @@ archive verify. GPU released, useful evidence and recovery material preserved.
   stayed below 0.1% of workflow time even with large real-document batches.
   Nine final functional waves and operational recovery checks passed. GPU released;
   Stage 6 fresh validation remains pending. [Findings and selected profile](../evidence/stage5-optimization-20261105/README.md).
+
+- **November 8, 2026 — bounded Stage 6 evidence and transfer complete:** acquired
+  524 primary configurations in 210 whole blocks; retained all failures and the
+  bounded addendum's 24 QA pairs/four advice blocks. Reviewed all selected source
+  outputs and all 699 archived caps. Primary and separate addendum relocation,
+  offline verification and rebuilt-runtime02 GPU-free imports passed; actual
+  comparison HTML was rendered and gated 5080 commands retained. Results depend
+  on workload/model; Continuum wins document cells, candidate wins some mixed
+  traffic, QA's 3% overhead bound remains unresolved, and misleading hints delay
+  unhinted traffic. The repository addendum gate failed before serving and closed
+  without replacement, leaving repeated four-system pressure evidence unmeasured.
+  No answer-quality equivalence, production or 5080 performance claim. Raw
+  evidence and paused AWQ remain preserved; Stage 7 is separate pending work.
+  [Findings](../evidence/stage6-2080ti-20261106/RESULTS.md),
+  [handoff](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md).
