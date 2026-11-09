@@ -1,0 +1,81 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 35,
+      "review_id": "05bfe322f07ccc71695a073d",
+      "signature": "8fbd9f69f3477ccd18e581389ddf10a6430a72d5087a74197f917c4b9df4a169",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Before any tool, validation confirms package-metadata standards compliance and PASS.",
+        "PEP314 does not cover PEP621 (unprovided modern comparison)."
+      ],
+      "whitespace_words": 141,
+      "notes": "Correct package metadata1.1/Superseded purpose and example field fragments remain useful. No actual prior tools exist, so repeated validation/compliance claim is invented, not five-header evidence. 141 words exceeds under-70 initial limit, truncates and omits exact search declaration. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 36,
+      "review_id": "6a8f996e6c37285b24a0a8ed",
+      "signature": "35a8b2e03fa8a0545c07decf1f5fe5a09c5db6de9cffcf7035d4ec14f10ea8bc",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP289 does not cover Python3.0 changes."
+      ],
+      "whitespace_words": 29,
+      "notes": "Actual source explicitly covers future Python3.0 syntax/scope changes. Generator-expression memory/reduction rule and correct metadata/actual PASS remain useful. Final does not repeat previous dependency's fabricated PEP241 tool JSON. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 37,
+      "review_id": "9bd38129b93cf037b47537df",
+      "signature": "c72a99d8407b0cd5817c9716eaceb6c97cb66dc9197a9c4aa1e66fb2f749adee",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "Actual metadata PASS and Final/Standards Track correct. Supplied CSV source supports dialect management and explicitly excludes data interpretation/locale-specific formatting; all required final elements present. Earlier fake summary formatting is not repeated as actual output here. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "b8190d1df290da436926d131",
+      "signature": "c5b40ba034a0829c3089d99c63aaf1edaa7ff4ea208d9a43c8dbaa41801418a2",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 46,
+      "notes": "Final corrects earlier wrong logging/implementation dependencies: proper Superseded/Standards Track/package-field purpose and actual literal PASS. Read 'metadata structure' narrowly as validated PEP headers, not package-field semantics. No-longer-maintained is read as the superseded specification's current-standard limitation, not independent repository-maintenance survey; no unsupported runtime claim repeated. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 39,
+      "review_id": "b2f5e407344076879e725705",
+      "signature": "c9dd009d5aeff9ea24bf79f5bdc4cc5617970b74118611639e9eb340e6937351",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP314 proposes remote logging and is implemented in Python2.6.",
+        "Its status is implemented rather than Superseded."
+      ],
+      "whitespace_words": 185,
+      "notes": "Initial no-tool metadata task receives wrong-subject repeated logging/runtime assertions. 185 words exceeds under-70 limit, truncates and omits required search declaration; no useful correct purpose/verification plan. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

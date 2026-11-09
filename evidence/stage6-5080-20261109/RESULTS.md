@@ -154,35 +154,35 @@ include every ordinary attempt after all acquisition phases finish; this snapsho
 still has a pending attempt and is not finalized. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-09.json) covers
-2,337 selected outputs / 181 complete contexts through four B08 four-system
-blocks, with 3,192 objective finals. All 24 new reference/instruction/dependency/
-tool/answer contexts were explicitly read and judged, including six capped
-intermediates. Their thirteen complete supplied source strings exactly match
-prior explicitly read PEP sources; [bindings](confirm-source-components-09.json)
-preserve full-document/opening-excerpt scope. No novel judgment was automatic.
-The [earlier review](confirm-review-index-08.json) and every older snapshot remain.
+The [latest partial confirmation review](confirm-review-index-10.json) includes
+all twelve B08 four-system blocks: **3,704 objective finals, 2,174 automatic final
+failures, 53 capped intermediates and 2,479 selected outputs / 220 complete
+contexts**. All fifty new contexts (31 finals, nineteen capped intermediates)
+were explicitly read and judged. Their eleven supplied source strings exactly
+match earlier explicit readings; [component bindings](confirm-review-components-10.json)
+retain complete fields and individual preceding dependencies, with every new
+component and answer read separately. No novel judgment was automatic.
+The [earlier snapshot](confirm-review-index-09.json) and all history remain.
 
-Novel findings include 15 source-support failures, 19 instruction failures and
-six outputs not useful: fabricated tool summaries/PASS, wrong-subject restrictions,
-a false validation FAIL inferred from rejection, unsupported limitations,
-repetitive output and an empty final. Useful grounded fragments remain separate.
-A correct PASS/PEP number may be source-supported yet fail usefulness and the
-requested investigation. Historical transition plans are source accounts, not
-independent runtime verification. Compatibility caveats with ambiguous pronouns
-are read narrowly as empirical verification limits, not missing source content.
-Five-field metadata validation does not test feature implementations.
+Novel findings include **39 source-support failures, 45 instruction failures
+and 28 not useful**: repetitive/wrong-subject and unfinished output, invented
+validation, a false FAIL inferred from proposal rejection, unsupported version/
+Unicode/compatibility restrictions, and incorrect required API methods. Correct
+facts, useful fragments, formatting failures and unassessable empty/repetitive
+answers are distinguished. One capped intermediate has only five words and
+mostly whitespace; capping alone is not a word-limit failure. Historical PEP
+accounts and five-header metadata validation do not establish modern runtime
+support. Some finals correct earlier generated errors and receive that credit.
 
-Selected duplicate-inclusive counts are **159 source-support failures, 725
-instruction failures and twelve outputs not useful**. The
-[isolated frozen validator](confirm-quality-checkpoint-09.json) accepts all 2,337
-judgments; all 176 included archived instruction sources verify. These are
-selected partial-review counts, not population accuracy or quality equivalence.
-The first B06 block remains excluded; this audit does not repair its activity.
-Original objectives, timings and live quality state are unchanged. Earlier QA,
-fictional-provenance and document-summary findings remain in their linked
-snapshots; three summaries exceed 300 words total (including one source failure),
-with the old prose correction retained. Final confirmation audit is still pending.
+Selected duplicate-inclusive counts are **193 source-support failures, 860
+instruction failures and 38 outputs not useful**. The
+[isolated frozen validator](confirm-quality-checkpoint-10.json) accepts all 2,479
+judgments; all 208 included archived instruction sources verify. These are
+selected partial-review counts, not population error rates or quality equivalence.
+The first B06 block remains excluded. Original objectives, timings and live
+quality state are unchanged. Earlier QA, fictional-provenance and summary
+findings remain linked through their snapshots; the old summary-word-count prose
+correction is retained. Final confirmation audit is still pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

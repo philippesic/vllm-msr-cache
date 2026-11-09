@@ -33,8 +33,9 @@ incomplete scope and missing repetitions through an explicit option, with the
 default completion guard retained and 28 focused tests passing; terminal results
 are still pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-2,337 selected outputs / 181 contexts, including 24 new PEP contexts
-(six capped intermediates) with exact source bindings to earlier explicit readings;
+2,479 selected outputs / 220 contexts through all twelve B08 four-system blocks,
+including fifty new PEP contexts (nineteen capped intermediates), explicitly judged
+with exact source/dependency bindings to earlier readings. B09 acquisition is active;
 the separate partial all-attempt cap review covers 163 responses / 86 contexts.
 Final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8

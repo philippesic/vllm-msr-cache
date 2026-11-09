@@ -1,0 +1,79 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 20,
+      "review_id": "e260700c020dd45cc40e8116",
+      "signature": "4492c5bbc6cfd43a712da2d02d3e596e5c4d38295d2987c917c868b91eb9442d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 201,
+      "notes": "First source fact that PEP314 describes package metadata is correct, and source strings can be input to metadata validation; do not invent a false claim from these generic phrases. But 201-word repetition does not interpret actual Superseded/Standards Track/PASS or distinguish runtime support, truncates and omits fixed next declaration. Over under-70 limit, not useful for current step. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "a8a8d884c9abe4e8eeb81e74",
+      "signature": "44ad6a4996f193f2556e4546cc23fb158a1e71700587394759e65448f34a2cb0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Requested PEP352 answered as PEP314 finalized specification with no runtime changes."
+      ],
+      "whitespace_words": 54,
+      "notes": "Actual supplied exception hierarchy reference/tools do not support unrelated metadata PEP assertion, whose provided Status elsewhere is Superseded. Repetitive wrong-subject final has real PASS token but no useful requested status/type/rule/limitation. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "6146ceb4b85e7bdbdc68fe0a",
+      "signature": "1a58181066d68e4c62220a5e589d99f6c6bd192017925218c1d388a5aaad8506",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Requested PEP307 answered as PEP282 logging with older-logging compatibility absence."
+      ],
+      "whitespace_words": 24,
+      "notes": "Correct actual PASS does not support subject switch. No useful pickle rule or limitation remains; preceding unsupported security/runtime-absence statement is not independently attributed as final. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 23,
+      "review_id": "5ba1b4296383a4123419c6e7",
+      "signature": "89646ced518cff9144e7baf635d1708d6e933b41c350cff6f6b059d8e73f2f3f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "reversed() is not available in Python 3."
+      ],
+      "whitespace_words": 24,
+      "notes": "Supported historical reverse-iteration purpose and metadata remain useful. Supplied Python2.4 proposal and metadata tool do not establish absence in Python3; unsupported exclusion copied from generated dependencies. Requested literal test_status format is also absent. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 24,
+      "review_id": "da24b7b54a6236145dd82573",
+      "signature": "8bcb701444dca5b06984690d06072519cb7a554a360da5e1322790e202f75f4f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 171,
+      "notes": "Repeated 171-word wrapper phrase gives no assessable supported specification/validation interpretation, no required next summarize declaration and no useful content. Over under-70 intermediate limit and truncated. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

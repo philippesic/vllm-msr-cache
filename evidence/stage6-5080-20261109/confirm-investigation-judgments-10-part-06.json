@@ -1,0 +1,82 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 25,
+      "review_id": "32c47e719dba5d44dd7f7725",
+      "signature": "cc51b34c009308f05745933f0e6428b16f6cc0aad3de6d27e061dd8d076748e4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP352 does not address backward compatibility with existing exception hierarchies."
+      ],
+      "whitespace_words": 44,
+      "notes": "Full source contains explicit hierarchy migration, 2.x transition and backward-compatibility provisions. Metadata/PASS/common-base purpose useful, but unqualified absence is unsupported; required literal test_status=PASS missing. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "37af2e8805e7263f17b6d470",
+      "signature": "9a7e09e5fb54e138538aa77304279296fbc95e76ebb863f3bb544618ce80578a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 162,
+      "notes": "Correct reversed() proposal purpose, less-common reverse-iteration rationale and built-in goal remain useful initial-step content. Repetition introduces no new false substantive fact. 162 words exceeds under-70 limit, no verification plan/exact fixed search declaration and truncation. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "e099ecb62a60e58b7f848fe0",
+      "signature": "98ddcfbe1fb915ee758f0059b3d9d9e3a7d9569cf824c221d37f1e672e0a4f33",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Relative-import rule applies to Python2.4+ without qualification.",
+        "PEP328 does not address dynamic import resolution in nested modules."
+      ],
+      "whitespace_words": 33,
+      "notes": "Correct title/metadata/actual PASS useful. Version claim does not distinguish the proposed explicit relative/absolute-import transition; supplied source discusses package-name-dependent resolution and does not support this vague dynamic/nested-module exclusion. No actual runtime check proves it. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "1b7206f3a0a7362b337a721e",
+      "signature": "e39c018d59ebc8439956d921c9efc46cb5e451d10538a8907e688385161b8721",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP342 does not cover asynchronous I/O."
+      ],
+      "whitespace_words": 25,
+      "notes": "Supplied opening motivates coroutine/nonblocking-I/O applications and framework implementation, contradicting unqualified absence. Accurate title/Final/Standards Track and actual literal PASS preserve partial usefulness. Do not charge prior invented Python3.5 runtime threshold as final claim. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "cdcf96cc4731468dbfab261b",
+      "signature": "56df9ae3e8a634db3fb9ea15a439ed8edac2f36851e438779c1fe5f584f559a8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP352 does not support multiple interpreter states."
+      ],
+      "whitespace_words": 21,
+      "notes": "BaseException rule/metadata/actual PASS supported and useful. Single-interpreter restriction is imported from GIL proposal, unsupported for exception hierarchy source. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

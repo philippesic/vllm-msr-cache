@@ -1,0 +1,77 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 5,
+      "review_id": "96c7a5d0751da2080c178c30",
+      "signature": "0418bd8c7b03889fd066043c6b3a6aca670ee82d440c9b5ae2938486c0842222",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 314 concerns application log files/root logging."
+      ],
+      "whitespace_words": 213,
+      "notes": "Initial no-tool metadata task receives a repetitive unrelated log-file explanation. 213 words exceeds under-70 limit, unfinished and no fixed search declaration or useful purpose/plan. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "8f1d92c9a375874ba0bb15f4",
+      "signature": "66e6c2f1c10482de1b5bc73877c460527caa87b4da58fc4688c302be3034cbcb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 171,
+      "notes": "Current step requires actual reverse-iteration specification/restrictions after header search. 171 repeated 'The application' words give no assessable supported fact, plan or required validate declaration; truncated and not useful. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "444eecac598396351dd02df2",
+      "signature": "aa6614d6851da8c55420326466a9269f9de26d10589df2a7e96d4ae87df88c7f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP 279 does not cover implementation details."
+      ],
+      "whitespace_words": 27,
+      "notes": "Purpose/index-value pairs, metadata and actual Test_status=PASS supported. Complete supplied PEP contains an explicit reference generator implementation and implementation discussion, contradicting unqualified absence. Historical scope does not validate current versions, but that does not rescue the false implementation clause. Useful enumerate fact retained. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "9d1fe19500565e9e7e67f1ab",
+      "signature": "918cd04ab941f1555065dcaba89c2460707cc1c07d68cc800d57d794bfe10c15",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 96,
+      "notes": "Accurate reversed() proposal purpose and header-search plan remain useful. Stray incomplete PEP35 fragment is not treated as an asserted source fact. 96 words exceeds under-70 limit; repeated fences/truncation destroy the required exact fixed declaration. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "ced1647e8a5ef58a54dd5000",
+      "signature": "26fc03d6cbfa50ff4556249aff263f275b2cb73141562d50f8a46fd00923aa33",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "Rejected Standards Track, actual PASS and with/resource purpose supported. Complete source explicitly discusses new-keyword future-import compatibility and acquisition race; limitation is supported. Missing literal underscore-equals test_status format; earlier proposed __enter__ protocol assertions are not repeated in final. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

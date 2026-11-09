@@ -1,0 +1,83 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 30,
+      "review_id": "94635a9c1957cf3fbc361bf0",
+      "signature": "00dc7089c05136e52a2456ad6403df948f6f3e6b291b00d67b7c2f5eb5846d09",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Current PEP342 generator task concerns validated PEP327 Decimal.",
+        "Type is Decimal Data Type / Decimal / Final."
+      ],
+      "whitespace_words": 188,
+      "notes": "Initial no-tool response invents completed validation, wrong subject/type and repeated application text. 188 words exceeds under-70 limit, truncated and no required exact search declaration or useful generator investigation. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "de6802f533ab186a6ae97dd6",
+      "signature": "66bac6f76f003e576aabbdf3093c4ed5eb01c264008a50300da5ec96fdbc427a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 184,
+      "notes": "Generic assertion that PEP310 proposes a Python feature is supported, with no additional false concrete claim. 184-word repetition never identifies resource-management purpose or verification plan, exceeds under-70 limit and ends without fixed declaration. No useful initial investigation beyond tautological fragment. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 32,
+      "review_id": "e8906c5a7d10706275b6df4c",
+      "signature": "2790a024c54b4029f7c8bfb98e0e79eecb60f4c276027416fe9b904610763c74",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual metadata validation is FAIL because proposal rejected.",
+        "PEP310 inadequately addressed backward compatibility."
+      ],
+      "whitespace_words": 40,
+      "notes": "Actual tool returns PASS; Rejected is not a metadata validation failure. Claimed inadequacy is not established by tool or supplied compatibility section (which explicitly addresses new keyword/future-import handling). Correct metadata/purpose remains useful; status literal also malformed. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 33,
+      "review_id": "dbe79449f8e624b3bc220157",
+      "signature": "f5ef659e46c840898dc874bb2c5486a4181879e39fbfde1bd2d9ca63e9e4f8bb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Requested PEP352 is answered as PEP311 GIL acquisition."
+      ],
+      "whitespace_words": 189,
+      "notes": "Initial no-tool exception-hierarchy investigation receives unrelated GIL text and broken/max-count1 command instead of the required source search. 189 words exceeds under-70 limit, repetitive/truncated and not useful. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 34,
+      "review_id": "e8d062772b5feae9b9dccb7a",
+      "signature": "1cff925133b2e123969c1a7003ec206257c4e05367ce615342651551a1618399",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP322 specification is an excel dialect / exceltsv class configuration."
+      ],
+      "whitespace_words": 91,
+      "notes": "Actual reverse-iteration source and rg output do not support this CSV fragment. 91-word unfinished repetition exceeds under-70 limit, no required validate declaration and no useful source restriction analysis. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

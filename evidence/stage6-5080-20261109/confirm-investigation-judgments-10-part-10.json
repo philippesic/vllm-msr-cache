@@ -1,0 +1,87 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 45,
+      "review_id": "d5b6da160a27111d0b92e9de",
+      "signature": "e03fa8404678db10274fdf16648599dec6dde651279e110c4b032c994875d465",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP310 proposes a reliable_acquisition() function.",
+        "Actual validation FAIL follows from rejection.",
+        "Source does not address runtime performance/memory implications (unqualified)."
+      ],
+      "whitespace_words": 37,
+      "notes": "Actual proposal is with syntax/interface and metadata validation returns PASS. Invented API and false FAIL dominate report, with unsupported absence caveat. Correct status/type/title fragments do not provide useful reliable rule/validation. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "024d00f61b4216de4a26ae83",
+      "signature": "0efd54197609de8611752ebf61ac3af14e15b502bbc06c065688c7f912a81c86",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP305 omits start/stop arguments due to naming ambiguity."
+      ],
+      "whitespace_words": 30,
+      "notes": "CSV parse/generate/dialects and metadata/actual PASS supported and useful. Naming-ambiguity rationale belongs to enumerate proposal, not supplied CSV source; absence of such argument names does not establish imported rationale. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 47,
+      "review_id": "60a6964582095099db880236",
+      "signature": "64f39c1efa05c81cb63dc46fffcbed988ce2a511e731b5339dcda5cdcdcadb56",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP342 does not address asynchronous-I/O support beyond basic coroutine functionality."
+      ],
+      "whitespace_words": 31,
+      "notes": "No source/tool proof for broad beyond-basic support exclusion; supplied motivation explicitly includes nonblocking/asynchronous framework use. Correct metadata/PASS fragments alone not a substantive generator specification rule, missing literal status format and no useful specific investigation result. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 48,
+      "review_id": "08ce4a7f282b28de8c6eedbc",
+      "signature": "a895186359c56dd5929521408d76d137fe36a15b50ca07ec889e9845b3700b2e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Requested PEP328 imports answered as PEP311 GIL API.",
+        "Final metadata confirms implementation."
+      ],
+      "whitespace_words": 195,
+      "notes": "Actual imports header validation only, not runtime implementation. 195-word repetitive wrong-subject intermediate exceeds under-70 limit, truncates and omits exact summarize declaration; no useful current-step answer. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 49,
+      "review_id": "888b011fc503d693da7d1226",
+      "signature": "1cde55d611a50d6a4a9472603b6410c3ab296b8e7b4a671b64faf55078c477d1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP328 source search uses pep0315 and GIL acquisition title/purpose.",
+        "Before tools, search confirms implementation."
+      ],
+      "whitespace_words": 186,
+      "notes": "Initial no-tool imports investigation supplies wrong source file/subject and invented completed search/runtime confirmation. 186 words exceeds under-70 limit, unfinished/no fixed declaration and not useful. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

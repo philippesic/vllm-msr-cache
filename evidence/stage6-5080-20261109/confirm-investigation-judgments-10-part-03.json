@@ -1,0 +1,86 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 10,
+      "review_id": "fd5c99991ad7906bc5c65308",
+      "signature": "f740420dd00487933d87a4524c004112b51762d7c8d70658025c33f7fd5847ae",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "For PEP 322, the excel dialect is a subclass of itself."
+      ],
+      "whitespace_words": 158,
+      "notes": "Repeated unrelated CSV/self-subclass assertion replaces reverse-iteration answer. 158 words exceeds under-150 final limit, truncated, no requested metadata/status/rule/limitation and not useful. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "cb79636b2ad52883dde28924",
+      "signature": "c3abbac5bf09b232223a6748c8fec5d89330184d47ba55f777499905f6bb40d6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 322 proposes reloaded dialects / PEP 398 subject."
+      ],
+      "whitespace_words": 164,
+      "notes": "Initial reverse-iteration purpose/plan replaced by wrong-subject fragments and repeated wrapper words. 164 words exceeds under-70 limit; no fixed declaration and no useful task response. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 12,
+      "review_id": "5ddb0ef9b100bc580e250f82",
+      "signature": "884a4aa1e35c919313ba48860605b95c908e31fe876e6113f0683669e741446f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Existing classes must implement BOTH __enter__ and __exit__ under PEP 310.",
+        "This necessarily leads to potential inconsistencies across objects."
+      ],
+      "whitespace_words": 37,
+      "notes": "Correct purpose/metadata and actual PASS useful. Historical PEP310 makes __enter__ optional, __exit__ required; final imports a stricter modern two-method requirement and unsupported inconsistency consequence. Explicit supplied protocol, not preceding generated summaries, controls judgment. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "052058e6214b7066c7548ed9",
+      "signature": "2c611ebeb037d2d2bdb79e3c4bbcc5f961e8e63f09dec7e33c97bf4ab9268627",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 289 does not support Python 3.0+ yield-from/async features.",
+        "ACTUAL DEPENDENCY t3 contains this supported_fact/concrete_limitation output."
+      ],
+      "whitespace_words": 74,
+      "notes": "Only actual summarize tool returns metadata/length/headings, not generated fields; modern features not in supplied historical generator-expression source. Metadata fragments correct but no specific generator-expression rule or supported limitation, instead wrapper/revalidation declaration. 74 words is within final limit; not a word-count failure. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "a222bef9719da122e61c3c6e",
+      "signature": "92110bec1ed669e3e59cab883f363e42c366f88faa85da60d3905aca0fb729f1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 328 concerns PEP311 GIL APIs.",
+        "Final metadata confirms implementation."
+      ],
+      "whitespace_words": 194,
+      "notes": "Actual current imports investigation after a header-only search cannot support claimed runtime implementation or unrelated GIL account. 194-word repetitive unfinished intermediate exceeds under-70 limit and omits exact next validation declaration. No useful import specification content. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

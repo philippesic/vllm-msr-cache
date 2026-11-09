@@ -1,0 +1,80 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "701478ced1137e78ef517fb1",
+      "signature": "a165d4f7f214273f3c5cf20925271bb139a1f66b93d12abe5e0397c6e1a5a912",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 171,
+      "notes": "171-word repeated 'The application' final supplies no assessable supported investigation fact, metadata, PASS or limitation, and ends truncated. Exceeds under-150 final limit; no useful answer. No earlier wrong-PEP dependency assertion is attributed to final. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "66cde9fa9a5cbea127594d25",
+      "signature": "0bfc220117dc500f934dcf5694f295b7ffc90316d6d2f4f31c8131caff95b882",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Rejected Standards Track and actual Test_status=PASS correct. Supplied full PEP explicitly discusses acquisition/release exception race; historical proposed with-block purpose is correct. Final does not repeat earlier unsupported successor-comparison/runtime-absence claims. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "c635b4b568d6a18df6a4cb2a",
+      "signature": "943ff1de876eef13f310dfc1e5d4c3a97b0be3395d14a4e1efa0025edb2f8dbd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 342 specifies function/method decorators and the PEP 3129 class-decorator limitation."
+      ],
+      "whitespace_words": 33,
+      "notes": "Actual task/source is enhanced generators. Correct Final/Standards Track/PASS fragments accompany a wrong-subject decorator rule and limitation. No useful subject-specific answer; JSON key/value PASS also omits requested literal test_status=PASS. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "c2b44bae0a4e4e127f7dd498",
+      "signature": "8aa1f18444c0275d08076f8b430ddc900db7d7af88762930b6ba5902eb7dadf5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "17-Oct-2003 is PEP 327 finalization date.",
+        "Type is Final."
+      ],
+      "whitespace_words": 104,
+      "notes": "Reference Created is not finalization and Type is Standards Track. The copied tool word count 5800 is correct; response mixes malformed tool declaration/wrapper with partly incorrect metadata, open fences/strings and truncation. Under150 words but unfinished final, missing concrete Decimal rule/limitation and no useful investigation answer beyond fragments. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "8b07cf217fa6d48d7dc4eb1a",
+      "signature": "d4182402ae93d4ec575d6389ecf8fd8d04ec915dcc515581fde7b2c47ff3e00b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 310 concerns enumerate()."
+      ],
+      "whitespace_words": 97,
+      "notes": "Initial no-tool response repeats PEP number, introduces wrong-subject enumerate and provides no purpose/verification plan/fixed search declaration. 97 words exceeds under-70 intermediate limit; truncated and not useful. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

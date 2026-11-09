@@ -1,0 +1,79 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b2634e3ea31b74317481f2971db530907d44f9061f03a3a6cd33cb719cde9af5",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-10/blind-packet.json",
+  "ratings": [
+    {
+      "index": 40,
+      "review_id": "4e042133b86277daff987826",
+      "signature": "4b43d00eaa33f76b8b11161913ac315ab71050cafeb22d9aa7c0b0e70d355815",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "document-references.json omits cited documents as an established limitation."
+      ],
+      "whitespace_words": 145,
+      "notes": "No actual tool inspects that complete file or validates citation inclusion; supplied reference only gives five headers. Generic Final/Standards Track/PASS fragments not a specific generator rule. Under150 words but unfinished wrapper/command text, missing literal status format and no useful subject-specific report. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 41,
+      "review_id": "e7416900774f48d41d64e60e",
+      "signature": "251739944bfdc9f02ee2b19f593ab4e754954919cfc8838b7ddaca5b5e3940f9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP305 does not cover Unicode support."
+      ],
+      "whitespace_words": 50,
+      "notes": "Supplied opening explicitly mentions Unicode To Do and reader result strings/Unicode objects. Correct CSV/dialect/formatting fact and metadata remain useful; actual PASS label lacks required literal format. Historical version boundary does not excuse unqualified Unicode absence. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 42,
+      "review_id": "aac88908eaa841385d377f47",
+      "signature": "1da93222584a6cc956f9cc9db25bfaebdc034060df914110aa0d0065ddf49234",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "Final same historical exception transition account as prior explicit confirm09 index23, with actual metadata/PASS and complete supplied 2.x/3.0 plan support. New initial dependency's wrong pep0000 search declaration is not repeated in final and does not change actual fixed tool output. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 43,
+      "review_id": "11db532ff5ccdc6b17638d77",
+      "signature": "d1a999f54b7f57fc8f0ed854bb17c27dea8694d70979a8382ceace12256b4d34",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 52,
+      "notes": "CSV dialect/formatting rule, metadata/actual PASS and explicitly out-of-scope locale interpretation/fixed-width tabular data are supported. Missing required literal test_status=PASS format only; useful correct final does not repeat fake earlier tool/reference claims. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 44,
+      "review_id": "2779b64c73ddf61620f4a9d5",
+      "signature": "f60e9f5a2e64a44a051055dcc4dc4df150bf3d0c84c18fefaadf999e30c04cb1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP314 leaves unspecified versioning implementation to package managers as the concrete limitation."
+      ],
+      "whitespace_words": 54,
+      "notes": "RFC822 package metadata, Superseded/Standards Track and actual PASS useful. Source explicitly constrains Version to StrictVersion/LooseVersion parsing; no supplied evidence delegates the claimed unspecified versioning behavior to package managers. Vague beyond-the-format caveat not the concrete sourced limitation requested. Required literal test_status format also absent. Complete supplied source text was explicitly read in prior confirm08/09 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}
