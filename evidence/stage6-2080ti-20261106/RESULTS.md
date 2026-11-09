@@ -1,8 +1,14 @@
 # Stage 6 measured outcomes
 
-A separately authorized [repository recovery](repository-recovery-03/README.md)
-is preparing on 2026-11-08. The historical gap described below remains until new
-measurements and audits complete. Primary comparisons are unchanged.
+The separately authorized [repository recovery](repository-recovery-03/README.md)
+completed all 18 configurations on 2026-11-08 using pinned rebuilt-01. Four paired
+pressure blocks give candidate/ARC **1.0210 [0.9885, 1.0546]**, Continuum/ARC
+**0.8627 [0.8311, 0.8954]**, upstream/ARC **0.9526 [0.9096, 0.9976]**.
+The candidate gain is unresolved. ARC pressure is positive in every fixed block.
+All 288 finals, 272 selected source-review items and the one capped intermediate
+were audited; quality equivalence is not established. The historical gap below
+describes the original sealed addendum only; it is now measured separately.
+Primary comparisons and failed-gate history remain unchanged.
 
 Acquisition and source review are complete. Results are conditional on the
 2080 Ti/WSL2 host, frozen inputs and configured systems. They support
@@ -103,7 +109,8 @@ The addendum completed all 24 independent QA pairs and four three-arm advice
 blocks (60 valid configurations). The repository purpose gate failed before
 serving because the first coordinator used the test interpreter. The failure is
 retained and the repository section is closed: gate replacement was forbidden.
-The repeated four-system pressured repository comparison remains **unmeasured**.
+The original study left the repeated four-system pressured repository comparison
+**unmeasured**; the separately authorized recovery above now supplies it.
 No capacity/policy tuning, favorable-result retries or budget reset occurred.
 
 Fresh enabled/no-hints QA O2/O0 throughput is **0.9667 [0.9539, 0.9797]**:

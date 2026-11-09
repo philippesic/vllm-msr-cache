@@ -1,0 +1,16 @@
+{
+  "ordinary_responses": 1152,
+  "all_attempts": 18,
+  "caps": [
+    {
+      "attempt": "fd838722f86a46b388f67a392d06a5c6",
+      "request_id": "sc|suite|case|w0-s9|sample-2",
+      "node_id": "r2",
+      "source_id": "more-gray_product"
+    }
+  ],
+  "all_caps_in_review": true,
+  "coordinator_exited": true,
+  "both_locks_free": true,
+  "owned_cleanup_verified": true
+}

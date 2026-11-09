@@ -6,7 +6,7 @@ Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
 linked evidence/run directories, not a second diary here.
 
-Latest completed handoff: [Stage 6 findings](../evidence/stage6-2080ti-20261106/RESULTS.md) and [gated 5080 replication](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md). Workload-dependent gains and adverse results remain qualified; repeated four-system repository pressure evidence is missing. No 5080 jobs or production qualification.
+Latest completed handoff: [Stage 6 findings](../evidence/stage6-2080ti-20261106/RESULTS.md) and [gated 5080 replication](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md). Workload-dependent gains and adverse results remain qualified; the missed repository pressure comparison is now separately measured. No 5080 jobs or production qualification.
 
 Plan and completed local evidence: [wait-hint validation and release plan](WAIT_HINT_PRODUCT_PLAN.md).
 The original four stages cover causal validation, competitive comparison, repeatability
@@ -15,18 +15,16 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Repository pressure recovery — running under scheduled supervision
+## Repository pressure recovery — measured and audited; closing supervision
 
-- Scope: repair serving runtime inheritance and repeat only the missed 18-case
-  repository section on 2080 Ti, using pinned rebuilt-01 and original design.
-- Historical addendum-02 and primary seals remain intact; no QA/advice/primary
-  rerun or 5080 acquisition. New study is addendum-03.
-- [Inventory and recovery contract](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
-- Addendum-03 ARC gate is active under rebuilt-01; first bounded health check
-  healthy with supervisor reservation. [Launch receipt](../evidence/stage6-2080ti-20261106/repository-recovery-03/launch.json).
-- New 20-minute schedule is enabled on the recovery thread; next check 17:16
-  Pacific Nov 8. Its saved receipt is in repository-recovery-health/schedule.json
-  under the raw run root. Disable after acquisition, audits, writeup and cleanup.
+- All 18 original repository configurations verified without retries, using
+  pinned rebuilt-01 on 2080 Ti. Runtime inheritance fix is pushed to origin/main.
+- Candidate/ARC throughput 1.0210 [0.9885, 1.0546]; no resolved gain. ARC records
+  pressure in all four paired blocks. Quality equivalence remains unestablished.
+- [Results, audits and sealed transfer](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
+- Coordinator exited; all case cleanups verified, GPU idle and both locks free.
+  Health schedule will be disabled after the results checkpoint is pushed.
+- No primary/QA/advice/5080/training acquisition. Original failed gate preserved.
 
 ## Wait-hint release extension — Stage 6 complete within bounded scope
 

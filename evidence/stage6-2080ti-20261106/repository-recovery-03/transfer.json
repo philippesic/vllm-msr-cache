@@ -1,0 +1,6 @@
+{
+  "seal": "bd8d128c1effb0c89e6d6509b5a315a178a9468d105027742ae5be5423afb476",
+  "files": 4772,
+  "bundle": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/repository-recovery-transfer-03",
+  "scope": "Sealed frozen source, inputs, measurements and audits; no 5080 execution or import qualification"
+}

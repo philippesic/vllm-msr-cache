@@ -1,6 +1,9 @@
 # Stage 6 replication handoff
 
-2026-11-08 update: Philip separately authorized [repository recovery on 2080 Ti](repository-recovery-03/README.md).
+2026-11-08 update: the authorized [repository recovery on 2080 Ti](repository-recovery-03/README.md)
+completed all 18 configurations, integrity and objective/source/all-cap audits.
+Candidate/ARC is 1.0210 [0.9885, 1.0546], an unresolved gain. A distinct sealed
+recovery transfer bundle is linked there; primary seals remain unchanged.
 The current addendum coordinator explicitly selects the cell/host pinned serving
 interpreter; historical exported sources retain the old inheritance behavior.
 Use the repaired coordinator for future new studies, with a new source identity;
@@ -9,8 +12,8 @@ do not patch sealed bundles in place. This does not authorize 5080 execution.
 No 5080 jobs have been started. This handoff preserves the 2080 Ti measurements
 and prepares separately gated replication; it is not a 5080 performance or
 production qualification. Read [measured outcomes and limitations](RESULTS.md)
-before interpreting speed. The repository addendum section is closed and has
-no repeated four-system pressure estimate. Do not reset its exhausted/closed
+before interpreting speed. The historical repository addendum section remains closed; its missed comparison
+was measured in the separately authorized recovery linked above. Do not reset its exhausted/closed
 study state or rerun a failed gate under the original authority.
 
 The primary transfer is the `relocated-bundle` directory under
@@ -69,8 +72,8 @@ this scheduled turn. Stop on capability, resource geometry or workload-purpose
 failure and preserve the receipt. Hardware import creates a new linked identity;
 `activate-import` preserves frozen order/repeats. Do not `freeze` or replan the
 matrix, silently replace workloads/models, or reinterpret GPU-resident cells as
-CPU-pressure evidence. The current preliminary PR can disclose the repository
-comparison gap; closing it requires separately authorized future measurements.
+CPU-pressure evidence. The preliminary PR can now cite the separate recovery for the repository
+comparison, retaining its uncertainty and answer-quality limitations.
 
 The addendum's GPU-free import proof binds all 78 scheduled command configurations
 to independently rebuilt runtime02, verifies input/source/model identities and
