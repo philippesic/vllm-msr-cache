@@ -127,3 +127,13 @@ raw packet is `$BASE/quality-screen-checkpoint-01/`. This is a partial review,
 not a finalized screen or confirmation audit. Later inventories must be regenerated
 from completed acquisition; reuse these judgments only on exact full-context
 signatures, and explicitly review every novel required item.
+
+The next incremental screen review is retained in `screen-review-index-02.json`
+and `screen-source-judgments-02.json`: 112 selected finals from completed B01/B02
+blocks, 60 distinct complete contexts (59 novel QA contexts explicitly read).
+The objective packet covers 130 finals. The raw snapshot is
+`$BASE/quality-screen-checkpoint-02/`. Four selected responses (two duplicated
+contexts) have unsupported content; two also fail semantic instruction adherence.
+The elapsed-year conversion and source-inconsistent mandolin count remain
+flagged. Exact-match scores, all timings and gates are unchanged. These remain
+partial screen judgments; final confirmation/all-cap audits are still required.
