@@ -1,61 +1,53 @@
 # RTX 5080 rebuild and full Stage 6 pass
 
-Authorized 2026-11-09: rebuild the same pinned LMCache 0.3.6 source for
-`12.0+PTX`, prove Continuum serving, then rerun the entire primary campaign
-with unchanged design. Continue autonomously through audits and pushed results.
-Preserve the closed November 8 campaign and all 2080 Ti artifacts. No training,
-Stage 7, unrelated projects or other machines; no credentials in tracked output.
+Continue the authorized 2026-11-09 job autonomously through final audits and
+pushed results. Branch `stage6-5080-20261109`, user-owned origin. Preserve the
+closed November 8 campaign and all 2080 Ti history. No other machines/projects,
+training, Stage 7 or credentials in tracked files. A setup/harness/storage failure
+requires repair and continuation, not a capability-failure closeout.
 
-Repository: `/home/philip/vllm-semantic-cache-ext`; branch
-`stage6-5080-20261109`; push its established user-owned origin at checkpoints.
+## Current state
 
-Current phase: **whole screen resumed**, persistent session 65450, log `output/stage6-5080-20261109/screen-02.log`,
-ownership receipt `screen-owner-02.private.json`. Use its recorded PID/birth/cwd
-and actual process state; never duplicate a live coordinator.
+**Screen is running**, persistent execution session 65450. Its authoritative
+ownership is in `$BASE/screen-owner-02.private.json` (PID, birth, command, cwd,
+source); log `$BASE/screen-02.log`. Revalidate the actual process and GPU before
+any resume. Never launch a duplicate. At 2026-11-09 17:01 UTC, seven of 22 whole
+screen blocks were complete; B08 upstream was active, with Continuum/candidate
+already verified. Nineteen screen attempts were verified, one deliberately
+interrupted, one active. The verified count includes the original unmatched B01
+ARC, which receives no matched-comparison credit. No additional raw failed
+attempts were present. Check the live ledger rather than treating this snapshot
+as a current monitor.
 
-The deliberate recovery audit is now **complete**: the first B01 ARC arm and
-interrupted candidate arm remain sealed, and both replacement arms passed in
-one new matched block. [Whole-block recovery proof](recovery-complete.json)
-verifies owned cleanup and full replacement. The coordinator advanced to B02.
-The [original interruption proof](recovery-interruption.json) remains the
-point-in-time receipt before replacement. No original partial-block measurement
-is credited. The watcher is finished; do not restart it or repeat preflight.
+Completed prerequisites:
 
-The first preflight launch was stopped before any ledger attempt because its
-cwd was mutable source. The retained launch helper now validates exact exported
-source, mount and interpreter before exec into the unchanged coordinator.
+- [Build](BUILD.md), [source/toolchain/wheel receipt](lmcache-build.json): same
+  LMCache 0.3.6 release, all 178 Python files unchanged, sm_120 plus PTX, separate
+  Continuum environment, same package versions. Exact pinned CPU/GPU round trip.
+- [Short serving smoke](continuum-smoke.json): warmup and four requests succeeded
+  with GPU KV stores/pinned geometry/cleanup. Original one-session policy result
+  stays inconclusive; this diagnostic is excluded from campaign measurements.
+- [Full Continuum screen](continuum-full-screen.json): B06 passed all 32 requests
+  and 24 scheduler pins, with sealed rebuilt-native identity and clean release.
+- [Native preflight](preflight.json): all three restore/fresh-reference equality
+  fixtures and anchor registry probe passed; four attempts / 223 files verify.
+- [Import](import.json): all 22 cells resolved; unchanged profiles/corpora and
+  frozen order/repeats. Plan differences only the new Continuum interpreter and
+  rebuilt LMCache wheel reference. All workers explicitly bind the pinned PY.
+- [Recovery](recovery-complete.json): deliberate B01 interruption sealed and
+  cleaned, both replacement arms passed as a whole block. The watcher is done;
+  never restart it or repeat preflight. [Original interruption](recovery-interruption.json).
+- [Anchor four-system screen](anchor-screen.json): all B06 arms passed geometry,
+  cleanup/activation and ARC CPU-pressure purpose. ARC had one eviction-affected
+  return; B07 roomy ARC had zero, satisfying the prespecified roomy reduction
+  check at the latest health snapshot. This is not whole-campaign qualification.
+- [Transfer seals](transfer-seals.json) and [old-history integrity](history-integrity.json)
+  pass. All original raw measurements and the original LMCache binary remain.
+- Exported CPU checks passed: 240 benchmark tests, 31 lightweight tests and
+  compilation. Validation-generated caches were moved outside the old bundle;
+  all 4,606 execution-bundle files verify. Do not write bytecode/caches there.
 
-## Established evidence
-
-- [Transfer seal audit](transfer-seals.json): original primary/addendum/completion
-  packet, execution bundle and new imported bundle all match their original
-  seal receipts and materialized file hashes. No historical artifacts changed.
-
-- [Native preflight](preflight.json): all three restore/fresh-reference fixtures
-  and the anchor registry probe passed; all four attempts / 223 files verify.
-
-- [Build](BUILD.md) and [receipt](lmcache-build.json): same release revision,
-  all 178 Python files unchanged, separate Continuum environment, CUDA 12.8,
-  sm_120 plus PTX. Exact FP16 pinned CPU/GPU round trip passed.
-- [Live Continuum smoke](continuum-smoke.json): warmup, four requests, actual
-  GPU KV stores, pinned geometry and cleanup succeeded. Generic policy verdict
-  remains inconclusive because the one-session diagnostic produced no scheduler
-  pins; unchanged full-screen activation gates still apply. Diagnostic excluded
-  from campaign timing/qualification.
-- [Import](import.json): all 22 cells resolved; every worker explicitly binds
-  the original pinned local interpreter. Same parent protocol/order/repeats,
-  all profiles/corpora identical; plan differences only the new Continuum
-  interpreter and rebuilt LMCache wheel reference. 54 screen configurations,
-  524 confirmation configurations / 210 blocks, 38 overhead, six operational.
-- Exported CPU validation passed 240 benchmark tests, 31 lightweight tests and
-  compilation. Generated caches from validation were moved outside the sealed
-  bundle; every original sealed content hash verifies. Future validation uses
-  separate PYTHONPYCACHEPREFIX/pytest cache paths.
-- [History integrity](history-integrity.json): all old 41 attempts / 3,142 files,
-  4,606 execution-bundle files, original LMCache binary unchanged. Both original
-  and rebuilt Continuum environments have identical package versions.
-
-## Paths and commands
+## Paths and safe launch
 
 ```bash
 REPO=/home/philip/vllm-semantic-cache-ext
@@ -71,104 +63,79 @@ export PYTHONDONTWRITEBYTECODE=1
 export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 ```
 
-`$BASE/primary-01` is a convenience alias. Use canonical `$OUT` for process
-matching. Verify the existing ext4 mount at every check/resume; never format it.
-The old FILESYSTEM_REPAIR.md records the image/remount recipe. Monitor free
-space on ext4, WSL root and Windows. At import: roughly 17 GiB, 6.9 GiB, 8.6 GiB
-free respectively. Build/toolkit caches and raw attempts are retained on ext4.
+`$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
+VOLUME is mounted before writes/resume. Never format its existing image. The
+old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
+about 17.2 GiB ext4, 6.9 GiB WSL root and 8.5 GiB Windows; monitor all three.
+Keep useful caches/raw evidence. Reconsider storage for later relocation copies
+using actual sizes, not an assumption that a second raw tree will fit.
 
-For each phase launch, run from the project root using the retained exec helper
-with **new** log/receipt filenames, e.g. (do not launch while another is active):
+To launch another phase from the mutable project root, use the retained exec
+helper with new log/receipt names, e.g. after screen qualification/activation:
 
 ```bash
-"$PY" -m benchmarks.research_checks.stage6_5080_launch --phase screen   --log "$BASE/screen-01.log" --receipt "$BASE/screen-owner-01.private.json"
+"$PY" -m benchmarks.research_checks.stage6_5080_launch --phase confirm \
+  --log "$BASE/confirm-01.log" --receipt "$BASE/confirm-owner-01.private.json"
 ```
 
-The helper forces cwd `$BUNDLE/source`, pinned `$PY`, exact source identity and
-mounted ext4, then execs the existing campaign CLI with its normal GPU reservation
-and owned-child cleanup. Add `--resume` only after checking stopped resources.
-To call other campaign commands, **cd into `$BUNDLE/source` first** and use `$PY`.
-Do not run acquisition from mutable checkout or inherit a test interpreter.
+It validates the mount, exact exported source and literal pinned interpreter,
+then execs the existing coordinator with its normal reservation and cleanup.
+Add `--resume` only after verifying stopped owned resources. Other campaign
+commands must run after **cd into `$BUNDLE/source`** with `$PY`. Initial wrong-cwd
+setup/import launches were stopped before any acquisition and preserved; do not
+repeat that mistake. Never acquire from mutable source or a test interpreter.
 
-## Remaining sequence
+## Remaining work
 
-1. Preflight is complete; do not repeat it.
-2. Whole-block B01 recovery is complete and verified. Continue all remaining
-   screen cells in their frozen order; do not restart the recovery watcher.
-3. After all 54 screens, `campaign qualify --out "$OUT"`; inspect
-   `all_required_correctness_passed`. Diagnose every genuine failure. Do not
-   activate with failed correctness/activation/capacity/workload-purpose gates.
-   Known native restore-inactive GPU-reuse controls retain original status and
-   use attested measurement_validity; never relabel them pressure evidence.
-4. `campaign activate-import`, then confirm, overhead and operational using
-   the existing frozen order/repeats. Never freeze/replan, tune policy or swap
-   models/workloads/geometry. The full 5080 pass remains unfinished until all
-   phases and audits finish, or an irreparable genuine failure is documented.
-5. Verify every sealed attempt and transfer. Run campaign report/completion,
-   objective/blinded source and every capped-output audit, recovery/portability
-   proofs. Retain adverse results. Report geometric mean throughput ratios with
-   paired whole-process 95% CIs, candidate vs ARC and vs Continuum, and actual
-   latency figures. No quality or production equivalence claim without evidence.
-6. Update RESULTS.md/STATUS, commit/push, release owned servers/GPU locks, then
-   disable this health schedule. Do not stop at a normal process exit or launch.
+1. Finish all 54 logical screen configurations / 22 blocks. Inspect real failures
+   and measurement_validity; retained restore-inactive GPU controls are not CPU
+   pressure evidence. Preserve every original status and all whole-block repairs.
+2. From exported source, `campaign qualify --out "$OUT"`. Require
+   `all_required_correctness_passed`; inspect all secondary pressure/roomy/native/
+   external gates. Diagnose failures; do not activate a failed gate.
+3. `campaign activate-import --out "$OUT"`, then confirm (524 configurations /
+   210 blocks), overhead (38) and operational (six) with the helper. No freeze,
+   replanning, policy/model/workload/geometry changes or favorable-result retries.
+4. Verify every sealed attempt and campaign identity. Finish objective/blinded
+   source and every ordinary capped-output audit, recovery and portability proofs,
+   campaign report/completion, and standalone comparison chart. Render requested
+   comparisons with T3 html_preview then html_render; do not start a server.
+5. Report geometric throughput ratios with paired whole-process 95% CIs and
+   actual latency figures. Candidate=wait. The report's Continuum/ wait ratio and
+   interval can be inverted to give candidate/Continuum (invert bounds in reverse
+   order). Retain uncertainty, adverse results and actual pressure. No quality,
+   production or GPU-only cross-host attribution claims without evidence.
+6. Consolidate RESULTS.md and STATUS, commit/push all findings, release owned
+   servers/GPU/locks, disable the health schedule only at pushed completion or an
+   irreparable genuine-failure closeout. An ordinary process exit is not done.
+
+## Answer-review checkpoint
+
+Latest completed partial review: [index 03](screen-review-index-03.json) and
+[ratings 03](screen-source-judgments-03.json), raw snapshot
+`$BASE/quality-screen-checkpoint-03/`. All 231 prescribed selected B01–B04 items
+have explicit judgments, covering 76 full contexts; 16 novel summary contexts
+were read in full in parts 01–04. Snapshot objective coverage is 258 finals.
+Selected-item findings: 30 source-unsupported, 32 instruction failures, ten not
+useful, with complete-context duplicates counted separately. These are selected
+sample counts, not population rates or quality equivalence. Original objective
+scores, timing and gates are unchanged. Earlier snapshots remain preserved.
+
+For the next snapshot use a fresh checkpoint directory (04 next), regenerate
+`prepare_review(OUT,'screen')` from exported source and copy its derived packet.
+Reuse judgments only on exact equality of all signature fields listed in index
+03; explicitly read/judge every novel required context. Do not invent missing
+judgments or mark a partial inventory final. After acquisition regenerate final
+screen/confirmation and all-capped inventories. Capped inventory root should be
+BASE (which contains only this campaign alias), not VOLUME (which also contains
+the closed November 8 campaign). Full required audits remain pending.
+
+## Supervision
 
 Health schedule: `scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae`, every
-15 minutes in this thread. A healthy long GPU phase returns to unattended
-operation. Before protocol activation inspect the ledger/owned processes and
-raw request/stream progress directly; the existing stage6_healthcheck requires
-an activated protocol. After activation, use its bounded check with canonical
-OUT and a state directory under BASE. Fix setup/harness/disk/filesystem failures
-and continue. A scheduler interruption is not completion; reverify and resume.
-
-Incremental answer review began during screening: `screen-review-index-01.json`
-and `screen-source-judgments-01.json` here cover two identical-context B01 finals
-(one distinct complete context), read without system/speed labels. The retained
-raw packet is `$BASE/quality-screen-checkpoint-01/`. This is a partial review,
-not a finalized screen or confirmation audit. Later inventories must be regenerated
-from completed acquisition; reuse these judgments only on exact full-context
-signatures, and explicitly review every novel required item.
-
-The next incremental screen review is retained in `screen-review-index-02.json`
-and `screen-source-judgments-02.json`: 112 selected finals from completed B01/B02
-blocks, 60 distinct complete contexts (59 novel QA contexts explicitly read).
-The objective packet covers 130 finals. The raw snapshot is
-`$BASE/quality-screen-checkpoint-02/`. Four selected responses (two duplicated
-contexts) have unsupported content; two also fail semantic instruction adherence.
-The elapsed-year conversion and source-inconsistent mandolin count remain
-flagged. Exact-match scores, all timings and gates are unchanged. These remain
-partial screen judgments; final confirmation/all-cap audits are still required.
-
-Screen advanced through B05 with no additional failed executions; its first full
-Continuum arm is now B06 (inspect actual ledger at next check). The source-review
-snapshot `$BASE/quality-screen-checkpoint-03/` covers completed B01–B04 blocks:
-258 objective finals, 231 selected items and 16 novel summary contexts beyond
-checkpoint 02. `screen-summary-judgments-03-part-01.json` retains explicit full-source
-judgments for novel indices 0–3. Part 02 now covers indices 4–7;
-All 16 novel contexts are now explicitly reviewed in parts 01–04, and the
-231-item packet has been consolidated in `screen-source-judgments-03.json`. Continue
-those from the retained novel-contexts.json; never silently infer judgments for
-missing contexts or finalize the 231-item packet until they are reviewed. The
-first four include overlength/repetitive output and material attribution errors.
-All original objective scores/timings/gates remain unchanged.
-
-The [first full Continuum B06 screen](continuum-full-screen.json) passed all
-32 requests, pinned geometry and cleanup, with 24 actual scheduler pin events.
-Its sealed external native-library identity matches the rebuilt LMCache binary.
-This closes the full-fixture Continuum functionality/activation check that the
-one-session diagnostic could not exercise. Overall qualification still requires
-all 22 screen blocks, native pressure/roomy gates and upstream activation.
-
-Latest completed review snapshot: `screen-review-index-03.json` and
-`screen-source-judgments-03.json` cover all 231 selected items (76 distinct full
-contexts) in checkpoint 03. All 16 summary contexts were explicitly read in full.
-The snapshot has 30 source-unsupported judgments, 32 instruction failures and
-10 not-useful judgments, with complete-context duplicates counted individually.
-These are selected-screen-sample counts, not population rates; no objective
-score/timing exclusions or quality-equivalence claim. Regenerate later packets
-and merge only exact full-context reuse; review novel contexts explicitly.
-
-[Anchor four-system screen](anchor-screen.json) verifies all four B06 arms,
-pinned allocations, published activation and actual native ARC pressure. The
-whole campaign still requires the remaining screen cells/roomy and secondary
-pressure checks, qualification, activation, all confirmation/overhead/operational
-cases and final audits/results. No repeated performance conclusion yet.
+15 minutes in this thread. Reverify ownership, mount, disk, GPU and request/stream/
+ledger progress. Before activation inspect directly; stage6_healthcheck requires
+protocol.lock.json and primarily assesses confirmation. After activation run its
+bounded check with canonical OUT and a state directory under BASE. Healthy long
+acquisition returns to unattended operation; a finished phase advances immediately.
+Interrupted checks are not completion. Keep the whole original objective active.
