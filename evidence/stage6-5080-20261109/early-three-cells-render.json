@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-derived-chart-render-v1",
+  "campaign_complete": false,
+  "data": "confirmation-three-cells.json",
+  "data_sha256": "38a108375ce6f83d0959750d6b12f1dc48a889f764aa68d99eac86a44040b021",
+  "html": "early-three-cells.html",
+  "html_sha256": "c4a74447955f3439d8bc25aa90b94efde191a52bb5ca461052e16f1deba8e76f",
+  "preview": {
+    "width": 728,
+    "contentHeight": 867,
+    "consoleMessages": []
+  },
+  "render": {
+    "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-7224d1cf-a5b8-4adb-a65d-f5f2fd2c4036-html",
+    "title": "RTX 5080: three completed native cells",
+    "height": 867,
+    "heights": [
+      [
+        320,
+        1173
+      ],
+      [
+        375,
+        1095
+      ],
+      [
+        430,
+        1020
+      ],
+      [
+        520,
+        942
+      ],
+      [
+        640,
+        885
+      ],
+      [
+        728,
+        867
+      ],
+      [
+        860,
+        846
+      ],
+      [
+        1000,
+        774
+      ],
+      [
+        1144,
+        774
+      ]
+    ]
+  },
+  "scope": "New three-cell completed-native checkpoint; earlier two-cell display/receipt retained unchanged. Static SVG/table values derived from this exact JSON; full-campaign chart remains pending."
+}

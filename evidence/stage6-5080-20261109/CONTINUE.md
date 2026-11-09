@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **53/524 valid
-configurations, 26/210 complete matched blocks**, with Qwen3-8B B03 candidate repeat
-eight active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **62/524 valid
+configurations, 31/210 complete matched blocks**, with Qwen3-8B B04 candidate repeat
+one active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -150,7 +150,29 @@ benefit. This checkpoint is complete only for these two cells, not the campaign.
 [Interim display](early-controls.html) was previewed/rendered with T3, with
 [bound data/render proof](early-controls-render.json); it covers only these two
 cells. Do not mistake it for the pending final full-matrix chart.
-Final report extraction must reproduce these estimates unchanged and include
+The newer [three-cell checkpoint](confirmation-three-cells.json) adds complete
+B03 document repetitions: candidate/ARC **0.9972007675
+[0.9896228337, 1.0048367286]**, twelve pairs. Candidate/ARC mean serving times
+are 45.6411976 / 45.5122017 seconds; mean end-user TTFT is 20.8078097 /
+20.7544478 seconds and mean completion 25.5310667 / 25.4610581 seconds.
+Both arms have 192 requests, 63,768 output tokens, zero caps and no returning
+CPU restores/eviction-affected returns. Its interval also includes parity; do not
+claim a resolved regression or gain. All 192 new matched texts/finish reasons
+agree, bringing the three-cell total to 648 pairs / 1,296 recorded responses.
+That does not waive source/word-limit findings or establish quality equivalence.
+The [new display](early-three-cells.html) was previewed/rendered with T3;
+[render binding](early-three-cells-render.json) and
+[actual extraction/guard validation](early-cells-validation.json) are retained.
+It covers three of 22 native cells; all older files above remain unchanged.
+
+The job-specific extraction code is tracked in
+`benchmarks/research_checks/stage6_5080_early_cells.py`. It was invoked as an
+absolute script with the pinned PY from BUNDLE/source, imports the frozen report
+module explicitly, waits without writing until every B03 pair is present and
+refuses an existing receipt or wrong working directory. It is derived reporting,
+not acquisition source. Current receipt exists: do not rerun to overwrite it.
+
+Final report extraction must reproduce all three estimates unchanged and include
 all remaining cells, external systems, overhead, operational and audits.
 
 ## Final report preparation

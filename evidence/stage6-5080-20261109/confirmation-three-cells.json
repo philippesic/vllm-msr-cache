@@ -1,0 +1,1553 @@
+{
+  "schema": "stage6-5080-completed-cell-checkpoint-v1",
+  "campaign_complete": false,
+  "complete_for_listed_cells": true,
+  "campaign_id": "37f88e1990a0b44fd187cbef4caeaff8b508fcb92acd437e514ff42b799cd7ba",
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "acquisition_source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "cells": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B01",
+      "frozen_repeats": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "all_frozen_repetitions_complete": true,
+      "candidate": "wait",
+      "baseline": "arc",
+      "throughput": {
+        "process_pairs": 12,
+        "geometric_throughput_ratio": 1.0013538577977346,
+        "throughput_gain_pct": 0.1353857797734559,
+        "time_reduction_pct": 0.1352027344970863,
+        "paired_95_interval": [
+          0.998926036337314,
+          1.003787579912287
+        ],
+        "method": "Student t on paired whole-process log throughput ratios",
+        "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+        "per_run_ratios": [
+          1.0008838388090198,
+          0.9981852525997325,
+          1.0035389493850007,
+          1.0089058923735008,
+          1.0056740361818126,
+          1.002326709313855,
+          0.9991795002905353,
+          0.9939137927789101,
+          1.0030640064825167,
+          1.0001142174739497,
+          1.00138469070364,
+          0.9991558073341547
+        ]
+      },
+      "arms": {
+        "arc": {
+          "processes": 12,
+          "mean_serving_seconds": 33.50230418558446,
+          "mean_startup_seconds": 52.703094963334784,
+          "completed_units_per_process": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "requests": 72,
+          "output_tokens": 5988,
+          "length_caps": 12,
+          "latency": {
+            "end_user_ttft_mean_s": {
+              "mean_of_process_statistics": 0.08124611102777778,
+              "values": [
+                0.08329123000000001,
+                0.0757453055,
+                0.08251507733333334,
+                0.11685701433333334,
+                0.0856576225,
+                0.068595172,
+                0.07818508533333333,
+                0.0702898795,
+                0.07744756666666666,
+                0.08267538333333334,
+                0.07021830366666666,
+                0.08347569216666666
+              ]
+            },
+            "end_user_ttft_p95_s": {
+              "mean_of_process_statistics": 0.18726602614583332,
+              "values": [
+                0.2079436155,
+                0.17305375774999998,
+                0.202503864,
+                0.25130522525,
+                0.21798084825,
+                0.133611643,
+                0.18100234225,
+                0.14581974375,
+                0.1808067885,
+                0.20542985275,
+                0.14634626225,
+                0.20138837049999997
+              ]
+            },
+            "e2e_mean_s": {
+              "mean_of_process_statistics": 1.0765791294166667,
+              "values": [
+                1.0732917095,
+                1.0696719725000001,
+                1.0892996671666668,
+                1.0971106481666666,
+                1.088296506,
+                1.079904596,
+                1.07960788,
+                1.051933399,
+                1.070230193,
+                1.0790892918333332,
+                1.065784006,
+                1.0747296838333333
+              ]
+            },
+            "e2e_p95_s": {
+              "mean_of_process_statistics": 1.5255273743333333,
+              "values": [
+                1.49069874,
+                1.536983499,
+                1.5767059645000001,
+                1.51045898925,
+                1.5181198627499999,
+                1.55592502825,
+                1.51127781825,
+                1.5142151915,
+                1.5074014467499999,
+                1.551192553,
+                1.5262896479999999,
+                1.50705975075
+              ]
+            }
+          },
+          "cpu_restore_active_processes": 0,
+          "cpu_pressure_observed_processes": 0,
+          "returning_cpu_eviction_affected_requests": 0,
+          "returning_loaded_tokens": 0,
+          "artifacts": [
+            {
+              "attempt": "7bf8e1cf629b473fb71f60a690a6ae0a",
+              "path": "attempts/065bd9e303d79122b7f4b21087c74c7ab0cbe97fffd7c2a5dd33d884ce04beed/7bf8e1cf629b473fb71f60a690a6ae0a",
+              "seal": "cb5d15737aa2f16319c7d21deb49969042d82a86748afdfae4a4d4cbb58758bb"
+            },
+            {
+              "attempt": "e2a3bfde30d74a9eab95504499ebbc16",
+              "path": "attempts/3bcfe01d32f661b3d45ef748bd6b96f063eae23ac5d56df0952567199710362c/e2a3bfde30d74a9eab95504499ebbc16",
+              "seal": "3c6bddf6c91072a73e0e6257ec09b90533154f4d5097f6b9dfb6651607a5d5f1"
+            },
+            {
+              "attempt": "2a92a9d8e440457fa3c1f49113f230e3",
+              "path": "attempts/aedf278aa160b7d61bd280675ae3460b45a829fcf03f2b1fb1e0660595d78bd6/2a92a9d8e440457fa3c1f49113f230e3",
+              "seal": "7a50ef2023b13cc53a99f0b9f4deb9fac85e073ef982a9148bda914f586fc4f7"
+            },
+            {
+              "attempt": "52033f08dec748dbb3411ffef0d5fa72",
+              "path": "attempts/45f1281f3a295b4c5da2525656602727bad2c751cb68c02439ee9fa77f05e286/52033f08dec748dbb3411ffef0d5fa72",
+              "seal": "8bb27f11e543eca3885abf9231fe13f90a41b4a5cc7cb173bb6d159cc0dbde54"
+            },
+            {
+              "attempt": "a13393fe4c064ea3b00140facb377bbf",
+              "path": "attempts/0a562d6bef7422b283c73d9c98d9ba2c630b2542adea2d562cc36bdb77865a5c/a13393fe4c064ea3b00140facb377bbf",
+              "seal": "43841edaeff0340378661990619fbb01dcb6ab3794653f0735bf0a03ad40f5e2"
+            },
+            {
+              "attempt": "4e04306e35fe4aa9a98118c22eef6a87",
+              "path": "attempts/3357843646182fdf38ab736f02343732ffd6ca77299801ec51baf2c4e9f660ec/4e04306e35fe4aa9a98118c22eef6a87",
+              "seal": "0315a1a887b30fb29e79e247d5bc152264efb5eb8bd0052c698b92e4151075bd"
+            },
+            {
+              "attempt": "829ef23d577d4d05becc01948804da18",
+              "path": "attempts/aa50d7f09d636765fa1fb2b84e1e5dd1046a5b9a1d096778db38434ee92cb216/829ef23d577d4d05becc01948804da18",
+              "seal": "9ec16b20f6c9c27c80920073cf16e046a6339a64e5085f25f265c9e853741165"
+            },
+            {
+              "attempt": "66039a2b54574f9899c822017a9b5eb6",
+              "path": "attempts/7df5e8309eed3feac7c46045199a96111ceaa93552671e959cf999b821767d24/66039a2b54574f9899c822017a9b5eb6",
+              "seal": "c1dfca56714a10f87dcc9f1d16dd1eb13bb5cd78b2546dac5fbf7ca1b631b70d"
+            },
+            {
+              "attempt": "52d8174087084deea4e718ab9519be67",
+              "path": "attempts/304cb9303ea9457532b3e6b69727e2c61e82a49fa63c3b3a804496b01a3524ef/52d8174087084deea4e718ab9519be67",
+              "seal": "5f18b5c2e1fecede38b292efbb954097e0b6c89d54f17967504228cf3a7aa969"
+            },
+            {
+              "attempt": "c27bc0d15b7c4e0a8073b8fb03c2ddda",
+              "path": "attempts/feaf9f8d761a71847490c3714d6b8c2fa38df5e3b86ad8ee4ec4e95051a93b3a/c27bc0d15b7c4e0a8073b8fb03c2ddda",
+              "seal": "28b11ae2214802fa01be54ab77fe2ecb79f53192fae44fd1816cf9625d356d6c"
+            },
+            {
+              "attempt": "307d1025969949d695ce0cb89dbed4af",
+              "path": "attempts/8d7800655cbac79dda55a8ba244ae0cce8553135c0ae195edabf24aee9ba5e77/307d1025969949d695ce0cb89dbed4af",
+              "seal": "80c1ded454a8d8aec310850ad8cb602701454ad3da4d837d376e681dd600e532"
+            },
+            {
+              "attempt": "a5e5ab6059ee48559a455f9e9a1b9b03",
+              "path": "attempts/d610f63fc295f9c0e21c9b49d20e348b74247c2b6eb7bd48bcf54e20ee761213/a5e5ab6059ee48559a455f9e9a1b9b03",
+              "seal": "48849dbd8311930c4dedf562c32d9d6ed89c72fe3dd57af688df4644e9926523"
+            }
+          ]
+        },
+        "wait": {
+          "processes": 12,
+          "mean_serving_seconds": 33.45701520358367,
+          "mean_startup_seconds": 53.0002446079161,
+          "completed_units_per_process": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "requests": 72,
+          "output_tokens": 5988,
+          "length_caps": 12,
+          "latency": {
+            "end_user_ttft_mean_s": {
+              "mean_of_process_statistics": 0.07624067275,
+              "values": [
+                0.07825768266666666,
+                0.087563369,
+                0.081375268,
+                0.06863374383333333,
+                0.066272776,
+                0.07866906233333333,
+                0.09047627450000001,
+                0.0805544185,
+                0.06806293333333334,
+                0.07194732866666667,
+                0.06602697816666667,
+                0.077048238
+              ]
+            },
+            "end_user_ttft_p95_s": {
+              "mean_of_process_statistics": 0.16421691933333335,
+              "values": [
+                0.1809470215,
+                0.22565124700000003,
+                0.19752863775,
+                0.1399397665,
+                0.12704444375,
+                0.18533874625,
+                0.17843561125000001,
+                0.14213179325,
+                0.13386345225000001,
+                0.15420103175,
+                0.13132664875,
+                0.17419463200000002
+              ]
+            },
+            "e2e_mean_s": {
+              "mean_of_process_statistics": 1.068861382611111,
+              "values": [
+                1.0670253666666667,
+                1.0791003555,
+                1.067936612,
+                1.0495863411666666,
+                1.0557512241666667,
+                1.0679206788333333,
+                1.0846057396666666,
+                1.0839269641666667,
+                1.0533735850000001,
+                1.0798245331666667,
+                1.0581930033333333,
+                1.0790921876666666
+              ]
+            },
+            "e2e_p95_s": {
+              "mean_of_process_statistics": 1.5216123415208334,
+              "values": [
+                1.499659954,
+                1.5083294055,
+                1.5082345115,
+                1.48982098925,
+                1.528626025,
+                1.5040388995,
+                1.57608422725,
+                1.5362351315,
+                1.50266059475,
+                1.5663713167500002,
+                1.5196681002499999,
+                1.519618943
+              ]
+            }
+          },
+          "cpu_restore_active_processes": 0,
+          "cpu_pressure_observed_processes": 0,
+          "returning_cpu_eviction_affected_requests": 0,
+          "returning_loaded_tokens": 0,
+          "artifacts": [
+            {
+              "attempt": "54bda97b90214df5ae231cb04c2100c5",
+              "path": "attempts/a3ae8c362d2c6e613ccdb1111d4c7d6296746e12dc5d8f796384f3b709411ab3/54bda97b90214df5ae231cb04c2100c5",
+              "seal": "edb163932a9f9a59fc1b3c6ddb83b0c7ffe1c42eb2040a376168c69b0bf59672"
+            },
+            {
+              "attempt": "71910ce7f9214736b8031dbd7445cf82",
+              "path": "attempts/25101e793a59df2ed63eecf0c1790748ce2da95253b794cc0fbb9fc3d0f8e006/71910ce7f9214736b8031dbd7445cf82",
+              "seal": "731e92b3e86bd71403670fcbf155f4ca6d06b5d8734ada0da6e4d62925e7dbfd"
+            },
+            {
+              "attempt": "ea913750a44047d8920570fba5a5dd1f",
+              "path": "attempts/032c1b1698cd4d4782cf5c31f8cc188a7f745b09e1266afd0360beb30bc34833/ea913750a44047d8920570fba5a5dd1f",
+              "seal": "430db546857bf006811cc4e566d1031f33f595fee458f14f6c1a0347ecf20e26"
+            },
+            {
+              "attempt": "07497e12490449f0b071a1be67abdc20",
+              "path": "attempts/93c7429b6c50bf725e036f5100c9980371615cde28e1810ecf22b0c2e10eb614/07497e12490449f0b071a1be67abdc20",
+              "seal": "c87637181dd0d5ef3d3ac5ca655e0c433a9ac9ac521ca53bf038756623b00509"
+            },
+            {
+              "attempt": "2d3dca47f0d04753874b69c9eb098c8d",
+              "path": "attempts/9f93e6aa90d36f788d704db91e140c417a6e5ccc0c0d1219d0687e2bdc78bf16/2d3dca47f0d04753874b69c9eb098c8d",
+              "seal": "f21c9576d404c31833db3b6561c7c600c56d9ba27ce0e3145378a01f73b922e0"
+            },
+            {
+              "attempt": "953d791d631b4b5b883b4f01927af00e",
+              "path": "attempts/826663f35ca9f7aa691e18f106f9acf0ff67beb9d83bf7b042764c3ef6dcbb09/953d791d631b4b5b883b4f01927af00e",
+              "seal": "77faebe58705245dc68752814adc3e4f048d38976482efe722d4c49e55da74fd"
+            },
+            {
+              "attempt": "9f0b260a479549779ddb5622db5db49c",
+              "path": "attempts/40a0ff69b7e56c38b105efca9aec13fc89368921787f4c22c5291fc1014ceeb4/9f0b260a479549779ddb5622db5db49c",
+              "seal": "534c70a6778339379ac98cb31584a1ac5f479132c807b2979a6f617cfd610f66"
+            },
+            {
+              "attempt": "77ad8f55819646468dc615cf290c7d5e",
+              "path": "attempts/e5b5d32711d02955cd282dd4f140f913f8e710b36b3af082e0b7dcb059a1dd0a/77ad8f55819646468dc615cf290c7d5e",
+              "seal": "225b6cfe02312bcc1390af065a6e0fdb94a7c446f643a40b92e7d2b5b4e66569"
+            },
+            {
+              "attempt": "8f13b4f882ac4ce18dc388b51228ad19",
+              "path": "attempts/92ca2e162df78b0d8f44c02bcb1dab7e71defcee585297290ebb8dc980e807af/8f13b4f882ac4ce18dc388b51228ad19",
+              "seal": "79a1ab1a03a917be1b9b23fa435d7dbe886260d6db3ca4f1361e52dfcd6a1e65"
+            },
+            {
+              "attempt": "8bc21e4f58894a978ec2838ce717db7c",
+              "path": "attempts/b688498305b9d49cef2db6cc03cf0e7cbd603d2c3c61d58aef564941f27761c8/8bc21e4f58894a978ec2838ce717db7c",
+              "seal": "912498231f0541845c3a854375afebb17860b52855fc50f45f10b578250f2672"
+            },
+            {
+              "attempt": "63b954fe08274c31b4bd9e80e8bb1b75",
+              "path": "attempts/1dfd6ffb76e66087f7e6455aa291961b24e49da896d5c8e530eba52f9c122f8e/63b954fe08274c31b4bd9e80e8bb1b75",
+              "seal": "c4d9e4e815f36562e7d4a89b33fdc676972e45a1670c58011c10df62e2f814fc"
+            },
+            {
+              "attempt": "0da2ff1594d0489f824025f725f7fd51",
+              "path": "attempts/2fd0fed35e300f2a3f649ed636228cffac4ead09552121182bcd5ab28c457438/0da2ff1594d0489f824025f725f7fd51",
+              "seal": "f598446b51c8428b68473dda01e6f69d2bc97d6b91ada94948feca09ab175d0f"
+            }
+          ]
+        }
+      },
+      "traffic_classes": {
+        "unhinted": {
+          "throughput": {
+            "process_pairs": 12,
+            "geometric_throughput_ratio": 1.0013538577977346,
+            "throughput_gain_pct": 0.1353857797734559,
+            "time_reduction_pct": 0.1352027344970863,
+            "paired_95_interval": [
+              0.998926036337314,
+              1.003787579912287
+            ],
+            "method": "Student t on paired whole-process log throughput ratios",
+            "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+            "per_run_ratios": [
+              1.0008838388090198,
+              0.9981852525997325,
+              1.0035389493850007,
+              1.0089058923735008,
+              1.0056740361818126,
+              1.002326709313855,
+              0.9991795002905353,
+              0.9939137927789101,
+              1.0030640064825167,
+              1.0001142174739497,
+              1.00138469070364,
+              0.9991558073341547
+            ]
+          },
+          "offered_units_per_process": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observations": {
+            "baseline": {
+              "requests": 72,
+              "returning": 60
+            },
+            "candidate": {
+              "requests": 72,
+              "returning": 60
+            }
+          },
+          "tail_scope": "descriptive: fewer than 200 returning observations in at least one arm; no tail guarantee",
+          "end_user_ttft_mean_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 0.9425112511832652,
+            "paired_95_interval": [
+              0.8304060303963908,
+              1.0697507316788204
+            ],
+            "per_run_ratios": [
+              0.9395668987799394,
+              1.1560237089544778,
+              0.9861866537586956,
+              0.5873309721704538,
+              0.773693853106885,
+              1.1468600491785828,
+              1.1572063151720635,
+              1.1460315350234738,
+              0.8788259755955321,
+              0.8702388276397469,
+              0.9403100718596588,
+              0.9230020859984764
+            ],
+            "method": "Student t on paired whole-process log latency-statistic ratios; lower is better"
+          },
+          "end_user_ttft_p95_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 0.8768280221300382,
+            "paired_95_interval": [
+              0.75393438360336,
+              1.0144257559128569
+            ],
+            "per_run_ratios": [
+              0.8701734894091999,
+              1.3039372847712696,
+              0.9754314502858079,
+              0.5568517978915364,
+              0.5828238800332314,
+              1.3871451775351642,
+              0.9858193492520951,
+              0.9747088397965998,
+              0.7403674019131201,
+              0.7506262098024115,
+              0.8973693398855495,
+              0.8649686750407469
+            ],
+            "method": "Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better"
+          },
+          "e2e_mean_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 0.9928256090317015,
+            "paired_95_interval": [
+              0.9806806752651873,
+              1.0051209479401884
+            ],
+            "per_run_ratios": [
+              0.9941615659770142,
+              1.008814275069734,
+              0.9803882661396258,
+              0.9566823026652638,
+              0.9700952069092342,
+              0.9889028001074767,
+              1.0046293286287116,
+              1.0304140596705844,
+              0.9842495491995525,
+              1.000681353562581,
+              0.9928775412054114,
+              1.0040591638055192
+            ],
+            "method": "Student t on paired whole-process log latency-statistic ratios; lower is better"
+          },
+          "e2e_p95_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 0.9974169651247681,
+            "paired_95_interval": [
+              0.9847549251308849,
+              1.0097114492010786
+            ],
+            "per_run_ratios": [
+              1.0060114185110265,
+              0.981356928347869,
+              0.956573099524163,
+              0.9863366035444315,
+              1.0069205090505626,
+              0.9666525521423369,
+              1.0428818634253783,
+              1.0145421470631177,
+              0.996854950610389,
+              1.0097852221638408,
+              0.995661670274265,
+              1.008333572868461
+            ],
+            "method": "Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better"
+          },
+          "five_percent_mean_latency_bounds": {
+            "end_user_ttft_mean_s": "inconclusive",
+            "e2e_mean_s": "bounded"
+          },
+          "five_percent_mean_latency_bound": "inconclusive",
+          "ten_percent_p95_diagnostic_alarm": true
+        }
+      },
+      "observed_native_output_matches": [
+        {
+          "block": "6479634c04eedfe3cf8b177d0f691fe23954a9d6d88f96c9941149ab996a2f58",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "d8d63fcbaaa8bda2c377e7e0ad28040240d04b529da2a8bb9244187e67ca12d2",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "8759305f3246b0d3d850495e11fe8cd8595d1a843114a16b14cf0af8798b981e",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "ff5bc890c6aef33268ec50f873333179ce882580565932a3fd140c51f5f717c7",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "4d6abc0851565a85ffa0363d2e794cedb36203c730fb784b14e30db8088974c0",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "41c1d31b9c171441828da4fd55be32c37ae77cef3515a3a064a41179ca91a46d",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "2c415246c06f8e9082d02990f93106ac086abd37d57ff2200938259bb9fde70c",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "f60f385fab14e7c06b36c99220b698bf26aaff4ce6315c16d13e8c67cf312bf4",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "f87a714ca14b3fa414edfb4943568312808c9503ab9ed8aae5f6cce3e12e781f",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "a17fdd7e12a6dd21fc93e272f771b390ea22d086910a5218e6665e296f818d8c",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "49ede05fd46444a1518a74d692ae6f9835ca604a67597e132ad274a3c0788291",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "aca60f4a4580bf2e850ba213100ccefb867ba187d59b1eb138e123f847802271",
+          "requests": 6,
+          "identical_generated_text_and_finish_reason": true
+        }
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B02",
+      "frozen_repeats": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "all_frozen_repetitions_complete": true,
+      "candidate": "wait",
+      "baseline": "arc",
+      "throughput": {
+        "process_pairs": 6,
+        "geometric_throughput_ratio": 1.0077593363002855,
+        "throughput_gain_pct": 0.7759336300285469,
+        "time_reduction_pct": 0.7699592572143032,
+        "paired_95_interval": [
+          0.9961581820513522,
+          1.0194955963811365
+        ],
+        "method": "Student t on paired whole-process log throughput ratios",
+        "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+        "per_run_ratios": [
+          1.0291409332430392,
+          0.9997154174252225,
+          1.0103717510756143,
+          1.0058351884750252,
+          1.0008643161901416,
+          1.0009364712000934
+        ]
+      },
+      "arms": {
+        "arc": {
+          "processes": 6,
+          "mean_serving_seconds": 6.268030609666312,
+          "mean_startup_seconds": 52.57944402683643,
+          "completed_units_per_process": [
+            64,
+            64,
+            64,
+            64,
+            64,
+            64
+          ],
+          "requests": 384,
+          "output_tokens": 8676,
+          "length_caps": 0,
+          "latency": {
+            "end_user_ttft_mean_s": {
+              "mean_of_process_statistics": 2.8371208261171876,
+              "values": [
+                2.818190282453125,
+                2.83071986015625,
+                2.85381392721875,
+                2.8241775989375,
+                2.8326632864375,
+                2.8631600015
+              ]
+            },
+            "end_user_ttft_p95_s": {
+              "mean_of_process_statistics": 5.4630186183583325,
+              "values": [
+                5.432672428799999,
+                5.4559448855,
+                5.474573638649999,
+                5.453779128299999,
+                5.446961358549999,
+                5.51418027035
+              ]
+            },
+            "e2e_mean_s": {
+              "mean_of_process_statistics": 3.153107874830729,
+              "values": [
+                3.135544974125,
+                3.145327284484375,
+                3.1699144135625,
+                3.1384538714375,
+                3.147059582640625,
+                3.182347122734375
+              ]
+            },
+            "e2e_p95_s": {
+              "mean_of_process_statistics": 5.672585569783333,
+              "values": [
+                5.6510751495,
+                5.662914292,
+                5.67992359485,
+                5.66163809,
+                5.6536664073,
+                5.72629588505
+              ]
+            }
+          },
+          "cpu_restore_active_processes": 0,
+          "cpu_pressure_observed_processes": 0,
+          "returning_cpu_eviction_affected_requests": 0,
+          "returning_loaded_tokens": 0,
+          "artifacts": [
+            {
+              "attempt": "debca970be7d4796a90034492a065d7b",
+              "path": "attempts/f9c607f74af1df142f613bbbeddccace110a83044dc41af0f27261b37debd09d/debca970be7d4796a90034492a065d7b",
+              "seal": "6e6193815d66944780f0c88addc7754cb82c8661fa410f12b9a20672e2eea31e"
+            },
+            {
+              "attempt": "e9f6cb4668d048929eeabe777f15c2ed",
+              "path": "attempts/18a051e9ff67980a209b566cd5f85b93007a38ce1ef7e836f17503b41b64d3c6/e9f6cb4668d048929eeabe777f15c2ed",
+              "seal": "d9d4647a327ce5040855cb30193022c2564aa176db7a9ed2aabdea6618ec4b06"
+            },
+            {
+              "attempt": "c987b9df6fe848d89cec4202f48786fa",
+              "path": "attempts/4645fb810d4f9879e5c4059535919bdb376ffc7dea2d220463ce305c6b2b68f8/c987b9df6fe848d89cec4202f48786fa",
+              "seal": "f859890845e4538657052ea828ca5ceb6d3735fb4594be33290dab0fba4951d7"
+            },
+            {
+              "attempt": "67a32ddd18044e67a2e6dbf5a98ea8ce",
+              "path": "attempts/333055a38f031ded50ce4bf3ea64cd4db104a078889ed8c49ba9ed024dd45440/67a32ddd18044e67a2e6dbf5a98ea8ce",
+              "seal": "8e4b04072c52214a9d2aefe4e042e09fc69c71b89ee10b8679db2dd782460d80"
+            },
+            {
+              "attempt": "6ed999a203214c8296eb6798f9a1715e",
+              "path": "attempts/766df5d4698ce35bbd91b3ba9a4d7e9180ea3abe72acffdf2a22f4fb073190f1/6ed999a203214c8296eb6798f9a1715e",
+              "seal": "ac12f242ba6078e01628945471f71a803fd3385f937dc161c39829cf9dc42060"
+            },
+            {
+              "attempt": "1d7d42d7dd1f4443b4aa936b531f0a52",
+              "path": "attempts/df5ab41e79d9b5d00b572d79f79e3970b69dd25304efe58e55a3d424c94ada04/1d7d42d7dd1f4443b4aa936b531f0a52",
+              "seal": "e30c601f1b281dda7e288896e9d0241fd281639f45b1f1fad7b82373641e0a40"
+            }
+          ]
+        },
+        "wait": {
+          "processes": 6,
+          "mean_serving_seconds": 6.219600911669356,
+          "mean_startup_seconds": 52.847279770501096,
+          "completed_units_per_process": [
+            64,
+            64,
+            64,
+            64,
+            64,
+            64
+          ],
+          "requests": 384,
+          "output_tokens": 8676,
+          "length_caps": 0,
+          "latency": {
+            "end_user_ttft_mean_s": {
+              "mean_of_process_statistics": 2.8228428825963543,
+              "values": [
+                2.817558450640625,
+                2.825259786671875,
+                2.821600082828125,
+                2.81560742378125,
+                2.8139977808125,
+                2.84303377084375
+              ]
+            },
+            "end_user_ttft_p95_s": {
+              "mean_of_process_statistics": 5.447738877049999,
+              "values": [
+                5.433241601549999,
+                5.45294094335,
+                5.436811549149999,
+                5.42651361925,
+                5.426783110949999,
+                5.510142438049999
+              ]
+            },
+            "e2e_mean_s": {
+              "mean_of_process_statistics": 3.1372154513489585,
+              "values": [
+                3.1309902800625,
+                3.139865025046875,
+                3.135118545359375,
+                3.12828857065625,
+                3.127326649984375,
+                3.161703636984375
+              ]
+            },
+            "e2e_p95_s": {
+              "mean_of_process_statistics": 5.656632099816667,
+              "values": [
+                5.64098079385,
+                5.65870813955,
+                5.6441904327,
+                5.63679702275,
+                5.6368455971,
+                5.72227061295
+              ]
+            }
+          },
+          "cpu_restore_active_processes": 0,
+          "cpu_pressure_observed_processes": 0,
+          "returning_cpu_eviction_affected_requests": 0,
+          "returning_loaded_tokens": 0,
+          "artifacts": [
+            {
+              "attempt": "fd5255eea34944358b7eb9326191ef96",
+              "path": "attempts/acbf9d19bdf8dc08663ff64c6836bbacfba268719854bc702800714fe170fcad/fd5255eea34944358b7eb9326191ef96",
+              "seal": "c8d61cb545748d9a291914b4700e791c943f220e47be97ddd810a273a8667de1"
+            },
+            {
+              "attempt": "18e5d9846cc348518d79986b49d14f47",
+              "path": "attempts/c26b54ecd88ed0e9f28cad024d7c50c4a9834b8b8b0ed2aa07d56c639662b390/18e5d9846cc348518d79986b49d14f47",
+              "seal": "d7f2ecd7971910a7481b74e61a69d63ac84ccc8ce9a65fe4117b7b4b0c422cfa"
+            },
+            {
+              "attempt": "37254b66931243ceafbb94d9c518160a",
+              "path": "attempts/8538222e3db940eb8f69748be8e4397919578b75efe941e9cf8aeb0c2e278f7b/37254b66931243ceafbb94d9c518160a",
+              "seal": "cd029f80abb31c9e295d2c121d049d318d821fde4c747ab74fb7ada91bd5400a"
+            },
+            {
+              "attempt": "c8104307b3554faaa126f21dfdd6ec7e",
+              "path": "attempts/a255a79b407d8a08c8d2a06f2781adc9c04a44840553fd04995b4a62f5f15c27/c8104307b3554faaa126f21dfdd6ec7e",
+              "seal": "7319a914b60383494a1e8c749f7a9fb9ccf7df935691ea1436fa6ff7a811dc8b"
+            },
+            {
+              "attempt": "b54fd3b2300440f8a872d2be1330cbef",
+              "path": "attempts/00cb9152de148db7913ddb06486a0bf3e2ddbc69a0dcbeec05d99c7765302ac8/b54fd3b2300440f8a872d2be1330cbef",
+              "seal": "f3e97257dde021f2b57f299b775d13b334dcc0579c6f36f268f8a62c638e7e96"
+            },
+            {
+              "attempt": "e318b2dd1517443189676e86476d4069",
+              "path": "attempts/18985a3983a91825caceb6ae18d8998ace81f7d86115cd2e3a0a400956159107/e318b2dd1517443189676e86476d4069",
+              "seal": "342cc6eb41342f7833904517e66eb8a63c4b46650350340be1df295c6555a8fb"
+            }
+          ]
+        }
+      },
+      "traffic_classes": {
+        "unhinted": {
+          "throughput": {
+            "process_pairs": 6,
+            "geometric_throughput_ratio": 1.0077593363002855,
+            "throughput_gain_pct": 0.7759336300285469,
+            "time_reduction_pct": 0.7699592572143032,
+            "paired_95_interval": [
+              0.9961581820513522,
+              1.0194955963811365
+            ],
+            "method": "Student t on paired whole-process log throughput ratios",
+            "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+            "per_run_ratios": [
+              1.0291409332430392,
+              0.9997154174252225,
+              1.0103717510756143,
+              1.0058351884750252,
+              1.0008643161901416,
+              1.0009364712000934
+            ]
+          },
+          "offered_units_per_process": [
+            64,
+            64,
+            64,
+            64,
+            64,
+            64
+          ],
+          "observations": {
+            "baseline": {
+              "requests": 384,
+              "returning": 0
+            },
+            "candidate": {
+              "requests": 384,
+              "returning": 0
+            }
+          },
+          "tail_scope": "descriptive: fewer than 200 returning observations in at least one arm; no tail guarantee",
+          "end_user_ttft_mean_s": {
+            "process_pairs": 6,
+            "geometric_latency_ratio": 0.9949773697597185,
+            "paired_95_interval": [
+              0.9907262904440909,
+              0.9992466899109049
+            ],
+            "per_run_ratios": [
+              0.9997758022882862,
+              0.9980711360522714,
+              0.9887120025298847,
+              0.9969654262679959,
+              0.9934106161807623,
+              0.9929706231416666
+            ],
+            "method": "Student t on paired whole-process log latency-statistic ratios; lower is better"
+          },
+          "end_user_ttft_p95_s": {
+            "process_pairs": 6,
+            "geometric_latency_ratio": 0.9972000245954106,
+            "paired_95_interval": [
+              0.9950142560155606,
+              0.9991110875363715
+            ],
+            "per_run_ratios": [
+              1.0001047684647766,
+              0.9994494185309709,
+              0.9931022775484463,
+              0.9950006209623494,
+              0.9962955038099679,
+              0.9992677366168617
+            ],
+            "method": "Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better"
+          },
+          "e2e_mean_s": {
+            "process_pairs": 6,
+            "geometric_latency_ratio": 0.9949674350638675,
+            "paired_95_interval": [
+              0.9911617050209655,
+              0.998787777839572
+            ],
+            "per_run_ratios": [
+              0.9985473995429547,
+              0.9982633732697882,
+              0.9890230890606223,
+              0.9967610482111072,
+              0.9937297238459994,
+              0.9935131257044447
+            ],
+            "method": "Student t on paired whole-process log latency-statistic ratios; lower is better"
+          },
+          "e2e_p95_s": {
+            "process_pairs": 6,
+            "geometric_latency_ratio": 0.9971836397459465,
+            "paired_95_interval": [
+              0.9955013237697975,
+              0.9986819981734331
+            ],
+            "per_run_ratios": [
+              0.9982137282936517,
+              0.9992572459632769,
+              0.9937088656998134,
+              0.9956123887018005,
+              0.9970247961255229,
+              0.9992970548185418
+            ],
+            "method": "Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better"
+          },
+          "five_percent_mean_latency_bounds": {
+            "end_user_ttft_mean_s": "bounded",
+            "e2e_mean_s": "bounded"
+          },
+          "five_percent_mean_latency_bound": "bounded",
+          "ten_percent_p95_diagnostic_alarm": false
+        }
+      },
+      "observed_native_output_matches": [
+        {
+          "block": "0282e3ac396fa82ffd654402744dea4c2cba4b58dbb078302b1919dc1e59dab4",
+          "requests": 64,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "2285bf19a1f7a50c0f37e905df1a3e73abf750cf242e3d69153dd168780a6130",
+          "requests": 64,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "e84c3e0042e5b971c9a46fb1be054e3ea33e24dd0f37894eb52ca5c5eb190871",
+          "requests": 64,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "10bf61d25d802c22096589cddd662a5682c5114f2c54fd171b3d15c609007432",
+          "requests": 64,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "5a27365e6fe7232182dee76d14283d30e52a92466b3361f439d1b4bb065f9fb2",
+          "requests": 64,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "2ca88a7b8f27ea13f400f29209902e5dfb7df14482132cdf668c86e848019830",
+          "requests": 64,
+          "identical_generated_text_and_finish_reason": true
+        }
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B03",
+      "frozen_repeats": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "all_frozen_repetitions_complete": true,
+      "candidate": "wait",
+      "baseline": "arc",
+      "throughput": {
+        "process_pairs": 12,
+        "geometric_throughput_ratio": 0.997200767541028,
+        "throughput_gain_pct": -0.27992324589719564,
+        "time_reduction_pct": -0.28070901568542084,
+        "paired_95_interval": [
+          0.9896228336814779,
+          1.0048367286404774
+        ],
+        "method": "Student t on paired whole-process log throughput ratios",
+        "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+        "per_run_ratios": [
+          0.9972828528007263,
+          1.0029394895872328,
+          0.9996711472827621,
+          0.987754723666456,
+          0.9876906469954089,
+          1.000467665363122,
+          0.9751619347254028,
+          1.0222398100071133,
+          0.9875970340434578,
+          1.0089722880239502,
+          0.9999336014810147,
+          0.9974891643040228
+        ]
+      },
+      "arms": {
+        "arc": {
+          "processes": 12,
+          "mean_serving_seconds": 45.51220173808057,
+          "mean_startup_seconds": 53.60755574566792,
+          "completed_units_per_process": [
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16
+          ],
+          "requests": 192,
+          "output_tokens": 63768,
+          "length_caps": 0,
+          "latency": {
+            "end_user_ttft_mean_s": {
+              "mean_of_process_statistics": 20.75444782088021,
+              "values": [
+                20.588323510625,
+                21.149688743749998,
+                20.635015017562502,
+                20.67003246,
+                20.520404602875,
+                20.78791500775,
+                20.690839834125,
+                21.0150318931875,
+                20.90740973825,
+                20.8284799010625,
+                20.57869510375,
+                20.681538037625
+              ]
+            },
+            "end_user_ttft_p95_s": {
+              "mean_of_process_statistics": 39.53587223622917,
+              "values": [
+                39.302331577,
+                40.2354178745,
+                39.2785781955,
+                39.4402817055,
+                39.100264892,
+                39.527574854,
+                39.460538551999996,
+                39.984168204,
+                39.922564317500004,
+                39.5893080655,
+                39.193233479250004,
+                39.396205118
+              ]
+            },
+            "e2e_mean_s": {
+              "mean_of_process_statistics": 25.461058072963542,
+              "values": [
+                25.2570963733125,
+                25.9584358428125,
+                25.301910357625,
+                25.370061569875,
+                25.163177744374998,
+                25.4957150870625,
+                25.3870955295,
+                25.79199741725,
+                25.6692293128125,
+                25.539902890625,
+                25.2335699250625,
+                25.364504825250002
+              ]
+            },
+            "e2e_p95_s": {
+              "mean_of_process_statistics": 44.050938594291665,
+              "values": [
+                43.77630192949999,
+                44.856164589,
+                43.74614425275,
+                43.988684704250005,
+                43.5464443395,
+                44.058067846,
+                43.96507549225,
+                44.59547765975,
+                44.4925466685,
+                44.08788560625,
+                43.632194244000004,
+                43.86627579975
+              ]
+            }
+          },
+          "cpu_restore_active_processes": 0,
+          "cpu_pressure_observed_processes": 0,
+          "returning_cpu_eviction_affected_requests": 0,
+          "returning_loaded_tokens": 0,
+          "artifacts": [
+            {
+              "attempt": "43f435c4f8bf478385cedf191e530786",
+              "path": "attempts/f6ee66d2cd39ec195ba5a4ccd8aaa566ac9b9279bdfcd028707bb1e36c6df8f3/43f435c4f8bf478385cedf191e530786",
+              "seal": "fba79639637bc6df88bc05276f671dfed777437159a341f3a2533d77c1f3e705"
+            },
+            {
+              "attempt": "b358fdb5082d41e88da07dc78954b4ac",
+              "path": "attempts/5dd6f887aa12cdb77a5915295c234f3eb7325bc41c1b5db8a3214c3a3441cf24/b358fdb5082d41e88da07dc78954b4ac",
+              "seal": "0d6ee4e0110a188b15240e291e928588b555807efb972e9b34d921227607827d"
+            },
+            {
+              "attempt": "67c0081f1d4f460eb8d94b281cd5e6d4",
+              "path": "attempts/5581deaf6443f813d937b36eedb312cbb671d1451d748e126ba2fd7602d4cce9/67c0081f1d4f460eb8d94b281cd5e6d4",
+              "seal": "99b400c85c2bb8057510ca700be2bf9feb923de95ede919671549867e2363db9"
+            },
+            {
+              "attempt": "22ea7059c6bf40bbb7de4f5291d3c065",
+              "path": "attempts/01914ccef56516e4614b244d7d2ad12b4b214d9574c1b8cf79feb5550832764a/22ea7059c6bf40bbb7de4f5291d3c065",
+              "seal": "151b049d4adcd773fae98e1dc8185f6f896c4b208c6ffc317209baa7462b0444"
+            },
+            {
+              "attempt": "7f4e7a4034ae43da9e6e35c0c5eb720d",
+              "path": "attempts/7d5e2fc03718e04534efd704b15e1e00d37721b9cb0c353137c2a987883ee235/7f4e7a4034ae43da9e6e35c0c5eb720d",
+              "seal": "68c1d3e89627a160512778786a47998186d50fa759321e9e12c86e088eb88786"
+            },
+            {
+              "attempt": "b1bea607ce56496bb3321c35eb31a7f5",
+              "path": "attempts/927fc1d55e57ef43c6e562e2a1dd1c4c4a35af8ed0e0ec394eecaabeff097395/b1bea607ce56496bb3321c35eb31a7f5",
+              "seal": "c668f89a44cc81d421770b95f445375fad14276a84abbf23b002682848eaa5ee"
+            },
+            {
+              "attempt": "078e654234914e9dbea6006b777f6f2a",
+              "path": "attempts/b81989ad748c75e493ab2954096a4eb4b76f8965cfc1aceffd74d9a142c04168/078e654234914e9dbea6006b777f6f2a",
+              "seal": "29e86216fc1d49d83bfc9abc8bc06ae3267bc26ab6bf458c252d4613ac4e2adb"
+            },
+            {
+              "attempt": "31bea7d8e6a64013bc4fbc8de655abcd",
+              "path": "attempts/897d470f461e3d771c2a7a1ca2465fe1e0a644a3b5b879fff9c5cbe5638c0321/31bea7d8e6a64013bc4fbc8de655abcd",
+              "seal": "f84ff159438ea538f8fe1d40ad11c6d5ec0348d297f2c855c263098854950207"
+            },
+            {
+              "attempt": "cdf79c9cf4d34df280c25e56b25e08dd",
+              "path": "attempts/528ff98baa62dc243652de619e4ee07c92f34bc14768d57dc5d431efe6b23849/cdf79c9cf4d34df280c25e56b25e08dd",
+              "seal": "1381a47210f9af8426ade99144f5b691719a4f6a4d2208cea2d679bb211e8a68"
+            },
+            {
+              "attempt": "38d0047d1c814339af1c587131d4ca9e",
+              "path": "attempts/f5869bdcd698e3218fbd6320a7f2105160fece26074c31921e6a32bf2bf5e5ee/38d0047d1c814339af1c587131d4ca9e",
+              "seal": "57d2831867eb7697a871a5e9b2067006c0df38e036cb1a62d1e4224a8f8e5219"
+            },
+            {
+              "attempt": "7c269801e5a34adc9f08cb816f8f55cc",
+              "path": "attempts/83497a577f8f0c7e0d740f84cef5b42b42f5f7910e8d8d7a763a21d6004e563d/7c269801e5a34adc9f08cb816f8f55cc",
+              "seal": "97339f2a55d05571a57ebe20b82a85cd5519fbb2c536e355b7e5aedf99477afe"
+            },
+            {
+              "attempt": "eff2fe0b6f8a4ab9b4db514554e4df7c",
+              "path": "attempts/bf36da73ae8eec95152b42a57bbad9d83bbeb99f455c4215b3f15f6b7e564dbc/eff2fe0b6f8a4ab9b4db514554e4df7c",
+              "seal": "5d45a29c638454041b6f4c8002262a337203ee100f1b96a5c84443fa0e3a71a3"
+            }
+          ]
+        },
+        "wait": {
+          "processes": 12,
+          "mean_serving_seconds": 45.64119757474691,
+          "mean_startup_seconds": 53.57544969933466,
+          "completed_units_per_process": [
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16
+          ],
+          "requests": 192,
+          "output_tokens": 63768,
+          "length_caps": 0,
+          "latency": {
+            "end_user_ttft_mean_s": {
+              "mean_of_process_statistics": 20.807809687229167,
+              "values": [
+                20.643161743625,
+                21.0507782613125,
+                20.56694887275,
+                20.976205329,
+                20.83729362375,
+                20.7167983301875,
+                21.2083265723125,
+                20.5973218331875,
+                21.2244528225625,
+                20.615635411125,
+                20.5643672940625,
+                20.692426152875
+              ]
+            },
+            "end_user_ttft_p95_s": {
+              "mean_of_process_statistics": 39.65555073266667,
+              "values": [
+                39.371449288,
+                40.18584002675,
+                39.225248521,
+                39.9482669035,
+                39.597098347250004,
+                39.537980961,
+                40.42507796875,
+                39.218465794000004,
+                40.447358292500006,
+                39.26954004675,
+                39.191747403,
+                39.4485352395
+              ]
+            },
+            "e2e_mean_s": {
+              "mean_of_process_statistics": 25.531066743625,
+              "values": [
+                25.326703295875,
+                25.84526429725,
+                25.235198892,
+                25.7486139723125,
+                25.54954731625,
+                25.42264621275,
+                26.0448644385,
+                25.254323089125,
+                26.056355251437502,
+                25.281311712375,
+                25.2192943810625,
+                25.3886780645625
+              ]
+            },
+            "e2e_p95_s": {
+              "mean_of_process_statistics": 44.184824536229165,
+              "values": [
+                43.8754852925,
+                44.75390134425,
+                43.748360208,
+                44.5695882875,
+                44.092924358000005,
+                44.04057333425,
+                45.08089305875,
+                43.66331229775,
+                45.051089149999996,
+                43.721644859250006,
+                43.645261946000005,
+                43.9748602985
+              ]
+            }
+          },
+          "cpu_restore_active_processes": 0,
+          "cpu_pressure_observed_processes": 0,
+          "returning_cpu_eviction_affected_requests": 0,
+          "returning_loaded_tokens": 0,
+          "artifacts": [
+            {
+              "attempt": "2406fd4c2cb5468eb3871931aa7ec40b",
+              "path": "attempts/25e168702e67f10aa606b86e316bdb653f8ef33b6a7526bec6144488dd974d4d/2406fd4c2cb5468eb3871931aa7ec40b",
+              "seal": "59bd412c0d6f827d62c1f5e4564e7d8e5bdf02f9f9437d5e7a1f241ac651149a"
+            },
+            {
+              "attempt": "9c7eeb81784246e9b252bc55328ad40d",
+              "path": "attempts/11eef152dc9592eebbed231a8c4a6aef6f54dc394a0cd21588bf387fe51701af/9c7eeb81784246e9b252bc55328ad40d",
+              "seal": "7574bdb643777c70d63427b5f3b462dc5f2af104d5365a4106e482e694921f4b"
+            },
+            {
+              "attempt": "d832abc29b7d4370ad124bdd745e5919",
+              "path": "attempts/4e9ecadb98de42e576539453303646fb6467052aaaa2ac7909f5e9a5eccc262e/d832abc29b7d4370ad124bdd745e5919",
+              "seal": "09d8b5d279bf0598339bf680779aead9b6a622707f8ea28b1b39222cba5a39f9"
+            },
+            {
+              "attempt": "88cf443150f3440aaba5f2f90f45aa68",
+              "path": "attempts/d8a06e9ea5cbf1ef9da6af36857f5aa607c5705e62122b204a561add9ff6572e/88cf443150f3440aaba5f2f90f45aa68",
+              "seal": "125b320c91d96fb40fb1bcee0f53bd32b75bcaedc29d4a3ae9f3ac590417675f"
+            },
+            {
+              "attempt": "500c7f172a224cd8a202b5d1a73e4a6c",
+              "path": "attempts/79d5865baab0c3d105f74f7b22a1d8ee9be1cbf2181f0f7ae0584d2de23e9f9c/500c7f172a224cd8a202b5d1a73e4a6c",
+              "seal": "a04a9da3c3bdef6b2955601e692c13b932c1febe562747d2aef3951b46f7545e"
+            },
+            {
+              "attempt": "435ea8407a4d45379781b8584f094110",
+              "path": "attempts/3cd297bc426b48aea1bd85798971c19a167e4ac5ebb10df297983de237910bec/435ea8407a4d45379781b8584f094110",
+              "seal": "de4498a1d9eb3c9da0c7471d1f7bc78db4414757fa40c45bb89a8923cbaf3e3a"
+            },
+            {
+              "attempt": "b22bd6c9977e430b83bb68e465a3f59e",
+              "path": "attempts/56ad83b13cd665ef229bf661b1ccfa5a005dee6a9738365c42c78faff4c865af/b22bd6c9977e430b83bb68e465a3f59e",
+              "seal": "a628ecc758fd10c6ec28589987b6a4c7d1d7673d2cfdc8ed0eab437905ac31d2"
+            },
+            {
+              "attempt": "1cd9bc8bbd2446448d4de057301f70c5",
+              "path": "attempts/1185f6f31bb19cc5cfb10dd8113f10c1f82e0632d0dab9825d9bf1c0922f1f94/1cd9bc8bbd2446448d4de057301f70c5",
+              "seal": "700f997e5af6cde14a7c6f258ce1b0b8cc80983ec2697291e868acd692ce4aef"
+            },
+            {
+              "attempt": "d1894b2dda1740b9b53e72d246c8b0f6",
+              "path": "attempts/9ef3405c0d0291c174812c483d983fd23d1c5521e6be343d3689da363e333407/d1894b2dda1740b9b53e72d246c8b0f6",
+              "seal": "c643d317c7149204049123ab1fc775e74c6ae6a598889cffcd5f3cbdbcecac21"
+            },
+            {
+              "attempt": "e693652c91b44e4599c7c847376660b6",
+              "path": "attempts/a5e9c7f7d3dac2e7c6e314d4f40879ac1d426c6547fc8615e427e5255f6ede69/e693652c91b44e4599c7c847376660b6",
+              "seal": "485155399dcfce7d86ebee6c560bf77926dcd0c094ceaeac6e08a5faabe61baa"
+            },
+            {
+              "attempt": "a1c94808ca5e4b9598817609e6acce8c",
+              "path": "attempts/0bf83d1d4ad5f0bd128450b3d7141caee2ff782214ea087da82700258e813143/a1c94808ca5e4b9598817609e6acce8c",
+              "seal": "36d5501c6ccc29e700067d1f32c3c5d27b6c75869cb0fad789ef8f01250181d1"
+            },
+            {
+              "attempt": "2a145d81c5f8493c822ef803949ae785",
+              "path": "attempts/240d2d9a0ac832ac91647b6c60c2c288a7b0d4d7142201802679e203b5ab54b2/2a145d81c5f8493c822ef803949ae785",
+              "seal": "a4cccd4fb68da9c04a431fd161f64523d020a9b1a46662edea1859f4b9ac15ba"
+            }
+          ]
+        }
+      },
+      "traffic_classes": {
+        "unhinted": {
+          "throughput": {
+            "process_pairs": 12,
+            "geometric_throughput_ratio": 0.997200767541028,
+            "throughput_gain_pct": -0.27992324589719564,
+            "time_reduction_pct": -0.28070901568542084,
+            "paired_95_interval": [
+              0.9896228336814779,
+              1.0048367286404774
+            ],
+            "method": "Student t on paired whole-process log throughput ratios",
+            "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+            "per_run_ratios": [
+              0.9972828528007263,
+              1.0029394895872328,
+              0.9996711472827621,
+              0.987754723666456,
+              0.9876906469954089,
+              1.000467665363122,
+              0.9751619347254028,
+              1.0222398100071133,
+              0.9875970340434578,
+              1.0089722880239502,
+              0.9999336014810147,
+              0.9974891643040228
+            ]
+          },
+          "offered_units_per_process": [
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16
+          ],
+          "observations": {
+            "baseline": {
+              "requests": 192,
+              "returning": 0
+            },
+            "candidate": {
+              "requests": 192,
+              "returning": 0
+            }
+          },
+          "tail_scope": "descriptive: fewer than 200 returning observations in at least one arm; no tail guarantee",
+          "end_user_ttft_mean_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 1.0025452604849978,
+            "paired_95_interval": [
+              0.9944946162997081,
+              1.010661076337118
+            ],
+            "per_run_ratios": [
+              1.0026635599043168,
+              0.9953233126200628,
+              0.996701424992685,
+              1.014812403879505,
+              1.0154426302506043,
+              0.9965789412966145,
+              1.0250104269491285,
+              0.9801232726115723,
+              1.0151641493748733,
+              0.9897810838357608,
+              0.999303755188788,
+              1.0005264654509831
+            ],
+            "method": "Student t on paired whole-process log latency-statistic ratios; lower is better"
+          },
+          "end_user_ttft_p95_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 1.002996601017199,
+            "paired_95_interval": [
+              0.997065695829264,
+              1.0093618278776586
+            ],
+            "per_run_ratios": [
+              1.0017586160471064,
+              0.9987678058196229,
+              0.9986422707503676,
+              1.0128798572432398,
+              1.0127066519017793,
+              1.000263261964298,
+              1.0244431386935828,
+              0.9808498602223418,
+              1.0131452972516086,
+              0.9919228692196149,
+              0.9999620833465861,
+              1.001328303610545
+            ],
+            "method": "Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better"
+          },
+          "e2e_mean_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 1.0027214582681665,
+            "paired_95_interval": [
+              0.9945336438654587,
+              1.0109766814559933
+            ],
+            "per_run_ratios": [
+              1.0027559352640412,
+              0.9956402787037019,
+              0.997363382263154,
+              1.0149212252163788,
+              1.0153545619635171,
+              0.9971340723700831,
+              1.0259095771013138,
+              0.9791534436272316,
+              1.0150813230076905,
+              0.9898750132544583,
+              0.9994342637984877,
+              1.0009530341506385
+            ],
+            "method": "Student t on paired whole-process log latency-statistic ratios; lower is better"
+          },
+          "e2e_p95_s": {
+            "process_pairs": 12,
+            "geometric_latency_ratio": 1.0030102667594778,
+            "paired_95_interval": [
+              0.9967451973082324,
+              1.0095738397617138
+            ],
+            "per_run_ratios": [
+              1.0022656861961465,
+              0.9977201964169921,
+              1.0000506548699972,
+              1.0132057502322607,
+              1.0125493602701405,
+              0.9996029214941711,
+              1.0253796349490334,
+              0.9790973118594637,
+              1.012553619051333,
+              0.9916929391835458,
+              1.0002994967873247,
+              1.0024753525748502
+            ],
+            "method": "Paired whole-process percentile bootstrap of log process-p95 ratios; 10000 resamples, seed 17011; lower is better"
+          },
+          "five_percent_mean_latency_bounds": {
+            "end_user_ttft_mean_s": "bounded",
+            "e2e_mean_s": "bounded"
+          },
+          "five_percent_mean_latency_bound": "bounded",
+          "ten_percent_p95_diagnostic_alarm": false
+        }
+      },
+      "observed_native_output_matches": [
+        {
+          "block": "edd5bdd57eceec9a09e8834c07ebde98d8b6ff711b59954f09f3dfce2f04fc97",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "33e3b54542bc2c4baf8be978a78919c1c847ae245231d7258d9aad37897b90db",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "73f83992a24fd862261a05c12db45b844c3aa0c745244b68f325a81c0f27583a",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "11b08300633fe7b977a0efc69ddabb1f6eadec8046328dc2fa03aca5199a8d37",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "5225e792ce4bf38c12265bd72e49158b4ebeef67cb63be23ddc02960f149cac3",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "8eee07d09061aa249d996e678deb312cd3c79851ebba6e93240062c51e54d695",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "818e70163b501685646bf99dc0abacf85f0a816eb539eb310ad9252bebea8d46",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "26760405c8e8ccb9d303179004bc471f50f7e20ead550f4b91ac19a1defcd5cf",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "b2a9d24af24482b918a2298422bb2bd099d53d5af0f541e33526f0c9e2619a91",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "2a6f882ac18727aa0a746a7d5bf35fe548991b93e32eecbe709e815a8af7599a",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "a69417c2addb43b493c19e1e13725f9fb5574d6b00cef14debfe61ef7fd67612",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        },
+        {
+          "block": "a16b1455890fe34271edaf9f2bc2e993042e10f52beecb9c831f13dea8286433",
+          "requests": 16,
+          "identical_generated_text_and_finish_reason": true
+        }
+      ]
+    }
+  ],
+  "scope": "Only the first three native cells have all frozen repetitions: B01 twelve, B02 six, B03 twelve. Earlier two-cell checkpoint retained unchanged. Frozen Student t on whole-process paired log throughput ratios; no request-level independent repetition or multiplicity adjustment. Serving time excludes startup; latency means are means of process statistics, including process p95s, not pooled percentiles. Actual fixed-cohort output matching is not answer correctness or population quality equivalence. CPU-restore/pressure facts retain observed scope; this is not an offload-benefit or external-system estimate. Remaining confirmation, overhead, operational, source/cap/integrity/portability audits and final campaign report remain pending. No acquisition or stopping-rule change."
+}

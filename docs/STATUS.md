@@ -22,8 +22,8 @@ Continuum environment; exact KV round trip and live serving passed. All 54 scree
 configurations / 22 matched blocks and functional qualification pass, including
 all five Continuum fixtures and every model's native pressure gate. The imported
 524-configuration / 210-block confirmation is running under the durable
-coordinator and 15-minute health schedule. The first chat/QA cells have complete
-paired estimates without a resolved throughput gain; the full matrix remains
+coordinator and 15-minute health schedule. The first chat/QA/document cells have complete
+paired estimates without a resolved throughput difference; the full matrix remains
 pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
 635 selected outputs / 74 contexts, including sixteen fully read document sets;

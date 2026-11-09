@@ -4,7 +4,7 @@ The pinned LMCache rebuild works on the RTX 5080. All five frozen Continuum
 screens pass, all 54 required screening configurations form 22 complete matched
 blocks, and the full functional qualification gate passes. The imported frozen
 confirmation schedule is activated and running: 524 configurations in 210
-matched blocks. The first two native control cells have complete repeated estimates below.
+matched blocks. The first three native cells have complete repeated estimates below.
 Headline comparisons with Continuum and the remaining cells are still pending;
 overhead, operational and final audits have not completed.
 
@@ -37,18 +37,24 @@ gates, and the roomy reduction. [Activation](activation.json) preserves the exac
 imported order, supplementary schedules, repeat/precision choices and acquisition
 source, without replanning. This is functional, not production qualification.
 
-The [first completed confirmation cells](confirmation-first-cells.json) retain
-all frozen repetitions for Qwen3-8B chat (B01) and independent QA (B02). The
+The [completed-cell checkpoint](confirmation-three-cells.json) retains
+all frozen repetitions for Qwen3-8B chat (B01), independent QA (B02) and document
+summaries (B03). The [earlier two-cell receipt](confirmation-first-cells.json)
+remains unchanged. The
 candidate/ARC throughput ratio is a geometric mean of whole-process paired
-ratios, with log Student-t 95% CIs; serving seconds exclude startup. Both
-intervals include parity, so neither control resolves a throughput gain. The
-[interim display](early-controls.html) and [render receipt](early-controls-render.json)
-cover these two controls only.
+ratios, with log Student-t 95% CIs; serving seconds exclude startup. All three
+intervals include parity, so none resolves a throughput gain or loss. The
+[current interim display](early-three-cells.html) and
+[render receipt](early-three-cells-render.json) cover these three cells only.
+[Extraction validation](early-cells-validation.json) records actual complete-cell
+execution, exact prior-data preservation and guards against overwriting history
+or importing from the wrong source directory.
 
 | Cell | Process pairs | Candidate mean s | ARC mean s | Candidate/ARC throughput [95% CI] |
 | --- | ---: | ---: | ---: | --- |
 | B01 | 12 | 33.457 | 33.502 | 1.0014 [0.9989, 1.0038] |
 | B02 | 6 | 6.220 | 6.268 | 1.0078 [0.9962, 1.0195] |
+| B03 | 12 | 45.641 | 45.512 | 0.9972 [0.9896, 1.0048] |
 
 Latency figures are milliseconds, averaged over per-process statistics.
 Mean process p95 is not a pooled request p95 or a population-tail guarantee.
@@ -59,11 +65,14 @@ Mean process p95 is not a pooled request p95 or a population-tail guarantee.
 | B01 / ARC | 81.246 | 187.266 | 1076.579 | 1525.527 |
 | B02 / candidate | 2822.843 | 5447.739 | 3137.215 | 5656.632 |
 | B02 / ARC | 2837.121 | 5463.019 | 3153.108 | 5672.586 |
+| B03 / candidate | 20807.810 | 39655.551 | 25531.067 | 44184.825 |
+| B03 / ARC | 20754.448 | 39535.872 | 25461.058 | 44050.939 |
 
-All 456 matched request texts and finish reasons agree between native arms
-within these two fixed cohorts (912 recorded responses total). Each B01 arm
-has 72 responses / 12 caps; each B02 arm has 384 responses / zero caps.
-Neither cell records returning CPU restoration or eviction-affected returns;
+All 648 matched request texts and finish reasons agree between native arms
+within these three fixed cohorts (1,296 recorded responses total). Each B01 arm
+has 72 responses / 12 caps; each B02 arm has 384 responses / zero caps; each B03
+arm has 192 responses / zero caps and 63,768 output tokens.
+None of these cells records returning CPU restoration or eviction-affected returns;
 these are controls, not evidence of pressured CPU-offload benefit. Output
 identity is conditional on these requests and does not establish answer
 correctness, population quality equivalence or results for other cells/systems.

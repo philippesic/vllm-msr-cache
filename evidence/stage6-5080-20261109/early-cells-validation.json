@@ -1,0 +1,17 @@
+{
+  "schema": "stage6-5080-derived-checkpoint-validation-v1",
+  "recorded_utc": "2026-11-09T19:45:16.889793+00:00",
+  "helper": "benchmarks/research_checks/stage6_5080_early_cells.py",
+  "helper_sha256": "6e7e9c37513d847f0218698f68a2f4426ff1bbf0a15dd6511f484ff15b7d1349",
+  "syntax_compile": true,
+  "actual_complete_B03_extraction": true,
+  "prior_two_cells_preserved_exactly": true,
+  "refuses_existing_receipt": true,
+  "existing_receipt_sha256_unchanged_after_refusal": true,
+  "refuses_wrong_source_directory": true,
+  "imports_frozen_campaign_report": true,
+  "source_review_or_campaign_completion_claim": false,
+  "scope": "Read-only derived reporting validation: actual complete-cell execution, frozen repetition/work/seal assertions, unchanged first two cells, two negative invocation/history guards and rendered actual data. No serving changes or claim that earlier benchmark test suites were rerun.",
+  "current_whitespace_cleaned_helper_guards_rechecked": true,
+  "final_whitespace_only_ast_unchanged": true
+}
