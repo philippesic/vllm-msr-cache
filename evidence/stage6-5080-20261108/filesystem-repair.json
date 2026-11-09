@@ -1,0 +1,39 @@
+{
+  "schema": "stage6-5080-linux-storage-recovery-v1",
+  "original_windows_campaign_preserved": "/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01",
+  "canonical_campaign": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01",
+  "alias": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-01",
+  "campaign_id": "664568b8c5a64da0aaa711d43c3a26fc1195a9db5c037b154a6963c6a70e4c2f",
+  "interrupted_attempt": "abf845871bda48c8849e6340010e75a3",
+  "original_measurement_manifest_preserved": true,
+  "original_full_tree_copy_verified": true,
+  "native_stage_probe_clean": true,
+  "staging_quarantine": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/staging-quarantine/abf845871bda48c8849e6340010e75a3",
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 4,
+      "interrupted": 1
+    },
+    "verified_files": 254,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "replacement": "Entire first B01 matched screen block, using ordinary resume; no measurement credit for original unmatched ARC",
+  "timed_source_models_policy_capacities_order_repeats_unchanged": true,
+  "private_host_files_remain_in_wsl": true,
+  "classification": "runner_storage_sealing_failure_after_successful_unmatched_worker",
+  "original_worker_status": "passed",
+  "original_completed_requests": 6,
+  "original_finish_reasons": {
+    "stop": 6
+  },
+  "original_failure": {
+    "type": "ValueError",
+    "message": "Sealed artifacts must be materialized, not symlinks"
+  },
+  "original_staging_symlink_count": 347,
+  "filesystem_image": "/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/stage6-5080-outputs-01.ext4",
+  "filesystem_mount": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01",
+  "filesystem_capacity_bytes": 21474836480
+}

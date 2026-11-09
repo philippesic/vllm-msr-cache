@@ -7,8 +7,12 @@ passed all four cases: actual pinned CPU geometry and restore/fresh-reference
 correctness for all three models, plus the registry probe. All four attempt
 seals / 223 files verify, cleanup passed, and GPUs were released. Screens and
 external capability/purpose qualification remain required. There are no 5080
-confirmed performance measurements yet. The full development screen is active;
-no speed or answer-quality equivalence claim follows.
+confirmed performance measurements yet. The first screen stopped on a retained
+[filesystem sealing error](FILESYSTEM_REPAIR.md); [storage repair](filesystem-repair.json)
+is verified and the whole screen has resumed. The unmatched ARC worker passed
+all six requests, but its incomplete
+block has no measurement credit. No speed or answer-quality equivalence claim
+follows.
 
 [Import proof](import.json) confirms a new linked hardware acquisition identity,
 all host/cell serving interpreters explicitly bound, and the unchanged 524
@@ -51,16 +55,23 @@ This is preparation telemetry, not the campaign's native hardware preflight.
 
 Storage is tight: initially about 22.3 GiB available in WSL and 56.6 GiB on
 Windows. Pinned model weights require 27.5 GiB before ancillary files.
-Native runtimes leave about 7.1 GiB free in WSL; reacquired models use
-a dedicated Windows cache with about 29 GiB remaining. Recheck free space
-before serving;
-stop with a resource receipt if this layout cannot support the frozen job.
+Native runtimes leave about 7.3 GiB free in WSL; reacquired models use
+a dedicated Windows cache. The later 20 GiB Linux image reservation leaves
+about 8.6 GiB free on Windows and about 19.5 GiB usable within the output
+filesystem. Recheck all three volumes; stop with a resource receipt if this
+layout cannot support the frozen job.
 The previous primary campaign retained about 14.2 GB, so the complete run's
 outputs need Windows storage. A dedicated campaign directory with a restricted
 Windows ACL is prepared; [verified placement](storage.json) preserved all 4,934
 file contents and the campaign identity, and proved Windows writer exclusion.
-Private host files remain mode 600 in WSL, linked into the campaign. Raw evidence and imported
-tool inputs will be on NTFS through DrvFS, equally for all systems. These are
+Private host files remain mode 600 in WSL, linked into the campaign. That initial
+storage proof missed native staging cleanup; direct DrvFS output left symlinks
+and failed the first outer attempt seal. The complete original Windows tree is
+preserved; the campaign is now on a project-owned ext4 image backed by
+Windows storage. Its native staging lifecycle probe passed, and exported
+verification covers all four preflight attempts plus the interrupted attempt
+(254 files). Resumed valid blocks
+will use that Linux filesystem consistently across arms. These remain
 host-conditional measurements; differences from 2080 Ti cannot isolate GPU
 hardware from filesystem/runtime/environment effects. No unrelated data has
 been removed.

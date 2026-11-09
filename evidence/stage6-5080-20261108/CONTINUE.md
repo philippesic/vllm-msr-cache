@@ -28,7 +28,7 @@ RUNTIMES=/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01
 PY=$RUNTIMES/local-env/bin/python
 CACHE=/home/philip/.cache/semantic-offload/stage6-5080-assets
 HOST=$BASE/host-replica.private.json
-OUT=/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01
+OUT=$BASE/linux-volume-01/primary-01
 export PATH=/usr/lib/wsl/lib:$PATH
 # Intended new Windows model-cache location; create only this task's directory.
 export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
@@ -59,7 +59,8 @@ Storage placement completed successfully in session 53061, log
 are preserved, the same four attempts / 223 files verify after placement, and
 real Windows writer-lock contention passed. `storage.json` here is the compact
 proof; `$BASE/storage-placement.private.json` retains full file hashes.
-The original project campaign path is now an alias. Future `OUT` is:
+The Windows path below is the preserved first-screen tree. Live `OUT` is now
+the Linux volume defined above; read the repair note before any recovery.
 
 `/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01`
 
@@ -67,11 +68,28 @@ The old duplicate was removed only after old/copy/alias content and seals
 verified. Private host files remain mode 600 in
 `$BASE/private-bindings/primary-01`, linked into the Windows campaign.
 
-**Active phase:** full screen is running in session 50824, log
-`$BASE/screen-01.log`, from `$BUNDLE/source`, with the explicit pinned `$PY`.
-Its saved process birth identity/canonical output path and reservation proof
-are in `$BASE/screen-owner.private.json`. Inspect that process before any new
-launch; do not duplicate or repeat preflight. Screen is 54 configurations in
+Screen session 50824 stopped on a retained filesystem
+sealing error after its first ARC worker passed. Read [repair](FILESYSTEM_REPAIR.md)
+before any serving/resume. Native preflight remains passed. Recovery completed
+in session 56322 through `stage6_5080_linux_storage`, log
+`$BASE/linux-storage-recovery.log`. All four preflight attempts and the one
+interrupted screen attempt verify (254 files). The Linux volume is mounted and
+the exact pinned launcher left no staging in its GPU-free lifecycle probe.
+The source/policy, models, geometry, frozen schedule/repeats and campaign identity
+are unchanged. See `filesystem-repair.json` here for compact proof.
+
+The exported verifier confirmed recovery and both original/execution seals.
+**Active phase:** whole screen resumed in session 98188 using
+`$PY -m benchmarks.serving_suite.campaign resume --out "$OUT" --phase screen`
+from `$BUNDLE/source`, log `$BASE/screen-02.log`. Current owner/birth/mount proof
+is `$BASE/screen-owner.private.json`; the first launch owner is preserved as
+`screen-01-owner.private.json`. Do not duplicate or repeat preflight.
+The affected B01 block is replaced in full; original unmatched ARC gets no
+measurement credit. Require `findmnt` to prove the ext4 image is mounted before
+resume; see the repair note for the existing image/remount command. Never reformat
+it or create a new campaign in an unmounted directory.
+
+Screen is 54 configurations in
 22 required cells. A completed native GPU-resident control can have an original
 inconclusive restore status; use the existing attested `measurement_validity`
 to distinguish a complete control from an actual execution/correctness failure.
@@ -81,28 +99,15 @@ retaining failed cases; inspect the ledger/results, not only its exit code.
 After all screens finish, run `qualify` and inspect
 `all_required_correctness_passed`; do not activate an import with a failed gate.
 
-**Storage placement before screen/confirmation:** the 2080 Ti primary campaign
-retained 14,182,204,461 bytes, exceeding this WSL volume's remaining ~7.1 GiB.
-The bounded four-case preflight passed. Its completed generated campaign was
-placed on the dedicated Windows
-campaign volume before screen, keeping the original project path as an alias
-so frozen absolute input strings remain valid. Destination parent:
-`/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns`.
-It has ~28.7 GiB free and a verified explicit ACL allowing only Philip, SYSTEM
-and Administrators. The exact private ACL/storage receipt is
-`$BASE/storage-plan.private.json`; placement is complete as proved above.
-
-Never move an active campaign. First verify coordinator/workers exited, GPU
-clients absent and both reservations free. Copy to a new destination, preserve
-all attempts/input strings/identity/order/repeats, and verify content and seals.
-Keep root `host.private.json` and `hardware.private.json` in a permanent private
-WSL directory (mode 600), with file links from the Windows campaign, rather
-than exposing private host files on DrvFS. Switch the original project campaign
-directory to an alias only after verifying the copy; verify campaign integrity
-again through the alias. Preserve the previous tree until copy recoverability
-is established. This is storage placement, not a new import, identity, matrix,
-source revision or retry. Set future serving `OUT` to the canonical Windows
-campaign path so bounded health process matching finds the coordinator.
+The previous primary retained 14,182,204,461 bytes, exceeding the WSL root's
+remaining space. The Linux image now provides about 19.5 GiB usable output
+capacity, reserving 20 GiB on the Windows backing disk. At repair, WSL root had
+about 7.3 GiB free and Windows about 8.6 GiB free. Monitor **all three** volumes
+and verify the ext4 mount is present at every check/resume. Preserve the image
+and its mounted results; its exact backing/mount recipe is in the repair note.
+Use the current canonical Linux `OUT` for process matching. Private bindings
+stay in WSL. No campaign identity, source, matrix, order, repeats or capacities
+changed; the whole interrupted B01 block is the only declared replacement.
 Earlier setup attempts/logs are retained (one verifier rejection of generated
 caches; one stopped cwd correction). All original seals verify again.
 
@@ -116,13 +121,13 @@ execution source too: 240 tests, 31 tests and compileall (`*-02.log`).
 Recheck disk before continuing. Initial WSL free space was 23,943,786,496
 bytes; the Windows filesystem had 60,804,325,376 bytes free. Sealed model
 weights total 29,540,039,872 bytes. Existing uv cache permits hardlink reuse;
-runtime reconstruction leaves about 7.3 GiB in WSL, and completed model
-downloads leave about 29 GiB on Windows. Do not delete unrelated data or fill
-a volume.
+runtime reconstruction leaves about 7.3 GiB in WSL; the later Linux image
+reservation leaves about 8.6 GiB on Windows, plus about 19.5 GiB in the new
+output filesystem. Do not delete unrelated data or fill a volume.
 
 The commands below retain the entire authorized sequence. Offline rebinding
-and import/preflight/storage placement completed, and full screen is active;
-do not repeat those steps.
+and import/preflight completed. The first screen stopped and storage recovery
+completed; the repaired whole screen is active as described above.
 Use the pinned interpreter throughout:
 
 ```bash

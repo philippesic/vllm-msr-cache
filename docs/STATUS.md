@@ -26,7 +26,11 @@ All three pinned runtimes reconstructed successfully, and all three pinned
 models were reacquired and content-verified. Import succeeded with explicit
 pinned worker interpreters; all four native hardware preflight cases passed,
 with sealed integrity and verified cleanup. Output storage placement is verified,
-with private bindings retained in WSL. Full screen is active; external
+with private bindings retained in WSL, but the first screen's outer seal exposed
+residual native staging on DrvFS. Its unmatched ARC worker passed; the failed
+attempt/tree are retained. Recovery to a project-owned Linux ext4 image is
+verified, with a clean pinned-launcher lifecycle probe and all five retained
+attempts / 254 files verifying. Whole screen resumed. External
 capability/purpose gates remain required before confirmation.
 The 15-minute health schedule is enabled. Storage needs monitoring; pinned
 models will use a dedicated Windows cache while native runtimes stay in WSL.
