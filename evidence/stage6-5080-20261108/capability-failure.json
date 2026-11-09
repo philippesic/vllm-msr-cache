@@ -1,0 +1,298 @@
+{
+  "schema": "stage6-5080-capability-failure-v1",
+  "outcome": "failed",
+  "classification": "external_runtime_gpu_capability_failure",
+  "same_campaign": true,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "source_files_verified": 2192,
+  "measurement_source_digests": {
+    "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b": 41
+  },
+  "error": "CUDA error: no kernel image is available for execution on the device",
+  "failing_operation": "lmcache.v1.gpu_connector.from_gpu -> lmc_ops.multi_layer_kv_transfer",
+  "kernel_inventory": {
+    "binary": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/continuum-env/lib/python3.12/site-packages/lmcache/c_ops.cpython-312-x86_64-linux-gnu.so",
+    "binary_sha256": "2d7a83345a34035be67e94609661db712265d479df447b317aa0aa86535a04ce",
+    "architectures": [
+      "sm_100",
+      "sm_70",
+      "sm_75",
+      "sm_80",
+      "sm_86",
+      "sm_89",
+      "sm_90"
+    ],
+    "sm120_present": false,
+    "ptx_present": false
+  },
+  "failed_continuum_screens": [
+    {
+      "cell": "B06",
+      "attempt": "681d6e5b1c384cc892849e05cc5c1355",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/0adb9d58e1decb92283d4e7bbe5962c08d9d9e760b79dfdf2ec80152ab16f93f/681d6e5b1c384cc892849e05cc5c1355",
+      "seal": "ebd997a593a60d81f6aec1eeb4da5da91a7fa3905745cd897d176de5a622f8a7",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "RuntimeError: Warmup failed",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "server_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/0adb9d58e1decb92283d4e7bbe5962c08d9d9e760b79dfdf2ec80152ab16f93f/681d6e5b1c384cc892849e05cc5c1355/measurement/00-continuum/server.log",
+      "server_log_sha256": "4e43c21e16b3c7d8684a595047b4dbc88e2de9cefeb804bcc9627eda5e4680cf",
+      "evidence": "LMCache lmc_ops.multi_layer_kv_transfer: CUDA no kernel image is available for execution on the device"
+    },
+    {
+      "cell": "B08",
+      "attempt": "f62562dc4df64c9e8afb9d018d623e11",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/7e41e28f806f625c62182db4e54090625c91a3108d975e8ae390a3f4f15e2f7e/f62562dc4df64c9e8afb9d018d623e11",
+      "seal": "1e3b9df31720a120aa63e5ed56056cfb977d81ec803502559f7dacd1d0415129",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "RuntimeError: Warmup failed",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "server_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/7e41e28f806f625c62182db4e54090625c91a3108d975e8ae390a3f4f15e2f7e/f62562dc4df64c9e8afb9d018d623e11/measurement/00-continuum/server.log",
+      "server_log_sha256": "9920efc425c366f94d3f4dd648bb79fc923eab31d65faf36ae61aec0442f8f95",
+      "evidence": "LMCache lmc_ops.multi_layer_kv_transfer: CUDA no kernel image is available for execution on the device"
+    },
+    {
+      "cell": "B09",
+      "attempt": "a8ac8ea14c4e460b81d8616b03231019",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/2ed612fe6e58fe80fbf162a052a9055ef713339b6698c2a860ae43c2fa990a71/a8ac8ea14c4e460b81d8616b03231019",
+      "seal": "5798357416c7109fbdb76ad9904df9be2aeb7a3c5839749b699d9dc7cfaf40a9",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "RuntimeError: Warmup failed",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "server_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/2ed612fe6e58fe80fbf162a052a9055ef713339b6698c2a860ae43c2fa990a71/a8ac8ea14c4e460b81d8616b03231019/measurement/00-continuum/server.log",
+      "server_log_sha256": "66bb861251e1a051759c8331fc4ab5ff61faada9486bdb9aa138119734e28fcd",
+      "evidence": "LMCache lmc_ops.multi_layer_kv_transfer: CUDA no kernel image is available for execution on the device"
+    },
+    {
+      "cell": "B11",
+      "attempt": "5b4a1daea4ac405cb983fb01ef4b99f6",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/be91b9bb936897c6487f263abb5e2b832766caf3cb6d29145591564908d0d402/5b4a1daea4ac405cb983fb01ef4b99f6",
+      "seal": "86f8757ceb9ae01927fc5227bf06968468a6adc0b4ed274c5e4368ef3c2f5217",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "RuntimeError: Warmup failed",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "server_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/be91b9bb936897c6487f263abb5e2b832766caf3cb6d29145591564908d0d402/5b4a1daea4ac405cb983fb01ef4b99f6/measurement/00-continuum/server.log",
+      "server_log_sha256": "8d4d5849cd5fad1b67e3252d99b332eb76012bbd0ad55a63f28d6415d24a89ca",
+      "evidence": "LMCache lmc_ops.multi_layer_kv_transfer: CUDA no kernel image is available for execution on the device"
+    },
+    {
+      "cell": "B12",
+      "attempt": "9abf367938a94787b74713d3338e7ca0",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/d2490864e692772dc621c8b4d2ff9c85987fa51efbeb03829065ede9264cd18a/9abf367938a94787b74713d3338e7ca0",
+      "seal": "57333fe99020b9ee14eda01b6edb3d1d184b10dae3e9267ff47504e865840f07",
+      "evaluation": {
+        "status": "failed",
+        "errors": [
+          "RuntimeError: Warmup failed",
+          "incomplete_request_coverage",
+          "no_resource_samples",
+          "gpu_memory_unavailable"
+        ],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "completed": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "server_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-01/attempts/d2490864e692772dc621c8b4d2ff9c85987fa51efbeb03829065ede9264cd18a/9abf367938a94787b74713d3338e7ca0/measurement/00-continuum/server.log",
+      "server_log_sha256": "ffd2240d0d66617045c399c531dd2d1f86d908b924f756e6d6c7630f1caccad0",
+      "evidence": "LMCache lmc_ops.multi_layer_kv_transfer: CUDA no kernel image is available for execution on the device"
+    }
+  ],
+  "integrity": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 33,
+      "interrupted": 2,
+      "failed": 6
+    },
+    "verified_files": 3142,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "bundle_integrity": {
+    "primary-execution-bundle-01": 4606,
+    "transfers/primary-relocated-bundle": 4606,
+    "transfers/addendum-relocated-bundle": 8362,
+    "transfers/completion-audit-packet-02": 17
+  },
+  "all_required_correctness_passed": false,
+  "complete_screen_blocks": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B01",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B02",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B03",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B04",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B05",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B07",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B10",
+      "repeat": 0,
+      "systems": [
+        "arc",
+        "wait"
+      ]
+    }
+  ],
+  "screen_cases_expected": 54,
+  "screen_terminal_attempts": 37,
+  "genuine_failed_screens": 5,
+  "restore_inactive_control_raw_failed": 1,
+  "interrupted_screen_attempts": 2,
+  "activation_performed": false,
+  "confirm_overhead_operational_run": false,
+  "quality": {
+    "objective_complete_block_final_outputs": 298,
+    "objective_automatic_failures": 186,
+    "blind_review_items": 271,
+    "source_answer_review": "pending; stopped capability failure, no answer-quality claim",
+    "all_attempt_request_rows": {
+      "preflight": 49,
+      "screen": 1322
+    },
+    "screen_final_rows_including_incomplete_attempts": 603,
+    "all_attempt_capped_outputs": 39,
+    "capped_roles": {
+      "intermediate": 34,
+      "final": 5
+    },
+    "capped_content_review": "not completed; full inventory retained, no usefulness/equivalence claim",
+    "raw_capped_inventory": "output/stage6-5080-20261108/failure-closeout.private.json"
+  },
+  "cleanup": {
+    "owned_survivors": [],
+    "gpu_compute_clients": [],
+    "locks": {
+      "/home/philip/.cache/semantic-offload/gpu-0.lock": [],
+      "/tmp/vllm-semantic-cache-gpu.lock": []
+    },
+    "both_locks_acquired_and_released": true,
+    "owned_server_ports_closed": []
+  },
+  "disk": {
+    "/": {
+      "total": 1081101176832,
+      "used": 1062352195584,
+      "free": 7737090048
+    },
+    "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01": {
+      "total": 20957446144,
+      "used": 903032832,
+      "free": 20037636096
+    },
+    "/mnt/c": {
+      "total": 1999313563648,
+      "used": 1990123827200,
+      "free": 9189736448
+    }
+  },
+  "raw_closeout": "output/stage6-5080-20261108/failure-closeout.private.json",
+  "raw_kernel_inventory": "output/stage6-5080-20261108/lmcache-kernel-inventory.json",
+  "scope": "Genuine capability failure closes this authorized replication. Incomplete screens and unrun dependent phases cannot support confirmation/performance/quality claims. No new runtime, model, workload, policy, study or addendum was substituted."
+}

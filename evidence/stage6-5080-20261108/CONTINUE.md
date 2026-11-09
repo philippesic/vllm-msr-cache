@@ -1,4 +1,26 @@
-# Active Stage 6 RTX 5080 continuation
+# Stage 6 RTX 5080 — closed on capability failure
+
+2026-11-08 Pacific closeout: **do not resume this job**. The pinned
+Continuum/LMCache extension failed all five anchor screen warmups with
+`CUDA error: no kernel image is available for execution on the device` in
+`lmc_ops.multi_layer_kv_transfer`. Binary inspection confirms no `sm_120`
+kernel and no PTX fallback. This meets the authorized capability-failure stop.
+See [results](RESULTS.md), [failure receipts](capability-failure.json), and
+[supervision takeover](supervision-takeover.json).
+
+The recorded coordinator was interrupted through its normal owned cleanup.
+All 41 attempts / 3,142 files verify; both original transfers, execution bundle
+and audit packet verify. Qualification is false. Activation, confirmation,
+overhead and operational phases were not run. Both health schedules are
+disabled. Owned GPU clients/servers are gone and both locks can be acquired.
+Keep the mounted ext4 image, retained attempts and useful caches. Never format
+the image or reset this campaign. Any future runtime repair or study requires
+separate scope; this job supplies no confirmed 5080 performance result.
+
+Current supervision thread:
+<t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/mcp:launch:88f1283af00bb5a99a0c27b25e8461a3417935a8903dc08e845bf2bdb84e2f19>
+
+## Historical continuation instructions (superseded by failure closeout)
 
 This is the same authorized job, not a new study request. Continue through
 all primary phases and final audits; a scheduled check is not task completion.

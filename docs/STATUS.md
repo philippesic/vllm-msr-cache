@@ -15,30 +15,20 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Stage 6 RTX 5080 replication — authorized; preparation active
+## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 
-Philip authorized execution on DESKTOP-E78LJSI on 2026-11-08 at about 20:47
-Pacific. Both sealed bundles, the final audit packet and repository checkpoint
-are copied and verified. Exported primary source passes 240 benchmark tests
-and 31 lightweight tests plus compilation, repeated on a separately sealed
-5080 source identity using the current coordinator and unchanged frozen inputs.
-All three pinned runtimes reconstructed successfully, and all three pinned
-models were reacquired and content-verified. Import succeeded with explicit
-pinned worker interpreters; all four native hardware preflight cases passed,
-with sealed integrity and verified cleanup. Output storage placement is verified,
-with private bindings retained in WSL, but the first screen's outer seal exposed
-residual native staging on DrvFS. Its unmatched ARC worker passed; the failed
-attempt/tree are retained. Recovery to a project-owned Linux ext4 image is
-verified, with a clean pinned-launcher lifecycle probe and all five retained
-attempts / 254 files verifying. Whole screen resumed. External
-capability/purpose gates remain required before confirmation.
-The 15-minute health schedule is enabled. Storage needs monitoring; pinned
-models will use a dedicated Windows cache while native runtimes stay in WSL.
-[Current 5080 evidence](../evidence/stage6-5080-20261108/RESULTS.md) and
-[exact continuation](../evidence/stage6-5080-20261108/CONTINUE.md) retain paths,
-ownership, planned output storage placement, remaining phases and the required
-final webhook. Preserve all
-2080 Ti seals and historical study state; no addendum is being opened.
+The pinned Continuum/LMCache GPU KV-transfer extension failed all five anchor
+screen warmups with no compatible kernel image. Binary inspection confirms no
+sm_120 kernel or PTX fallback. Native preflight passed, but qualification is
+false; activation, confirmation, overhead and operational phases were not run.
+The authorized capability-failure stop preserves all 41 attempts / 3,142 verified
+files and unchanged transfer seals. No confirmed 5080 speed or quality claim.
+Owned GPU clients/servers are gone, both locks are free, both health schedules
+are disabled, and useful raw evidence/caches/the ext4 image remain preserved.
+[Results and limitations](../evidence/stage6-5080-20261108/RESULTS.md),
+[failure receipts](../evidence/stage6-5080-20261108/capability-failure.json), and
+[closed continuation](../evidence/stage6-5080-20261108/CONTINUE.md) retain the proof.
+All 2080 Ti seals and historical study state remain unchanged; no addendum opened.
 
 ## Repository pressure recovery — complete; GPU released
 
