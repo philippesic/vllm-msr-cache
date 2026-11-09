@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 5,
+      "review_id": "88398ad2c4de106534646f28",
+      "signature": "09f858283164c216d1fa47b8cb2e42c3916f991e3639c8e14234a86d88158cf6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied PEP explicitly discusses Python 3.0 list-comprehension syntax and scope changes, contradicting the claimed absence."
+      ],
+      "whitespace_words": 29,
+      "notes": "Complete PEP 289 supports Final/Standards Track and memory-efficient generator expressions with reduction functions; real metadata validation passes and literal Test_status=PASS is present. Its Details explicitly discuss list-comprehension syntax becoming illegal and loop-variable scope changing in Python 3.0, so the unqualified limitation is false even though later implementation details are not guaranteed. Earlier generated validate_runtime_support declaration was not an executed tool. Useful core facts remain. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "39b177adcafe63c074ee7850",
+      "signature": "45adfd160c1beec62d3837b672b789d6aa8f24e9bc5b5c3d89e5a6674d1caa7f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Complete PEP 352 supports Final/Standards Track and the Python-3.0 BaseException inheritance requirement. Its Transition Plan explicitly stages legacy 2.x deprecation warnings and eventual removal, so the limitation is read as no guarantee of all legacy 2.x semantics across the transition, not absence of BaseException in 2.5. Literal test_status=PASS reflects actual five-field metadata validation only; no runtime execution is inferred from that result. Earlier invented search lines are not actual tool evidence. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

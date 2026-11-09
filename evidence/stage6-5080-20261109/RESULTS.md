@@ -144,25 +144,30 @@ duplicate-inclusive counts, not population rates. The final inventory must still
 include every ordinary attempt after all acquisition phases finish. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-07.json) covers
-2,011 selected outputs / 123 contexts from all B01/B02/B03/B04/B05 and all seven
-valid B06 blocks, with 2,744 objective finals. All 30 new dependency chains and
-answers were explicitly read; [component bindings](confirm-review-components-07.json)
-check that supplied source/reference, instructions and actual tool results exactly
-match previously explicitly read material. Three novel finals contain unsupported
-limitation claims; 27 fail instruction requirements, including literal status
-formatting. All retain useful content. Earlier contexts exactly reuse complete source/instruction/answer
+The [latest partial confirmation review](confirm-review-index-08.json) covers
+2,243 selected outputs / 162 contexts through all B07 repetitions and the first
+B08 four-system block, with 3,000 objective finals. All 39 novel PEP contexts
+were explicitly judged, including four capped intermediates. All sixteen supplied
+PEP source texts were read within their full-document/opening-excerpt boundaries;
+[source bindings](confirm-source-components-08.json) retain exact repeated-text
+reuse, with each new dependency/tool/answer context separately read.
+Novel findings include 18 source-support failures, 25 instruction failures and
+six outputs not useful: unfinished/repetitive caps, a repetitive final with the
+wrong creation year, CSV/pickle confusion and unsupported limitation/runtime
+claims. Useful supported fragments and accurate historical proposal rules remain.
+Metadata validation checks five fields, not feature implementations or omitted
+source content. Earlier contexts exactly reuse complete source/instruction/answer
 judgments. The excluded first B06 block remains excluded; this source audit
 does not repair its activity failure.
 The earlier sixteen-document review found four summaries with unsupported claims
 or lost uncertainty. Three summaries exceed 300 words in total, including one of
 those four; earlier prose incorrectly said three additional summaries. Individual
 ratings and prior counts are unchanged. Earlier QA and fictional-provenance
-findings remain. The current snapshot has **101 source-support failures and 459
-instruction failures**, with all selected outputs retaining useful content. The
-[isolated validator](confirm-quality-checkpoint-07.json) checks every judgment
+findings remain. The current snapshot has **133 source-support failures, 658
+instruction failures and six not-useful outputs**. These counts include repeated
+contexts. The [isolated validator](confirm-quality-checkpoint-08.json) checks every judgment
 against the unchanged archived rubric; archived instructions were verified for
-all 136 included attempts. These
+all 164 included attempts. These
 duplicate-inclusive partial sample counts certify neither population accuracy
 nor equivalence, and the final confirmation audit is pending. Original objective
 results and all timings remain unchanged.

@@ -1,0 +1,77 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 30,
+      "review_id": "ac83566bcffc49662391844d",
+      "signature": "2bfc1fc22b0158a3b4acefeb6aade58db9ac39d79bf846f6179821f9c3857bdd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Whole-PEP absence of detailed implementation specifics/performance coverage is not established by the supplied opening excerpt and metadata/heading tools."
+      ],
+      "whitespace_words": 25,
+      "notes": "PEP 327 Final/Standards Track and ANSI compliance as specification requirement are supported, and literal Test_status=PASS reflects actual metadata validation. Only 10995/40409 characters are supplied; real headings include detailed Decimal/Context methods and a Reference Implementation. The invented limitation is not a supported concrete description of the entire document. Core subject facts remain useful. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "109a827ad8b595f6722ba8f0",
+      "signature": "869e0cf72585ccbe5b4379a4acff05f8efd0caef341227d4f07195bbed6831b7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "Complete PEP 311 supports Final/Standards Track, manual interpreter/thread initialization and the simplified API exclusion of multiple interpreter states. The not-commonly-needed clause is read as the document historical rationale that no requiring extension had been identified at its writing, not a modern usage survey. Literal Test_status=PASS matches actual metadata validation. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 32,
+      "review_id": "2820fecd03157dc7143ab30e",
+      "signature": "63aef38006deb06ec9033017ac271e36a528c7783170feed80c0551db2f85012",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 23,
+      "notes": "Supplied PEP 282 supports Final/Standards Track and configurable logging levels/handlers. Literal Test_status=PASS matches actual five-field validation. The enforcement limitation correctly preserves the boundary that this specification/metadata evidence does not enforce implementation across every Python version; it does not claim any observed runtime failure. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 33,
+      "review_id": "80a9b258b5e8720f1260a825",
+      "signature": "621eeea141ace3055964e49780ce9d4b6bb975f8eee7fa6167251d0832c4851d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "No concrete performance/memory failure scenario is supplied to support the added handling restriction."
+      ],
+      "whitespace_words": 27,
+      "notes": "Complete PEP 279 supports Final/Standards Track and indexed iteration over all iterables, with real metadata PASS and literal Test_status=PASS. It explicitly discusses memory-friendly lazy iteration, but the final adds an unspecified performance/memory limitation without an evidence-backed scenario; that is not a supported concrete limitation. Useful subject/status content remains. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 34,
+      "review_id": "7fbe54fe59df01235fbaf774",
+      "signature": "fd8b1e462164b86d246ce24460dd1fd3ecba4c6b50ccdd68f64d4e9189c50381",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 27,
+      "notes": "Supplied PEP 318 supports Final/Standards Track and function-declaration decorators, with class decorators assigned to separate PEP 3129. Added in PEP 3129 is read as proposal attribution rather than an unverified runtime-version claim. Literal Test_status=PASS reports actual five-field metadata validation only. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

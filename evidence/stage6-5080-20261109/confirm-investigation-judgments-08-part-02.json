@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 1,
+      "review_id": "e401756cd9c6c7b96d366438",
+      "signature": "6526eb702ebb10cc2826d24f189f06e4d51b9649579281b5689725329b00090e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified whole-PEP claim that backward compatibility with older logging implementations is not addressed is not established by the supplied opening excerpt and metadata/heading tools."
+      ],
+      "whitespace_words": 24,
+      "notes": "PEP 282 Final/Standards Track, configurable logging levels/handlers and actual five-field metadata validation PASS are supported. The supplied opening 13272/21703 characters and real summary headings do not prove the claimed absence throughout the omitted document; preceding self-quoted ACTUAL DEPENDENCY descriptions are not actual tool evidence. Literal Test_status=PASS is present, but the unqualified unsupported limitation fails source/instruction checks. Core facts remain useful. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "a7e1e91dd967e4982b73c1bd",
+      "signature": "6b0687c7f6417d99711c70bac41d4badcc5b718106e4990f673798b87330746a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Historical Python-Version 2.5 does not establish incompatibility with newer async/await versions."
+      ],
+      "whitespace_words": 46,
+      "notes": "PEP 342 Final/Standards Track and send/throw/close coroutine functionality match the supplied opening excerpt. Actual validation passes five metadata fields, not runtime implementation or later-version compatibility; the final invents that limitation. Bold test_status: PASS also lacks the requested equals format. Earlier capped absurd generated search text did not prevent the driver-fixed actual tools from executing, and is separately reviewed as a capped intermediate. Useful supported rule/status/type remain. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

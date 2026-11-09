@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 9,
+      "review_id": "532581c0acca00416fd79ce9",
+      "signature": "623ef3a35494e5fe19880b18e2530f1228a2061b2c65edd249d890324eb882c0",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "Complete historical PEP 322 explicitly says fully backwards compatible, specifies sequence getitem/len support and rejects eager materialization of all iterables. Final/Standards Track and actual metadata validation PASS are correct, with literal Test_status=PASS. The restriction is scoped to the supplied historical proposal, not the modern reversed protocol. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "b2691f6e8952eaf150c57cec",
+      "signature": "68d7a14791b009537cdfc605598641f3c28b78f80d5879919285421a2a0d46dd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Supplied excerpt says PEP 3129 proposes class decorators as of Python 2.6; the actual tools do not establish their later implementation."
+      ],
+      "whitespace_words": 28,
+      "notes": "PEP 318 Final/Standards Track and function-declaration decoration are supported, as is Python-2.4 function/method-only scope. The added unqualified were added in Python 2.6 turns the cited separate proposal into a runtime-support claim without supplied implementation evidence. Literal test_status=PASS correctly reports only metadata validation, not that runtime claim. Useful supported core facts remain. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "76439dcd47b90dfa70108da3",
+      "signature": "31f3366a9409dce2c4f86328807a74b19b2d190f60d44bfa06836f4dacb32d03",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 4,
+      "notes": "The capped first intermediate contains only an unfinished bash fence and an absurd repeated-digit max-count argument. It gives no PEP 342 purpose, meaningful verification plan, required search pattern or source path. No factual subject content supports a source pass and no useful investigation is completed. Its four whitespace words do not themselves exceed the intermediate word limit; failure is task/declaration completion, not an invented word-limit failure. No tools had yet executed at this node. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

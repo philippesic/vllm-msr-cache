@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check has **143/524 valid
-configurations, 63/210 complete matched blocks**, with Qwen3-8B B07 ARC in
-the third scheduled block active. B05 completed all twelve frozen pairs.
+launch a duplicate. The latest bounded confirmation health check has **172/524 valid
+configurations, 75/210 complete matched blocks**, with Qwen3-8B B08 upstream in
+the third scheduled block active. B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
 below; the owner is live, progress continues, and no ownership/resource issue was
 reported. Recheck actual live progress; these counts are a
@@ -120,7 +120,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 15.6 GiB ext4, 6.6 GiB WSL root and 8.5 GiB Windows; monitor all three.
+about 14.2 GiB ext4, 6.3 GiB WSL root and 8.5 GiB Windows; monitor all three.
 Keep useful caches/raw evidence. Reconsider storage for later relocation copies
 using actual sizes, not an assumption that a second raw tree will fit.
 
@@ -542,7 +542,7 @@ confirm06 for that checkpoint's exact-context and instruction-binding reuse. Fin
 confirmation review still needs a terminal inventory; no population quality or
 equivalence claim follows.
 
-The latest **partial confirmation review 07** includes all seven valid B06
+Earlier **partial confirmation review 07** includes all seven valid B06
 blocks after all 32 scheduled B06 attempts became terminal:
 [index](confirm-review-index-07.json), [ratings](confirm-source-judgments-07.json),
 [isolated validator](confirm-quality-checkpoint-07.json), raw
@@ -562,8 +562,39 @@ Selected duplicate-inclusive counts are **101 source failures, 459 instruction
 failures, zero not useful**. All 136 included archived instruction sources verify
 and frozen finish validates all 2,011 judgments in isolation. Original timings,
 objective results, frozen exclusions and live quality directory remain unchanged.
-Use canonical screen07 plus confirm07 for subsequent exact-context reuse. This
+That checkpoint used canonical screen07 plus confirm07 for exact-context reuse. This
 is still partial acquisition, not final audit or population quality evidence.
+
+The latest **partial confirmation review 08** adds all B07 repetitions and the
+first B08 four-system block:
+[index](confirm-review-index-08.json), [ratings](confirm-source-judgments-08.json),
+[isolated frozen validator](confirm-quality-checkpoint-08.json), raw
+`$BASE/quality-confirm-checkpoint-08/`. It covers **3,000 objective finals,
+2,017 automatic final failures, 28 capped intermediates, 2,243 selected items
+and 162 complete contexts**. All 39 novel PEP contexts were explicitly judged:
+35 finals and four capped intermediates. All sixteen distinct supplied PEP source
+texts were read in full within their supplied boundaries (ten whole documents,
+six opening excerpts). [Source bindings](confirm-source-components-08.json)
+link exact repeated source text to its first read context; every novel reference,
+task/current instruction, actual dependency/tool chain and answer was read.
+Fourteen `confirm-investigation-judgments-08-part-*.json` files retain the explicit
+judgments. No novel source/instruction/usefulness rating was automatic.
+
+Among novel contexts, 18 lack source support, 25 fail instructions and six are
+not useful. Findings retain an unfinished enormous-count search command, three
+210-word repetitive capped intermediates, a repetitive final with a wrong
+creation year and no limitation, CSV/pickle subject confusion, unsupported
+whole-document absence/runtime claims and loss of a retracted-idea distinction.
+Supported historical rules and useful fragments are retained. Five-field
+metadata validation does not verify feature implementations; source support
+here is confined to supplied evidence, not all knowledge outside the packet.
+Selected duplicate-inclusive counts are **133 source failures, 658 instruction
+failures and six not useful**. All 164 included archived instruction sources
+verify; frozen finish accepts all 2,243 judgments in an isolated workspace.
+Live quality state, measurement timings, objective scores and the B06 exclusion
+remain unchanged. Use canonical screen07 plus confirm08 for future exact full
+context/instruction reuse. This is still a partial audit, not final campaign
+completion or a population quality/equivalence result.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files
@@ -591,7 +622,7 @@ do not substitute modern Python knowledge for this supplied evidence. Future
 generated answers and actual preceding tool/dependency outputs still need review.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm07 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm08 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

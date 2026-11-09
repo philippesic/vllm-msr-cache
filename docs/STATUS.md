@@ -30,8 +30,8 @@ has no comparison credit. All 32 B06 attempts finished; seven of eight matched
 blocks are valid. Remaining scheduled measurements continue without
 relabeling or favorable-activity retries. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-2,011 selected outputs / 123 contexts, including sixteen fully read document sets
-and 48 newly judged repository answer contexts;
+2,243 selected outputs / 162 contexts, including 39 new PEP contexts
+(four capped intermediates) with all supplied source texts explicitly read;
 final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),

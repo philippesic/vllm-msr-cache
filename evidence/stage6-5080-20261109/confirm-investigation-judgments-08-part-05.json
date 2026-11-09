@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 7,
+      "review_id": "acbe4c3da950400edb9eb056",
+      "signature": "590b841d78724f7882d396989586c2d1faf786c9fa60181b41613f997b7baa2e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 48,
+      "notes": "Supplied PEP 305 excerpt explicitly supports Final/Standards Track, CSV reading/writing with delimiters/quoting and excludes data interpretation and locale-specific representation. Actual five-field metadata validation passes. Test status is PASS lacks the required literal underscore/equals format. The source is historical Python-2.3 API scope; no current runtime inference is needed. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "2ee05aac2525545a0c7a1639",
+      "signature": "1ff9bcbd1a93ec6bba08e14ad9865590b5b418d150c06900a5979f759e2748a9",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "Complete PEP 328 supports Final/Standards Track, absolute-import default specification and leading-dot relative imports, with an explicit historical transition timeline. Literal Test_status=PASS matches real metadata validation. The final explicitly and correctly limits that validation to document metadata rather than actual runtime support; earlier creation/finalization wording is not repeated. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

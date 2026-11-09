@@ -1,0 +1,55 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 20,
+      "review_id": "13cdc1bea5e2432fc18b8257",
+      "signature": "28e3856d6a0c84ad03c742485ec3e38cbcdbc67070e33dea2fa2f692d4b099a1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 51,
+      "notes": "Complete PEP 315 supports Rejected/Standards Track, the proposed optional do-clause and nonadoption; its Notice recommends while True with an inner if/break instead. The final is read within this historical proposal scope, not as a new runtime survey. Actual metadata validation passes, but Test status is PASS lacks the literal underscore/equals. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "e1d88042d50beeac0919ed1d",
+      "signature": "e54350f4f395b7c5f37ae190e1232cb3a849250f0b701320a33b4eca2590ab82",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Pain for C extensions was attributed to the attempted args-removal transition in Retracted Ideas, not established as a limitation of adopted BaseException inheritance."
+      ],
+      "whitespace_words": 28,
+      "notes": "Complete PEP 352 supports Final/Standards Track and the Python-3.0 inheritance rule, with real metadata PASS and literal Test_status=PASS. Its C-extension pain passage concerns the proposed removal of args, which was retracted; the final loses that distinction and presents it as a limitation of the BaseException transition. Useful supported hierarchy/status information remains. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "5f726a2c68ff8fb28bd5ea9c",
+      "signature": "a9ec8ee68a2b5aa5f30bd13b245c659e33f2cba71d724c704527903a7e29d376",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Repeated application-stability claim lacks supporting source/tool evidence."
+      ],
+      "whitespace_words": 210,
+      "notes": "This capped third intermediate repeats the earlier mantra instead of interpreting the actual metadata PASS or distinguishing proposal status/runtime support. Real search and metadata tools are present in its causal context but ignored. It is unfinished, 210 whitespace words exceed the executed 70-word intermediate limit, and it omits the required next-tool bash declaration. No useful analysis is supplied. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

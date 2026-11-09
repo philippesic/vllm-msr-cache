@@ -1,0 +1,69 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 26,
+      "review_id": "dcf6f33661559d6a2639abd7",
+      "signature": "ef67b96d32ad0bd2369087dfc594af575a648e9fdb70cf3e29a13e318ce7961a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Whole-PEP locale/fixed-width-tabular absence claim is unsupported by the supplied pickle excerpt/tools and propagates an unrelated CSV-task limitation."
+      ],
+      "whitespace_words": 45,
+      "notes": "PEP 307 Final/Standards Track and improved pickle/new-style-object purpose match the supplied source; actual five-field PASS and bold literal test_status=PASS are correct. The final adopts an unrelated CSV-domain limitation from a self-quoted dependency rather than a supported concrete limitation of this pickle proposal. Omitted document content is not semantically checked by headings/metadata. Useful supported core facts remain. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "63c0bcc37ddccacab064b1c6",
+      "signature": "ee3c625aa70757d2b31dd5e7e905582ca55e865926f9b250fb75f377340a95ff",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 42,
+      "notes": "Supplied PEP 327 explicitly specifies arithmetic contexts for precision and rounding, and real metadata confirms Final/Standards Track. The final correctly says this validation does not verify implementation/runtime behavior, avoiding an earlier dependency overclaim. Test Status: PASS lacks the literal underscore/equals format. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "d8662c21b16afdd0900bf5b0",
+      "signature": "5e1e5ca778ffc921b7d0a9afea19792a36eb53fa9bf39128b36ca57b9dbc738b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The actual subject is PEP 305 CSV, but the final names PEP 307 and merges CSV with pickle-bloat/new-style-object functionality.",
+        "Unqualified all-version backward-compatibility limitation is not established by the supplied CSV excerpt or tools."
+      ],
+      "whitespace_words": 47,
+      "notes": "The real tools validate PEP 305 metadata; this final reports the wrong PEP and combines incompatible CSV/pickle purposes, omits requested explicit Status/Type and literal test_status=PASS, and provides no coherent task report. The isolated word CSV does not salvage the wrong-subject explanation as useful. Earlier generated wrong source filename was not the driver-fixed actual tool. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "a0250bae1144568756eab281",
+      "signature": "bf0c3b63ca47cfd247ca7d13a59eaa1210707926b5c126c7012d3ac3017f9d01",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Whole-document absence of backward-compatibility discussion is not established by the partial supplied PEP 342 excerpt or metadata/heading tools."
+      ],
+      "whitespace_words": 21,
+      "notes": "PEP 342 Final/Standards Track, send() value delivery and real five-field validation PASS are supported with literal Test_status=PASS. The unsupported absence limitation is repeated from an invented intermediate summary; real tool results do not contain that semantic conclusion. Useful core subject information remains. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}

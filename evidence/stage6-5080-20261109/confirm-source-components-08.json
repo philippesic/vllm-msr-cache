@@ -1,0 +1,260 @@
+{
+  "schema": "stage6-5080-explicit-source-component-bindings-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "full_source_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    16,
+    17,
+    20,
+    25
+  ],
+  "full_source_contexts_explicitly_read": 16,
+  "contexts": [
+    {
+      "index": 0,
+      "review_id": "b15fd82e35afd1e1e8d22ada",
+      "first_explicitly_read_source_index": 0,
+      "source_context_digest": "663c4f1f75efbf7c24b0ce5b5b0a65dec21c254ad46c2927de098fa804a4988f"
+    },
+    {
+      "index": 1,
+      "review_id": "e401756cd9c6c7b96d366438",
+      "first_explicitly_read_source_index": 1,
+      "source_context_digest": "feecbb92ce7dff26d999991c98680906c13df2268b512bb3bd744941870284e2"
+    },
+    {
+      "index": 2,
+      "review_id": "a7e1e91dd967e4982b73c1bd",
+      "first_explicitly_read_source_index": 2,
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66"
+    },
+    {
+      "index": 3,
+      "review_id": "28b83eafca7cd4dc1c4f46ac",
+      "first_explicitly_read_source_index": 3,
+      "source_context_digest": "db85350919ea9bcd3e446c1c1400dccd5e0731afff7756ba33c34c7e7b2d4e85"
+    },
+    {
+      "index": 4,
+      "review_id": "9945ae76527d9775dcccd63c",
+      "first_explicitly_read_source_index": 4,
+      "source_context_digest": "9239241b35cdde39fb9303c283212a8097fcc1e8ad3b16c5ad31f0a5764a6c4d"
+    },
+    {
+      "index": 5,
+      "review_id": "88398ad2c4de106534646f28",
+      "first_explicitly_read_source_index": 5,
+      "source_context_digest": "64ba96c57f6e3f7bc8d8d82d5bd0b33eed22a26a49d7e92c22c92430972e2f28"
+    },
+    {
+      "index": 6,
+      "review_id": "39b177adcafe63c074ee7850",
+      "first_explicitly_read_source_index": 6,
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642"
+    },
+    {
+      "index": 7,
+      "review_id": "acbe4c3da950400edb9eb056",
+      "first_explicitly_read_source_index": 7,
+      "source_context_digest": "689f014ec131536bae6532c5c8d0b52c0eafa63ddb62df1d112dc0362ab7d26b"
+    },
+    {
+      "index": 8,
+      "review_id": "2ee05aac2525545a0c7a1639",
+      "first_explicitly_read_source_index": 8,
+      "source_context_digest": "b849d802ff19ee68b67410b743634b2c9ff7e543bee6a2a5e58bae8648310c0c"
+    },
+    {
+      "index": 9,
+      "review_id": "532581c0acca00416fd79ce9",
+      "first_explicitly_read_source_index": 9,
+      "source_context_digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d"
+    },
+    {
+      "index": 10,
+      "review_id": "b2691f6e8952eaf150c57cec",
+      "first_explicitly_read_source_index": 10,
+      "source_context_digest": "363f87d841c285b05d57cd521fae73cb60cee2df33b432e8c810f403aaa943e5"
+    },
+    {
+      "index": 11,
+      "review_id": "76439dcd47b90dfa70108da3",
+      "first_explicitly_read_source_index": 2,
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66"
+    },
+    {
+      "index": 12,
+      "review_id": "3b1fcf511329cfc99c8503b0",
+      "first_explicitly_read_source_index": 12,
+      "source_context_digest": "85e9053c869b74db7e89f828e4efd8507c18f9ae87db9ddb3db6607c3c867e88"
+    },
+    {
+      "index": 13,
+      "review_id": "14954a83cfaff07005f8b9db",
+      "first_explicitly_read_source_index": 0,
+      "source_context_digest": "663c4f1f75efbf7c24b0ce5b5b0a65dec21c254ad46c2927de098fa804a4988f"
+    },
+    {
+      "index": 14,
+      "review_id": "5f92a6edfb892fb59dd876a3",
+      "first_explicitly_read_source_index": 10,
+      "source_context_digest": "363f87d841c285b05d57cd521fae73cb60cee2df33b432e8c810f403aaa943e5"
+    },
+    {
+      "index": 15,
+      "review_id": "710dab724eb97afe70b7d7ed",
+      "first_explicitly_read_source_index": 9,
+      "source_context_digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d"
+    },
+    {
+      "index": 16,
+      "review_id": "d7c39b1dd5d224edb1614308",
+      "first_explicitly_read_source_index": 16,
+      "source_context_digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690"
+    },
+    {
+      "index": 17,
+      "review_id": "4c73b715d1eaae35aca25cb5",
+      "first_explicitly_read_source_index": 17,
+      "source_context_digest": "a0157ece8e1136311c7a5d340e1891b5b114668516cf1fa30478e7df8c1f13a9"
+    },
+    {
+      "index": 18,
+      "review_id": "6b90c95c688d21352071b530",
+      "first_explicitly_read_source_index": 6,
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642"
+    },
+    {
+      "index": 19,
+      "review_id": "6f01f120e3630a3a2073abc2",
+      "first_explicitly_read_source_index": 2,
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66"
+    },
+    {
+      "index": 20,
+      "review_id": "13cdc1bea5e2432fc18b8257",
+      "first_explicitly_read_source_index": 20,
+      "source_context_digest": "5fe0d3f7d35becaf35c39c53d409f328923960072fc230908e28eabc35deb843"
+    },
+    {
+      "index": 21,
+      "review_id": "e1d88042d50beeac0919ed1d",
+      "first_explicitly_read_source_index": 6,
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642"
+    },
+    {
+      "index": 22,
+      "review_id": "5f726a2c68ff8fb28bd5ea9c",
+      "first_explicitly_read_source_index": 9,
+      "source_context_digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d"
+    },
+    {
+      "index": 23,
+      "review_id": "cc95613a6d6b49d610740fbf",
+      "first_explicitly_read_source_index": 17,
+      "source_context_digest": "a0157ece8e1136311c7a5d340e1891b5b114668516cf1fa30478e7df8c1f13a9"
+    },
+    {
+      "index": 24,
+      "review_id": "17b468b8cb5b1d0ffae598c8",
+      "first_explicitly_read_source_index": 9,
+      "source_context_digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d"
+    },
+    {
+      "index": 25,
+      "review_id": "2f784d8025bb998449bc04a8",
+      "first_explicitly_read_source_index": 25,
+      "source_context_digest": "8ef1727f3a1d71ce73c2ddfdef3c7bbe715e6ffb884331d285401dddb5545df9"
+    },
+    {
+      "index": 26,
+      "review_id": "dcf6f33661559d6a2639abd7",
+      "first_explicitly_read_source_index": 0,
+      "source_context_digest": "663c4f1f75efbf7c24b0ce5b5b0a65dec21c254ad46c2927de098fa804a4988f"
+    },
+    {
+      "index": 27,
+      "review_id": "63c0bcc37ddccacab064b1c6",
+      "first_explicitly_read_source_index": 25,
+      "source_context_digest": "8ef1727f3a1d71ce73c2ddfdef3c7bbe715e6ffb884331d285401dddb5545df9"
+    },
+    {
+      "index": 28,
+      "review_id": "d8662c21b16afdd0900bf5b0",
+      "first_explicitly_read_source_index": 7,
+      "source_context_digest": "689f014ec131536bae6532c5c8d0b52c0eafa63ddb62df1d112dc0362ab7d26b"
+    },
+    {
+      "index": 29,
+      "review_id": "a0250bae1144568756eab281",
+      "first_explicitly_read_source_index": 2,
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66"
+    },
+    {
+      "index": 30,
+      "review_id": "ac83566bcffc49662391844d",
+      "first_explicitly_read_source_index": 25,
+      "source_context_digest": "8ef1727f3a1d71ce73c2ddfdef3c7bbe715e6ffb884331d285401dddb5545df9"
+    },
+    {
+      "index": 31,
+      "review_id": "109a827ad8b595f6722ba8f0",
+      "first_explicitly_read_source_index": 16,
+      "source_context_digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690"
+    },
+    {
+      "index": 32,
+      "review_id": "2820fecd03157dc7143ab30e",
+      "first_explicitly_read_source_index": 1,
+      "source_context_digest": "feecbb92ce7dff26d999991c98680906c13df2268b512bb3bd744941870284e2"
+    },
+    {
+      "index": 33,
+      "review_id": "80a9b258b5e8720f1260a825",
+      "first_explicitly_read_source_index": 4,
+      "source_context_digest": "9239241b35cdde39fb9303c283212a8097fcc1e8ad3b16c5ad31f0a5764a6c4d"
+    },
+    {
+      "index": 34,
+      "review_id": "7fbe54fe59df01235fbaf774",
+      "first_explicitly_read_source_index": 10,
+      "source_context_digest": "363f87d841c285b05d57cd521fae73cb60cee2df33b432e8c810f403aaa943e5"
+    },
+    {
+      "index": 35,
+      "review_id": "029fe3ff3529633725742731",
+      "first_explicitly_read_source_index": 9,
+      "source_context_digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d"
+    },
+    {
+      "index": 36,
+      "review_id": "791fc42310cc6c36a6c36ff2",
+      "first_explicitly_read_source_index": 12,
+      "source_context_digest": "85e9053c869b74db7e89f828e4efd8507c18f9ae87db9ddb3db6607c3c867e88"
+    },
+    {
+      "index": 37,
+      "review_id": "893dc6617b7b6fa8af447153",
+      "first_explicitly_read_source_index": 2,
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66"
+    },
+    {
+      "index": 38,
+      "review_id": "5c6139ea8f4a9f166ec30019",
+      "first_explicitly_read_source_index": 1,
+      "source_context_digest": "feecbb92ce7dff26d999991c98680906c13df2268b512bb3bd744941870284e2"
+    }
+  ],
+  "scope": "All sixteen distinct supplied PEP source texts explicitly read in full within their supplied full-document/opening-excerpt boundaries. Later identical source text is bound to the first read index; each new reference, all task instructions, current instruction, role, actual dependency/tool chain and answer were separately read. No novel judgment assigned automatically and no semantic claims inferred from omitted document text. Full eight-field signatures plus archived executed instructions remain required for consolidation."
+}

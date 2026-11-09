@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "dd9684ed8c3d9388e7060addac0619e71872da2e337d0eb75913ae7b20add8e7",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-08/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "3b1fcf511329cfc99c8503b0",
+      "signature": "e6429ec473f37cae25f3835c973a91ad3a0c0ae0b408579e92675d51186c8c6d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied PEP 310 and tools say it was rejected in favor of PEP 343 but do not establish that the unprovided replacement is more comprehensive."
+      ],
+      "whitespace_words": 34,
+      "notes": "Complete PEP 310 supports Rejected/Standards Track, the proposed acquisition/release with statement and replacement by PEP 343. Actual five-field validation passes and literal Test_status=PASS is correct despite an earlier generated FAIL declaration. The added comparison of PEP 343 scope lacks supplied content/tool evidence. Core proposal/status information remains useful. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "14954a83cfaff07005f8b9db",
+      "signature": "af6b62d6e3fcf022e6c9867a9519861c27988dad921d590137f0c7afb64d2485",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 49,
+      "notes": "Same fully read PEP 307 source supports Final/Standards Track, the protocol superset rule and explicit untrusted-unpickling warning/removal of safety checks. Backward compatibility is bounded to retaining earlier protocols, not old-version support for protocol 2. Test status is PASS lacks the literal required underscore/equals format. Actual metadata validation passes; self-quoted intermediate summaries do not count as tools. Complete supplied source/document reference read at its first identical source context in this snapshot; every new instruction/reference/dependency/tool/answer explicitly read and judged. Exact repeated source text is bound separately; no automatic judgment. Original objective/timing unchanged."
+    }
+  ]
+}
