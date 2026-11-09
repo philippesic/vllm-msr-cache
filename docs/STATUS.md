@@ -25,8 +25,9 @@ and 31 lightweight tests plus compilation, repeated on a separately sealed
 All three pinned runtimes reconstructed successfully, and all three pinned
 models were reacquired and content-verified. Import succeeded with explicit
 pinned worker interpreters; all four native hardware preflight cases passed,
-with sealed integrity and verified cleanup. Safe output storage placement is
-active before full screens; external capability/purpose gates remain required.
+with sealed integrity and verified cleanup. Output storage placement is verified,
+with private bindings retained in WSL. Full screen is active; external
+capability/purpose gates remain required before confirmation.
 The 15-minute health schedule is enabled. Storage needs monitoring; pinned
 models will use a dedicated Windows cache while native runtimes stay in WSL.
 [Current 5080 evidence](../evidence/stage6-5080-20261108/RESULTS.md) and

@@ -28,7 +28,7 @@ RUNTIMES=/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01
 PY=$RUNTIMES/local-env/bin/python
 CACHE=/home/philip/.cache/semantic-offload/stage6-5080-assets
 HOST=$BASE/host-replica.private.json
-OUT=$BASE/primary-01
+OUT=/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01
 export PATH=/usr/lib/wsl/lib:$PATH
 # Intended new Windows model-cache location; create only this task's directory.
 export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
@@ -53,31 +53,44 @@ See `preflight.json` here and `$BASE/preflight-summary.json` for full proofs.
 Do not repeat preflight or call the confirmation-specific health checker
 before protocol activation.
 
-**Active operation:** safe campaign storage placement is running in session
-53061, log `$BASE/storage-placement.log`, through the maintained
-`benchmarks.research_checks.stage6_5080_storage` helper. It owns both GPU
-reservations while copying/verifying. Do not start serving or duplicate it.
-On success `$BASE/storage-placement.private.json` contains full file hashes
-and preserved campaign identity; the original project campaign path becomes
-an alias to the canonical Windows destination below. Set future `OUT` to:
+Storage placement completed successfully in session 53061, log
+`$BASE/storage-placement.log`, with the maintained
+`benchmarks.research_checks.stage6_5080_storage` helper. All 4,934 file contents
+are preserved, the same four attempts / 223 files verify after placement, and
+real Windows writer-lock contention passed. `storage.json` here is the compact
+proof; `$BASE/storage-placement.private.json` retains full file hashes.
+The original project campaign path is now an alias. Future `OUT` is:
 
 `/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01`
 
-The helper verifies the old/copy/alias content, attempt seals and real Windows
-writer-lock contention before removing its recoverable duplicate. Private host
-files remain mode 600 in `$BASE/private-bindings/primary-01`, linked into the
-Windows campaign. Inspect the helper result before proceeding to full screen.
+The old duplicate was removed only after old/copy/alias content and seals
+verified. Private host files remain mode 600 in
+`$BASE/private-bindings/primary-01`, linked into the Windows campaign.
+
+**Active phase:** full screen is running in session 50824, log
+`$BASE/screen-01.log`, from `$BUNDLE/source`, with the explicit pinned `$PY`.
+Its saved process birth identity/canonical output path and reservation proof
+are in `$BASE/screen-owner.private.json`. Inspect that process before any new
+launch; do not duplicate or repeat preflight. Screen is 54 configurations in
+22 required cells. A completed native GPU-resident control can have an original
+inconclusive restore status; use the existing attested `measurement_validity`
+to distinguish a complete control from an actual execution/correctness failure.
+Do not turn such a control into CPU-pressure evidence. Stop on real capability,
+resource or workload-purpose failure. `campaign run` can return normally while
+retaining failed cases; inspect the ledger/results, not only its exit code.
+After all screens finish, run `qualify` and inspect
+`all_required_correctness_passed`; do not activate an import with a failed gate.
 
 **Storage placement before screen/confirmation:** the 2080 Ti primary campaign
 retained 14,182,204,461 bytes, exceeding this WSL volume's remaining ~7.1 GiB.
-The bounded four-case preflight passed. Its completed generated campaign is
-being placed on the dedicated Windows
+The bounded four-case preflight passed. Its completed generated campaign was
+placed on the dedicated Windows
 campaign volume before screen, keeping the original project path as an alias
 so frozen absolute input strings remain valid. Destination parent:
 `/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns`.
 It has ~28.7 GiB free and a verified explicit ACL allowing only Philip, SYSTEM
 and Administrators. The exact private ACL/storage receipt is
-`$BASE/storage-plan.private.json` (placement is active).
+`$BASE/storage-plan.private.json`; placement is complete as proved above.
 
 Never move an active campaign. First verify coordinator/workers exited, GPU
 clients absent and both reservations free. Copy to a new destination, preserve
@@ -108,8 +121,8 @@ downloads leave about 29 GiB on Windows. Do not delete unrelated data or fill
 a volume.
 
 The commands below retain the entire authorized sequence. Offline rebinding
-and import/preflight completed, and storage placement is active; do not repeat
-those steps.
+and import/preflight/storage placement completed, and full screen is active;
+do not repeat those steps.
 Use the pinned interpreter throughout:
 
 ```bash
