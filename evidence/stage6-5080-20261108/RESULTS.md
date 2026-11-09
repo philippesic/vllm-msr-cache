@@ -64,3 +64,10 @@ differences and partial screening preclude GPU-only attribution.
 
 Raw logs and full private receipts remain in `output/stage6-5080-20261108/`.
 The closed [continuation record](CONTINUE.md) preserves the historical runbook.
+
+The required completion notice was POSTed after the results push, with this
+thread's title/id and outcome `failed`. The endpoint rejected both requests
+with HTTP 401, requesting an Authorization bearer credential absent from the
+saved endpoint file. [Delivery receipt](completion.json) records the rejected
+attempts without exposing the endpoint. Successful notification remains blocked
+on that credential; neither health schedule will restart the closed campaign.

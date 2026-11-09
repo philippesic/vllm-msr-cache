@@ -1,0 +1,34 @@
+{
+  "schema": "stage6-5080-completion-notice-v1",
+  "started_unix": 1794208273.2356215,
+  "payload": {
+    "thread_title": "Stage 6 5080 Replication (continued)",
+    "thread_id": "mcp:launch:88f1283af00bb5a99a0c27b25e8461a3417935a8903dc08e845bf2bdb84e2f19",
+    "outcome": "failed",
+    "summary": "Stage 6 RTX 5080 replication stopped under the authorized capability-failure rule. All five pinned Continuum/LMCache anchor screens failed GPU KV-transfer warmup: no compatible CUDA kernel image. Binary has no sm_120 kernel or PTX fallback. All 41 retained attempts and transfer seals verify; qualification false, no confirmation/overhead/operational run. Results pushed; owned GPU clients and servers released; both health schedules disabled.",
+    "thread_link": "<t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/mcp:launch:88f1283af00bb5a99a0c27b25e8461a3417935a8903dc08e845bf2bdb84e2f19>"
+  },
+  "results_commit": "7009ed1dbde1be420d1ef3641485e7293ea0700a",
+  "results_pushed": true,
+  "old_health_schedule_enabled": false,
+  "replacement_health_schedule_enabled": false,
+  "endpoint_in_tracked_files": false,
+  "http_status": 401,
+  "delivered": false,
+  "response_bytes": 91,
+  "response_sha256": "5d7e5d3cf5b9569f3e0f3561a78ea0af5f3f5eccb1f5a8234eab06c2f20291d7",
+  "error_class": "HTTPError",
+  "finished_unix": 1794208332.7025478,
+  "attempts": [
+    {
+      "http_status": 401,
+      "at_unix": 1794208273.5465264
+    },
+    {
+      "http_status": 401,
+      "at_unix": 1794208332.7025352
+    }
+  ],
+  "response_body_private": "output/stage6-5080-20261108/completion-response.private.txt",
+  "delivery_blocker": "Completion endpoint rejected both POSTs with HTTP 401; no authorization credential is supplied in the saved endpoint file."
+}

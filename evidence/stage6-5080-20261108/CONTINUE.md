@@ -17,6 +17,10 @@ Keep the mounted ext4 image, retained attempts and useful caches. Never format
 the image or reset this campaign. Any future runtime repair or study requires
 separate scope; this job supplies no confirmed 5080 performance result.
 
+The completion POST was rejected with HTTP 401 for a missing bearer credential;
+see [delivery receipt](completion.json). Notification delivery is the only
+outstanding external blocker. Do not restart serving to address it.
+
 Current supervision thread:
 <t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/mcp:launch:88f1283af00bb5a99a0c27b25e8461a3417935a8903dc08e845bf2bdb84e2f19>
 
