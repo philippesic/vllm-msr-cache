@@ -1,0 +1,28 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "6a3aae635a278734a8e7c4f240041c5d45b7746c26ea11a7a7cc28f62679e2c2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-passage/question/reference/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-04/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "d3164b79caccfbbe655f71e9",
+      "signature": "088e6539a718710863a5109c3a7e666d723fe5751196874bba76b0a73767b29d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full supplied Burke passage, question, reference and answer explicitly read. Dublin, Ireland is stated directly in the opening sentence and matches the reference. Bare one-field JSON with whitespace is valid. No tools or dependencies; no extra historical claims. Original objective result and timing unchanged."
+    }
+  ]
+}

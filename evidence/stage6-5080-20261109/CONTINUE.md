@@ -381,7 +381,7 @@ is explicitly acquisition_complete=false. Do not finish this partial audit as
 though all confirmation were captured; regenerate at terminal acquisition and
 rebind canonical IDs to the new first item for exact context reuse.
 
-Latest **partial confirmation review 02**:
+Earlier **partial confirmation review 02**:
 [index](confirm-review-index-02.json), [ratings](confirm-source-judgments-02.json),
 raw `$BASE/quality-confirm-checkpoint-02/`. It captures twelve B01 matched blocks
 and two B02 blocks: 280 objective finals, 168 automatic reference failures,
@@ -395,9 +395,8 @@ useful. With earlier fictional provenance/cap issues, selected counts are
 duplicate contexts. These are selected repeated-cohort counts, not population
 rates. Creative usefulness is separated from grounding. No original objective,
 timing or workload change. This is explicitly incomplete acquisition; preserve
-all earlier snapshots. For future reviews use the union of canonical screen07
-and latest confirm02, with exact eight-field and executed-system equality, then
-rebind canonical IDs to the new packet before retaining reuse.
+all earlier snapshots. Its exact-context reuse has since been extended by the
+newer snapshots below; use the latest completed canonical index for future work.
 
 **Partial confirmation snapshot 03 is fully reviewed**, raw
 `$BASE/quality-confirm-checkpoint-03/`. It captures full B01/B02 plus two B03
@@ -410,8 +409,11 @@ at most 300 words, key facts/uncertainties and no unsupported additions; no tool
 or dependencies. Four summaries fail source fidelity: treating disputed gun and
 police accounts as settled, overstating a regulator's investigation status,
 reversing Taylor Swift's response and misidentifying an evacuee as staying.
-Three other summaries exceed 300 words; one source-failing summary also exceeds
-the limit. All retain useful content, separately from these failures.
+Three summaries exceed 300 words in total: two additional source-supported
+summaries and one source-failing summary. All retain useful content, separately
+from these failures. Earlier prose incorrectly said three additional summaries;
+the explicit ratings and counts were correct and remain unchanged. Index 04
+records the correction while preserving index 03 as history.
 [Canonical index 03](confirm-review-index-03.json) and
 [ratings 03](confirm-source-judgments-03.json) cover all 635 selected items:
 **76 source failures, 84 instruction failures, zero not useful**, including
@@ -421,9 +423,29 @@ checks all judgments in an isolated materialized copy, using the identical
 archived quality module; live acquisition/analysis is untouched. This validates
 the partial snapshot, not final confirmation. Context reuse checks eight fields
 and equality of the entire archived executed instruction source; canonical IDs
-are rebound to the first matching item in this packet. Use canonical screen07
-and confirm03 for subsequent exact-context reuse. Old 2080 explicit judgment
+are rebound to the first matching item in this packet. This base is now extended
+by canonical confirm04 below. Old 2080 explicit judgment
 lists alone lack those bindings and cannot supply unread-context judgments.
+
+Latest **partial confirmation review 04**:
+[index](confirm-review-index-04.json), [ratings](confirm-source-judgments-04.json),
+[validator receipt](confirm-quality-checkpoint-04.json), raw
+`$BASE/quality-confirm-checkpoint-04/`. It captures all B01/B02/B03 and three B04
+matched blocks: **1,464 objective finals, 750 automatic failures, 24 capped
+intermediates, 892 selected outputs / 75 full contexts**. One new Burke birthplace
+QA was fully read and correctly answers Dublin, Ireland in valid JSON;
+[explicit judgment](confirm-qa-judgments-04.json). All other contexts exactly
+reuse prior complete source/instruction/answer judgments. Archived executed
+instruction snippets and file hashes were directly verified in all 66 included
+attempts, with canonical IDs rebound to this packet. Selected counts:
+**77 source failures, 85 instruction failures, zero not useful**. These include
+duplicate contexts and certify neither population rates nor quality equivalence.
+The frozen preparation/finish algorithms ran against isolated derived output;
+the live campaign's analysis/quality inventory was checked unchanged. Index 04
+also records the earlier summary-word-limit prose correction: three overlength
+summaries total, including one source failure; individual ratings unchanged.
+Use canonical screen07 plus confirm04 for subsequent exact-context reuse.
+Acquisition and final confirmation review remain incomplete.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files
@@ -438,7 +460,7 @@ Actual generated answers and preceding tool/dependency outputs must still be
 read before any future source judgment; do not assign ratings from this note.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm03 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm04 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover
