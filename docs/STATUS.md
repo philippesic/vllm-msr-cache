@@ -15,6 +15,20 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
+## Stage 6 RTX 5080 replication — authorized; preparation active
+
+Philip authorized execution on DESKTOP-E78LJSI on 2026-11-08 at about 20:47
+Pacific. Both sealed bundles, the final audit packet and repository checkpoint
+are copied and verified. Exported primary source passes 240 benchmark tests
+and 31 lightweight tests plus compilation. Pinned runtime reconstruction is
+active; no campaign import, native hardware preflight or serving has run yet.
+The 15-minute health schedule is enabled. Storage needs monitoring; pinned
+models will use a dedicated Windows cache while native runtimes stay in WSL.
+[Current 5080 evidence](../evidence/stage6-5080-20261108/RESULTS.md) and
+[exact continuation](../evidence/stage6-5080-20261108/CONTINUE.md) retain paths,
+ownership, remaining phases and the required final webhook. Preserve all
+2080 Ti seals and historical study state; no addendum is being opened.
+
 ## Repository pressure recovery — complete; GPU released
 
 All 18 configurations and integrity/source/all-cap audits passed acquisition

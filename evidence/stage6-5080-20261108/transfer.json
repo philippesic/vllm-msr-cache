@@ -1,0 +1,35 @@
+{
+  "schema": "stage6-5080-transfer-receipt-v1",
+  "source_host": "DESKTOP-T4JKGJB",
+  "destination_host": "DESKTOP-E78LJSI",
+  "transport": "rsync over pstack-2080 (Tailscale SSH; configured public-key auth and strict host-key checking)",
+  "repository_checkpoint": {
+    "commit": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "bundle_sha256": "cd857bd9482153136f255e39cb2883ddb50b06d62b66368f6b0365297e64cbbc",
+    "verified": true
+  },
+  "bundles": {
+    "primary-relocated-bundle": {
+      "verified_files": 4606,
+      "seal_sha256": "03dcfbe668440490150995554c35b65a5de7f247dc1e4906ec866c46699ab01e",
+      "seal_root": null,
+      "local_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/transfers/primary-relocated-bundle"
+    },
+    "addendum-relocated-bundle": {
+      "verified_files": 8362,
+      "seal_sha256": "993cdfbee9672131a929a26baeb1dee168f36faf8372ee337c6ae1a6cba6c720",
+      "seal_root": null,
+      "local_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/transfers/addendum-relocated-bundle"
+    },
+    "completion-audit-packet-02": {
+      "verified_files": 17,
+      "seal_sha256": "9de8697b431eb10ff7d0e0c486234314245da1247fcbe7d3c4c8004e8d654698",
+      "seal_root": null,
+      "local_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/transfers/completion-audit-packet-02"
+    }
+  },
+  "runtime_plan": "../../../output/stage6-5080-20261108/runtime-plan.json",
+  "primary_worker_interpreter_selection": "Exported campaign.py already launches workers with cell.profile.runtime_python or host.runtime_python, explicitly; it does not use sys.executable. The historical addendum inheritance defect is outside this primary source.",
+  "source": "8a986df6e8e261976baa9a9e09e2e1d8d0d11ed911556dafdae3244fcdc593d1",
+  "sealed_sources_modified": false
+}
