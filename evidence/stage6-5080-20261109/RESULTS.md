@@ -43,3 +43,7 @@ that whole block. The interrupted measurement is excluded from comparisons.
 The [transfer seal audit](transfer-seals.json) passes for both original transfers,
 the completion packet, execution bundle and new imported bundle. This is an
 integrity result; campaign acquisition and answer-quality audits remain open.
+
+The [whole-block recovery audit](recovery-complete.json) now passes: both B01
+replacement arms completed and verified in one matched block. Screening advanced
+to B02. This recovery result does not establish performance qualification.

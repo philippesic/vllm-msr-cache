@@ -13,15 +13,13 @@ Current phase: **whole screen resumed**, persistent session 65450, log `output/s
 ownership receipt `screen-owner-02.private.json`. Use its recorded PID/birth/cwd
 and actual process state; never duplicate a live coordinator.
 
-The deliberate recovery watcher finished successfully: the first B01 ARC arm
-is retained verified and the active candidate arm retained interrupted, both
-sealed. Owned cleanup passed and both locks were free before resume. The
-[interruption proof](recovery-interruption.json) retains all six attempts / 275
-verified files (four preflights plus the two original screen attempts). The
-resumed coordinator must replace B01 as a whole; no partial-block measurements
-are credited. The watcher is **finished**; do not restart it or repeat preflight.
-After B01 completes, verify `campaign_completion.recovery(OUT)['complete']` and
-retain its whole-block replacement proof, then let the original screen advance.
+The deliberate recovery audit is now **complete**: the first B01 ARC arm and
+interrupted candidate arm remain sealed, and both replacement arms passed in
+one new matched block. [Whole-block recovery proof](recovery-complete.json)
+verifies owned cleanup and full replacement. The coordinator advanced to B02.
+The [original interruption proof](recovery-interruption.json) remains the
+point-in-time receipt before replacement. No original partial-block measurement
+is credited. The watcher is finished; do not restart it or repeat preflight.
 
 The first preflight launch was stopped before any ledger attempt because its
 cwd was mutable source. The retained launch helper now validates exact exported
@@ -95,9 +93,8 @@ Do not run acquisition from mutable checkout or inherit a test interpreter.
 ## Remaining sequence
 
 1. Preflight is complete; do not repeat it.
-2. The deliberate interruption is verified and the whole screen is resumed.
-   Verify the completed B01 replacement proof once both arms finish. Continue
-   all remaining cells in their frozen order; do not restart the watcher.
+2. Whole-block B01 recovery is complete and verified. Continue all remaining
+   screen cells in their frozen order; do not restart the recovery watcher.
 3. After all 54 screens, `campaign qualify --out "$OUT"`; inspect
    `all_required_correctness_passed`. Diagnose every genuine failure. Do not
    activate with failed correctness/activation/capacity/workload-purpose gates.

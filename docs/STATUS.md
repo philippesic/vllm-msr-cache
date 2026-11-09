@@ -21,7 +21,7 @@ The user authorized a fresh full primary pass after rebuilding the same pinned
 LMCache source for sm_120 plus PTX. The separate Continuum environment rebuild, exact KV round trip and four-request
 live serving diagnostic succeeded. All four native preflights passed (223 sealed files); the fresh campaign is
 now screening. The deliberate recovery interruption passed cleanup/sealing; the
-whole screen resumed with B01 replacement pending. No confirmed performance
+whole B01 replacement block passed and the screen advanced to B02. No confirmed performance
 results yet. The November 8 failed campaign remains
 preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md) and
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) track the new work.

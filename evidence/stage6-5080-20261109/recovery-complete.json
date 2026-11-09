@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "proofs": [
+    {
+      "interrupted_attempt": "5be8d36b8c4e42fa8e70bd00d9727d2c",
+      "interrupted_artifacts": "attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/5be8d36b8c4e42fa8e70bd00d9727d2c",
+      "prior_partial_block_attempts": [
+        "e0232f840c9d4e39989c92ead12323f1"
+      ],
+      "replacement_attempts": [
+        {
+          "attempt": "a17aefecbce041ea9daa161e848d72db",
+          "path": "attempts/d498eb870443c61f5f432b957972dede3458b3ac7238a128122e34b69ddd64f3/a17aefecbce041ea9daa161e848d72db",
+          "seal": "7fc3d5ddea6723ef5b70af0f5f7cf7891f0496eaa5ba59efbf51440e421dac75"
+        },
+        {
+          "attempt": "7cd6cbcaa6b84436ab9af12eafa5185b",
+          "path": "attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/7cd6cbcaa6b84436ab9af12eafa5185b",
+          "seal": "5767b028af1aad12cf6120a6a6138703eb188ef23559e8846df42e3bb7bf4667"
+        }
+      ],
+      "owned_cleanup_verified": true,
+      "whole_block_replaced": true
+    }
+  ],
+  "scope": "Real interrupted measured process and sealed whole-block replacement; no partial-process continuation"
+}
