@@ -137,3 +137,14 @@ contexts) have unsupported content; two also fail semantic instruction adherence
 The elapsed-year conversion and source-inconsistent mandolin count remain
 flagged. Exact-match scores, all timings and gates are unchanged. These remain
 partial screen judgments; final confirmation/all-cap audits are still required.
+
+Screen advanced through B05 with no additional failed executions; its first full
+Continuum arm is now B06 (inspect actual ledger at next check). The source-review
+snapshot `$BASE/quality-screen-checkpoint-03/` covers completed B01–B04 blocks:
+258 objective finals, 231 selected items and 16 novel summary contexts beyond
+checkpoint 02. `screen-summary-judgments-03-part-01.json` retains explicit full-source
+judgments for novel indices 0–3; **indices 4–15 remain unread/pending**. Continue
+those from the retained novel-contexts.json; never silently infer judgments for
+missing contexts or finalize the 231-item packet until they are reviewed. The
+first four include overlength/repetitive output and material attribution errors.
+All original objective scores/timings/gates remain unchanged.
