@@ -1,0 +1,19 @@
+{
+  "schema": "stage6-primary-reporting-validation-v1",
+  "acquisition_complete": false,
+  "helper": "benchmarks/research_checks/stage6_primary_findings.py",
+  "source_sha256": "1fb5fdde6ddc7757e1e78387fd3e9a6aa1f5d73089e1bbe20c5e85017ad23882",
+  "prior_validation": "reporting-validation.json",
+  "checks": {
+    "focused_reporting_and_estimator_tests": {
+      "passed": 21,
+      "command": "PYTHONDONTWRITEBYTECODE=1 pinned-PY -m pytest -q -p no:cacheprovider tests/test_stage6_primary_findings.py tests/test_campaign_reporting.py"
+    },
+    "standalone_javascript": {
+      "syntax": "passed current V8 Function construction without execution",
+      "full_report_browser_render": "pending final measured data"
+    }
+  },
+  "change": "Presentation-only theme compatibility: transparent page roots, host theme CSS variables with standalone system-color/font fallbacks, no banner title/side padding and row-count fixed-pixel plot height. Paired estimates, work checks, orientation and latency semantics unchanged.",
+  "scope": "Reporting preparation. Earlier 31 portable checks/compilation remain linked to their original receipt, not rerun here. Full actual primary extraction and final chart render remain pending."
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "stage6-partial-measurement-chart-v1",
+  "campaign_complete": false,
+  "cells": [
+    "qwen3_8b_awq:B01",
+    "qwen3_8b_awq:B02"
+  ],
+  "data": "confirmation-first-cells.json",
+  "data_sha256": "c59afd3cd555dbc01fb103a62b52047e4929d17aa497a91376bcfa3c8107a0c1",
+  "html": "early-controls.html",
+  "html_sha256": "1b7707d5b45d935e57e1b2541d15d51fa78ccdb1782a7436325017060947eaac",
+  "preview": {
+    "tool": "T3 html_preview",
+    "width": 728,
+    "content_height": 703,
+    "console_messages": []
+  },
+  "render": {
+    "tool": "T3 html_render",
+    "height": 703,
+    "title": "RTX 5080: partial native control measurements",
+    "attachment_id": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-1874d0e4-516c-4aab-ba31-dcf77b08c31f-html"
+  },
+  "scope": "Only two completed native control cells, with all frozen repetitions. Actual paired CIs and process-level latency statistics; no server started. This is an interim display, not the final full-matrix chart or campaign completion."
+}

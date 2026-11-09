@@ -4,8 +4,9 @@ The pinned LMCache rebuild works on the RTX 5080. All five frozen Continuum
 screens pass, all 54 required screening configurations form 22 complete matched
 blocks, and the full functional qualification gate passes. The imported frozen
 confirmation schedule is activated and running: 524 configurations in 210
-matched blocks. Repeated throughput estimates and final latency comparisons are
-still pending; overhead, operational and final audits have not completed.
+matched blocks. The first two native control cells have complete repeated estimates below.
+Headline comparisons with Continuum and the remaining cells are still pending;
+overhead, operational and final audits have not completed.
 
 This is a new campaign. The failed November 8 campaign and all 2080 Ti history
 remain unchanged. The sole declared setup deviation is rebuilding the same
@@ -35,6 +36,38 @@ activation and pinned geometry, screen completeness, all three ARC pressure
 gates, and the roomy reduction. [Activation](activation.json) preserves the exact
 imported order, supplementary schedules, repeat/precision choices and acquisition
 source, without replanning. This is functional, not production qualification.
+
+The [first completed confirmation cells](confirmation-first-cells.json) retain
+all frozen repetitions for Qwen3-8B chat (B01) and independent QA (B02). The
+candidate/ARC throughput ratio is a geometric mean of whole-process paired
+ratios, with log Student-t 95% CIs; serving seconds exclude startup. Both
+intervals include parity, so neither control resolves a throughput gain. The
+[interim display](early-controls.html) and [render receipt](early-controls-render.json)
+cover these two controls only.
+
+| Cell | Process pairs | Candidate mean s | ARC mean s | Candidate/ARC throughput [95% CI] |
+| --- | ---: | ---: | ---: | --- |
+| B01 | 12 | 33.457 | 33.502 | 1.0014 [0.9989, 1.0038] |
+| B02 | 6 | 6.220 | 6.268 | 1.0078 [0.9962, 1.0195] |
+
+Latency figures are milliseconds, averaged over per-process statistics.
+Mean process p95 is not a pooled request p95 or a population-tail guarantee.
+
+| Cell / system | Mean end-user TTFT | Mean process p95 TTFT | Mean completion | Mean process p95 completion |
+| --- | ---: | ---: | ---: | ---: |
+| B01 / candidate | 76.241 | 164.217 | 1068.861 | 1521.612 |
+| B01 / ARC | 81.246 | 187.266 | 1076.579 | 1525.527 |
+| B02 / candidate | 2822.843 | 5447.739 | 3137.215 | 5656.632 |
+| B02 / ARC | 2837.121 | 5463.019 | 3153.108 | 5672.586 |
+
+All 456 matched request texts and finish reasons agree between native arms
+within these two fixed cohorts (912 recorded responses total). Each B01 arm
+has 72 responses / 12 caps; each B02 arm has 384 responses / zero caps.
+Neither cell records returning CPU restoration or eviction-affected returns;
+these are controls, not evidence of pressured CPU-offload benefit. Output
+identity is conditional on these requests and does not establish answer
+correctness, population quality equivalence or results for other cells/systems.
+The full 524-configuration confirmation and later phases remain incomplete.
 
 Development pressure observations are retained with their scope:
 

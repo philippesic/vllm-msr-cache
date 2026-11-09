@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **31/524 valid
-configurations, fifteen/210 complete matched blocks**, with Qwen3-8B B02 ARC repeat
-three active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **37/524 valid
+configurations, eighteen/210 complete matched blocks**, with Qwen3-8B B03 candidate repeat
+zero active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -135,12 +135,30 @@ repeat that mistake. Never acquire from mutable source or a test interpreter.
    servers/GPU/locks, disable the health schedule only at pushed completion or an
    irreparable genuine-failure closeout. An ordinary process exit is not done.
 
+## First completed-cell estimates
+
+[First two cells](confirmation-first-cells.json) now retain all frozen native
+Qwen3-8B repetitions: B01 twelve pairs and B02 six. Candidate/ARC ratios are
+1.0013538578 [0.9989260363, 1.0037875799] and
+1.0077593363 [0.9961581821, 1.0194955964], using the exact frozen whole-process
+log Student-t estimator. Both intervals include parity. Per-process serving
+seconds and end-user mean/p95 TTFT/completion summaries are in the receipt and
+RESULTS.md. All 456 matched request texts and finish reasons agree between
+native arms, but no quality-equivalence claim follows. Returning CPU restores
+and eviction-affected-return counters are zero; do not claim pressured-offload
+benefit. This checkpoint is complete only for these two cells, not the campaign.
+[Interim display](early-controls.html) was previewed/rendered with T3, with
+[bound data/render proof](early-controls-render.json); it covers only these two
+cells. Do not mistake it for the pending final full-matrix chart.
+Final report extraction must reproduce these estimates unchanged and include
+all remaining cells, external systems, overhead, operational and audits.
+
 ## Final report preparation
 
 The primary-only reporting helper is
 `benchmarks/research_checks/stage6_primary_findings.py` in the mutable repo.
-[Validation](reporting-validation.json): 21 focused reporting/estimator tests,
-31 portable checks plus compilation pass; chart JavaScript parses in V8.
+[Latest validation](reporting-validation-02.json): 21 focused reporting/estimator tests,
+with the earlier 31 portable checks/compilation separately retained; chart JavaScript parses in V8. The current helper uses transparent roots and host theme variables with standalone fallbacks.
 The original `stage6_findings.py` requires an addendum and contains historical
 2080 conclusions; do not use it to present this primary-only campaign.
 
@@ -278,6 +296,25 @@ timing or workload change. This is explicitly incomplete acquisition; preserve
 all earlier snapshots. For future reviews use the union of canonical screen07
 and latest confirm02, with exact eight-field and executed-system equality, then
 rebind canonical IDs to the new packet before retaining reuse.
+
+**Confirmation snapshot 03 is prepared but not fully reviewed**, raw
+`$BASE/quality-confirm-checkpoint-03/`. It captures full B01/B02 plus two B03
+matched blocks: 856 objective finals, 635 prescribed selected outputs and
+24 capped intermediates. `novel-contexts.json` has **20 new full contexts**:
+16 document summaries and four QA answers. The four QA contexts at indices
+**9, 15, 17, 19** were explicitly read and judged in
+[QA judgments 03](confirm-qa-judgments-03.json); all are supported/useful/valid JSON.
+The **16 summary contexts remain unread/unjudged**, at indices
+**0–8, 10–14, 16, 18**. Each has 16–33k source characters plus its complete
+reference list and generated answer. Read the full supplied source/reference,
+question and answer before judging. Current instruction is at most **300 words**
+plus key facts/uncertainties and no unsupported additions; all have no tools or
+dependencies. Some generated summaries exceed 300 whitespace words: judge source
+support/usefulness separately from this instruction failure. Do not invent
+missing judgments or consolidate a complete canonical index03 until all sixteen
+summaries are actually read. Source-support decisions cannot be reused from the
+old 2080 explicit judgment lists alone: they lack full-context bindings. Preserve
+old evidence read-only. Canonical screen07 + confirm02 remain the completed bases.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
 confirmation contexts explicitly, reusing canonical screen07/confirm02 only on exact full context
