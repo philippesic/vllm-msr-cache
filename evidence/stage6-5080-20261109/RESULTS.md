@@ -13,7 +13,7 @@ and verifying pinned geometry and cleanup. Overall screening/qualification remai
 All four native preflights passed: restore/fresh-reference correctness for
 every model and the anchor registry probe. All 223 preflight files verify.
 Screening is running; confirmation and later phases remain pending.
-There are no new measured performance results yet.
+Repeated performance estimates remain pending.
 
 The comparison retains native ARC, candidate, Continuum and upstream vLLM
 PR #59714, with the exported primary models, workloads, resource geometry,
@@ -59,7 +59,19 @@ candidate, Continuum and upstream. Native ARC actually restored CPU tokens and
 had an eviction-affected return, establishing this screen pressure purpose.
 This single development block does not provide the requested repeated estimates.
 
-The [selected-screen source review](screen-review-index-03.json) covers 231 items
-from completed B01–B04 blocks (76 complete contexts), retaining overlength,
-repetition, factual and attribution failures. Full acquisition and final source/
-capped-response audits remain open; quality equivalence is not established.
+The [five Continuum screen receipts](continuum-all-screen.json) now all pass:
+32, 64, 64, 80 and 32 completed requests with 24, 30, 35, 42 and 24 scheduler
+pins respectively. Every attempt verifies its seal and clean release. All 12
+Qwen screen blocks are complete; screening has moved to the secondary models.
+The [B10 candidate control](screen-team-control.json) served all 20 requests
+without CPU restores or evictions. Its original inconclusive status remains;
+the frozen analysis accepts it as a GPU-resident control, not pressure evidence.
+
+The [selected-screen source review](screen-review-index-05.json) covers 435 items
+in a partial snapshot (147 complete contexts), retaining format, overlength,
+repetition, wrong-subject, factual and attribution failures. The separate
+[partial all-cap review](caps-screen-review-index-01.json) covers 13 sealed capped
+responses, including intermediates and arms of unfinished whole blocks. Both
+audits inspect actual preceding dependencies/tools and the archived system
+instruction. Full acquisition and final source/capped-response audits remain
+open; quality equivalence is not established and all timings remain included.

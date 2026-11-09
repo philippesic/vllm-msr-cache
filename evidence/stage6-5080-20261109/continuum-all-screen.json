@@ -1,0 +1,325 @@
+{
+  "schema": "stage6-5080-continuum-five-screen-v1",
+  "results": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B06",
+      "attempt": "4f30f353e5264dc08b4c1c92590ea860",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/373cad39d0970e43ef3db4c97bc0d1a5553d3a02f4d032047281b837222bafb7/4f30f353e5264dc08b4c1c92590ea860",
+      "seal": "ec142241dd5923eaba6029b943b8d2b082aaf85478487ece85e73fee500bac94",
+      "seal_verified_files": 84,
+      "status": "passed",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "summary": {
+        "planned_observed": 32,
+        "completed": 32,
+        "failed": 0,
+        "content_checks": 0,
+        "content_checks_failed": 0,
+        "prompt_tokens": 71021,
+        "output_tokens": 2707,
+        "output_tokens_per_s": 243.76554058074976,
+        "completed_requests_per_s": 2.8816022528939755,
+        "client_queue_p95_s": 2.0713499999999997e-05,
+        "end_user_ttft_p95_s": 1.9124660462,
+        "ttft_mean_s": 0.6068032138125,
+        "end_user_ttft_mean_s": 0.60683294221875,
+        "ttft_p95_s": 1.91245387765,
+        "e2e_mean_s": 2.19896535165625,
+        "e2e_p95_s": 4.092645957449999,
+        "chunk_interval_p95_s": 0.0386739758999986,
+        "chunk_interval_scope": "Client streaming chunk gaps; not individual GPU token timing.",
+        "finish_reasons": {
+          "stop": 32
+        },
+        "quality_assessment": "not_evaluated; exact outputs retained for review"
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "policy_activation": {
+        "verified": true,
+        "pins": 24,
+        "source": "published scheduler recorder; excludes warmup"
+      }
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B08",
+      "attempt": "5332eb29b285421791dc1a7dca59afe8",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/ba1a009fb8b9f40c26d7fa350e83edecd9fac44b029d231e30c02f099a675905/5332eb29b285421791dc1a7dca59afe8",
+      "seal": "33e778c856abde0ceb268257ac71c35af881a6c6086cd9f3bc5f6f921a2f9e2f",
+      "seal_verified_files": 140,
+      "status": "passed",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 30,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "summary": {
+        "planned_observed": 64,
+        "completed": 64,
+        "failed": 0,
+        "content_checks": 0,
+        "content_checks_failed": 0,
+        "prompt_tokens": 211836,
+        "output_tokens": 6217,
+        "output_tokens_per_s": 187.306001341596,
+        "completed_requests_per_s": 1.9281943197462028,
+        "client_queue_p95_s": 3.906249999999993e-05,
+        "end_user_ttft_p95_s": 18.404168459999962,
+        "ttft_mean_s": 2.6886380199375,
+        "end_user_ttft_mean_s": 2.688660570296875,
+        "ttft_p95_s": 18.40415525264996,
+        "e2e_mean_s": 4.602535507546875,
+        "e2e_p95_s": 20.295162854949982,
+        "chunk_interval_p95_s": 0.04670806239999998,
+        "chunk_interval_scope": "Client streaming chunk gaps; not individual GPU token timing.",
+        "finish_reasons": {
+          "stop": 61,
+          "length": 3
+        },
+        "quality_assessment": "not_evaluated; exact outputs retained for review"
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "policy_activation": {
+        "verified": true,
+        "pins": 30,
+        "source": "published scheduler recorder; excludes warmup"
+      }
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B09",
+      "attempt": "11fa87fd37104cb2bdbb7228a1967e34",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/57b42de0018ba3af2c7ab31742e3fa6cb8360f93a9469907d6d7902fe4566280/11fa87fd37104cb2bdbb7228a1967e34",
+      "seal": "d3d38079957cf1669905d75601d9c99a40a35874d3efcecfdf029e080cc35bed",
+      "seal_verified_files": 140,
+      "status": "passed",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 35,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "summary": {
+        "planned_observed": 64,
+        "completed": 64,
+        "failed": 0,
+        "content_checks": 0,
+        "content_checks_failed": 0,
+        "prompt_tokens": 212243,
+        "output_tokens": 6562,
+        "output_tokens_per_s": 195.98029559016254,
+        "completed_requests_per_s": 1.9114201337656815,
+        "client_queue_p95_s": 2.1723e-05,
+        "end_user_ttft_p95_s": 22.289906251399994,
+        "ttft_mean_s": 3.27745633484375,
+        "end_user_ttft_mean_s": 3.2774782381562497,
+        "ttft_p95_s": 22.289892859399995,
+        "e2e_mean_s": 5.250428227265625,
+        "e2e_p95_s": 24.02033712665,
+        "chunk_interval_p95_s": 0.052394051,
+        "chunk_interval_scope": "Client streaming chunk gaps; not individual GPU token timing.",
+        "finish_reasons": {
+          "stop": 63,
+          "length": 1
+        },
+        "quality_assessment": "not_evaluated; exact outputs retained for review"
+      },
+      "effective_geometry": {
+        "cpu_bytes": 1396703232,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "policy_activation": {
+        "verified": true,
+        "pins": 35,
+        "source": "published scheduler recorder; excludes warmup"
+      }
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B11",
+      "attempt": "6ae1ea01444c4995a5ddf7d275299862",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/bb3670cdb6c4dacef4aa7bb0278157aa435aec951125f5193dad2c346776e5bc/6ae1ea01444c4995a5ddf7d275299862",
+      "seal": "d84465b82ff440d8c3fb7c137321600745ddad756b7c0ee2aeba406eed5466e8",
+      "seal_verified_files": 156,
+      "status": "passed",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 42,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "summary": {
+        "planned_observed": 80,
+        "completed": 80,
+        "failed": 0,
+        "content_checks": 0,
+        "content_checks_failed": 0,
+        "prompt_tokens": 159061,
+        "output_tokens": 6263,
+        "output_tokens_per_s": 237.56105182567174,
+        "completed_requests_per_s": 3.034469766254788,
+        "client_queue_p95_s": 2.6594499999999977e-05,
+        "end_user_ttft_p95_s": 14.135152362599985,
+        "ttft_mean_s": 3.271367622,
+        "end_user_ttft_mean_s": 3.27139072235,
+        "ttft_p95_s": 14.135135919599984,
+        "e2e_mean_s": 4.932969660825,
+        "e2e_p95_s": 15.270647663149985,
+        "chunk_interval_p95_s": 0.074279945,
+        "chunk_interval_scope": "Client streaming chunk gaps; not individual GPU token timing.",
+        "finish_reasons": {
+          "stop": 77,
+          "length": 3
+        },
+        "quality_assessment": "not_evaluated; exact outputs retained for review"
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "policy_activation": {
+        "verified": true,
+        "pins": 42,
+        "source": "published scheduler recorder; excludes warmup"
+      }
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B12",
+      "attempt": "ab913a4d270c4f7884c44729c59233e8",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/91141bba91f58251533c66dc8152b6f0b6c3e657e83e030958388084a37f3e9f/ab913a4d270c4f7884c44729c59233e8",
+      "seal": "760f3295b363571043d3cf7b613d89c4ea41fe5786947a49c65cd4c7035a1b3a",
+      "seal_verified_files": 84,
+      "status": "passed",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "summary": {
+        "planned_observed": 32,
+        "completed": 32,
+        "failed": 0,
+        "content_checks": 0,
+        "content_checks_failed": 0,
+        "prompt_tokens": 71144,
+        "output_tokens": 2842,
+        "output_tokens_per_s": 261.2270331473293,
+        "completed_requests_per_s": 2.9413318299488167,
+        "client_queue_p95_s": 4.4871949999999956e-05,
+        "end_user_ttft_p95_s": 1.71605962665,
+        "ttft_mean_s": 0.467546592375,
+        "end_user_ttft_mean_s": 0.46757943684375003,
+        "ttft_p95_s": 1.7160477886499999,
+        "e2e_mean_s": 1.94518877303125,
+        "e2e_p95_s": 3.4185410081999996,
+        "chunk_interval_p95_s": 0.030152525,
+        "chunk_interval_scope": "Client streaming chunk gaps; not individual GPU token timing.",
+        "finish_reasons": {
+          "stop": 32
+        },
+        "quality_assessment": "not_evaluated; exact outputs retained for review"
+      },
+      "effective_geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "policy_activation": {
+        "verified": true,
+        "pins": 24,
+        "source": "published scheduler recorder; excludes warmup"
+      }
+    }
+  ],
+  "all_five_passed": true,
+  "scope": "All five frozen primary Continuum screen configurations now pass with clean completion/cleanup; the original sm_120 warmup blocker is repaired across these fixtures. This is development screening, not qualification or repeated-performance estimation. Original Nov 8 failures remain unchanged."
+}

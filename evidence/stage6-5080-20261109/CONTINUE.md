@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Screen is running**, persistent execution session 65450. Its authoritative
 ownership is in `$BASE/screen-owner-02.private.json` (PID, birth, command, cwd,
 source); log `$BASE/screen-02.log`. Revalidate the actual process and GPU before
-any resume. Never launch a duplicate. At 2026-11-09 17:16 UTC, ten of 22 whole
-screen blocks were complete; B11 Continuum was active. Twenty-six screen
-attempts were verified, one deliberately interrupted, one raw failed/inconclusive
+any resume. Never launch a duplicate. At 2026-11-09 17:28 UTC, 12 of 22 whole
+screen blocks were complete (all Qwen cells); Ministral B02 ARC was active.
+Thirty-four screen attempts were verified, one deliberately interrupted, one raw failed/inconclusive
 B10 candidate control, one active. The verified count includes the original
 unmatched B01 ARC, which receives no matched-comparison credit. The B10 control
 served all 20 requests with clean cleanup and no errors, CPU evictions or
@@ -32,6 +32,10 @@ Completed prerequisites:
   stays inconclusive; this diagnostic is excluded from campaign measurements.
 - [Full Continuum screen](continuum-full-screen.json): B06 passed all 32 requests
   and 24 scheduler pins, with sealed rebuilt-native identity and clean release.
+- [All five Continuum screens](continuum-all-screen.json) now pass: B06/B08/B09/
+  B11/B12 completed 32/64/64/80/32 requests and 24/30/35/42/24 pins respectively;
+  all seals/cleanup pass. This fixes the original blocker across every frozen
+  Continuum screening fixture, without claiming repeated performance yet.
 - [Native preflight](preflight.json): all three restore/fresh-reference equality
   fixtures and anchor registry probe passed; four attempts / 223 files verify.
 - [Import](import.json): all 22 cells resolved; unchanged profiles/corpora and
@@ -114,25 +118,37 @@ repeat that mistake. Never acquire from mutable source or a test interpreter.
 
 ## Answer-review checkpoint
 
-Latest completed partial review: [index 04](screen-review-index-04.json) and
-[ratings 04](screen-source-judgments-04.json), raw snapshot
-`$BASE/quality-screen-checkpoint-04/`. All 362 prescribed selected items have
-explicit judgments, covering 131 full contexts. All 55 novel investigation
-contexts were read in full in five `screen-investigation-judgments-04-part-*`
-records, including three capped intermediates judged only against their own
-current instructions and preceding tools/dependencies. Snapshot objective
-coverage is 386 finals. Selected-item findings: 63 source-unsupported, 117
-instruction failures, 14 not useful, with complete-context duplicates counted
-separately. Findings include invented limitations contradicted by executed
-tests, wrong-subject finals, repeated capped intermediates, and correct useful
-answers missing the requested status format. These are selected sample counts,
-not population rates or quality equivalence. Original objective scores, timing
-and gates are unchanged. Earlier snapshots remain preserved.
+Latest completed partial review: [index 05](screen-review-index-05.json) and
+[ratings 05](screen-source-judgments-05.json), raw snapshot
+`$BASE/quality-screen-checkpoint-05/`. All 435 prescribed selected items have
+explicit judgments, covering 147 full contexts. All 16 novel contexts were read,
+including four team syntheses and one capped intermediate; additional full
+PeekableTests reference content was inspected. Snapshot objective coverage is
+458 finals. Selected-item findings: 86 source-unsupported, 155 instruction
+failures, 16 not useful, with complete-context duplicates counted separately.
+These are selected sample counts, not population rates or quality equivalence.
+The archived executed system instruction also requires the literal validation
+status format for tool-using team syntheses and limits intermediates to 70 words;
+the latest ratings/index bind its digest. Do not waive those requirements based
+on the shorter current node prompt. Original scores/timings/gates are unchanged.
 
-For the next snapshot use a fresh checkpoint directory (05 next), regenerate
+[Partial all-cap review](caps-screen-review-index-01.json), raw
+`$BASE/caps-screen-checkpoint-01/`, covers all 13 sealed capped responses present
+at that snapshot (10 extended contexts; four novel): four source-unsupported,
+all 13 instruction failures, 11 not useful. Correct useful fragments in two
+duplicate capped responses are retained as useful. This inventory includes arms
+of unfinished whole blocks and is explicitly incomplete during acquisition.
+It checks the archived executed system instruction plus the current node and
+only preceding dependencies/tools. Final all-phase cap inventory/finish remains
+pending; do not mark the partial inventory complete. Its expanded signatures
+include system-instruction and prompt-context bindings; ordinary quality ratings
+are reused only after separately checking those additional fields.
+
+For the next snapshot use a fresh checkpoint directory (06 next), regenerate
 `prepare_review(OUT,'screen')` from exported source and copy its derived packet.
 Reuse judgments only on exact equality of all signature fields listed in index
-04; explicitly read/judge every novel required context. Do not invent missing
+05 and verify the same executed system-instruction digest; explicitly read/judge
+every novel required context. Do not invent missing
 judgments or mark a partial inventory final. After acquisition regenerate final
 screen/confirmation and all-capped inventories. Capped inventory root should be
 BASE (which contains only this campaign alias), not VOLUME (which also contains
