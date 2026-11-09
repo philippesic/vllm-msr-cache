@@ -9,15 +9,30 @@ Stage 7, unrelated projects or other machines; no credentials in tracked output.
 Repository: `/home/philip/vllm-semantic-cache-ext`; branch
 `stage6-5080-20261109`; push its established user-owned origin at checkpoints.
 
-Current phase: **native preflight running**, persistent session 80087. Log:
-`output/stage6-5080-20261109/preflight-02.log`; process/birth/source receipt:
-`preflight-owner-02.private.json` beside it. Inspect actual ownership before
-resuming; never duplicate a live coordinator. The first launch was stopped
-before any ledger attempt because its cwd was mutable source; the retained
-launch helper now validates the exact exported source, mount and interpreter
-before exec into the unchanged coordinator. It is not a competing GPU runner.
+Current phase: **screen running**, persistent session 66611, log
+`output/stage6-5080-20261109/screen-01.log`, ownership receipt
+`screen-owner-01.private.json`. All four native preflight attempts passed;
+223 sealed files verify and GPU/locks were released before screen launch.
+
+**A recovery watcher is already active** in persistent session 15020, log
+`recovery-interrupt-01.log`, ownership in `recovery-watcher-owner-01.private.json`.
+Do not launch a duplicate watcher. It intentionally interrupts the first B01
+partial screen block after a verified first arm and active second arm. This is
+an expected development recovery audit, not a campaign capability failure.
+After it exits, inspect `$OUT/analysis/recovery-interruption-receipt.json`, the
+ledger and actual resources. Require sealed interruption and owned cleanup.
+Then resume the **whole screen** with the existing launch helper `--resume`
+and fresh `screen-02.log` / `screen-owner-02.private.json`. Preserve all attempts.
+Do not leave the campaign stopped after the intentional interruption.
+
+The first preflight launch was stopped before any ledger attempt because its
+cwd was mutable source. The retained launch helper now validates exact exported
+source, mount and interpreter before exec into the unchanged coordinator.
 
 ## Established evidence
+
+- [Native preflight](preflight.json): all three restore/fresh-reference fixtures
+  and the anchor registry probe passed; all four attempts / 223 files verify.
 
 - [Build](BUILD.md) and [receipt](lmcache-build.json): same release revision,
   all 178 Python files unchanged, separate Continuum environment, CUDA 12.8,
@@ -77,13 +92,10 @@ Do not run acquisition from mutable checkout or inherit a test interpreter.
 
 ## Remaining sequence
 
-1. Inspect all four preflight results/seals, not just exit code. Then screen.
-2. Reproduce the existing development recovery audit: while screen B01 runs,
-   invoke the exported `campaign_recovery --out "$OUT" --only qwen3_8b_awq:B01`
-   in a separate persistent execution session. It intentionally interrupts the
-   owned coordinator after a partial block and verifies cleanup/sealing. Resume
-   the whole screen with the helper `--resume`; preserve the original attempts.
-   This is the existing Stage 6 recovery proof, not a change to order/repeats.
+1. Preflight is complete; do not repeat it.
+2. The recovery watcher is already running (see current phase above). Inspect its
+   receipt and resume the whole screen after the deliberate interruption. This
+   is the existing Stage 6 recovery proof, not a change to order/repeats.
 3. After all 54 screens, `campaign qualify --out "$OUT"`; inspect
    `all_required_correctness_passed`. Diagnose every genuine failure. Do not
    activate with failed correctness/activation/capacity/workload-purpose gates.

@@ -1,0 +1,205 @@
+{
+  "schema": "stage6-5080-rebuilt-preflight-v1",
+  "passed": true,
+  "cases": [
+    {
+      "model": "qwen3_8b_awq",
+      "system": "wait",
+      "path": "attempts/7f6c9823dd302e1a690f83a9a58ce46a594ab228b1f54ea05ebf85289eeb0846/e6c976761871441e990c9a4f58fe8fbb",
+      "seal": "c75e7a18782e5bcb73b3995a858c5d96ad19b243ce531a814fbe0d89a879387f",
+      "verified_files": 57,
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "native_checks": {
+        "duplicate_is_idempotent": true,
+        "wrong_namespace_rejected": true,
+        "future_information_rejected": true,
+        "stale_advice_rejected": true,
+        "fresh_reference_recomputed_entire_prompt": true,
+        "return_really_restored_cpu_prefix": true,
+        "cached_equals_fresh_generation": true
+      }
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "system": "registry",
+      "path": "attempts/4893fb43a07b5494196d25b317b5a7a02b49cca01e30654c6e41db3132461de4/91b3eee311a94363b66f26e9f9020b71",
+      "seal": "384a1dafa0c8e92e1efffc4014a7681d4b811d6c39aa5c1c459596e4507c1053",
+      "verified_files": 52,
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "registry_probe": {
+        "passed": true,
+        "capacity_noops": 6,
+        "bounded": true,
+        "offered_units": 4
+      }
+    },
+    {
+      "model": "ministral3_3b",
+      "system": "wait",
+      "path": "attempts/33b8aa26856da0f8cd2a0a6568ffc956d4bdc05b2e5193240f9a69030ef8d244/2a53e49a63784600be24bc59086bd11a",
+      "seal": "f02ce1c12390f392c3b35c2ee81feef35b1c260de8b7fa4975fc84018334be0a",
+      "verified_files": 57,
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "native_checks": {
+        "duplicate_is_idempotent": true,
+        "wrong_namespace_rejected": true,
+        "future_information_rejected": true,
+        "stale_advice_rejected": true,
+        "fresh_reference_recomputed_entire_prompt": true,
+        "return_really_restored_cpu_prefix": true,
+        "cached_equals_fresh_generation": true
+      }
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "system": "wait",
+      "path": "attempts/7be5a1359a07a58f34865b6de3002e9e4f7e0c2acb9865478287969575a6870b/7366ef5bb6d64c148727e7dd3a9286f8",
+      "seal": "c1ba45021d5b324e72004a45c0fda845c87bcbba735ea871b03db55d14aa7bd6",
+      "verified_files": 57,
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "native_checks": {
+        "duplicate_is_idempotent": true,
+        "wrong_namespace_rejected": true,
+        "future_information_rejected": true,
+        "stale_advice_rejected": true,
+        "fresh_reference_recomputed_entire_prompt": true,
+        "return_really_restored_cpu_prefix": true,
+        "cached_equals_fresh_generation": true
+      }
+    }
+  ],
+  "native": {
+    "passed": true,
+    "missing_models": [],
+    "models": {
+      "qwen3_8b_awq": {
+        "attempt": "e6c976761871441e990c9a4f58fe8fbb",
+        "path": "attempts/7f6c9823dd302e1a690f83a9a58ce46a594ab228b1f54ea05ebf85289eeb0846/e6c976761871441e990c9a4f58fe8fbb",
+        "seal": "c75e7a18782e5bcb73b3995a858c5d96ad19b243ce531a814fbe0d89a879387f",
+        "sequence": 2,
+        "checks": {
+          "duplicate_is_idempotent": true,
+          "wrong_namespace_rejected": true,
+          "future_information_rejected": true,
+          "stale_advice_rejected": true,
+          "fresh_reference_recomputed_entire_prompt": true,
+          "return_really_restored_cpu_prefix": true,
+          "cached_equals_fresh_generation": true
+        },
+        "geometry": {
+          "cpu_bytes": 528482304,
+          "cpu_pinned": true,
+          "cpu_chunk_tokens": 16,
+          "gpu_blocks": 128,
+          "gpu_block_tokens": 16,
+          "gpu_kv_bytes": 301989888,
+          "device_aliases": 0,
+          "gpu_capacity_source": "actual worker tensor bytes"
+        }
+      },
+      "ministral3_3b": {
+        "attempt": "2a53e49a63784600be24bc59086bd11a",
+        "path": "attempts/33b8aa26856da0f8cd2a0a6568ffc956d4bdc05b2e5193240f9a69030ef8d244/2a53e49a63784600be24bc59086bd11a",
+        "seal": "f02ce1c12390f392c3b35c2ee81feef35b1c260de8b7fa4975fc84018334be0a",
+        "sequence": 8,
+        "checks": {
+          "duplicate_is_idempotent": true,
+          "wrong_namespace_rejected": true,
+          "future_information_rejected": true,
+          "stale_advice_rejected": true,
+          "fresh_reference_recomputed_entire_prompt": true,
+          "return_really_restored_cpu_prefix": true,
+          "cached_equals_fresh_generation": true
+        },
+        "geometry": {
+          "cpu_bytes": 517996544,
+          "cpu_pinned": true,
+          "cpu_chunk_tokens": 16,
+          "gpu_blocks": 128,
+          "gpu_block_tokens": 16,
+          "gpu_kv_bytes": 218103808,
+          "device_aliases": 0,
+          "gpu_capacity_source": "actual worker tensor bytes"
+        }
+      },
+      "qwen3_4b_2507": {
+        "attempt": "7366ef5bb6d64c148727e7dd3a9286f8",
+        "path": "attempts/7be5a1359a07a58f34865b6de3002e9e4f7e0c2acb9865478287969575a6870b/7366ef5bb6d64c148727e7dd3a9286f8",
+        "seal": "c1ba45021d5b324e72004a45c0fda845c87bcbba735ea871b03db55d14aa7bd6",
+        "sequence": 11,
+        "checks": {
+          "duplicate_is_idempotent": true,
+          "wrong_namespace_rejected": true,
+          "future_information_rejected": true,
+          "stale_advice_rejected": true,
+          "fresh_reference_recomputed_entire_prompt": true,
+          "return_really_restored_cpu_prefix": true,
+          "cached_equals_fresh_generation": true
+        },
+        "geometry": {
+          "cpu_bytes": 528482304,
+          "cpu_pinned": true,
+          "cpu_chunk_tokens": 16,
+          "gpu_blocks": 128,
+          "gpu_block_tokens": 16,
+          "gpu_kv_bytes": 301989888,
+          "device_aliases": 0,
+          "gpu_capacity_source": "actual worker tensor bytes"
+        }
+      }
+    }
+  },
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 4
+    },
+    "verified_files": 223,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "owned_coordinator_exited": true,
+  "both_gpu_locks_acquired_and_released": true,
+  "confirmation_ready": false,
+  "scope": "All three native restore/fresh-reference correctness fixtures and anchor registry probe passed. Screening, published activation, pressure qualification and performance confirmation remain pending."
+}

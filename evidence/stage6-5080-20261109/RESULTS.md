@@ -1,4 +1,4 @@
-# RTX 5080 Stage 6 — rebuilt; native preflight running
+# RTX 5080 Stage 6 — rebuilt; screening in progress
 
 This fresh primary replication is authorized to rebuild pinned LMCache 0.3.6
 for the RTX 5080 (`sm_120` plus PTX). The previous campaign remains closed and
@@ -8,7 +8,9 @@ in both directions (393,216 bytes). This proves the previously failing kernel
 executes on the 5080; live Continuum then completed warmup and four requests with actual GPU KV
 stores and verified pinned geometry/cleanup. The one-session diagnostic did not
 exercise scheduler pins; full-screen policy activation remains required.
-Native preflight is running; screening and later phases remain pending.
+All four native preflights passed: restore/fresh-reference correctness for
+every model and the anchor registry probe. All 223 preflight files verify.
+Screening is running; confirmation and later phases remain pending.
 There are no new measured performance results yet.
 
 The comparison retains native ARC, candidate, Continuum and upstream vLLM
@@ -29,3 +31,7 @@ The [new import](import.json) preserves all 22 cells and the frozen order/repeat
 All normalized corpora and profiles are unchanged. The [live smoke receipt](continuum-smoke.json)
 retains its original policy-inconclusive verdict separately from successful
 kernel/serving capability. These diagnostics are excluded from performance results.
+
+[Native preflight evidence](preflight.json) preserves every check and seal.
+Its correctness success does not establish throughput gains or qualification
+of the full four-system matrix.
