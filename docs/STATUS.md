@@ -15,16 +15,14 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Repository pressure recovery — measured and audited; closing supervision
+## Repository pressure recovery — complete; GPU released
 
-- All 18 original repository configurations verified without retries, using
-  pinned rebuilt-01 on 2080 Ti. Runtime inheritance fix is pushed to origin/main.
-- Candidate/ARC throughput 1.0210 [0.9885, 1.0546]; no resolved gain. ARC records
-  pressure in all four paired blocks. Quality equivalence remains unestablished.
-- [Results, audits and sealed transfer](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
-- Coordinator exited; all case cleanups verified, GPU idle and both locks free.
-  Health schedule will be disabled after the results checkpoint is pushed.
-- No primary/QA/advice/5080/training acquisition. Original failed gate preserved.
+All 18 configurations and integrity/source/all-cap audits passed acquisition
+requirements. Candidate/ARC throughput is 1.0210 [0.9885, 1.0546], an unresolved
+gain; quality equivalence remains unestablished. Runtime fix and results are
+pushed. Owned processes exited, both locks are free, and the health schedule is
+disabled with no next run. [Results and evidence](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md)
+and [brief history](PROJECT_HISTORY.md) retain the completed outcome.
 
 ## Wait-hint release extension — Stage 6 complete within bounded scope
 

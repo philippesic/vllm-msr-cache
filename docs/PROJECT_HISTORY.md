@@ -174,3 +174,12 @@ archive verify. GPU released, useful evidence and recovery material preserved.
   the existing health schedule is disabled. Stage 7 is separate pending work.
   [Findings](../evidence/stage6-2080ti-20261106/RESULTS.md),
   [handoff](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md).
+
+- **November 8, 2026 (repository recovery):** fixed addendum worker runtime
+  selection and measured the missed 18-case pressure section without retries,
+  using pinned rebuilt-01 on 2080 Ti. Candidate/ARC throughput 1.0210
+  [0.9885, 1.0546]; Continuum/ARC 0.8627 [0.8311, 0.8954]; upstream/ARC
+  0.9526 [0.9096, 0.9976]. All 288 finals and the single capped intermediate
+  audited; no answer-quality equivalence. Original primary and failed-gate
+  history preserved. Source/results pushed, GPU released and health schedule
+  disabled. [Recovery evidence](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).

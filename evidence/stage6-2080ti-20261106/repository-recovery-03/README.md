@@ -132,3 +132,7 @@ still requires its original setup/resource/capability preflight and a declared
 study identity. Runtime/backend/output differences, four-block uncertainty,
 non-equivalent answers, QA overhead and misleading-hint interference remain
 measurement limitations. No 5080, primary, QA, advice or training job was launched.
+
+The health schedule is disabled with no next run. [Completion receipt](completion.json)
+links resource, audit and historical-preservation proofs. Repair and results
+checkpoints were pushed to origin/main.
