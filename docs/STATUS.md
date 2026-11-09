@@ -15,6 +15,14 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
+## Stage 6 RTX 5080 rebuild — active
+
+The user authorized a fresh full primary pass after rebuilding the same pinned
+LMCache source for sm_120 plus PTX. Separate Continuum environment preparation
+is active; no new GPU measurements yet. The November 8 failed campaign remains
+preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md) and
+[continuation](../evidence/stage6-5080-20261109/CONTINUE.md) track the new work.
+
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 
 The pinned Continuum/LMCache GPU KV-transfer extension failed all five anchor
