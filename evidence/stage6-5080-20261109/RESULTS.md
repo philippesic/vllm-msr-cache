@@ -22,6 +22,13 @@ responses, zero caps and all coverage/cleanup checks passed. It has 31 valid
 measurements and seven complete matched blocks, short of the required eight.
 All planned repetitions ran once; the excluded block was not replaced.
 
+The [reporting validation](reporting-validation-03.json) covers 28 focused tests
+and a synthetic CLI check for an explicitly incomplete presentation. The helper
+keeps its default completion guard; its explicit option preserves missing frozen
+blocks, actual pair counts, conditional estimates and failed completion flags.
+This is preparation for reporting the terminal outcome, not final measured
+extraction or a repair of the B06 activity failure.
+
 This is a new campaign. The failed November 8 campaign and all 2080 Ti history
 remain unchanged. The sole declared setup deviation is rebuilding the same
 LMCache 0.3.6 source for `sm_120` plus PTX. Source and algorithm are unchanged;

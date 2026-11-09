@@ -117,3 +117,65 @@ def test_materialized_artifacts_and_existing_findings_are_preserved(tmp_path):
     with pytest.raises(FileExistsError):
         build(path, destination)
     assert (destination / 'comparisons.json').read_bytes() == previous
+
+
+def test_explicit_incomplete_presentation_keeps_missing_repeat_and_frozen_estimate(tmp_path):
+    report = completed_report()
+    report.update(complete=False, throughput_acquisition_complete=False,
+                  missing_blocks=[dict(model='model', cell='B06', repeat=0)],
+                  completion=dict(complete=False, throughput=False, quality=True))
+    untouched = copy.deepcopy(report)
+    path = tmp_path / 'report.json'
+    path.write_text(json.dumps(report))
+    data = build(path, tmp_path / 'conditional', retain_incomplete=True)
+    assert report == untouched
+    assert not data['report_complete'] and not data['findings_complete']
+    assert not data['throughput_acquisition_complete']
+    assert data['completion'] == report['completion']
+    assert data['missing_blocks'] == report['missing_blocks']
+    row = data['comparisons'][0]
+    assert row['process_pairs'] == 6
+    assert row['process_pairs_plus_reported_missing_blocks'] == 7
+    assert row['missing_repeats'] == [0]
+    assert row['paired_95_interval'] == pytest.approx(
+        paired_estimate([1 / r for r in report['comparisons'][0]['estimate']['per_run_ratios']])['paired_95_interval'])
+    text = (tmp_path / 'conditional/tables.md').read_text()
+    assert 'Campaign report is incomplete' in text
+    assert 'model / B06 / repeat 0' in text and '| 6/7 |' in text
+    html = (tmp_path / 'conditional/comparisons.html').read_text()
+    assert 'Campaign report is incomplete' in html and 'id="incomplete"' in html
+
+
+def test_missing_audit_does_not_become_complete_when_all_throughput_blocks_exist():
+    report = completed_report()
+    report.update(complete=False, completion=dict(complete=False, quality=False))
+    data = summarize(report, retain_incomplete=True)
+    assert data['throughput_acquisition_complete']
+    assert not data['findings_complete'] and not data['completion']['quality']
+    assert 'Campaign report is incomplete' in markdown(data)
+
+
+@pytest.mark.parametrize('defect', ['rate', 'interval', 'failure'])
+def test_incomplete_mode_still_rejects_invalid_measurements(defect):
+    report = completed_report()
+    report['complete'] = False
+    row = report['comparisons'][0]
+    if defect == 'rate':
+        row['points'][0]['candidate']['completed_units_per_s'] = 4
+    elif defect == 'interval':
+        row['estimate']['paired_95_interval'][0] *= .9
+    else:
+        row['points'][0]['candidate']['request_work']['failed'] = 1
+    with pytest.raises(ValueError):
+        summarize(report, retain_incomplete=True)
+
+
+@pytest.mark.parametrize('missing', [
+    [dict(reason='protocol_not_frozen')],
+    [dict(model='model', cell='B06', repeat=0)] * 2,
+])
+def test_incomplete_mode_requires_unique_frozen_missing_identities(missing):
+    report = completed_report()
+    report.update(complete=False, missing_blocks=missing)
+    with pytest.raises(ValueError, match='Missing blocks|Duplicate missing'):
+        summarize(report, retain_incomplete=True)

@@ -206,7 +206,7 @@ all remaining cells, external systems, overhead, operational and audits.
 
 The primary-only reporting helper is
 `benchmarks/research_checks/stage6_primary_findings.py` in the mutable repo.
-[Latest validation](reporting-validation-02.json): 21 focused reporting/estimator tests,
+[Latest validation](reporting-validation-03.json): 28 focused reporting/estimator tests,
 with the earlier 31 portable checks/compilation separately retained; chart JavaScript parses in V8. The current helper uses transparent roots and host theme variables with standalone fallbacks.
 The original `stage6_findings.py` requires an addendum and contains historical
 2080 conclusions; do not use it to present this primary-only campaign.
@@ -256,6 +256,18 @@ unattainable without changing the study, document a failed full campaign rather
 than asserting success. The success-only findings helper above must keep its
 guard; any failure presentation must explicitly retain incomplete scope and the
 actual frozen estimates/repetition counts, never fabricate the missing pair.
+
+The reporting helper now supports **explicit `--retain-incomplete`** for that
+terminal outcome. Its default still rejects incomplete reports. The option
+preserves the frozen report's complete/acquisition flags, completion evidence and
+every missing model/cell/repeat identity. It labels estimates conditional and
+shows measured pairs / (measured pairs + reported missing blocks), including in
+the chart; no missing repetition is inserted or requirement reduced. Existing
+estimator, matched-work and no-overwrite checks remain. All comparisons must
+still contain at least two matched pairs. Only use this after the remaining
+acquisition and audits finish, with an explicitly incomplete RESULTS.md outcome.
+Synthetic CLI validation covers rejection, explicit retention and existing-output
+preservation; actual terminal extraction and final chart rendering remain pending.
 
 From **`$BUNDLE/source`**, with the literal `$PY` and bytecode disabled:
 

@@ -28,7 +28,10 @@ pending. The first confirmation B06 candidate process completed serving but fail
 the frozen activity rule (zero restores, eight scheduler preemptions); its block
 has no comparison credit. All 32 B06 attempts finished; seven of eight matched
 blocks are valid. Remaining scheduled measurements continue without
-relabeling or favorable-activity retries. The final screen source audit covers
+relabeling or favorable-activity retries. Reporting preparation now preserves
+incomplete scope and missing repetitions through an explicit option, with the
+default completion guard retained and 28 focused tests passing; terminal results
+are still pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
 2,243 selected outputs / 162 contexts, including 39 new PEP contexts
 (four capped intermediates) with all supplied source texts explicitly read;
