@@ -1,0 +1,21 @@
+{
+  "schema": "stage6-5080-integrity-checkpoint-v1",
+  "acquisition_complete": false,
+  "phase": "confirm",
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 75,
+      "interrupted": 1,
+      "failed": 1,
+      "running": 1
+    },
+    "verified_files": 6653,
+    "protocol_frozen": true,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "ledger_before_digest": "09572c87024f007a2696dcb304833ddaf92791d591b3d4ee00c771e44b05ee3e",
+  "ledger_after_digest": "d4d746dfe029af3931ced69e3a8d25fe9902fccae86b49ed4bc7ac66885afe33",
+  "ledger_changed_during_check": true,
+  "scope": "Read-only verification of every sealed attempt in the campaign snapshot, including native preflight, screening, whole-block recovery and completed confirmation arms; active unsealed work is not certified. Campaign input identities, sealed attempt identities/artifacts and frozen protocol bindings pass. This does not establish final acquisition, source-audit, performance, portability or completion status."
+}

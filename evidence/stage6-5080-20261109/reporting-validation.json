@@ -1,0 +1,25 @@
+{
+  "schema": "stage6-primary-reporting-validation-v1",
+  "acquisition_complete": false,
+  "helper": "benchmarks/research_checks/stage6_primary_findings.py",
+  "source_sha256": "edefaeaf4aea8a696431e32baa4e2bea83ae83720549724a42cbf2e84a806327",
+  "checks": {
+    "focused_reporting_and_estimator_tests": {
+      "passed": 21,
+      "command": "PYTHONDONTWRITEBYTECODE=1 pinned-PY -m pytest -q -p no:cacheprovider tests/test_stage6_primary_findings.py tests/test_campaign_reporting.py"
+    },
+    "portable_checks": {
+      "passed": 31,
+      "compilation_passed": true,
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPYCACHEPREFIX=task-private-cache make check-light PY=pinned-PY",
+      "local_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/check-light-findings-01.log"
+    },
+    "standalone_javascript": {
+      "syntax": "passed V8 Function construction without execution",
+      "browser_render": "pending final measured data; no browser opened",
+      "node_cli": "unavailable; V8 parser used directly; temporary syntax-check file cleaned"
+    }
+  },
+  "method": "Derived views only. Complete-report guard, exact estimator/per-process work validation, reciprocal ratio/CI-bound order, unchanged frozen classification orientation, process-level latency labeling and unavailable external counters tested. No acquisition source, design, timing or result changed. Existing output directories are preserved.",
+  "scope": "Reporting preparation, not measured performance or completion. Final actual full-report extraction and T3 HTML preview/render remain required. The 2080-specific/addendum chart helper was not run for this campaign."
+}

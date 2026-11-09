@@ -17,15 +17,18 @@ these selected runs does not establish a universal performance or quality claim.
 
 ## Stage 6 RTX 5080 rebuild — active
 
-The user authorized a fresh full primary pass after rebuilding the same pinned
-LMCache source for sm_120 plus PTX. The separate Continuum environment rebuild, exact KV round trip and four-request
-live serving diagnostic succeeded. All four native preflights passed (223 sealed files); the fresh campaign is
-now screening. The deliberate recovery interruption passed cleanup/sealing; the
-whole B01 replacement block passed. The first full Continuum B06 screen also
-passed 32 requests and verified 24 scheduler pin events with the rebuilt binary. No confirmed performance
-results yet. The November 8 failed campaign remains
-preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md) and
-[continuation](../evidence/stage6-5080-20261109/CONTINUE.md) track the new work.
+The same pinned LMCache source was rebuilt for sm_120 plus PTX in a separate
+Continuum environment; exact KV round trip and live serving passed. All 54 screen
+configurations / 22 matched blocks and functional qualification pass, including
+all five Continuum fixtures and every model's native pressure gate. The imported
+524-configuration / 210-block confirmation is running under the durable
+coordinator and 15-minute health schedule. The final screen source audit covers
+1,248 selected outputs / 522 full contexts; confirmation review and later phases
+remain pending. No final throughput or quality-equivalence claim. The November 8
+failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
+[continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and
+[latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-01.json)
+retain actual ownership/progress and verified evidence.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 

@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **16/524 valid
-configurations, eight/210 complete matched blocks**, with Qwen3-8B B01 ARC repeat
-eight active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **22/524 valid
+configurations, eleven/210 complete matched blocks**, with Qwen3-8B B01 candidate repeat
+eleven active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -134,6 +134,40 @@ repeat that mistake. Never acquire from mutable source or a test interpreter.
 5. Consolidate RESULTS.md and STATUS, commit/push all findings, release owned
    servers/GPU/locks, disable the health schedule only at pushed completion or an
    irreparable genuine-failure closeout. An ordinary process exit is not done.
+
+## Final report preparation
+
+The primary-only reporting helper is
+`benchmarks/research_checks/stage6_primary_findings.py` in the mutable repo.
+[Validation](reporting-validation.json): 21 focused reporting/estimator tests,
+31 portable checks plus compilation pass; chart JavaScript parses in V8.
+The original `stage6_findings.py` requires an addendum and contains historical
+2080 conclusions; do not use it to present this primary-only campaign.
+
+After all acquisition, confirmation source review and portability readiness,
+regenerate the frozen campaign report from SOURCE. Only when it has
+`complete=true`, use the helper from mutable REPO:
+
+```bash
+"$PY" -m benchmarks.research_checks.stage6_primary_findings \
+  --report "$OUT/analysis/current/results.json" \
+  --out evidence/stage6-5080-20261109/results
+```
+
+It refuses incomplete reports or an existing destination, validates estimates
+and whole-process work, and produces `comparisons.json`, `tables.md` and a
+standalone interactive `comparisons.html`. The derived display consistently
+puts candidate above external systems by reciprocal transformation with reversed
+CI-bound order; original traffic-class/classification orientation remains
+explicit. Latency figures are means of per-process statistics, not pooled p95s.
+External missing native counters stay unavailable. Actual full-report extraction
+and final T3 html_preview/html_render remain untested/pending until data exist.
+This is derived presentation; acquisition source/design stays unchanged.
+
+The read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-01.json)
+verifies 6,653 sealed files / 75 verified, one interrupted and one raw failed
+attempt at its snapshot, plus one active unsealed attempt. It checks attempt,
+input and protocol identities but is explicitly not a final completion audit.
 
 ## Answer-review checkpoint
 
