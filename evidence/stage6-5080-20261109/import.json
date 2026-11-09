@@ -1,0 +1,33 @@
+{
+  "schema": "stage6-5080-rebuilt-import-v1",
+  "campaign_id": "37f88e1990a0b44fd187cbef4caeaff8b508fcb92acd437e514ff42b799cd7ba",
+  "parent_campaign_id": "fb4036f77c0761d08d66b32f0710abdd34a6cffe30c2144b22c8c1461a4c9baa",
+  "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "host_id": "rtx5080",
+  "runtime_python": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+  "all_cell_interpreters_explicit": true,
+  "cells": 22,
+  "configurations_per_repeat": 54,
+  "confirmation_blocks": 210,
+  "confirmation_configurations": 524,
+  "supplementary_configurations": {
+    "overhead": 38,
+    "operational": 6
+  },
+  "frozen_protocol_identical_to_previous_transfer": true,
+  "all_profiles_identical": true,
+  "all_normalized_corpora_identical": true,
+  "plan_differences": [
+    "/published_runtimes/continuum/packages/61",
+    "/published_runtimes/continuum/python"
+  ],
+  "models_verified": [
+    "ministral3_3b",
+    "qwen3_4b_2507",
+    "qwen3_8b_awq"
+  ],
+  "hardware_preflight_required": true,
+  "confirmation_ready": false,
+  "diagnostic_smoke_excluded": true,
+  "setup_repair": "Stopped initial incomplete import before acquisition to explicitly bind original pinned runtime path; retained raw log/tree"
+}

@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "evaluation": {
+    "status": "inconclusive",
+    "errors": [],
+    "unavailable_activity": [],
+    "inactive_activity": [],
+    "policy_activation": {
+      "verified": false,
+      "pins": 0,
+      "source": "published scheduler recorder; excludes warmup"
+    }
+  },
+  "completed": 4,
+  "geometry": {
+    "cpu_bytes": 2793406464,
+    "cpu_pinned": true,
+    "cpu_chunk_tokens": 256,
+    "gpu_blocks": 1024,
+    "gpu_block_tokens": 16,
+    "gpu_kv_bytes": 2415919104,
+    "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+  },
+  "activation": {
+    "verified": false,
+    "pins": 0,
+    "source": "published scheduler recorder; excludes warmup"
+  },
+  "cleanup": {
+    "verified": true,
+    "survivors": [],
+    "exit_code": 0
+  },
+  "scope": "One-session 16-output-token diagnostic from the pinned development workload; excluded from campaign measurements",
+  "original_summary_passed": false,
+  "interpretation": "The original generic runner verdict is inconclusive solely because a one-session smoke has no scheduler pins. All four requests and real tools completed, warmup and GPU KV stores succeeded, pinned geometry and cleanup verified. This is kernel/serving capability only; the unchanged full screen must separately prove policy activation.",
+  "warmup_passed": true,
+  "live_gpu_kv_store_observed": true,
+  "policy_activation_required_for_this_diagnostic": false,
+  "raw_directory": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/continuum-smoke-20261109-01",
+  "seal": "3c248fb889296f8ebcab558e0a520154263e99afa72ef64170bd6dd9ee86633f",
+  "sealed_files": 23
+}

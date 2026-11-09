@@ -43,6 +43,15 @@ def kernel():
         scope='Exact pinned CPU/GPU KV round trip; no performance or model-correctness claim')
 
 
+def serving_passed(case, expected_requests):
+    evaluation = case['evaluation']
+    clean = (evaluation['status'] in ('passed', 'inconclusive') and
+             all(not evaluation.get(k) for k in ('errors', 'unavailable_activity', 'inactive_activity')))
+    return (clean and case['summary']['completed'] == expected_requests and
+            case['summary']['failed'] == 0 and case['cleanup']['verified'] and
+            case.get('effective_geometry', {}).get('cpu_pinned') is True)
+
+
 def serve(campaign, output):
     from benchmarks.serving_suite.campaign_contracts import load, atomic_json
     from benchmarks.serving_suite.runner import plan_for_variant, run_case
@@ -60,12 +69,11 @@ def serve(campaign, output):
     atomic_json(output / 'corpus.json', corpus)
     case = run_case(plan, corpus['sessions'], 'candidate', 0, output, variant='continuum')
     atomic_json(output / 'case.json', case)
-    passed = (case['evaluation']['status'] == 'passed' and case['summary']['completed'] ==
-              plan['expected_requests_per_wave'] and case['cleanup']['verified'])
+    passed = serving_passed(case, plan['expected_requests_per_wave'])
     return dict(passed=passed, evaluation=case['evaluation'], completed=case['summary']['completed'],
         geometry=case.get('effective_geometry'), activation=case.get('campaign', {}).get('policy_activation'),
-        cleanup=case['cleanup'],
-        scope='One-session 16-output-token diagnostic from the pinned development workload; excluded from campaign measurements')
+        cleanup=case['cleanup'], policy_activation_required=False,
+        scope='One-session 16-output-token kernel/serving diagnostic; policy activation remains a separate unchanged screen gate; excluded from campaign measurements')
 
 
 if __name__ == '__main__':

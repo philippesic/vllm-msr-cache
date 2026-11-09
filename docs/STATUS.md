@@ -18,8 +18,9 @@ these selected runs does not establish a universal performance or quality claim.
 ## Stage 6 RTX 5080 rebuild — active
 
 The user authorized a fresh full primary pass after rebuilding the same pinned
-LMCache source for sm_120 plus PTX. Separate Continuum environment preparation
-is active; no new GPU measurements yet. The November 8 failed campaign remains
+LMCache source for sm_120 plus PTX. The separate Continuum environment rebuild, exact KV round trip and four-request
+live serving diagnostic succeeded. A fresh imported campaign is in native
+preflight; no confirmed performance results yet. The November 8 failed campaign remains
 preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md) and
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) track the new work.
 
