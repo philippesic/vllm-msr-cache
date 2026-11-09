@@ -23,36 +23,49 @@ Paths:
 ```bash
 REPO=/home/philip/vllm-semantic-cache-ext
 BASE=$REPO/output/stage6-5080-20261108
-BUNDLE=$BASE/transfers/primary-relocated-bundle
+BUNDLE=$BASE/primary-execution-bundle-01
 RUNTIMES=/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01
 PY=$RUNTIMES/local-env/bin/python
 CACHE=/home/philip/.cache/semantic-offload/stage6-5080-assets
-HOST=$BASE/host.private.json
+HOST=$BASE/host-replica.private.json
 OUT=$BASE/primary-01
 export PATH=/usr/lib/wsl/lib:$PATH
 # Intended new Windows model-cache location; create only this task's directory.
 export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 ```
 
-`runtime_setup` is already running in persistent exec session 72310 from
-`$BUNDLE/source`, logging to `$BASE/runtime-setup.log`. Its process birth
-identity is in `$BASE/preparation-progress.private.json`. Inspect the existing
-session/process and step logs under `$RUNTIMES`; do not start a duplicate or
-delete this useful cache. Final `published-identities.json` plus clean exit
-is needed, not just the existence of `local-env`. Setup logs preserve failures.
-`bench-tests` and `check-light` have already passed from the exact exported
-primary source with `$PY`: 240 tests, 31 tests, compileall. Logs are in `$BASE`.
+`runtime_setup` completed successfully in session 72310, with final
+`published-identities.json` and all three GPU-free imports. Retain this cache.
+Pinned runtime logs are under `$RUNTIMES`; summary is `$BASE/runtime-setup.log`.
+
+Model reacquisition is running in session 74455 from the **original** primary
+export, logging to `$BASE/transfer-setup-03.log`, eventually writing
+`$BASE/host.private.json`. Its saved birth identity/cwd is in
+`$BASE/progress.private.json`. Do not start duplicate downloads; let it finish.
+Earlier setup attempts/logs are retained (one verifier rejection of generated
+caches; one stopped cwd correction). All original seals verify again.
+
+The separate `$BUNDLE` is a sealed copy derived from the original primary:
+its coordinator is from checkpoint 1319f09, adding health-check source
+attestation, with a new source identity. No other transfer/protocol fields
+changed. Read `source-revision.json` here and the full raw receipt in `$BASE`.
+It is not an addendum. `bench-tests` and `check-light` passed from this new
+execution source too: 240 tests, 31 tests and compileall (`*-02.log`).
 
 Recheck disk before continuing. Initial WSL free space was 23,943,786,496
 bytes; the Windows filesystem had 60,804,325,376 bytes free. Sealed model
 weights total 29,540,039,872 bytes. Existing uv cache permits hardlink reuse;
-models are not present locally. Do not delete unrelated data or fill a volume.
+runtime reconstruction now leaves about 7.4 GiB in WSL, and model downloads
+are in progress on Windows. Do not delete unrelated data or fill a volume.
 
-After successful setup, use the exact exported source and pinned interpreter:
+After the active model reacquisition succeeds, bind its cached weights to the
+new execution source using `transfer_setup --offline` and a separate private
+host file, then import. Use the pinned interpreter throughout:
 
 ```bash
 cd "$BUNDLE/source"
-"$PY" -m benchmarks.serving_suite.transfer_setup --bundle "$BUNDLE" --runtimes "$RUNTIMES" --cache "$CACHE" --out "$HOST" --id rtx5080
+export PYTHONDONTWRITEBYTECODE=1
+"$PY" -m benchmarks.serving_suite.transfer_setup --bundle "$BUNDLE" --runtimes "$RUNTIMES" --cache "$CACHE" --out "$HOST" --id rtx5080 --offline
 "$PY" -m benchmarks.serving_suite.campaign import --bundle "$BUNDLE" --host "$HOST" --out "$OUT"
 "$PY" -m benchmarks.serving_suite.campaign run --out "$OUT" --phase preflight
 "$PY" -m benchmarks.serving_suite.campaign run --out "$OUT" --phase screen
@@ -74,6 +87,11 @@ The handoff's repaired-addendum warning must not cause a substitution of the
 addendum source for primary. Preserve exact primary serving inputs. Document
 the new imported acquisition identity and any necessary coordinator/source
 adaptation separately, never patching the sealed transfer in place.
+
+Avoid writing generated cache/package files into any sealed bundle. For
+additional validation use external `PYTHONPYCACHEPREFIX` and pytest
+`-o cache_dir=...`; `compileall` writes bytecode despite
+`PYTHONDONTWRITEBYTECODE`. Verify seals after any tool runs there.
 
 After acquisition, verify campaign integrity, produce source and capped-output
 audits as required by the original prompt, retain adverse/unresolved outcomes,

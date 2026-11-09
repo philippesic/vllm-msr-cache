@@ -1,0 +1,28 @@
+{
+  "schema": "stage6-5080-primary-source-revision-v1",
+  "parent_bundle_seal": "69d0126fc1a5003ef0184f0032d88df162c67fe621d9d42e00c6772ce45256bc",
+  "coordinator_checkpoint": "1319f09bafac46bab89df465dd433c67441f4b26",
+  "changed_files": [
+    "benchmarks/research_checks/stage6_healthcheck.py",
+    "benchmarks/serving_suite/campaign.py"
+  ],
+  "authority": "2026-11-08 authorized 5080 primary replication with repaired coordinator and new source identity",
+  "worker_interpreter": "cell.profile.runtime_python or host.runtime_python explicitly",
+  "frozen_order_repeats_policy_models_workloads_preserved": true,
+  "parent_transfer_unchanged": true,
+  "execution_bundle_seal": "75abd6fbcdca6f210c1991e8f4160a7cad08593f7b5b05c8fe50fae8f374c8f2",
+  "execution_bundle_files": 4606,
+  "parent_source_digest": "8a986df6e8e261976baa9a9e09e2e1d8d0d11ed911556dafdae3244fcdc593d1",
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "parent_source_files": 2191,
+  "source_files": 2192,
+  "source_receipt_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/source-revision-01.json",
+  "original_primary_verified_files": 4606,
+  "execution_bundle_verified_files": 4606,
+  "validation": {
+    "bench_tests_passed": 240,
+    "check_light_passed": 31,
+    "compileall_passed": true,
+    "source": "primary-execution-bundle-01/source"
+  }
+}
