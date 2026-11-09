@@ -8,9 +8,11 @@ Preserve the closed November 8 campaign and every 2080 Ti artifact.
 Repository: `/home/philip/vllm-semantic-cache-ext`; branch
 `stage6-5080-20261109`; push only its established user-owned origin.
 
-Current phase: rebuilt and kernel round-trip passed; transfer setup is running
-in persistent session 31264 (log `$BASE/transfer-setup.log`). No campaign
-acquisition yet. Build/session logs and failed attempts are retained.
+Current phase: corrected fresh import running in persistent session 92431;
+log `$BASE/import-02.log`. Offline transfer setup completed for all three models.
+The first new import was stopped before any acquisition after a binding edit
+used the wrong working directory; its partial tree/log are retained separately.
+The current host binds the literal original pinned local interpreter.
 LMCache release tag `v0.3.6` matches the installed wheel's embedded revision.
 Build source is on the existing mounted ext4 volume. Use CUDA 12.8 tools to
 match Continuum's pinned torch 2.8.0+cu128, not the host CUDA 13.1 compiler.
@@ -70,3 +72,8 @@ benchmarks.research_checks.stage6_5080_smoke serve --campaign "$OUT" --out
 "$VOLUME/continuum-smoke-20261109-01"`. Its changed one-session/16-token
 parameters are diagnostic only, never campaign measurements. Then run preflight
 from the sealed exported source with the pinned interpreter and original design.
+
+Old history reverified after rebuild: all 41 attempts / 3,142 files, 4,606
+execution-bundle files and the original LMCache binary are unchanged; see
+[history integrity](history-integrity.json). Both environments have identical
+package versions. Runtime preparation/build evidence is pushed.

@@ -1,0 +1,15 @@
+{
+  "closed_campaign": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 33,
+      "interrupted": 2,
+      "failed": 6
+    },
+    "verified_files": 3142,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "execution_bundle_files": 4606,
+  "original_lmcache_binary_sha256": "2d7a83345a34035be67e94609661db712265d479df447b317aa0aa86535a04ce"
+}
