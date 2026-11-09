@@ -398,6 +398,18 @@ are rebound to the first matching item in this packet. Use canonical screen07
 and confirm03 for subsequent exact-context reuse. Old 2080 explicit judgment
 lists alone lack those bindings and cannot supply unread-context judgments.
 
+[Repository reference preparation](confirmation-repository-reference-review.json)
+checks all eight B05 source/test reference snippets against their pinned files
+and AST bodies. Complete bodies, task turns and tool definitions were explicitly
+read: SequenceView, adjacent, all_unique, always_iterable, always_reversible,
+callback_iter, chunked_even and circular_shifts. Notes retain boundary behavior
+and actual test coverage to avoid inventing limitations from the broad search
+listing. This is static preparation, not generated-answer review or a new test
+execution. In particular, callback_iter has an explicitly gated running-future
+test, and chunked_even tests zero/negative sizes without consuming the iterator.
+Actual generated answers and preceding tool/dependency outputs must still be
+read before any future source judgment; do not assign ratings from this note.
+
 Confirmation and final all-phase cap audits remain pending. Review any new
 confirmation contexts explicitly, reusing canonical screen07/confirm03 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
