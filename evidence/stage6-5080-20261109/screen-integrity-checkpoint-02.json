@@ -1,0 +1,12 @@
+{
+  "schema": "serving-campaign-verification-v1",
+  "attempts": {
+    "verified": 46,
+    "interrupted": 1,
+    "failed": 1,
+    "running": 1
+  },
+  "verified_files": 4552,
+  "protocol_frozen": false,
+  "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+}

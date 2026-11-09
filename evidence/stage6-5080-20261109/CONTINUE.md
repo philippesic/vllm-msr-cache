@@ -11,9 +11,10 @@ requires repair and continuation, not a capability-failure closeout.
 **Screen is running**, persistent execution session 65450. Its authoritative
 ownership is in `$BASE/screen-owner-02.private.json` (PID, birth, command, cwd,
 source); log `$BASE/screen-02.log`. Revalidate the actual process and GPU before
-any resume. Never launch a duplicate. At 2026-11-09 17:28 UTC, 12 of 22 whole
-screen blocks were complete (all Qwen cells); Ministral B02 ARC was active.
-Thirty-four screen attempts were verified, one deliberately interrupted, one raw failed/inconclusive
+any resume. Never launch a duplicate. At 2026-11-09 17:40 UTC, 16 of 22 whole
+screen blocks were complete (all Qwen cells and Ministral B02/B06/B08/B09);
+Ministral B11 ARC was active. Forty-two screen attempts were verified, one
+deliberately interrupted, one raw failed/inconclusive
 B10 candidate control, one active. The verified count includes the original
 unmatched B01 ARC, which receives no matched-comparison credit. The B10 control
 served all 20 requests with clean cleanup and no errors, CPU evictions or
@@ -48,6 +49,10 @@ Completed prerequisites:
   cleanup/activation and ARC CPU-pressure purpose. ARC had one eviction-affected
   return; B07 roomy ARC had zero, satisfying the prespecified roomy reduction
   check at the latest health snapshot. This is not whole-campaign qualification.
+- [Ministral pressure screen](ministral-pressure-screen.json): both native B06
+  arms passed. ARC had 35 eviction-affected returns out of 48 returning requests,
+  candidate 29/48. This meets that model's ARC pressure-purpose gate; Qwen4B
+  and whole-matrix qualification remain pending.
 - [Transfer seals](transfer-seals.json) and [old-history integrity](history-integrity.json)
   pass. All original raw measurements and the original LMCache binary remain.
 - Exported CPU checks passed: 240 benchmark tests, 31 lightweight tests and
@@ -144,10 +149,26 @@ pending; do not mark the partial inventory complete. Its expanded signatures
 include system-instruction and prompt-context bindings; ordinary quality ratings
 are reused only after separately checking those additional fields.
 
-For the next snapshot use a fresh checkpoint directory (06 next), regenerate
+**Snapshot 06 is already in progress; do not regenerate or overwrite it.** Raw
+`$BASE/quality-screen-checkpoint-06/` has 778 objective finals, 781 selected items,
+and 142 novel full contexts relative to canonical index 05. All 65 novel QA
+contexts were explicitly read and rated in `screen-qa-judgments-06-part-01..04`.
+Four repository intermediates exactly match the explicitly read cap review and
+are in `screen-cap-reused-judgments-06.json`. Four novel partitions finals were
+read in `screen-repository-judgments-06-part-01.json`. Thus 73/142 novel contexts
+are recorded and **69 repository contexts remain unread/unjudged**; the last
+part lists their exact indices into `novel-contexts.json`. No index 06 or
+consolidated ratings 06 exists yet. Source IDs needing review: set_partitions,
+peekable, sort_together, split_when, replace, seekable, ichunked, chunked,
+map_reduce, split_at, bucket, collapse, numeric_range, windowed and
+distinct_permutations. Preserve source-model/arm blinding. Read each actual
+dependency/tool context; broad rg snippets do not erase actual pytest results.
+
+Finish those explicit judgments, then consolidate against canonical 05 plus the
+new manual parts (exact eight-field reuse only), binding every packet review ID.
+After that use a fresh checkpoint directory (07 next), regenerate
 `prepare_review(OUT,'screen')` from exported source and copy its derived packet.
-Reuse judgments only on exact equality of all signature fields listed in index
-05 and verify the same executed system-instruction digest; explicitly read/judge
+Verify the same executed system-instruction digest and explicitly read/judge
 every novel required context. Do not invent missing
 judgments or mark a partial inventory final. After acquisition regenerate final
 screen/confirmation and all-capped inventories. Capped inventory root should be

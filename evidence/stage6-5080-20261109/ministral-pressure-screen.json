@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-secondary-pressure-screen-v1",
+  "rows": [
+    {
+      "model": "ministral3_3b",
+      "system": "arc",
+      "attempt": "0c7848ae2d5647208a3ec4bca13987e9",
+      "status": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 106395,
+        "returning_computed_prompt_tokens": 76118,
+        "loaded_tokens": 12647,
+        "returning_loaded_tokens": 11303,
+        "prior_cpu_evicted_key_observations": 67,
+        "returning_requests_with_prior_cpu_eviction": 35,
+        "returning_requests": 48,
+        "preemptions": 10,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "model": "ministral3_3b",
+      "system": "wait",
+      "attempt": "e07012f553ef4632b28b58daba9d68a3",
+      "status": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 96544,
+        "returning_computed_prompt_tokens": 62090,
+        "loaded_tokens": 5510,
+        "returning_loaded_tokens": 5510,
+        "prior_cpu_evicted_key_observations": 47,
+        "returning_requests_with_prior_cpu_eviction": 29,
+        "returning_requests": 48,
+        "preemptions": 16,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "scope": "Observed completed Ministral B06 screen only; full matrix qualification remains pending. Pressure gate uses ARC eviction-affected returns, not candidate speed. No favorable retries or design changes."
+}

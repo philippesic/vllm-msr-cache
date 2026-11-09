@@ -66,6 +66,10 @@ Qwen screen blocks are complete; screening has moved to the secondary models.
 The [B10 candidate control](screen-team-control.json) served all 20 requests
 without CPU restores or evictions. Its original inconclusive status remains;
 the frozen analysis accepts it as a GPU-resident control, not pressure evidence.
+The [Ministral pressure screen](ministral-pressure-screen.json) passed for both
+native arms. ARC had 35 CPU-eviction-affected returns among 48 returning requests,
+and candidate had 29/48. This establishes that development fixture's pressure
+purpose, without a repeated speed or quality conclusion.
 
 The [selected-screen source review](screen-review-index-05.json) covers 435 items
 in a partial snapshot (147 complete contexts), retaining format, overlength,
