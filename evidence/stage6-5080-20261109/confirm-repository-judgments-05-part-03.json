@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "24612c30b2ee01a859a13a5c9d65222a63b4841490aaadce9447f54885c1a16b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-05/blind-packet.json",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "ceb987db51b3c01ac163fc4b",
+      "signature": "8cccd85f3a8a87b42e0a258073b02db3e3e81da9b618f8c7111b80b9ae07af66",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "44 words. Actual AdjacentTests reports ten passes; distances and once-per-item predicate evaluation are supported by full tests. Noninteger-distance/noniterable robustness is an actual untested-input-type gap in that class, with hedged may wording rather than a claimed observed failure. Bold Test status: PASS lacks required test_status=PASS. Earlier dependency confuses the test tracking set with implementation machinery, but final does not repeat it. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "45b431690f0a5c9f01227881",
+      "signature": "6166dad9c0c9caa0f5dbfea43bf435414f68cddff1ade1c8542e00898fba72b3",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "33 words. Six actual CircularShiftsTests pass and ordinary rotation behavior is supported. Noninteger-step restriction is consistent with the explicit non-zero-integer message and integer-oriented deque rotation/gcd implementation; the speculative unexpected-results phrase does not establish any specific bad output or observed failure. Test status: PASS misses the required underscore format. Useful facts retained; no separate invalid-type experiment claimed. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

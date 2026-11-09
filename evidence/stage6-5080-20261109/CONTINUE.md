@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **76/524 valid
-configurations, 38/210 complete matched blocks**, with Qwen3-8B B04 ARC repeat
-eight active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **89/524 valid
+configurations, 44/210 complete matched blocks**, with Qwen3-8B B05 candidate repeat
+two active and no issues. B04 completed all twelve frozen pairs. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -427,7 +427,7 @@ are rebound to the first matching item in this packet. This base is now extended
 by canonical confirm04 below. Old 2080 explicit judgment
 lists alone lack those bindings and cannot supply unread-context judgments.
 
-Latest **partial confirmation review 04**:
+Earlier **partial confirmation review 04**:
 [index](confirm-review-index-04.json), [ratings](confirm-source-judgments-04.json),
 [validator receipt](confirm-quality-checkpoint-04.json), raw
 `$BASE/quality-confirm-checkpoint-04/`. It captures all B01/B02/B03 and three B04
@@ -444,8 +444,33 @@ The frozen preparation/finish algorithms ran against isolated derived output;
 the live campaign's analysis/quality inventory was checked unchanged. Index 04
 also records the earlier summary-word-limit prose correction: three overlength
 summaries total, including one source failure; individual ratings unchanged.
-Use canonical screen07 plus confirm04 for subsequent exact-context reuse.
-Acquisition and final confirmation review remain incomplete.
+Its canonical base is extended by snapshot 05 below. Acquisition and final
+confirmation review remain incomplete.
+
+Latest **partial confirmation review 05**:
+[index](confirm-review-index-05.json), [ratings](confirm-source-judgments-05.json),
+[validator receipt](confirm-quality-checkpoint-05.json), raw
+`$BASE/quality-confirm-checkpoint-05/`. It captures all B01/B02/B03/B04 and the
+first B05 matched block: **2,344 objective finals, 1,502 automatic failures,
+24 capped intermediates, 1,644 selected outputs / 83 full contexts**. All eight
+new repository final contexts were explicitly read, with complete source/test
+references and every actual preceding tool/dependency output. Four
+`confirm-repository-judgments-05-part-*.json` files retain those judgments.
+All eight contain useful supported content. Seven miss the required underscore
+status format; the remaining final uses the accepted format but invents an
+empty-input limitation for chunked_even, contradicted by its source and passing
+empty-input test. Actual test passes, formatting compliance and source fidelity
+are judged separately; irrelevant broad rg results do not erase full test-class
+evidence. Selected counts are **79 source failures, 101 instruction failures,
+zero not useful**, with duplicate contexts counted. All 86 included archived
+instruction sources verify; frozen finish validates all 1,644 judgments in an
+isolated materialized workspace. The live quality directory and acquisition
+remain unchanged. A post-preparation diagnostic assumed reference.kind existed;
+repository references omit that optional field. The diagnostic was corrected
+and the already-complete snapshot retained, without rerunning acquisition or
+rewriting snapshots. Use canonical screen07 plus confirm05 for exact reuse.
+This is partial acquisition, not the final confirmation audit or population
+quality/equivalence evidence.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files
@@ -473,7 +498,7 @@ do not substitute modern Python knowledge for this supplied evidence. Future
 generated answers and actual preceding tool/dependency outputs still need review.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm04 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm05 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

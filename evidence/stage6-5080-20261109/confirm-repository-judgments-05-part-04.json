@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "24612c30b2ee01a859a13a5c9d65222a63b4841490aaadce9447f54885c1a16b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-05/blind-packet.json",
+  "ratings": [
+    {
+      "index": 6,
+      "review_id": "92b519871ce8b10a0d5c6964",
+      "signature": "b3b0925df7404c923edf3a16f51f65c8d8d49bb2b74ddf477f78cac42ce97b54",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "28 words. Two actual AlwaysReversibleTests pass; list materialization for nonreversible finite input and its storage cost are explicitly implemented/documented. Does not claim infinite input terminates or that a memory benchmark was run. Test status: PASS lacks the required test_status=PASS format. Supported behavior and concrete buffering constraint remain useful. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "8c2d5447ec39e3dc1c3243d6",
+      "signature": "7d10eb162278e368dcb002699669c7415ec67ce90ae63451d05fdf72416616c0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 38,
+      "notes": "38 words. Five actual SequenceViewTests pass; dynamic target updates and read-only wrapper design are supported by the source and full test body. Final attributes assignment restriction to design, not to a nonexistent explicit assignment test. Bold Test status: PASS misses required test_status=PASS. Trailing search block is not an additional observed tool result. Useful supported final content remains. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

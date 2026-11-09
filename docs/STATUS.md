@@ -26,7 +26,8 @@ coordinator and 15-minute health schedule. The first chat/QA/document cells have
 paired estimates without a resolved throughput difference; the full matrix remains
 pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-892 selected outputs / 75 contexts, including sixteen fully read document sets;
+1,644 selected outputs / 83 contexts, including sixteen fully read document sets
+and eight repository investigations;
 final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),

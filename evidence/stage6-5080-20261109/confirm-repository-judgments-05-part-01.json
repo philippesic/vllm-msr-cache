@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "24612c30b2ee01a859a13a5c9d65222a63b4841490aaadce9447f54885c1a16b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-05/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "5eb410178897174dab17123c",
+      "signature": "cc11b02793ea320d036a1191ba784d0031e05c9b23ef0be8e5487dcda5817936",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "36 words. Actual CallbackIterTests tool reports seven passes; iteration and exception propagation are supported by the full test class and implementation. Reliance on background threads is an actual architectural constraint; complexity is cautiously phrased rather than measured. Semantically states PASS but uses Test status: PASS instead of the required literal test_status=PASS. Useful facts retained independently of the format failure. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "a1a2ab8c3ba2e03fccbdfdde",
+      "signature": "e0edfef7e477dc4b6c16ae48633d60007bcef7bb3f5566eb6b0bf4e1fc643ed2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "28 words. Actual AllUniqueTests reports five tests and five subtests passing; duplicate/key behavior and the slower-unhashable caveat are directly supported. Uses Test status=PASS with a space instead of required test_status=PASS, so instruction fails despite semantically correct validation. Earlier dependency calls infinite-input behavior an assumption, but the full test has an eventual-duplicate infinite case; final does not repeat that mistaken omission. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}
