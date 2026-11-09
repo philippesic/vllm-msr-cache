@@ -13,7 +13,8 @@ is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
 launch a duplicate. The latest bounded confirmation health check has **214/524 valid
 configurations, 85/210 complete matched blocks**, with Qwen3-8B B09 ARC in
-the first scheduled block active. B08 completed all twelve frozen four-system blocks;
+the first scheduled block active at that check. B09 subsequently completed its
+first full block, captured by review 11 below. B08 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
 below; the owner is live, progress continues, and no ownership/resource issue was
@@ -664,7 +665,7 @@ remains excluded, and this is not a final audit or population quality/equivalenc
 result. This checkpoint used canonical screen07 plus confirm09 for exact full-context
 and archived-instruction reuse and is extended by confirm10 below.
 
-The latest **partial confirmation review 10** includes **all twelve B08
+The earlier **partial confirmation review 10** includes **all twelve B08
 four-system blocks**: [index](confirm-review-index-10.json),
 [ratings](confirm-source-judgments-10.json),
 [isolated validator](confirm-quality-checkpoint-10.json), raw
@@ -694,8 +695,39 @@ failures and 38 not useful**. All 208 included archived instruction sources veri
 frozen finish accepts all 2,479 judgments in an isolated materialized workspace.
 Live quality/objectives/timings remain unchanged; the first B06 block stays
 excluded. This is still partial campaign acquisition, not population quality or
-equivalence. Use canonical screen07 plus confirm10 for future exact complete
-context/instruction reuse and retain every earlier snapshot.
+equivalence. This checkpoint used canonical screen07 plus confirm10 for exact complete
+context/instruction reuse and is extended by confirm11 below.
+
+The latest **partial confirmation review 11** adds the first complete B09
+four-system block: [index](confirm-review-index-11.json),
+[ratings](confirm-source-judgments-11.json),
+[isolated validator](confirm-quality-checkpoint-11.json), raw
+`$BASE/quality-confirm-checkpoint-11/`. B09 is a PEP-investigation fixture;
+the transient chat description calling it team synthesis was incorrect.
+It covers **3,768 objective finals, 2,190 automatic final failures, 55 capped
+intermediates, 2,545 selected outputs / 234 complete contexts**. Fourteen contexts
+absent from confirm10 (twelve finals, two capped intermediates) were explicitly
+read and judged in four new parts; one exactly repeats an older confirm09
+context, with identical boolean judgments, and thirteen are new across earlier
+confirmation snapshots. Eleven supplied source strings and repeated complete
+fields/dependency components exactly match earlier explicit readings;
+[bindings](confirm-review-components-11.json) retain this without automatic ratings.
+
+The group has **four source failures, eight instruction failures and one not
+useful**: fake tool-output source excerpts, an unsupported modern comparison,
+a vague complex-package exclusion and repetitive output, with formatting failures
+separate from source fidelity. Supported historical enumerate start/stop and
+class-decorator proposal scope remain. Correct metadata can be useful partial
+content while still omitting a specification rule/concrete limitation. Selected
+duplicate-inclusive counts are **212 source failures, 894 instruction failures
+and 39 not useful**. All 212 included archived instruction sources verify and
+the frozen validator accepts all 2,545 judgments in isolation. Live quality,
+objectives and timings are unchanged; the excluded first B06 block remains.
+This is not final acquisition or a population accuracy/equivalence result. Use
+canonical screen07 plus confirm11 for future exact full-context/instruction reuse;
+retain all older snapshots, including contexts temporarily outside the selected
+sample. A reappearing exact historical context may reuse its explicit judgment
+after full binding and current-ID checks.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files
@@ -723,7 +755,7 @@ do not substitute modern Python knowledge for this supplied evidence. Future
 generated answers and actual preceding tool/dependency outputs still need review.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm10 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm11 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

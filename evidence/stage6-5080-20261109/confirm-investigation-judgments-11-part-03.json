@@ -1,0 +1,62 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "654791c834af7f8e6f09658d13b558f77f6e8e8001e6998a0ea6265d5973a0d3",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-11/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "3e384ffaae9fcae21c0ad30a",
+      "signature": "b811c32d285d49539663ed4160686adfb2fea5e4ce8d8a4d859138533113699d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 23,
+      "notes": "Historical supplied enumerate source explicitly drops start/stop parameters because of ambiguity; do not substitute the modern signature. Indexed-iterable purpose, correct metadata/actual literal PASS and concrete source limitation all supported. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "c4b908711a751195064dd931",
+      "signature": "1638f8a3ac17113657381cc4367d0fffa884e7599c30a3526a22ed4fff08f81e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "send/throw generator rule and metadata supported. Read limitation as actual five-header validator's incomplete semantic/current-compliance coverage. Final does not repeat fake tool-output source excerpt attribution; useful supported answer misses required literal equals status format. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "6a2803847eb618c85f0352a1",
+      "signature": "adc1d806a1de3a7b8dcf4656e363f48dc3ad6f8c4c21b52d88335aa90c12ecbc",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 29,
+      "notes": "Decorator-at-declaration purpose and function/method-only scope supported. Later PEP3129 is read as class-decorator proposal attribution explicitly referenced by supplied source, not independently verified runtime release/version claim. Correct metadata/actual Test_status=PASS. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "ab20062f64f244974b4549f5",
+      "signature": "a791abf6ae1c8cd003928d075703856da420b046b3ab9b8baf73c1f031156523",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 14,
+      "notes": "Actual PASS and quoted Final/Standards Track/PythonVersion2.4/Created fields correct, with no unsupported added claim. Useful metadata lookup retained, but no reverse-iteration rule or explained concrete limitation: dates/version labels alone do not supply requested investigation. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

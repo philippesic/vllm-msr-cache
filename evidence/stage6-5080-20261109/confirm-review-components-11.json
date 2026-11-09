@@ -1,0 +1,1082 @@
+{
+  "schema": "stage6-5080-explicit-review-component-bindings-v1",
+  "packet_digest": "654791c834af7f8e6f09658d13b558f77f6e8e8001e6998a0ea6265d5973a0d3",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "contexts": [
+    {
+      "index": 0,
+      "review_id": "46947cf3d09e4033c43b52d2",
+      "components": {
+        "source_context": {
+          "digest": "db85350919ea9bcd3e446c1c1400dccd5e0731afff7756ba33c34c7e7b2d4e85",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "f47415862e83127ed7337941a557199228fe65e11d0b705d1d3ec3c1a1c8bad4",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "5e957e29798ce5de0fbb6296f23d34cd0b0fa3558cf1abd064a740f787334943",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "8cf8fed3dddd4528913690cd1a143dfbf26125d14c6baecbc5a1ebe07033eb3c",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "9983f0891d8850275b1ef556496e4af41bee7efabef3b74993611cc6e7606f9a",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "cf3e58098150eb188f5860d2fa706e590d8e39d0dcac5eb66bb5fb5bb5976c6b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "e6c29588fe0bd4dca8629223087d46a15318506356c7cf2aa6a622c20abc3081",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "c50c5d86958e2944315a25c577ab7df42a4a8d6bf2143273f8f50497b97076b9",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "f1ef6e2751c8e9fe06bf8a467b106df0f916009cb2e9043bd86e02a302c24235",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 3,
+            "dependency": 2
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "review_id": "17d1ba59c4d196d86d1b4e46",
+      "components": {
+        "source_context": {
+          "digest": "8ef1727f3a1d71ce73c2ddfdef3c7bbe715e6ffb884331d285401dddb5545df9",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 25,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "f699fa6c070a538062fd5322d10bd17f94504f61c01307911cf8a40b79afa01a",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 25,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "34f463bb11fac48c0717648c78cebdf564cf3dbc0be4bec449e4926dd68ef0b9",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 25,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "15d26168ee286a6f10e5c6c73923fbdc3bb91444205d058f02de93b45e5baca1",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "a00e78ce709ec1a519c2502408f24a20e08858a9a0694c886e0bbbaa393eafc5",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 25,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "71b95e95c3c9683dd74b817f0b1395bb3d3680834253cd552fab5b6c1ffa4db1",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 25,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "4473ed958db9806bd34f7b292ca6f1d116fc5035035e4679acce0ae9703ba7c1",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 1,
+          "digest": "28c9fc6514468524f7e86d96f42f21a1ea8d700fa1dc9b6234405e359a0e4eda",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "278f18eb8110eeb4145ab35bcd76f58484de4f3c1b4690bc606e40a3f1b38756",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "review_id": "37827bfaf478c9e933393f70",
+      "components": {
+        "source_context": {
+          "digest": "9239241b35cdde39fb9303c283212a8097fcc1e8ad3b16c5ad31f0a5764a6c4d",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "9e4a82714b03aea01be11a8834a651ffa082cae5c34aa44c4953ca89270d21af",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "d79015cb4feef5ccea1dc7a823f400cbee545b4b456977043e0f8526891f007f",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "ff925ab7c5d1e236972f7b70b14a7cd46ebacb18780d27432b6b25933a7195bb",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "957f36f085ce899ca1d9709d1819d8c02b07f09129c213cb6c22643c2b87e001",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "7dc598bdb73cb193f220e02171e69cc08219349b30f60212145a4cb49d692760",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "ce398e030aa1f0aaa56f8bbe104a82e02b8c7cb82919ee5b0d48c56874366225",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "a58709cc13e60f293074e162c5a21fd4b431c9bec15bb27b02e476addc737b72",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "dependency": 1
+          }
+        },
+        {
+          "dependency": 2,
+          "digest": "d66e3357d32f20e3080f98014f7e2f61fe56d0a14a118ad5fb6219497662e95e",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "review_id": "d99567edbf33b61bb81ef31f",
+      "components": {
+        "source_context": {
+          "digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "3d125a52919d69d974fa14e8342b2fe97f71b77c60bf84c2fbcc7d27cc0ef5eb",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 11,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "405fe70d62ff1a38845508d7583aa6401989f012e1960e749908fa3eab123aaf",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "784dd07b0c5f2b1319efadc184a664f675ede890d564c4eec66692cb088f2acf",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "33eac17b4767f1072002ec96eb6e333e20f0265362d34e96c5ddd1ed1e7a0902",
+          "prior_explicitly_read": null
+        },
+        "response_role": {
+          "digest": "8c73f79b2d7f031abca82a104a4e6d8cd9c74da5ab7566488124d3f13fe18aa8",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 11,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "5873840d05af1dbb1a75d152f253bf864ebee6f6d5b1905989e52b86fe045e6c",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 22,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "7e3e9d2675d8c15e448c6115e8c1b02e64e64f7d146f97da2f31acfd8a53c706",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 1,
+          "digest": "3e0c4ffd18a75d0936d421e199991eeb450782cae53677ab466fd2d91034232e",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "review_id": "aa9664e30e31a11d0c5a3e9d",
+      "components": {
+        "source_context": {
+          "digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 16,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "394e6090581b45c3ac984632b24009d0b13606e4427fb849c6e4428c7fb06e12",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 16,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "7da2baa87483229563e6e5febd0fcbcf702956b0ab015c3e9199b5d397d36f49",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 16,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "60f8afe547ee522ef4d1ec3832c851c1f49bacb385466e507488f440969d181c",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "17cc3883a0641e582699916b9fb9dbcbe148bb47639e861fa7a420d87e712eb9",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 16,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "8538c20cd7c2c47b6b6d44ba5bcf80d85b22e07156ec26744ac73bc7cb3a9498",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 16,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "466107768784c4d2c9fc2910d4d43ef1346231b07c15502ef0388ea4c6b10b34",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 16,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "a90935a8965333b91bf3317c3ed09228d6a5daae528bcdc0022fb3daedfdbbab",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "94c856ff63414c1f5df8079b1d05333efd7b15406e4c14b6050e886657ff8f7b",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "review_id": "7beca92c52fed00703ebf912",
+      "components": {
+        "source_context": {
+          "digest": "b849d802ff19ee68b67410b743634b2c9ff7e543bee6a2a5e58bae8648310c0c",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 8,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "641029317d49aa6b622d1aa9f78dc192c7d60939625756ad32bc764f448c1304",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 8,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "23af6d1d010c7608e9e51e43d7d99cafb592be6b1cae2ab525bb8526e545eb72",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 8,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "18ffc7371f254198344f2b334a076e287407a7010627ecc291ab5fc6f34ddf48",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "dd13d7b0735db708cc5df97e1f635c3f2f36b074fcc0f8e3d0bf92b0cc26602e",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 8,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "52724c44e1fc887af7719675987a5b279b38d35a8cc4c2cacefb3252eb2bb12b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 8,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "767e8b66151e87e8bff43df21e6f1c06b2211ba98d6ef858fb0ab2333637cfb1",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 1,
+          "digest": "acf9e096f305f0120a5e955db4334ed6c317abcf5882f6974471af395aa1f299",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "de73d854ffc1d252954e56d6dd8b890356b0d7f5188e8e8097b1a90248ce7e4d",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "review_id": "0c632d0bb32dc1969a774120",
+      "components": {
+        "source_context": {
+          "digest": "663c4f1f75efbf7c24b0ce5b5b0a65dec21c254ad46c2927de098fa804a4988f",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "1c8553e2798c5ee6e67bef14020f3207324ec19911517059113f3b43f1a5d4b2",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "d5ac8e94e0d7e1f1b3f3774089d570410edf19f73f80f8738dcd561b4481128d",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "aab8c5c5383f12f693bbf1a3516eb62b4ddaa87ae0d3b1d0975726fba24e8550",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "742e43f09ab01824408857fd5f84a721c03cb8fb4047c54a41b3912fc392f308",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "a222c0e4578fa46964b47d7c508d0e48d42ce7abb94abad289143e12112914f1",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "a46340ac734cfdc490229771a66cd7cda70a351252b3b7c08f32e9214031a1f1",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "e3cb2a77e9263348bfd03d20196b368bb7dbc3a6bf066699b9e9550a6f4def23",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "397ce603e21114638ce90fc1c4a88a7d67152bf4984bd4968c0be6164326d96e",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "review_id": "b4dcad953c5b12ee34f03822",
+      "components": {
+        "source_context": {
+          "digest": "689f014ec131536bae6532c5c8d0b52c0eafa63ddb62df1d112dc0362ab7d26b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 7,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "bd3d043c648157906a7ca138541ce5f25d2666b893db0bfb89ed9261f12724d5",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 7,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "dd776232fa1a24455d0a783ec238454baa05d8e9970e383727c78ccfcf9a7701",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 7,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "9fa6a693090e49adc725c5090f96021ec74a95b6e1d8085e4588e2e009a904da",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "6934d9e55112f87b1d1ca687e1134299805a5b215287118e40cc5823423c3811",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 7,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "0dfe719b11db6108a3d0d10a9364ce5c05a77425aa9e5b50dfc314d364165514",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 7,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "b7f30e86672fad6afa8c9febc6820b09a3ec1660e7b433006d4c850524f41ef6",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 7,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "ad2e67d01739120cb2eea08eac3bbf7b62734bb565d47b0b560a4c3b1e2eae1b",
+          "prior_explicitly_read": {
+            "snapshot": "10",
+            "index": 37,
+            "dependency": 1
+          }
+        },
+        {
+          "dependency": 2,
+          "digest": "11f7350951036dc5b7d6dd5da306ad88f976cba11edc8c4604177b230ebf6d38",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "review_id": "3e384ffaae9fcae21c0ad30a",
+      "components": {
+        "source_context": {
+          "digest": "9239241b35cdde39fb9303c283212a8097fcc1e8ad3b16c5ad31f0a5764a6c4d",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "9e4a82714b03aea01be11a8834a651ffa082cae5c34aa44c4953ca89270d21af",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "d79015cb4feef5ccea1dc7a823f400cbee545b4b456977043e0f8526891f007f",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "edec274a4c946f7ed35e19a829fcadf5a890dfd535b80baa5f8f4ae0bdbd364e",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "957f36f085ce899ca1d9709d1819d8c02b07f09129c213cb6c22643c2b87e001",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "7dc598bdb73cb193f220e02171e69cc08219349b30f60212145a4cb49d692760",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "ce398e030aa1f0aaa56f8bbe104a82e02b8c7cb82919ee5b0d48c56874366225",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 4,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "255f0372b1424bc6b87adbd74d11832bae8984752d8e2b5c66e8df0dd240c206",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "da2aa518de084b183caf75cb4f3f30eadb35fcc36caf8745059103417392c4f1",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "review_id": "c4b908711a751195064dd931",
+      "components": {
+        "source_context": {
+          "digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "4abce0457318d48498551c40ad2f22616c8dff071dbe87e62f25664dbd035ecd",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "405fe70d62ff1a38845508d7583aa6401989f012e1960e749908fa3eab123aaf",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "26a0cafc7bb32e10b0c2c18fec754b6f60983ce851ab14378cd31b5dc448edc0",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "64444aea8eaa1e12ed8173eff482cf0408d013c149306d3ec22a098e6e322bf2",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "0d41b317a6187a9e7f73acd7474d836297e53b0f451754d2dcb7104472885c2f",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 2,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "7e3e9d2675d8c15e448c6115e8c1b02e64e64f7d146f97da2f31acfd8a53c706",
+          "prior_explicitly_read": {
+            "snapshot": "11",
+            "index": 3,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "3e0c4ffd18a75d0936d421e199991eeb450782cae53677ab466fd2d91034232e",
+          "prior_explicitly_read": {
+            "snapshot": "11",
+            "index": 3,
+            "dependency": 1
+          }
+        },
+        {
+          "dependency": 2,
+          "digest": "1eb696c70795a13fc56094ba9347ca5025dedf4d77c763ee59548d6b5d13c195",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "review_id": "6a2803847eb618c85f0352a1",
+      "components": {
+        "source_context": {
+          "digest": "363f87d841c285b05d57cd521fae73cb60cee2df33b432e8c810f403aaa943e5",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 10,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "0868d2bf3f80c2d6656f286bc71c040c0a65d210df761a4f0391b69976e973dc",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 10,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "1687f9a94ac36be838069b8211ac2af03161519b866da74d2cb8a01c7184f2b1",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 10,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "e5e3ac4473263fee5ac8ba402d4338ab927ca1bdc8af31da689c444bf8c3bf36",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "68e1c63631ebe06c517525c59efaf79710b20106d1619635db88145b4b638247",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 10,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "b81dd8cfb099a2769314639a12d0bc072f40aec8e6fd3d55cb832468bd40d683",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 10,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "ba555e550c77a2fb79a73bc3c6f3b37c501596b3280c2178339d0ad65586aa7b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 10,
+            "dependency": 0
+          }
+        },
+        {
+          "dependency": 1,
+          "digest": "4ae08e2418fe0d0125035a867979e1858bc5a791909611dce3d8d717158d67b3",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "3bf1a861cceca8b4dd1c6ccb817269d5c036923e212e0b0075cb568acbe05fbd",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "review_id": "ab20062f64f244974b4549f5",
+      "components": {
+        "source_context": {
+          "digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "2764b5aadc90def71b425d9dd4da39e007bb2d0f9f25b219ee47a8925e6302cd",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "e026eb46798c1255c26d15444a36b4171a9379bba1a44566e61fb9d42362254b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "9edc591699a30267968306feba137f03ca8778075f724e9452bf154915c71f19",
+          "prior_explicitly_read": null
+        },
+        "tools": {
+          "digest": "ca1c80b386c4bb7bd9e319243a89f880f148a2c978ccb745757077c19922e787",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "6e8b6a4f4e2504d60abcfa9758b714b652f22f9bccc9e245e107f6cbe7218522",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": [
+        {
+          "dependency": 0,
+          "digest": "44a1827ade9d6fa1af5c59f45276fe9ba9127c347c99044f1c989f984e43fdb9",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 1,
+          "digest": "11195548f3723a7b2c15aba4985be01e740104dfbd64ece226c9de2282e52e12",
+          "prior_explicitly_read": null
+        },
+        {
+          "dependency": 2,
+          "digest": "07ad700a3acb669405a5aad65cbf771ec04685c645139dc3ecb69cf46177eea8",
+          "prior_explicitly_read": null
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "review_id": "69000bd6e032901a2d480f9c",
+      "components": {
+        "source_context": {
+          "digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "5a04bc43f5306ddc5aa0b05f52524c545722c4c4df5cd680279c9a263ca4ab47",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 15,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "e026eb46798c1255c26d15444a36b4171a9379bba1a44566e61fb9d42362254b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 9,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 11,
+            "field": "actual_dependencies"
+          }
+        },
+        "tools": {
+          "digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 11,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "8c73f79b2d7f031abca82a104a4e6d8cd9c74da5ab7566488124d3f13fe18aa8",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 11,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "fe68bd9af72520a3e89eccd0cb1b566cf1be2c30b640013dad1a5ad1e22bb91d",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 15,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": []
+    },
+    {
+      "index": 13,
+      "review_id": "b902e6e4f61efbfde7e98bde",
+      "components": {
+        "source_context": {
+          "digest": "5fe0d3f7d35becaf35c39c53d409f328923960072fc230908e28eabc35deb843",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 20,
+            "field": "source_context"
+          }
+        },
+        "reference": {
+          "digest": "190a1f13ece6a4cabfb1aea505e8dc179dec2112f9bd2d813230d81a0fad51a8",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 20,
+            "field": "reference"
+          }
+        },
+        "instructions": {
+          "digest": "9d872033719c57a40cb2bb25de6381e605a551ae20825d461dee452583dbe3d3",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 20,
+            "field": "instructions"
+          }
+        },
+        "actual_dependencies": {
+          "digest": "75dc271f864eff3ec541bb4d2319e722988045edd8b12e66a94f12675bad5361",
+          "prior_explicitly_read": {
+            "snapshot": "09",
+            "index": 1,
+            "field": "actual_dependencies"
+          }
+        },
+        "tools": {
+          "digest": "da31a1d6db965128f5fa564095acc46411d3ff30322b38b5e75c9ee4a3551a04",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 20,
+            "field": "tools"
+          }
+        },
+        "response_role": {
+          "digest": "eaa25c327f22b7b002b224771775c9fad7cc0d1dbc30acdd0dfb2b44c2f6755b",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 0,
+            "field": "response_role"
+          }
+        },
+        "current_instruction": {
+          "digest": "80033cd7c8f675979659289762f83549069a499f3885f752bc0c79fdee7dd139",
+          "prior_explicitly_read": {
+            "snapshot": "08",
+            "index": 20,
+            "field": "current_instruction"
+          }
+        }
+      },
+      "dependency_components": []
+    }
+  ],
+  "scope": "Exact complete-field and individual preceding-dependency bindings to prior explicitly read confirm08/09/10 contexts or earlier explicitly read confirm11 contexts. Every new unmatched component and answer separately read and judged; no automatic novel rating. Source opening/full boundaries retained."
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "654791c834af7f8e6f09658d13b558f77f6e8e8001e6998a0ea6265d5973a0d3",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-11/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "69000bd6e032901a2d480f9c",
+      "signature": "643ed9085dd93f6d75744754db1b9acf543933ad02b2d518b4b02fc676ed9c5a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP322's implementation is not a new feature (unqualified)."
+      ],
+      "whitespace_words": 195,
+      "notes": "Supplied proposal explicitly adds a new reversed built-in; response does not explain a language-syntax vs library distinction. 195-word initial repetition offers no purpose/verification plan or fixed search declaration, exceeds under-70 limit and truncates. Correct title fragment alone not useful. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "b902e6e4f61efbfde7e98bde",
+      "signature": "7fbd826f9fc2e9d70278b3fd7e566061cd57b8180171c9649e1795996524217c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Rejected Standards Track and actual Test_status=PASS correct. Historical do-clause/duplication purpose and nonadoption agree with complete source Notice; no modern-runtime proof inferred. Earlier fake dependency details are not repeated as actual tool evidence. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

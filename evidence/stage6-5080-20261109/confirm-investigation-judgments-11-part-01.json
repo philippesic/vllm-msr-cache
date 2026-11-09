@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "654791c834af7f8e6f09658d13b558f77f6e8e8001e6998a0ea6265d5973a0d3",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-11/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "46947cf3d09e4033c43b52d2",
+      "signature": "9c3fa949814407e8979acecb67c168b43fd747fd8467baa749f438c5289d1bb5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 27,
+      "notes": "Supplied PEP314 explicitly permits metadata-version 1.0/1.1, with Superseded/Standards Track and actual Test_status=PASS. Read limitation as verification boundary: five PEP headers do not validate every package field/current standards compliance. Earlier invented tool fields are not repeated as observations in final. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "17d1ba59c4d196d86d1b4e46",
+      "signature": "0e2777b1a32c79a49fd021d2deaa1dbf80d3319711caee5ac13f947523759eed",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 48,
+      "notes": "Decimal precision/binary-representation motivation supported; separate decimal module rather than built-in core-language type is supported by supplied module/import design, not a claim that it is absent from standard library. Correct metadata/actual PASS useful. Bold test_status label plus colon omits required equals literal. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "37827bfaf478c9e933393f70",
+      "signature": "afd005687347d7835ec6ca81e151f1c7d1b26d43369192629a216a7860fb2ba3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Historical dropped start/stop parameters establish reduced flexibility compared to modern Python versions."
+      ],
+      "whitespace_words": 32,
+      "notes": "Full supplied historical NoteD supports dropped optional start/stop arguments, and enumerate/index-value metadata/actual PASS are correct. It does not compare modern implementations; unqualified modern-relative claim adds unsupported evidence. Keep useful historical restriction and core purpose, without judging it against modern API memory. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "d99567edbf33b61bb81ef31f",
+      "signature": "80598b44bf4291add4398a3edba6bbd421f6ffbcc2816bbad28a2c78d878b105",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "ACTUAL DEPENDENCY t2 returned summary and generator specification excerpts."
+      ],
+      "whitespace_words": 147,
+      "notes": "Actual metadata validator only returns five header fields; source excerpts/summary are generated as fake tool output. Quoted historic GeneratorExit/close content is supported within supplied source and useful, despite modern inheritance differences. 147 words exceeds under-70 intermediate limit, unfinished wrong rg declaration instead of fixed summarize command. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

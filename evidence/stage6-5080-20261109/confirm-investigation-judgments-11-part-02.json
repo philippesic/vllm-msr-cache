@@ -1,0 +1,64 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "654791c834af7f8e6f09658d13b558f77f6e8e8001e6998a0ea6265d5973a0d3",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-11/blind-packet.json",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "aa9664e30e31a11d0c5a3e9d",
+      "signature": "ceba8fbe63310433cbbc808281905c1e8d7cc474b602a9e12274d4333c44de31",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 53,
+      "notes": "Correct Final/Standards Track and actual Test_status=PASS. Read GIL-upon-entry as entering Python after the ensure operation, not a precondition that GIL already be held on C API call entry. Supplied guarantee, manual-init and single-interpreter constraints supported; no fake generated tool text attributed as actual. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "7beca92c52fed00703ebf912",
+      "signature": "027d5977df8e6f5dbd141b38d32d25fcfe1d93e9e5de2fc5bc02170bf95d1855",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP328 fails to cover unspecified complex-package import scenarios."
+      ],
+      "whitespace_words": 28,
+      "notes": "Parenthesized multi-line imports and metadata/PASS supported and useful. Source covers package-name and absolute/relative semantics; vague complex-package exclusion identifies no supported concrete boundary, and actual tools do not test such scenarios. Required literal test_status format missing. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "0c632d0bb32dc1969a774120",
+      "signature": "93d55401e7857af90d35c29c1accd027e1ddfdd14c442ec75aa173c12d207bcc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 37,
+      "notes": "Protocol2 superset and untrusted-pickle unwanted-code risk explicitly supported. Correct metadata/actual PASS useful; final does not claim removal created the insecurity or infer runtime implementation from Final. Missing requested literal underscore-equals status. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "b4dcad953c5b12ee34f03822",
+      "signature": "74ef4a6c0b458a3a8654c170cd7e5405ebd482099db2a5a33662f44561bef0cf",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 35,
+      "notes": "CSV reader/writer formatting/delimiter/quoting/line-ending rule and explicitly excluded data interpretation/locale scope supported. Correct metadata and actual literal PASS; earlier fake dependency formatting not repeated as observed output. Complete supplied source text was explicitly read in prior confirm08/09/10 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

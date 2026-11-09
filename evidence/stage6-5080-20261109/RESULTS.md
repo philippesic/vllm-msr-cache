@@ -154,35 +154,34 @@ include every ordinary attempt after all acquisition phases finish; this snapsho
 still has a pending attempt and is not finalized. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-10.json) includes
-all twelve B08 four-system blocks: **3,704 objective finals, 2,174 automatic final
-failures, 53 capped intermediates and 2,479 selected outputs / 220 complete
-contexts**. All fifty new contexts (31 finals, nineteen capped intermediates)
-were explicitly read and judged. Their eleven supplied source strings exactly
-match earlier explicit readings; [component bindings](confirm-review-components-10.json)
-retain complete fields and individual preceding dependencies, with every new
-component and answer read separately. No novel judgment was automatic.
-The [earlier snapshot](confirm-review-index-09.json) and all history remain.
+The [latest partial confirmation review](confirm-review-index-11.json) adds the
+first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,
+2,190 automatic final failures, 55 capped intermediates and 2,545 selected outputs
+/ 234 complete contexts**. B09 is another PEP-investigation fixture. Fourteen
+contexts absent from confirm10 (twelve finals, two capped intermediates) were
+explicitly reviewed: thirteen new across prior confirmation snapshots and one
+exact older context with the same judgments. Eleven supplied source strings,
+repeated complete fields and individual preceding dependencies exactly match
+prior explicit readings; [bindings](confirm-review-components-11.json) retain
+this, with every new component/answer read separately and no automatic rating.
+The [earlier completed-B08 snapshot](confirm-review-index-10.json) remains.
 
-Novel findings include **39 source-support failures, 45 instruction failures
-and 28 not useful**: repetitive/wrong-subject and unfinished output, invented
-validation, a false FAIL inferred from proposal rejection, unsupported version/
-Unicode/compatibility restrictions, and incorrect required API methods. Correct
-facts, useful fragments, formatting failures and unassessable empty/repetitive
-answers are distinguished. One capped intermediate has only five words and
-mostly whitespace; capping alone is not a word-limit failure. Historical PEP
-accounts and five-header metadata validation do not establish modern runtime
-support. Some finals correct earlier generated errors and receive that credit.
+The added group has four source-support failures, eight instruction failures
+and one output not useful. Findings retain fake tool-output excerpts, unsupported
+modern comparisons, vague package restrictions and repetitive output. Historical
+source scope, actual header validation, literal status formatting and usefulness
+are assessed separately. Correct partial metadata can remain useful while
+omitting the requested specification rule or concrete limitation. Earlier
+wrong-subject, invented-validation, cap, QA, fictional-provenance and summary
+findings remain in their snapshots, including the summary-word-count correction.
 
-Selected duplicate-inclusive counts are **193 source-support failures, 860
-instruction failures and 38 outputs not useful**. The
-[isolated frozen validator](confirm-quality-checkpoint-10.json) accepts all 2,479
-judgments; all 208 included archived instruction sources verify. These are
+Selected duplicate-inclusive counts are **212 source-support failures, 894
+instruction failures and 39 outputs not useful**. The
+[isolated frozen validator](confirm-quality-checkpoint-11.json) accepts all 2,545
+judgments; all 212 included archived instruction sources verify. These are
 selected partial-review counts, not population error rates or quality equivalence.
 The first B06 block remains excluded. Original objectives, timings and live
-quality state are unchanged. Earlier QA, fictional-provenance and summary
-findings remain linked through their snapshots; the old summary-word-count prose
-correction is retained. Final confirmation audit is still pending.
+quality state are unchanged. Final confirmation audit is still pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.
