@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **62/524 valid
-configurations, 31/210 complete matched blocks**, with Qwen3-8B B04 candidate repeat
-one active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **76/524 valid
+configurations, 38/210 complete matched blocks**, with Qwen3-8B B04 ARC repeat
+eight active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -458,6 +458,19 @@ execution. In particular, callback_iter has an explicitly gated running-future
 test, and chunked_even tests zero/negative sizes without consuming the iterator.
 Actual generated answers and preceding tool/dependency outputs must still be
 read before any future source judgment; do not assign ratings from this note.
+
+[PEP reference preparation](confirmation-pep-reference-review.json) explicitly
+reads all sixteen B08 supplied contexts, reference headers, task turns and tool
+definitions. Ten contain the complete original document; six are opening-section
+excerpts. All file hashes, prefix boundaries and five reference header fields
+match the pinned files. The actual frozen document tool source was also read:
+validation compares PEP/Title/Status/Type/Created to references; summarization
+returns metadata, length/word counts and heading names. Neither executes the
+specified Python feature or verifies its semantic rules. No campaign tool was
+run or generated answer rated by this preparation. Notes retain historical
+rejected/superseded status, excerpt scope and specification/version distinctions;
+do not substitute modern Python knowledge for this supplied evidence. Future
+generated answers and actual preceding tool/dependency outputs still need review.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
 confirmation contexts explicitly, reusing canonical screen07/confirm04 only on exact full context
