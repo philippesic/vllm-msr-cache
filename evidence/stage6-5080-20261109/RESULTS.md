@@ -68,10 +68,26 @@ validator passed on an isolated materialized screen snapshot; the active
 confirmation analysis was not changed. All timings and original objective results
 remain, and quality equivalence is not established.
 
-The [earlier partial all-cap review](caps-screen-review-index-01.json) covers
-13 capped responses at its snapshot, including intermediates. The final cap
-inventory must still include all ordinary attempts in every acquisition phase.
-Confirmation source review, overhead, operational and final campaign audits
-remain pending.
+The [partial all-attempt cap review](caps-all-review-index-02.json) covers
+156 capped responses present through screening and twelve B01 confirmation
+blocks: 132 screen and 24 confirmation responses, across 79 full extended
+contexts. It includes interrupted captures and individual arms outside matched
+blocks, checks extra archived instruction bindings, and retains every timing.
+All 156 miss an instruction, 101 lack source support and 40 are not useful;
+correct useful fragments are separately retained. These are cap-selected,
+duplicate-inclusive counts, not population rates. The final inventory must still
+include every ordinary attempt after all acquisition phases finish. Confirmation
+source review, overhead, operational and final campaign audits remain pending.
+
+The [latest partial confirmation review](confirm-review-index-02.json) covers
+237 selected outputs / 59 contexts from the first twelve B01 and two B02
+matched blocks. All 57 novel QA contexts were explicitly reviewed. Most
+mechanical QA reference failures are correct expanded answers in valid JSON;
+one adds unsupported etymology. Creative fictional details remain useful as a
+draft while lacking claimed factual source support. This snapshot has 52
+source-support and instruction failures, with all selected outputs retaining
+useful content. These duplicate-inclusive partial sample counts certify neither
+population accuracy nor equivalence, and the final confirmation audit is pending.
+
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

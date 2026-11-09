@@ -1,0 +1,1501 @@
+{
+  "schema": "stage6-source-audit-v1",
+  "reviewer": "Codex exact full-context reuse of explicit blinded judgments, after separate archived executed-instruction and prompt-binding checks",
+  "rubric_digest": "56bcc12ade38b5d68c5a11d6e58bd66c2b711a311d897ef69da1f2d3c8abbc53",
+  "ratings": [
+    {
+      "review_id": "63285ddd2d7ec732a40ebf5c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Misstates basic tested widths as 2 through 7 instead of 1 through 6, and assigns step=8 to the custom-fillvalue test although it is in test_step."
+      ],
+      "notes": "Actual seven passes plus 13 subtests, positive window/fill/step behavior and empty-input output are useful. The pinned source explicitly rejects n<=0, so that stated error behavior is correct. The test-category values are misattributed; 128 words and a truncated expected-output line violate the intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 8de2a82dfc0603cd7a53e2b1. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3cf8c3f4eb53a2d83abc2f20",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "350f6cdd707bb65f547c8c98",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata tool will check runtime expression evaluation and strict escape-rule semantics."
+      ],
+      "notes": "F-string prefix, expression context, format dispatch and supplied historical expression restrictions are useful facts. No actual outcome is invented yet, but validator scope is overstated; 138 words and an unfinished repeated command violate the current constraint. Exact full-context reuse of c5750b671b1522b9e75cd7a9; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d0ff63de23c18da5952994e8. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "377b315b0ea708731cc800c6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Build-system-independent interface, hooks, config and proposed boundary checks are useful source-supported plan fragments. No validation outcome is invented; a module/object supplies callable hooks. It is 137 words and cuts off mid-rule rather than completing the requested bounded plan. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item f7c38ba34af4eca5dd5c058f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "fd6f095abe8489feb6bff9ed",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata tool will check runtime expression evaluation and strict escape-rule semantics."
+      ],
+      "notes": "F-string prefix, expression context, format dispatch and supplied historical expression restrictions are useful facts. No actual outcome is invented yet, but validator scope is overstated; 138 words and an unfinished repeated command violate the current constraint. Exact full-context reuse of c5750b671b1522b9e75cd7a9; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d0ff63de23c18da5952994e8. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "c9fd3137dc48b26c721fc91b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "424 whitespace-delimited words exceed the 300-word bound; the capped response repeatedly restarts generic discussion and ends unfinished. Its Martinez identification/list-removal story and several Humboldt cases are sourced, including acknowledgment of differing listing times. It fails to concisely preserve the central distinction between many repeat missing-person reports and the much smaller unresolved-person inventory. Identical complete-context reuse of 67b826078002780326275625; all eight signature fields match. Identical complete-context reuse of 760cba392ee4ce08c4dc23b0; all eight fields match. Identical complete-context reuse of 67b826078002780326275625; all eight signature fields match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 760cba392ee4ce08c4dc23b0. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "2f90d36782e36c1546750eb1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims a validator must be explicitly provided although it is optional and defaults to accepting keys."
+      ],
+      "notes": "Actual ten-test PASS, grouping and missing-key behavior are useful. Infinite allowed-key scans are unmeasured here. The response is 130 words and ends in an unfinished command; the alleged mandatory-validator restriction is unsupported. Exact full-context reuse of 3bad491acf801bd88bc53d86; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item dd1ffa1c64686e6dd929bdbc. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "8d37c24a5fa1cd886025fd41",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "0e1e1f1b7120b587d779504b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies collapse validation despite actual TestCollapse six-test PASS.",
+        "Claims unspecified custom-iterable nesting failure without evidence from generic iter(node) traversal."
+      ],
+      "notes": "All actual generated dependencies were read, including the erroneous claim of ten tests; the real fixed tool reports six. The broad rg snippet does not erase the targeted class execution. The final repeats malformed command fragments, gives no reliable supported behavior/status report and omits required PASS. The unfinished declaration adds no executed evidence. Identical complete-context reuse of 62b140ed18a2919debe4e3dc; all eight signature fields match. Exact full-context reuse of b408f4888a0a737c964a3801; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 62b140ed18a2919debe4e3dc. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "08e12f1b69bb0bd78448d842",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims PEP 5 data validation confirms this PEP 526 metadata at a search-only node."
+      ],
+      "notes": "Variable annotation syntax and ClassVar/global/nonlocal/tuple restrictions are useful source facts. No metadata validator had run yet; the claimed confirmation cannot borrow a later outcome. At 149 words with an unfinished declaration it violates the current node. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item b299b27a1f23c10bf41cd2fd. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "33fe2503c89be31d818e4d3d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans to validate that with exceptions do not propagate unless explicitly handled, reversing the default propagation behavior."
+      ],
+      "notes": "Resource-management purpose and enter/exit mechanism remain useful, with no actual tool result yet. At 155 words it exceeds the intermediate limit and ends in an unfinished placeholder declaration. Exact full-context reuse of 59e5460a673b7fbdcfccc6e1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d604a30ddaac9db6ca283707. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "afc1af73cc19b088884580b8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Categorically forbids dynamically computed annotations rather than the source warning that static tools may not understand them."
+      ],
+      "notes": "Gradual typing, valid annotation expressions, no automatic runtime checking and Callable restrictions are useful facts. No actual outcome is claimed; 138 words and truncated expected output violate the intermediate instruction. Exact full-context reuse of e9a958996a0767178db475fe; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 0aa5c792772e4e458c488178. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3312f72fab4d5a15687da525",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Predicts the metadata validator checks abstract purpose and canonical version grammar.",
+        "Invents a tested_criteria/validated_evidence output schema not supplied by the actual tool contract."
+      ],
+      "notes": "It mainly substitutes a speculative validator plan for the requested specification/restriction summary, at 124 words with a truncated expected-output object. Exact full-context reuse of 42bab5e0e59452b3aea849cf; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item c2d9bb3d2fe4968df1fbb6e4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "599db553a4c9096b972ba7ab",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "5f84abc0fa0cff79bf516505",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "65483382f966a70d72472457",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full ichunked source/IchunkedTests were read. Initial purpose/plan has no preceding tools: lazy sub-iterables, conditional out-of-order caching and zero/single chunk-size boundary checks are supported. The 89-word capped response exceeds 70 words and degenerates into an unfinished repeated grep expression. Correct purpose/plan remain useful; no future validation is credited. Identical complete-context reuse of 65d8295cfae378096814f597; all eight signature fields match. Exact full-context reuse of 2f9d360224b84d21aa86bcb1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d180e32f9987f4589afcda7f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "68d87b5ebfa1d761072929f9",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Docstring purpose, Active/Informational metadata and a proposed quoting/style check are useful and source-supported. It explicitly treats conventions as recommendations, and no tool outcome is invented. At 164 words it exceeds the intermediate limit. Exact full-context reuse of d0a1188f8374a45b085f67db; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7cd2ae827ba99eb2d2601f5d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3bfaa2e86912ea637f7f3090",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata validator will report whether runtime modules/classes are correctly implemented.",
+        "Overstates token restrictions as preventing recursive/cross-thread usage rather than the specified originating Context/variable/single-use rules."
+      ],
+      "notes": "Context/ContextVar/copy_context and set/reset API facts are useful. No actual outcome is claimed yet, but the validator scope prediction is wrong; 137 words and a truncated limitation violate the intermediate constraint. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item aa80e59c8edd8bd07cfbb95b. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "cf5db25f814f9f1246eb6de4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f17ac03c55ac515056515259",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "42c9df3e895e1e5d2edf3606",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Initial windowed purpose/plan has no preceding dependencies/tools. Sliding windows, step and fillvalue behavior plus proposed empty/equal-length/large-step checks are supported by the source; left padding is possible through the documented chain wrapper. The 132-word capped answer violates the 70-word intermediate bound and ends mid-sentence, but retains a useful purpose/boundary plan without invented validation. Identical complete-context reuse of d9e81413452fccdd5b88a818; all eight signature fields match. Exact full-context reuse of c973b38ef3114ad4fb08d03b; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d9e81413452fccdd5b88a818. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "c3f2849c234d1c565e55e6c6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Supported ModuleSpec/find_spec/loader API facts and non-module-specific-loader gap are useful. Only search evidence is available and no test outcome is invented. It is 134 words, exceeds the under-70 intermediate instruction and ends with an unfinished generated command. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 536ec48a0f7c93b3f238994b. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "e7fb250ef4139bbf49b297c6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says step=1 and step greater than input length are not explicitly tested, despite test_basic and the explicit test_step large-step cases."
+      ],
+      "notes": "Current r2 instruction, preceding plan/search, actual seven-test PASS and source were read. Core tested windowing behavior is useful, but the coverage distinction is incorrect. The 114-word capped response exceeds 70 words and ends unfinished; malformed default-fillvalue notation adds no concrete result. No later broad search is used. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item e3d0b3447e7b33c810cc82ff. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "cfcfd5f507cd4b63b1d86c7b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "c84afe6ca6ed8880dfb8020f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "424 whitespace-delimited words exceed the 300-word bound; the capped response repeatedly restarts generic discussion and ends unfinished. Its Martinez identification/list-removal story and several Humboldt cases are sourced, including acknowledgment of differing listing times. It fails to concisely preserve the central distinction between many repeat missing-person reports and the much smaller unresolved-person inventory. Identical complete-context reuse of 67b826078002780326275625; all eight signature fields match. Identical complete-context reuse of 760cba392ee4ce08c4dc23b0; all eight fields match. Identical complete-context reuse of 67b826078002780326275625; all eight signature fields match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 760cba392ee4ce08c4dc23b0. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "7b8ba34d970e09f4df98ac70",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says a whole first chunk is generated immediately, contradicting test_memory_in_order laziness, which initially generates only its first element.",
+        "Claims n=0 non-empty input is unsupported despite explicit zero-return source branch and regression test."
+      ],
+      "notes": "Current r1 has only preceding plan and actual rg output; no pytest has yet executed. Correct chain/tee and size-four chunking description remains partially useful. The test-result heading refers to source test logic, not an actual executed validation, and receives no validation credit. The 140-word capped answer exceeds 70 words; incorrect scope caveats fail source support. Identical complete-context reuse of 5c2a49788579f624e0ad6308; all eight signature fields match. Exact full-context reuse of c851c0bc2499a9535eab3aaf; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5c2a49788579f624e0ad6308. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "21cdf2045eeaeb5013f3bf5b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Correct proposal metadata, Python 3.6 source version and metadata-only validation scope are present. The 107-word response devolves into an unfinished repetitive command listing implausible future Python environments, making the overall interpretation unusable despite correct opening fragments. Exact full-context reuse of 3feed0df45d5a11fc7d17b4e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a4f09d08334253ffce3f7c39. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "502f1441de80f8b315d7682d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d9a0f7f95798a6319a25a7a6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Context-variable async isolation and proposed set/reset/API checks are useful supported plan fragments. No validation result is invented before tools, but checking module availability alone would not verify PEP status. At 126 words and an unclosed command block it exceeds the current intermediate constraint. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 84627e6e9fd1de259d2bc48f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d628aa17d8a317abf08010c1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full ichunked source/IchunkedTests were read. Initial purpose/plan has no preceding tools: lazy sub-iterables, conditional out-of-order caching and zero/single chunk-size boundary checks are supported. The 89-word capped response exceeds 70 words and degenerates into an unfinished repeated grep expression. Correct purpose/plan remain useful; no future validation is credited. Identical complete-context reuse of 65d8295cfae378096814f597; all eight signature fields match. Exact full-context reuse of 2f9d360224b84d21aa86bcb1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d180e32f9987f4589afcda7f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "471d69901357efdde0a31c72",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "8e828cc7a675bf2863b12e4e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "84d15a813b1e510c7f7b38d4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Uses pyproject.tomls and defaults to setuptools when a present table lacks the mandatory requires key.",
+        "Claims a tested validation result before any validator output.",
+        "Introduces malformed repeated tool-table structure instead of the specified build-system table."
+      ],
+      "notes": "Correct dependency-declaration fragments are outweighed by false validation and central configuration confusion; 133 words, unfinished output, and prevalidation outcome claim violate the current node. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item cae60e48329a94944f942453. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "0e35d932f77c2362638678a0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Build-backend interface purpose and proposed configuration/hook checks are useful supported plan fragments. No validation is claimed. At 132 words it exceeds the intermediate limit and cuts off inside a grep expression. Exact full-context reuse of 3158f57182b62a6f42f59d3f; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item eb8378c2381a9c69284b86b2. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "1ea3c5f5cbf7ffa18fa87e22",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Native coroutine purpose, syntax and a proposed metadata/version/protocol validation plan are useful source facts with no invented outcome. The protocol check is a plan rather than a claim about observed runtime behavior. At 128 words it is overlong and ends in an unfinished quoted command. Exact full-context reuse of 9abafb96968eaaa314649365; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5898e909fa5e52b342aa792e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "2f0f953150ca0f7622850a6d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Current instruction is the initial collapse purpose/boundary plan, with no preceding tools or dependencies. Core flattening purpose, strings/bytes preservation, levels/base_type and proposed boundary inputs are source-supported; tuple preservation is read with the later explicit base_type condition. The 136-word capped response exceeds the archived 70-word intermediate limit and ends with an unfinished source-file command. Correct purpose/plan fragments remain useful; no future test is credited. Identical complete-context reuse of e81e718d18d4b89206a932ba; all eight signature fields match. Exact full-context reuse of 5795e21bff457808ebd19353; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item e81e718d18d4b89206a932ba. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "cf618018ffc9af50481794f4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls the partitions themselves Stirling numbers of the second kind, rather than distinguishing partitions from their counts."
+      ],
+      "notes": "Set partition purpose, unordered blocks and min/max constraints are useful and source-supported; the boundary categories are named but the plan mostly repeats implementation. At 169 words it violates the intermediate limit. No test outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item e1ba60b17eb1fefa80ea8064. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "72e157b58bc4f881a66cced2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls set partitions themselves Stirling numbers rather than counts of partitions, and proposes unique-values/no-duplicates checks without accounting for the explicitly supported repeated input values."
+      ],
+      "notes": "Initial purpose/plan is judged with no preceding tools. Source/test class exactly match the full set_partitions context already read in the cap audit. Main unordered grouping and size constraints plus boundary plan remain useful, but the 150-word capped response exceeds the 70-word intermediate bound and ends unfinished. No validation is inferred from a proposed normalization/check plan. Identical complete-context reuse of ba3a953a251737375072555f; all eight signature fields match. Exact full-context reuse of 2b223818132697ea66631516; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 22ac9b7f03980f91eef72234. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "b666324dd880f318865b4145",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Correct proposal metadata, Python 3.6 source version and metadata-only validation scope are present. The 107-word response devolves into an unfinished repetitive command listing implausible future Python environments, making the overall interpretation unusable despite correct opening fragments. Exact full-context reuse of 3feed0df45d5a11fc7d17b4e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a4f09d08334253ffce3f7c39. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "101b60b41a1653725945df61",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a deprecated with var = expr() syntax.",
+        "Says any non-None __exit__ value suppresses exceptions instead of a truthy value.",
+        "Misrepresents break/continue legality and source attribution of contextmanager."
+      ],
+      "notes": "The correct enter/exit and default propagation fragments do not repair wrong syntax and central restrictions; 140 words and an unfinished command also violate the intermediate limit. Exact full-context reuse of 235307e86fd08b4510f72f12; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 1664032ad8609020d2ecd722. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "8e76e89e9fcd5190a257657b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims lack of runtime type-checking support below Python 3.6 as if the PEP provided runtime enforcement above that boundary."
+      ],
+      "notes": "Final/Standards Track and metadata-only validation scope are useful. The source separates syntax version support and nonenforced type checking, including all-version stubs. At 172 words it is overlong and ends in repetitive unfinished commentary. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 42c75db74e24bae326378b15. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "94516b93ab9b9bcbdb23a207",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Predicts the metadata validator checks abstract purpose and canonical version grammar.",
+        "Invents a tested_criteria/validated_evidence output schema not supplied by the actual tool contract."
+      ],
+      "notes": "It mainly substitutes a speculative validator plan for the requested specification/restriction summary, at 124 words with a truncated expected-output object. Exact full-context reuse of 42bab5e0e59452b3aea849cf; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item c2d9bb3d2fe4968df1fbb6e4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "545584b71dea4b2a8381da97",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims ten passed tests instead of eight.",
+        "Says n=0 non-empty input is unsupported and test_odd/test_even were not executed, despite full targeted class execution and explicit zero_nonempty source."
+      ],
+      "notes": "Negative n raises the stated ValueError in source/test_negative, a useful correct fragment; overall actual suite PASS exists. The final coverage/zero-size interpretation is inconsistent and wrong, ends mid-sentence, and omits the required literal PASS token. Every generated dependency was read; malformed proposed commands are not validation. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a91b759af6f462e1ab5cd5d4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "828bcbcbd72317492fba523a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Current r2 uses actual preceding search and eight-test PASS, with all dependencies read. The source test inventory covering zero/negative/lazy/out-of-order/cache is accurate and useful. Some observed checks are mislabeled assumptions, the 124-word response exceeds 70 words and the status declaration ends unfinished. No later broad rg is used as evidence. Identical complete-context reuse of 458a8791cca254d6581bc6f4; all eight signature fields match. Exact full-context reuse of 1c8def3d062343b1dd081883; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 458a8791cca254d6581bc6f4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "c1eb3bfc3ff05a9743f54396",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full ichunked source/IchunkedTests were read. Initial purpose/plan has no preceding tools: lazy sub-iterables, conditional out-of-order caching and zero/single chunk-size boundary checks are supported. The 89-word capped response exceeds 70 words and degenerates into an unfinished repeated grep expression. Correct purpose/plan remain useful; no future validation is credited. Identical complete-context reuse of 65d8295cfae378096814f597; all eight signature fields match. Exact full-context reuse of 2f9d360224b84d21aa86bcb1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d180e32f9987f4589afcda7f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "702cb1c8ca479de6d62b55d6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3d24ab234e587cfa2b9adee5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims ReplaceTests executed successfully and test_basic passed before any pytest result was supplied."
+      ],
+      "notes": "The concrete replacement example/count/window behavior and minimum window-size restriction are useful source facts. Only search evidence existed at this node; later real test PASS cannot retroactively justify this invented outcome. It is 117 words and truncated. Exact full-context reuse of 5c4c571f1effcfa0f68a20e8; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7d91a91a11519ef6145d8b4a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "04387407e2e8353601fcb1c3",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Mostly source-grounded Wolfman plot/cast/critical reception, but 388 whitespace-delimited words exceed the 300-word instruction. The length-capped response loops through repeated cast/director/production paragraphs and ends mid-sentence. It loses concise synthesis and does not reliably separate differing critics views. No timing exclusion follows. Exact full-context reuse of c330d71338f25a4af56167c1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 594923902b3c952d3705997d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3b4fdc4372fe54204ecca435",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans an expected float result [0.1,0.3] where the explicit source/test example expects only [0.1] because the stop rounds to the boundary."
+      ],
+      "notes": "Initial range-extension purpose and zero-step/empty-boundary ideas remain useful, but the specific float expectation contradicts the supplied source. test_zero_step exists as source code; no actual validation has yet run. The 119-word capped answer exceeds 70 words and ends unfinished. No later tool results are credited. Identical complete-context reuse of 9ee244eefdfd759afe72912f; all eight signature fields match. Exact full-context reuse of 1da9477787996459d50cc224; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 9ee244eefdfd759afe72912f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a5d6b82cbc3996d18c484976",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls break/return exceptions, overstates no-retry behavior and confuses generator-GC timing with with-block cleanup.",
+        "Claims metadata PASS validates operational boundaries."
+      ],
+      "notes": "Actual proposal metadata/PASS are correct fragments, but runtime interpretation is false; 163 words and a truncated limitation violate the current node constraint. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 53a0b495d082f3e558ad401c. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "724e2754b88d984578d9f3e0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names a nonexistent Value data exception for wrong-context token reset.",
+        "States get raises LookupError for no value without preserving supplied/default-value behavior.",
+        "Predicts semantic API validation from a metadata-only tool."
+      ],
+      "notes": "ContextVar/Context/copy_context and token set/reset are useful correct fragments. At 144 words and a truncated limitation it violates the bounded intermediate instruction; no actual outcome is credited yet. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 755fcb980c9ae4651f3a75ea. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "ec190207b7d88c0570c8abce",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Dependency syntax purpose, extras, version constraints and marker/URL features are useful supported facts. No validation outcome is invented, but the status-check plan ends with an unfinished tool name and the 121-word response exceeds the intermediate limit. Exact full-context reuse of 4d712b6243daae654dcc15da; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a76935138685ba3075857658. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "19d91a582ce1329d03b8a799",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Correct proposal metadata, Python 3.6 source version and metadata-only validation scope are present. The 107-word response devolves into an unfinished repetitive command listing implausible future Python environments, making the overall interpretation unusable despite correct opening fragments. Exact full-context reuse of 3feed0df45d5a11fc7d17b4e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a4f09d08334253ffce3f7c39. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "0a15faff3f6da6e972238226",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls PEP 527 the finalized version of PEP 526 without support.",
+        "Claims successful validation before any validation tool result, at a search-only node."
+      ],
+      "notes": "Annotation syntax/style and several target restrictions are correct fragments, but proposal identity and current validation account are false. At 170 words it is overlong and ends in an unfinished declaration. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 3e166bdb2b7b78b23cb3dfe1. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "dd579d1e0d94c299f5b10b42",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "The opening correctly reports real metadata PASS, Final/Standards Track and absence of semantic runtime/syntax validation. The 135-word answer devolves into repeated malformed assignment commentary and cuts off, making the overall bounded interpretation unusable despite correct opening fragments. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item f49e3af392e70aea730299c9. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a53473087f2cf4f1dcc19503",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Categorically forbids dynamically computed annotations rather than the source warning that static tools may not understand them."
+      ],
+      "notes": "Gradual typing, valid annotation expressions, no automatic runtime checking and Callable restrictions are useful facts. No actual outcome is claimed; 138 words and truncated expected output violate the intermediate instruction. Exact full-context reuse of e9a958996a0767178db475fe; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 0aa5c792772e4e458c488178. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "daf4eee474c8d40a42261685",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "cb129f3f844049e248bfea5c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f7a42c037c066df1057d9f55",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d23f15e704935aae584f1b0a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Expects the excluded stop value 0.3 in a float range where the computed next value is above the stop.",
+        "Expects Decimal/Fraction output for float literals."
+      ],
+      "notes": "General numeric-range purpose and zero-step rejection are useful source facts. No actual test outcome is present, but the boundary plan has wrong expected arithmetic/type results; 117 words and a truncated limitation violate the current node. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item f62463ee2fc97fd8d0c233fc. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "e7bedca39a06c0b8f5989c64",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names the configuration file pyproject.tomls instead of pyproject.toml."
+      ],
+      "notes": "The build-dependency discovery purpose and declaration idea remain useful. Looking at a project config does not establish PEP proposal status; no actual test result exists. The 178-word output ends with an unfinished declaration. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item ac4afed21d18db82e77ef043. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "9b9b666faa613e744cb82a70",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a deprecated with var = expr() syntax.",
+        "Says any non-None __exit__ value suppresses exceptions instead of a truthy value.",
+        "Misrepresents break/continue legality and source attribution of contextmanager."
+      ],
+      "notes": "The correct enter/exit and default propagation fragments do not repair wrong syntax and central restrictions; 140 words and an unfinished command also violate the intermediate limit. Exact full-context reuse of 235307e86fd08b4510f72f12; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 1664032ad8609020d2ecd722. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "eda1083dc720806b5ac9172f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Uses an all-integer list as its claimed unsortable-input test example, unlike the supplied mixed string/integer test."
+      ],
+      "notes": "The actual seven passes plus 33 subtests and many covered behaviors are useful. Efficiency is explicitly unvalidated rather than asserted as tested. The response is 151 words and ends with an unfinished tool declaration, violating the intermediate instruction. Exact full-context reuse of 8da8a7cf22487644258a372b; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 6d4a723f73a7d149e5760dad. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "744e67019db3da1afc75dc7d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "315136ac3c9f2d1eefc24761",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The ModuleSpec/find_spec/exec/create API summary and optional is_package are useful and supported. Only search evidence exists and no outcome is invented. At 128 words it exceeds the intermediate limit and ends in an unfinished validation command. Exact full-context reuse of 5408db9f6fcc6ab3b19ec25e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7fe090a87af3495d95e241d6. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "6cb27e0194ccd82fd36d0fc4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3bed0477e6fae1f863d8088c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents test_status=PASS before any actual validation tool result, and fabricates a line-numbered search listing test names absent from the actual rg output."
+      ],
+      "notes": "Full set_partitions source/test reference and the single preceding plan/search were read. test_found_all exists in source but was not executed at this stage; future full-class tests cannot retroactively validate this response. The 103-word capped answer also violates the archived 70-word limit and ends mid-limitation. Correct purpose does not rescue fabricated validation. Exact eight-field quality-context reuse from separately explicitly reviewed cap 3bed0477e6fae1f863d8088c; same archived executed system-instruction digest. No later tool results added. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 210dc6b42653f0b8403ab8cb. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d9383017975d0a60a267c46c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims with does not support return in its block and invents return-expression storage/throw requirements.",
+        "Conflates document metadata validation with runtime support."
+      ],
+      "notes": "Real Final/PASS and context-manager methods are correct fragments, but the concrete backward-compatibility restriction is false. At 136 words with unfinished command it violates the current intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 4f65cc4a5ab00f801eb3603e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "57a76e5a8f28b0c984851b7c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Gives an incorrect split_at result containing an unbounded repeating trailing sequence rather than the source example final [a] group."
+      ],
+      "notes": "The supplied split_at source, actual preceding plan/generated explanation, rg and 4-test / 20-subtest PASS were read. The capped response does not interpret observed tests or distinguish evidence from assumptions; it produces a nonsensical unfinished example. Its 96 words exceed the archived intermediate bound. The generated dependency also invents a test_split_at method, which is not credited as actual test evidence. Exact eight-field quality-context reuse from separately explicitly reviewed cap 57a76e5a8f28b0c984851b7c; same archived executed system-instruction digest. No later tool results added. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 2e653797ee92aa8bb98ac04b. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "fa987c108207c933c697d532",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans an expected float result [0.1,0.3] where the explicit source/test example expects only [0.1] because the stop rounds to the boundary."
+      ],
+      "notes": "Initial range-extension purpose and zero-step/empty-boundary ideas remain useful, but the specific float expectation contradicts the supplied source. test_zero_step exists as source code; no actual validation has yet run. The 119-word capped answer exceeds 70 words and ends unfinished. No later tool results are credited. Identical complete-context reuse of 9ee244eefdfd759afe72912f; all eight signature fields match. Exact full-context reuse of 1da9477787996459d50cc224; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 9ee244eefdfd759afe72912f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "6ab69344ee658485f9a70e9c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names pyproject.tomls instead of pyproject.toml."
+      ],
+      "notes": "The discovery catch-22 and build requirement declaration are useful supported purpose facts; no test outcome is invented. At 179 words, the response exceeds the intermediate limit and ends in an unfinished plan. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item ce6e4112058335b62f06831e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "0c15470f11187ff9fabc5a6d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The actual seven passes plus 13 subtests and source/test categories are usefully distinguished from general correctness assumptions. No unseen failure is claimed. It is 152 words and ends in an unfinished pytest command, violating the bounded intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item eb505b142e68edb8f8643bcf. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "6a4a2e3129eaa950eaca0f1c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says strict is applied to sorted and implies zip always uses strict=True; source passes strict to zip only and defaults it to False.",
+        "Compares key column indices to column length rather than the number of columns."
+      ],
+      "notes": "Initial purpose/plan has no preceding tools. Joint-column sorting purpose and several boundary ideas are useful, but code-path/shape details are misstated and the 179-word capped response exceeds 70 words. The no-validation-yet qualification is appropriate and no future test is credited. Identical complete-context reuse of 8cf91b0e0ad56a898a9ada74; all eight signature fields match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item f7378c2760e65ab10caff8a7. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f0181b54c6be9b71e9ef7a7a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a split_when result with repeated 20 values absent from the example input, contradicting the source expected runs."
+      ],
+      "notes": "The already-read split_when source and actual preceding plan/search were checked. At this r1 stage no validation tool has executed, and no later result is used. The 98-word repetitive capped example is not a useful explanation of the supported pair-predicate behavior; it exceeds the archived 70-word bound and ends unfinished. Exact eight-field quality-context reuse from separately explicitly reviewed cap f0181b54c6be9b71e9ef7a7a; same archived executed system-instruction digest. No later tool results added. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 4194aa844c57d2b61400f948. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "5b3a6a3eff41a864c04c9ebe",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Presents invented line-numbered ACTUAL DEPENDENCY output with Rationale, Backwards and Security headings absent from the actual short search."
+      ],
+      "notes": "Current instruction is specification/restriction interpretation after one plan and one rg result only. The answer restates mostly source metadata, fabricates an apparent search result, provides no ModuleSpec rule/restriction, and is capped at an unfinished The application tail. Later validation and summarizer outputs are excluded from this intermediate judgment. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a53b2b1c89e5bf1968e68c15. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "99a70088aec198a547654684",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans to validate that with exceptions do not propagate unless explicitly handled, reversing the default propagation behavior."
+      ],
+      "notes": "Resource-management purpose and enter/exit mechanism remain useful, with no actual tool result yet. At 155 words it exceeds the intermediate limit and ends in an unfinished placeholder declaration. Exact full-context reuse of 59e5460a673b7fbdcfccc6e1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d604a30ddaac9db6ca283707. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "724be56a2328d0dd0990f262",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Docstring purpose, Active/Informational metadata and a proposed quoting/style check are useful and source-supported. It explicitly treats conventions as recommendations, and no tool outcome is invented. At 164 words it exceeds the intermediate limit. Exact full-context reuse of d0a1188f8374a45b085f67db; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7cd2ae827ba99eb2d2601f5d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "0401cc138acfd303069380fd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a [tool]system[requires] table in place of build-system.requires.",
+        "Reports FAIL despite actual metadata PASS.",
+        "Claims nonexistent universal tooling support/validation gaps and semantic TOML validation not run."
+      ],
+      "notes": "Correct proposal metadata is overwhelmed by a wrong central rule, fabricated validation and a long unfinished repetition loop. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item edea458d9d21be0881967f15. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d2fd19f9de13a7b55eb134f7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "77c03eb3309aaca30877c7d9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents per-category subtest counts that sum to 28 despite the actual total of twenty."
+      ],
+      "notes": "Overall four tests/twenty subtests and split/maxsplit/separator behaviors are useful. Assertions are partly mislabeled assumptions; the answer is 120 words and cuts off an evidence declaration. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 259402a9fef43739c72cc089. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "569fcfb80f63b9256f9aab6a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The supplied source calls them four but lists three styles. The answer explicitly identifies that inconsistency, correctly lists the three names, and avoids inventing a fourth from the Brazilian fifth-course variation. It is unfinished and malformed JSON but retains useful source interpretation. The surrounding markdown fence violates the requested bare one-field JSON object. Original mechanical result and timing remain unchanged; no tools or generated validation were available. Identical complete-context reuse of eb9f076c1c97a14e478d0a4b; all eight signature fields match. Exact full-context reuse of c90922e8c85c4985eb856036; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item eb9f076c1c97a14e478d0a4b. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "efcd4626bb6f64c0e59de317",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Allocates thirty subtests to maxsplit despite the actual total being twenty and the supplied class having different counts."
+      ],
+      "notes": "Four-test/twenty-subtest overall result and split/maxsplit/separator behaviors are useful source-grounded fragments. It never completes the fourth category and is 121 words, exceeding the current intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d0e8201c187a721701af6d09. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "6db63d99e1d62255e51224ab",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents deprecated with var = expr() syntax.",
+        "Uses non-None rather than truthiness for __exit__ exception suppression.",
+        "Claims normal __exit__ timing depends on garbage collection."
+      ],
+      "notes": "The central syntax/exception/cleanup restrictions are materially wrong despite some useful enter/exit fragments. At 143 words and an unfinished command it violates the intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item ba835fcd2d33a6b13f4ee835. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "9a5f139311bfa235a87f3742",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a deprecated with var = expr() syntax.",
+        "Says any non-None __exit__ value suppresses exceptions instead of a truthy value.",
+        "Misrepresents break/continue legality and source attribution of contextmanager."
+      ],
+      "notes": "The correct enter/exit and default propagation fragments do not repair wrong syntax and central restrictions; 140 words and an unfinished command also violate the intermediate limit. Exact full-context reuse of 235307e86fd08b4510f72f12; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 1664032ad8609020d2ecd722. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a7b37899d53399836f15dbdc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full sort_together source/SortTogetherTest and each actual preceding dependency were read. Current r2 has only search and actual six-test PASS; later broad rg is excluded. The supported test inventory of sorting, keys, reverse, trimming and strict unequal lengths is accurate and useful. The fully empty/default-result and empty-key cases are not directly asserted (the strict generator does include an empty column). The responses exceed the 70-word intermediate limit at 143/140 words and end unfinished; index 40 labels proven strictness as an assumption instead of separating evidence clearly. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 920b6b750cec2d177fe8aa13. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "4605ae3304d410ec50313258",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "ffef63e3fce8da0e8fa2476b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Uses an all-integer list as its claimed unsortable-input test example, unlike the supplied mixed string/integer test."
+      ],
+      "notes": "The actual seven passes plus 33 subtests and many covered behaviors are useful. Efficiency is explicitly unvalidated rather than asserted as tested. The response is 151 words and ends with an unfinished tool declaration, violating the intermediate instruction. Exact full-context reuse of 8da8a7cf22487644258a372b; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 6d4a723f73a7d149e5760dad. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d9acffae328cd02ca769b85b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full sort_together source/SortTogetherTest and each actual preceding dependency were read. Current r2 has only search and actual six-test PASS; later broad rg is excluded. The supported test inventory of sorting, keys, reverse, trimming and strict unequal lengths is accurate and useful. The fully empty/default-result and empty-key cases are not directly asserted (the strict generator does include an empty column). The responses exceed the 70-word intermediate limit at 143/140 words and end unfinished; index 40 labels proven strictness as an assumption instead of separating evidence clearly. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 04872ede2e658309601d6b2c. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "27dec1458ea0a00562af3795",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Native coroutine purpose, syntax and a proposed metadata/version/protocol validation plan are useful source facts with no invented outcome. The protocol check is a plan rather than a claim about observed runtime behavior. At 128 words it is overlong and ends in an unfinished quoted command. Exact full-context reuse of 9abafb96968eaaa314649365; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5898e909fa5e52b342aa792e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a43a4527e90c036ff60d207f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says a whole first chunk is generated immediately, contradicting test_memory_in_order laziness, which initially generates only its first element.",
+        "Claims n=0 non-empty input is unsupported despite explicit zero-return source branch and regression test."
+      ],
+      "notes": "Current r1 has only preceding plan and actual rg output; no pytest has yet executed. Correct chain/tee and size-four chunking description remains partially useful. The test-result heading refers to source test logic, not an actual executed validation, and receives no validation credit. The 140-word capped answer exceeds 70 words; incorrect scope caveats fail source support. Identical complete-context reuse of 5c2a49788579f624e0ad6308; all eight signature fields match. Exact full-context reuse of c851c0bc2499a9535eab3aaf; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5c2a49788579f624e0ad6308. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "fa5fe7f2dd34f496f8000949",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Uses pyproject.tomls and calls the build-system table mandatory despite the source allowing its absence.",
+        "Predicts requires/default/error semantic checks from a metadata-only validator."
+      ],
+      "notes": "Correct requires-field, missing-table default and missing-key-error distinctions are useful fragments. At 128 words it exceeds the limit and ends with an invalid unfinished tool declaration. Exact full-context reuse of 47c270f4bd8876a3f31633fb; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 6b23c6aef7fc9b91c4758876. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "9334d3cd7ed14bd1e71eaeea",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Current instruction is the initial collapse purpose/boundary plan, with no preceding tools or dependencies. Core flattening purpose, strings/bytes preservation, levels/base_type and proposed boundary inputs are source-supported; tuple preservation is read with the later explicit base_type condition. The 136-word capped response exceeds the archived 70-word intermediate limit and ends with an unfinished source-file command. Correct purpose/plan fragments remain useful; no future test is credited. Identical complete-context reuse of e81e718d18d4b89206a932ba; all eight signature fields match. Exact full-context reuse of 5795e21bff457808ebd19353; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item e81e718d18d4b89206a932ba. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "c810b6a3ca07a9250ddf1f8d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents [tool]system[requires] instead of build-system.requires.",
+        "Asserts no tool supports/enforces the TOML requirements without implementation testing."
+      ],
+      "notes": "Final proposal metadata is correct, but the actual metadata result is turned into false global runtime claims and malformed configuration advice. At 145 words, repetition and unfinished fences violate the intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 393c6f606d39e3a8b03e69bd. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3ec142a47d0b51eb46829df0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The ModuleSpec/find_spec/exec/create API summary and optional is_package are useful and supported. Only search evidence exists and no outcome is invented. At 128 words it exceeds the intermediate limit and ends in an unfinished validation command. Exact full-context reuse of 5408db9f6fcc6ab3b19ec25e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7fe090a87af3495d95e241d6. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "2def81b8d3be0d1f55532c37",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims ReplaceTests executed successfully and test_basic passed before any pytest result was supplied."
+      ],
+      "notes": "The concrete replacement example/count/window behavior and minimum window-size restriction are useful source facts. Only search evidence existed at this node; later real test PASS cannot retroactively justify this invented outcome. It is 117 words and truncated. Exact full-context reuse of 5c4c571f1effcfa0f68a20e8; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7d91a91a11519ef6145d8b4a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a56df0d504432f6fbb3c72b6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Current instruction is to identify specification/restrictions from the actual document search. Only the preceding looping plan and rg output are available at this stage. Final status is a supported fragment, but the capped loop does not explain variable annotations, restrictions, or finish a tool declaration. Later metadata validation is deliberately not used as evidence for this intermediate. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item c9190c48cbabd4fd75abc049. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a2829779dc64302aa2fcb7ef",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names the configuration file pyproject.tomls instead of pyproject.toml."
+      ],
+      "notes": "The catch-22/build dependency declaration purpose is useful and supported, with no actual test outcome invented. At 179 words it exceeds the intermediate limit and ends in a truncated plan; PEP status is not verified by a project configuration file. Exact full-context reuse of c94aa01fbb8ee387612f63fa; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d67c72e47781c901dabb4e7e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "5a05fe44b0a6608a70b0bfd7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Current instruction is to interpret actual metadata validation, and only the two preceding dependencies plus rg/metadata PASS tools are considered. The capped answer consists of repeated PEP 526 and an unfinished tail. It does not interpret the actual Final/Standards Track/PASS fields or distinguish proposal status from runtime support. No later summarizer result is used to rescue this intermediate. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 9a3f5a66e8b726271d4994c2. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "cab13e14c162e4678f4281ce",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls set partitions themselves Stirling numbers rather than counts of partitions, and proposes unique-values/no-duplicates checks without accounting for the explicitly supported repeated input values."
+      ],
+      "notes": "Initial purpose/plan is judged with no preceding tools. Source/test class exactly match the full set_partitions context already read in the cap audit. Main unordered grouping and size constraints plus boundary plan remain useful, but the 150-word capped response exceeds the 70-word intermediate bound and ends unfinished. No validation is inferred from a proposed normalization/check plan. Identical complete-context reuse of ba3a953a251737375072555f; all eight signature fields match. Exact full-context reuse of 2b223818132697ea66631516; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 22ac9b7f03980f91eef72234. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "a951ebf791254e9ed00f3b2c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Actual ten-test PASS and coverage of repeated inputs, Stirling counts, invalid k and min/max sizes are useful, with unproved general recursion correctness separately labeled an assumption. The appended unfinished comparison command is not executed evidence; 110 words exceeds the intermediate limit. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 4214574b8a90f0ce478fc85b. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f3af31bc21e701b2cb8bbc88",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls set partitions themselves Stirling numbers rather than counts of partitions, and proposes unique-values/no-duplicates checks without accounting for the explicitly supported repeated input values."
+      ],
+      "notes": "Initial purpose/plan is judged with no preceding tools. Source/test class exactly match the full set_partitions context already read in the cap audit. Main unordered grouping and size constraints plus boundary plan remain useful, but the 150-word capped response exceeds the 70-word intermediate bound and ends unfinished. No validation is inferred from a proposed normalization/check plan. Identical complete-context reuse of ba3a953a251737375072555f; all eight signature fields match. Exact full-context reuse of 2b223818132697ea66631516; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 22ac9b7f03980f91eef72234. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "ed31fcc51e17a9ca1d354c32",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The ModuleSpec/find_spec/exec/create API summary and optional is_package are useful and supported. Only search evidence exists and no outcome is invented. At 128 words it exceeds the intermediate limit and ends in an unfinished validation command. Exact full-context reuse of 5408db9f6fcc6ab3b19ec25e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7fe090a87af3495d95e241d6. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "675d727774a3dc03a42f0aae",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls break/return exceptions and overstates no-retry semantics.",
+        "Confuses generator garbage-collection timing with with-block cleanup.",
+        "Claims metadata validation confirms operational boundaries."
+      ],
+      "notes": "Actual metadata PASS and proposal fields are correct fragments, but runtime/exception interpretation is materially wrong; 163 words and a truncated limitation also violate the current intermediate instruction. Exact full-context reuse of c15952a7e24a2a723130eee7; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item abe7fa07a9937732530e52e4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "cf55c6594168fc92594a92cf",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Docstring purpose, Active/Informational metadata and a proposed quoting/style check are useful and source-supported. It explicitly treats conventions as recommendations, and no tool outcome is invented. At 164 words it exceeds the intermediate limit. Exact full-context reuse of d0a1188f8374a45b085f67db; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7cd2ae827ba99eb2d2601f5d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "7cc010f8e6cdff6564d81bd5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Lists fillvalue being used only when n exceeds input length as an assumption, although the supplied step examples/test_fillvalue_step explicitly use padding in later partial windows."
+      ],
+      "notes": "Current r2 instruction has only preceding plan/search and actual full-class seven-test PASS; all were read. Correct basic/invalid-step/empty-sequence observations remain useful. The source-contradicted assumption is not valid missing evidence; the 125-word capped answer exceeds the 70-word bound and ends an unfinished command. No later broad rg output is used. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 05ca1f79b6b3196e94e457cf. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "6c03a15b32493fecd8437a7d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents expected FAIL and validated_abstract/validated_specification output fields despite actual metadata PASS."
+      ],
+      "notes": "The opening correctly limits validation to metadata and leaves runtime untested. The later fabricated expected-output object contradicts that real outcome and obscures scope; 140 words and a truncated object violate the intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7a8bde68cdd4e07cbaf107b5. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "1b1a25e1eeab389bf36a1f54",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "aa1e8e96126c77eb6ee57e9f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Correct proposal metadata, Python 3.6 source version and metadata-only validation scope are present. The 107-word response devolves into an unfinished repetitive command listing implausible future Python environments, making the overall interpretation unusable despite correct opening fragments. Exact full-context reuse of 3feed0df45d5a11fc7d17b4e; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a4f09d08334253ffce3f7c39. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "e3f5e6e1b387d3db88f93617",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans an expected float result [0.1,0.3] where the explicit source/test example expects only [0.1] because the stop rounds to the boundary."
+      ],
+      "notes": "Initial range-extension purpose and zero-step/empty-boundary ideas remain useful, but the specific float expectation contradicts the supplied source. test_zero_step exists as source code; no actual validation has yet run. The 119-word capped answer exceeds 70 words and ends unfinished. No later tool results are credited. Identical complete-context reuse of 9ee244eefdfd759afe72912f; all eight signature fields match. Exact full-context reuse of 1da9477787996459d50cc224; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 9ee244eefdfd759afe72912f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "9e514b73cde410bf4d8034ed",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The full set_partitions source and SetPartitionsTests were read. Initial supported behavior and k/min_size/max_size parameters are correct, and copied rg lines match the actual preceding search. No validation tool has run at this r1 stage; the dangling final test fragment is not credited as a test outcome. The 107-word answer exceeds the archived 70-word intermediate limit and ends unfinished. Correct core behavior remains useful, so capping alone is not classified as uselessness. Exact complete-cap-context duplicate of 9e514b73cde410bf4d8034ed. Exact eight-field quality-context reuse from separately explicitly reviewed cap ea1d5af79dcf2aa1ecbebfcf; same archived executed system-instruction digest. No later tool results added. Identical complete-context reuse of df59f62fa1b82dcaefac0c9a; all eight signature fields match. Exact full-context reuse of f034f2c1957c51e2b4b6edd5; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item df59f62fa1b82dcaefac0c9a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f54f3c762bdd7062ecda026b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls break/return exceptions, overstates no-looping/retries and confuses generator finalization with block-exit cleanup.",
+        "Claims metadata validation proves operational boundaries."
+      ],
+      "notes": "Proposal metadata and actual PASS are correct fragments. Central semantic restrictions are wrong, and 165 words with a cut-off limitation violate the current node. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item b9685f42c8e5f2e81cc888f4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "aa6944921c6f7fd6fa83d2c9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "e5012a23ad0299b2f42992a7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Current instruction is the initial collapse purpose/boundary plan, with no preceding tools or dependencies. Core flattening purpose, strings/bytes preservation, levels/base_type and proposed boundary inputs are source-supported; tuple preservation is read with the later explicit base_type condition. The 136-word capped response exceeds the archived 70-word intermediate limit and ends with an unfinished source-file command. Correct purpose/plan fragments remain useful; no future test is credited. Identical complete-context reuse of e81e718d18d4b89206a932ba; all eight signature fields match. Exact full-context reuse of 5795e21bff457808ebd19353; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item e81e718d18d4b89206a932ba. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "75bc78fd318f1eb6a354305c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Mostly source-grounded Wolfman plot/cast/critical reception, but 388 whitespace-delimited words exceed the 300-word instruction. The length-capped response loops through repeated cast/director/production paragraphs and ends mid-sentence. It loses concise synthesis and does not reliably separate differing critics views. No timing exclusion follows. Exact full-context reuse of c330d71338f25a4af56167c1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 594923902b3c952d3705997d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "ea1d5af79dcf2aa1ecbebfcf",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The full set_partitions source and SetPartitionsTests were read. Initial supported behavior and k/min_size/max_size parameters are correct, and copied rg lines match the actual preceding search. No validation tool has run at this r1 stage; the dangling final test fragment is not credited as a test outcome. The 107-word answer exceeds the archived 70-word intermediate limit and ends unfinished. Correct core behavior remains useful, so capping alone is not classified as uselessness. Exact complete-cap-context duplicate of 9e514b73cde410bf4d8034ed. Exact eight-field quality-context reuse from separately explicitly reviewed cap ea1d5af79dcf2aa1ecbebfcf; same archived executed system-instruction digest. No later tool results added. Identical complete-context reuse of df59f62fa1b82dcaefac0c9a; all eight signature fields match. Exact full-context reuse of f034f2c1957c51e2b4b6edd5; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item df59f62fa1b82dcaefac0c9a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "bdf47c9ffdeb40708422173f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The actual 22 target passes, named indexing/slicing/slicing-reset methods and prepend/exhaustion behavior are supported by the full reference. It is 143 words and ends mid-limitation; no additional execution is credited to the malformed generated command. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 8ffdc5d194911a477fd79e31. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "4914714bbcd32759e276f518",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Current r2 uses actual preceding search and eight-test PASS, with all dependencies read. The source test inventory covering zero/negative/lazy/out-of-order/cache is accurate and useful. Some observed checks are mislabeled assumptions, the 124-word response exceeds 70 words and the status declaration ends unfinished. No later broad rg is used as evidence. Identical complete-context reuse of 458a8791cca254d6581bc6f4; all eight signature fields match. Exact full-context reuse of 1c8def3d062343b1dd081883; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 458a8791cca254d6581bc6f4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "0949fad853b878c234be1175",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Actual target PASS, key/reverse/strict/truncation behavior and limited scope of the named key-list/function tests are supported. It does not infer a failing empty-input implementation. At 136 words with a malformed generated command it violates the current bounded intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item af275260356c839aa828308d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "8bbd9ced593d96cc57eb4080",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans to validate that with exceptions do not propagate unless explicitly handled, reversing the default propagation behavior."
+      ],
+      "notes": "Resource-management purpose and enter/exit mechanism remain useful, with no actual tool result yet. At 155 words it exceeds the intermediate limit and ends in an unfinished placeholder declaration. Exact full-context reuse of 59e5460a673b7fbdcfccc6e1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d604a30ddaac9db6ca283707. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "eb84f1159881cd29b2e6ba88",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Build-backend interface purpose and proposed configuration/hook checks are useful supported plan fragments. No validation is claimed. At 132 words it exceeds the intermediate limit and cuts off inside a grep expression. Exact full-context reuse of 3158f57182b62a6f42f59d3f; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item eb8378c2381a9c69284b86b2. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "986f15f5aa86670f6cf24814",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims ReplaceTests executed successfully and test_basic passed before any pytest result was supplied."
+      ],
+      "notes": "The concrete replacement example/count/window behavior and minimum window-size restriction are useful source facts. Only search evidence existed at this node; later real test PASS cannot retroactively justify this invented outcome. It is 117 words and truncated. Exact full-context reuse of 5c4c571f1effcfa0f68a20e8; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7d91a91a11519ef6145d8b4a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f27980914f2e468e4024a5e0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata tool will check runtime expression evaluation and strict escape-rule semantics."
+      ],
+      "notes": "F-string prefix, expression context, format dispatch and supplied historical expression restrictions are useful facts. No actual outcome is invented yet, but validator scope is overstated; 138 words and an unfinished repeated command violate the current constraint. Exact full-context reuse of c5750b671b1522b9e75cd7a9; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d0ff63de23c18da5952994e8. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "e117ba536a87305d85399d14",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Docstring purpose, Active/Informational metadata and a proposed quoting/style check are useful and source-supported. It explicitly treats conventions as recommendations, and no tool outcome is invented. At 164 words it exceeds the intermediate limit. Exact full-context reuse of d0a1188f8374a45b085f67db; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7cd2ae827ba99eb2d2601f5d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "9fc4a752e04256b4e8468392",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies collapse validation despite actual TestCollapse six-test PASS.",
+        "Claims unspecified custom-iterable nesting failure without evidence from generic iter(node) traversal."
+      ],
+      "notes": "All actual generated dependencies were read, including the erroneous claim of ten tests; the real fixed tool reports six. The broad rg snippet does not erase the targeted class execution. The final repeats malformed command fragments, gives no reliable supported behavior/status report and omits required PASS. The unfinished declaration adds no executed evidence. Identical complete-context reuse of 62b140ed18a2919debe4e3dc; all eight signature fields match. Exact full-context reuse of b408f4888a0a737c964a3801; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 62b140ed18a2919debe4e3dc. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "591cc204cda7ef511f6a4509",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says a whole first chunk is generated immediately, contradicting test_memory_in_order laziness, which initially generates only its first element.",
+        "Claims n=0 non-empty input is unsupported despite explicit zero-return source branch and regression test."
+      ],
+      "notes": "Current r1 has only preceding plan and actual rg output; no pytest has yet executed. Correct chain/tee and size-four chunking description remains partially useful. The test-result heading refers to source test logic, not an actual executed validation, and receives no validation credit. The 140-word capped answer exceeds 70 words; incorrect scope caveats fail source support. Identical complete-context reuse of 5c2a49788579f624e0ad6308; all eight signature fields match. Exact full-context reuse of c851c0bc2499a9535eab3aaf; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5c2a49788579f624e0ad6308. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "22db05d3aef5677400f765de",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "794a039e3599a7b8122af1b7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Native coroutine purpose, syntax and a proposed metadata/version/protocol validation plan are useful source facts with no invented outcome. The protocol check is a plan rather than a claim about observed runtime behavior. At 128 words it is overlong and ends in an unfinished quoted command. Exact full-context reuse of 9abafb96968eaaa314649365; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5898e909fa5e52b342aa792e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "d36383415b9d6a0daf999801",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls break/return exceptions and overstates no-retry semantics.",
+        "Confuses generator garbage-collection timing with with-block cleanup.",
+        "Claims metadata validation confirms operational boundaries."
+      ],
+      "notes": "Actual metadata PASS and proposal fields are correct fragments, but runtime/exception interpretation is materially wrong; 163 words and a truncated limitation also violate the current intermediate instruction. Exact full-context reuse of c15952a7e24a2a723130eee7; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item abe7fa07a9937732530e52e4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "756fd10cfedf1dac81c17890",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Dependency syntax purpose, extras, version constraints and marker/URL features are useful supported facts. No validation outcome is invented, but the status-check plan ends with an unfinished tool name and the 121-word response exceeds the intermediate limit. Exact full-context reuse of 4d712b6243daae654dcc15da; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a76935138685ba3075857658. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "588744c2518d68b6c5ccde3d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Dependency syntax purpose, extras, version constraints and marker/URL features are useful supported facts. No validation outcome is invented, but the status-check plan ends with an unfinished tool name and the 121-word response exceeds the intermediate limit. Exact full-context reuse of 4d712b6243daae654dcc15da; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a76935138685ba3075857658. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "90cbdc82084becb29d92ba2e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "365e3e1645f65055f769c995",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3f815cab1ac5ad294dbde0ce",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Uses pyproject.tomls and calls the build-system table mandatory despite the source allowing its absence.",
+        "Predicts requires/default/error semantic checks from a metadata-only validator."
+      ],
+      "notes": "Correct requires-field, missing-table default and missing-key-error distinctions are useful fragments. At 128 words it exceeds the limit and ends with an invalid unfinished tool declaration. Exact full-context reuse of 47c270f4bd8876a3f31633fb; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 6b23c6aef7fc9b91c4758876. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "73497aedea3764f979199836",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies sort_together validation despite actual SortTogetherTest six-test PASS and supplied targeted class."
+      ],
+      "notes": "All distinct dependency and final variants were read. Broad rg snippets from other tests do not replace the targeted full-class tool. Index 133 also treats optional strict as unconditionally True and ends a malformed comment/list. The final no-status/no-relevant-tests report does not reliably satisfy behavior/status/limitation; no later or proposed command is credited. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 67126067eba94f115f618ea5. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "09bf5b29eb856bb8f5492b17",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies collapse validation despite actual TestCollapse six-test PASS.",
+        "Claims unspecified custom-iterable nesting failure without evidence from generic iter(node) traversal."
+      ],
+      "notes": "All actual generated dependencies were read, including the erroneous claim of ten tests; the real fixed tool reports six. The broad rg snippet does not erase the targeted class execution. The final repeats malformed command fragments, gives no reliable supported behavior/status report and omits required PASS. The unfinished declaration adds no executed evidence. Identical complete-context reuse of 62b140ed18a2919debe4e3dc; all eight signature fields match. Exact full-context reuse of b408f4888a0a737c964a3801; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 62b140ed18a2919debe4e3dc. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3941ae43b5f3c1db86010d73",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Labels proposal Status PASS instead of Final."
+      ],
+      "notes": "Some annotation-syntax and metadata-only validator facts are correct, but the answer devolves into repeated malformed assignment examples and an unfinished code fence; literal validation form is missing. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 3d299b50404edcd36a31e706. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "5dd3992ee06da8485cd34119",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims no empty-iterable/maxlen=0 check, despite test_maxlen_zero_bool_does_not_drop_items explicitly constructing an empty zero-cache iterator."
+      ],
+      "notes": "Current r2 is judged from preceding plan/search and actual 17-test PASS only. Correct reset/forward/relative/zero-cache behavior summary remains useful, and its PASS follows real validation despite an earlier generated FAIL. The coverage caveat is wrong; 162 words exceed the 70-word intermediate bound and the answer ends an unfinished declaration. No later broad rg is credited. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 1fbc0503dc396bd40759ff63. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f81b9b2b1b41123a1e260aa7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Full ichunked source/IchunkedTests were read. Initial purpose/plan has no preceding tools: lazy sub-iterables, conditional out-of-order caching and zero/single chunk-size boundary checks are supported. The 89-word capped response exceeds 70 words and degenerates into an unfinished repeated grep expression. Correct purpose/plan remain useful; no future validation is credited. Identical complete-context reuse of 65d8295cfae378096814f597; all eight signature fields match. Exact full-context reuse of 2f9d360224b84d21aa86bcb1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d180e32f9987f4589afcda7f. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "54f0b2ef63e3565854744793",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Dependency syntax purpose, extras, version constraints and marker/URL features are useful supported facts. No validation outcome is invented, but the status-check plan ends with an unfinished tool name and the 121-word response exceeds the intermediate limit. Exact full-context reuse of 4d712b6243daae654dcc15da; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item a76935138685ba3075857658. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "4fa30f3104a2d50766854289",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names the configuration file pyproject.tomls instead of pyproject.toml."
+      ],
+      "notes": "The catch-22/build dependency declaration purpose is useful and supported, with no actual test outcome invented. At 179 words it exceeds the intermediate limit and ends in a truncated plan; PEP status is not verified by a project configuration file. Exact full-context reuse of c94aa01fbb8ee387612f63fa; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d67c72e47781c901dabb4e7e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3dfc0fe2f19f4ad06a34aa4b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Current instruction is to identify PEP 526 purpose and plan validation, with no preceding tools/dependencies. The capped response begins a section-search plan then loops PEP 526 and ends mid-token. It never identifies variable-annotation purpose or completes an actionable declaration. No invented validation is credited. Capping and usefulness are separate; failure follows missing content and repetition. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 3b8170b05a9ff7aeeb88eab0. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "c8745f1d37b24c5cfa496006",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims ReplaceTests executed successfully and test_basic passed before any pytest result was supplied."
+      ],
+      "notes": "The concrete replacement example/count/window behavior and minimum window-size restriction are useful source facts. Only search evidence existed at this node; later real test PASS cannot retroactively justify this invented outcome. It is 117 words and truncated. Exact full-context reuse of 5c4c571f1effcfa0f68a20e8; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 7d91a91a11519ef6145d8b4a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "4bb54e1b9d4a87bae7ca9e07",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Current instruction is the initial collapse purpose/boundary plan, with no preceding tools or dependencies. Core flattening purpose, strings/bytes preservation, levels/base_type and proposed boundary inputs are source-supported; tuple preservation is read with the later explicit base_type condition. The 136-word capped response exceeds the archived 70-word intermediate limit and ends with an unfinished source-file command. Correct purpose/plan fragments remain useful; no future test is credited. Identical complete-context reuse of e81e718d18d4b89206a932ba; all eight signature fields match. Exact full-context reuse of 5795e21bff457808ebd19353; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item e81e718d18d4b89206a932ba. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "dffd587d2287ae7d7680d6e5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Treats module:object as required although the object suffix is optional.",
+        "Assigns a required cycle-detection exception to the backend instead of preserving the frontend checking/rejection guidance."
+      ],
+      "notes": "The independent build interface, configuration and hooks are useful purpose/plan fragments. No outcome is invented, but the rule is truncated and 135 words exceeds the current intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 59dd98ae08f52277f329fd2d. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "b64d2658fea621842ecc5449",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata tool will check runtime expression evaluation and strict escape-rule semantics."
+      ],
+      "notes": "F-string prefix, expression context, format dispatch and supplied historical expression restrictions are useful facts. No actual outcome is invented yet, but validator scope is overstated; 138 words and an unfinished repeated command violate the current constraint. Exact full-context reuse of c5750b671b1522b9e75cd7a9; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d0ff63de23c18da5952994e8. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "7ff799cf7468692abd957664",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says strict is applied to sorted and implies zip always uses strict=True; source passes strict to zip only and defaults it to False.",
+        "Compares key column indices to column length rather than the number of columns."
+      ],
+      "notes": "Initial purpose/plan has no preceding tools. Joint-column sorting purpose and several boundary ideas are useful, but code-path/shape details are misstated and the 179-word capped response exceeds 70 words. The no-validation-yet qualification is appropriate and no future test is credited. Identical complete-context reuse of 8cf91b0e0ad56a898a9ada74; all eight signature fields match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item f7378c2760e65ab10caff8a7. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "f05a3933687236bab7faedff",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented. All-cap snapshot02 exact eight-field source-review reuse from confirm-review-index-01.json item ad2eefcac10c5c707b2f9ec4. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "77e964b3afd01dd4b97e5618",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls PEP 527 the finalized version of 526.",
+        "Claims successful file validation at a search-only node.",
+        "Predicts a syntax-spacing check by the metadata tool."
+      ],
+      "notes": "Several annotation syntax/restriction fragments are correct, but central proposal identity and current validation account are false; 161 words and a truncated command violate the intermediate instruction. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 9bbac05e58ae345c91fb99ef. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "32534126cdbb8637e3cf57bb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls PEP 527 the finalized form of 526.",
+        "Claims successful validation at a search-only node.",
+        "Requires no space around equals contrary to the specified one-space style recommendation."
+      ],
+      "notes": "Some annotation restrictions are correct fragments, but proposal identity, validation and style account are wrong. It is 167 words and ends in a truncated declaration. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item c30db46c8fc91b32a4c5b659. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "3dae231b1c5739f80af02aa2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The supplied source calls them four but lists three styles. The answer explicitly identifies that inconsistency, correctly lists the three names, and avoids inventing a fourth from the Brazilian fifth-course variation. It is unfinished and malformed JSON but retains useful source interpretation. The surrounding markdown fence violates the requested bare one-field JSON object. Original mechanical result and timing remain unchanged; no tools or generated validation were available. Identical complete-context reuse of eb9f076c1c97a14e478d0a4b; all eight signature fields match. Exact full-context reuse of c90922e8c85c4985eb856036; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item eb9f076c1c97a14e478d0a4b. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "fb5ff2753b6b632db595d5d1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Plans to validate that with exceptions do not propagate unless explicitly handled, reversing the default propagation behavior."
+      ],
+      "notes": "Resource-management purpose and enter/exit mechanism remain useful, with no actual tool result yet. At 155 words it exceeds the intermediate limit and ends in an unfinished placeholder declaration. Exact full-context reuse of 59e5460a673b7fbdcfccc6e1; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d604a30ddaac9db6ca283707. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "7d75fa8ff3f282de36752191",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Native coroutine purpose, syntax and a proposed metadata/version/protocol validation plan are useful source facts with no invented outcome. The protocol check is a plan rather than a claim about observed runtime behavior. At 128 words it is overlong and ends in an unfinished quoted command. Exact full-context reuse of 9abafb96968eaaa314649365; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 5898e909fa5e52b342aa792e. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "ec38924cd8d067163dd85660",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies actual WindowedTests execution despite seven tests and 13 subtests passing.",
+        "Uses unrelated test_negative/first/last search snippets as if they were the only relevant validation evidence."
+      ],
+      "notes": "Every distinct actual generated dependency was read. Supplied WindowedTests and fixed full-class tool directly validate windowed. The final reports no test status instead of required PASS and misinterprets the broad rg snippet. Index 64 additionally exceeds the 150-word final limit at 152 words. Core parameter fragments do not rescue the unreliable validation report. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item 6014688f38271ac6416a01af. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "977555dbecff5aa8657e5667",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims a validator must be explicitly provided although it is optional and defaults to accepting keys."
+      ],
+      "notes": "Actual ten-test PASS, grouping and missing-key behavior are useful. Infinite allowed-key scans are unmeasured here. The response is 130 words and ends in an unfinished command; the alleged mandatory-validator restriction is unsupported. Exact full-context reuse of 3bad491acf801bd88bc53d86; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item dd1ffa1c64686e6dd929bdbc. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "372f6274875f0d34eac9ddc6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Initial windowed purpose/plan has no preceding dependencies/tools. Sliding windows, step and fillvalue behavior plus proposed empty/equal-length/large-step checks are supported by the source; left padding is possible through the documented chain wrapper. The 132-word capped answer violates the 70-word intermediate bound and ends mid-sentence, but retains a useful purpose/boundary plan without invented validation. Identical complete-context reuse of d9e81413452fccdd5b88a818; all eight signature fields match. Exact full-context reuse of c973b38ef3114ad4fb08d03b; all eight fields and the executed system instruction match. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item d9e81413452fccdd5b88a818. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    },
+    {
+      "review_id": "001e310b9b9b065ceef087a7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Actual 22 passes, the named indexing/slicing/slicing-reset cases and prepending/negative-index behavior are useful and supported; the full reference confirms test_slicing_reset exists. It exceeds the under-70 limit at 143 words and ends mid-limitation. The malformed generated command is not new execution. All-cap snapshot02 exact eight-field source-review reuse from screen-review-index-07.json item b58131beeb547a19b95e5a1a. Archived executed system source and tools/no-tools branch separately checked; token-prompt/workload-source binding retained in expanded context. No extra prompt-token decoding claim."
+    }
+  ]
+}

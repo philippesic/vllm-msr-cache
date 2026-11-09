@@ -1,0 +1,168 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "2ba59f7b26732f1fb2c17da0f4bf0c7a10d957dfc6cbea2c3df6e60153263e71",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex blinded explicit full passage, question, reference and answer review; all contexts have no tools/dependencies",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-02/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "868c6e3a391ca5a52b7359b3",
+      "signature": "4c79d2fb26841e8daba83bdc7cc198999616c49a92684073d84494c8f1b41c9d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Satisfying Koch's postulates and the two criteria are directly given in this supplied historical passage. This judges fixture fidelity, not medical guidance or a claim that all human infections meet those postulates. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "1428b3ae9530493f380df42b",
+      "signature": "e247c0b9a0f073ddd62c95a9caefd8cd0dafa8cb560a38b7032551de0b35bd31",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "768,868 is the supplied 2012 French-territory metropolitan population, which the question/reference intends. The source separately gives a smaller city-proper population for 2013; this answer should retain metropolitan scope when discussed. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "941074db3ce7c84c1833a5e2",
+      "signature": "1c1af0e1d7bd49ecb620863028fd15db8baa646d9298fc865865814834128896",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Africa and Asia correctly names the two continents; the longer reference includes geographic corners unnecessarily for this question. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "afbf1aeeea74a606cd46a18d",
+      "signature": "da8374ac30bce5f8cdcf941daa8c2bc260a67e94c7bc61897ec59d2562dbe723",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Original sin is the supported doctrine-specific answer, expressed as a report of the supplied dogma rather than an independent theological assertion. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "adfc5420ea99a441994818d3",
+      "signature": "23e8c899a9882ebbdfc531963be90761b42707e52aa6ca7a85f60a9635d4dc3b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Fumetti is the directly named photographic comic form; capitalization does not change its meaning. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "87b9bbf2eeff77b1db55d6b0",
+      "signature": "fc7aa68ba4a34679af54d56bec3b6753947a339914a9483e252ee80f6635bbf4",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "100 megawatts is the largest rating given by this supplied passage, with no unsupported larger motor added. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "92132e999eaffa1b729726e0",
+      "signature": "d1aa7e65f9354690abdf7fd3c7f28ce82f3f499dcd5fab27968ba9f06775d59b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Bantu-speaking tribes is grammatically a people description, but clearly communicates the supplied Bantu language-family answer without adding a different language. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "75af82cd0c8b76e947ec2079",
+      "signature": "b2b14f06ade7686195b9e8b4fbcdbc624129e5b35c6e6b1a700a898547c29657",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Elite classes is the explicitly supplied ancient Roman priesthood membership; the full sentence is semantically correct. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "c2acc8e62f08a69052aeb1f1",
+      "signature": "ca81198c6cac22aa061fb11a810ed71c055250647b09ea6dc72f21d4ffaeafde",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Smile is the directly named pre-Queen band. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "a0a23ebe4ead5f1c298c271b",
+      "signature": "3b8bbff47b851077723c58e07e95b92109b1b760de55ac0bb1fe0aa057613496",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Artistic/intellectual value and distinctive language use are both supported. The second supplied characteristic is a reasonable response to the awkward two-element question, beyond its shorter reference span. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "a7b5a1edf8f971f3d7d3d81b",
+      "signature": "51db0013fe453dbf59feb98218c4e8eab28e89415443ba5ff7726ac206139566",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Ba-Shu and the Chinese spelling are explicitly supplied. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "486aff51d336e803bafbbaaa",
+      "signature": "d87976ad1be83e2f3541b071edbc5d03f4bb95e02ddb01b62419faa67dc3d584",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Equality of standing and division of powers rather than sovereignty accurately preserve this passage's proposed distinction. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 12,
+      "review_id": "c07c2d92f17120fc1477b2c8",
+      "signature": "4b1cfafbb40fecc4a8791e4957b54eef4fd22bdde197a0c0d91742a4f88e5422",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Fuel is the requested additional use. Repeating construction as the other stated use adds no unsupported claim. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "62cae28b5af8f97e6ed9c4fd",
+      "signature": "169724fb6ae9f4aeca7efdcd96604545b8fb4b8e00536d03306026fb3d75a9e2",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "25\u201344 is the supplied target age range. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "482cae47e46a1a78e787bbf7",
+      "signature": "01ae2deeada8d4074923a83ac073c6b9b37e3d512dcde3f4312b1b759200c0ec",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Digital Monsters is the supported expansion; the surrounding answer remains a valid single JSON string. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    }
+  ]
+}

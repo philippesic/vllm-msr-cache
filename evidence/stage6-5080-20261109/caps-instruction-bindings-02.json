@@ -1,0 +1,15 @@
+{
+  "schema": "stage6-5080-cap-instruction-bindings-v1",
+  "packet_digest": "343e679395db0d79342359573bb2acbc6bc604babf25b92f75998c7ab371c637",
+  "executed_instruction_source_sha256": "34054f5dfeae46bb950f221188d18724af270891999b3cee38f741deada6116c",
+  "executed_system_instruction_digest": "7222f30b61e9acb7dd4a7f7fa74e4d3cd23ab17260c3a7191fe7dc50b4216a71",
+  "inspected_wrapper": "Archived campaign_workload request/history/system_instruction construction; initial source plus actual dependencies and fixed next-tool declaration, observed-token continuation, no context truncation.",
+  "checks": {
+    "all_system_sources_match": true,
+    "all_tool_branch_flags_match_supplied_task_families": true,
+    "all_prompt_source_binding_digests_retained": true,
+    "all_79_full_quality_contexts_have_one_binding_digest_in_this_snapshot": true,
+    "prompt_construction_prefix_matches_mutable_reader": true
+  },
+  "scope": "Exact source/semantic judgment reuse plus checked archived instruction wrapper and branch. Expanded context identity includes native token-prompt/workload-source digest; token prompts were not separately decoded. The entire mutable workload file is not acquisition-identical: its later arrival/advice addendum branches differ, while the request/prompt construction prefix matches and the actual frozen file/hash is authoritative. All capped intermediates retain the under-70-word and fixed next-tool declaration requirements. Acquisition remains active; this is not a final all-phase inventory."
+}

@@ -1,0 +1,691 @@
+{
+  "schema": "stage6-5080-partial-all-cap-review-v1",
+  "acquisition_complete": false,
+  "complete_inventory": false,
+  "source_review_complete_for_snapshot": true,
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/caps-all-checkpoint-02/blind-packet.json",
+  "packet_digest": "343e679395db0d79342359573bb2acbc6bc604babf25b92f75998c7ab371c637",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "executed_system_instruction_digest": "7222f30b61e9acb7dd4a7f7fa74e4d3cd23ab17260c3a7191fe7dc50b4216a71",
+  "contexts": [
+    {
+      "signature": "37c46870663af3e3c66da61cfa5977548ef382a01b3b3790478839ca0fa9be16",
+      "canonical_review_id": "63285ddd2d7ec732a40ebf5c",
+      "review_ids": [
+        "63285ddd2d7ec732a40ebf5c"
+      ]
+    },
+    {
+      "signature": "69044edf82644b59e864e88ead69b922f4589e2c377daca791875ed78a19060a",
+      "canonical_review_id": "3cf8c3f4eb53a2d83abc2f20",
+      "review_ids": [
+        "3cf8c3f4eb53a2d83abc2f20",
+        "8d37c24a5fa1cd886025fd41",
+        "599db553a4c9096b972ba7ab",
+        "5f84abc0fa0cff79bf516505",
+        "cf5db25f814f9f1246eb6de4",
+        "f17ac03c55ac515056515259",
+        "cfcfd5f507cd4b63b1d86c7b",
+        "502f1441de80f8b315d7682d",
+        "471d69901357efdde0a31c72",
+        "8e828cc7a675bf2863b12e4e",
+        "702cb1c8ca479de6d62b55d6",
+        "daf4eee474c8d40a42261685",
+        "cb129f3f844049e248bfea5c",
+        "f7a42c037c066df1057d9f55",
+        "744e67019db3da1afc75dc7d",
+        "6cb27e0194ccd82fd36d0fc4",
+        "d2fd19f9de13a7b55eb134f7",
+        "4605ae3304d410ec50313258",
+        "1b1a25e1eeab389bf36a1f54",
+        "aa6944921c6f7fd6fa83d2c9",
+        "22db05d3aef5677400f765de",
+        "90cbdc82084becb29d92ba2e",
+        "365e3e1645f65055f769c995",
+        "f05a3933687236bab7faedff"
+      ]
+    },
+    {
+      "signature": "ef62ce5e518673b963a9bb3e2f99cc14d3794ab69244aa73e6699af9fd3d0b5a",
+      "canonical_review_id": "350f6cdd707bb65f547c8c98",
+      "review_ids": [
+        "350f6cdd707bb65f547c8c98",
+        "fd6f095abe8489feb6bff9ed",
+        "f27980914f2e468e4024a5e0",
+        "b64d2658fea621842ecc5449"
+      ]
+    },
+    {
+      "signature": "51e5eda69cee88f1bb542271824c912537f386d18dc5c8f5fd36873ecfbd66e4",
+      "canonical_review_id": "377b315b0ea708731cc800c6",
+      "review_ids": [
+        "377b315b0ea708731cc800c6"
+      ]
+    },
+    {
+      "signature": "0ed2bcefc0e3c492e820ca0fc35b392d2647e2c1fc7e1bcc2238c4bff061e042",
+      "canonical_review_id": "c9fd3137dc48b26c721fc91b",
+      "review_ids": [
+        "c9fd3137dc48b26c721fc91b",
+        "c84afe6ca6ed8880dfb8020f"
+      ]
+    },
+    {
+      "signature": "b7bc93a5f9be500233da3aa5e0b6d48b49437262e7d7ff57abd9181197638398",
+      "canonical_review_id": "2f90d36782e36c1546750eb1",
+      "review_ids": [
+        "2f90d36782e36c1546750eb1",
+        "977555dbecff5aa8657e5667"
+      ]
+    },
+    {
+      "signature": "5cb392757a60e5258bdc1bf8124d49f095ffae91a68750b1132dbbc39522ad83",
+      "canonical_review_id": "0e1e1f1b7120b587d779504b",
+      "review_ids": [
+        "0e1e1f1b7120b587d779504b",
+        "9fc4a752e04256b4e8468392",
+        "09bf5b29eb856bb8f5492b17"
+      ]
+    },
+    {
+      "signature": "f0e276ab67de51d08b750b9321ce2a1febcb1e3bf8d233a0de6c2288ad183d49",
+      "canonical_review_id": "08e12f1b69bb0bd78448d842",
+      "review_ids": [
+        "08e12f1b69bb0bd78448d842"
+      ]
+    },
+    {
+      "signature": "9a6188d1b6d11689dfa34deb4dd2a01de8565fc11ce4e9874009e3cfff417db7",
+      "canonical_review_id": "33fe2503c89be31d818e4d3d",
+      "review_ids": [
+        "33fe2503c89be31d818e4d3d",
+        "99a70088aec198a547654684",
+        "8bbd9ced593d96cc57eb4080",
+        "fb5ff2753b6b632db595d5d1"
+      ]
+    },
+    {
+      "signature": "5a9cb4e1b8e8feb92b77cdb62068a81f55de5e08373371e0aa56d58b96b13ff8",
+      "canonical_review_id": "afc1af73cc19b088884580b8",
+      "review_ids": [
+        "afc1af73cc19b088884580b8",
+        "a53473087f2cf4f1dcc19503"
+      ]
+    },
+    {
+      "signature": "b21f842f6a3a1e98128b1adaeb36dd58190b54de806384d0d67858306cb2a045",
+      "canonical_review_id": "3312f72fab4d5a15687da525",
+      "review_ids": [
+        "3312f72fab4d5a15687da525",
+        "94516b93ab9b9bcbdb23a207"
+      ]
+    },
+    {
+      "signature": "9b3ec6d3b8df8c4fe1ecb7b212beb99948e2f41abfc0e0c9dca3e04bbcefdd41",
+      "canonical_review_id": "65483382f966a70d72472457",
+      "review_ids": [
+        "65483382f966a70d72472457",
+        "d628aa17d8a317abf08010c1",
+        "c1eb3bfc3ff05a9743f54396",
+        "f81b9b2b1b41123a1e260aa7"
+      ]
+    },
+    {
+      "signature": "0139fe5a717baab52b86cd8ada5d71fb3b6e2d4eb9dbdd12369a838a3c01feb2",
+      "canonical_review_id": "68d87b5ebfa1d761072929f9",
+      "review_ids": [
+        "68d87b5ebfa1d761072929f9",
+        "724be56a2328d0dd0990f262",
+        "cf55c6594168fc92594a92cf",
+        "e117ba536a87305d85399d14"
+      ]
+    },
+    {
+      "signature": "8d5f77a0298067d266b0f5875e8a3c4c3c335004a6526419b82235f0302359c2",
+      "canonical_review_id": "3bfaa2e86912ea637f7f3090",
+      "review_ids": [
+        "3bfaa2e86912ea637f7f3090"
+      ]
+    },
+    {
+      "signature": "7c9e8a68848e34b7a3bfb9dcd29e7036e7fb0a5331ce69c857921640f05b0b75",
+      "canonical_review_id": "42c9df3e895e1e5d2edf3606",
+      "review_ids": [
+        "42c9df3e895e1e5d2edf3606",
+        "372f6274875f0d34eac9ddc6"
+      ]
+    },
+    {
+      "signature": "5b4ab7af9766c3b137f23e91905bbd4a49c730fceaedede248f06276f0b7a649",
+      "canonical_review_id": "c3f2849c234d1c565e55e6c6",
+      "review_ids": [
+        "c3f2849c234d1c565e55e6c6"
+      ]
+    },
+    {
+      "signature": "0845751ab1087d5e5be9cde597ea8532b6e7c5df8cfd90dcabdc0eab098779b7",
+      "canonical_review_id": "e7fb250ef4139bbf49b297c6",
+      "review_ids": [
+        "e7fb250ef4139bbf49b297c6"
+      ]
+    },
+    {
+      "signature": "8451e60bb2d17e199446e06564056ee43ef87d59890f8125aaa66ccb3d65a55e",
+      "canonical_review_id": "7b8ba34d970e09f4df98ac70",
+      "review_ids": [
+        "7b8ba34d970e09f4df98ac70",
+        "a43a4527e90c036ff60d207f",
+        "591cc204cda7ef511f6a4509"
+      ]
+    },
+    {
+      "signature": "aa07bcaa9a82675dbba09d04d1060360b43c8e4e1aa27af9534b2a411964a7dc",
+      "canonical_review_id": "21cdf2045eeaeb5013f3bf5b",
+      "review_ids": [
+        "21cdf2045eeaeb5013f3bf5b",
+        "b666324dd880f318865b4145",
+        "19d91a582ce1329d03b8a799",
+        "aa1e8e96126c77eb6ee57e9f"
+      ]
+    },
+    {
+      "signature": "66c21337e6eb029972c0e5dedde4ac6b7dbf33afd6e8a8789b236b50cbcec872",
+      "canonical_review_id": "d9a0f7f95798a6319a25a7a6",
+      "review_ids": [
+        "d9a0f7f95798a6319a25a7a6"
+      ]
+    },
+    {
+      "signature": "e8af147ea9b8461be87d240a4d429465ec2f50b4e46a479d9b3813b90e58cb76",
+      "canonical_review_id": "84d15a813b1e510c7f7b38d4",
+      "review_ids": [
+        "84d15a813b1e510c7f7b38d4"
+      ]
+    },
+    {
+      "signature": "198da457f43eacf10dc402150c3d76f347898ed21c217a9a699c677c42237f2f",
+      "canonical_review_id": "0e35d932f77c2362638678a0",
+      "review_ids": [
+        "0e35d932f77c2362638678a0",
+        "eb84f1159881cd29b2e6ba88"
+      ]
+    },
+    {
+      "signature": "2caf4d03ce961ed27aa1188d0f0413aac391f2dcb6aa1397440f2ae74f554f98",
+      "canonical_review_id": "1ea3c5f5cbf7ffa18fa87e22",
+      "review_ids": [
+        "1ea3c5f5cbf7ffa18fa87e22",
+        "27dec1458ea0a00562af3795",
+        "794a039e3599a7b8122af1b7",
+        "7d75fa8ff3f282de36752191"
+      ]
+    },
+    {
+      "signature": "66e35d0a1c2b4f46a86548b4f84eb3ea70f221b1c2aedd3357d484c06279c101",
+      "canonical_review_id": "2f0f953150ca0f7622850a6d",
+      "review_ids": [
+        "2f0f953150ca0f7622850a6d",
+        "9334d3cd7ed14bd1e71eaeea",
+        "e5012a23ad0299b2f42992a7",
+        "4bb54e1b9d4a87bae7ca9e07"
+      ]
+    },
+    {
+      "signature": "4f11cc50d51604639ec2713dfcb33ff957a43ecce3e549b698985d6ab185521a",
+      "canonical_review_id": "cf618018ffc9af50481794f4",
+      "review_ids": [
+        "cf618018ffc9af50481794f4"
+      ]
+    },
+    {
+      "signature": "9234574b06d1530ed4e23b9c54f199b87bd323233f492a8a116a0c556184114b",
+      "canonical_review_id": "72e157b58bc4f881a66cced2",
+      "review_ids": [
+        "72e157b58bc4f881a66cced2",
+        "cab13e14c162e4678f4281ce",
+        "f3af31bc21e701b2cb8bbc88"
+      ]
+    },
+    {
+      "signature": "91e1656e4174a8a3aea901ea66cd65358f28c1445b17453218a2c9dbf3debdef",
+      "canonical_review_id": "101b60b41a1653725945df61",
+      "review_ids": [
+        "101b60b41a1653725945df61",
+        "9b9b666faa613e744cb82a70",
+        "9a5f139311bfa235a87f3742"
+      ]
+    },
+    {
+      "signature": "17cbd886c6a9855881da43711e4d8ff6b8e2e9ac846e390146294cf28e3a124b",
+      "canonical_review_id": "8e76e89e9fcd5190a257657b",
+      "review_ids": [
+        "8e76e89e9fcd5190a257657b"
+      ]
+    },
+    {
+      "signature": "01c7236de74a4cc0d20f0b47c4d2fb26fd4bbbdf6701d7c131b71ea8442d7162",
+      "canonical_review_id": "545584b71dea4b2a8381da97",
+      "review_ids": [
+        "545584b71dea4b2a8381da97"
+      ]
+    },
+    {
+      "signature": "eb2e69404d100ff98c50e6e17a431f21629395d995041c239d607f59d5aaa98a",
+      "canonical_review_id": "828bcbcbd72317492fba523a",
+      "review_ids": [
+        "828bcbcbd72317492fba523a",
+        "4914714bbcd32759e276f518"
+      ]
+    },
+    {
+      "signature": "40f837b4353217b06fedc23b856a8373abd3a52bd367868a856f183eb6869d90",
+      "canonical_review_id": "3d24ab234e587cfa2b9adee5",
+      "review_ids": [
+        "3d24ab234e587cfa2b9adee5",
+        "2def81b8d3be0d1f55532c37",
+        "986f15f5aa86670f6cf24814",
+        "c8745f1d37b24c5cfa496006"
+      ]
+    },
+    {
+      "signature": "4e8128d66517fa6c71a062afde2b567a41df186d6e94f93b889d7c9ed0d5011e",
+      "canonical_review_id": "04387407e2e8353601fcb1c3",
+      "review_ids": [
+        "04387407e2e8353601fcb1c3",
+        "75bc78fd318f1eb6a354305c"
+      ]
+    },
+    {
+      "signature": "06d35de3ca57c0f3e12b6cf68663806b1cd33c9c81c14b61a34c826676c90140",
+      "canonical_review_id": "3b4fdc4372fe54204ecca435",
+      "review_ids": [
+        "3b4fdc4372fe54204ecca435",
+        "fa987c108207c933c697d532",
+        "e3f5e6e1b387d3db88f93617"
+      ]
+    },
+    {
+      "signature": "561fc2ad4a98d54badd5e081f43a290f8157d56d7a6e88583178e05e018af7c2",
+      "canonical_review_id": "a5d6b82cbc3996d18c484976",
+      "review_ids": [
+        "a5d6b82cbc3996d18c484976"
+      ]
+    },
+    {
+      "signature": "3719b7667e705c9a2f7f9442509be622a07cb044b0a1dee2bbbf9cc9e7868ca2",
+      "canonical_review_id": "724e2754b88d984578d9f3e0",
+      "review_ids": [
+        "724e2754b88d984578d9f3e0"
+      ]
+    },
+    {
+      "signature": "865aba8fafba878db7419b40f8381ddb756da36c5ae6971ec07e91d3fd56f50a",
+      "canonical_review_id": "ec190207b7d88c0570c8abce",
+      "review_ids": [
+        "ec190207b7d88c0570c8abce",
+        "756fd10cfedf1dac81c17890",
+        "588744c2518d68b6c5ccde3d",
+        "54f0b2ef63e3565854744793"
+      ]
+    },
+    {
+      "signature": "20950b53a47da011cde35952073669be7d70279b807d922f728543b2d17cba23",
+      "canonical_review_id": "0a15faff3f6da6e972238226",
+      "review_ids": [
+        "0a15faff3f6da6e972238226"
+      ]
+    },
+    {
+      "signature": "740a34dc64e4c31be396addedd4443fc78748c914cfe149671c1451f9db5e475",
+      "canonical_review_id": "dd579d1e0d94c299f5b10b42",
+      "review_ids": [
+        "dd579d1e0d94c299f5b10b42"
+      ]
+    },
+    {
+      "signature": "a85b8d5b871dc6bbf8bdd8a3a0a2309220905d45b3fb0d0f5de3825c27c3b226",
+      "canonical_review_id": "d23f15e704935aae584f1b0a",
+      "review_ids": [
+        "d23f15e704935aae584f1b0a"
+      ]
+    },
+    {
+      "signature": "149e3b818d3361b540fa114bd032701d47ae6002ba68bddfa94bb943bbf89ca0",
+      "canonical_review_id": "e7bedca39a06c0b8f5989c64",
+      "review_ids": [
+        "e7bedca39a06c0b8f5989c64"
+      ]
+    },
+    {
+      "signature": "4cf4182e09e25d9f608d9eb8f989e15de48d81b153dc4f13c4c154a556252d35",
+      "canonical_review_id": "eda1083dc720806b5ac9172f",
+      "review_ids": [
+        "eda1083dc720806b5ac9172f",
+        "ffef63e3fce8da0e8fa2476b"
+      ]
+    },
+    {
+      "signature": "e161815c665e4a189bd6e50737c3062c344a73e4924d5816d2cec8e2603ee40d",
+      "canonical_review_id": "315136ac3c9f2d1eefc24761",
+      "review_ids": [
+        "315136ac3c9f2d1eefc24761",
+        "3ec142a47d0b51eb46829df0",
+        "ed31fcc51e17a9ca1d354c32"
+      ]
+    },
+    {
+      "signature": "fd93434e5994841410e1e4ef041c9eb5b4ea3b1b9672016a1b4d51b042566587",
+      "canonical_review_id": "3bed0477e6fae1f863d8088c",
+      "review_ids": [
+        "3bed0477e6fae1f863d8088c"
+      ]
+    },
+    {
+      "signature": "abb4184fad11753504d95d39bbd442ee127f7394a0e091d2f2b98f88b40c0e51",
+      "canonical_review_id": "d9383017975d0a60a267c46c",
+      "review_ids": [
+        "d9383017975d0a60a267c46c"
+      ]
+    },
+    {
+      "signature": "ae201fcac2f965625676d4821539f8c582113fe04c386c0be56de9d4b5de141c",
+      "canonical_review_id": "57a76e5a8f28b0c984851b7c",
+      "review_ids": [
+        "57a76e5a8f28b0c984851b7c"
+      ]
+    },
+    {
+      "signature": "e30691a03d686e23e2c039cf54c9c9e86c19496a71e2b6b45a49d1b65d4df78e",
+      "canonical_review_id": "6ab69344ee658485f9a70e9c",
+      "review_ids": [
+        "6ab69344ee658485f9a70e9c"
+      ]
+    },
+    {
+      "signature": "4c7ac6af76e1faae5d45588cc1ac8b3fd0f50b12e3ab76f6ee158c993b7e2487",
+      "canonical_review_id": "0c15470f11187ff9fabc5a6d",
+      "review_ids": [
+        "0c15470f11187ff9fabc5a6d"
+      ]
+    },
+    {
+      "signature": "0c3e430e9d50c084dc802eb1cc768dedc73d1f95909b5b1c9bc8e2a5dca9979c",
+      "canonical_review_id": "6a4a2e3129eaa950eaca0f1c",
+      "review_ids": [
+        "6a4a2e3129eaa950eaca0f1c",
+        "7ff799cf7468692abd957664"
+      ]
+    },
+    {
+      "signature": "e339097d1022d0839d643aa0aa81d395b5c0224ebf223def796f7ae324638209",
+      "canonical_review_id": "f0181b54c6be9b71e9ef7a7a",
+      "review_ids": [
+        "f0181b54c6be9b71e9ef7a7a"
+      ]
+    },
+    {
+      "signature": "044590671d5b55552ceb1620b0bf48924f934401c4c799396a52a8074b05a445",
+      "canonical_review_id": "5b3a6a3eff41a864c04c9ebe",
+      "review_ids": [
+        "5b3a6a3eff41a864c04c9ebe"
+      ]
+    },
+    {
+      "signature": "9ae336ff684efc4d67032c1d273898c0eb46d34c5c3fbd9c76e6c30edb217c7c",
+      "canonical_review_id": "0401cc138acfd303069380fd",
+      "review_ids": [
+        "0401cc138acfd303069380fd"
+      ]
+    },
+    {
+      "signature": "dfa5ff24b5e056e9dcef2f924f3c4c9102d5bf79919c184d3b6524e3b917fa7a",
+      "canonical_review_id": "77c03eb3309aaca30877c7d9",
+      "review_ids": [
+        "77c03eb3309aaca30877c7d9"
+      ]
+    },
+    {
+      "signature": "e9426aa6a68f077fed2d75070e4efefd253092fe0a274bd203aaa430bbe9b894",
+      "canonical_review_id": "569fcfb80f63b9256f9aab6a",
+      "review_ids": [
+        "569fcfb80f63b9256f9aab6a",
+        "3dae231b1c5739f80af02aa2"
+      ]
+    },
+    {
+      "signature": "42a80c2c663282da035c60b2e15c651d7dd64db114c5f66ed2cf1c358c9e8792",
+      "canonical_review_id": "efcd4626bb6f64c0e59de317",
+      "review_ids": [
+        "efcd4626bb6f64c0e59de317"
+      ]
+    },
+    {
+      "signature": "ae9fa5075c57e37dd53ee814d0bb4f9ff87e0a3a7ec915683979a42043432959",
+      "canonical_review_id": "6db63d99e1d62255e51224ab",
+      "review_ids": [
+        "6db63d99e1d62255e51224ab"
+      ]
+    },
+    {
+      "signature": "e1d54e9515bf8a51f9f38abb2f261cbd96b89fa991b6c1fbe71ae4bb85a5581a",
+      "canonical_review_id": "a7b37899d53399836f15dbdc",
+      "review_ids": [
+        "a7b37899d53399836f15dbdc"
+      ]
+    },
+    {
+      "signature": "0439b7473240fa4db4c4edfa47cd7027a405316d51da624ec176aa8e56290442",
+      "canonical_review_id": "d9acffae328cd02ca769b85b",
+      "review_ids": [
+        "d9acffae328cd02ca769b85b"
+      ]
+    },
+    {
+      "signature": "63b2b35e72e6a2b0ca92fb3625aff353b5707c39f05ca98abe90a33ecc70da97",
+      "canonical_review_id": "fa5fe7f2dd34f496f8000949",
+      "review_ids": [
+        "fa5fe7f2dd34f496f8000949",
+        "3f815cab1ac5ad294dbde0ce"
+      ]
+    },
+    {
+      "signature": "3ec0b88796050d3d8b941a2dfa8adc5054cff3d14094874d84204f4b5e12815a",
+      "canonical_review_id": "c810b6a3ca07a9250ddf1f8d",
+      "review_ids": [
+        "c810b6a3ca07a9250ddf1f8d"
+      ]
+    },
+    {
+      "signature": "a00425614063ac3936976cca3742b65282069109d4e200712c1ada02aadddf59",
+      "canonical_review_id": "a56df0d504432f6fbb3c72b6",
+      "review_ids": [
+        "a56df0d504432f6fbb3c72b6"
+      ]
+    },
+    {
+      "signature": "b624fed2b92b02171d83f228c53bd16550cddd67211ec4cbbdc97f8351ae43dc",
+      "canonical_review_id": "a2829779dc64302aa2fcb7ef",
+      "review_ids": [
+        "a2829779dc64302aa2fcb7ef",
+        "4fa30f3104a2d50766854289"
+      ]
+    },
+    {
+      "signature": "e84243bddfb36bbd7cd4d8e5a6edcb7f2c49860500557c22bf5a75cd28954ca5",
+      "canonical_review_id": "5a05fe44b0a6608a70b0bfd7",
+      "review_ids": [
+        "5a05fe44b0a6608a70b0bfd7"
+      ]
+    },
+    {
+      "signature": "fd55c4f19b5af946d623b0f02444f8ca2ef53ad775ef27ce231e6d55553dcc75",
+      "canonical_review_id": "a951ebf791254e9ed00f3b2c",
+      "review_ids": [
+        "a951ebf791254e9ed00f3b2c"
+      ]
+    },
+    {
+      "signature": "0f84deb3cadb1b783798259ab7f7a164d03e48534516ed73dad4d0b7b7491ce8",
+      "canonical_review_id": "675d727774a3dc03a42f0aae",
+      "review_ids": [
+        "675d727774a3dc03a42f0aae",
+        "d36383415b9d6a0daf999801"
+      ]
+    },
+    {
+      "signature": "cd01bd94b6698badd38a9bdd7f96da1c53e35ad95b86f74f0d80361d6e9bd516",
+      "canonical_review_id": "7cc010f8e6cdff6564d81bd5",
+      "review_ids": [
+        "7cc010f8e6cdff6564d81bd5"
+      ]
+    },
+    {
+      "signature": "1b34e3421a3ca5cc4a7759e9eee457c128b7066fe155817887b2fe171cfb62ee",
+      "canonical_review_id": "6c03a15b32493fecd8437a7d",
+      "review_ids": [
+        "6c03a15b32493fecd8437a7d"
+      ]
+    },
+    {
+      "signature": "a715b868258bb1770249c13b6eb4ad0fe5070601fec7d684f745b0fe5f476e87",
+      "canonical_review_id": "9e514b73cde410bf4d8034ed",
+      "review_ids": [
+        "9e514b73cde410bf4d8034ed",
+        "ea1d5af79dcf2aa1ecbebfcf"
+      ]
+    },
+    {
+      "signature": "96df96e482eb647c490e304f189e81565a680e2270d5e736b2b18e814ed6d401",
+      "canonical_review_id": "f54f3c762bdd7062ecda026b",
+      "review_ids": [
+        "f54f3c762bdd7062ecda026b"
+      ]
+    },
+    {
+      "signature": "1724baf102957dacc3b309f7aed85a451a0bd59e959b4d38b60f2aa5de39a037",
+      "canonical_review_id": "bdf47c9ffdeb40708422173f",
+      "review_ids": [
+        "bdf47c9ffdeb40708422173f"
+      ]
+    },
+    {
+      "signature": "972f6f5fab8e4ec8d900e7e759b4761519d39c2b7ce9fda69bb6a4889719e3a2",
+      "canonical_review_id": "0949fad853b878c234be1175",
+      "review_ids": [
+        "0949fad853b878c234be1175"
+      ]
+    },
+    {
+      "signature": "182c1ad76aa180c7c93eabd9b54a79ba1bcd2378af18848d6db20740f3a582d0",
+      "canonical_review_id": "73497aedea3764f979199836",
+      "review_ids": [
+        "73497aedea3764f979199836"
+      ]
+    },
+    {
+      "signature": "cd1fcc0e6eebcc5ee04110ef8b3abc5f752e10b2dd6e5f940a4830e357704955",
+      "canonical_review_id": "3941ae43b5f3c1db86010d73",
+      "review_ids": [
+        "3941ae43b5f3c1db86010d73"
+      ]
+    },
+    {
+      "signature": "2462a2c8c3c130c67e1050babba9b6f83d9d119b8445ed5d48fd596e8c2e7798",
+      "canonical_review_id": "5dd3992ee06da8485cd34119",
+      "review_ids": [
+        "5dd3992ee06da8485cd34119"
+      ]
+    },
+    {
+      "signature": "988523e275500f53fe25eeafd0534cdb926cc67b76504f52313e1df24f6cb006",
+      "canonical_review_id": "3dfc0fe2f19f4ad06a34aa4b",
+      "review_ids": [
+        "3dfc0fe2f19f4ad06a34aa4b"
+      ]
+    },
+    {
+      "signature": "ec1830a6d46d829fa7472de048bac3e60820fafa193e14aa7610d8beaa365cae",
+      "canonical_review_id": "dffd587d2287ae7d7680d6e5",
+      "review_ids": [
+        "dffd587d2287ae7d7680d6e5"
+      ]
+    },
+    {
+      "signature": "2abee3914c70be1ea05c550c6f41cd69043411add195aebb5514ee2639ba6f80",
+      "canonical_review_id": "77e964b3afd01dd4b97e5618",
+      "review_ids": [
+        "77e964b3afd01dd4b97e5618"
+      ]
+    },
+    {
+      "signature": "cfadfcb02bb493e07343f6754eb326f4b1ed55c1753c79cdf7df13299de6e927",
+      "canonical_review_id": "32534126cdbb8637e3cf57bb",
+      "review_ids": [
+        "32534126cdbb8637e3cf57bb"
+      ]
+    },
+    {
+      "signature": "772386eb03a4e8fb69a8d15c445b5be984fc69149b1c6b6ae02752b537364e06",
+      "canonical_review_id": "ec38924cd8d067163dd85660",
+      "review_ids": [
+        "ec38924cd8d067163dd85660"
+      ]
+    },
+    {
+      "signature": "9a1b48ff9471df202f49b6ee920bdcedffbc07d4acccae21ae429f6618059f8b",
+      "canonical_review_id": "001e310b9b9b065ceef087a7",
+      "review_ids": [
+        "001e310b9b9b065ceef087a7"
+      ]
+    }
+  ],
+  "ratings": "caps-all-source-judgments-02.json",
+  "instruction_bindings": "caps-instruction-bindings-02.json",
+  "reviewed_outputs": 156,
+  "distinct_extended_contexts": 79,
+  "distinct_quality_contexts": 79,
+  "novel_quality_contexts": 0,
+  "reuse_sources": {
+    "screen-review-index-07.json": 132,
+    "confirm-review-index-01.json": 24
+  },
+  "review_findings": {
+    "source_unsupported": 101,
+    "instruction_failures": 156,
+    "not_useful": 40
+  },
+  "phases": {
+    "screen": 132,
+    "confirm": 24
+  },
+  "roles": {
+    "capped_intermediate": 142,
+    "final": 14
+  },
+  "scope": "All 156 sealed ordinary caps present in this partial inventory: 132 screen and 24 confirmation; 142 intermediates and 14 finals. Includes whole-block-ineligible arms and interrupted ordinary captures. All 79 contexts exactly match explicit prior quality judgments, with separately checked archived executed system instructions/tool branches and retained token-prompt binding. Counts include duplicate fixed-cohort contexts and are not population rates. Inventory is incomplete during acquisition; never call final cap finish until all phases end and the inventory is regenerated with unchanged ledger digests. No timing/quality filter, result or acquisition change."
+}

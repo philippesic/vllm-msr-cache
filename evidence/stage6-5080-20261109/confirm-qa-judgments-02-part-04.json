@@ -1,0 +1,138 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "2ba59f7b26732f1fb2c17da0f4bf0c7a10d957dfc6cbea2c3df6e60153263e71",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex blinded explicit full passage, question, reference and answer review; all contexts have no tools/dependencies",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-02/blind-packet.json",
+  "ratings": [
+    {
+      "index": 45,
+      "review_id": "f9b59a941b1edc4d9eb8f059",
+      "signature": "3828be5e134e30feddf9ab33343a5226e51af67211f39095f2d7ee4a9f15fd7f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Compression is the directly supplied resource-saving mechanism. The brief answer does not invent cost-free decompression. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "1e235acf62fbf17835aece01",
+      "signature": "8c035ffbeb3020a33acdef3a89c8889e92ed9a97b75aa7f8a2ef989a970ee4cc",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Parton model is the supported particle-physics answer, despite the question's potentially misleading integral wording. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 47,
+      "review_id": "afdf06abe6e4dcdaf08f034f",
+      "signature": "e882f79c27ef534729d873b340f81a624e2e432712349b5a41bad90ed354672f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "H is the supplied chemical symbol; irrelevant corrupted atomic-weight text is not copied. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 48,
+      "review_id": "8e00176a4eeb5179a5fd4d5f",
+      "signature": "201c230920fd6a83101a20e0f733fef5697e430a0d3620b5311fd4d1b4597899",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "81 miles is the supplied maximum east-west extent in the historical Swaziland passage. It is an ordinary width answer, not a new precise survey or a north-south dimension. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 49,
+      "review_id": "9d5c19662e8ac9235aff3706",
+      "signature": "2681a40556d7f175c0b0edfa1118b4e3f50df25d49e08a3e0423112e4fd6b27a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "English alphabet is the supplied basis of ASCII. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 50,
+      "review_id": "58466f26171946650766c623",
+      "signature": "d25fd87e25ffcabe36f1f4c5cd7eba0521b4e31c1ded1d7b954a32e620cbb2ff",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Religion, philosophy and science exactly supplies the three study fields. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 51,
+      "review_id": "d792808c6b140aa3f64b14ca",
+      "signature": "4355d778fa0f2d5eb3e78fd447abcbcbc49a070f3a9392fc04eeafd93047d4fb",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "80 is the supplied weekly-hour figure for domestic servants, distinct from builders' summer/winter hours. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 52,
+      "review_id": "189c32e080d643da3a4f680c",
+      "signature": "6a926df0086938bd829aa908bb24b42bf0494675d4dd2de72695bfd5d630c18a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The 1950s matches the reference and the passage's explanation of entering computer manufacturing; no unsupported narrower year is added. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 53,
+      "review_id": "5257965ca9c8adda659a8a78",
+      "signature": "93240be5a6570eb713c036b4254ee1e7f091717ea2d0a4ae822e31d733bfcfdc",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The Church's preservation role and cathedral-school development are supported. The school-to-university description is read as a general development with some examples, not a universal claim that every school became a university. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 54,
+      "review_id": "7d04035984b844df01983536",
+      "signature": "367652676d835148b1cb4439fab5ad3b3323f6cfc4f8b40c9c69df71cd444824",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "India is the named abandoned imperial title while the royal title persisted; Pakistan's separate kingship is not confused with it. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 55,
+      "review_id": "f1e016d9a195cdea784ed5d6",
+      "signature": "ecff11c5dc87e719de90b03810d17c5c3e12669d979067707b89e44a698de2c9",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Detroit is directly supplied as Michigan's most populous city. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 56,
+      "review_id": "667a7f1e7d9faa503bb5dcab",
+      "signature": "b9db769fffe3dc5cdd78bfc7cc83b251a2a58c5087b94889a72ee9fca4788457",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "2001 is the supplied release/introduction year, distinct from later sales growth. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    }
+  ]
+}

@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **22/524 valid
-configurations, eleven/210 complete matched blocks**, with Qwen3-8B B01 candidate repeat
-eleven active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **31/524 valid
+configurations, fifteen/210 complete matched blocks**, with Qwen3-8B B02 ARC repeat
+three active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -229,7 +229,24 @@ It validated all 1,248 judgments and produced audited status. The live campaign'
 confirmation quality destination was not touched. Do not reuse this isolated
 screen status as a confirmation audit.
 
-A first **partial confirmation** review is also retained:
+The expanded **partial all-attempt cap review 02** now covers every sealed
+ordinary cap through all screening and the first twelve confirmation B01 blocks:
+[index](caps-all-review-index-02.json), [ratings](caps-all-source-judgments-02.json),
+[extra instruction bindings](caps-instruction-bindings-02.json), raw
+`$BASE/caps-all-checkpoint-02/`. It includes **156 responses / 79 extended
+contexts**: 132 screen and 24 confirmation, 142 capped intermediates and 14
+capped finals. All contexts exactly match existing explicit judgments; additional
+archived system-instruction source, tools/no-tools branches and token-prompt
+binding digests were separately checked. Source-unsupported 101, instruction
+failures 156, not useful 40, with duplicates counted. All are selected cap counts,
+not population rates. `complete_inventory=false`; do not call final cap finish.
+Regenerate after every acquisition phase is terminal, preserving snapshot 02.
+The entire mutable campaign_workload module differs from the frozen module in
+historical addendum branches; the prompt-construction prefix matches, and the
+actual archived frozen source/hash is authoritative. Never acquire from mutable
+source or claim entire module equality from the shared instruction snippet.
+
+The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)
 and [two explicit contexts](confirm-explicit-judgments-01.json), raw
 `$BASE/quality-confirm-checkpoint-01/`. At seven completed B01 blocks, it contains
@@ -244,8 +261,26 @@ is explicitly acquisition_complete=false. Do not finish this partial audit as
 though all confirmation were captured; regenerate at terminal acquisition and
 rebind canonical IDs to the new first item for exact context reuse.
 
+Latest **partial confirmation review 02**:
+[index](confirm-review-index-02.json), [ratings](confirm-source-judgments-02.json),
+raw `$BASE/quality-confirm-checkpoint-02/`. It captures twelve B01 matched blocks
+and two B02 blocks: 280 objective finals, 168 automatic reference failures,
+24 capped intermediates, **237 selected outputs / 59 full contexts**. All 57 new
+QA full passages/questions/references/answers were explicitly read and recorded
+in four `confirm-qa-judgments-02-part-*.json` files. Most mechanical QA failures
+are valid, source-supported full sentences that differ from shorter references.
+One new QA adds unsupported Persian etymology; its five-waters answer stays
+useful. With earlier fictional provenance/cap issues, selected counts are
+**52 source failures, 52 instruction failures, zero not useful**, including
+duplicate contexts. These are selected repeated-cohort counts, not population
+rates. Creative usefulness is separated from grounding. No original objective,
+timing or workload change. This is explicitly incomplete acquisition; preserve
+all earlier snapshots. For future reviews use the union of canonical screen07
+and latest confirm02, with exact eight-field and executed-system equality, then
+rebind canonical IDs to the new packet before retaining reuse.
+
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical 07 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm02 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

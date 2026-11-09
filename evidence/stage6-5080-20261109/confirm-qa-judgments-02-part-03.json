@@ -1,0 +1,170 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "2ba59f7b26732f1fb2c17da0f4bf0c7a10d957dfc6cbea2c3df6e60153263e71",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex blinded explicit full passage, question, reference and answer review; all contexts have no tools/dependencies",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-02/blind-packet.json",
+  "ratings": [
+    {
+      "index": 30,
+      "review_id": "93b0cad5d9ef916796817314",
+      "signature": "97d32aa3f62a2ec9968ff67099d66f7d9091dfae8686e993f733fce3315d1d4b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Les Appalaches is the supplied French name. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "23bb13d49b466e29918cc73c",
+      "signature": "aca58b0f4eb0e00effdb45e9f843f783d2bd5cf6878f2f8e7e676fa782217484",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The Crusades correctly identifies the described period. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 32,
+      "review_id": "ad3500ab9a4fbc2df4b440eb",
+      "signature": "57c75b3a71dca9f8a8fce7c7b9736f10566dd7ac9dd3b36d9b93d8be55d83cbb",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "509 BC and overthrow of the Roman Kingdom match the passage's traditional beginning date; later republic-ending alternatives are not confused with it. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 33,
+      "review_id": "a1fabe8096679017b9131bf8",
+      "signature": "fd73f80158d30a831d8fbf8df7b6446a341ec73dabcd5cea4697eca06c840f80",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Adds a Persian-language etymology and separate panj/ab word glosses not supplied by the passage."
+      ],
+      "notes": "Five waters is correct and useful. The passage gives the combined form and translation but does not identify Persian derivation; this is unsupported additional provenance, not a claim that the external etymology is false. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 34,
+      "review_id": "40b3c3e1690bf7e48b40d762",
+      "signature": "64b2785670a058620cca0dcba3e243c049199291d83300385133d6742aebaaf5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Nontheistic religion or philosophy is the directly supplied classification. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 35,
+      "review_id": "6582718276dc2dbe8bb60500",
+      "signature": "3c2a7da1da722a574ef427b4db40592d328dd14e86e9af497854dff865a269d7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Manuscripts or printed books, textual variants and original-text reconstruction all occur in the passage. The answer is broader than the reference copy-not-original span but correctly answers document types. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 36,
+      "review_id": "d0a198a7077454941dbe6356",
+      "signature": "8c6e1fa5f681feef63064fad532c0e1dce9352bbdd8a255592c187041abe0ea5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Birds and Aves are both explicitly supplied. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 37,
+      "review_id": "296c07eb02697b2c7d094e05",
+      "signature": "0298d1d638c507fcd7c8333b09b218672801fa3680536599a51457c68f2d9c51",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Design/technology and vocational learning are the supplied examples, with the less-common/nonexistent grammar-school contrast accurately retained. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "63ad64ea2480e2fbe2d0a959",
+      "signature": "4600c7ce529b65a9743adc8c1eecbe325accb20473fd6444de4e6f05a3e81c80",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Boston is the directly supplied capital. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 39,
+      "review_id": "d4d99b1bfa94f08c713e9a57",
+      "signature": "39f483274b3a612599369e6e8d4d4a2b59b83285e98046ab91633a733c1bb052",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "A dialect in southern Fujian is the directly supplied origin. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 40,
+      "review_id": "ea11810efd0148059f153e72",
+      "signature": "6142ec121cd76525c9504129cd1e1413f4935665c7e0f5fbbfd200bb1877c73f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "British Isles is the supplied origin region; no unsupported narrower or alternative origin is substituted. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 41,
+      "review_id": "aeca2fa089636d316c2dd1d9",
+      "signature": "ffc7cd1585711b623a5dd91d33c6dcf7534b20b79bd313ca3f94e40bc417fdd6",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Expansion of the Ottoman Empire is directly presented as a cause of the area's turbulent history. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 42,
+      "review_id": "afc2be713d33e1726ed33559",
+      "signature": "aa1170e69b1b3c4977bd7b5b86193751c7897711049a969498b8ac8aba4efc8d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Afro-Asiatic is the supplied language family, distinct from its Cushitic branch. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 43,
+      "review_id": "d3a7ad4d7fa57253506f4f05",
+      "signature": "5eee9f0a302ef4845161e6011ce43984ad1a6f64ba3e76177d9d92e7c519b225",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "October 1845 is the supplied ruling date; the later French publication is not confused with it. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    },
+    {
+      "index": 44,
+      "review_id": "c810886026a3283f0ae0ea29",
+      "signature": "3b5e6061514f495ae1e9d7e3e695a7358031f90a1e9c6da9e53f24a11471d79b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "1998 is the supplied unitary-authority year. Bare one-field JSON is valid; original objective reference result and timing remain unchanged."
+    }
+  ]
+}
