@@ -1,0 +1,32 @@
+{
+  "schema": "stage6-5080-partial-screen-source-review-v1",
+  "phase": "screen",
+  "acquisition_complete": false,
+  "packet_digest": "3a81fcf06931b84e9de7cf08dc6d8cfbfca434684ecb29836f92a7ad49dd85d3",
+  "packet_file_sha256": "4ff56fbd2d151664ebd33d675576d5a875270dd0fd478cb08ac166b93d3579d1",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "contexts": [
+    {
+      "signature": "358476b11700544f73f5520b2816817581443dbdf24120ad9b2ba09938ab9e6b",
+      "canonical_review_id": "c5ca5ac324ab0c39c6fac20a",
+      "review_ids": [
+        "c5ca5ac324ab0c39c6fac20a",
+        "8d3a4affc8dd881038fe4a5f"
+      ]
+    }
+  ],
+  "reviewed_outputs": 2,
+  "distinct_full_contexts": 1,
+  "ratings": "screen-source-judgments-01.json",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-01/blind-packet.json",
+  "scope": "Only the two uncapped B01 finals in the completed replacement block. Full screen/confirmation and all-capped inventories remain pending. Reuse a judgment only on exact equality of every listed full-context signature field; review all novel contexts explicitly."
+}

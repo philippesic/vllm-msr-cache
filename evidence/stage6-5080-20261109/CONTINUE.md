@@ -119,3 +119,11 @@ raw request/stream progress directly; the existing stage6_healthcheck requires
 an activated protocol. After activation, use its bounded check with canonical
 OUT and a state directory under BASE. Fix setup/harness/disk/filesystem failures
 and continue. A scheduler interruption is not completion; reverify and resume.
+
+Incremental answer review began during screening: `screen-review-index-01.json`
+and `screen-source-judgments-01.json` here cover two identical-context B01 finals
+(one distinct complete context), read without system/speed labels. The retained
+raw packet is `$BASE/quality-screen-checkpoint-01/`. This is a partial review,
+not a finalized screen or confirmation audit. Later inventories must be regenerated
+from completed acquisition; reuse these judgments only on exact full-context
+signatures, and explicitly review every novel required item.

@@ -1,0 +1,23 @@
+{
+  "schema": "stage6-source-audit-v1",
+  "reviewer": "Codex explicit source/context review; system and speed labels hidden; partial completed-screen packet only",
+  "rubric_digest": "56bcc12ade38b5d68c5a11d6e58bd66c2b711a311d897ef69da1f2d3c8abbc53",
+  "ratings": [
+    {
+      "review_id": "c5ca5ac324ab0c39c6fac20a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Concise final accurately condenses the preceding request-for-details/refinement: gather subject, mood, style and elements even when the user is unsure. Coherent with the supplied Midjourney guide and actual prior responses, with no invented image-generation or tool outcome. The accuracy/variety language is practical advice, not measured evidence of image quality. No quality-equivalence conclusion follows."
+    },
+    {
+      "review_id": "8d3a4affc8dd881038fe4a5f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Concise final accurately condenses the preceding request-for-details/refinement: gather subject, mood, style and elements even when the user is unsure. Coherent with the supplied Midjourney guide and actual prior responses, with no invented image-generation or tool outcome. The accuracy/variety language is practical advice, not measured evidence of image quality. No quality-equivalence conclusion follows. Identical complete-context duplicate of c5ca5ac324ab0c39c6fac20a."
+    }
+  ]
+}
