@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **89/524 valid
-configurations, 44/210 complete matched blocks**, with Qwen3-8B B05 candidate repeat
-two active and no issues. B04 completed all twelve frozen pairs. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **97/524 valid
+configurations, 48/210 complete matched blocks**, with Qwen3-8B B05 candidate repeat
+six active and no issues. B04 completed all twelve frozen pairs. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -93,7 +93,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 16.5 GiB ext4, 6.8 GiB WSL root and 8.6 GiB Windows; monitor all three.
+about 15.6 GiB ext4, 6.6 GiB WSL root and 8.5 GiB Windows; monitor all three.
 Keep useful caches/raw evidence. Reconsider storage for later relocation copies
 using actual sizes, not an assumption that a second raw tree will fit.
 
@@ -279,15 +279,16 @@ Release owned resources and disable only this job's schedule at actual closeout,
 record the verified release, and push the final checkpoint. Keep goal active until
 the full requested outcome and push are verified; the present document is a recipe.
 
-The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-02.json)
-verifies 8,563 sealed files / 111 verified, one interrupted and one raw failed
+The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-03.json)
+verifies 11,512 sealed files / 154 verified, one interrupted and one raw failed
 attempt at its snapshot, plus one active unsealed attempt. It checks attempt,
-input and protocol identities. The exact 2,192-file acquisition source still
-equals the locked manifest, all 4,606 execution-bundle files reverify unchanged,
-and the coordinator ownership was checked live. This is explicitly not a final
-completion audit. [Earlier checkpoint](confirmation-integrity-checkpoint-01.json)
-is preserved; recording time and later ledger observation are distinct from the
-CLI's sealed-attempt snapshot, not an atomic whole-campaign completion proof.
+input and protocol identities, retaining the ledger observations before/after
+the frozen verifier. Coordinator ownership was checked live. The
+[previous checkpoint](confirmation-integrity-checkpoint-02.json) separately
+reverified the exact 2,192-file acquisition source against its locked manifest
+and all 4,606 execution-bundle files unchanged. All earlier checkpoints remain.
+These are explicitly not final completion audits: active unsealed work and
+later attempts are outside each snapshot's sealed inventory.
 
 ## Answer-review checkpoint
 
