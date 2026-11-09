@@ -112,15 +112,18 @@ duplicate-inclusive counts, not population rates. The final inventory must still
 include every ordinary attempt after all acquisition phases finish. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-02.json) covers
-237 selected outputs / 59 contexts from the first twelve B01 and two B02
-matched blocks. All 57 novel QA contexts were explicitly reviewed. Most
-mechanical QA reference failures are correct expanded answers in valid JSON;
-one adds unsupported etymology. Creative fictional details remain useful as a
-draft while lacking claimed factual source support. This snapshot has 52
-source-support and instruction failures, with all selected outputs retaining
-useful content. These duplicate-inclusive partial sample counts certify neither
-population accuracy nor equivalence, and the final confirmation audit is pending.
+The [latest partial confirmation review](confirm-review-index-03.json) covers
+635 selected outputs / 74 contexts from all B01/B02 and two B03 matched blocks.
+All 20 new contexts were explicitly reviewed, including sixteen complete
+document sets and four QA answers. Four summaries introduce unsupported claims
+or erase reported uncertainty; three others exceed the 300-word limit. Earlier
+QA and fictional-provenance findings remain. This snapshot has **76 source-support
+failures and 84 instruction failures**, with all selected outputs retaining
+useful content. The [isolated validator](confirm-quality-checkpoint-03.json)
+checks every judgment against the unchanged archived rubric. These
+duplicate-inclusive partial sample counts certify neither population accuracy
+nor equivalence, and the final confirmation audit is pending. Original objective
+results and all timings remain unchanged.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

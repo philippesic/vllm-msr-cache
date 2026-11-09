@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-document/reference/instruction/answer review; source fidelity and usefulness distinct from the 300-word limit",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 16,
+      "review_id": "89491dcc2095918beb4c377d",
+      "signature": "f5872299f2e06a2e8b204b96ae66263b14c9b47aac3fe7787dfa1a795d171ad2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 312,
+      "notes": "312 whitespace-delimited words exceeds the requested 300-word maximum. Entire 27924-character source read in contiguous two parts plus reference/answer. Otherwise useful and supported: indirect dynamical evidence, unobserved status, mass estimate, Eris/Pluto definition history, differing confidence estimates and need for telescope confirmation. Replacing Pluto refers to the ninth-planet role, not reinstating Pluto itself. Scope is archived proposal, not independently updated astronomical status. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    },
+    {
+      "index": 18,
+      "review_id": "b07ca63c934476aae4403124",
+      "signature": "2cebd841739af6d2fcc0498d16f69e069009dac2be3a5142711a5e16bd5d4219",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Some residents, like Melissa Wallace, chose to stay despite the risks."
+      ],
+      "whitespace_words": 325,
+      "notes": "325 whitespace-delimited words exceeds 300-word limit. Also reverses the named example: Melissa Wallace was among the evacuating vacationers and said better safe than sorry. Other residents and two differently named sisters stayed; that does not support assigning staying to Wallace. Main storm forecasts, seven states, evacuation/transit preparations and tentative loss estimates remain useful and broadly faithful; correctly preserves forecast track/intensity uncertainty. Archived weather reporting, not present-day forecast. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "stage6-5080-partial-quality-validator-v1",
+  "phase": "confirm",
+  "acquisition_complete": false,
+  "status": "audited",
+  "reviewed": 635,
+  "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535",
+  "ratings_digest": "7e4992c3a297cc28797837220a2c75579cd86358840b4c854dd603a40233e271",
+  "isolated_workspace": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-audit-checkpoint-03",
+  "scope": "Frozen-schema finish validator on a materialized isolated copy of the partial snapshot. Live campaign analysis/quality and acquisition not changed. Not the final confirmation audit.",
+  "review_findings": {
+    "source_unsupported": 76,
+    "instruction_failures": 84,
+    "not_useful": 0
+  },
+  "validator_binding": {
+    "finish_review_and_rubric_ast_equal": true,
+    "mutable_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+    "frozen_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+    "scope": "Called mutable helper with exact AST equality to archived finish_review and RUBRIC; acquisition uses only frozen source."
+  }
+}

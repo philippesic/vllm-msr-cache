@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-document/reference/instruction/answer review; source fidelity and usefulness distinct from the 300-word limit",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "c0a486bf03ad5e7b9f3c651a",
+      "signature": "50b1eb6af219657666cce6b73a76aaa37542fac042bb313c055fe59c7e6cb1f9",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 271,
+      "notes": "271 words. Preserves the unresolved crash cause and missing recorders; weather/icing, potential mechanical problems and pilot weather-procedure inquiry are attributed as possibilities rather than final findings. Wreckage dimensions, 30 recovered bodies, 162 aboard, route-permit suspension and multinational search agree with the supplied reports. General safety/compliance concern is a reasonable synthesis. No independent present-day accident finding is asserted. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "7e0d205093e56712f3864ba5",
+      "signature": "8bd9ecd5ec398c0587e2d6f48b7c003401c6be9e11d52fc478e998e576e29cf5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 238,
+      "notes": "238 words. Accurately separates criminal acquittal, subsequent civil liability and the unrelated robbery/kidnapping imprisonment; retains conditional parole and October 1 release timing, partial 2013 parole, pension protection and media scrutiny. Model-prisoner/remorse claims attributed to Simpson. Ongoing civil case is read in context as the supplied continuing unpaid judgment/collection dispute, not a new adjudication. Within limit with relevant uncertainty. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    }
+  ]
+}

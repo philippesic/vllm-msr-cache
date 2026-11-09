@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-document/reference/instruction/answer review; source fidelity and usefulness distinct from the 300-word limit",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "15b71c78fd91d57fd435522a",
+      "signature": "83b67cf784ba156357e047d394c25a6b1b1cc4197799c371d13f7612113812d1",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 240,
+      "notes": "Accurately synthesizes the three Detroit film reviews: Algiers killings during the riots, acquittal/official exoneration, visceral brutality and character-development criticism, mixed fact/fiction and unresolved history, Boston tax-incentive filming. The source only defines Tomatometer and gives no numerical rating, so the answer correctly refuses to adopt the 89% appearing only in the reference summary. References to contemporary relevance are the archived critics' views, not independently asserted 2026 reporting. At 240 words it meets the limit. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "47098862c11c084df6803a54",
+      "signature": "02bd679f402501074c4d1b6b783d7287dc7574ebf72d0b7a52ceaae11ed05dbc",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 270,
+      "notes": "Correctly reports approximately 320,000-year-old Olorgesailie smaller tools, distant obsidian/pigment exchange and possible symbolism, environmental/mobility explanations and challenge to a late human revolution. It preserves uncertainty about toolmakers, the erosion-created transition gap and complex multi-species chronology, without treating climate causality as proved. At 270 words it meets the limit. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    }
+  ]
+}

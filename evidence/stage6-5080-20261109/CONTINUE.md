@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **37/524 valid
-configurations, eighteen/210 complete matched blocks**, with Qwen3-8B B03 candidate repeat
-zero active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **48/524 valid
+configurations, 24/210 complete matched blocks**, with Qwen3-8B B03 ARC repeat
+six active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -297,27 +297,34 @@ all earlier snapshots. For future reviews use the union of canonical screen07
 and latest confirm02, with exact eight-field and executed-system equality, then
 rebind canonical IDs to the new packet before retaining reuse.
 
-**Confirmation snapshot 03 is prepared but not fully reviewed**, raw
+**Partial confirmation snapshot 03 is fully reviewed**, raw
 `$BASE/quality-confirm-checkpoint-03/`. It captures full B01/B02 plus two B03
 matched blocks: 856 objective finals, 635 prescribed selected outputs and
-24 capped intermediates. `novel-contexts.json` has **20 new full contexts**:
-16 document summaries and four QA answers. The four QA contexts at indices
-**9, 15, 17, 19** were explicitly read and judged in
-[QA judgments 03](confirm-qa-judgments-03.json); all are supported/useful/valid JSON.
-The **16 summary contexts remain unread/unjudged**, at indices
-**0–8, 10–14, 16, 18**. Each has 16–33k source characters plus its complete
-reference list and generated answer. Read the full supplied source/reference,
-question and answer before judging. Current instruction is at most **300 words**
-plus key facts/uncertainties and no unsupported additions; all have no tools or
-dependencies. Some generated summaries exceed 300 whitespace words: judge source
-support/usefulness separately from this instruction failure. Do not invent
-missing judgments or consolidate a complete canonical index03 until all sixteen
-summaries are actually read. Source-support decisions cannot be reused from the
-old 2080 explicit judgment lists alone: they lack full-context bindings. Preserve
-old evidence read-only. Canonical screen07 + confirm02 remain the completed bases.
+24 capped intermediates, **74 distinct full contexts**. All **20 new contexts**
+were explicitly read: sixteen full source/reference/answer document summaries
+in eight `confirm-summary-judgments-03-part-*.json` files and four QA contexts in
+[QA judgments 03](confirm-qa-judgments-03.json). Summary instructions require
+at most 300 words, key facts/uncertainties and no unsupported additions; no tools
+or dependencies. Four summaries fail source fidelity: treating disputed gun and
+police accounts as settled, overstating a regulator's investigation status,
+reversing Taylor Swift's response and misidentifying an evacuee as staying.
+Three other summaries exceed 300 words; one source-failing summary also exceeds
+the limit. All retain useful content, separately from these failures.
+[Canonical index 03](confirm-review-index-03.json) and
+[ratings 03](confirm-source-judgments-03.json) cover all 635 selected items:
+**76 source failures, 84 instruction failures, zero not useful**, including
+duplicate fixed-cohort contexts. These selected counts are not population rates
+or quality equivalence. [Validator receipt](confirm-quality-checkpoint-03.json)
+checks all judgments in an isolated materialized copy, using the identical
+archived quality module; live acquisition/analysis is untouched. This validates
+the partial snapshot, not final confirmation. Context reuse checks eight fields
+and equality of the entire archived executed instruction source; canonical IDs
+are rebound to the first matching item in this packet. Use canonical screen07
+and confirm03 for subsequent exact-context reuse. Old 2080 explicit judgment
+lists alone lack those bindings and cannot supply unread-context judgments.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm02 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm03 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

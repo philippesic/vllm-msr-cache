@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-document/reference/instruction/answer review; source fidelity and usefulness distinct from the 300-word limit",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 6,
+      "review_id": "db17cc89fb2efe9403d649ce",
+      "signature": "eab592ae80de0a2ffc4a769cbe417733865f8cabc45e6c0369222811a105c595",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 333,
+      "notes": "333 whitespace-delimited words, exceeding the explicit 300-word maximum. Otherwise useful and faithful: Mohawk shooting after crowd harassment and a nonfatal human injury, disputed tranquilizer response, unfenced migration/territorial explanation, Sylvester relocation debate and vulnerable lion population are supported. The ambiguous phrase leading to his death is read in the summary context as Mohawk death, not an invented fatality of the motorcyclist. Preserves uncertainty about the surge in escapes. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "5bfd3feb4c0652cb05ebde61",
+      "signature": "d1d9b382fcd570a54e89d806d302190d4ad9638e7a803ce92bca035f370d1e84",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The Australian Communications and Media Authority (ACMA) is investigating."
+      ],
+      "whitespace_words": 242,
+      "notes": "242 words. Provides useful core prank, apologies, canceled show, policies review, public reaction and unexplained death pending postmortem; does not present suicide as finally established. However ACMA had not announced an investigation: source says considering whether to initiate an inquiry, and engaging with the licensee around facts/issues. Converts that prospective/engagement status into an underway investigation without the requested uncertainty. No current-world legal/medical determination made in this review. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    }
+  ]
+}

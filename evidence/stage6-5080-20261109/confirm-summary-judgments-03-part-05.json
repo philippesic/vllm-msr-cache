@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-document/reference/instruction/answer review; source fidelity and usefulness distinct from the 300-word limit",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "f1095931a1902fe3f52d0f3f",
+      "signature": "d490acd0b835786e3402128d7b33b1e84e8de51e51ed7e9cf0bb0654db987fa1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Taylor Swift acknowledged West's influence on her career during a Grammy acceptance speech."
+      ],
+      "whitespace_words": 170,
+      "notes": "170 words. Core self-reported debt, Piatt crowdfunding, $50/$0 snapshots, tech funding requests, album distribution and uncertain finances supported. But reverses the supplied Swift response: source says she rebuffed people taking credit and emphasized her own work/supporters; she did not acknowledge West influence. Material unsupported claim violates no unsupported additions. Still useful on the central debt/crowdfunding topic. Does not substitute the reference $603 figure absent from the supplied source. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "a7a74228adf1218ddc2d366e",
+      "signature": "0875b4d404743cfbf23bea4bf8bca4f4da7ac814f76efd6ef553997d3a637b80",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 267,
+      "notes": "267 words. Correctly treats 37.5kHz detections as unverified leads, preserves coordinates/search scope, international assets and unknown flight location/deviation. The battery sentence is an approximate 30-day lifetime description of the supplied race against fading pingers, not a claim of recovered hardware or proven date of battery death. Does not import later gallery-caption debris into the earlier acoustic-signal event or claim the signal is confirmed. Full source, all reference entries and answer explicitly read; no tools/dependencies. Original objective result and timing unchanged."
+    }
+  ]
+}

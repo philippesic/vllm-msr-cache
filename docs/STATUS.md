@@ -25,8 +25,10 @@ all five Continuum fixtures and every model's native pressure gate. The imported
 coordinator and 15-minute health schedule. The first chat/QA cells have complete
 paired estimates without a resolved throughput gain; the full matrix remains
 pending. The final screen source audit covers
-1,248 selected outputs / 522 full contexts; confirmation review and later phases
-remain pending. No final throughput or quality-equivalence claim. The November 8
+1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
+635 selected outputs / 74 contexts, including sixteen fully read document sets;
+final confirmation review and later phases remain pending. No final throughput
+or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and
 [latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-01.json)
