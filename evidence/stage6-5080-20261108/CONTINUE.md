@@ -171,7 +171,10 @@ Only when actually complete or failed for good: disable this saved schedule,
 POST JSON to the following webhook with this thread and outcome (plus headline
 results or failure reason), retain the response receipt, and stop this job:
 
-`https://api2.cursor.sh/automations/webhook/0e2cee94-863f-5a53-a774-5d673448a10f`
+Read the endpoint from the original user prompt or the mode-600 ignored file
+`output/stage6-5080-20261108/completion-endpoint.private.json`. Keep the URL
+out of tracked files. It appeared in earlier runbook commits on this public
+branch; removing it from the current file does not remove that history.
 
 Thread link:
 <t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/mcp:launch:4ba24d5cb6f0895afb9f1420c78fb52741f61c910c692734f5dd8fa4aba7b875>
