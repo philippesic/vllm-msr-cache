@@ -1,0 +1,89 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "83b895b6b879cb3663c41b19770c9e01372e43e1c39077f886e724f3c86a5df1",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit full-source review; model and speed labels hidden",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "46ee1b3e919ce3f9892f9257",
+      "signature": "d016edf498ffc9ab79a64b24ec9f4483081a28824d00a68ac02bd3622abfef00",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "156 words provide a coherent multi-country crackdown overview, retaining uncertainty about tolls and political outcomes. Libya funeral attacks, the son reform overture, Saleh foreign-plot claim, Algerian clubs and Bahrain square return/distrust are sourced. It omits the Libyan Internet blackout and specific disputed casualty estimates, so this is useful but not comprehensive.",
+      "whitespace_words": 156,
+      "length_capped": false
+    },
+    {
+      "index": 5,
+      "review_id": "e41544d7cd9605c9a32bb309",
+      "signature": "6f90223b8a0e8be93514a7c8907503f0368ca7b98134f1eb4a1c0a24c052c89e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls the pay increase non-binding, whereas the source says the shareholder vote was non-binding and the already-paid award would not be changed."
+      ],
+      "notes": "199 words correctly cover the $5.2bn loss, near-$20m package, 20% increase, 59% protest, board performance defense and future policy review. The vote/award distinction is materially blurred, and refusal to reverse the payout is not clearly stated. The 86% comparison concerns earlier pay approval rather than the separate 96% pay-policy formula vote; the historical period should be read carefully.",
+      "whitespace_words": 199,
+      "length_capped": false
+    },
+    {
+      "index": 6,
+      "review_id": "65fd9a47f2bc2601520a4bf3",
+      "signature": "07a2239c24e19a2b8071f8111920bdadde89297e18a8dd6fa121b289dc3e5987",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says clinical trials would be halted; the source specifies no new trials or enrollments rather than a halt to all ongoing trials."
+      ],
+      "notes": "229 words usefully cover the funding/ACA impasse, House December 15 proposal, planned Senate response, projected Washington-region losses, continued mail/Amtrak and uncertain resolution. The clinical-trial disruption is overstated, and the very-short-term funding fallback is omitted. Projections remain conditional and the jobs figure is described as affected, not permanent jobs lost.",
+      "whitespace_words": 229,
+      "length_capped": false
+    },
+    {
+      "index": 7,
+      "review_id": "f0b1de97eaf260d967f2df57",
+      "signature": "ca3621538d98966d05cc273da288d3d9f8f8d4de81d438bdb32a87db779ee583",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes a specific unfavorable comparison of the film ending with the book to viewers, while the supplied reviews discuss the overall adaptation and do not make that ending comparison."
+      ],
+      "notes": "298 words satisfy the bound. Susie age/year, cast, in-between world, Weta visuals and mixed criticism versus praise are substantially sourced. The concluding ending-specific claim is unsupported and the summary underplays the concrete criticism about removed sexual themes, but the central adaptation/tone dispute remains useful.",
+      "whitespace_words": 298,
+      "length_capped": false
+    }
+  ],
+  "reviewed_novel_indices": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "remaining_novel_indices": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "scope": "Four further novel summary contexts; full snapshot and final acquisition audits remain pending. Original objective scores and timing remain unchanged."
+}

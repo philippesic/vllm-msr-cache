@@ -1,0 +1,46 @@
+{
+  "schema": "stage6-5080-rebuilt-continuum-full-screen-v1",
+  "passed": true,
+  "model": "qwen3_8b_awq",
+  "cell": "B06",
+  "attempt": "4f30f353e5264dc08b4c1c92590ea860",
+  "path": "attempts/373cad39d0970e43ef3db4c97bc0d1a5553d3a02f4d032047281b837222bafb7/4f30f353e5264dc08b4c1c92590ea860",
+  "seal": "ec142241dd5923eaba6029b943b8d2b082aaf85478487ece85e73fee500bac94",
+  "verified_files": 84,
+  "completed_requests": 32,
+  "failed_requests": 0,
+  "evaluation": {
+    "status": "passed",
+    "errors": [],
+    "unavailable_activity": [],
+    "inactive_activity": [],
+    "policy_activation": {
+      "verified": true,
+      "pins": 24,
+      "source": "published scheduler recorder; excludes warmup"
+    }
+  },
+  "activation": {
+    "verified": true,
+    "pins": 24,
+    "source": "published scheduler recorder; excludes warmup"
+  },
+  "geometry": {
+    "cpu_bytes": 2793406464,
+    "cpu_pinned": true,
+    "cpu_chunk_tokens": 256,
+    "gpu_blocks": 1024,
+    "gpu_block_tokens": 16,
+    "gpu_kv_bytes": 2415919104,
+    "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+  },
+  "cleanup": {
+    "verified": true,
+    "survivors": [],
+    "exit_code": 0
+  },
+  "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "rebuilt_kernel_sha256": "7bea88f72e3c1df10b0798e214fa8a8b8fba2c2ee306874f554fd4fc612c81ec",
+  "rebuilt_kernel_identity_matched": true,
+  "scope": "First full frozen Continuum screen passes functionality, configured geometry and scheduler activation on RTX 5080. Screening is advisory; no confirmed performance or answer-quality equivalence claim."
+}

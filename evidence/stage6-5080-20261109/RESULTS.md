@@ -7,7 +7,9 @@ an FP16 three-layer, 256-token pinned CPU/GPU round trip passed exact equality
 in both directions (393,216 bytes). This proves the previously failing kernel
 executes on the 5080; live Continuum then completed warmup and four requests with actual GPU KV
 stores and verified pinned geometry/cleanup. The one-session diagnostic did not
-exercise scheduler pins; full-screen policy activation remains required.
+exercise scheduler pins. The separate full B06 Continuum screen has now passed
+all 32 requests with 24 scheduler pin events, matching the rebuilt binary identity
+and verifying pinned geometry and cleanup. Overall screening/qualification remains open.
 All four native preflights passed: restore/fresh-reference correctness for
 every model and the anchor registry probe. All 223 preflight files verify.
 Screening is running; confirmation and later phases remain pending.
@@ -47,3 +49,7 @@ integrity result; campaign acquisition and answer-quality audits remain open.
 The [whole-block recovery audit](recovery-complete.json) now passes: both B01
 replacement arms completed and verified in one matched block. Screening advanced
 to B02. This recovery result does not establish performance qualification.
+
+[Full Continuum screen evidence](continuum-full-screen.json) confirms the declared
+architecture rebuild works in the unchanged benchmark fixture. It is an advisory
+screen result, not a repeated throughput or answer-quality conclusion.
