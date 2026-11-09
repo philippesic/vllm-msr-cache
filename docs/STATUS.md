@@ -32,7 +32,8 @@ relabeling or favorable-activity retries. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
 2,243 selected outputs / 162 contexts, including 39 new PEP contexts
 (four capped intermediates) with all supplied source texts explicitly read;
-final confirmation review and later phases remain pending. No final throughput
+the separate partial all-attempt cap review covers 163 responses / 86 contexts.
+Final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and

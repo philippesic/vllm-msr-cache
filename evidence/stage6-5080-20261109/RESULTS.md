@@ -133,15 +133,18 @@ validator passed on an isolated materialized screen snapshot; the active
 confirmation analysis was not changed. All timings and original objective results
 remain, and quality equivalence is not established.
 
-The [partial all-attempt cap review](caps-all-review-index-02.json) covers
-156 capped responses present through screening and twelve B01 confirmation
-blocks: 132 screen and 24 confirmation responses, across 79 full extended
-contexts. It includes interrupted captures and individual arms outside matched
-blocks, checks extra archived instruction bindings, and retains every timing.
-All 156 miss an instruction, 101 lack source support and 40 are not useful;
+The [partial all-attempt cap review](caps-all-review-index-03.json) covers
+163 capped responses present through early B08: 132 screen and 31 confirmation
+responses, across 86 extended contexts (148 intermediates, 15 finals). It includes
+interrupted captures and individual arms outside matched blocks. Archived
+instructions, sealed corpus/node identities and raw prompt/workload digests
+were separately checked. Seven responses are new since the prior inventory:
+five reuse explicit confirmation08 judgments and two were explicitly read.
+All 163 miss an instruction, 108 lack source support and 46 are not useful;
 correct useful fragments are separately retained. These are cap-selected,
 duplicate-inclusive counts, not population rates. The final inventory must still
-include every ordinary attempt after all acquisition phases finish. Confirmation
+include every ordinary attempt after all acquisition phases finish; this snapshot
+still has a pending attempt and is not finalized. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
 The [latest partial confirmation review](confirm-review-index-08.json) covers

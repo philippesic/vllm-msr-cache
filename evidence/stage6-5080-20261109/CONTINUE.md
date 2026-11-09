@@ -396,7 +396,7 @@ It validated all 1,248 judgments and produced audited status. The live campaign'
 confirmation quality destination was not touched. Do not reuse this isolated
 screen status as a confirmation audit.
 
-The expanded **partial all-attempt cap review 02** now covers every sealed
+The earlier expanded **partial all-attempt cap review 02** covers every sealed
 ordinary cap through all screening and the first twelve confirmation B01 blocks:
 [index](caps-all-review-index-02.json), [ratings](caps-all-source-judgments-02.json),
 [extra instruction bindings](caps-instruction-bindings-02.json), raw
@@ -412,6 +412,31 @@ The entire mutable campaign_workload module differs from the frozen module in
 historical addendum branches; the prompt-construction prefix matches, and the
 actual archived frozen source/hash is authoritative. Never acquire from mutable
 source or claim entire module equality from the shared instruction snippet.
+
+The newer **partial all-attempt cap review 03** covers **163 responses / 86
+extended contexts** through early B08: 132 screen and 31 confirmation responses,
+148 capped intermediates and 15 capped finals. [Index](caps-all-review-index-03.json),
+[ratings](caps-all-source-judgments-03.json),
+[instruction/corpus/prompt bindings](caps-instruction-bindings-03.json), raw
+`$BASE/caps-all-checkpoint-03/`. All 156 earlier responses exactly reuse their
+extended-context judgments. Five new responses match explicit confirmation08
+judgments; [two new contexts](caps-all-explicit-judgments-03-part-01.json) were
+explicitly read. One PEP 310 intermediate invents validation PASS before the
+actual validation tool, but retains useful correct source excerpts. One initial
+PEP 327 response instead gives CSV content and is not useful. Both exceed the
+70-word intermediate limit and end unfinished.
+
+Selected cap counts are **108 source failures, 163 instruction failures and
+46 not useful**, including duplicates. Archived instruction sources in all 51
+cap-bearing attempts match the previously inspected source/snippet. Each response's source,
+reference, task/current instruction, tool-branch flag, node and role match its
+sealed corpus; objective fields and the raw prompt/workload-source digest were
+independently recomputed. Each of the 86 quality contexts has one prompt-binding
+digest in this snapshot. Raw token prompts were bound, not individually decoded.
+The inventory has `complete_inventory=false` and one pending attempt; do not
+call final cap finish or treat this as all-phase completion. Preserve earlier
+snapshots and regenerate after every phase is terminal. Use cap03 for exact
+expanded-context reuse, with later novel contexts still explicitly reviewed.
 
 The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)

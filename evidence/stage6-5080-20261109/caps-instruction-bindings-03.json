@@ -1,0 +1,18 @@
+{
+  "schema": "stage6-5080-cap-instruction-bindings-v1",
+  "packet_digest": "b2661a70e6c14e919da3d8f6fceee1db9e1f28386a9dbde134ae3010479784c8",
+  "executed_instruction_source_sha256": "34054f5dfeae46bb950f221188d18724af270891999b3cee38f741deada6116c",
+  "executed_system_instruction_digest": "7222f30b61e9acb7dd4a7f7fa74e4d3cd23ab17260c3a7191fe7dc50b4216a71",
+  "archived_instruction_sources_verified": 51,
+  "instruction_wrapper_reuse": "Same archived full source and previously inspected SYSTEM/system_instruction/request wrapper as caps02; task tool-branch, complete corpus/node identity and raw prompt/workload digest rechecked here.",
+  "checks": {
+    "all_system_sources_match": true,
+    "all_tool_branch_flags_match_sealed_corpus": true,
+    "all_source_reference_instruction_role_node_bindings_match_sealed_corpus": true,
+    "all_objective_bindings_match": true,
+    "all_prompt_source_binding_digests_recomputed_from_raw_requests": true,
+    "quality_contexts": 86,
+    "maximum_prompt_binding_digests_per_quality_context": 1
+  },
+  "scope": "Complete identity/context review for this partial sealed inventory, including individual arms outside valid matched blocks. Raw token IDs were hash-bound to the archived workload source, not individually decoded. Under-70-word intermediates and actual-before-validation instructions retain their original scope. Acquisition remains active; no final inventory/finish claim."
+}

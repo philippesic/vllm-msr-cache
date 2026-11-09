@@ -1,0 +1,60 @@
+{
+  "schema": "stage6-5080-explicit-cap-context-judgments-v1",
+  "packet_digest": "b2661a70e6c14e919da3d8f6fceee1db9e1f28386a9dbde134ae3010479784c8",
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "extended_signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "27bd77c715da65ec222ff0a1",
+      "quality_signature": "2ecb22e4046587ca7fe12ffb072a43fcef6ce7800a1959db3d1535ced8058f24",
+      "extended_signature": "ff88771d0e61a032680f0dff683fd430885f60d9883793a14f8e7451f34ec55a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims test_status=PASS before an actual validation result exists at this node.",
+        "Self-labelled ACTUAL DEPENDENCY t1 text does not match the actual retained search output."
+      ],
+      "notes": "PEP 310 metadata and quoted with-statement abstract are mostly supported by the supplied source, so useful subject information remains. Only the initial rg search had executed; inventing validation PASS and relabeling expanded source excerpts as tool output violate the executed instruction. The capped 109-word intermediate also exceeds 70 words, ends unfinished and omits the next fixed validation-tool declaration. Supplied source exactly matches the full source text explicitly read in confirmation08; all new reference/instructions/current role/node, actual preceding dependencies/tools and answer explicitly read. Expanded executed instruction/tool-branch/prompt bindings checked separately; no automatic judgment or timing change."
+    },
+    {
+      "index": 1,
+      "review_id": "54d093c4e60c79fb244d9d5b",
+      "quality_signature": "f3ff49a4567dc72f54bc0c9f3aff7409a9f52a822151da7889761753b107da35",
+      "extended_signature": "62a3ca45b00419ab6d7609514ed70b85b31401aace06806255017a16678d211e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The requested PEP 327 Decimal investigation is replaced by PEP 305 CSV title/purpose and source filename.",
+        "Tool-like CSV content is generated before any actual tool result exists."
+      ],
+      "notes": "The capped initial response answers the wrong document family, repeats application wrapper text, searches the wrong PEP path and provides no useful Decimal purpose/verification plan. No prior tools/dependencies exist. Its 164 whitespace words exceed 70, the fence/ending are unfinished and the declared search does not match the requested document. Correct generic Final/Standards Track fragments do not salvage the wrong-topic report. Supplied source exactly matches the full source text explicitly read in confirmation08; all new reference/instructions/current role/node, actual preceding dependencies/tools and answer explicitly read. Expanded executed instruction/tool-branch/prompt bindings checked separately; no automatic judgment or timing change."
+    }
+  ]
+}
