@@ -2,11 +2,13 @@
 
 Authorized 2026-11-08 at about 20:47 Pacific, on DESKTOP-E78LJSI.
 All three pinned models were reacquired and content-verified; pinned runtime
-reconstruction and campaign import succeeded. Native hardware preflight is
-active. Its first Qwen3-8B restore/fresh-reference case passed with actual pinned
-CPU geometry and verified cleanup; the registry and remaining model checks
-are still required. There are no 5080 performance measurements yet. No speed
-or answer-quality equivalence claim follows.
+reconstruction and campaign import succeeded. [Native hardware preflight](preflight.json)
+passed all four cases: actual pinned CPU geometry and restore/fresh-reference
+correctness for all three models, plus the registry probe. All four attempt
+seals / 223 files verify, cleanup passed, and GPUs were released. Screens and
+external capability/purpose qualification remain required. There are no 5080
+performance measurements yet. No speed or answer-quality equivalence claim
+follows.
 
 [Import proof](import.json) confirms a new linked hardware acquisition identity,
 all host/cell serving interpreters explicitly bound, and the unchanged 524
@@ -55,8 +57,12 @@ before serving;
 stop with a resource receipt if this layout cannot support the frozen job.
 The previous primary campaign retained about 14.2 GB, so the complete run's
 outputs need Windows storage. A dedicated campaign directory with a restricted
-Windows ACL is prepared; placing the completed preflight there is pending.
-Private host files will remain in WSL. No unrelated data has been removed.
+Windows ACL is prepared; verified placement of the completed preflight there
+is active. Private host files remain in WSL. Later raw evidence and imported
+tool inputs will be on NTFS through DrvFS, equally for all systems. These are
+host-conditional measurements; differences from 2080 Ti cannot isolate GPU
+hardware from filesystem/runtime/environment effects. No unrelated data has
+been removed.
 
 The 15-minute health schedule is enabled, first due 2026-11-08 21:05 Pacific.
 The whole authorized primary sequence remains required. No addendum is

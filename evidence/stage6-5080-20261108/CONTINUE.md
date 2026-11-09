@@ -46,25 +46,38 @@ Offline binding/import completed in session 71664. All host/cell interpreters
 explicitly bind `$PY`; all four transfer/execution seals verify. See
 `import.json` here and the raw `transfer-bind-replica-01.log` / `import-01.log`.
 
-**Active phase:** native preflight is running in session 39853 from
-`$BUNDLE/source`, log `$BASE/preflight-01.log`. The coordinator birth identity
-and ownership receipt are `$BASE/preflight-owner.private.json`; latest bounded
-worker/GPU proof is `$BASE/unattended-health/latest-preflight.private.json`.
-The first Qwen3-8B native restore/fresh-reference case passed, with actual pinned
-CPU geometry and verified cleanup. Its registry case is running. The remaining
-models still require preflight. Do not launch duplicate phases or call the
-confirmation-specific health checker before protocol activation.
+Native preflight completed in session 39853: all four cases passed, including
+restore/fresh-reference correctness for every model and the Qwen3-8B registry
+probe. All four attempt seals and 223 files verify, with clean GPU release.
+See `preflight.json` here and `$BASE/preflight-summary.json` for full proofs.
+Do not repeat preflight or call the confirmation-specific health checker
+before protocol activation.
+
+**Active operation:** safe campaign storage placement is running in session
+53061, log `$BASE/storage-placement.log`, through the maintained
+`benchmarks.research_checks.stage6_5080_storage` helper. It owns both GPU
+reservations while copying/verifying. Do not start serving or duplicate it.
+On success `$BASE/storage-placement.private.json` contains full file hashes
+and preserved campaign identity; the original project campaign path becomes
+an alias to the canonical Windows destination below. Set future `OUT` to:
+
+`/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01`
+
+The helper verifies the old/copy/alias content, attempt seals and real Windows
+writer-lock contention before removing its recoverable duplicate. Private host
+files remain mode 600 in `$BASE/private-bindings/primary-01`, linked into the
+Windows campaign. Inspect the helper result before proceeding to full screen.
 
 **Storage placement before screen/confirmation:** the 2080 Ti primary campaign
 retained 14,182,204,461 bytes, exceeding this WSL volume's remaining ~7.1 GiB.
-The bounded four-case preflight fits; let it finish and inspect every receipt.
-If it passes, place its completed generated campaign on the dedicated Windows
+The bounded four-case preflight passed. Its completed generated campaign is
+being placed on the dedicated Windows
 campaign volume before screen, keeping the original project path as an alias
 so frozen absolute input strings remain valid. Destination parent:
 `/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns`.
 It has ~28.7 GiB free and a verified explicit ACL allowing only Philip, SYSTEM
 and Administrators. The exact private ACL/storage receipt is
-`$BASE/storage-plan.private.json` (placement is still pending).
+`$BASE/storage-plan.private.json` (placement is active).
 
 Never move an active campaign. First verify coordinator/workers exited, GPU
 clients absent and both reservations free. Copy to a new destination, preserve
@@ -95,7 +108,8 @@ downloads leave about 29 GiB on Windows. Do not delete unrelated data or fill
 a volume.
 
 The commands below retain the entire authorized sequence. Offline rebinding
-and import completed, and preflight is active; do not repeat those steps.
+and import/preflight completed, and storage placement is active; do not repeat
+those steps.
 Use the pinned interpreter throughout:
 
 ```bash

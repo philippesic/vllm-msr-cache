@@ -1,0 +1,142 @@
+{
+  "schema": "stage6-5080-native-preflight-v1",
+  "passed": true,
+  "configurations": 4,
+  "native_models_passed": [
+    "ministral3_3b",
+    "qwen3_4b_2507",
+    "qwen3_8b_awq"
+  ],
+  "checks": [
+    {
+      "model": "qwen3_8b_awq",
+      "system": "wait",
+      "attempt": "0aab102da15f4ab08dd860620576141f",
+      "seal": "421ba026f9286045ea2adaf0bd7db8b7e5a35a2423756823ed5c42b9f2362efc",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "geometry": {
+        "cpu_bytes": 528482304,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 128,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 301989888,
+        "device_aliases": 0,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "system": "registry",
+      "attempt": "d604cc1cffa448778e6bb353514431b2",
+      "seal": "ebe2a00d173f6df6d29537f521b6192d9c79c66a390c5d0f72f9f515260852e7",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "device_aliases": 0,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "model": "ministral3_3b",
+      "system": "wait",
+      "attempt": "2d9338185a4942f89d4f91952f65eb92",
+      "seal": "385f0dfc2d66c37f9e5f61cf73fa3985e0a5e896aea3f2a011341eeed9e76589",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "geometry": {
+        "cpu_bytes": 517996544,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 128,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 218103808,
+        "device_aliases": 0,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "system": "wait",
+      "attempt": "af8c324334de4e23a3e49eb11b9f0e90",
+      "seal": "fb42b0be3e89b236b16ef8178b713504223e96243de806db635373bb8b305b47",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "geometry": {
+        "cpu_bytes": 528482304,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 128,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 301989888,
+        "device_aliases": 0,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 4
+    },
+    "verified_files": 223,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "resources": {
+    "gpu": {
+      "memory_used": 1906311168,
+      "memory_total": 17094934528,
+      "utilization": 0,
+      "temperature_c": 37,
+      "processes": []
+    },
+    "both_reservations_acquired_and_released": true,
+    "processes": []
+  },
+  "scope": "Native hardware correctness and registry/cleanup preflight; screen/external capability, pressure purpose and performance qualification remain required",
+  "native_proof_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/preflight-summary.json"
+}
