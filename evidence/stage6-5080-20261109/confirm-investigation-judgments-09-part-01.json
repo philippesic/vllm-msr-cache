@@ -1,0 +1,69 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1927ccf378cee600fa6a2a33a6d1c062839307374e25e9d21729bfade3288430",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-09/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "09f202e3a987cd67b1d48517",
+      "signature": "21ef68af2fbbb7a785422b11175ba29ebd5de858c9c0eccebe01c62962a572e5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "It does not support modern packaging formats like wheel or PyPI's metadata extensions."
+      ],
+      "whitespace_words": 36,
+      "notes": "Metadata 1.0, Superseded, Standards Track and actual validation PASS are correct. The supplied historical source does not discuss wheel or PyPI metadata extensions; its explicit no-extension rule does not establish these modern product-specific assertions. Useful historical metadata fact retained; source-only/concrete-supported-limitation requirement fails. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "8dc7df2fe1316e165c4f0de2",
+      "signature": "7fbd826f9fc2e9d70278b3fd7e566061cd57b8180171c9649e1795996524217c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Rejected Standards Track and actual Test_status=PASS are correct. Proposed do/while syntax and rejection/non-adoption agree with the supplied complete PEP and Notice. Read lack of a native construct within that historical proposal scope; do not import modern runtime verification. Earlier invented dependency summaries are not repeated as tool proof in this final. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "e8999a9b15b73d27c846cff8",
+      "signature": "35e3aa0177ce59ad9762803e40df02ab2954d64fc41684e183c46bada1bf9c92",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Removing safety checks makes unpickling insecure for untrusted data."
+      ],
+      "whitespace_words": 35,
+      "notes": "Correct metadata, actual PASS and new protocol goal remain useful. The supplied security section explicitly says previous checks gave false security and the SAME warning applies to previous versions despite checks; attributing insecurity to their removal misstates that distinction. Unsupported causal limitation violates source-only requirement. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "1dd0b28a1c48b8e9db12fb7e",
+      "signature": "dc4ed46f379e858f3a34bbb881bc914a7d386111fc4eb94a5d65f876a1575c66",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "ACTUAL DEPENDENCY t2 JSON summary/limitations is an actual tool result.",
+        "test_status is PASS because the PEP is valid and finalized; Final establishes runtime inclusion."
+      ],
+      "whitespace_words": 169,
+      "notes": "Actual second tool output only validates five metadata fields; generated summary/limitations JSON is fabricated as its output. Useful API names/manual initialization/single-interpreter constraints are supported, but Final/PASS conflation fails the requested validation-vs-runtime distinction. 169 words exceeds under-70 intermediate limit, unfinished ending and no required next summarize command. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

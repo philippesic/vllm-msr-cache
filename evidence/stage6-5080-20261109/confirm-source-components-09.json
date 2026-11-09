@@ -1,0 +1,178 @@
+{
+  "schema": "stage6-5080-explicit-source-component-bindings-v1",
+  "packet_digest": "1927ccf378cee600fa6a2a33a6d1c062839307374e25e9d21729bfade3288430",
+  "prior_read_binding": "confirm-source-components-08.json",
+  "all_new_reference_instruction_dependency_tool_answer_contexts_explicitly_read": true,
+  "distinct_supplied_sources_exactly_reused": 13,
+  "contexts": [
+    {
+      "index": 0,
+      "review_id": "09f202e3a987cd67b1d48517",
+      "source_context_digest": "a0157ece8e1136311c7a5d340e1891b5b114668516cf1fa30478e7df8c1f13a9",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 17
+    },
+    {
+      "index": 1,
+      "review_id": "8dc7df2fe1316e165c4f0de2",
+      "source_context_digest": "5fe0d3f7d35becaf35c39c53d409f328923960072fc230908e28eabc35deb843",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 20
+    },
+    {
+      "index": 2,
+      "review_id": "e8999a9b15b73d27c846cff8",
+      "source_context_digest": "663c4f1f75efbf7c24b0ce5b5b0a65dec21c254ad46c2927de098fa804a4988f",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 0
+    },
+    {
+      "index": 3,
+      "review_id": "1dd0b28a1c48b8e9db12fb7e",
+      "source_context_digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 16
+    },
+    {
+      "index": 4,
+      "review_id": "392996735410e4aa978c8bda",
+      "source_context_digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 16
+    },
+    {
+      "index": 5,
+      "review_id": "2d0de75b5f7f9e643dadb169",
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 2
+    },
+    {
+      "index": 6,
+      "review_id": "bc92a3cb9e19a30348855298",
+      "source_context_digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 16
+    },
+    {
+      "index": 7,
+      "review_id": "4647412315d3f59d947c53e2",
+      "source_context_digest": "8ef1727f3a1d71ce73c2ddfdef3c7bbe715e6ffb884331d285401dddb5545df9",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 25
+    },
+    {
+      "index": 8,
+      "review_id": "f02f45259d9934770fa820b7",
+      "source_context_digest": "85e9053c869b74db7e89f828e4efd8507c18f9ae87db9ddb3db6607c3c867e88",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 12
+    },
+    {
+      "index": 9,
+      "review_id": "97ec2e272df8f5047c7c1021",
+      "source_context_digest": "c6c20088a0884d3709ebf8ca19a4340319872057c150da0a11a92b1906576690",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 16
+    },
+    {
+      "index": 10,
+      "review_id": "9a886f90477807f78786325b",
+      "source_context_digest": "f1d6849ac5283a9feab7a9d90de8eff76db7068999bcc74da3286c3264b74c0d",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 9
+    },
+    {
+      "index": 11,
+      "review_id": "84c3cbc05c80c0bd33012e84",
+      "source_context_digest": "689f014ec131536bae6532c5c8d0b52c0eafa63ddb62df1d112dc0362ab7d26b",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 7
+    },
+    {
+      "index": 12,
+      "review_id": "47189216b76dadbfdda3fb10",
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 6
+    },
+    {
+      "index": 13,
+      "review_id": "5a165a3ee38043bcc3f9ec1a",
+      "source_context_digest": "663c4f1f75efbf7c24b0ce5b5b0a65dec21c254ad46c2927de098fa804a4988f",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 0
+    },
+    {
+      "index": 14,
+      "review_id": "25cf7f0df8b76eede33813a7",
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 6
+    },
+    {
+      "index": 15,
+      "review_id": "a067ef7ffd10ca6498e53b03",
+      "source_context_digest": "363f87d841c285b05d57cd521fae73cb60cee2df33b432e8c810f403aaa943e5",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 10
+    },
+    {
+      "index": 16,
+      "review_id": "2f92447db53976bf4385f58a",
+      "source_context_digest": "5fe0d3f7d35becaf35c39c53d409f328923960072fc230908e28eabc35deb843",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 20
+    },
+    {
+      "index": 17,
+      "review_id": "06c8535a269ca8ac5bb01738",
+      "source_context_digest": "db85350919ea9bcd3e446c1c1400dccd5e0731afff7756ba33c34c7e7b2d4e85",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 3
+    },
+    {
+      "index": 18,
+      "review_id": "bb71a3d9d2cf854e1481bdc5",
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 6
+    },
+    {
+      "index": 19,
+      "review_id": "a304096acc927ace75cd35e4",
+      "source_context_digest": "64ba96c57f6e3f7bc8d8d82d5bd0b33eed22a26a49d7e92c22c92430972e2f28",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 5
+    },
+    {
+      "index": 20,
+      "review_id": "d8bb907b7856de43388a413e",
+      "source_context_digest": "26b270aa2830837de0a7c5eb08ebce56a9f4220074ef49a5a674abc74d97ac66",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 2
+    },
+    {
+      "index": 21,
+      "review_id": "85e9f8766b01d3e4789c9df5",
+      "source_context_digest": "5fe0d3f7d35becaf35c39c53d409f328923960072fc230908e28eabc35deb843",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 20
+    },
+    {
+      "index": 22,
+      "review_id": "9a72175d1003165030d7edb3",
+      "source_context_digest": "85e9053c869b74db7e89f828e4efd8507c18f9ae87db9ddb3db6607c3c867e88",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 12
+    },
+    {
+      "index": 23,
+      "review_id": "d329ef276a6b4f5337fad28e",
+      "source_context_digest": "f71c78f7e6bc888e9292273906f21ba252411f7ef266d4e250782a361c0de642",
+      "prior_explicitly_read_snapshot": "quality-confirm-checkpoint-08",
+      "prior_explicitly_read_source_index": 6
+    }
+  ],
+  "scope": "Complete supplied source strings exactly equal already explicitly read prior confirm08 source strings. Opening excerpts stay opening excerpts. No new rating is assigned automatically; all 24 new remaining contexts separately read and judged."
+}

@@ -602,7 +602,7 @@ objective results, frozen exclusions and live quality directory remain unchanged
 That checkpoint used canonical screen07 plus confirm07 for exact-context reuse. This
 is still partial acquisition, not final audit or population quality evidence.
 
-The latest **partial confirmation review 08** adds all B07 repetitions and the
+The earlier **partial confirmation review 08** adds all B07 repetitions and the
 first B08 four-system block:
 [index](confirm-review-index-08.json), [ratings](confirm-source-judgments-08.json),
 [isolated frozen validator](confirm-quality-checkpoint-08.json), raw
@@ -629,9 +629,39 @@ Selected duplicate-inclusive counts are **133 source failures, 658 instruction
 failures and six not useful**. All 164 included archived instruction sources
 verify; frozen finish accepts all 2,243 judgments in an isolated workspace.
 Live quality state, measurement timings, objective scores and the B06 exclusion
-remain unchanged. Use canonical screen07 plus confirm08 for future exact full
-context/instruction reuse. This is still a partial audit, not final campaign
+remain unchanged. This checkpoint used canonical screen07 plus confirm08 for exact full
+context/instruction reuse and is extended by confirm09 below. This is still a partial audit, not final campaign
 completion or a population quality/equivalence result.
+
+The latest **partial confirmation review 09** includes four completed B08
+four-system blocks: [index](confirm-review-index-09.json),
+[ratings](confirm-source-judgments-09.json),
+[isolated validator](confirm-quality-checkpoint-09.json), raw
+`$BASE/quality-confirm-checkpoint-09/`. It has **3,192 objective finals, 2,060
+automatic final failures, 34 capped intermediates and 2,337 selected outputs /
+181 complete contexts**. All 24 novel reference/instruction/dependency/tool/answer
+contexts were explicitly read and judged in six new manual parts. Their thirteen
+complete supplied source strings exactly match prior explicitly read confirm08
+sources, with [component bindings](confirm-source-components-09.json) preserving
+full/opening boundaries. No novel rating was assigned automatically.
+
+Novel counts are **15 source-support failures, 19 instruction failures and six
+not useful**. Findings retain fake tool summaries/validation, wrong-subject
+Decimal/logging/C API restrictions, a false FAIL inferred from rejection,
+unsupported Unicode/compatibility claims, repetitive output and an empty final.
+Correct source fragments and useful partial answers remain separate from errors.
+A correctly copied PASS/PEP number can be source-supported yet not useful;
+historical transition plans are assessed as source accounts, not independent
+runtime proof. Ambiguous compatibility caveats are read narrowly as empirical
+verification limits, not claims that the PEP lacks a compatibility discussion.
+
+Selected duplicate-inclusive counts are **159 source failures, 725 instruction
+failures and twelve not useful**. All 176 included archived instruction sources
+verify; frozen finish accepts all 2,337 judgments in isolation. Live quality and
+original timing/objective/acquisition state are unchanged. The first B06 block
+remains excluded, and this is not a final audit or population quality/equivalence
+result. Use canonical screen07 plus confirm09 for future exact full-context and
+archived-instruction reuse; preserve all older snapshots.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files
@@ -659,7 +689,7 @@ do not substitute modern Python knowledge for this supplied evidence. Future
 generated answers and actual preceding tool/dependency outputs still need review.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm08 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm09 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

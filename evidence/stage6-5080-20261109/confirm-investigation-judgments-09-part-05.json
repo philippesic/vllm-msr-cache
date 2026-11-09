@@ -1,0 +1,64 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1927ccf378cee600fa6a2a33a6d1c062839307374e25e9d21729bfade3288430",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-09/blind-packet.json",
+  "ratings": [
+    {
+      "index": 16,
+      "review_id": "2f92447db53976bf4385f58a",
+      "signature": "1f102139ea304654c7f0e9ced2867789088685a8e0912a9c75bb1fb2963af2ea",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 46,
+      "notes": "Rejected Standards Track and historical proposed/nonadopted do-clause are supported, as is actual validation PASS. Literal requested test_status=PASS is missing ('Test status is PASS' instead). Prior dependency's unsupported deferred-since-2006 claim is not repeated here. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 17,
+      "review_id": "06c8535a269ca8ac5bb01738",
+      "signature": "aa7407cdb3a74d9eb560afbf9ab58972e2b975e8fab2f841985cfd9bb402602c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 16,
+      "notes": "The source defines package metadata fields/usages and actual validation passes. Read limitation narrowly as non-executable specification/five-header check not validating package-field values, rather than absence of prescribed field semantics. Useful fragments remain, but final omits explicitly requested Status=Superseded and Type=Standards Track and gives no specific field rule. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 18,
+      "review_id": "bb71a3d9d2cf854e1481bdc5",
+      "signature": "febd6fefedeac2893a41c8f32ecefc12cc344928d6714cf08a57d2222c1ed85d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "BaseException purpose, Final/Standards Track and actual literal PASS supported. Read 'does not confirm backward compatibility' as empirical verification boundary: actual tools inspect source/five metadata headers, not Python-2 runtime compatibility. The supplied PEP DOES discuss 2.x transition/backwards-compatibility and no absence claim about that text is inferred. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 19,
+      "review_id": "a304096acc927ace75cd35e4",
+      "signature": "ca5d29af04ef09b7516eb33d9862d2a56c6f3be2bb453ec669167313a73107b1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP 289 does not cover Python 3.0 changes."
+      ],
+      "whitespace_words": 29,
+      "notes": "Memory efficiency/reduction usage and metadata/PASS supported and useful. Full source explicitly discusses Python 3.0 list-comprehension syntax/scope changes; unqualified absence repeats earlier unsupported dependency conclusion. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

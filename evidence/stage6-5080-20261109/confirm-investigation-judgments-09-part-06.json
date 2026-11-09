@@ -1,0 +1,67 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1927ccf378cee600fa6a2a33a6d1c062839307374e25e9d21729bfade3288430",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-09/blind-packet.json",
+  "ratings": [
+    {
+      "index": 20,
+      "review_id": "d8bb907b7856de43388a413e",
+      "signature": "8db506c248a7846a6a0cd21e1a8da88c7f440d478a2509624048538fcedd22d8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP 342 requires explicit Py_Initialize/PyEval_InitThreads initialization for multithreaded apps."
+      ],
+      "whitespace_words": 29,
+      "notes": "Generator send rule and actual metadata/PASS correct; C API initialization limitation belongs to the GIL proposal and is not supported for this generator PEP. Useful generator fact retained. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "85e9f8766b01d3e4789c9df5",
+      "signature": "62de4ab8ca861fa6b8c705327ae60306cf0ec83776e447c3273c6e78ed6d61e8",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "Rejected Standards Track and actual literal Test_status=PASS correct. Proposed do-clause/reduced duplication and nonadoption agree with complete source Notice, interpreted historically; unsupported prior summaries not adopted as actual tool output. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "9a72175d1003165030d7edb3",
+      "signature": "f202dd4ec9b040f81001ad91750c57008a95fe70020cd4a36403d13f89f4883e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Validation test status is FAIL due to rejection.",
+        "No runtime support exists for its proposed features."
+      ],
+      "whitespace_words": 40,
+      "notes": "Actual metadata tool returns PASS even though proposal rejected; final explicitly reverses it and conflates status with validation. Broad no-runtime-features claim is not established by rejection/header tools. Correct resource-management purpose and rejection still useful. Requested status token also wrong (space rather than underscore). Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 23,
+      "review_id": "d329ef276a6b4f5337fad28e",
+      "signature": "e74b48ecf568cf5124391f2e344ad15e8fc2e1939119d023566ee55753c01f67",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "Final/Standards Track, actual Test_status=PASS and BaseException rule supported. The supplied historical Transition Plan explicitly deprecates string exceptions in 2.x and lists removal of both raising/catching at 3.0; assess this as that source's account, not independent modern runtime verification. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

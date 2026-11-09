@@ -1,0 +1,69 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1927ccf378cee600fa6a2a33a6d1c062839307374e25e9d21729bfade3288430",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-09/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "47189216b76dadbfdda3fb10",
+      "signature": "e5ffcbc6122e295fd1b1f505e3237eb80018e7f424a96b792c22cd723e541403",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "Final is only an empty bash fence, providing no assessable source-supported investigation fact, metadata, validation status or limitation. Do not attribute preceding Decimal/PEP confusion as an explicit final claim; no useful answer is present. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "5a165a3ee38043bcc3f9ec1a",
+      "signature": "5ec6d91e37b705de64ddce42723eb4f7020fbf6ec1ff3e619e6dba2c4874d9cb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP 307 specifies configurable hierarchical logging levels.",
+        "PEP 307 omits backward compatibility with older logging implementations."
+      ],
+      "whitespace_words": 24,
+      "notes": "Metadata and actual PASS fragments correct, but requested pickle rule and limitation replaced with unrelated PEP 282 logging assertions. No useful supported subject-specific investigation remains. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "25cf7f0df8b76eede33813a7",
+      "signature": "a8cee2b29e259b48e07a657671b0a86e8431245665e2a75e3ae5cb7d1c371f15",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The PEP 352 task concerns PEP 342 and a Decimal proposal implemented in Python 2.4."
+      ],
+      "whitespace_words": 146,
+      "notes": "No preceding tools. Repeats wrong-number/wrong-subject Decimal claims instead of exception hierarchy purpose/verification plan. 146 words exceeds under-70 limit, unfinished and no fixed required command; no useful task response. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 15,
+      "review_id": "a067ef7ffd10ca6498e53b03",
+      "signature": "221205299403c20d09af1a2b6cd1a7d24428c52302d0556992d7cbe7f8bf4285",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The PEP is not backward compatible (unqualified, repeated)."
+      ],
+      "whitespace_words": 190,
+      "notes": "Correct decorator purpose/status fragments do not support broad compatibility assertion from this supplied opening excerpt; five-header validation does not test it. 190-word repetitive unfinished JSON fails under-70 limit, requested validation/runtime interpretation and fixed next summarize declaration. No useful current-step analysis beyond repeated generic fragments. Complete supplied source text was explicitly read in prior confirm08 and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}
