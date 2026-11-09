@@ -1,0 +1,20 @@
+{
+  "schema": "stage6-5080-screen-complete-v1",
+  "completed_blocks": 22,
+  "expected_blocks": 22,
+  "logical_configurations": 54,
+  "expected_configurations": 54,
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 58,
+      "interrupted": 1,
+      "failed": 1
+    },
+    "verified_files": 6160,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "time_utc": "2026-11-09T18:02:50.666317+00:00",
+  "scope": "All required frozen screen blocks complete; original unmatched/interrupted/reinterpreted-control histories retained. Qualification and activation are separate."
+}

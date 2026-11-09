@@ -1,0 +1,190 @@
+{
+  "schema": "serving-campaign-capability-v1",
+  "all_required_correctness_passed": true,
+  "native": {
+    "passed": true,
+    "missing_models": [],
+    "models": {
+      "qwen3_8b_awq": {
+        "attempt": "e6c976761871441e990c9a4f58fe8fbb",
+        "path": "attempts/7f6c9823dd302e1a690f83a9a58ce46a594ab228b1f54ea05ebf85289eeb0846/e6c976761871441e990c9a4f58fe8fbb",
+        "seal": "c75e7a18782e5bcb73b3995a858c5d96ad19b243ce531a814fbe0d89a879387f",
+        "sequence": 2,
+        "checks": {
+          "duplicate_is_idempotent": true,
+          "wrong_namespace_rejected": true,
+          "future_information_rejected": true,
+          "stale_advice_rejected": true,
+          "fresh_reference_recomputed_entire_prompt": true,
+          "return_really_restored_cpu_prefix": true,
+          "cached_equals_fresh_generation": true
+        },
+        "geometry": {
+          "cpu_bytes": 528482304,
+          "cpu_pinned": true,
+          "cpu_chunk_tokens": 16,
+          "gpu_blocks": 128,
+          "gpu_block_tokens": 16,
+          "gpu_kv_bytes": 301989888,
+          "device_aliases": 0,
+          "gpu_capacity_source": "actual worker tensor bytes"
+        }
+      },
+      "ministral3_3b": {
+        "attempt": "2a53e49a63784600be24bc59086bd11a",
+        "path": "attempts/33b8aa26856da0f8cd2a0a6568ffc956d4bdc05b2e5193240f9a69030ef8d244/2a53e49a63784600be24bc59086bd11a",
+        "seal": "f02ce1c12390f392c3b35c2ee81feef35b1c260de8b7fa4975fc84018334be0a",
+        "sequence": 8,
+        "checks": {
+          "duplicate_is_idempotent": true,
+          "wrong_namespace_rejected": true,
+          "future_information_rejected": true,
+          "stale_advice_rejected": true,
+          "fresh_reference_recomputed_entire_prompt": true,
+          "return_really_restored_cpu_prefix": true,
+          "cached_equals_fresh_generation": true
+        },
+        "geometry": {
+          "cpu_bytes": 517996544,
+          "cpu_pinned": true,
+          "cpu_chunk_tokens": 16,
+          "gpu_blocks": 128,
+          "gpu_block_tokens": 16,
+          "gpu_kv_bytes": 218103808,
+          "device_aliases": 0,
+          "gpu_capacity_source": "actual worker tensor bytes"
+        }
+      },
+      "qwen3_4b_2507": {
+        "attempt": "7366ef5bb6d64c148727e7dd3a9286f8",
+        "path": "attempts/7be5a1359a07a58f34865b6de3002e9e4f7e0c2acb9865478287969575a6870b/7366ef5bb6d64c148727e7dd3a9286f8",
+        "seal": "c1ba45021d5b324e72004a45c0fda845c87bcbba735ea871b03db55d14aa7bd6",
+        "sequence": 11,
+        "checks": {
+          "duplicate_is_idempotent": true,
+          "wrong_namespace_rejected": true,
+          "future_information_rejected": true,
+          "stale_advice_rejected": true,
+          "fresh_reference_recomputed_entire_prompt": true,
+          "return_really_restored_cpu_prefix": true,
+          "cached_equals_fresh_generation": true
+        },
+        "geometry": {
+          "cpu_bytes": 528482304,
+          "cpu_pinned": true,
+          "cpu_chunk_tokens": 16,
+          "gpu_blocks": 128,
+          "gpu_block_tokens": 16,
+          "gpu_kv_bytes": 301989888,
+          "device_aliases": 0,
+          "gpu_capacity_source": "actual worker tensor bytes"
+        }
+      }
+    }
+  },
+  "external": {
+    "continuum": {
+      "passed": true,
+      "attempt": "4f30f353e5264dc08b4c1c92590ea860",
+      "activation": {
+        "verified": true,
+        "pins": 24,
+        "source": "published scheduler recorder; excludes warmup"
+      },
+      "geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 256,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "gpu_capacity_source": "published effective GPU KV token-capacity startup record"
+      }
+    },
+    "upstream": {
+      "passed": true,
+      "attempt": "e30cbae47eb94bd49f027adac231a7a0",
+      "activation": {
+        "verified": true,
+        "applied_priority_updates": 24,
+        "priority_selections": 169,
+        "source": "read-only Python return observer; not counterfactual victim attribution"
+      },
+      "geometry": {
+        "cpu_bytes": 2793406464,
+        "cpu_pinned": true,
+        "cpu_chunk_tokens": 16,
+        "gpu_blocks": 1024,
+        "gpu_block_tokens": 16,
+        "gpu_kv_bytes": 2415919104,
+        "device_aliases": 36,
+        "gpu_capacity_source": "actual worker tensor bytes"
+      }
+    }
+  },
+  "registry_development_probe": {
+    "passed": true,
+    "capacity_noops": 6,
+    "bounded": true,
+    "offered_units": 4,
+    "attempt": "91b3eee311a94363b66f26e9f9020b71"
+  },
+  "missing_screen_cells": [],
+  "pressure": {
+    "ministral3_3b": {
+      "passed": true,
+      "arc_native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 106395,
+        "returning_computed_prompt_tokens": 76118,
+        "loaded_tokens": 12647,
+        "returning_loaded_tokens": 11303,
+        "prior_cpu_evicted_key_observations": 67,
+        "returning_requests_with_prior_cpu_eviction": 35,
+        "returning_requests": 48,
+        "preemptions": 10,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    "qwen3_4b_2507": {
+      "passed": true,
+      "arc_native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 136274,
+        "returning_computed_prompt_tokens": 109159,
+        "loaded_tokens": 4794,
+        "returning_loaded_tokens": 4589,
+        "prior_cpu_evicted_key_observations": 41,
+        "returning_requests_with_prior_cpu_eviction": 41,
+        "returning_requests": 48,
+        "preemptions": 20,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    "qwen3_8b_awq": {
+      "passed": true,
+      "arc_native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 19915,
+        "returning_computed_prompt_tokens": 7529,
+        "loaded_tokens": 12336,
+        "returning_loaded_tokens": 12336,
+        "prior_cpu_evicted_key_observations": 1,
+        "returning_requests_with_prior_cpu_eviction": 1,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    }
+  },
+  "roomy": {
+    "passed": true,
+    "base_returning_requests_with_prior_cpu_eviction": 1,
+    "roomy_returning_requests_with_prior_cpu_eviction": 0,
+    "rule": "At least half fewer returning requests with prior CPU eviction in ARC; envelope selection never uses candidate speed"
+  },
+  "scope": "Functional/activation/completeness gates, not performance or production qualification"
+}

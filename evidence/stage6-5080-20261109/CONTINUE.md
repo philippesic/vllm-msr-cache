@@ -8,20 +8,32 @@ requires repair and continuation, not a capability-failure closeout.
 
 ## Current state
 
-**Screen is running**, persistent execution session 65450. Its authoritative
-ownership is in `$BASE/screen-owner-02.private.json` (PID, birth, command, cwd,
-source); log `$BASE/screen-02.log`. Revalidate the actual process and GPU before
-any resume. Never launch a duplicate. At 2026-11-09 17:54 UTC, 19 of 22 whole
-screen blocks were complete (all Qwen8B/Ministral cells and Qwen4B B02/B06);
-Qwen4B B08 candidate was active. Forty-nine screen attempts were verified, one
-deliberately interrupted, one raw failed/inconclusive
-B10 candidate control, one active. The verified count includes the original
-unmatched B01 ARC, which receives no matched-comparison credit. The B10 control
-served all 20 requests with clean cleanup and no errors, CPU evictions or
-restores; its seal verifies. The existing frozen validity rules accept it as a
-GPU-resident control, not CPU-pressure evidence. See
-[control receipt](screen-team-control.json). Never retry merely to obtain restore
-activity. Check the live ledger rather than treating this snapshot as current.
+**Confirmation is running**, persistent execution session **66082**. Ownership
+is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
+`$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
+launch a duplicate. The first bounded confirmation health check was healthy,
+with no issues during initial input attestation. The subsequent bounded check
+was also healthy with Qwen3-8B B01 ARC active (zero completed configurations at
+that check). It checks all three model files before creating the first
+attempt; live disk-sleep/I/O with no child or log line during that bounded startup
+is not evidence that the job stopped. Recheck live ownership and progress.
+
+Screen session 65450 is **finished**. All 54 required configurations / 22 whole
+blocks completed; [screen receipt](screen-complete.json) verifies 58 verified,
+one interrupted and one failed/inconclusive attempt across screen + preflight,
+6,160 sealed files. The count retains the unmatched original B01 ARC. B10
+candidate served all 20 requests with clean cleanup and no CPU restores/evictions;
+the frozen validity rules accept it as a GPU-resident control, while preserving
+its original inconclusive status. [Control receipt](screen-team-control.json).
+Never retry merely to obtain restore activity.
+
+[Qualification](qualification.json) **passes**: all native correctness fixtures,
+registry, external activation/pinned geometry, all required screens, all three
+ARC pressure gates and the roomy reduction (one to zero affected returns).
+[Activation](activation.json) preserves exact imported schedule/supplementary
+order/precision/source, without replanning: 524 confirmation configurations in
+210 matched blocks. This is functional qualification, not performance or
+production qualification. Confirm, overhead, operational and final audits remain.
 
 Completed prerequisites:
 
@@ -55,7 +67,7 @@ Completed prerequisites:
 - [Qwen4B pressure screen](qwen4b-pressure-screen.json): both native B06 arms
   passed. ARC had 41 eviction-affected returns out of 48 returning requests,
   candidate 38/48. All three models now have positive ARC pressure evidence;
-  whole-matrix qualification still waits for every screen block.
+  whole-matrix qualification subsequently passed.
 - [Transfer seals](transfer-seals.json) and [old-history integrity](history-integrity.json)
   pass. All original raw measurements and the original LMCache binary remain.
 - Exported CPU checks passed: 240 benchmark tests, 31 lightweight tests and
@@ -102,25 +114,24 @@ repeat that mistake. Never acquire from mutable source or a test interpreter.
 
 ## Remaining work
 
-1. Finish all 54 logical screen configurations / 22 blocks. Inspect real failures
-   and measurement_validity; retained restore-inactive GPU controls are not CPU
-   pressure evidence. Preserve every original status and all whole-block repairs.
-2. From exported source, `campaign qualify --out "$OUT"`. Require
-   `all_required_correctness_passed`; inspect all secondary pressure/roomy/native/
-   external gates. Diagnose failures; do not activate a failed gate.
-3. `campaign activate-import --out "$OUT"`, then confirm (524 configurations /
-   210 blocks), overhead (38) and operational (six) with the helper. No freeze,
-   replanning, policy/model/workload/geometry changes or favorable-result retries.
-4. Verify every sealed attempt and campaign identity. Finish objective/blinded
+1. Supervise the existing confirmation session through all 524 configurations /
+   210 matched blocks. Inspect real failures and measurement_validity; retained
+   restore-inactive GPU controls are not CPU-pressure evidence. Preserve every
+   original status and whole-block repairs. Do not repeat screen, qualification
+   or activation merely because a monitoring turn was interrupted.
+2. Once confirm is complete, run overhead (38 configurations), then operational
+   (six) through the helper with fresh logs/receipts. No freeze, replanning,
+   policy/model/workload/geometry changes or favorable-result retries.
+3. Verify every sealed attempt and campaign identity. Finish objective/blinded
    source and every ordinary capped-output audit, recovery and portability proofs,
    campaign report/completion, and standalone comparison chart. Render requested
    comparisons with T3 html_preview then html_render; do not start a server.
-5. Report geometric throughput ratios with paired whole-process 95% CIs and
+4. Report geometric throughput ratios with paired whole-process 95% CIs and
    actual latency figures. Candidate=wait. The report's Continuum/ wait ratio and
    interval can be inverted to give candidate/Continuum (invert bounds in reverse
    order). Retain uncertainty, adverse results and actual pressure. No quality,
    production or GPU-only cross-host attribution claims without evidence.
-6. Consolidate RESULTS.md and STATUS, commit/push all findings, release owned
+5. Consolidate RESULTS.md and STATUS, commit/push all findings, release owned
    servers/GPU/locks, disable the health schedule only at pushed completion or an
    irreparable genuine-failure closeout. An ordinary process exit is not done.
 
@@ -158,12 +169,18 @@ pending; do not mark the partial inventory complete. Its expanded signatures
 include system-instruction and prompt-context bindings; ordinary quality ratings
 are reused only after separately checking those additional fields.
 
-Snapshot 06 is fully rated for its partial inventory; preserve it. For the next
-snapshot use a fresh checkpoint directory (07 next), regenerate
-`prepare_review(OUT,'screen')` from exported source and copy its derived packet.
-Reuse canonical index 06 only on exact eight-field context equality, verify the
-same executed system-instruction digest, and explicitly read/judge every novel
-required context. Do not invent missing
+Snapshot 06 is fully rated for its partial inventory; preserve it.
+**Final screen snapshot 07 has already been prepared**, raw
+`$BASE/quality-screen-final-07/` (do not overwrite): 1,194 objective finals,
+1,248 prescribed selected items, **233 novel full contexts** versus canonical 06.
+Its `novel-contexts.json` contains 54 QA finals, 131 investigation finals and
+48 capped intermediates. No new 07 judgments/index exist yet. All source IDs
+are already familiar from prior reviews, but each novel generated answer and
+actual dependency/tool sequence must still be read and judged. Reuse canonical
+06 only on exact eight-field context equality and the same archived system
+instruction; check additional full reference test content when relevant. This
+is the final screen inventory; confirm has a separate packet after acquisition.
+Do not invent missing
 judgments or mark a partial inventory final. After acquisition regenerate final
 screen/confirmation and all-capped inventories. Capped inventory root should be
 BASE (which contains only this campaign alias), not VOLUME (which also contains
@@ -173,8 +190,9 @@ the closed November 8 campaign). Full required audits remain pending.
 
 Health schedule: `scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae`, every
 15 minutes in this thread. Reverify ownership, mount, disk, GPU and request/stream/
-ledger progress. Before activation inspect directly; stage6_healthcheck requires
-protocol.lock.json and primarily assesses confirmation. After activation run its
-bounded check with canonical OUT and a state directory under BASE. Healthy long
+ledger progress. Run `benchmarks.research_checks.stage6_healthcheck` from mutable
+REPO with canonical OUT and `--state-dir "$BASE/confirm-health-01"`; the first
+post-activation check passed. Its source uses the now-present protocol lock and
+primarily assesses confirmation. Healthy long
 acquisition returns to unattended operation; a finished phase advances immediately.
 Interrupted checks are not completion. Keep the whole original objective active.

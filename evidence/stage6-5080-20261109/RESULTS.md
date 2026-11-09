@@ -1,85 +1,71 @@
-# RTX 5080 Stage 6 — rebuilt; screening in progress
+# RTX 5080 Stage 6 — qualified; confirmation running
 
-This fresh primary replication is authorized to rebuild pinned LMCache 0.3.6
-for the RTX 5080 (`sm_120` plus PTX). The previous campaign remains closed and
-unchanged. The rebuild succeeded. Binary inspection finds sm_120 kernels and PTX, and
-an FP16 three-layer, 256-token pinned CPU/GPU round trip passed exact equality
-in both directions (393,216 bytes). This proves the previously failing kernel
-executes on the 5080; live Continuum then completed warmup and four requests with actual GPU KV
-stores and verified pinned geometry/cleanup. The one-session diagnostic did not
-exercise scheduler pins. The separate full B06 Continuum screen has now passed
-all 32 requests with 24 scheduler pin events, matching the rebuilt binary identity
-and verifying pinned geometry and cleanup. Overall screening/qualification remains open.
-All four native preflights passed: restore/fresh-reference correctness for
-every model and the anchor registry probe. All 223 preflight files verify.
-Screening is running; confirmation and later phases remain pending.
-Repeated performance estimates remain pending.
+The pinned LMCache rebuild works on the RTX 5080. All five frozen Continuum
+screens pass, all 54 required screening configurations form 22 complete matched
+blocks, and the full functional qualification gate passes. The imported frozen
+confirmation schedule is activated and running: 524 configurations in 210
+matched blocks. Repeated throughput estimates and final latency comparisons are
+still pending; overhead, operational and final audits have not completed.
 
-The comparison retains native ARC, candidate, Continuum and upstream vLLM
-PR #59714, with the exported primary models, workloads, resource geometry,
-order, repeat counts and analysis. Only LMCache's architecture-specific build
-is an authorized setup deviation; source and algorithm remain pinned.
-Cross-host comparisons cannot isolate GPU effects from runtime/host differences.
+This is a new campaign. The failed November 8 campaign and all 2080 Ti history
+remain unchanged. The sole declared setup deviation is rebuilding the same
+LMCache 0.3.6 source for `sm_120` plus PTX. Source and algorithm are unchanged;
+the rebuilt Continuum environment retains the same package versions. The study
+keeps native ARC, candidate, Continuum and upstream vLLM PR #59714, with the
+exported models, workloads, resource geometry, order, repeat counts and analysis.
+Cross-host differences cannot be attributed to the GPU alone.
 
-See [continuation instructions](CONTINUE.md) for active work and retained paths.
+The [build receipt](lmcache-build.json) records source/toolchain/architecture and
+wheel/binary identities, setup repairs and exact pinned CPU/GPU round-trip proof:
+three FP16 layers, 256 tokens and 393,216 bytes, equal in both directions. The
+[short serving diagnostic](continuum-smoke.json) completed warmup and four requests
+with GPU KV stores and pinned geometry/cleanup. Its original one-session policy
+verdict remains inconclusive and it is excluded from performance measurements.
+Exported CPU checks passed 240 benchmark tests, 31 lightweight tests and compilation.
 
-The [build receipt](lmcache-build.json) records the pinned source, CUDA/torch
-versions, compiler and header identities, architecture list, wheel/binary hashes,
-setup failures and repairs, and kernel proof. Exported CPU checks passed 240
-benchmark tests, 31 lightweight tests and compilation.
+The [five Continuum screen receipts](continuum-all-screen.json) record B06/B08/
+B09/B11/B12 completing 32/64/64/80/32 requests with 24/30/35/42/24 scheduler pins.
+Every seal and cleanup passes. This repairs the original warmup kernel blocker
+across all frozen Continuum screen fixtures; it does not establish a speed gain.
 
-The [new import](import.json) preserves all 22 cells and the frozen order/repeats:
-54 screening, 524 confirmation, 38 overhead and six operational configurations.
-All normalized corpora and profiles are unchanged. The [live smoke receipt](continuum-smoke.json)
-retains its original policy-inconclusive verdict separately from successful
-kernel/serving capability. These diagnostics are excluded from performance results.
+[Native preflight](preflight.json) passed restore/fresh-reference token equality
+and namespace/idempotence/future/stale checks for every model plus the registry
+probe. [Qualification](qualification.json) passes native correctness, external
+activation and pinned geometry, screen completeness, all three ARC pressure
+gates, and the roomy reduction. [Activation](activation.json) preserves the exact
+imported order, supplementary schedules, repeat/precision choices and acquisition
+source, without replanning. This is functional, not production qualification.
 
-[Native preflight evidence](preflight.json) preserves every check and seal.
-Its correctness success does not establish throughput gains or qualification
-of the full four-system matrix.
+Development pressure observations are retained with their scope:
 
-The [development interruption](recovery-interruption.json) passed owned cleanup
-and sealing. Both original B01 arms remain retained; the resumed screen replaces
-that whole block. The interrupted measurement is excluded from comparisons.
+- [Anchor Qwen3-8B](anchor-screen.json): ARC had one CPU-eviction-affected return;
+  roomy ARC had zero, satisfying the prespecified reduction check.
+- [Ministral3-3B](ministral-pressure-screen.json): ARC had 35 affected returns
+  among 48 returning requests; candidate had 29/48.
+- [Qwen3-4B](qwen4b-pressure-screen.json): ARC had 41/48; candidate had 38/48.
+- [B10 candidate control](screen-team-control.json): all 20 requests completed
+  without CPU restores/evictions. Its raw inconclusive status remains. The frozen
+  analysis accepts the complete GPU-resident control, without pressure credit.
 
-The [transfer seal audit](transfer-seals.json) passes for both original transfers,
-the completion packet, execution bundle and new imported bundle. This is an
-integrity result; campaign acquisition and answer-quality audits remain open.
+[Screen integrity](screen-complete.json) verifies all 6,160 sealed files across
+58 verified, one deliberately interrupted and one raw inconclusive/failed attempt
+in screen plus preflight. The unmatched original B01 ARC receives no comparison
+credit. [Whole-block recovery](recovery-complete.json) passed owned cleanup and
+replacement of both B01 arms. [Transfer seals](transfer-seals.json) and
+[old-history integrity](history-integrity.json) pass; original evidence is retained.
 
-The [whole-block recovery audit](recovery-complete.json) now passes: both B01
-replacement arms completed and verified in one matched block. Screening advanced
-to B02. This recovery result does not establish performance qualification.
+The [partial selected source review](screen-review-index-06.json) covers 781 items
+across 289 complete contexts: 190 source failures, 424 instruction failures and
+53 outputs judged not useful, with duplicate contexts counted separately. These
+are selected-review counts, not population error rates. Failures include malformed
+or fenced JSON, wrong answers, unsupported additions/limitations, invented or
+denied validation, and overlong/unfinished intermediates. Correct useful fragments
+are separately recognized. The [partial all-cap review](caps-screen-review-index-01.json)
+covers 13 capped responses at its earlier snapshot, including intermediates.
+Both inspect actual preceding dependencies/tools and archived system instructions.
+All timings and original objective results remain; quality equivalence is not
+established. The final screen inventory has been prepared but still needs its
+233 novel contexts reviewed. Confirmation and all-phase audits remain pending.
 
-[Full Continuum screen evidence](continuum-full-screen.json) confirms the declared
-architecture rebuild works in the unchanged benchmark fixture. It is an advisory
-screen result, not a repeated throughput or answer-quality conclusion.
-
-The [anchor four-system B06 screen](anchor-screen.json) passed for native ARC,
-candidate, Continuum and upstream. Native ARC actually restored CPU tokens and
-had an eviction-affected return, establishing this screen pressure purpose.
-This single development block does not provide the requested repeated estimates.
-
-The [five Continuum screen receipts](continuum-all-screen.json) now all pass:
-32, 64, 64, 80 and 32 completed requests with 24, 30, 35, 42 and 24 scheduler
-pins respectively. Every attempt verifies its seal and clean release. All 12
-Qwen screen blocks are complete; screening has moved to the secondary models.
-The [B10 candidate control](screen-team-control.json) served all 20 requests
-without CPU restores or evictions. Its original inconclusive status remains;
-the frozen analysis accepts it as a GPU-resident control, not pressure evidence.
-The [Ministral pressure screen](ministral-pressure-screen.json) passed for both
-native arms. ARC had 35 CPU-eviction-affected returns among 48 returning requests,
-and candidate had 29/48. This establishes that development fixture's pressure
-purpose, without a repeated speed or quality conclusion.
-The [Qwen3-4B pressure screen](qwen4b-pressure-screen.json) also passed: ARC had
-41 CPU-eviction-affected returns among 48 returning requests, candidate 38/48.
-All three models have positive development ARC pressure evidence; full screening
-and the complete qualification gate remain open.
-
-The [selected-screen source review](screen-review-index-06.json) covers 781 items
-in a partial snapshot (289 complete contexts), retaining format, overlength,
-repetition, wrong-subject, factual and attribution failures. The separate
-[partial all-cap review](caps-screen-review-index-01.json) covers 13 sealed capped
-responses, including intermediates and arms of unfinished whole blocks. Both
-audits inspect actual preceding dependencies/tools and the archived system
-instruction. Full acquisition and final source/capped-response audits remain
-open; quality equivalence is not established and all timings remain included.
+See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
+remaining phases and enabled health monitoring.

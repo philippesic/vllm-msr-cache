@@ -1,0 +1,18 @@
+{
+  "schema": "stage6-5080-import-activation-v1",
+  "activation": {
+    "confirmation_ready": true,
+    "repetitions_replanned": false,
+    "blocks": 210
+  },
+  "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "schedule_digest": "669cc9138463dee4150c810ad3951a5b59ea1c90ade2b6dcadefa8b861042f0d",
+  "supplementary_schedule_digest": "b21b88053138254ccd77c27c956446fb97f5245e2312d64e781db850ed7214c7",
+  "precision_digest": "9007e461e3212f87fbf22d3ca920fbe030f758ff30ca9e87c5e929fb208bdad1",
+  "order_and_repeats_equal_imported_parent": true,
+  "acquisition_source_unchanged": true,
+  "confirmation_blocks": 210,
+  "confirmation_configurations": 524,
+  "scope": "Activated the qualified new-host import. Frozen parent schedule, supplementary order and precision/repeat choices remain byte-for-byte equal as structured values; no freeze or replanning."
+}
