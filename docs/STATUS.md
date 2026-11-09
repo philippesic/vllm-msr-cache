@@ -23,13 +23,15 @@ are copied and verified. Exported primary source passes 240 benchmark tests
 and 31 lightweight tests plus compilation, repeated on a separately sealed
 5080 source identity using the current coordinator and unchanged frozen inputs.
 All three pinned runtimes reconstructed successfully, and all three pinned
-models were reacquired and content-verified. Host rebinding and campaign
-import are active; native hardware preflight and serving have not run yet.
+models were reacquired and content-verified. Import succeeded with explicit
+pinned worker interpreters; native hardware preflight is active. Its first
+Qwen3-8B functional case passed; remaining checks are still required.
 The 15-minute health schedule is enabled. Storage needs monitoring; pinned
 models will use a dedicated Windows cache while native runtimes stay in WSL.
 [Current 5080 evidence](../evidence/stage6-5080-20261108/RESULTS.md) and
 [exact continuation](../evidence/stage6-5080-20261108/CONTINUE.md) retain paths,
-ownership, remaining phases and the required final webhook. Preserve all
+ownership, planned output storage placement, remaining phases and the required
+final webhook. Preserve all
 2080 Ti seals and historical study state; no addendum is being opened.
 
 ## Repository pressure recovery — complete; GPU released

@@ -1,0 +1,30 @@
+{
+  "schema": "stage6-5080-import-proof-v1",
+  "campaign_id": "664568b8c5a64da0aaa711d43c3a26fc1195a9db5c037b154a6963c6a70e4c2f",
+  "parent_campaign_id": "fb4036f77c0761d08d66b32f0710abdd34a6cffe30c2144b22c8c1461a4c9baa",
+  "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "host_id": "rtx5080",
+  "runtime_python": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+  "all_cell_interpreters_explicit": true,
+  "source_root": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+  "models_verified": [
+    "ministral3_3b",
+    "qwen3_4b_2507",
+    "qwen3_8b_awq"
+  ],
+  "configurations_per_repeat": 54,
+  "confirmation_configurations": 524,
+  "confirmation_blocks": 210,
+  "supplementary_configurations": {
+    "overhead": 38,
+    "operational": 6
+  },
+  "hardware_preflight_required": true,
+  "confirmation_ready": false,
+  "seals_verified": {
+    "transfers/primary-relocated-bundle": 4606,
+    "transfers/addendum-relocated-bundle": 8362,
+    "transfers/completion-audit-packet-02": 17,
+    "primary-execution-bundle-01": 4606
+  }
+}

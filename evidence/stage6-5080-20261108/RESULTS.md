@@ -2,9 +2,17 @@
 
 Authorized 2026-11-08 at about 20:47 Pacific, on DESKTOP-E78LJSI.
 All three pinned models were reacquired and content-verified; pinned runtime
-reconstruction succeeded. Offline host binding and campaign import are active.
-There are no 5080 serving measurements or hardware
-qualification results yet. No performance or answer-quality claim follows.
+reconstruction and campaign import succeeded. Native hardware preflight is
+active. Its first Qwen3-8B restore/fresh-reference case passed with actual pinned
+CPU geometry and verified cleanup; the registry and remaining model checks
+are still required. There are no 5080 performance measurements yet. No speed
+or answer-quality equivalence claim follows.
+
+[Import proof](import.json) confirms a new linked hardware acquisition identity,
+all host/cell serving interpreters explicitly bound, and the unchanged 524
+confirmation configurations / 210 blocks, 38 overhead and six operational
+configurations. Confirmation remains blocked until preflight/screens qualify
+and the imported protocol is activated.
 
 Both sealed transfers and the completion audit packet were copied over the
 configured Tailscale SSH alias and verified with the exported verifier before
@@ -41,11 +49,14 @@ This is preparation telemetry, not the campaign's native hardware preflight.
 
 Storage is tight: initially about 22.3 GiB available in WSL and 56.6 GiB on
 Windows. Pinned model weights require 27.5 GiB before ancillary files.
-Native runtimes leave about 7.3 GiB free in WSL; reacquired models use
+Native runtimes leave about 7.1 GiB free in WSL; reacquired models use
 a dedicated Windows cache with about 29 GiB remaining. Recheck free space
 before serving;
 stop with a resource receipt if this layout cannot support the frozen job.
-No unrelated data has been removed.
+The previous primary campaign retained about 14.2 GB, so the complete run's
+outputs need Windows storage. A dedicated campaign directory with a restricted
+Windows ACL is prepared; placing the completed preflight there is pending.
+Private host files will remain in WSL. No unrelated data has been removed.
 
 The 15-minute health schedule is enabled, first due 2026-11-08 21:05 Pacific.
 The whole authorized primary sequence remains required. No addendum is

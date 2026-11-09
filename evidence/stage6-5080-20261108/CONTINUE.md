@@ -42,13 +42,41 @@ Model reacquisition completed successfully in session 74455 from the original
 primary export. All three pinned model contents verified; the initial private
 host file is `$BASE/host.private.json`. Log: `$BASE/transfer-setup-03.log`.
 
-**Active next step:** session 71664 is doing offline host rebinding to the new
-execution source and then campaign import in one `&&` chain. Logs are
-`$BASE/transfer-bind-replica-01.log` and `$BASE/import-01.log`. Saved process
-birth identities and paths are in `$BASE/import-progress.private.json`.
-Inspect this existing operation before any new launch; do not duplicate it.
-When it exits, inspect both receipts and the imported `resolved.json`, then
-verify host and every cell explicitly bind `$PY` before launching preflight.
+Offline binding/import completed in session 71664. All host/cell interpreters
+explicitly bind `$PY`; all four transfer/execution seals verify. See
+`import.json` here and the raw `transfer-bind-replica-01.log` / `import-01.log`.
+
+**Active phase:** native preflight is running in session 39853 from
+`$BUNDLE/source`, log `$BASE/preflight-01.log`. The coordinator birth identity
+and ownership receipt are `$BASE/preflight-owner.private.json`; latest bounded
+worker/GPU proof is `$BASE/unattended-health/latest-preflight.private.json`.
+The first Qwen3-8B native restore/fresh-reference case passed, with actual pinned
+CPU geometry and verified cleanup. Its registry case is running. The remaining
+models still require preflight. Do not launch duplicate phases or call the
+confirmation-specific health checker before protocol activation.
+
+**Storage placement before screen/confirmation:** the 2080 Ti primary campaign
+retained 14,182,204,461 bytes, exceeding this WSL volume's remaining ~7.1 GiB.
+The bounded four-case preflight fits; let it finish and inspect every receipt.
+If it passes, place its completed generated campaign on the dedicated Windows
+campaign volume before screen, keeping the original project path as an alias
+so frozen absolute input strings remain valid. Destination parent:
+`/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns`.
+It has ~28.7 GiB free and a verified explicit ACL allowing only Philip, SYSTEM
+and Administrators. The exact private ACL/storage receipt is
+`$BASE/storage-plan.private.json` (placement is still pending).
+
+Never move an active campaign. First verify coordinator/workers exited, GPU
+clients absent and both reservations free. Copy to a new destination, preserve
+all attempts/input strings/identity/order/repeats, and verify content and seals.
+Keep root `host.private.json` and `hardware.private.json` in a permanent private
+WSL directory (mode 600), with file links from the Windows campaign, rather
+than exposing private host files on DrvFS. Switch the original project campaign
+directory to an alias only after verifying the copy; verify campaign integrity
+again through the alias. Preserve the previous tree until copy recoverability
+is established. This is storage placement, not a new import, identity, matrix,
+source revision or retry. Set future serving `OUT` to the canonical Windows
+campaign path so bounded health process matching finds the coordinator.
 Earlier setup attempts/logs are retained (one verifier rejection of generated
 caches; one stopped cwd correction). All original seals verify again.
 
@@ -67,7 +95,7 @@ downloads leave about 29 GiB on Windows. Do not delete unrelated data or fill
 a volume.
 
 The commands below retain the entire authorized sequence. Offline rebinding
-and import are already active in session 71664; do not repeat completed steps.
+and import completed, and preflight is active; do not repeat those steps.
 Use the pinned interpreter throughout:
 
 ```bash
