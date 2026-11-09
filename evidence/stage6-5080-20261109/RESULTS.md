@@ -87,6 +87,12 @@ credit. [Whole-block recovery](recovery-complete.json) passed owned cleanup and
 replacement of both B01 arms. [Transfer seals](transfer-seals.json) and
 [old-history integrity](history-integrity.json) pass; original evidence is retained.
 
+The ongoing [confirmation integrity snapshot](confirmation-integrity-checkpoint-02.json)
+verifies 8,563 sealed files, including 111 verified attempts and the retained
+interrupted/failed history. The exact acquisition source and 4,606-file execution
+bundle also reverify unchanged. Active unsealed work is outside that check;
+final campaign completion remains pending.
+
 The [final screening source audit](screen-quality-complete.json) validates all
 1,248 prescribed selected outputs across 522 distinct full contexts, alongside
 objective checks on all 1,194 screening finals. It retains 401 source-support

@@ -1,0 +1,25 @@
+{
+  "schema": "stage6-5080-integrity-checkpoint-v1",
+  "acquisition_complete": false,
+  "phase": "confirm",
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 111,
+      "interrupted": 1,
+      "failed": 1,
+      "running": 1
+    },
+    "verified_files": 8563,
+    "protocol_frozen": true,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "recorded_utc": "2026-11-09T19:30:59.022919+00:00",
+  "exported_execution_bundle_files_verified": 4606,
+  "acquisition_source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "current_source_equals_locked_source": true,
+  "source_files": 2192,
+  "recording_ledger_digest": "43ffe6cb0976842ff6fec67d722ac1e722100bb7e6cec29ace3595f861a8b17f",
+  "coordinator_identity_checked_live": true,
+  "scope": "Read-only frozen CLI verification of every sealed attempt in its snapshot, including native preflight, screening, whole-block recovery and completed confirmation arms. Active unsealed work is not certified. Exact acquisition source and unchanged 4606-file execution bundle separately reverified after CLI completion. Recording ledger digest is a later observation, not an atomic before/after binding. No final acquisition, source-audit, performance, portability or completion claim."
+}

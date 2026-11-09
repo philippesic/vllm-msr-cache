@@ -31,7 +31,7 @@ final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and
-[latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-01.json)
+[latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-02.json)
 retain actual ownership/progress and verified evidence.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released

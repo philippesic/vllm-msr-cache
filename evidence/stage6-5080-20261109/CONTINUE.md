@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **48/524 valid
-configurations, 24/210 complete matched blocks**, with Qwen3-8B B03 ARC repeat
-six active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **53/524 valid
+configurations, 26/210 complete matched blocks**, with Qwen3-8B B03 candidate repeat
+eight active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -257,10 +257,15 @@ Release owned resources and disable only this job's schedule at actual closeout,
 record the verified release, and push the final checkpoint. Keep goal active until
 the full requested outcome and push are verified; the present document is a recipe.
 
-The read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-01.json)
-verifies 6,653 sealed files / 75 verified, one interrupted and one raw failed
+The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-02.json)
+verifies 8,563 sealed files / 111 verified, one interrupted and one raw failed
 attempt at its snapshot, plus one active unsealed attempt. It checks attempt,
-input and protocol identities but is explicitly not a final completion audit.
+input and protocol identities. The exact 2,192-file acquisition source still
+equals the locked manifest, all 4,606 execution-bundle files reverify unchanged,
+and the coordinator ownership was checked live. This is explicitly not a final
+completion audit. [Earlier checkpoint](confirmation-integrity-checkpoint-01.json)
+is preserved; recording time and later ledger observation are distinct from the
+CLI's sealed-attempt snapshot, not an atomic whole-campaign completion proof.
 
 ## Answer-review checkpoint
 
