@@ -9,21 +9,19 @@ Stage 7, unrelated projects or other machines; no credentials in tracked output.
 Repository: `/home/philip/vllm-semantic-cache-ext`; branch
 `stage6-5080-20261109`; push its established user-owned origin at checkpoints.
 
-Current phase: **screen running**, persistent session 66611, log
-`output/stage6-5080-20261109/screen-01.log`, ownership receipt
-`screen-owner-01.private.json`. All four native preflight attempts passed;
-223 sealed files verify and GPU/locks were released before screen launch.
+Current phase: **whole screen resumed**, persistent session 65450, log `output/stage6-5080-20261109/screen-02.log`,
+ownership receipt `screen-owner-02.private.json`. Use its recorded PID/birth/cwd
+and actual process state; never duplicate a live coordinator.
 
-**A recovery watcher is already active** in persistent session 15020, log
-`recovery-interrupt-01.log`, ownership in `recovery-watcher-owner-01.private.json`.
-Do not launch a duplicate watcher. It intentionally interrupts the first B01
-partial screen block after a verified first arm and active second arm. This is
-an expected development recovery audit, not a campaign capability failure.
-After it exits, inspect `$OUT/analysis/recovery-interruption-receipt.json`, the
-ledger and actual resources. Require sealed interruption and owned cleanup.
-Then resume the **whole screen** with the existing launch helper `--resume`
-and fresh `screen-02.log` / `screen-owner-02.private.json`. Preserve all attempts.
-Do not leave the campaign stopped after the intentional interruption.
+The deliberate recovery watcher finished successfully: the first B01 ARC arm
+is retained verified and the active candidate arm retained interrupted, both
+sealed. Owned cleanup passed and both locks were free before resume. The
+[interruption proof](recovery-interruption.json) retains all six attempts / 275
+verified files (four preflights plus the two original screen attempts). The
+resumed coordinator must replace B01 as a whole; no partial-block measurements
+are credited. The watcher is **finished**; do not restart it or repeat preflight.
+After B01 completes, verify `campaign_completion.recovery(OUT)['complete']` and
+retain its whole-block replacement proof, then let the original screen advance.
 
 The first preflight launch was stopped before any ledger attempt because its
 cwd was mutable source. The retained launch helper now validates exact exported
@@ -93,9 +91,9 @@ Do not run acquisition from mutable checkout or inherit a test interpreter.
 ## Remaining sequence
 
 1. Preflight is complete; do not repeat it.
-2. The recovery watcher is already running (see current phase above). Inspect its
-   receipt and resume the whole screen after the deliberate interruption. This
-   is the existing Stage 6 recovery proof, not a change to order/repeats.
+2. The deliberate interruption is verified and the whole screen is resumed.
+   Verify the completed B01 replacement proof once both arms finish. Continue
+   all remaining cells in their frozen order; do not restart the watcher.
 3. After all 54 screens, `campaign qualify --out "$OUT"`; inspect
    `all_required_correctness_passed`. Diagnose every genuine failure. Do not
    activate with failed correctness/activation/capacity/workload-purpose gates.

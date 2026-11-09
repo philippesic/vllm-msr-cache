@@ -1,0 +1,60 @@
+{
+  "schema": "stage6-5080-recovery-interruption-v1",
+  "receipt": {
+    "scope": "Deliberate development interruption after a verified partial comparison block",
+    "attempt": "5be8d36b8c4e42fa8e70bd00d9727d2c",
+    "artifacts": "attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/5be8d36b8c4e42fa8e70bd00d9727d2c",
+    "coordinator_pid": 46111,
+    "coordinator_birth": 1794241487.04,
+    "worker_pid": 46454,
+    "command": [
+      "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+      "-m",
+      "benchmarks.serving_suite.campaign",
+      "run",
+      "--out",
+      "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+      "--phase",
+      "screen"
+    ],
+    "prior_partial_attempts": [
+      "e0232f840c9d4e39989c92ead12323f1"
+    ],
+    "signal": "SIGINT",
+    "started_unix": 1794241793.8789005,
+    "coordinator_exited": true,
+    "interrupted_attempt_sealed": true,
+    "owned_cleanup_verified": true
+  },
+  "retained_screen_attempts": [
+    {
+      "state": "verified",
+      "model": "qwen3_8b_awq",
+      "cell": "B01",
+      "system": "arc",
+      "path": "attempts/d498eb870443c61f5f432b957972dede3458b3ac7238a128122e34b69ddd64f3/e0232f840c9d4e39989c92ead12323f1",
+      "seal": "6cf4648e8f0105747f44f9c85d34a35d92354068242c22a6ef281c572fd45f1a"
+    },
+    {
+      "state": "interrupted",
+      "model": "qwen3_8b_awq",
+      "cell": "B01",
+      "system": "wait",
+      "path": "attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/5be8d36b8c4e42fa8e70bd00d9727d2c",
+      "seal": "04aedea879948ff2a2b780fd4467f5f602fc506fe3d078b7c728ada383ed4f79"
+    }
+  ],
+  "both_locks_free": true,
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 5,
+      "interrupted": 1
+    },
+    "verified_files": 275,
+    "protocol_frozen": false,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "whole_block_replacement_pending": true,
+  "reason": "Existing prespecified development recovery audit. Interrupted candidate attempt is excluded from measurement; resume replaces the entire B01 matched block."
+}

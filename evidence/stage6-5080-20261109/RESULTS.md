@@ -35,3 +35,7 @@ kernel/serving capability. These diagnostics are excluded from performance resul
 [Native preflight evidence](preflight.json) preserves every check and seal.
 Its correctness success does not establish throughput gains or qualification
 of the full four-system matrix.
+
+The [development interruption](recovery-interruption.json) passed owned cleanup
+and sealing. Both original B01 arms remain retained; the resumed screen replaces
+that whole block. The interrupted measurement is excluded from comparisons.
