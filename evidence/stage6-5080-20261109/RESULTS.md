@@ -70,9 +70,13 @@ The [Ministral pressure screen](ministral-pressure-screen.json) passed for both
 native arms. ARC had 35 CPU-eviction-affected returns among 48 returning requests,
 and candidate had 29/48. This establishes that development fixture's pressure
 purpose, without a repeated speed or quality conclusion.
+The [Qwen3-4B pressure screen](qwen4b-pressure-screen.json) also passed: ARC had
+41 CPU-eviction-affected returns among 48 returning requests, candidate 38/48.
+All three models have positive development ARC pressure evidence; full screening
+and the complete qualification gate remain open.
 
-The [selected-screen source review](screen-review-index-05.json) covers 435 items
-in a partial snapshot (147 complete contexts), retaining format, overlength,
+The [selected-screen source review](screen-review-index-06.json) covers 781 items
+in a partial snapshot (289 complete contexts), retaining format, overlength,
 repetition, wrong-subject, factual and attribution failures. The separate
 [partial all-cap review](caps-screen-review-index-01.json) covers 13 sealed capped
 responses, including intermediates and arms of unfinished whole blocks. Both

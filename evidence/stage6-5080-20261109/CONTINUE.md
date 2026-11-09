@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Screen is running**, persistent execution session 65450. Its authoritative
 ownership is in `$BASE/screen-owner-02.private.json` (PID, birth, command, cwd,
 source); log `$BASE/screen-02.log`. Revalidate the actual process and GPU before
-any resume. Never launch a duplicate. At 2026-11-09 17:40 UTC, 16 of 22 whole
-screen blocks were complete (all Qwen cells and Ministral B02/B06/B08/B09);
-Ministral B11 ARC was active. Forty-two screen attempts were verified, one
+any resume. Never launch a duplicate. At 2026-11-09 17:54 UTC, 19 of 22 whole
+screen blocks were complete (all Qwen8B/Ministral cells and Qwen4B B02/B06);
+Qwen4B B08 candidate was active. Forty-nine screen attempts were verified, one
 deliberately interrupted, one raw failed/inconclusive
 B10 candidate control, one active. The verified count includes the original
 unmatched B01 ARC, which receives no matched-comparison credit. The B10 control
@@ -51,8 +51,11 @@ Completed prerequisites:
   check at the latest health snapshot. This is not whole-campaign qualification.
 - [Ministral pressure screen](ministral-pressure-screen.json): both native B06
   arms passed. ARC had 35 eviction-affected returns out of 48 returning requests,
-  candidate 29/48. This meets that model's ARC pressure-purpose gate; Qwen4B
-  and whole-matrix qualification remain pending.
+  candidate 29/48. This meets that model's ARC pressure-purpose gate.
+- [Qwen4B pressure screen](qwen4b-pressure-screen.json): both native B06 arms
+  passed. ARC had 41 eviction-affected returns out of 48 returning requests,
+  candidate 38/48. All three models now have positive ARC pressure evidence;
+  whole-matrix qualification still waits for every screen block.
 - [Transfer seals](transfer-seals.json) and [old-history integrity](history-integrity.json)
   pass. All original raw measurements and the original LMCache binary remain.
 - Exported CPU checks passed: 240 benchmark tests, 31 lightweight tests and
@@ -123,14 +126,20 @@ repeat that mistake. Never acquire from mutable source or a test interpreter.
 
 ## Answer-review checkpoint
 
-Latest completed partial review: [index 05](screen-review-index-05.json) and
-[ratings 05](screen-source-judgments-05.json), raw snapshot
-`$BASE/quality-screen-checkpoint-05/`. All 435 prescribed selected items have
-explicit judgments, covering 147 full contexts. All 16 novel contexts were read,
-including four team syntheses and one capped intermediate; additional full
-PeekableTests reference content was inspected. Snapshot objective coverage is
-458 finals. Selected-item findings: 86 source-unsupported, 155 instruction
-failures, 16 not useful, with complete-context duplicates counted separately.
+Latest completed partial review: [index 06](screen-review-index-06.json) and
+[ratings 06](screen-source-judgments-06.json), raw snapshot
+`$BASE/quality-screen-checkpoint-06/`. All 781 prescribed selected items have
+explicit judgments, covering 289 full contexts. Of 142 novel contexts relative
+to index 05, 138 were explicitly read and four exactly matched the separate
+cap review. There are four QA parts, ten repository parts and one cap-reuse
+part; each binds the immutable snapshot packet and context signature. Full new
+source/test bodies and additional NumericRangeTests reference content were
+read. Snapshot objective coverage is 778 finals. Selected-item findings: 190
+source-unsupported, 424 instruction failures, 53 not useful, with duplicates
+counted separately. This retains malformed/fenced QA JSON, unsupported additions,
+wrong answers, invented limitations, false validation denials caused by broad rg
+snippets, and overlong/unfinished intermediates. Correct useful fragments are
+separately recognized where warranted.
 These are selected sample counts, not population rates or quality equivalence.
 The archived executed system instruction also requires the literal validation
 status format for tool-using team syntheses and limits intermediates to 70 words;
@@ -149,27 +158,12 @@ pending; do not mark the partial inventory complete. Its expanded signatures
 include system-instruction and prompt-context bindings; ordinary quality ratings
 are reused only after separately checking those additional fields.
 
-**Snapshot 06 is already in progress; do not regenerate or overwrite it.** Raw
-`$BASE/quality-screen-checkpoint-06/` has 778 objective finals, 781 selected items,
-and 142 novel full contexts relative to canonical index 05. All 65 novel QA
-contexts were explicitly read and rated in `screen-qa-judgments-06-part-01..04`.
-Four repository intermediates exactly match the explicitly read cap review and
-are in `screen-cap-reused-judgments-06.json`. Four novel partitions finals were
-read in `screen-repository-judgments-06-part-01.json`. Thus 73/142 novel contexts
-are recorded and **69 repository contexts remain unread/unjudged**; the last
-part lists their exact indices into `novel-contexts.json`. No index 06 or
-consolidated ratings 06 exists yet. Source IDs needing review: set_partitions,
-peekable, sort_together, split_when, replace, seekable, ichunked, chunked,
-map_reduce, split_at, bucket, collapse, numeric_range, windowed and
-distinct_permutations. Preserve source-model/arm blinding. Read each actual
-dependency/tool context; broad rg snippets do not erase actual pytest results.
-
-Finish those explicit judgments, then consolidate against canonical 05 plus the
-new manual parts (exact eight-field reuse only), binding every packet review ID.
-After that use a fresh checkpoint directory (07 next), regenerate
+Snapshot 06 is fully rated for its partial inventory; preserve it. For the next
+snapshot use a fresh checkpoint directory (07 next), regenerate
 `prepare_review(OUT,'screen')` from exported source and copy its derived packet.
-Verify the same executed system-instruction digest and explicitly read/judge
-every novel required context. Do not invent missing
+Reuse canonical index 06 only on exact eight-field context equality, verify the
+same executed system-instruction digest, and explicitly read/judge every novel
+required context. Do not invent missing
 judgments or mark a partial inventory final. After acquisition regenerate final
 screen/confirmation and all-capped inventories. Capped inventory root should be
 BASE (which contains only this campaign alias), not VOLUME (which also contains

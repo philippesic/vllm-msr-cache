@@ -1,0 +1,72 @@
+{
+  "schema": "stage6-5080-secondary-pressure-screen-v1",
+  "rows": [
+    {
+      "model": "qwen3_4b_2507",
+      "system": "arc",
+      "attempt": "bf1e53b44c204d768c6b19ffabfd4325",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/e90978410b48a5b3a09c563b0a8ec9e77b5ab601a9e6ac9646e4bcb764fe79f6/bf1e53b44c204d768c6b19ffabfd4325",
+      "seal": "d98e02c12cfcf925fb54f79c8de3a3b561a6e2c9adb857f196c8192e92ad26ea",
+      "seal_verified_files": 137,
+      "status": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 136274,
+        "returning_computed_prompt_tokens": 109159,
+        "loaded_tokens": 4794,
+        "returning_loaded_tokens": 4589,
+        "prior_cpu_evicted_key_observations": 41,
+        "returning_requests_with_prior_cpu_eviction": 41,
+        "returning_requests": 48,
+        "preemptions": 20,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "system": "wait",
+      "attempt": "9054fe0bd2864a6ca33e28603d2961ca",
+      "path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/attempts/fb7c825db116a95e845edc1606af21fe4dc00b205e80c48de3873c30d3b5e588/9054fe0bd2864a6ca33e28603d2961ca",
+      "seal": "4e5a6810c0b2e9b6ec9da9936b0320ed8e60a3819c18ebe2c56e75f6e0dbc982",
+      "seal_verified_files": 137,
+      "status": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 101528,
+        "returning_computed_prompt_tokens": 74413,
+        "loaded_tokens": 41717,
+        "returning_loaded_tokens": 40426,
+        "prior_cpu_evicted_key_observations": 41,
+        "returning_requests_with_prior_cpu_eviction": 38,
+        "returning_requests": 48,
+        "preemptions": 16,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "scope": "Observed completed Qwen3-4B B06 development screen only; full matrix qualification pending. Gate uses ARC eviction-affected returns, not candidate speed. No favorable retries or design changes."
+}
