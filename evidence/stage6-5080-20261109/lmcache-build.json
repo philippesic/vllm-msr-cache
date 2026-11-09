@@ -153,5 +153,10 @@
     "generated_caches_moved_outside_seal": 111,
     "execution_bundle_files_verified": 4606
   },
-  "original_environment_preserved": true
+  "original_environment_preserved": true,
+  "package_version_comparison": {
+    "original_packages": 171,
+    "rebuilt_packages": 171,
+    "differences": {}
+  }
 }
