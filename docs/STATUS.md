@@ -15,14 +15,18 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Repository pressure recovery — authorized, preparing
+## Repository pressure recovery — running under scheduled supervision
 
 - Scope: repair serving runtime inheritance and repeat only the missed 18-case
   repository section on 2080 Ti, using pinned rebuilt-01 and original design.
 - Historical addendum-02 and primary seals remain intact; no QA/advice/primary
   rerun or 5080 acquisition. New study is addendum-03.
 - [Inventory and recovery contract](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
-- Ownership, health schedule and progress will be recorded with the new run.
+- Addendum-03 ARC gate is active under rebuilt-01; first bounded health check
+  healthy with supervisor reservation. [Launch receipt](../evidence/stage6-2080ti-20261106/repository-recovery-03/launch.json).
+- New 20-minute schedule is enabled on the recovery thread; next check 17:16
+  Pacific Nov 8. Its saved receipt is in repository-recovery-health/schedule.json
+  under the raw run root. Disable after acquisition, audits, writeup and cleanup.
 
 ## Wait-hint release extension — Stage 6 complete within bounded scope
 

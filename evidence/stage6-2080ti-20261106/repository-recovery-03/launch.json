@@ -1,0 +1,56 @@
+{
+  "coordinator": {
+    "pid": 956456,
+    "create_time": 1794185794.82
+  },
+  "execution_session": 53389,
+  "children": [
+    {
+      "pid": 956472,
+      "created": 1794185814.54,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-assets/runtimes-rebuilt-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "_worker",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-03",
+        "--attempt",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-03/attempts/52f49f4d475f0a7683d660bae1fd4a26338d6b5cb215dc146ae63782207e6537/e477478e032a461b9a3cf405a4ed0b38"
+      ]
+    }
+  ],
+  "schedule_receipt": "output/stage6-2080ti-20261106/repository-recovery-health/schedule.json",
+  "schedule_next_check": "2026-11-08 17:16:46 America/Los_Angeles",
+  "health": {
+    "started_unix": 1794185799.3619783,
+    "section_started": {
+      "repository": 1794185814.5297458
+    },
+    "status": "healthy",
+    "owner": {
+      "pid": 956456,
+      "create_time": 1794185794.82
+    },
+    "active_block": "repository-gate",
+    "active_attempt": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-03/attempts/52f49f4d475f0a7683d660bae1fd4a26338d6b5cb215dc146ae63782207e6537/e477478e032a461b9a3cf405a4ed0b38",
+    "progress_unix": 1794185814.5960314,
+    "issues": [],
+    "gpu": {
+      "memory_used": 499077120,
+      "memory_total": 11811160064,
+      "utilization": 0,
+      "temperature_c": 31,
+      "processes": []
+    },
+    "out": "/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/addendum-03",
+    "host": {
+      "available_memory_bytes": 14365614080,
+      "swap_used_bytes": 80146432
+    },
+    "attempts": 1,
+    "checked_unix": 1794185816.5050604
+  },
+  "repair_push": "origin/main",
+  "acquisition": "in_progress_not_complete"
+}
