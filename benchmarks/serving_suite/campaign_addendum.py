@@ -10,7 +10,6 @@ import argparse
 import copy
 import json
 import os
-import sys
 import time
 from pathlib import Path
 
@@ -186,6 +185,51 @@ def prepare(parent, out):
         held_out_check=overlap, limits=LIMITS, state='prepared_not_launched')
 
 
+def prepare_repository(previous, out, authorization):
+    """New authorized study reusing the historical repository design verbatim."""
+    from .campaign import source_snapshot
+    from .source_snapshot import materialize
+    previous, out = Path(previous).resolve(), Path(out).resolve()
+    if out.exists() or not authorization.strip():
+        raise ValueError('New destination and explicit authorization record required')
+    old = read_protocol(previous)
+    source = source_snapshot()
+    stable = {k:v for k,v in old['source']['files'].items()
+              if k.startswith(('semantic_offload/', 'vendor/vllm/vllm/'))}
+    if any(source['files'].get(k) != v for k,v in stable.items()):
+        raise ValueError('Historical serving implementation changed')
+    resolved, host = load(previous/'resolved.json'), load(previous/'host.private.json')
+    cells = [copy.deepcopy(c) for c in resolved['cells'] if c['cell'] in ('R00','R01','R02')]
+    if {c['cell'] for c in cells} != {'R00','R01','R02'}:
+        raise ValueError('Historical repository cells missing')
+    for cell in cells:
+        binding = cell['workload_binding']
+        for kind in ('plan','corpus'):
+            value = load(binding[kind])
+            if digest(value) != binding[kind+'_digest']:
+                raise ValueError('Historical input changed')
+            path = out/'inputs'/cell['cell']/(kind+'.json')
+            atomic_json(path, value)
+            binding[kind] = str(path)
+    campaign = load(previous/'campaign.json')
+    campaign.update(diagnostic_only=dict(kind='stage6-repository-recovery',
+        previous_protocol_sha256=file_hash(previous/'protocol.lock.json'), authorization=authorization),
+        input_identities=[cell_inputs(c) for c in cells])
+    atomic_json(out/'campaign.json', campaign)
+    atomic_json(out/'resolved.json', dict(resolved, campaign_id=digest(campaign), cells=cells))
+    for name in ('host.private.json','hardware.private.json'):
+        atomic_json(out/name, load(previous/name)); (out/name).chmod(0o600)
+    snapshot = materialize(ROOT, Path(host['asset_cache'])/'source-snapshots', source)
+    protocol = dict(old, source=source, snapshot=str(snapshot), campaign_id=digest(campaign),
+        cells_digest=digest(cells), schedule=[b for b in old['schedule'] if b['section']=='repository'],
+        previous_addendum=str(previous), previous_protocol_sha256=file_hash(previous/'protocol.lock.json'),
+        authorization=authorization, historical_cohort_exposure='Previously used by completed advice section; no longer held out')
+    write_protocol(out, protocol)
+    Ledger(out)
+    return dict(out=str(out), snapshot=str(snapshot), scheduled_configurations=18,
+                state='prepared_not_launched')
+
+
 def primary_complete(parent):
     """Cheap whole-block check; full retained integrity audit remains separate."""
     from .campaign_validity import measurement_validity
@@ -330,7 +374,9 @@ def run(out, *, resume=False):
                     state.update(active_attempt=str(directory), progress_unix=time.time())
                     atomic_json(state_path,state)
                     print(f"{block['id']} {cell_name} {system}",flush=True)
-                    command = [sys.executable,'-m','benchmarks.serving_suite.campaign','_worker',
+                    host = load(out/'host.private.json')
+                    python = cell.get('profile', {}).get('runtime_python', host['runtime_python'])
+                    command = [python,'-m','benchmarks.serving_suite.campaign','_worker',
                                '--out',str(out),'--attempt',str(directory)]
                     plan = load(cell['workload_binding']['plan'])
                     try:
@@ -452,6 +498,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='command',required=True)
     p=sub.add_parser('prepare');p.add_argument('--parent',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
+    p=sub.add_parser('prepare-repository');p.add_argument('--previous',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--authorization',required=True)
     p=sub.add_parser('run');p.add_argument('--out',type=Path,required=True);p.add_argument('--resume',action='store_true')
     p=sub.add_parser('status');p.add_argument('--out',type=Path,required=True)
     p=sub.add_parser('close-section');p.add_argument('--out',type=Path,required=True)
@@ -462,6 +509,7 @@ def main():
     p.add_argument('--evidence',type=Path,required=True);p.add_argument('--reason',required=True)
     args=parser.parse_args()
     if args.command=='prepare':result=prepare(args.parent,args.out)
+    elif args.command=='prepare-repository':result=prepare_repository(args.previous,args.out,args.authorization)
     elif args.command=='run':result=run(args.out,resume=args.resume)
     elif args.command=='repair':result=repair(args.out,args.block,args.kind,args.evidence,args.reason)
     elif args.command=='close-section':result=close_section(args.out,args.section,args.evidence,args.reason)

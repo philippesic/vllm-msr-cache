@@ -15,6 +15,15 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
+## Repository pressure recovery — authorized, preparing
+
+- Scope: repair serving runtime inheritance and repeat only the missed 18-case
+  repository section on 2080 Ti, using pinned rebuilt-01 and original design.
+- Historical addendum-02 and primary seals remain intact; no QA/advice/primary
+  rerun or 5080 acquisition. New study is addendum-03.
+- [Inventory and recovery contract](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
+- Ownership, health schedule and progress will be recorded with the new run.
+
 ## Wait-hint release extension — Stage 6 complete within bounded scope
 
 - **Stage 6 acquisition and audits:** all 524 primary configurations / 210 whole

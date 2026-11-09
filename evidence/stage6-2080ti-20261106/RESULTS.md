@@ -1,5 +1,9 @@
 # Stage 6 measured outcomes
 
+A separately authorized [repository recovery](repository-recovery-03/README.md)
+is preparing on 2026-11-08. The historical gap described below remains until new
+measurements and audits complete. Primary comparisons are unchanged.
+
 Acquisition and source review are complete. Results are conditional on the
 2080 Ti/WSL2 host, frozen inputs and configured systems. They support
 workload-dependent performance, not universal dominance or quality equivalence.

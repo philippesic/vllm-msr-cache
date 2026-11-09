@@ -106,11 +106,12 @@ def fake_campaign(tmp_path,monkeypatch):
         cells.append(dict(model=add.MODEL,cell=name,artifact_identity='fixed',profile={},
             workload_binding=dict(plan=str(plan),corpus=str(corpus)),confirmation_binding=None))
     atomic_json(out/'resolved.json',dict(campaign_id='test',host_id='test',cells=cells))
-    atomic_json(out/'host.private.json',{})
+    atomic_json(out/'host.private.json',dict(runtime_python='/pinned/serving/python'))
     protocol=dict(source=source,parent=str(tmp_path/'primary'),snapshot=str(tmp_path),
         cells_digest=digest(cells),limits=add.LIMITS,schedule=[])
     def lock(blocks):
         protocol['schedule']=blocks
+        protocol['cells_digest']=digest(load(out/'resolved.json')['cells'])
         write_protocol(out,protocol)
     monkeypatch.setattr(campaign,'source_snapshot',lambda:source)
     monkeypatch.setattr(add,'primary_complete',lambda p:True)
@@ -124,6 +125,7 @@ def fake_campaign(tmp_path,monkeypatch):
     launched=[]
     def worker(command,**kwargs):
         from pathlib import Path
+        assert command[0] == '/pinned/serving/python'
         d=Path(command[-1]); i=load(d/'identity.json');launched.append(i)
         case=dict(evaluation=dict(status='passed'),hints=[],campaign=dict(native_cache=dict(
             complete=True,returning_loaded_tokens=1,returning_requests_with_prior_cpu_eviction=1)))
@@ -223,3 +225,19 @@ def test_interrupted_capture_is_sealed_before_terminal_recovery(tmp_path):
     assert event['state']=='interrupted'
     assert verify_tree(directory,event['details']['seal'])>=3
     assert capture.read_text()=='{"partial_capture":'
+
+
+def test_worker_uses_cell_runtime_override(fake_campaign, monkeypatch):
+    from benchmarks.serving_suite import campaign_execution
+    out, lock, _, worker = fake_campaign
+    cells = load(out/'resolved.json')
+    cells['cells'][0]['profile']['runtime_python'] = '/model/serving/python'
+    atomic_json(out/'resolved.json', cells)
+    lock([dict(id='repository-0',section='repository',cases=[['R01','arc']])])
+    commands = []
+    def capture(command, **kwargs):
+        commands.append(command[0])
+        worker(['/pinned/serving/python', *command[1:]], **kwargs)
+    monkeypatch.setattr(campaign_execution, 'run_worker', capture)
+    assert add.run(out)['status'] == 'complete'
+    assert commands == ['/model/serving/python']

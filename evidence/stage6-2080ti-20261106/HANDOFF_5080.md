@@ -1,5 +1,11 @@
 # Stage 6 replication handoff
 
+2026-11-08 update: Philip separately authorized [repository recovery on 2080 Ti](repository-recovery-03/README.md).
+The current addendum coordinator explicitly selects the cell/host pinned serving
+interpreter; historical exported sources retain the old inheritance behavior.
+Use the repaired coordinator for future new studies, with a new source identity;
+do not patch sealed bundles in place. This does not authorize 5080 execution.
+
 No 5080 jobs have been started. This handoff preserves the 2080 Ti measurements
 and prepares separately gated replication; it is not a 5080 performance or
 production qualification. Read [measured outcomes and limitations](RESULTS.md)
