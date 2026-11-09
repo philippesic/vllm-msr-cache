@@ -39,3 +39,7 @@ of the full four-system matrix.
 The [development interruption](recovery-interruption.json) passed owned cleanup
 and sealing. Both original B01 arms remain retained; the resumed screen replaces
 that whole block. The interrupted measurement is excluded from comparisons.
+
+The [transfer seal audit](transfer-seals.json) passes for both original transfers,
+the completion packet, execution bundle and new imported bundle. This is an
+integrity result; campaign acquisition and answer-quality audits remain open.

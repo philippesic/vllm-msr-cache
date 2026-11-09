@@ -1,0 +1,33 @@
+{
+  "schema": "stage6-5080-rebuilt-transfer-seal-audit-v1",
+  "checked_unix": 1794241953.955286,
+  "passed": true,
+  "checks": {
+    "primary-relocated-bundle": {
+      "seal_file_sha256": "03dcfbe668440490150995554c35b65a5de7f247dc1e4906ec866c46699ab01e",
+      "verified_files": 4606,
+      "original_receipt_matched": true
+    },
+    "addendum-relocated-bundle": {
+      "seal_file_sha256": "993cdfbee9672131a929a26baeb1dee168f36faf8372ee337c6ae1a6cba6c720",
+      "verified_files": 8362,
+      "original_receipt_matched": true
+    },
+    "completion-audit-packet-02": {
+      "seal_file_sha256": "9de8697b431eb10ff7d0e0c486234314245da1247fcbe7d3c4c8004e8d654698",
+      "verified_files": 17,
+      "original_receipt_matched": true
+    },
+    "execution_bundle": {
+      "seal": "75abd6fbcdca6f210c1991e8f4160a7cad08593f7b5b05c8fe50fae8f374c8f2",
+      "verified_files": 4606,
+      "parent_source_identity_matched": true
+    },
+    "new_imported_bundle": {
+      "seal": "75abd6fbcdca6f210c1991e8f4160a7cad08593f7b5b05c8fe50fae8f374c8f2",
+      "verified_files": 4606,
+      "parent_source_identity_matched": true
+    }
+  },
+  "scope": "All copied original transfer, audit-packet, execution and newly imported bundle seals match their original receipts and all materialized contents. Does not establish acquisition, performance, quality or campaign completion."
+}

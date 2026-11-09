@@ -29,6 +29,10 @@ source, mount and interpreter before exec into the unchanged coordinator.
 
 ## Established evidence
 
+- [Transfer seal audit](transfer-seals.json): original primary/addendum/completion
+  packet, execution bundle and new imported bundle all match their original
+  seal receipts and materialized file hashes. No historical artifacts changed.
+
 - [Native preflight](preflight.json): all three restore/fresh-reference fixtures
   and the anchor registry probe passed; all four attempts / 223 files verify.
 
