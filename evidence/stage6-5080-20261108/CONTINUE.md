@@ -38,10 +38,17 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `published-identities.json` and all three GPU-free imports. Retain this cache.
 Pinned runtime logs are under `$RUNTIMES`; summary is `$BASE/runtime-setup.log`.
 
-Model reacquisition is running in session 74455 from the **original** primary
-export, logging to `$BASE/transfer-setup-03.log`, eventually writing
-`$BASE/host.private.json`. Its saved birth identity/cwd is in
-`$BASE/progress.private.json`. Do not start duplicate downloads; let it finish.
+Model reacquisition completed successfully in session 74455 from the original
+primary export. All three pinned model contents verified; the initial private
+host file is `$BASE/host.private.json`. Log: `$BASE/transfer-setup-03.log`.
+
+**Active next step:** session 71664 is doing offline host rebinding to the new
+execution source and then campaign import in one `&&` chain. Logs are
+`$BASE/transfer-bind-replica-01.log` and `$BASE/import-01.log`. Saved process
+birth identities and paths are in `$BASE/import-progress.private.json`.
+Inspect this existing operation before any new launch; do not duplicate it.
+When it exits, inspect both receipts and the imported `resolved.json`, then
+verify host and every cell explicitly bind `$PY` before launching preflight.
 Earlier setup attempts/logs are retained (one verifier rejection of generated
 caches; one stopped cwd correction). All original seals verify again.
 
@@ -55,12 +62,13 @@ execution source too: 240 tests, 31 tests and compileall (`*-02.log`).
 Recheck disk before continuing. Initial WSL free space was 23,943,786,496
 bytes; the Windows filesystem had 60,804,325,376 bytes free. Sealed model
 weights total 29,540,039,872 bytes. Existing uv cache permits hardlink reuse;
-runtime reconstruction now leaves about 7.4 GiB in WSL, and model downloads
-are in progress on Windows. Do not delete unrelated data or fill a volume.
+runtime reconstruction leaves about 7.3 GiB in WSL, and completed model
+downloads leave about 29 GiB on Windows. Do not delete unrelated data or fill
+a volume.
 
-After the active model reacquisition succeeds, bind its cached weights to the
-new execution source using `transfer_setup --offline` and a separate private
-host file, then import. Use the pinned interpreter throughout:
+The commands below retain the entire authorized sequence. Offline rebinding
+and import are already active in session 71664; do not repeat completed steps.
+Use the pinned interpreter throughout:
 
 ```bash
 cd "$BUNDLE/source"

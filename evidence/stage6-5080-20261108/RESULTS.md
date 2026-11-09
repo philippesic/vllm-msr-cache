@@ -1,7 +1,8 @@
 # Stage 6 RTX 5080 replication
 
 Authorized 2026-11-08 at about 20:47 Pacific, on DESKTOP-E78LJSI.
-Model reacquisition is active; pinned runtime reconstruction succeeded.
+All three pinned models were reacquired and content-verified; pinned runtime
+reconstruction succeeded. Offline host binding and campaign import are active.
 There are no 5080 serving measurements or hardware
 qualification results yet. No performance or answer-quality claim follows.
 
@@ -40,8 +41,9 @@ This is preparation telemetry, not the campaign's native hardware preflight.
 
 Storage is tight: initially about 22.3 GiB available in WSL and 56.6 GiB on
 Windows. Pinned model weights require 27.5 GiB before ancillary files.
-Native runtimes now leave about 7.4 GiB free in WSL; reacquired models use
-a dedicated Windows cache. Recheck free space before downloads/serving;
+Native runtimes leave about 7.3 GiB free in WSL; reacquired models use
+a dedicated Windows cache with about 29 GiB remaining. Recheck free space
+before serving;
 stop with a resource receipt if this layout cannot support the frozen job.
 No unrelated data has been removed.
 

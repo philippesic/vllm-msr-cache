@@ -22,8 +22,9 @@ Pacific. Both sealed bundles, the final audit packet and repository checkpoint
 are copied and verified. Exported primary source passes 240 benchmark tests
 and 31 lightweight tests plus compilation, repeated on a separately sealed
 5080 source identity using the current coordinator and unchanged frozen inputs.
-All three pinned runtimes reconstructed successfully; model reacquisition is
-active. No campaign import, native hardware preflight or serving has run yet.
+All three pinned runtimes reconstructed successfully, and all three pinned
+models were reacquired and content-verified. Host rebinding and campaign
+import are active; native hardware preflight and serving have not run yet.
 The 15-minute health schedule is enabled. Storage needs monitoring; pinned
 models will use a dedicated Windows cache while native runtimes stay in WSL.
 [Current 5080 evidence](../evidence/stage6-5080-20261108/RESULTS.md) and
