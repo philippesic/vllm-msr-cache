@@ -1,0 +1,45 @@
+{
+  "schema": "stage6-5080-filesystem-repair-runtime-validation-v1",
+  "verified_unix": 1794205363.7964475,
+  "whole_replacement_block_passed": true,
+  "cell": "B01",
+  "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "attempts": [
+    {
+      "system": "arc",
+      "attempt": "59aa72e97a49460f8345a862e74638e2",
+      "seal": "b83372cbd445d1718a41d8231039a412170f50c33eb95a1b58d9422b27b5ef5a",
+      "verified_files": 29,
+      "completed": 6,
+      "finish_reasons": {
+        "stop": 6
+      },
+      "runtime_staging_residual_entries": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    },
+    {
+      "system": "wait",
+      "attempt": "8b2b5a8f1c21490cbf746ad668cfde99",
+      "seal": "47c5ff8a65a883ea248346f2867e513442432e64afa4abbba909cffad29ad01e",
+      "verified_files": 29,
+      "completed": 6,
+      "finish_reasons": {
+        "stop": 6
+      },
+      "runtime_staging_residual_entries": 0,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      }
+    }
+  ],
+  "original_attempt_preserved_interrupted": [
+    "abf845871bda48c8849e6340010e75a3"
+  ],
+  "scope": "Actual native ARC/candidate staging, serving, cleanup and strict outer seals pass on repaired Linux storage. This development block is not a performance/quality qualification."
+}

@@ -14,6 +14,12 @@ all six requests, but its incomplete
 block has no measurement credit. No speed or answer-quality equivalence claim
 follows.
 
+The [replacement B01 block](repair-runtime-validation.json) subsequently
+completed both ARC and candidate with verified strict outer seals, successful
+cleanup and no residual native staging. This validates the storage repair with
+actual serving; screen has advanced beyond B01. The original failed attempt
+and its answers remain preserved and separately identified.
+
 [Import proof](import.json) confirms a new linked hardware acquisition identity,
 all host/cell serving interpreters explicitly bound, and the unchanged 524
 confirmation configurations / 210 blocks, 38 overhead and six operational
