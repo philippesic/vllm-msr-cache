@@ -8,7 +8,9 @@ Preserve the closed November 8 campaign and every 2080 Ti artifact.
 Repository: `/home/philip/vllm-semantic-cache-ext`; branch
 `stage6-5080-20261109`; push only its established user-owned origin.
 
-Current phase: runtime rebuild preparation. No new campaign acquisition yet.
+Current phase: rebuilt and kernel round-trip passed; transfer setup is running
+in persistent session 31264 (log `$BASE/transfer-setup.log`). No campaign
+acquisition yet. Build/session logs and failed attempts are retained.
 LMCache release tag `v0.3.6` matches the installed wheel's embedded revision.
 Build source is on the existing mounted ext4 volume. Use CUDA 12.8 tools to
 match Continuum's pinned torch 2.8.0+cu128, not the host CUDA 13.1 compiler.
@@ -46,3 +48,25 @@ and 95% CIs plus latency, commit/push. Do not freeze/replan or alter policy,
 models, workloads, geometry, order or repeats. Gate failures require diagnosis.
 Disable this schedule only at a pushed completed outcome or irreparable genuine
 failure. Release all owned servers and GPU locks. Never track credentials.
+
+Build success: `$VOLUME/lmcache-build-20261109-05/wheels/` contains the wheel;
+new Continuum environment already has it installed. `lmcache-build.json` here
+records hashes and source/toolchain details. The original environment is intact.
+CUDA 12.8 uses GCC 14 and isolated Ubuntu 24.04 glibc/kernel headers because
+the host GCC 15/glibc 2.42 are too new. Do not switch back to CUDA 13.1.
+All 178 release Python files match the original installed release.
+
+`transfer_setup --offline --id rtx5080` uses the new runtime manifest in
+`$RUNTIMES`, reuses the pinned weights/local/upstream runtimes and source.
+After it completes, explicitly replace the unimported new host runtime_python
+with `$PY`, then import from `$BUNDLE/source` into the fresh `$OUT`. Do not
+modify November 8 bindings. PYTHONDONTWRITEBYTECODE=1 is mandatory when running
+from sealed source; direct compileall created only generated caches, now moved
+outside the bundle and all 4,606 files verified unchanged. CPU checks already
+passed; use PYTHONPYCACHEPREFIX and a separate pytest cache for future checks.
+
+Run the separate short serving smoke from the mutable project with `$PY -m
+benchmarks.research_checks.stage6_5080_smoke serve --campaign "$OUT" --out
+"$VOLUME/continuum-smoke-20261109-01"`. Its changed one-session/16-token
+parameters are diagnostic only, never campaign measurements. Then run preflight
+from the sealed exported source with the pinned interpreter and original design.

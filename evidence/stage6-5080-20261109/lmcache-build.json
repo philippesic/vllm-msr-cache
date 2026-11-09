@@ -1,0 +1,157 @@
+{
+  "schema": "stage6-5080-lmcache-build-v1",
+  "source_revision": "cad4db10592e8487d1e0bbd02d1a6f92c37d0581",
+  "source_repository": "https://github.com/LMCache/LMCache",
+  "original": {
+    "version": "0.3.6",
+    "commit": "gcad4db105",
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "abi": true,
+    "site": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/continuum-env/lib/python3.12/site-packages/lmcache"
+  },
+  "original_extension_sha256": "2d7a83345a34035be67e94609661db712265d479df447b317aa0aa86535a04ce",
+  "unchanged_release_python_files": 178,
+  "architectures": "12.0+PTX",
+  "toolkit_components": {
+    "cuda_nvcc": [
+      "12.8.93",
+      "9961b3484b6b71314063709a4f9529654f96782ad39e72bf1e00f070db8210d3"
+    ],
+    "cuda_cudart": [
+      "12.8.90",
+      "8d566b5fe745c46842dc16945cf36686227536decd2302c372be86da37faca68"
+    ],
+    "cuda_cccl": [
+      "12.8.90",
+      "0740e9e01e4f15e17c5ab8d68bba4f8ec0eb6b84edccba4ac45112d2d2174e4b"
+    ]
+  },
+  "glibc_headers": {
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6-dev_2.39-0ubuntu8.9_amd64.deb",
+    "sha256": "e13d5fcc1b2a86f75bca8e0026a8e39f24fe97ca86e92be79991f8697eb1306f"
+  },
+  "linux_headers": {
+    "url": "https://archive.ubuntu.com/ubuntu/pool/main/l/linux/linux-libc-dev_6.8.0-31.31_amd64.deb",
+    "sha256": "21c631ba4da3d38d92a133e28a8a14278e1e00174ed135a20661d1e532e05ca5"
+  },
+  "pinned_dependency_headers": {
+    "cublas/nvblas.h": "75708b47eda8522245ccbb03b4800ad3d9b8d9cb781b41d6758cc152e0cf5e97",
+    "cublas/cublasLt.h": "a07f53474d47e4259f18f223264ebe2e383c7903aed20868ed336df378029b08",
+    "cublas/cublas_v2.h": "ab131d0798dbf7b96e11fc3ad4b10007e5a5afc03d0cb06f3b8ad1ca90c234ac",
+    "cublas/cublasXt.h": "096f5dc976064945b5c045eb555ca153a3b104ad4f52f32861d5469504fb2fd0",
+    "cublas/cublas.h": "6b494bab2fa4e3b36ec320e3bae782dd6d0ca5cf74f0c4d4ee8e6c309a84fb5c",
+    "cublas/cublas_api.h": "03826fbfd7a5be82480f0f117943fba819d2c44bddb2573e8215bfc9cabfa805",
+    "cusparse/cusparse_v2.h": "8e41f603d85873e4c4174bee43f4aeadb84f3441e460650846ec4a5e1140aa7c",
+    "cusparse/cusparse.h": "f0c0c32b3fba778ac5aaeca30fe83ec9665b109083f7b42ae3f0afe6087b7ee9",
+    "cusolver/cusolverSp.h": "4b3207d86b77e9ffdc68dd708c5f0f9c2c182e1c2c7c9eb79f530f21cd3f026b",
+    "cusolver/cusolverMg.h": "37cf7cf679d2d8195e78ccae7ed6d08010c9e2c30090b3d29e6cbf4bfedfc678",
+    "cusolver/cusolverDn.h": "06a89787eb12965ecac70863a92b9526f483c5e072aa3db17c02b42b2a06dcab",
+    "cusolver/cusolverSp_LOWLEVEL_PREVIEW.h": "9a6997b97fe094705da604f322a85790b333f540b1c42d6e4136dc280d56e942",
+    "cusolver/cusolverRf.h": "e0537aa3a1589a5d3da52e29f984f924a6f0819a8a2c4b5ff6d419af9d32668e",
+    "cusolver/cusolver_common.h": "93984764465ca31c644c5a9b28958a1aec6e1cb692470588bd8760bd02746ddc",
+    "curand/curand_mtgp32.h": "421ae6c74a47585f8fd94bb96cac1813dca6116ab773ba81cc221354c68a31f2",
+    "curand/curand_globals.h": "6c44b52b1d0dac04d79350d178c324a96ac1d3ada73a7680a77f72db6c158975",
+    "curand/curand_discrete2.h": "66b4133b947dc7cdc0317f3cbaaeccf0cf780cb482e55133d0f0247dcc2d41e8",
+    "curand/curand_mtgp32_host.h": "497ab3992424cd32d2449e29a234e0fd33420b74fe1bcf477412be6e8483aabe",
+    "curand/curand_precalc.h": "23a3597604f8d9f326f6a482b4ffab94e02ab7866caa06a5d1a8e4b5c3e611a9",
+    "curand/curand_mtgp32_kernel.h": "6a36675ebe595e7404c4495fe8b3e98a0aeb28f4e630865b4724c49c9f810e1c",
+    "curand/curand_lognormal.h": "f97fa2364252cd6a406188e8826ebcf4425365fce8adef6cc54ece6dd7658cb9",
+    "curand/curand_kernel.h": "4a37c07a1d77c9b5c8c627a4720733cee6b4da4200a844e8a49291858bc26adf",
+    "curand/curand_mrg32k3a.h": "65555112318db09409fb7233659fcb286b46b5eb2589c6fc134025cb8f4128fb",
+    "curand/curand.h": "b2dad0f62765453428049cbf8406c04f8a60916e8129883ca7f9d48db6fc055c",
+    "curand/curand_normal.h": "967998564d9f9f4a045563b2b5d2a15eb1cbdfa18b0a332707c3a765e09a61c0",
+    "curand/curand_discrete.h": "daa0f706423adb65c4bb4e38e3054fec779890a031d118ebd870e1a94e1203b1",
+    "curand/curand_uniform.h": "829991810bb9afaa6980b4e0eb4357a03755252eb0314cba8c2e5b87c974e1ef",
+    "curand/curand_normal_static.h": "e4ae224c2f40b925827b52d5c6e8ffd32dc1563b69d1bc4eea19ddbf6adb9a2c",
+    "curand/curand_mtgp32dc_p_11213.h": "eff8066141f8ed4ba020012deb4bd81f99c56be414c13a43c121202e0f5c66db",
+    "curand/curand_poisson.h": "2ab8573a63bf0fb69c9678fc81e2321ea769490c161eead2f55fe956d833a1d3",
+    "curand/curand_philox4x32_x.h": "4f6d483fe45d837fed49553d25ee1d2cabb012a138a2f7f08bbaf584e63dd83c"
+  },
+  "compiler_wrappers": {
+    "gcc": "#!/bin/sh\ncase \" $* \" in\n  *\" -shared \"*) exec /usr/bin/gcc-14 \"$@\" ;;\n  *) exec /usr/bin/gcc-14 --sysroot=/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/cuda-12.8-20261109/glibc-2.39-headers \"$@\" ;;\nesac\n",
+    "g++": "#!/bin/sh\ncase \" $* \" in\n  *\" -shared \"*) exec /usr/bin/g++-14 \"$@\" ;;\n  *) exec /usr/bin/g++-14 --sysroot=/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/cuda-12.8-20261109/glibc-2.39-headers \"$@\" ;;\nesac\n"
+  },
+  "environment": {
+    "CUDA_HOME": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/cuda-12.8-20261109",
+    "TORCH_CUDA_ARCH_LIST": "12.0+PTX",
+    "ENABLE_CXX11_ABI": "1",
+    "MAX_JOBS": "2",
+    "CC": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/lmcache-build-20261109-05/compilers/gcc",
+    "CXX": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/lmcache-build-20261109-05/compilers/g++"
+  },
+  "command": [
+    "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-02/continuum-env/bin/python",
+    "setup.py",
+    "bdist_wheel",
+    "--dist-dir",
+    "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/lmcache-build-20261109-05/wheels"
+  ],
+  "host_compiler": "g++-14 (Ubuntu 14.3.0-14ubuntu1) 14.3.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "compiler": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Feb_21_20:23:50_PST_2025\nCuda compilation tools, release 12.8, V12.8.93\nBuild cuda_12.8.r12.8/compiler.35583870_0\n",
+  "declared_deviation": "Same LMCache source and policy, rebuilt only for RTX 5080 sm_120 and compute_120 PTX; separate environment preserves the original wheel",
+  "wheel": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/lmcache-build-20261109-05/wheels/lmcache-0.3.6-cp312-cp312-linux_x86_64.whl",
+  "wheel_sha256": "8da22003d19f000af1d003f73066553083143538729fc0b3473cdf94bb59cba8",
+  "binary_inventory": {
+    "sm_120_present": true,
+    "ptx_present": true,
+    "elf_inventory": "ELF file    1: c_ops.cpython-312-x86_64-linux-gnu.1.sm_120.cubin\nELF file    2: c_ops.cpython-312-x86_64-linux-gnu.2.sm_120.cubin\nELF file    3: c_ops.cpython-312-x86_64-linux-gnu.3.sm_120.cubin\nELF file    4: c_ops.cpython-312-x86_64-linux-gnu.4.sm_120.cubin\nELF file    5: c_ops.cpython-312-x86_64-linux-gnu.5.sm_120.cubin\n",
+    "raw_ptx": "output/stage6-5080-20261109/lmcache-ptx.txt",
+    "ptx_sha256": "e4c949a02b820e129465404a627ab4c06e37f34f3e990760500f807edf1d6cc9"
+  },
+  "kernel_smoke": {
+    "passed": true,
+    "operation": "multi_layer_kv_transfer",
+    "dtype": "float16",
+    "layers": 3,
+    "tokens": 256,
+    "pinned_cpu_bytes": 393216,
+    "gpu_to_cpu_exact": true,
+    "cpu_to_gpu_exact": true,
+    "torch": "2.8.0+cu128",
+    "cuda": "12.8",
+    "device": "NVIDIA GeForce RTX 5080",
+    "capability": [
+      12,
+      0
+    ],
+    "extension": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-02/continuum-env/lib/python3.12/site-packages/lmcache/c_ops.cpython-312-x86_64-linux-gnu.so",
+    "extension_sha256": "7bea88f72e3c1df10b0798e214fa8a8b8fba2c2ee306874f554fd4fc612c81ec",
+    "scope": "Exact pinned CPU/GPU KV round trip; no performance or model-correctness claim"
+  },
+  "preparation_attempts": [
+    {
+      "attempt": 1,
+      "status": "failed_setup",
+      "reason": "CUDA 12.8 rejects host GCC 15"
+    },
+    {
+      "attempt": 2,
+      "status": "failed_setup",
+      "reason": "CUDA 12.8 math declarations conflict with host glibc 2.42"
+    },
+    {
+      "attempt": 3,
+      "status": "failed_setup",
+      "reason": "Header include order with CPATH shadowed C++ math wrapper; fixed with compiler sysroot"
+    },
+    {
+      "attempt": 4,
+      "status": "failed_setup",
+      "reason": "Minimal compiler toolkit lacked torch library headers; supplied from pinned packages"
+    },
+    {
+      "attempt": 5,
+      "status": "built",
+      "reason": "Same source; GCC 14, isolated unmodified Ubuntu 24.04 headers, pinned CUDA library headers"
+    }
+  ],
+  "validation": {
+    "exported_bench_tests_passed": 240,
+    "exported_light_tests_passed": 31,
+    "exported_compileall": true,
+    "generated_caches_moved_outside_seal": 111,
+    "execution_bundle_files_verified": 4606
+  },
+  "original_environment_preserved": true
+}
