@@ -11,13 +11,16 @@ requires repair and continuation, not a capability-failure closeout.
 **Screen is running**, persistent execution session 65450. Its authoritative
 ownership is in `$BASE/screen-owner-02.private.json` (PID, birth, command, cwd,
 source); log `$BASE/screen-02.log`. Revalidate the actual process and GPU before
-any resume. Never launch a duplicate. At 2026-11-09 17:01 UTC, seven of 22 whole
-screen blocks were complete; B08 upstream was active, with Continuum/candidate
-already verified. Nineteen screen attempts were verified, one deliberately
-interrupted, one active. The verified count includes the original unmatched B01
-ARC, which receives no matched-comparison credit. No additional raw failed
-attempts were present. Check the live ledger rather than treating this snapshot
-as a current monitor.
+any resume. Never launch a duplicate. At 2026-11-09 17:16 UTC, ten of 22 whole
+screen blocks were complete; B11 Continuum was active. Twenty-six screen
+attempts were verified, one deliberately interrupted, one raw failed/inconclusive
+B10 candidate control, one active. The verified count includes the original
+unmatched B01 ARC, which receives no matched-comparison credit. The B10 control
+served all 20 requests with clean cleanup and no errors, CPU evictions or
+restores; its seal verifies. The existing frozen validity rules accept it as a
+GPU-resident control, not CPU-pressure evidence. See
+[control receipt](screen-team-control.json). Never retry merely to obtain restore
+activity. Check the live ledger rather than treating this snapshot as current.
 
 Completed prerequisites:
 
@@ -111,20 +114,25 @@ repeat that mistake. Never acquire from mutable source or a test interpreter.
 
 ## Answer-review checkpoint
 
-Latest completed partial review: [index 03](screen-review-index-03.json) and
-[ratings 03](screen-source-judgments-03.json), raw snapshot
-`$BASE/quality-screen-checkpoint-03/`. All 231 prescribed selected B01–B04 items
-have explicit judgments, covering 76 full contexts; 16 novel summary contexts
-were read in full in parts 01–04. Snapshot objective coverage is 258 finals.
-Selected-item findings: 30 source-unsupported, 32 instruction failures, ten not
-useful, with complete-context duplicates counted separately. These are selected
-sample counts, not population rates or quality equivalence. Original objective
-scores, timing and gates are unchanged. Earlier snapshots remain preserved.
+Latest completed partial review: [index 04](screen-review-index-04.json) and
+[ratings 04](screen-source-judgments-04.json), raw snapshot
+`$BASE/quality-screen-checkpoint-04/`. All 362 prescribed selected items have
+explicit judgments, covering 131 full contexts. All 55 novel investigation
+contexts were read in full in five `screen-investigation-judgments-04-part-*`
+records, including three capped intermediates judged only against their own
+current instructions and preceding tools/dependencies. Snapshot objective
+coverage is 386 finals. Selected-item findings: 63 source-unsupported, 117
+instruction failures, 14 not useful, with complete-context duplicates counted
+separately. Findings include invented limitations contradicted by executed
+tests, wrong-subject finals, repeated capped intermediates, and correct useful
+answers missing the requested status format. These are selected sample counts,
+not population rates or quality equivalence. Original objective scores, timing
+and gates are unchanged. Earlier snapshots remain preserved.
 
-For the next snapshot use a fresh checkpoint directory (04 next), regenerate
+For the next snapshot use a fresh checkpoint directory (05 next), regenerate
 `prepare_review(OUT,'screen')` from exported source and copy its derived packet.
 Reuse judgments only on exact equality of all signature fields listed in index
-03; explicitly read/judge every novel required context. Do not invent missing
+04; explicitly read/judge every novel required context. Do not invent missing
 judgments or mark a partial inventory final. After acquisition regenerate final
 screen/confirmation and all-capped inventories. Capped inventory root should be
 BASE (which contains only this campaign alias), not VOLUME (which also contains

@@ -1,0 +1,183 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "84dbcfb0683904fab929f7d1a9cca352ad9ac5656945f431eb14a2b5519f3023",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit full-source and generated-dependency review; model and speed labels hidden",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-04/blind-packet.json",
+  "ratings": [
+    {
+      "index": 16,
+      "review_id": "002998763915783e9957cbb1",
+      "signature": "d2ae24d0f0c6f4c674a6c76fcae177a32403882130110f5362fda7131c5b1d69",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The complete supplied PEP 20 supports Active / Informational and the quoted beauty aphorism. Actual validation reports metadata PASS; the final includes the requested status token. No Python-Version field is present, and the summarizer explicitly returns null, so the limited version-coverage caveat is supported. Each distinct generated dependency was read; their overbroad proposal wording is not repeated in the final."
+    },
+    {
+      "index": 54,
+      "review_id": "3a15f239eee0d60817c6b174",
+      "signature": "b313f274d728a57c6ffc9942217b1b8d41c2f054fb053c9803e93d793bc36829",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The complete supplied PEP 20 supports Active / Informational and the quoted beauty aphorism. Actual validation reports metadata PASS; the final includes the requested status token. No Python-Version field is present, and the summarizer explicitly returns null, so the limited version-coverage caveat is supported. Each distinct generated dependency was read; their overbroad proposal wording is not repeated in the final."
+    },
+    {
+      "index": 14,
+      "review_id": "11481f0e62535d178f5a5a26",
+      "signature": "e3b7c0a14a45b6f5d414401ae870347414cefd23e9a8e8bbcb391de9bd1de87f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Chunked source and all 7 passing tests establish the shorter last chunk in non-strict mode. No fillvalue argument is provided; the docstring directs padding users to grouper. This supports the limitation without claiming a defect. Final correctly reports PASS but omits the requested literal test_status=PASS format."
+    },
+    {
+      "index": 25,
+      "review_id": "022fa92f08589a65c390efb8",
+      "signature": "5d9695737e41c0dac83a5f75f986aa3170f213347377857664f2ad633a8e3464",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims collapse does not handle custom iterable types beyond standard ones, although its source calls iter(node) generically and imposes no such restriction."
+      ],
+      "notes": "The flattening purpose and actual 6-test PASS are correct, with required status format present. The claimed concrete limitation contradicts the generic iterator traversal and is not established by the executed tests. Correct main behavior retains partial usefulness."
+    },
+    {
+      "index": 26,
+      "review_id": "0ab42c1682ecb7efa4e32de6",
+      "signature": "0d714a68beac8cd030c21c8681cf6243a12a96f1b3fa43d084295e21876db66c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Split_at predicate splitting is supported by source and 4 passing tests / 20 subtests. Generic iter(iterable) is unguarded, so the stated failure on non-iterable input follows from code, not an observed boundary-case execution. Gracefully is subjective, and this is an input-contract limitation rather than proof of a defect. The final lacks the requested literal status format. Both distinct dependency sequences were read; tools/source are equal."
+    },
+    {
+      "index": 33,
+      "review_id": "265a74bf2692da20c538069d",
+      "signature": "516174338549eee6c930637911874b1052dee608819ad591daac9839633d3c6d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Split_at predicate splitting is supported by source and 4 passing tests / 20 subtests. Generic iter(iterable) is unguarded, so the stated failure on non-iterable input follows from code, not an observed boundary-case execution. Gracefully is subjective, and this is an input-contract limitation rather than proof of a defect. The final lacks the requested literal status format. Both distinct dependency sequences were read; tools/source are equal."
+    },
+    {
+      "index": 13,
+      "review_id": "e523fd045786e5abb6d8a194",
+      "signature": "72cb08dcfbcc97d76572a2a2229c3d51a756a8c19961f9f8d5474fbdb5ee7fe0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The supplied split_when source explicitly requires a predicate taking successive item pairs and the tool reports 11 passing tests plus 5 subtests. The pair-argument limitation is source-grounded; the tests also show single-element predicates can be adapted, so no general inability to handle ordinary iterables is inferred. Correct PASS is stated but the required literal status token is absent. Same final answer, different generated dependencies, both read."
+    },
+    {
+      "index": 46,
+      "review_id": "4232a2fcc972077dd36b2b5b",
+      "signature": "556ee66f065718a45069147953853c3cd7f9633347e288b0ddc51f9e99c1c418",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The supplied split_when source explicitly requires a predicate taking successive item pairs and the tool reports 11 passing tests plus 5 subtests. The pair-argument limitation is source-grounded; the tests also show single-element predicates can be adapted, so no general inability to handle ordinary iterables is inferred. Correct PASS is stated but the required literal status token is absent. Same final answer, different generated dependencies, both read."
+    },
+    {
+      "index": 8,
+      "review_id": "5d429d89953e68b4eed694bd",
+      "signature": "097377007f6379accba7ee252d6e256671e30b12fa26f5a59c644e358024597b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Asserts an unspecified lack of backward compatibility across all Python implementations, unsupported by the supplied PEP excerpt or actual metadata validation."
+      ],
+      "notes": "Final / Standards Track, context-manager enter/exit methods and actual metadata PASS are correct, including the requested format. The source gives a concrete cross-implementation generator-finalization timing caveat; the final instead claims broad backward-compatibility limitations without evidence. Generated dependencies overclaim runtime support as validated; that tool validated only the listed metadata. Correct core facts remain useful."
+    }
+  ],
+  "reviewed_novel_indices": [
+    8,
+    13,
+    14,
+    16,
+    25,
+    26,
+    33,
+    46,
+    54
+  ],
+  "cumulative_reviewed_novel_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    13,
+    14,
+    16,
+    18,
+    23,
+    25,
+    26,
+    30,
+    31,
+    33,
+    34,
+    36,
+    37,
+    44,
+    45,
+    46,
+    51,
+    54
+  ],
+  "remaining_novel_indices": [
+    10,
+    11,
+    12,
+    15,
+    17,
+    19,
+    20,
+    21,
+    22,
+    24,
+    27,
+    28,
+    29,
+    32,
+    35,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    47,
+    48,
+    49,
+    50,
+    52,
+    53
+  ],
+  "scope": "Nine additional explicitly read contexts; 28 of 55 novel snapshot contexts reviewed so far. Remaining contexts and final acquisition-wide audits are pending. Original objective checks, timings, serving and qualification are unchanged."
+}

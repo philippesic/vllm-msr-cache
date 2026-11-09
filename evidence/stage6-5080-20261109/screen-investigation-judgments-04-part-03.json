@@ -1,0 +1,187 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "84dbcfb0683904fab929f7d1a9cca352ad9ac5656945f431eb14a2b5519f3023",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit full-source and generated-dependency review; model and speed labels hidden",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-04/blind-packet.json",
+  "ratings": [
+    {
+      "index": 10,
+      "review_id": "f7b0dedf0a94cd6a0e1fc8dc",
+      "signature": "fed73b9624a94137e70de44939d8149b8842dfe7914612ae8d2ebfbeca933129",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Offers lack of future-proofing or coverage of all async libraries as a concrete limitation without evidence for that broad claim."
+      ],
+      "notes": "PEP 492 metadata and async/await purpose are correct, and actual metadata PASS is stated with accepted case-insensitive format. The supplied abstract scopes the PEP to event-loop coroutines but does not establish the generic future-proofing claim. Correct purpose and metadata remain useful; the requested concrete evidence-based limitation is not provided. The extra command does not supply new executed evidence."
+    },
+    {
+      "index": 15,
+      "review_id": "995ed1db754ff536efa7f36e",
+      "signature": "af3d6eac6863db34aa73aea1591f83cf56cdd4e71ab7b517e7c039e5df38e4fc",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Supplied PEP 492 explicitly says async def functions are always coroutines and gives the Python 3.7 RuntimeError for old __aiter__ returning awaitables. Final / Standards Track and actual metadata PASS are correct in the required format. This judges the supplied historical PEP, not a claim of current runtime validation or all later Python syntax behavior."
+    },
+    {
+      "index": 12,
+      "review_id": "a09ddeca2f03c8a081928688",
+      "signature": "a58bfe69d8a19692a937410dccb6bcef7dc852de30fd31ee94dc04b84f193090",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims PEP 518 does not address backward compatibility with setup.py projects, despite explicit default setuptools requirements when pyproject.toml or its build-system table is absent."
+      ],
+      "notes": "Final / Standards Track and dependency-list representation are supported, as is actual metadata PASS. The claimed limitation repeats a generated-dependency error and ignores the explicit fallback semantics designed for existing projects. Main metadata and configuration fact retain partial usefulness."
+    },
+    {
+      "index": 17,
+      "review_id": "d99530adc33ac8b60c5f80a4",
+      "signature": "2582ffe0a7430b7f7d49734758c4cc497de080beb41470d2b780da28cae6a9ea",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says projects must use pyproject.toml, omitting the explicit allowance for absent files/tables and default setuptools requirements."
+      ],
+      "notes": "Metadata and actual PASS are correct. The requirement is for the representation when the build-system table is used, not a universal mandate that projects contain that file. The no-compliance-enforcement caveat does not repair that overstatement and is weaker than explicitly identifying metadata-only validation. Correct main configuration purpose remains partially useful."
+    },
+    {
+      "index": 22,
+      "review_id": "3b8170b05a9ff7aeeb88eab0",
+      "signature": "eccaf302d3dd4b3ebbf30ca6c4610eb7f5839ce153217cabe6107d8281381197",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Current instruction is to identify PEP 526 purpose and plan validation, with no preceding tools/dependencies. The capped response begins a section-search plan then loops PEP 526 and ends mid-token. It never identifies variable-annotation purpose or completes an actionable declaration. No invented validation is credited. Capping and usefulness are separate; failure follows missing content and repetition."
+    },
+    {
+      "index": 49,
+      "review_id": "9a3f5a66e8b726271d4994c2",
+      "signature": "d1c2d896e7eb816a7395978b0ba63c3039a7d39af3dbe1d22c344c088b3ff908",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Current instruction is to interpret actual metadata validation, and only the two preceding dependencies plus rg/metadata PASS tools are considered. The capped answer consists of repeated PEP 526 and an unfinished tail. It does not interpret the actual Final/Standards Track/PASS fields or distinguish proposal status from runtime support. No later summarizer result is used to rescue this intermediate."
+    },
+    {
+      "index": 52,
+      "review_id": "c9190c48cbabd4fd75abc049",
+      "signature": "cb79d1ea08cf6c979683327c2e163cd096a5974916ba72f2f32861a43c72ea6e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Current instruction is to identify specification/restrictions from the actual document search. Only the preceding looping plan and rg output are available at this stage. Final status is a supported fragment, but the capped loop does not explain variable annotations, restrictions, or finish a tool declaration. Later metadata validation is deliberately not used as evidence for this intermediate."
+    },
+    {
+      "index": 41,
+      "review_id": "eda8f96ddf40861431c7d1ae",
+      "signature": "c6bfd4d99eb39b743e6b8933c73d58d16f8df300e844d9d06a8a5502c40fb8b5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Supplied PEP 526 prefers variable annotations in stub files for readability and explicitly leaves Python dynamically typed with runtime checking a third-party responsibility. Final / Standards Track and actual metadata PASS are correct in the required format. Actual prior dependency sequence was read; validation is not misrepresented as type-checking execution."
+    },
+    {
+      "index": 42,
+      "review_id": "91a61449cb8432d2b2ba00d1",
+      "signature": "9981483adc7a4e6582c9a907d3dcc7a04fd68b193d6c993d839a176506dfd038",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports and validates PEP 484 instead of the requested PEP 526; actual tools validated only PEP 526 metadata."
+      ],
+      "notes": "The final switches subjects after three repetitive generated dependencies. PEP 484 and 526 have related typing goals, but that does not make the wrong-subject report a useful answer to the requested PEP 526 investigation. Actual metadata tools and frozen reference are PEP 526; its PASS cannot substantiate validation of PEP 484. This failure and all preceding capped repetitions remain in timings."
+    }
+  ],
+  "reviewed_novel_indices": [
+    10,
+    12,
+    15,
+    17,
+    22,
+    41,
+    42,
+    49,
+    52
+  ],
+  "cumulative_reviewed_novel_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    22,
+    23,
+    25,
+    26,
+    30,
+    31,
+    33,
+    34,
+    36,
+    37,
+    41,
+    42,
+    44,
+    45,
+    46,
+    49,
+    51,
+    52,
+    54
+  ],
+  "remaining_novel_indices": [
+    11,
+    19,
+    20,
+    21,
+    24,
+    27,
+    28,
+    29,
+    32,
+    35,
+    38,
+    39,
+    40,
+    43,
+    47,
+    48,
+    50,
+    53
+  ],
+  "scope": "Nine additional explicitly read contexts including all three novel capped intermediates; 37 of 55 novel snapshot contexts reviewed so far. Remaining contexts and final acquisition-wide audits are pending. Original objective checks, timings, serving and qualification are unchanged."
+}
