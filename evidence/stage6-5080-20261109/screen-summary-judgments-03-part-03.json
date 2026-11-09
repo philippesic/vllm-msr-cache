@@ -1,0 +1,87 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "83b895b6b879cb3663c41b19770c9e01372e43e1c39077f886e724f3c86a5df1",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit full-source review; model and speed labels hidden",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "2e7c1b52413117b382c82f9c",
+      "signature": "51d17397f6c94c69e1141da493737aa1552ea714466828e710b00000b7d1989a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Turns approval of the commercial decision to recast Spacey into criticism of Spacey actions, which the cited interview does not state."
+      ],
+      "notes": "216 words accurately cover the spectrum argument, Driver/Milano objections, Weinstein-knowledge denial and CK-remorse discussion. The Spacey sentence adds a moral attribution beyond Damon explicit business-decision remarks. The core debate remains useful; generic long-term uncertainties do not resolve that attribution error.",
+      "whitespace_words": 216,
+      "length_capped": false
+    },
+    {
+      "index": 9,
+      "review_id": "c0cde080686af482fa82d7ae",
+      "signature": "79fff0fbcd75c3384520419c1e0ea3963debccdc934c3d1eca3aba3fcd1e0d91",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Presents Seattle revenue loss causally as established rather than preserving advocacy attribution and the reported lack of behavioral data.",
+        "Blends Cook County lawsuits and measured sales declines with the newer Seattle tax without clearly preserving jurisdiction."
+      ],
+      "notes": "141 words retain the 1.75-cent rate, Gatorade price rise, out-of-city Costco signs, Cook repeal and competing health/regressivity arguments. The supplied packet mixes news, advocacy and a proposed statewide bill; those evidentiary distinctions are flattened. Closing uncertainty language does not cure earlier unqualified causal/legal conflation.",
+      "whitespace_words": 141,
+      "length_capped": false
+    },
+    {
+      "index": 10,
+      "review_id": "269e154dacb257b7172168b6",
+      "signature": "ab39c65f44e8a522c4481feae493574f81060b04dcc9af6675a238d9e7a0fd74",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "160 words provide a coherent sourced obituary: death at 66 in Edinburgh, law/alcoholism/cooking trajectory, Paterson and the motorcycle-sidecar show, later work and countryside views, family background and sobriety. Cause of death is correctly left unspecified. Financial extent is framed as unknown rather than inventing a figure.",
+      "whitespace_words": 160,
+      "length_capped": false
+    },
+    {
+      "index": 11,
+      "review_id": "acc73d2f0a2f477d365e06ea",
+      "signature": "d94fb57c94eaf0a9e03deebd3dec7718daaf55953721e3a4b91eea1d61049b8c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Combines July 17-state reporting with the later 50-case update without making clear that the updated count covers 24 states.",
+        "Lists vaccinations as AFM prevention without preserving the source distinction that no EV-D68 vaccine is available and its causal link remains unproven."
+      ],
+      "notes": "248 words usefully retain rare paralysis, recovery limits, symptom pattern, uncertain EV-D68 association, mouse work and unproven treatment. But surveillance dates/geography are blurred, and generic vaccination advice from the source loses the important pathogen-specific boundary. The 120/121 counts come from differently dated source reports and should not be treated as independent outbreaks.",
+      "whitespace_words": 248,
+      "length_capped": false
+    }
+  ],
+  "reviewed_novel_indices": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "remaining_novel_indices": [
+    12,
+    13,
+    14,
+    15
+  ],
+  "scope": "Four further novel completed-screen summary contexts; final snapshot/full-acquisition audits remain pending. Original objective scores and all timing remain unchanged."
+}

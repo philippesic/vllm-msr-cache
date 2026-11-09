@@ -144,7 +144,8 @@ snapshot `$BASE/quality-screen-checkpoint-03/` covers completed B01–B04 blocks
 258 objective finals, 231 selected items and 16 novel summary contexts beyond
 checkpoint 02. `screen-summary-judgments-03-part-01.json` retains explicit full-source
 judgments for novel indices 0–3. Part 02 now covers indices 4–7;
-**indices 8–15 remain unread/pending**. Continue
+All 16 novel contexts are now explicitly reviewed in parts 01–04, and the
+231-item packet has been consolidated in `screen-source-judgments-03.json`. Continue
 those from the retained novel-contexts.json; never silently infer judgments for
 missing contexts or finalize the 231-item packet until they are reviewed. The
 first four include overlength/repetitive output and material attribution errors.
@@ -156,3 +157,18 @@ Its sealed external native-library identity matches the rebuilt LMCache binary.
 This closes the full-fixture Continuum functionality/activation check that the
 one-session diagnostic could not exercise. Overall qualification still requires
 all 22 screen blocks, native pressure/roomy gates and upstream activation.
+
+Latest completed review snapshot: `screen-review-index-03.json` and
+`screen-source-judgments-03.json` cover all 231 selected items (76 distinct full
+contexts) in checkpoint 03. All 16 summary contexts were explicitly read in full.
+The snapshot has 30 source-unsupported judgments, 32 instruction failures and
+10 not-useful judgments, with complete-context duplicates counted individually.
+These are selected-screen-sample counts, not population rates; no objective
+score/timing exclusions or quality-equivalence claim. Regenerate later packets
+and merge only exact full-context reuse; review novel contexts explicitly.
+
+[Anchor four-system screen](anchor-screen.json) verifies all four B06 arms,
+pinned allocations, published activation and actual native ARC pressure. The
+whole campaign still requires the remaining screen cells/roomy and secondary
+pressure checks, qualification, activation, all confirmation/overhead/operational
+cases and final audits/results. No repeated performance conclusion yet.

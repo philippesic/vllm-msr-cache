@@ -1,0 +1,80 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "83b895b6b879cb3663c41b19770c9e01372e43e1c39077f886e724f3c86a5df1",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit full-source review; model and speed labels hidden",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-03/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "e53786e4e8fbaf01df873d5a",
+      "signature": "8726389d0b4107b64d4b3ba364e06009c291350d54f1a630059f1b3d1dc3f669",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Says the shooter was among those who died at the scene; the reports say she died at an area hospital."
+      ],
+      "notes": "260 words retain the three killed/three wounded, identity, temporary employment, unknown motive, legally owned gun and police response. But it combines evolving hospital condition reports and then puts the shooter among the two scene fatalities, a material casualty/timeline error. The source distinguishes two scene deaths from later hospital deaths, including the shooter.",
+      "whitespace_words": 260,
+      "length_capped": false
+    },
+    {
+      "index": 13,
+      "review_id": "67b826078002780326275625",
+      "signature": "339a2af79f7b1686f538fb0f515983a74cc310dff678ed03afd6fbcc998be402",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "424 whitespace-delimited words exceed the 300-word bound; the capped response repeatedly restarts generic discussion and ends unfinished. Its Martinez identification/list-removal story and several Humboldt cases are sourced, including acknowledgment of differing listing times. It fails to concisely preserve the central distinction between many repeat missing-person reports and the much smaller unresolved-person inventory.",
+      "whitespace_words": 424,
+      "length_capped": true
+    },
+    {
+      "index": 14,
+      "review_id": "76e650bfa51c02d5ab0ba29e",
+      "signature": "ef4c097e2961f929ebb591c1bba91ed31e59169107d055d221dda38888644b09",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says all three employees, including Chaney and Stokes, had been fired; the reports distinguish pressured retirement, notice of intended dismissal with contest rights, and a voluntary resignation."
+      ],
+      "notes": "214 words usefully cover the Facebook remark, Colombia incident, accountability debate, White House security position and attorney mission-impact position. Employment outcomes and their timing are materially flattened into completed firings, despite the source stressing an unfinished investigation and differing exit statuses.",
+      "whitespace_words": 214,
+      "length_capped": false
+    },
+    {
+      "index": 15,
+      "review_id": "955a7f483cb2e2533d9eac97",
+      "signature": "9449bc3d3eb6fe7f6de59b352ea1d84cff86b3f92b6be56fbeef94c974ea84b4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Credits Nunes personally as author rather than the committee staff identified in the supplied introduction."
+      ],
+      "notes": "259 words retain the memo allegations, FISA/Page/Steele particulars, declassification and FBI/DOJ missing-context objections. Repeated memo attribution appropriately avoids presenting all partisan assertions as independently adjudicated findings. The authorship credit is inaccurate; the source names Nunes staff. Useful description remains conditional on a disputed memo, with no present legal or political conclusion.",
+      "whitespace_words": 259,
+      "length_capped": false
+    }
+  ],
+  "reviewed_novel_indices": [
+    12,
+    13,
+    14,
+    15
+  ],
+  "remaining_novel_indices": [],
+  "scope": "Final four novel summary contexts in this snapshot; full-acquisition inventories and audits remain pending. Original objective scores/timing remain unchanged."
+}

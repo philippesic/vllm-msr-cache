@@ -53,3 +53,13 @@ to B02. This recovery result does not establish performance qualification.
 [Full Continuum screen evidence](continuum-full-screen.json) confirms the declared
 architecture rebuild works in the unchanged benchmark fixture. It is an advisory
 screen result, not a repeated throughput or answer-quality conclusion.
+
+The [anchor four-system B06 screen](anchor-screen.json) passed for native ARC,
+candidate, Continuum and upstream. Native ARC actually restored CPU tokens and
+had an eviction-affected return, establishing this screen pressure purpose.
+This single development block does not provide the requested repeated estimates.
+
+The [selected-screen source review](screen-review-index-03.json) covers 231 items
+from completed B01–B04 blocks (76 complete contexts), retaining overlength,
+repetition, factual and attribution failures. Full acquisition and final source/
+capped-response audits remain open; quality equivalence is not established.
