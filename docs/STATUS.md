@@ -29,8 +29,8 @@ the frozen activity rule (zero restores, eight scheduler preemptions); its block
 has no comparison credit. Remaining scheduled measurements continue without
 relabeling or favorable-activity retries. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-1,644 selected outputs / 83 contexts, including sixteen fully read document sets
-and eight repository investigations;
+1,833 selected outputs / 93 contexts, including sixteen fully read document sets
+and eighteen newly judged repository answer contexts;
 final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),

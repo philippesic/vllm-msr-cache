@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "7ef37a8f8b38ff8abc88acd609210dc02f93b60fb36425ee40443ba443dbb4f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json",
+  "ratings": [
+    {
+      "index": 2,
+      "review_id": "589c34128061f772a84920b5",
+      "signature": "a631ab83fafd9a0249415db69a326906bbe4f6a821e4377eb6795fe0ce5fe852",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 30,
+      "notes": "SequenceView dynamic target reflection and read-only/no-assignment limitation are stated in the supplied implementation/docstring; five actual tests pass. Literal Test_status=PASS satisfies the case-insensitive underscore format. The final does not repeat the preceding dependency claim that append or assignment was explicitly tested. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "c5a5cebd1d176947460c15f7",
+      "signature": "3f488fd69e7bef46c0cdf4344234577ea68d15f9805e2f21ce6c4885a236730e",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "chunked_even evenness and ten actual passing tests are supported. The invalid-input limitation is consistent with iter(iterable) requiring an iterable and islice requiring integer bounds; it is not a claimed observed test failure or denial of valid infinite-input handling. Literal Test_status=PASS is present. The earlier dependency error about n=0 raising is not repeated in the final. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

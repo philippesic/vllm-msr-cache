@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "7ef37a8f8b38ff8abc88acd609210dc02f93b60fb36425ee40443ba443dbb4f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "a8a9c5961212d1c8daa4238a",
+      "signature": "63b0814d2c22cc765af8c150eabe977ec9da401b7acbe4a5389410514ab502f2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_none does not confirm one-item wrapping; it explicitly expects an empty iterable."
+      ],
+      "whitespace_words": 48,
+      "notes": "always_iterable wraps ordinary non-iterable objects, but the final explicitly cites test_none as confirmation of that behavior even though the supplied code/test treats None as empty. Default atomic strings/bytes is a documented constraint and actual six tests pass. Test status: PASS lacks the requested underscore. Useful ordinary-input and default-string content remains; the earlier dependency reversal of dictionary behavior is not separately attributed to the final. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "d05bc4ce3134524f72f546c8",
+      "signature": "79708455982821849117c4b00f1ec67a528d620df0f5e46b8af453fd1e33aee0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "always_reversible reversal of finite reversible/non-reversible inputs and the potentially significant storage for list materialization match the supplied implementation/docstring and two actual passing tests. The final uses Test status: PASS instead of the literal requested underscore format. It does not claim bounded-memory reversal or termination on infinite input. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

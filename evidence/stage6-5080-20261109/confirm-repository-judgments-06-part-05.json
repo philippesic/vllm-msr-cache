@@ -1,0 +1,31 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "7ef37a8f8b38ff8abc88acd609210dc02f93b60fb36425ee40443ba443dbb4f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json",
+  "ratings": [
+    {
+      "index": 7,
+      "review_id": "955bc3ec3e3cc1fd0c8cab8a",
+      "signature": "25ed72f7e1b8a33c14374b19478a408bf02ff1114a258f8c6e7dcb33e9319355",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claimed empty-iterable assumption/error risk contradicts test_empty_iterable, which explicitly expects an empty result."
+      ],
+      "whitespace_words": 47,
+      "notes": "adjacent distance/once-per-item behavior and ten actual passing tests are supported. Its complete supplied test class directly covers empty input, so the stated limitation is contradicted. Test status: PASS also lacks the required underscore. The useful core behavior remains; preceding dependency confusion between test tracking and implementation is not separately attributed to the final. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

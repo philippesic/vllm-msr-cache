@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "7ef37a8f8b38ff8abc88acd609210dc02f93b60fb36425ee40443ba443dbb4f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "6b9b7787a88280e6ec7a49d9",
+      "signature": "c0f362e1180c68b9d03b80a3d3b527f5375abcac43f01fe39d2cffdb9e162b3d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 38,
+      "notes": "all_unique duplicate/key behavior and the slower-unhashable limitation match the supplied implementation and docstring; actual tests report five passes and five subtests. The final uses Test status: PASS instead of the requested literal underscore format. Earlier dependency overlooks the actual infinite-iterable test, but the final does not repeat that claim. The echoed search block is not an additional observed tool result. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "235c770a9421858d685c59a2",
+      "signature": "beeb2e6e0bc801ad3f3c95e388e6396bd9d9bda5b36fb926c72a8ba36d247a39",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claimed noninteger-size infinite loops or incorrect chunking are unsupported by the supplied code/tests."
+      ],
+      "whitespace_words": 46,
+      "notes": "chunked_even evenness and actual ten passing tests are supported. Noninteger chunk sizes violate islice integer arguments rather than demonstrating a loop or incorrect chunking; the source has an explicit infinite-input lookahead test for supported integer sizes. Test_status=PASS is accepted case-insensitive underscore formatting. Unsupported concrete limitation fails source/instruction checks while the behavior/test-status portion remains useful. Earlier dependency wrongly expects n=0 to raise, but the final does not repeat that assertion. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

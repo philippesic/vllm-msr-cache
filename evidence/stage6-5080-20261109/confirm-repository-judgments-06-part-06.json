@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "7ef37a8f8b38ff8abc88acd609210dc02f93b60fb36425ee40443ba443dbb4f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "79e0d8f80631ffc58aeabf28",
+      "signature": "a8f9e0038f692f1b897452d883faf42181bc4599fba262c9e9c9154ec403d6ef",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "circular_shifts ordinary range rotations and six actual passing tests are supported. The integer-step/iterable-input constraint follows the deque construction, rotate/gcd operations and explicit nonzero-integer message; no observed invalid-type test failure is invented. Test status: PASS lacks the requested underscore. The final does not repeat the earlier dependency implication that every steps=2 input yields exactly two rotations. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "605d475ae3c10be9abe431e2",
+      "signature": "eb5806dc0ca0585569bdc20e909f399443174c6660145fdfe293ca6559b6ff18",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "always_reversible correctly reverses the supported finite inputs and the source explicitly warns of significant storage when materializing non-reversible iterables. Both actual tests pass and the final count two is correct. Test status: PASS lacks the requested underscore; other core content remains useful. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged."
+    }
+  ]
+}

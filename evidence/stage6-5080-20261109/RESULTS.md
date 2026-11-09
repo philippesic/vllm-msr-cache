@@ -137,22 +137,24 @@ duplicate-inclusive counts, not population rates. The final inventory must still
 include every ordinary attempt after all acquisition phases finish. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-05.json) covers
-1,644 selected outputs / 83 contexts from all B01/B02/B03/B04 and the first B05
-matched block, with 2,344 objective finals. All eight new repository final
-contexts were explicitly read. Seven miss the requested status format; one
-invents an empty-input limitation contradicted by its source and passing test.
-All retain useful content. Earlier contexts exactly reuse complete
-source/instruction/answer judgments.
+The [latest partial confirmation review](confirm-review-index-06.json) covers
+1,833 selected outputs / 93 contexts from all B01/B02/B03/B04/B05 and the first
+valid B06 four-system block, with 2,552 objective finals. All ten new repository
+final contexts were explicitly read. Three contain unsupported claims about
+invalid chunk sizes, None wrapping/test coverage or empty-input behavior; eight
+fail instruction requirements, including literal status formatting. All retain
+useful content. Earlier contexts exactly reuse complete source/instruction/answer
+judgments. The excluded first B06 block remains excluded; this source audit
+does not repair its activity failure.
 The earlier sixteen-document review found four summaries with unsupported claims
 or lost uncertainty. Three summaries exceed 300 words in total, including one of
 those four; earlier prose incorrectly said three additional summaries. Individual
 ratings and prior counts are unchanged. Earlier QA and fictional-provenance
-findings remain. The current snapshot has **79 source-support failures and 101
+findings remain. The current snapshot has **87 source-support failures and 287
 instruction failures**, with all selected outputs retaining useful content. The
-[isolated validator](confirm-quality-checkpoint-05.json) checks every judgment
+[isolated validator](confirm-quality-checkpoint-06.json) checks every judgment
 against the unchanged archived rubric; archived instructions were verified for
-all 86 included attempts. These
+all 112 included attempts. These
 duplicate-inclusive partial sample counts certify neither population accuracy
 nor equivalence, and the final confirmation audit is pending. Original objective
 results and all timings remain unchanged.
