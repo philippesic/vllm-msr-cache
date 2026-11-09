@@ -229,10 +229,26 @@ This is derived presentation; acquisition source/design stays unchanged.
 These steps are pending. They were checked against the exported CLI and current
 audit implementations, not executed as a claim of completion. After confirmation,
 overhead and operational have all finished, verify the actual owner processes
-have exited and no ordinary ledger attempt remains running/planned. Require all
+have exited and no ordinary ledger attempt remains running/planned. Successful
+campaign completion requires all
 524 confirmation configurations / 210 matched blocks, 38 overhead configurations
 and six operational configurations, with complete matched supplementary blocks
 and their purpose/cleanup receipts. A zero CLI exit alone is insufficient.
+
+Execution of a phase and analytical completion are distinct. If the known first
+B06 activity failure remains excluded, **do not wait forever for 524 valid cases
+or resume completed confirmation to replace it**. After the recorded coordinator
+exits, reconcile every frozen scheduled model/cell/repeat/system identity against
+its terminal sealed attempt and recheck owned resources. The unchanged frozen
+CLI permits the existing overhead and operational schedules after confirmation's
+planned attempts have ended; acquire them and finish the audits. The all-cap
+inventory requires stable terminal ledgers, not a favorable measurement verdict.
+Portability can preserve an incomplete throughput report. Retain missing blocks,
+all adverse outcomes and `complete=false`; if the full requirements remain
+unattainable without changing the study, document a failed full campaign rather
+than asserting success. The success-only findings helper above must keep its
+guard; any failure presentation must explicitly retain incomplete scope and the
+actual frozen estimates/repetition counts, never fabricate the missing pair.
 
 From **`$BUNDLE/source`**, with the literal `$PY` and bytecode disabled:
 
