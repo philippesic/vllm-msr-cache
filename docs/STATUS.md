@@ -24,7 +24,10 @@ all five Continuum fixtures and every model's native pressure gate. The imported
 524-configuration / 210-block confirmation is running under the durable
 coordinator and 15-minute health schedule. The first chat/QA/document cells have complete
 paired estimates without a resolved throughput difference; the full matrix remains
-pending. The final screen source audit covers
+pending. The first confirmation B06 candidate process completed serving but failed
+the frozen activity rule (zero restores, eight scheduler preemptions); its block
+has no comparison credit. Remaining scheduled measurements continue without
+relabeling or favorable-activity retries. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
 1,644 selected outputs / 83 contexts, including sixteen fully read document sets
 and eight repository investigations;

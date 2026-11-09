@@ -8,6 +8,15 @@ matched blocks. The first three native cells have complete repeated estimates be
 Headline comparisons with Continuum and the remaining cells are still pending;
 overhead, operational and final audits have not completed.
 
+Confirmation now has a retained [B06 activity failure](confirmation-b06-inactive-restore-01.json):
+the first candidate process served all 32 requests and 24 tools with no caps and
+clean cleanup, but recorded zero CPU restores and eight scheduler preemptions.
+The frozen analysis rejects it; the zero-preemption GPU-resident-control exception
+does not apply. Its four-system block therefore cannot receive comparison credit.
+This is not an LMCache kernel-loading failure. Remaining planned measurements
+continue without a favorable-activity retry, capacity change or analysis-rule
+change. A complete final matrix is unproven and may remain unavailable.
+
 This is a new campaign. The failed November 8 campaign and all 2080 Ti history
 remain unchanged. The sole declared setup deviation is rebuilding the same
 LMCache 0.3.6 source for `sm_120` plus PTX. Source and algorithm are unchanged;

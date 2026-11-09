@@ -11,9 +11,12 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **97/524 valid
-configurations, 48/210 complete matched blocks**, with Qwen3-8B B05 candidate repeat
-six active and no issues. B04 completed all twelve frozen pairs. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check has **113/524 valid
+configurations, 54/210 complete matched blocks**, with Qwen3-8B B06 Continuum in
+the second scheduled block active. B05 completed all twelve frozen pairs.
+Health reports attention for the known first-block B06 candidate activity failure
+below; the owner is live, progress continues, and no ownership/resource issue was
+reported. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -26,6 +29,23 @@ candidate served all 20 requests with clean cleanup and no CPU restores/eviction
 the frozen validity rules accept it as a GPU-resident control, while preserving
 its original inconclusive status. [Control receipt](screen-team-control.json).
 Never retry merely to obtain restore activity.
+
+The [first confirmation B06 candidate activity receipt](confirmation-b06-inactive-restore-01.json)
+verifies all 81 sealed files: all 32 requests / 24 tools / eight units completed,
+zero caps and clean cleanup, but **zero CPU restores and eight actual scheduler
+preemptions**. Both native receipts and the scheduler metric record eight. The
+frozen v3 validity rules reject this attempt; their zero-preemption control
+exception does not apply. Its four-system block remains incomplete for analysis.
+Do not relabel it, change capacity or retry to obtain favorable activity. The
+second scheduled candidate process also has zero restores, but zero preemptions
+and evictions, so the existing frozen control exception accepts it while keeping
+its raw inconclusive status. The first ARC process has zero restores/affected
+returns: confirmation pressure is not established by the passing screen gate.
+Continue the remaining frozen measurements and audits, preserving this adverse
+outcome. It can prevent a complete final matrix; never force `complete=true` or
+silently reduce the frozen repetition requirement. Scheduled attention for this
+same reviewed attempt is not evidence of a dead coordinator or authorization
+for a replacement. Investigate distinct new issues normally.
 
 [Qualification](qualification.json) **passes**: all native correctness fixtures,
 registry, external activation/pinned geometry, all required screens, all three

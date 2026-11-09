@@ -1,0 +1,107 @@
+{
+  "schema": "stage6-5080-confirmation-activity-finding-v1",
+  "recorded_utc": "2026-11-09T20:59:27.267200+00:00",
+  "acquisition_complete": false,
+  "source_protocol_unchanged": true,
+  "coordinator_checked_live": true,
+  "attempts": [
+    {
+      "attempt_id": "9fd044a0861b4dc7b797f92d29a264fa",
+      "block_id": "a3cadd27d859bc9f8e5db588fbd433494426adf4e557ae0ec730fd500417d051",
+      "attempt_path": "attempts/adf22cac52dee5eadff54273061da531bcb8073e28cbea8e950774c9124042a5/9fd044a0861b4dc7b797f92d29a264fa",
+      "attempt_seal": "892aefd6862f0d52fdc20b8d469c63280f049d47b0fea08c251130b4453f02e0",
+      "verified_files": 81,
+      "identity": {
+        "artifact_identity": "07654dabab46c1b5fe2ffb469459cd21c307a23b2bebe04659751951ba67c506",
+        "campaign_id": "37f88e1990a0b44fd187cbef4caeaff8b508fcb92acd437e514ff42b799cd7ba",
+        "cell": "B06",
+        "hardware": "rtx5080",
+        "hardware_digest": "3f97e323b77c27ac36c0b3d8659001ac6f1c630cb83b4dbeecd678efdecc6de4",
+        "model": "qwen3_8b_awq",
+        "phase": "confirm",
+        "profile": {
+          "batch_tokens": 1024,
+          "cpu_bytes": 2793406464,
+          "gpu_blocks": 1024,
+          "gpu_memory_utilization": 0.85,
+          "kv_bytes_per_token": 147456,
+          "max_model_len": 8192,
+          "model_format": "hf",
+          "repo_pressure_sessions": 8,
+          "roomy_cpu_bytes": 4831838208,
+          "roomy_gpu_blocks": 1024,
+          "runtime_python": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+          "status": "development",
+          "text_only": false
+        },
+        "repeat": 0,
+        "runtime_identity": "0f108e2c765ef17d280cbdd6e43ffd71c3dfd62ae478612835550d388f5cfdf7",
+        "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+        "system": "wait",
+        "system_identity": null,
+        "workload": "23768ea605bb0bd120ce1505d24fb729ac8175c9f71eafd07ca2b334f276cff8"
+      },
+      "raw_ledger_state": "failed",
+      "outer_result": {
+        "status": "inconclusive",
+        "case": "00-wait"
+      },
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "frozen_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": false,
+        "classification": "original_measurement",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "request_summary": {
+        "completed": 32,
+        "failed": 0,
+        "output_tokens": 2841,
+        "finish_reasons": {
+          "stop": 32
+        }
+      },
+      "tools": 24,
+      "offered_units": 8,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2592866304.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2298
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15013,
+        "returning_computed_prompt_tokens": 6670,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 8,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "scheduler_preemptions_metric": 8.0,
+      "gpu_prefix_hits": 37664.0
+    }
+  ],
+  "scope": "All requests/tools completed and cleanup passed, but candidate CPU restoration was inactive with eight actual scheduler preemptions. Frozen v3 rejects this attempt; its zero-eviction/zero-preemption control exception does not apply. This is an adverse/inconclusive measurement-activity outcome, not an LMCache kernel-loading error. Preserve all raw results; do not relabel, rerun for favorable activity, alter capacity or change frozen analysis. Remaining planned measurements continue; this missing block can prevent final campaign completion unless existing frozen rules establish otherwise."
+}
