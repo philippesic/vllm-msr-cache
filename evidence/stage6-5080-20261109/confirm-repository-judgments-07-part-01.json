@@ -1,0 +1,73 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1afb66af84b5ac2a2b0f0241ad7005a6aa7ecd75d47199c2b1c8522c30570c5c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "92934956ca33c95eba29f19d",
+      "signature": "006f050f8982b1e12cdaf92b90f14be578165108fd369cb948372c8022e99fd2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 40,
+      "notes": "all_unique key/duplicate behavior, five actual test passes plus five subtests, and documented slower-unhashable constraint are supported. Test status: PASS lacks the requested underscore. The final does not repeat the dependency oversight about infinite-input test coverage. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "4cfd0f6a6a27dbbd35dfe129",
+      "signature": "f2b744a769f2acf2d846695a6dbc6414903eb88d7f63b6738b7380972ecc865c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "circular_shifts normal rotations and actual six passing tests are supported; integer-step/iterable requirements follow deque/rotate/gcd and the explicit nonzero-integer message. Test status: PASS lacks the requested underscore. No unsupported universal count of rotations is repeated in the final. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "d64aa34bda4d7a9a4443edd2",
+      "signature": "7591c81eacf9662306de3ef90ef4fadf5e6d5fc5e11bdbd3bcc04f785c742b23",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "callback_iter argument iteration, exception handling and seven actual passing tests are supported; the background-thread complexity caveat is documented reliance plus explicitly hedged impact. Test status: PASS lacks the underscore. Embedded prior tool quotations match actual tool outputs. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "1e30d65a6397b79d79ecd548",
+      "signature": "535f73cf695afeba14cc0ecb3c31d3d1bc32f1a73763fd6d7e1b522630fb5ab5",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "always_iterable ordinary non-iterable wrapping and default atomic strings/bytes match supplied source and six passing tests. Test status=PASS lacks the underscore. The final does not name None or repeat the earlier dependency reversal of dictionary behavior. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "950b97da5ba1bb1999047fa6",
+      "signature": "88954f02698309ee96649026cd761612e5f63d5d8f5c0d673d76df70e332550a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "all_unique duplicate/key behavior and slower unhashable list-based checks match code/docstring; actual five tests and five subtests pass. Test status: PASS lacks the underscore. Echoed search is not an additional observed execution. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    }
+  ]
+}

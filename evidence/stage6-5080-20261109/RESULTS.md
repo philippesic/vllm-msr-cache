@@ -16,6 +16,11 @@ does not apply. Its four-system block therefore cannot receive comparison credit
 This is not an LMCache kernel-loading failure. Remaining planned measurements
 continue without a favorable-activity retry, capacity change or analysis-rule
 change. A complete final matrix is unproven and may remain unavailable.
+The [finished B06 attempt inventory](confirmation-b06-attempts-complete.json)
+verifies all 32 scheduled attempts and 2,648 sealed files: 1,024 completed
+responses, zero caps and all coverage/cleanup checks passed. It has 31 valid
+measurements and seven complete matched blocks, short of the required eight.
+All planned repetitions ran once; the excluded block was not replaced.
 
 This is a new campaign. The failed November 8 campaign and all 2080 Ti history
 remain unchanged. The sole declared setup deviation is rebuilding the same
@@ -105,10 +110,12 @@ credit. [Whole-block recovery](recovery-complete.json) passed owned cleanup and
 replacement of both B01 arms. [Transfer seals](transfer-seals.json) and
 [old-history integrity](history-integrity.json) pass; original evidence is retained.
 
-The ongoing [confirmation integrity snapshot](confirmation-integrity-checkpoint-03.json)
-verifies 11,512 sealed files, including 154 verified attempts and the retained
-interrupted/failed history. The [previous checkpoint](confirmation-integrity-checkpoint-02.json)
-also verified the exact acquisition source and 4,606-file execution bundle
+The ongoing [confirmation integrity snapshot](confirmation-integrity-checkpoint-04.json)
+verifies 15,456 sealed files, including 194 verified attempts, one interrupted
+attempt and nine raw failed states (including accepted controls and the excluded
+B06 attempt). All 2,192 frozen acquisition-source files still match the lock.
+The [earlier checkpoint](confirmation-integrity-checkpoint-02.json)
+also verified the 4,606-file execution bundle
 unchanged. Active unsealed work and later attempts are outside each snapshot;
 final campaign completion remains pending.
 
@@ -137,24 +144,25 @@ duplicate-inclusive counts, not population rates. The final inventory must still
 include every ordinary attempt after all acquisition phases finish. Confirmation
 source review, overhead, operational and final campaign audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-06.json) covers
-1,833 selected outputs / 93 contexts from all B01/B02/B03/B04/B05 and the first
-valid B06 four-system block, with 2,552 objective finals. All ten new repository
-final contexts were explicitly read. Three contain unsupported claims about
-invalid chunk sizes, None wrapping/test coverage or empty-input behavior; eight
-fail instruction requirements, including literal status formatting. All retain
-useful content. Earlier contexts exactly reuse complete source/instruction/answer
+The [latest partial confirmation review](confirm-review-index-07.json) covers
+2,011 selected outputs / 123 contexts from all B01/B02/B03/B04/B05 and all seven
+valid B06 blocks, with 2,744 objective finals. All 30 new dependency chains and
+answers were explicitly read; [component bindings](confirm-review-components-07.json)
+check that supplied source/reference, instructions and actual tool results exactly
+match previously explicitly read material. Three novel finals contain unsupported
+limitation claims; 27 fail instruction requirements, including literal status
+formatting. All retain useful content. Earlier contexts exactly reuse complete source/instruction/answer
 judgments. The excluded first B06 block remains excluded; this source audit
 does not repair its activity failure.
 The earlier sixteen-document review found four summaries with unsupported claims
 or lost uncertainty. Three summaries exceed 300 words in total, including one of
 those four; earlier prose incorrectly said three additional summaries. Individual
 ratings and prior counts are unchanged. Earlier QA and fictional-provenance
-findings remain. The current snapshot has **87 source-support failures and 287
+findings remain. The current snapshot has **101 source-support failures and 459
 instruction failures**, with all selected outputs retaining useful content. The
-[isolated validator](confirm-quality-checkpoint-06.json) checks every judgment
+[isolated validator](confirm-quality-checkpoint-07.json) checks every judgment
 against the unchanged archived rubric; archived instructions were verified for
-all 112 included attempts. These
+all 136 included attempts. These
 duplicate-inclusive partial sample counts certify neither population accuracy
 nor equivalence, and the final confirmation audit is pending. Original objective
 results and all timings remain unchanged.

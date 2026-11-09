@@ -26,16 +26,17 @@ coordinator and 15-minute health schedule. The first chat/QA/document cells have
 paired estimates without a resolved throughput difference; the full matrix remains
 pending. The first confirmation B06 candidate process completed serving but failed
 the frozen activity rule (zero restores, eight scheduler preemptions); its block
-has no comparison credit. Remaining scheduled measurements continue without
+has no comparison credit. All 32 B06 attempts finished; seven of eight matched
+blocks are valid. Remaining scheduled measurements continue without
 relabeling or favorable-activity retries. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-1,833 selected outputs / 93 contexts, including sixteen fully read document sets
-and eighteen newly judged repository answer contexts;
+2,011 selected outputs / 123 contexts, including sixteen fully read document sets
+and 48 newly judged repository answer contexts;
 final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and
-[latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-03.json)
+[latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-04.json)
 retain actual ownership/progress and verified evidence.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released

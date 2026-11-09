@@ -11,8 +11,8 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check has **118/524 valid
-configurations, 55/210 complete matched blocks**, with Qwen3-8B B06 Continuum in
+launch a duplicate. The latest bounded confirmation health check has **143/524 valid
+configurations, 63/210 complete matched blocks**, with Qwen3-8B B07 ARC in
 the third scheduled block active. B05 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
 below; the owner is live, progress continues, and no ownership/resource issue was
@@ -46,6 +46,13 @@ outcome. It can prevent a complete final matrix; never force `complete=true` or
 silently reduce the frozen repetition requirement. Scheduled attention for this
 same reviewed attempt is not evidence of a dead coordinator or authorization
 for a replacement. Investigate distinct new issues normally.
+
+The [terminal B06 attempt inventory](confirmation-b06-attempts-complete.json)
+verifies all **32 scheduled attempts / 2,648 sealed files**: 1,024 completed
+responses, zero caps, every declared request/tool/unit and cleanup check passed.
+There are **31 valid measurements / seven complete matched blocks**, not the
+required eight. All eight planned repetitions ran exactly once; the first remains
+excluded. B06 execution is finished and must not be resumed to replace it.
 
 [Qualification](qualification.json) **passes**: all native correctness fixtures,
 registry, external activation/pinned geometry, all required screens, all three
@@ -315,11 +322,14 @@ Release owned resources and disable only this job's schedule at actual closeout,
 record the verified release, and push the final checkpoint. Keep goal active until
 the full requested outcome and push are verified; the present document is a recipe.
 
-The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-03.json)
-verifies 11,512 sealed files / 154 verified, one interrupted and one raw failed
-attempt at its snapshot, plus one active unsealed attempt. It checks attempt,
+The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-04.json)
+verifies 15,456 sealed files / 194 verified, one interrupted and nine raw failed
+attempts at its snapshot, plus one active unsealed attempt. It checks attempt,
 input and protocol identities, retaining the ledger observations before/after
-the frozen verifier. Coordinator ownership was checked live. The
+the frozen verifier. Raw failed states include accepted inactive-restore controls
+and the excluded B06 attempt; integrity does not change their validity.
+Coordinator ownership was checked live, and all 2,192 exact frozen acquisition
+source files still match the locked manifest. The
 [previous checkpoint](confirmation-integrity-checkpoint-02.json) separately
 reverified the exact 2,192-file acquisition source against its locked manifest
 and all 4,606 execution-bundle files unchanged. All earlier checkpoints remain.
@@ -509,7 +519,7 @@ rewriting snapshots. That checkpoint used canonical screen07 plus confirm05 for 
 This is partial acquisition, not the final confirmation audit or population
 quality/equivalence evidence.
 
-The newer **partial confirmation review 06** covers all B01/B02/B03/B04/B05
+Earlier **partial confirmation review 06** covers all B01/B02/B03/B04/B05
 and the first valid B06 four-system block:
 [index](confirm-review-index-06.json), [ratings](confirm-source-judgments-06.json),
 [isolated frozen-validator receipt](confirm-quality-checkpoint-06.json), raw
@@ -528,9 +538,32 @@ including duplicates. All 112 included archived instruction sources verify and
 the isolated frozen validator accepts all 1,833 judgments. The live quality
 directory is unchanged. The first B06 block remains excluded by frozen selection;
 this review does not repair its missing activity. Use canonical screen07 plus
-confirm06 for the next exact-context and instruction-binding reuse. Final
+confirm06 for that checkpoint's exact-context and instruction-binding reuse. Final
 confirmation review still needs a terminal inventory; no population quality or
 equivalence claim follows.
+
+The latest **partial confirmation review 07** includes all seven valid B06
+blocks after all 32 scheduled B06 attempts became terminal:
+[index](confirm-review-index-07.json), [ratings](confirm-source-judgments-07.json),
+[isolated validator](confirm-quality-checkpoint-07.json), raw
+`$BASE/quality-confirm-checkpoint-07/`. It covers **2,744 objective finals,
+1,845 automatic final failures, 24 capped intermediates, 2,011 selected items
+and 123 complete contexts**. All 30 novel dependency chains/answers were
+explicitly read and judged. [Component bindings](confirm-review-components-07.json)
+verify exact equality of the already explicitly read complete source/reference,
+all task instructions, current instruction, role and actual tool results; no
+judgment was automatically assigned. Six new manual parts retain full eight-field
+context signatures. Three novel finals make unsupported limitation claims
+(noninteger chunk-size loops/incorrect chunking, zero-size resource exhaustion,
+or an unexplained complex-iterable restriction); 27 fail instructions. All 30
+retain useful content. A status clause citing a genuinely passing test_none was
+distinguished from claiming test_none proves singleton wrapping.
+Selected duplicate-inclusive counts are **101 source failures, 459 instruction
+failures, zero not useful**. All 136 included archived instruction sources verify
+and frozen finish validates all 2,011 judgments in isolation. Original timings,
+objective results, frozen exclusions and live quality directory remain unchanged.
+Use canonical screen07 plus confirm07 for subsequent exact-context reuse. This
+is still partial acquisition, not final audit or population quality evidence.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files
@@ -558,7 +591,7 @@ do not substitute modern Python knowledge for this supplied evidence. Future
 generated answers and actual preceding tool/dependency outputs still need review.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
-confirmation contexts explicitly, reusing canonical screen07/confirm06 only on exact full context
+confirmation contexts explicitly, reusing canonical screen07/confirm07 only on exact full context
 and system-instruction equality. Prepare the final confirmation packet after
 acquisition is terminal; do not invent unread judgments. Final all-cap inventory
 must be regenerated after confirm/overhead/operational are terminal and cover

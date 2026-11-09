@@ -1,0 +1,227 @@
+{
+  "schema": "stage6-5080-previously-read-context-components-v1",
+  "packet_digest": "1afb66af84b5ac2a2b0f0241ad7005a6aa7ecd75d47199c2b1c8522c30570c5c",
+  "component_fields": [
+    "source_context",
+    "reference",
+    "instructions",
+    "current_instruction",
+    "response_role",
+    "tools"
+  ],
+  "previous_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json",
+  "previous_completed_review": "confirm-review-index-06.json",
+  "components": [
+    {
+      "index": 0,
+      "review_id": "92934956ca33c95eba29f19d",
+      "symbol": "all_unique",
+      "component_digest": "26dec22e321473a789d317f437671ea4303b0717bc22cb968e703873b3a1c637",
+      "prior_review_id": "6b9b7787a88280e6ec7a49d9"
+    },
+    {
+      "index": 1,
+      "review_id": "4cfd0f6a6a27dbbd35dfe129",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 2,
+      "review_id": "d64aa34bda4d7a9a4443edd2",
+      "symbol": "callback_iter",
+      "component_digest": "725cb95167bcf5a6d2e0f0a4619d500e283d2781a91ea6346d57544f7c9689a9",
+      "prior_review_id": "501e60ae6e5536da903d7890"
+    },
+    {
+      "index": 3,
+      "review_id": "1e30d65a6397b79d79ecd548",
+      "symbol": "always_iterable",
+      "component_digest": "bdad6f14e2e550fc24236ad1571e6e059548bc938fc2c27c7ec84dc24e130fb0",
+      "prior_review_id": "90df2a54850411c0d072fd81"
+    },
+    {
+      "index": 4,
+      "review_id": "950b97da5ba1bb1999047fa6",
+      "symbol": "all_unique",
+      "component_digest": "26dec22e321473a789d317f437671ea4303b0717bc22cb968e703873b3a1c637",
+      "prior_review_id": "6b9b7787a88280e6ec7a49d9"
+    },
+    {
+      "index": 5,
+      "review_id": "1c9e39fb5c86c0ca16fb53b5",
+      "symbol": "chunked_even",
+      "component_digest": "111f2a246c54f7cca958ea15ab3af0c84e419919037000b3de2051c95b471a2b",
+      "prior_review_id": "628c42292b2d8b667e997d38"
+    },
+    {
+      "index": 6,
+      "review_id": "5042647f8fdf7a08c41db2ed",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 7,
+      "review_id": "5e9fa865ec452e29347fc062",
+      "symbol": "always_iterable",
+      "component_digest": "bdad6f14e2e550fc24236ad1571e6e059548bc938fc2c27c7ec84dc24e130fb0",
+      "prior_review_id": "90df2a54850411c0d072fd81"
+    },
+    {
+      "index": 8,
+      "review_id": "db74dd9d7a407e2a2bb8f905",
+      "symbol": "always_iterable",
+      "component_digest": "bdad6f14e2e550fc24236ad1571e6e059548bc938fc2c27c7ec84dc24e130fb0",
+      "prior_review_id": "90df2a54850411c0d072fd81"
+    },
+    {
+      "index": 9,
+      "review_id": "d7add16c7629074d5243bf43",
+      "symbol": "always_iterable",
+      "component_digest": "bdad6f14e2e550fc24236ad1571e6e059548bc938fc2c27c7ec84dc24e130fb0",
+      "prior_review_id": "90df2a54850411c0d072fd81"
+    },
+    {
+      "index": 10,
+      "review_id": "eee90d822d226250f221e2bc",
+      "symbol": "chunked_even",
+      "component_digest": "111f2a246c54f7cca958ea15ab3af0c84e419919037000b3de2051c95b471a2b",
+      "prior_review_id": "628c42292b2d8b667e997d38"
+    },
+    {
+      "index": 11,
+      "review_id": "95fa053316e023c2bf8b8b25",
+      "symbol": "chunked_even",
+      "component_digest": "111f2a246c54f7cca958ea15ab3af0c84e419919037000b3de2051c95b471a2b",
+      "prior_review_id": "628c42292b2d8b667e997d38"
+    },
+    {
+      "index": 12,
+      "review_id": "6ad2da379ab41301767ab723",
+      "symbol": "adjacent",
+      "component_digest": "efd052254c0b1386117907a02a121586a50798a3c549fabae1fd05bea6f88cfd",
+      "prior_review_id": "e211b21057b4767e25b0a8d3"
+    },
+    {
+      "index": 13,
+      "review_id": "60b6586b6766cb3138367078",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 14,
+      "review_id": "4c46b9af37d56ed28708ce7f",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 15,
+      "review_id": "2027f53a3b667bccd38d2a5d",
+      "symbol": "adjacent",
+      "component_digest": "efd052254c0b1386117907a02a121586a50798a3c549fabae1fd05bea6f88cfd",
+      "prior_review_id": "e211b21057b4767e25b0a8d3"
+    },
+    {
+      "index": 16,
+      "review_id": "3e9b7ffa1d1f72866dc64340",
+      "symbol": "adjacent",
+      "component_digest": "efd052254c0b1386117907a02a121586a50798a3c549fabae1fd05bea6f88cfd",
+      "prior_review_id": "e211b21057b4767e25b0a8d3"
+    },
+    {
+      "index": 17,
+      "review_id": "7c9144773e2724cc2839042c",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 18,
+      "review_id": "1fb7ea8ff5c29229fd335d7e",
+      "symbol": "always_reversible",
+      "component_digest": "72441d2d485fc77c97f295f0d292812424b7c90f15ef2ee30ff86bf2d9e8222f",
+      "prior_review_id": "d4961472fbe21c4f1211ec3f"
+    },
+    {
+      "index": 19,
+      "review_id": "e5c562a8e18aa2d25b7f88e1",
+      "symbol": "chunked_even",
+      "component_digest": "111f2a246c54f7cca958ea15ab3af0c84e419919037000b3de2051c95b471a2b",
+      "prior_review_id": "628c42292b2d8b667e997d38"
+    },
+    {
+      "index": 20,
+      "review_id": "9bd0ef6f72cb72617e43d552",
+      "symbol": "chunked_even",
+      "component_digest": "111f2a246c54f7cca958ea15ab3af0c84e419919037000b3de2051c95b471a2b",
+      "prior_review_id": "628c42292b2d8b667e997d38"
+    },
+    {
+      "index": 21,
+      "review_id": "062f3d82b45707c36fa1224b",
+      "symbol": "always_iterable",
+      "component_digest": "bdad6f14e2e550fc24236ad1571e6e059548bc938fc2c27c7ec84dc24e130fb0",
+      "prior_review_id": "90df2a54850411c0d072fd81"
+    },
+    {
+      "index": 22,
+      "review_id": "a7eb8048a82c503f384bbfe4",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 23,
+      "review_id": "c1ae503c1380b82591bd4dc6",
+      "symbol": "circular_shifts",
+      "component_digest": "c505b5f5505d87cee3964315cad297d854eb05aab4d2c81e9c8c75d60b3e1ec2",
+      "prior_review_id": "a35c737015a15572e4e5e652"
+    },
+    {
+      "index": 24,
+      "review_id": "92075a630b354fefe9fb991a",
+      "symbol": "all_unique",
+      "component_digest": "26dec22e321473a789d317f437671ea4303b0717bc22cb968e703873b3a1c637",
+      "prior_review_id": "6b9b7787a88280e6ec7a49d9"
+    },
+    {
+      "index": 25,
+      "review_id": "5bdda95c7fed6dc9bc3ba4e6",
+      "symbol": "all_unique",
+      "component_digest": "26dec22e321473a789d317f437671ea4303b0717bc22cb968e703873b3a1c637",
+      "prior_review_id": "6b9b7787a88280e6ec7a49d9"
+    },
+    {
+      "index": 26,
+      "review_id": "333baf931b438cc24c62c516",
+      "symbol": "all_unique",
+      "component_digest": "26dec22e321473a789d317f437671ea4303b0717bc22cb968e703873b3a1c637",
+      "prior_review_id": "6b9b7787a88280e6ec7a49d9"
+    },
+    {
+      "index": 27,
+      "review_id": "127aa9ed386e0803107fe634",
+      "symbol": "all_unique",
+      "component_digest": "26dec22e321473a789d317f437671ea4303b0717bc22cb968e703873b3a1c637",
+      "prior_review_id": "6b9b7787a88280e6ec7a49d9"
+    },
+    {
+      "index": 28,
+      "review_id": "4c61240552ece0214d84ffa6",
+      "symbol": "always_reversible",
+      "component_digest": "72441d2d485fc77c97f295f0d292812424b7c90f15ef2ee30ff86bf2d9e8222f",
+      "prior_review_id": "d4961472fbe21c4f1211ec3f"
+    },
+    {
+      "index": 29,
+      "review_id": "7f31fb01110e4ddf73e5a463",
+      "symbol": "always_iterable",
+      "component_digest": "bdad6f14e2e550fc24236ad1571e6e059548bc938fc2c27c7ec84dc24e130fb0",
+      "prior_review_id": "90df2a54850411c0d072fd81"
+    }
+  ],
+  "scope": "Exact equality of previously explicitly read source, complete reference, all task instructions, current instruction, role and actual tool outputs. All new actual dependency chains and answers must still be explicitly read and judged; no automatic source/instruction/usefulness pass. Full eight-field signatures and archived executed instructions remain required for final consolidation."
+}

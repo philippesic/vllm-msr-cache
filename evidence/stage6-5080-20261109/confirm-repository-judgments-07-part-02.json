@@ -1,0 +1,73 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1afb66af84b5ac2a2b0f0241ad7005a6aa7ecd75d47199c2b1c8522c30570c5c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 5,
+      "review_id": "1c9e39fb5c86c0ca16fb53b5",
+      "signature": "234a2a11bd32d20ad07890c8c07e39fb9704c27c86d59613ea782075364a58db",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 34,
+      "notes": "chunked_even evenness and ten actual passing tests are supported. Noninteger bounds/non-iterable inputs violate islice/iter requirements; the final does not invent infinite looping or deny the valid infinite-input tests. Test_status=PASS satisfies the case-insensitive underscore format. Earlier n=0 error speculation is not repeated. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "5042647f8fdf7a08c41db2ed",
+      "signature": "5701e28d9f5052e2237f878c45594e05805b86ba06bd66a9eb345772f87de711",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "circular_shifts ordinary rotations and the integer-step/iterable constraint match supplied code and six actual passing tests. Test status: PASS lacks the underscore; the final does not claim an unsupported fixed rotation count. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "5e9fa865ec452e29347fc062",
+      "signature": "fb795739ea722cfdcf7b261771d3a9f0f580b03e9421e5c066dca9b7bf0cffd6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 31,
+      "notes": "always_iterable ordinary wrapping and default atomic strings/bytes match source and six actual passing tests. Test status: PASS lacks the underscore. Earlier dictionary reversal is not repeated; the final does not specifically claim None is wrapped. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "db74dd9d7a407e2a2bb8f905",
+      "signature": "6e14622621a36d6148391fe8d7fde326eb0cc7a8b4269bed83129639d09836fe",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "always_iterable ordinary wrapping/default atomic strings are supported. The parenthetical here modifies Test status: PASS and cites test_single/test_none, both included among the actual six passing tests; it does not explicitly claim test_none demonstrates singleton wrapping. This differs from the prior final that explicitly said wrapping was confirmed by test_none. Missing underscore fails formatting. Echoed search is not a new observed execution. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "d7add16c7629074d5243bf43",
+      "signature": "c5a859974e342aec6c5df4e1e99b20db8a5bb5ab1d512d1513cb4b3b6ceaff7b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "always_iterable ordinary wrapping and documented default atomic strings/bytes are supported by source and six passing tests. Test status: PASS lacks the underscore. The final does not repeat earlier claims about dictionary defaults or nonexistent None coverage. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,1754 @@
+{
+  "schema": "stage6-5080-cell-acquisition-inventory-v1",
+  "phase": "confirm",
+  "model": "qwen3_8b_awq",
+  "cell": "B06",
+  "recorded_utc": "2026-11-09T21:42:33.481595+00:00",
+  "campaign_acquisition_complete": false,
+  "planned_cell_attempts_complete": true,
+  "analytical_cell_complete": false,
+  "expected_configurations": 32,
+  "terminal_configurations": 32,
+  "valid_configurations": 31,
+  "expected_matched_blocks": 8,
+  "complete_matched_blocks": 7,
+  "valid_block_repeats": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "missing_block_repeats": [
+    0
+  ],
+  "sealed_files_verified": 2648,
+  "completed_requests": 1024,
+  "caps": 0,
+  "all_request_tool_unit_coverage_and_cleanup_passed": true,
+  "coordinator_identity_checked_live": true,
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "attempts": [
+    {
+      "repeat": 0,
+      "system": "continuum",
+      "attempt": "75935c38a3db448bb47f7b77b764d1f8",
+      "block_id": "a3cadd27d859bc9f8e5db588fbd433494426adf4e557ae0ec730fd500417d051",
+      "path": "attempts/568a0f7643e7a33e7b4c6320b8add2ba05f7ada1885b6c076dfe229d8b483622/75935c38a3db448bb47f7b77b764d1f8",
+      "seal": "4f9bd398be52e9d1458634bbf9260f0d6771fbacee4a5db665cbfe4fd9e5e089",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2866,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 0,
+      "system": "wait",
+      "attempt": "9fd044a0861b4dc7b797f92d29a264fa",
+      "block_id": "a3cadd27d859bc9f8e5db588fbd433494426adf4e557ae0ec730fd500417d051",
+      "path": "attempts/adf22cac52dee5eadff54273061da531bcb8073e28cbea8e950774c9124042a5/9fd044a0861b4dc7b797f92d29a264fa",
+      "seal": "892aefd6862f0d52fdc20b8d469c63280f049d47b0fea08c251130b4453f02e0",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": false,
+        "classification": "original_measurement",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2841,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2592866304.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2298
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15013,
+        "returning_computed_prompt_tokens": 6670,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 8,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 0,
+      "system": "upstream",
+      "attempt": "ff4b6076a7a04bbc97f05fcaa00999f8",
+      "block_id": "a3cadd27d859bc9f8e5db588fbd433494426adf4e557ae0ec730fd500417d051",
+      "path": "attempts/7fc727717b2d277a66f2808330e90f57a5166f13c1c09987956878f473f2af15/ff4b6076a7a04bbc97f05fcaa00999f8",
+      "seal": "79a96e2b6af5fbfbb9da2acd72cb2d4f683d884aad45140040ebd82600598ec5",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 158,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2524446720.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 0,
+      "system": "arc",
+      "attempt": "f92ef7656b7f4ba59c65334852a36948",
+      "block_id": "a3cadd27d859bc9f8e5db588fbd433494426adf4e557ae0ec730fd500417d051",
+      "path": "attempts/2805e2ae0e08c4ee11d6d8525810e4b5028a864933fd664e082a0ece3d6d454d/f92ef7656b7f4ba59c65334852a36948",
+      "seal": "c3f093bcf8fe0d1931f7862b226ab051f220899bc57e2370f0a9a029edf02425",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2590507008.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15003,
+        "returning_computed_prompt_tokens": 6660,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 1,
+      "system": "wait",
+      "attempt": "dc5159eb6f55437a950c171633a6aa0d",
+      "block_id": "f239ebaa80cd192fc62a80cbc1742b27a4ff664ec583c1054251d5f7b2b8e2a0",
+      "path": "attempts/e36e5ce7df9e21e66295fdbe4ea353faba8650346d43ede78bc08779a13ca26a/dc5159eb6f55437a950c171633a6aa0d",
+      "seal": "c902578e3b49815ee31ee6c8ca3118ca62837d688acf8b7ffa10ce3a04bf147a",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2789,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2583429120.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2297
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14991,
+        "returning_computed_prompt_tokens": 6648,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 1,
+      "system": "arc",
+      "attempt": "d18b78c739764d398c4844bff6f86a1f",
+      "block_id": "f239ebaa80cd192fc62a80cbc1742b27a4ff664ec583c1054251d5f7b2b8e2a0",
+      "path": "attempts/75ec9263f3342b031537c24f4fc62b34e4812b4f4a15cd636decdecfaa4932e8/d18b78c739764d398c4844bff6f86a1f",
+      "seal": "40b2358584ac259021672cad59a4ad39c1dfbeb2c7ccdaba085918e5bc272664",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2789,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2583429120.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14991,
+        "returning_computed_prompt_tokens": 6648,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 1,
+      "system": "continuum",
+      "attempt": "3f22395d5b39402a9725b6112093eacc",
+      "block_id": "f239ebaa80cd192fc62a80cbc1742b27a4ff664ec583c1054251d5f7b2b8e2a0",
+      "path": "attempts/3d5369f9f2c1e5781bf9c8b0728ebe8e5ef761dd64aac9d7d27bff504a4517aa/3f22395d5b39402a9725b6112093eacc",
+      "seal": "3c542c30ce0809252512027911edb7353fadaa80933a1e53e3bbbe6930bb1a69",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2893,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 1,
+      "system": "upstream",
+      "attempt": "786aa24364ba47c19c11037b2cf3228b",
+      "block_id": "f239ebaa80cd192fc62a80cbc1742b27a4ff664ec583c1054251d5f7b2b8e2a0",
+      "path": "attempts/d6bb161aad2ed3ca93fea22c701afabdd805fd8a20553301890b402e9313ea8e/786aa24364ba47c19c11037b2cf3228b",
+      "seal": "9ad09ba5e07a4f1477cb99cd446cea0889fc644b9441d8efa4347921fc17dcd1",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 159,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2841,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2526806016.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 2,
+      "system": "arc",
+      "attempt": "0b65e7b45d7143e6a547f69f6d4108ef",
+      "block_id": "0cba9f8de864de5d55965586c32aa914344fe54811efcf77a8949e5a4452316b",
+      "path": "attempts/dda70ab2d105aaf93d5f5003ac00a8a200ce499c024c95316b86b0e00d0bd183/0b65e7b45d7143e6a547f69f6d4108ef",
+      "seal": "260681537e589c2c541f0076c57a1720a94af856f15c4c51778e0eeb31710f17",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2821,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2590507008.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14996,
+        "returning_computed_prompt_tokens": 6653,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 2,
+      "system": "upstream",
+      "attempt": "899b421a77d048d8ab5f123a03808fb6",
+      "block_id": "0cba9f8de864de5d55965586c32aa914344fe54811efcf77a8949e5a4452316b",
+      "path": "attempts/6cb01a434a72e2c2626a6672eaec122e0954cb1925602355e8bfd2edf12c4fc1/899b421a77d048d8ab5f123a03808fb6",
+      "seal": "3f9ea96e66173c614350fd1f1361f827415ab1c487efb4a7f74808da2d459ec8",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 158,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2524446720.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 2,
+      "system": "wait",
+      "attempt": "4757cf62e6c94cba9609ef407895b25e",
+      "block_id": "0cba9f8de864de5d55965586c32aa914344fe54811efcf77a8949e5a4452316b",
+      "path": "attempts/2f88518d8af994dd6c8f43c014161250915a6bd878f1633b73e935062170188d/4757cf62e6c94cba9609ef407895b25e",
+      "seal": "5fc5c54a66fc639a434defb25e64bb48b7497e649d7d748fb81b257f780499de",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2776,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2578710528.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2295
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14993,
+        "returning_computed_prompt_tokens": 6650,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 2,
+      "system": "continuum",
+      "attempt": "ab93af2cd9f04704be940d046bc64938",
+      "block_id": "0cba9f8de864de5d55965586c32aa914344fe54811efcf77a8949e5a4452316b",
+      "path": "attempts/5fa33daea5d482cc30846b4b76a138b70df9501e9ec719d354d75a1f8f1e2a2c/ab93af2cd9f04704be940d046bc64938",
+      "seal": "27d8d4493fd61158aecf9fbef353d9bcb844efddd38ac1232921d29c84bc108a",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2839,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 3,
+      "system": "upstream",
+      "attempt": "78ed2648e49644359d85fb9c93acac3a",
+      "block_id": "c20a98f42d2df15704c6c54cb9896dd7f8d32fa8a79e64a0ff44a92f4d4e08bd",
+      "path": "attempts/8eff86ff96a3e508f4bb1224faede50a461b783c47634e2f99bd248f7b565a6f/78ed2648e49644359d85fb9c93acac3a",
+      "seal": "49cdec71fabcfdd36ce222f998e87cc7f04360671675d9c73b3575c5612bcefc",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 155,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2789,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2524446720.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 3,
+      "system": "continuum",
+      "attempt": "efdee6454ab24b2caa2f8e365b619e09",
+      "block_id": "c20a98f42d2df15704c6c54cb9896dd7f8d32fa8a79e64a0ff44a92f4d4e08bd",
+      "path": "attempts/af3455eb0ff638277f887e946307649ef20ac6967e4568e9965cb9e31fccef8e/efdee6454ab24b2caa2f8e365b619e09",
+      "seal": "491ecc3ddcc6188350c05ee4bf2bb9a6f5ce440cb3b70caab5673eae5dc54746",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2882,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 3,
+      "system": "arc",
+      "attempt": "9e4dd7a9d8a645c696742847d4ac645c",
+      "block_id": "c20a98f42d2df15704c6c54cb9896dd7f8d32fa8a79e64a0ff44a92f4d4e08bd",
+      "path": "attempts/5680d4d4790882b0e6d7bb5ff5c02f47b81281b02e67afe0ffbf16da08ac01c9/9e4dd7a9d8a645c696742847d4ac645c",
+      "seal": "498f816d1427ab92ad7e571abea7ed10c4fd4b4a56b65f3b5b3775f697593355",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2823,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2588147712.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15001,
+        "returning_computed_prompt_tokens": 6658,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 3,
+      "system": "wait",
+      "attempt": "f97e84e54ffd41829a3a115e552c0d17",
+      "block_id": "c20a98f42d2df15704c6c54cb9896dd7f8d32fa8a79e64a0ff44a92f4d4e08bd",
+      "path": "attempts/c1bd16d55f95e63da9aeb8db95294bdedec9a2c1cdd678962fe9381a4646e11f/f97e84e54ffd41829a3a115e552c0d17",
+      "seal": "f970b15adfc1ba12d30d5c842813f00769a779c750305a0cd84f75b32a61ebf8",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2590507008.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2297
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15003,
+        "returning_computed_prompt_tokens": 6660,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 4,
+      "system": "continuum",
+      "attempt": "cd5470e6e5e0407aba473c307504cd7d",
+      "block_id": "5c3cc270374961ca8e132e30e1421893609670be3dd1972b033ba1b7b84290c6",
+      "path": "attempts/3c5acfe49174ccad1eb0c8ccc1dab21370fdc6279cd6f9d89761dc49c8b7ff3c/cd5470e6e5e0407aba473c307504cd7d",
+      "seal": "d1362757989b3c1298b0e537b480f3a01f733f57f1fbb68a8b7f70ace2b7780c",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2862,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 4,
+      "system": "wait",
+      "attempt": "d1dcb12c3838419e900e966c674b21c1",
+      "block_id": "5c3cc270374961ca8e132e30e1421893609670be3dd1972b033ba1b7b84290c6",
+      "path": "attempts/4c0af1435ecbaa146e30453c927f20a36ef34b7dd14c3bb9e40211a0dcde5c54/d1dcb12c3838419e900e966c674b21c1",
+      "seal": "9bb5cd469cc3b68ed2c6249f5ddc6ee6a1c475093c783bc636d48ff6d6586452",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2823,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2588147712.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2297
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15001,
+        "returning_computed_prompt_tokens": 6658,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 4,
+      "system": "upstream",
+      "attempt": "a837b280de9948af873c77415972750c",
+      "block_id": "5c3cc270374961ca8e132e30e1421893609670be3dd1972b033ba1b7b84290c6",
+      "path": "attempts/e29e37fb1e5de09283829d81c049625d156fb35afd5a8ce2ae8bd970e8319b44/a837b280de9948af873c77415972750c",
+      "seal": "cb5d3314e3388b5ec4ab668fdd303987bd574c3ce4096e60f5e61f0b9f3da5d4",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 156,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2816,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2522087424.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 4,
+      "system": "arc",
+      "attempt": "baafd5cce94740e4b1d7faa5a1b9e860",
+      "block_id": "5c3cc270374961ca8e132e30e1421893609670be3dd1972b033ba1b7b84290c6",
+      "path": "attempts/eeb620c11a23c21988a985b7daa51b6eab70aceb9b6ef11508d4f6af8a889f1a/baafd5cce94740e4b1d7faa5a1b9e860",
+      "seal": "edb24f8af0dc827e452e50723f6fe4a56e8d7d4cb8f9241b47e184d1ba906b77",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2823,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2588147712.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15001,
+        "returning_computed_prompt_tokens": 6658,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 5,
+      "system": "wait",
+      "attempt": "7c27723d87cd4b049c50d1d45b953d6b",
+      "block_id": "806b0ef605ccef0684fcaf4ea275644d9ff42a52140b61aa869058d3d84ed888",
+      "path": "attempts/482982670dc839778c12cc0c7fa7a4dc41a7695794549293fc8c05a6cb4a0db3/7c27723d87cd4b049c50d1d45b953d6b",
+      "seal": "73685a37a69c427ad496fc1b68ccbc46651912c9ab7954bcd94a0fd4fa8dcc90",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2590507008.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2297
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15003,
+        "returning_computed_prompt_tokens": 6660,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 5,
+      "system": "arc",
+      "attempt": "9beada2cec40486580430bc463da5429",
+      "block_id": "806b0ef605ccef0684fcaf4ea275644d9ff42a52140b61aa869058d3d84ed888",
+      "path": "attempts/4e704b7534592de78a0928c2ab927d31e17b863d0ea758c489c5de5fbfceb5a0/9beada2cec40486580430bc463da5429",
+      "seal": "6e72fc5c24ca45aa3b319e05c48cc0c810577c5da289e95e650fa99186963ced",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2783,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2581069824.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14989,
+        "returning_computed_prompt_tokens": 6646,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 5,
+      "system": "continuum",
+      "attempt": "51b3dfee302541c7876012dbb4cf15b5",
+      "block_id": "806b0ef605ccef0684fcaf4ea275644d9ff42a52140b61aa869058d3d84ed888",
+      "path": "attempts/18f1586592838314d80ff24728886458064f7a083bca3c2b6508d66becf843a2/51b3dfee302541c7876012dbb4cf15b5",
+      "seal": "8154fe6aa4311de0053c63977ddfc0cc54e6b770e5d82b828289b44a573db864",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2927,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 5,
+      "system": "upstream",
+      "attempt": "8649fd3b611a4f9ebe7215e1f2ee5da5",
+      "block_id": "806b0ef605ccef0684fcaf4ea275644d9ff42a52140b61aa869058d3d84ed888",
+      "path": "attempts/ea18b9efd38822969da841fe8cda88d31d0e70c6849d40a915e8f11466986c40/8649fd3b611a4f9ebe7215e1f2ee5da5",
+      "seal": "d6d73a48f83830978845af2557bc1fbf79ecb133bbe87b4789b7c2610a28f339",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 158,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2524446720.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 6,
+      "system": "arc",
+      "attempt": "efa6e060789648a4a70d82bffb711ab9",
+      "block_id": "2ebcf78a0ab0de2d413322cc47b8e053e1f7e3a9b926cf7b09007ac48600ff24",
+      "path": "attempts/af8ad4bc1a2baebbfa5294b654c9a7efa3b82277d5279eed065770fe1de11ea2/efa6e060789648a4a70d82bffb711ab9",
+      "seal": "4e6591b4db3743a0f57128223c586fbc1dee4d62102fec6da01905a36bcc176a",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2795,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2583429120.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14984,
+        "returning_computed_prompt_tokens": 6641,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 6,
+      "system": "upstream",
+      "attempt": "afa1c5c5eaa84ee99b1b0b508cfc72e7",
+      "block_id": "2ebcf78a0ab0de2d413322cc47b8e053e1f7e3a9b926cf7b09007ac48600ff24",
+      "path": "attempts/c623b960ccfa9f7d6e62a0536953416d323d731560e061c6b5e7a5aad3e5b319/afa1c5c5eaa84ee99b1b0b508cfc72e7",
+      "seal": "ddef0f53db3396b673a8ee2288d96b8f90be9f33b45318f59b53ef9bf9c0534b",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 156,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2831,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2526806016.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 6,
+      "system": "wait",
+      "attempt": "fbd398cef6b04a1a9050ecd6baf86780",
+      "block_id": "2ebcf78a0ab0de2d413322cc47b8e053e1f7e3a9b926cf7b09007ac48600ff24",
+      "path": "attempts/7f1a25b3c9289c4deda9e7d4b14c3e0ebe4c69412acdade12d880831d9a07d09/fbd398cef6b04a1a9050ecd6baf86780",
+      "seal": "06f7f417cb00f19efa1a55f855eae6340010f727b7dfd5d5edf0b40921da8902",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2782,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2581069824.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2295
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14995,
+        "returning_computed_prompt_tokens": 6652,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 6,
+      "system": "continuum",
+      "attempt": "30820cf0b2c3497ca95b6e80a963554f",
+      "block_id": "2ebcf78a0ab0de2d413322cc47b8e053e1f7e3a9b926cf7b09007ac48600ff24",
+      "path": "attempts/11ab2a5af46b004ce84b0401708c6034ad514f7ca186b57fd58aa5dc801d18ab/30820cf0b2c3497ca95b6e80a963554f",
+      "seal": "d256971707fb8f480ef05660152ceb4b5cbea4ed5c263aedcf072006d7a89d06",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2845,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 7,
+      "system": "upstream",
+      "attempt": "5bf5e937eebc4d21a37012116b01bb93",
+      "block_id": "9a11a7fd414b9b85a0a5de984d9496b72e3265c0db0a02314e4a21eed748856f",
+      "path": "attempts/203f7bbdab927c5a8fce3430510452aba937fc0ecb238875775fd3cdb7f3bd33/5bf5e937eebc4d21a37012116b01bb93",
+      "seal": "52f29f0262b1447f829d0aabfc0af5011f1a1c170686b2ecdb9610521b05ac88",
+      "verified_files": 85,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "applied_priority_updates": 24,
+          "priority_selections": 158,
+          "source": "read-only Python return observer; not counterfactual victim attribution"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2829,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": 2524446720.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 7,
+      "system": "continuum",
+      "attempt": "a756938ae7ae446db06fd2eafc6d5c4d",
+      "block_id": "9a11a7fd414b9b85a0a5de984d9496b72e3265c0db0a02314e4a21eed748856f",
+      "path": "attempts/283f32ff4fa8e7d7f02a7a571cfa7b7bf0f3e9a2e7355dfce339b387c562370f/a756938ae7ae446db06fd2eafc6d5c4d",
+      "seal": "e2917d5f021b49c3e21d363b3edbcddeed2a48cb4a8ce45d2b7c362f5df578ed",
+      "verified_files": 84,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [],
+        "policy_activation": {
+          "verified": true,
+          "pins": 24,
+          "source": "published scheduler recorder; excludes warmup"
+        }
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "requests": 32,
+      "output_tokens": 2913,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": null,
+        "store": null,
+        "restore": null,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": null
+    },
+    {
+      "repeat": 7,
+      "system": "arc",
+      "attempt": "fbedbcf0d2fd40c5bbb6ceab1e5870b4",
+      "block_id": "9a11a7fd414b9b85a0a5de984d9496b72e3265c0db0a02314e4a21eed748856f",
+      "path": "attempts/9f0ca15309c7167822a14684a225e9caefbe3a484e306a05d8b941a1a5f6c073/fbedbcf0d2fd40c5bbb6ceab1e5870b4",
+      "seal": "701619a5bb3823e79b8009c3d10e92e314f7e43f92742f49e952cc72611e9abc",
+      "verified_files": 81,
+      "raw_state": "verified",
+      "evaluation": {
+        "status": "passed",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": []
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "requests": 32,
+      "output_tokens": 2824,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2590507008.0,
+        "restore": 7077888.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 14998,
+        "returning_computed_prompt_tokens": 6655,
+        "loaded_tokens": 42,
+        "returning_loaded_tokens": 42,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 6,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    },
+    {
+      "repeat": 7,
+      "system": "wait",
+      "attempt": "40865adae6b24162b127f29393d0d82e",
+      "block_id": "9a11a7fd414b9b85a0a5de984d9496b72e3265c0db0a02314e4a21eed748856f",
+      "path": "attempts/144827dd959c5795f8aa8641e984ba60223bdcc43ab899ed10d9fb179c8497b0/40865adae6b24162b127f29393d0d82e",
+      "seal": "731af8fcb64674ec98d3f4789f1f227fd70c9a46477b93cdfd51ad7d62442b67",
+      "verified_files": 81,
+      "raw_state": "failed",
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "complete_repository_without_cpu_restore",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive",
+        "reinterpreted": true,
+        "scope": "Complete declared graph with GPU prefix hits, active treatment, zero CPU evictions/preemptions/restores. CPU-pressure and offload-benefit evidence are inconclusive; original sealed status remains unchanged."
+      },
+      "requests": 32,
+      "output_tokens": 2792,
+      "finish_reasons": {
+        "stop": 32
+      },
+      "tools": 24,
+      "completed_units": 8,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 2585788416.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 2296
+      },
+      "native_cache": {
+        "receipts": 32,
+        "complete": true,
+        "computed_prompt_tokens": 15004,
+        "returning_computed_prompt_tokens": 6661,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 0,
+        "returning_requests_with_prior_cpu_eviction": 0,
+        "returning_requests": 24,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    }
+  ],
+  "scope": "Every frozen B06 attempt executed once and all serving work completed; the first candidate has zero CPU restoration plus eight preemptions and remains invalid under unchanged frozen v3. Seven matched blocks are valid, not the required eight. Raw inconclusive statuses and control reinterpretations are retained. No replacement, capacity change, reduced repetition requirement, completed-cell throughput claim or pressure claim. Remaining campaign cells continue."
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "stage6-5080-integrity-checkpoint-v1",
+  "acquisition_complete": false,
+  "phase": "confirm",
+  "recorded_utc": "2026-11-09T21:43:27.307524+00:00",
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 194,
+      "interrupted": 1,
+      "failed": 9,
+      "running": 1
+    },
+    "verified_files": 15456,
+    "protocol_frozen": true,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "ledger_before_digest": "cc250cdbe66df3b4e72aedac5e99998a92f588a002696ac04269c08f510a9952",
+  "ledger_after_digest": "cc250cdbe66df3b4e72aedac5e99998a92f588a002696ac04269c08f510a9952",
+  "ledger_changed_during_check": false,
+  "coordinator_identity_checked_live": true,
+  "verifier_source": "frozen exported campaign_verify.verify_campaign",
+  "frozen_acquisition_source_matches_locked_manifest": true,
+  "frozen_acquisition_source_files_verified": 2192,
+  "scope": "Read-only integrity and aggregate verification of every sealed attempt in this campaign snapshot, including retained interrupted/raw failed history, the B06 activity-invalid attempt and valid controls. Exact frozen acquisition source matches its lock. Active unsealed work and later attempts are outside this inventory. No original measurements, protocol or analysis rules changed; this is not final acquisition/quality/portability/performance completion proof. Prior whole-bundle verification remains separately recorded in checkpoint 02."
+}

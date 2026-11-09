@@ -1,0 +1,79 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "1afb66af84b5ac2a2b0f0241ad7005a6aa7ecd75d47199c2b1c8522c30570c5c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 10,
+      "review_id": "eee90d822d226250f221e2bc",
+      "signature": "992c27e08471393e481147f80f9726dd4432295ca2051768c96396698e7cb1cb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unsupported infinite-loop/incorrect-chunking consequence for noninteger chunk sizes."
+      ],
+      "whitespace_words": 46,
+      "notes": "chunked_even evenness and ten actual passes are supported, and literal Test_status=PASS is accepted. Noninteger bounds violate islice requirements; no supplied code/test supports the asserted looping or incorrect chunking. Valid integer-size infinite inputs are explicitly tested. Core behavior/status remain useful. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "95fa053316e023c2bf8b8b25",
+      "signature": "8b847257cfdb681c5ea6b2737aa42daedc0c3bd06b46185388522a47cf74dfdb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Zero chunk size returns immediately without consuming the iterable; resource-exhaustion claim is contradicted."
+      ],
+      "whitespace_words": 40,
+      "notes": "chunked_even evenness and ten actual passing tests are supported. The code returns before obtaining/consuming an iterator at n=0, and test_zero_chunk_size explicitly checks nonconsumption, contradicting the infinite-input exhaustion limitation. Test status: PASS also lacks the underscore. Core behavior/test result remain useful. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 12,
+      "review_id": "6ad2da379ab41301767ab723",
+      "signature": "dcdfda8ff25d0950fb183961cf4fc690946be659d93c110bb601044d3d7a21a3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Added claim of problems with complex iterable types lacks a concrete supplied source/test basis."
+      ],
+      "whitespace_words": 26,
+      "notes": "adjacent predicate-neighbor behavior and ten actual passes are supported. Noninteger-distance input is outside the implementation integer requirements, but the added general complex-iterable concern is unsupported; the code accepts a generic iterable and no concrete failing type is identified. Test status: PASS lacks the underscore. The supported behavior and invalid-distance constraint remain useful. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "60b6586b6766cb3138367078",
+      "signature": "263e578cc2d70d87a549f7de2f129273a03c1652e2393a65e6280c3514223fe7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 37,
+      "notes": "circular_shifts zero-step ValueError and named test_steps_zero match source and all six actual passing tests. The noninteger-step constraint follows rotate/gcd and the explicit error message; impact is hedged rather than a claimed observed failing test. Test status: PASS lacks the underscore. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "4c46b9af37d56ed28708ce7f",
+      "signature": "294084485ef105906b77026fd210eb06cc279062fbf1c9f728bdc867de559577",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "circular_shifts ordinary nonempty-input rotations and six actual passing tests are supported. Integer-step/iterable-input requirements follow deque/rotate/gcd. Test status: PASS lacks the underscore; earlier examples do not introduce an unsupported final rotation count. Source/reference/instructions/role/actual tools exactly match the previously explicitly read context bound in confirm-review-components-07.json; all new actual dependency chains and answers explicitly read and judged. Full eight-field signatures retained; no automatic quality pass. Original objective/timing unchanged."
+    }
+  ]
+}
