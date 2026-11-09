@@ -182,6 +182,81 @@ External missing native counters stay unavailable. Actual full-report extraction
 and final T3 html_preview/html_render remain untested/pending until data exist.
 This is derived presentation; acquisition source/design stays unchanged.
 
+## Terminal audit order
+
+These steps are pending. They were checked against the exported CLI and current
+audit implementations, not executed as a claim of completion. After confirmation,
+overhead and operational have all finished, verify the actual owner processes
+have exited and no ordinary ledger attempt remains running/planned. Require all
+524 confirmation configurations / 210 matched blocks, 38 overhead configurations
+and six operational configurations, with complete matched supplementary blocks
+and their purpose/cleanup receipts. A zero CLI exit alone is insufficient.
+
+From **`$BUNDLE/source`**, with the literal `$PY` and bytecode disabled:
+
+```bash
+"$PY" -m benchmarks.serving_suite.campaign verify --out "$OUT"
+"$PY" -m benchmarks.serving_suite.campaign quality --out "$OUT"
+```
+
+The second command prepares the **final confirmation** packet in
+`$OUT/analysis/quality`; it is not a source-review pass. Preserve an immutable
+copy of its packet, objective, summary and private labels under a fresh BASE
+snapshot. Explicitly read every new complete context before rating. Reuse only
+exact eight-field plus archived instruction-source matches, rebind current IDs,
+and cover every prescribed item, automatic failure and capped intermediate.
+Then finish with the absolute path to the completed final ratings:
+
+```bash
+"$PY" -m benchmarks.serving_suite.campaign quality --out "$OUT" \
+  --ratings "$REPO/evidence/stage6-5080-20261109/confirm-source-judgments-final.json"
+"$PY" -m benchmarks.serving_suite.campaign_capped_review \
+  --root "$BASE" --out "$BASE/caps-all-final-01"
+```
+
+Those destination names are proposed fresh paths; preserve any existing path
+and choose a new numbered one if already present. The all-cap inventory must
+have `complete_inventory=true`, no pending attempts and unchanged input ledger
+digests. Its root is BASE, whose immediate campaign child is this campaign;
+VOLUME would also include November 8 history. Review all new extended contexts,
+including actual preceding dependencies/tools and archived instruction/prompt
+bindings, then finish with the complete cap ratings:
+
+```bash
+"$PY" -m benchmarks.serving_suite.campaign_capped_review \
+  --out "$BASE/caps-all-final-01" \
+  --ratings "$REPO/evidence/stage6-5080-20261109/caps-all-source-judgments-final.json"
+```
+
+Next check disk using actual tree sizes. Portability materializes another raw
+tree and exported bundle, holds the writer lock and temporarily parks the
+original campaign path; never run it during active acquisition or another audit.
+Use a new destination on the mounted ext4 image, outside OUT:
+
+```bash
+"$PY" -m benchmarks.serving_suite.campaign_portability --out "$OUT" \
+  --destination "$VOLUME/portability-20261109-final-01" --runtimes "$RUNTIMES"
+"$PY" -m benchmarks.serving_suite.campaign report --out "$OUT"
+"$PY" -m benchmarks.serving_suite.campaign verify --out "$OUT"
+```
+
+Require the final report's `complete=true`, all 42 comparisons, complete
+quality/overhead/operational/recovery/portability gates, and every seal. The
+pre-proof sealed export can correctly retain an incomplete readiness snapshot;
+preserve it and link the adjacent final proof/report rather than rewriting its
+seal. The portability proof's inherited text saying no 5080 execution describes
+the GPU-free proof only. Its `separately_rebuilt_runtime_bindings=true` does not
+mean all environments were rebuilt: only Continuum was rebuilt; local/upstream
+were reused at their pins. State both scopes explicitly in final evidence.
+
+Only then run the primary findings helper above, compare its first B01/B02
+estimates to `confirmation-first-cells.json`, preview/render the full chart and
+write the final plain-language results. Retain final source/cap judgments,
+integrity/transfer/portability receipts and a sealed compact completion packet.
+Release owned resources and disable only this job's schedule at actual closeout,
+record the verified release, and push the final checkpoint. Keep goal active until
+the full requested outcome and push are verified; the present document is a recipe.
+
 The read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-01.json)
 verifies 6,653 sealed files / 75 verified, one interrupted and one raw failed
 attempt at its snapshot, plus one active unsealed attempt. It checks attempt,
