@@ -11,9 +11,9 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check was healthy: **12/524 valid
-configurations, six/210 complete matched blocks**, with Qwen3-8B B01 ARC repeat
-six active and no issues. Recheck actual live progress; these counts are a
+launch a duplicate. The latest bounded confirmation health check was healthy: **16/524 valid
+configurations, eight/210 complete matched blocks**, with Qwen3-8B B01 ARC repeat
+eight active and no issues. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -194,6 +194,21 @@ with exact packet/objective/private mapping and `phase=screen` preserved.
 It validated all 1,248 judgments and produced audited status. The live campaign's
 confirmation quality destination was not touched. Do not reuse this isolated
 screen status as a confirmation audit.
+
+A first **partial confirmation** review is also retained:
+[index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)
+and [two explicit contexts](confirm-explicit-judgments-01.json), raw
+`$BASE/quality-confirm-checkpoint-01/`. At seven completed B01 blocks, it contains
+14 objective finals (zero automatic failures) and 14 capped intermediates:
+28 selected items, two distinct full contexts, both explicitly read.
+All 28 lack support for precise fictional landmark names/measurements and repeat
+an inaccurate factual-provenance claim; all fail the relevant instruction, while
+all retain useful creative content. This is fictional worldbuilding and a source
+support limitation, not a real-world geography error. Duplicate contexts are
+repeated fixed-cohort observations, not independent quality samples. The index
+is explicitly acquisition_complete=false. Do not finish this partial audit as
+though all confirmation were captured; regenerate at terminal acquisition and
+rebind canonical IDs to the new first item for exact context reuse.
 
 Confirmation and final all-phase cap audits remain pending. Review any new
 confirmation contexts explicitly, reusing canonical 07 only on exact full context

@@ -1,0 +1,43 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4d603d8c83eeafbc1c9191c1614e3640f098d2def910891bc223eb7b9e8eec0d",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex blinded full shared fictional-setting prompt, current node, every actual dependency and generated answer review; creative usefulness separated from factual source support",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-01/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "ad2eefcac10c5c707b2f9ec4",
+      "signature": "9e798fc1a7562be020bc955b0fab20373bfe934223836525b556b24003f031b8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Introduces the Talvethan Rainforest name, 1.2-million-square-kilometer area, Kaithianian Skywing Bird, Mount Kaelor name/6842-meter height, glacial valleys, Kaelorian Bluebloom and Sorath River without supplied source support."
+      ],
+      "notes": "This is fictional worldbuilding, not a real-world geography error. The user permits a landmark-description draft and the geographic/ecological theme is useful, but these precise additions are presented as facts rather than labeled inventions. It exceeds the executed under-70-word intermediate rule, cuts off mid-river sentence and does not complete the long description. No tools/dependencies are available and no outcome is invented."
+    },
+    {
+      "index": 1,
+      "review_id": "02791c9b59c7b333bc19cf21",
+      "signature": "406184b28dbaa1df8fcec4e5dcfb5695e2bb927d654a771ad708fec85dba45d8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Repeats an invented rainforest name/area and bird as factual source material.",
+        "Says this balances factual accuracy although earlier generated details have no basis in the original supplied fictional setting."
+      ],
+      "notes": "The final is concise, neutral and coherently summarizes the actual generated dependencies, so it is useful as a fictional draft. However, those dependencies falsely described newly invented specifics as directly sourced; narrowing bird exclusivity does not ground the landmark, area or bird itself. The original factual-grounding request remains unmet. This is a support/provenance limitation within a creative task, not a claim that real-world places were misstated. No validation tools or outcomes were invented."
+    }
+  ]
+}

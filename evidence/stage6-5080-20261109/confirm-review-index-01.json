@@ -1,0 +1,72 @@
+{
+  "schema": "stage6-5080-partial-confirm-source-review-v1",
+  "phase": "confirm",
+  "acquisition_complete": false,
+  "packet_digest": "4d603d8c83eeafbc1c9191c1614e3640f098d2def910891bc223eb7b9e8eec0d",
+  "packet_file_sha256": "4c2b8a2945af6a801baa3c96d4dd1b3f566b35d0b6d88cefa6852c6ccaf9b35a",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "executed_system_instruction_digest": "7222f30b61e9acb7dd4a7f7fa74e4d3cd23ab17260c3a7191fe7dc50b4216a71",
+  "executed_instruction_source_sha256": "34054f5dfeae46bb950f221188d18724af270891999b3cee38f741deada6116c",
+  "contexts": [
+    {
+      "signature": "9e798fc1a7562be020bc955b0fab20373bfe934223836525b556b24003f031b8",
+      "canonical_review_id": "ad2eefcac10c5c707b2f9ec4",
+      "review_ids": [
+        "ad2eefcac10c5c707b2f9ec4",
+        "dfb33edd99266f0d4e036237",
+        "30ec104f6b022d8e098453da",
+        "4c178d15b0b44360d5ef285d",
+        "546c0ad20a9b1d6e2c850acf",
+        "7ed95c46cff9b491e4a6bbee",
+        "616e35ad5229022949d6b9c7",
+        "dc87759377be36300dc0089f",
+        "145700e1f0b6e5c1d901f4dd",
+        "259f0914b1eeec51e3ab4431",
+        "1c588c4bed3f223ebbf342e4",
+        "4a35fc9e6929695a4b77e764",
+        "63e29ce6ad9bbd389e2999cb",
+        "2f3b9010a8188332c05110dc"
+      ]
+    },
+    {
+      "signature": "406184b28dbaa1df8fcec4e5dcfb5695e2bb927d654a771ad708fec85dba45d8",
+      "canonical_review_id": "02791c9b59c7b333bc19cf21",
+      "review_ids": [
+        "02791c9b59c7b333bc19cf21",
+        "3386f098b0a9bdcd33f45204",
+        "a74f1789b1e0fd4a714faefd",
+        "154e0c7105b5acccff1fe673",
+        "0db394da6dbb57f69c40f6cb",
+        "7e808945339cc635f563e76f",
+        "bb88246eeaa1c7360e677e18",
+        "33bf85305bcda3bdda574ad9",
+        "27411a4678808244de1447c0",
+        "0b453383483cf8bb3e47f741",
+        "d9b8c3e749d24f82a45e9372",
+        "badb63a83e8aacfc5f570095",
+        "6acb04a5430449a64723a03f",
+        "69ec1372977cb486c0b97fa5"
+      ]
+    }
+  ],
+  "reviewed_outputs": 28,
+  "distinct_full_contexts": 2,
+  "newly_judged_contexts": 2,
+  "ratings": "confirm-source-judgments-01.json",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-01/blind-packet.json",
+  "review_findings": {
+    "source_unsupported": 28,
+    "instruction_failures": 28,
+    "not_useful": 0
+  },
+  "scope": "Partial confirmation snapshot: seven complete B01 matched blocks, fourteen objective finals and fourteen capped intermediates, 28 selected items. Both full contexts explicitly read; duplicate judgments reused only with exact eight-field/system-instruction equality. Fictional worldbuilding additions may be useful creative material, while precise names/measurements and the assertion of factual accuracy lack original source support. Mechanical checks show zero automatic final failures and are unchanged. This snapshot is not a completed confirmation audit; final packet and all-phase caps must be regenerated after acquisition. Counts are selected, repeated-cohort counts, not population error/usefulness rates or quality equivalence."
+}
