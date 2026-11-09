@@ -1,0 +1,106 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer/dependency review with exact reviewed snapshot06 source/reference/instruction/tool components",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 56,
+      "review_id": "faf5238b9fdfc6173dadf444",
+      "signature": "6878ebd30ab1c10d9b77cb4905b9f69cebed86201c3238df923b01c168d1d7e8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, read-only Mapping Context API and metadata-only validation scope are supported. The cautious absence of a universal async-framework guarantee is not an observed compatibility result. Test Status: PASS misses literal test_status=PASS."
+    },
+    {
+      "index": 57,
+      "review_id": "0193c2318d03eaff5bdda300",
+      "signature": "e5b6dfa0060fc8dcdbb6761cd217974cec54e448cd9e641cc48a8281c4c484b8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correctly reports Final/Standards Track, async-task context isolation and no direct Context mutation. Actual PASS exists, but **test_status**: PASS does not satisfy the literal equals-sign format."
+    },
+    {
+      "index": 67,
+      "review_id": "cabbab4dd4d262599765e901",
+      "signature": "1ea6afe48d709001fc2280900d4e519668e214c4ce7495ea9e9244349588b86d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, PEP 440 version rules, metadata PASS and unsupported non-ASCII/backslash marker strings match this supplied PEP. International-string implications are framed as a restriction, not a measured defect."
+    },
+    {
+      "index": 68,
+      "review_id": "7ccc1814c9906f85024d1752",
+      "signature": "7d7f999d60e16f0d6b62792dc5066a23c448d313351d99b74c22ba5390bd76f6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Unified dependency grammar and ASCII marker restriction are supported, and actual test_status=PASS is stated. Requested proposal Status Final and Type Standards Track are omitted."
+    },
+    {
+      "index": 71,
+      "review_id": "d37fd1de55b1c0de66c2c3af",
+      "signature": "d4661c6e9cf816806ced887039085fca3463bae26bbfeda6f161347fd777ea5b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls break and return exceptions.",
+        "Broadly declares with unsuitable for iterative/retry workflows."
+      ],
+      "notes": "Final/Standards Track, with entry/exit and metadata PASS are useful and correct. Single execution of one with block does not prohibit loops or retries around it; the limitation overstates the source."
+    },
+    {
+      "index": 76,
+      "review_id": "582921b82cd4b1e4e9f41e75",
+      "signature": "c529f1faa9181e609c5431190475219f41912c1bdc966211ccaed65d6b9589fd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Implies the validation result establishes __init__.py behavior and Python-version alignment rather than only the returned metadata fields."
+      ],
+      "notes": "Final/Standards Track, dynamic paths, no __init__.py and no __file__ are supported. A conditional introspection concern is reasonable, but the asserted breadth of validation is unsupported."
+    },
+    {
+      "index": 77,
+      "review_id": "7fb4e497fd79ceba141f32ce",
+      "signature": "5ab17d55312e9096b53a2d420fa61c7944185ccf02ea88a9dfd7067805edbf92",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims the Abstract was validated although the tool returns only metadata fields.",
+        "Invents a PEP-459 local-version validation requirement/limitation absent from the supplied evidence."
+      ],
+      "notes": "Final/Standards Track and increasing final-release numbering are useful correct facts. Subject PEP 440 and literal test_status=PASS are missing."
+    },
+    {
+      "index": 78,
+      "review_id": "e09ea8a854605ffc177638a9",
+      "signature": "0b60e49c6cd78340bf01d4fc6a2c77da0916c216c596c03541d7d9330abc5c4c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, native async-def syntax and the supplied historical PEP prohibition on yield/yield-from are supported with actual metadata PASS. This judges the archived PEP excerpt, not all later language revisions; refactoring concern is only a potential consequence."
+    }
+  ]
+}

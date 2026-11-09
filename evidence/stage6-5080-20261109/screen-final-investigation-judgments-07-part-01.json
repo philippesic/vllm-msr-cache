@@ -1,0 +1,77 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer and actual dependency review; source/reference/instruction/tool bodies exactly checked against completed snapshot06 component judgments",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 5,
+      "review_id": "27bad5867b3bfa1a05ffd4a7",
+      "signature": "f8a48003fa3ebca90ec373f8fbefad8702720894f841180a1e290e32445b3cb4",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Informational, the simplicity aphorism and philosophical rather than code-enforcement limitation are supported. Actual metadata validation PASS is reported in the requested form; appended summarize command is already executed, not an invented result."
+    },
+    {
+      "index": 8,
+      "review_id": "d96793b72857a26bf0167a77",
+      "signature": "e471d17abca9b19f3beb93eba866f1a2cefa687b18edd8ae7e8f8806c819a27c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims validation checks namespace-package behavior rather than only document metadata.",
+        "Invents an unspecified path-removal/lifecycle limitation despite the supplied dynamic path and packaging discussion."
+      ],
+      "notes": "Final/Standards Track, no __init__.py and dynamic path computation are correct useful facts. Actual metadata PASS is real, but it does not establish the asserted semantic validation or lifecycle ambiguity."
+    },
+    {
+      "index": 10,
+      "review_id": "a5fc278870b27015ad5a335d",
+      "signature": "86a9743dcc255edc0884af40d9f5ae2bde82f66f6f3192d96fe590ae81061268",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims Python-version constraints in build dependencies are unsupported and build-tool versioning must be external."
+      ],
+      "notes": "Final/Standards Track and PEP-508-compliant build-system.requires are supported, with genuine metadata PASS. The limitation contradicts the supplied version-constrained dependency mechanism; core declaration remains useful."
+    },
+    {
+      "index": 12,
+      "review_id": "18791160ce1c4b95a2d6731d",
+      "signature": "f89aa6c51a10c96c98f947fcdaf921a31e6eea80a7c8e030f627f9f0a9eb56e1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts inconsistent management by different loaders from the absence of strict validation rules without supplied evidence."
+      ],
+      "notes": "Final/Standards Track, ModuleSpec metadata and actual PASS are supported. The concrete negative outcome is speculative, rather than a measured or documented limitation."
+    },
+    {
+      "index": 14,
+      "review_id": "01a7b00d5fd6127c2db6e470",
+      "signature": "2fdd9f6d61178f31feadfb05007c6efbd3192399fdccc5635918a6b13e0e2357",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims Any is not implemented as a runtime class without support in the supplied opening sections."
+      ],
+      "notes": "Final/Standards Track and lack of runtime enforcement are useful, and PASS is observed. The JSON-like status key does not satisfy literal test_status=PASS; PEP 484 subject is not named, and Any implementation claim is unsupported. Earlier malformed generated commands do not replace actual fixed tool results."
+    }
+  ]
+}

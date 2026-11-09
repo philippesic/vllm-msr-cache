@@ -1,0 +1,79 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review with exact prior full source/test components and actual pytest counts checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 197,
+      "review_id": "5f80591c6eb835662cb68ac2",
+      "signature": "705870baa46b7794acf7cc92853fa499b76bc98b7895c2ff21d88c29dbc2a976",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports test_status=FAIL and denies SortTogetherTest execution despite six actual passes.",
+        "Speculates that empty iterable sorting may error without a supplied failing case."
+      ],
+      "notes": "Key/reverse/strict behavior has correct fragments, but the central fabricated failure and contradiction about execution make the report unreliable."
+    },
+    {
+      "index": 205,
+      "review_id": "95861d0b5f5d26afefcd8100",
+      "signature": "420124a2fe05e62edb57baff198b206e65315a7f057b9e307b470769e7275daf",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls pairwise predicates unsuitable for element-only/stateful/nonconsecutive conditions without recognizing callables may ignore an argument or close over state.",
+        "Attributes a comma-separated string example to test_max_split without supporting reference coverage."
+      ],
+      "notes": "Adjacent-pair splitting and actual eleven tests plus five subtests are useful. The concrete API limitation overstates the supplied pairwise calling convention."
+    },
+    {
+      "index": 212,
+      "review_id": "1d63317631d313dc6f3d0329",
+      "signature": "4f9f86290f3dc87843a7a53554ffe0cf6a51ed63a5b5527c84d6a5fd26917995",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL against seven actual passes plus 13 subtests.",
+        "Invents a required ValueError for empty sequences with n=1 or n=2, contrary to documented/tested empty output."
+      ],
+      "notes": "The purported supported behavior is itself a false failure expectation, so no reliable useful report remains."
+    },
+    {
+      "index": 216,
+      "review_id": "5a8695079bf623d64f00b25c",
+      "signature": "763f1bbd9ab2f8d6be25f2284e3df5da32cd0820942955bf5049bae99e76b602",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correct sliding-window/padding facts, actual seven-test PASS and lack of extra step-versus-length validation are supported. The pinned tests explicitly cover a step beyond input length and the answer acknowledges valid output, so it does not establish the requested concrete evidence-based limitation."
+    },
+    {
+      "index": 232,
+      "review_id": "a113fcadfda6ab94c5e60bda",
+      "signature": "058db7802e24b27d1d15ae27eae5654d7863e18a9746e301283a813f6acd27b9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies direct peekable validation and attributes the current run to first/last, contrary to 22 actual target passes."
+      ],
+      "notes": "It fails to give a supported peekable behavior or the actual target validation outcome; a broad rg listing cannot replace the full test execution."
+    }
+  ]
+}

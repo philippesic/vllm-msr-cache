@@ -1,0 +1,91 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review; complete SetPartitionsTests/ReplaceTests reread, other exact prior source/test bodies and actual pytest outputs checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 34,
+      "review_id": "d84545541bae3fb8dc0f4b27",
+      "signature": "8770b4fe5b90a0828aadb14d7762e6c64d9a3252913584984ec5c4c92cc5843a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Frames the actual run as first/last tests instead of the executed 22 PeekableTests."
+      ],
+      "notes": "Negative indexing/prepending and cache growth are useful supported facts, and a prior PASS is acknowledged. The report still misidentifies current validation from a broad rg snippet; colon-form PASS misses literal status."
+    },
+    {
+      "index": 38,
+      "review_id": "485f9dc784582e86c0591661",
+      "signature": "1b7eda548bfed20493fb85a54d018d5a750533bd889b1517a5abcd20f095bd07",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correct constrained set partitions, named min/max/Stirling tests and all ten actual passes. The repeated-aaa test explicitly demonstrates positional multiplicity rather than value deduplication, supporting the stated non-distinct-input caveat."
+    },
+    {
+      "index": 40,
+      "review_id": "36010555dee43c0e59c25824",
+      "signature": "f089e8b98c8b94cfd50acce3c241bbd23bf14da4bc563d2008e4f074d17da848",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies the directly executed four PartitionsTests plus three subtests.",
+        "Invents ParticlesTest and claims partitions internally calls set_partitions."
+      ],
+      "notes": "Contiguous order-preserving partitioning is a correct fragment, but actual execution is denied and the claimed internal failure dependency does not exist."
+    },
+    {
+      "index": 41,
+      "review_id": "85ea0d0c7fb279ba207ee045",
+      "signature": "a33ab413b61a28166baf31251a3e050f7608d47a7670f4826b19c687bd6c975e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies floating-point/type coverage present in NumericRangeTests.",
+        "Treats unrelated broad-rg lines as the actual numeric_range test execution and invents individual executed outcomes."
+      ],
+      "notes": "The actual result is 25 tests and 20 subtests passed. The contradictory type-consistency account, false coverage limitation and omitted literal PASS make this report unreliable."
+    },
+    {
+      "index": 43,
+      "review_id": "c0642b5eb97e385f6a8e379d",
+      "signature": "4a9d60fd4b45158856410be3b1a8008476b949a426bf04ede8374f147c4d1bf5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims no window_size<1 coverage despite explicit test_window_size_zero."
+      ],
+      "notes": "Correct replacement example and actual PASS remain useful. Noncallable/noniterable inputs are not in this class, but the blanket invalid-input limitation falsely includes tested zero window size."
+    },
+    {
+      "index": 44,
+      "review_id": "5c4429f7b9da69278605ce74",
+      "signature": "4efeab67f716920635979464f382e734857514dc94fd1a85dc958cfdd2e583be",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Changes the six actual passes to ten with an invented elapsed/status value.",
+        "Then claims collapse tests were not executed despite actual target validation."
+      ],
+      "notes": "Level control is a correct fragment, but mutually inconsistent fabricated validation and denial outweigh it."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-passage/question/reference/answer review; no tools/dependencies in these QA contexts",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 120,
+      "review_id": "2acb8b985b905c11fa2fb769",
+      "signature": "50601b4a22056831e00e184d908b45689a413d8849134bce51dd0cbc02f6b591",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Faithful perceptual reproduction for most listeners is the supplied goal, beyond the shorter exact reference. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 121,
+      "review_id": "c4e205beae8373579b05f4b5",
+      "signature": "f66c60b50df8f2038d1f45b91db9b20275ada5a4a9d7128aec58aa7bca8e1425",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Ottoman Turkey and Turkey are supported useful names, but Turkish Empire is omitted from the requested three-name answer. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 123,
+      "review_id": "323dcb53d6c8b536f1274d56",
+      "signature": "e5d16350604018fe665fddd506afcbec5c274fd9a2ffd307d24d17b88d6240a1",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Formal writing correctly expands the reference formal. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 125,
+      "review_id": "eb907cf852a773ccbeaea19d",
+      "signature": "941eab646e2847dd72e747e310b4602d2ff318a4eebc38410d33ad65ef521d95",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "1906 is the supported 116-win year. No current drought claim is adopted. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 127,
+      "review_id": "1cd2cdb808ee80fc43df6fd5",
+      "signature": "4076e55500b64e75eac39a7ca3fbf7f07f0f9f3bd52a1d436ae5a3ea6a3327f0",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "East Timor is the explicit answer in this archived evidence; this is not a claim about current membership. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 129,
+      "review_id": "46b16bcaf351e7652af17ee8",
+      "signature": "28aeb027ac8383cbbd715dbac7be424b8c32b615b22f5711071f722ab2961b02",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Calcutta is the supplied capital through December 1911. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 139,
+      "review_id": "d80f69fc41b6cd2b2d2f384d",
+      "signature": "85b6ac07c96ce12d7b0ee922db87b4515dea11ead726ba84afa0d4dbcbf32745",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "San Francisco directly answers the band origin. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 140,
+      "review_id": "27e9099b01d994d1fa8d11d7",
+      "signature": "48807082088e0e3976c4ca3be4d6dd7a1a89607249f2891bcaadbdbab408cb5c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Overseas intelligence gathering is the explicitly stated main focus. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 145,
+      "review_id": "348882f20b6b9c7c3ea6db5b",
+      "signature": "ef85f916401bc519ffa879e99616830d0ff52bc2507b7f2635c22aba0c96a9e0",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The Warnerke Standard Sensitometer is the named apparatus. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 155,
+      "review_id": "07bfb8958c44310b77ed86c9",
+      "signature": "bf1f567ecc094d80f0e1e2aace0079833b6f777ec3bf0d8a54224d009d9622e7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The conditional usual top choice is accurately preserved; it is not asserted as an unconditional automatic succession. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 166,
+      "review_id": "c1660018996ba6f455b00681",
+      "signature": "5bcaa459f545c438b1340cd671b994cb89b36d38eee435afa692f55cdaa9bc09",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "All six countries in the secret protocol are correctly named. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 177,
+      "review_id": "9f3860daccde435e77f93c52",
+      "signature": "ed81d7abd084099f533558b5559639145cfd1fe8e1ccd1fa4998dc8c4c21a243",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Negotiation and notice/takedown are supported useful methods, but the answer omits the stated civil-court litigation alternative from the requested account. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 182,
+      "review_id": "72463eafa81db252ce11ab90",
+      "signature": "ed707c525a3341f0e90cb2b5d1f6c7b8a9388b93213ae62eca6479bf7ff4a769",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "President Richard Nixon correctly names the signer. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 183,
+      "review_id": "45bcb9f4bfafa6f044d88b59",
+      "signature": "b8abedc1feef54a76e643a50b6facd263fb5889c6c24e151f496c4ce925147b8",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "About 2500 years is a reasonable approximate duration corresponding to the supplied sixth-century-BC attestation, though it misses the date-form reference. Original objective result and timing remain unchanged."
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-passage/question/reference/answer review; no tools/dependencies in these QA contexts",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 184,
+      "review_id": "eb329e926f6cfd4f8ebad270",
+      "signature": "2cfb578af809adec55808a582a819b4527ede441eb871f565171809eb557852b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Turns more than 15 million convention attendees into more than 15 million conventions annually."
+      ],
+      "notes": "The denomination, beliefs, leadership and translation are supported and useful, but attendance is misrepresented as an annual count of events, which the source does not give. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 196,
+      "review_id": "0f943288d4a5120bca3eaf32",
+      "signature": "52c23356dcae8775a5ae4cbe53ca1a2a398bd36264dfdb078116491551d83c40",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "1613 is the directly supplied first-use year. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 198,
+      "review_id": "2cb97ea682209c24b537b251",
+      "signature": "06efb779beb16da0aa0705a4c79f0fd75552cc080cdf2dba48a4cba4cba0bfa5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "William Whewell is directly named as coiner. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 200,
+      "review_id": "fa51162d4d7d26c6c785ddfe",
+      "signature": "a2ca344bbc4400cde19b5a4545169fee1dfb6a6ab1b353421f9ee7e21d250d0d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Cyprus is the supported principal Roman-era copper source. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 201,
+      "review_id": "800837e6041dd53f6d0356fb",
+      "signature": "d9ae33baa78b7cbaff3ad1d8b1a23023240aaf6a2db609f07b0cefe75fcbb01f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "In the manner of the chapel is the supplied translation; escaped quotation marks are valid inside the JSON string. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 202,
+      "review_id": "cf183c16b28ef7627fcc6a1b",
+      "signature": "47f496902cc2d6b9fe9bffcd170f9036b15c69c3f11df46f29e985b5d20ba3f6",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "1949 is the supplied creation year. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 203,
+      "review_id": "a648631971fbd99b698cff30",
+      "signature": "9479f4c62bb07b2aa2aa8168bc4b08acf7eb75c7c27ae787d6cbd0f865f0584d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Catalonia is the directly supplied naming origin. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 208,
+      "review_id": "7053f1313d386c7933c830b2",
+      "signature": "ac1ba7ddd0fb2ee3dc6a3273f49466da356cb9f010c1dae8f464776198e5e892",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Developed country, service-led economy and important tourism/shipping sectors all follow the supplied passage. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 214,
+      "review_id": "0da543c1d059b654266bf9f6",
+      "signature": "c441ab3f86ab09b3a59d33c013b91ca68cb5d0ebdd043a4d0fd561c7e400614a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Early December 1941 is the supplied widely accepted beginning. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 220,
+      "review_id": "43549845f25b414dc3ad4a2a",
+      "signature": "4a18965762607f8a686a5753882b458d9fa88ca2fb8e9a276475b7ba50e0023a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Ellice Islands is the former name. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 223,
+      "review_id": "bfdd15cb168f0b460084c8f7",
+      "signature": "9f9bdf876fafc80b551e7506adac3933ab9ab3d16fb6d45d8d82af637236f2ce",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "100th meridian is the supported dividing line; omitting the article does not change the answer. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 231,
+      "review_id": "0496b8283bdbe16c1f1247cd",
+      "signature": "8dcf287e50b5ea63ac709770e095c39512c5488673c532d055db1c0d5d9a35ca",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Jews is the expressly supplied group name. Original objective result and timing remain unchanged."
+    }
+  ]
+}

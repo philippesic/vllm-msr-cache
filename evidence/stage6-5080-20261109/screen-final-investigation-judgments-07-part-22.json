@@ -1,0 +1,110 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded capped-intermediate review against only preceding evidence; exact reviewed source/reference and actual-tool prefixes verified",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 89,
+      "review_id": "8de2a82dfc0603cd7a53e2b1",
+      "signature": "6beeb19220a21e68ccd3231e6267b8e4f5ef79a9c361d848ad5de32fbb936fa9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Misstates basic tested widths as 2 through 7 instead of 1 through 6, and assigns step=8 to the custom-fillvalue test although it is in test_step."
+      ],
+      "notes": "Actual seven passes plus 13 subtests, positive window/fill/step behavior and empty-input output are useful. The pinned source explicitly rejects n<=0, so that stated error behavior is correct. The test-category values are misattributed; 128 words and a truncated expected-output line violate the intermediate instruction."
+    },
+    {
+      "index": 91,
+      "review_id": "eb505b142e68edb8f8643bcf",
+      "signature": "70a7ca10cbe104916f0877eb78e863eb3e8552aea620ef5f96d3aa809df4cb26",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The actual seven passes plus 13 subtests and source/test categories are usefully distinguished from general correctness assumptions. No unseen failure is claimed. It is 152 words and ends in an unfinished pytest command, violating the bounded intermediate instruction."
+    },
+    {
+      "index": 93,
+      "review_id": "9abafb96968eaaa314649365",
+      "signature": "c7f34abc3e608808bec7df9d0e7cf48257d15542e71cb362bc80da2d98f6b77b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Native coroutine purpose, syntax and a proposed metadata/version/protocol validation plan are useful source facts with no invented outcome. The protocol check is a plan rather than a claim about observed runtime behavior. At 128 words it is overlong and ends in an unfinished quoted command."
+    },
+    {
+      "index": 95,
+      "review_id": "3158f57182b62a6f42f59d3f",
+      "signature": "284385a47e8a11b79754ae73c93c207b2a83856c3d856153b05ab5cf263b5afd",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Build-backend interface purpose and proposed configuration/hook checks are useful supported plan fragments. No validation is claimed. At 132 words it exceeds the intermediate limit and cuts off inside a grep expression."
+    },
+    {
+      "index": 100,
+      "review_id": "aa80e59c8edd8bd07cfbb95b",
+      "signature": "6b00d317099d6c2b5f3038af21675fbcf1bcb331e7a830335055c06891f97e96",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata validator will report whether runtime modules/classes are correctly implemented.",
+        "Overstates token restrictions as preventing recursive/cross-thread usage rather than the specified originating Context/variable/single-use rules."
+      ],
+      "notes": "Context/ContextVar/copy_context and set/reset API facts are useful. No actual outcome is claimed yet, but the validator scope prediction is wrong; 137 words and a truncated limitation violate the intermediate constraint."
+    },
+    {
+      "index": 103,
+      "review_id": "d0e8201c187a721701af6d09",
+      "signature": "e7022597c1c1971a521fa7321e23da16938c6430c5ecb9ab407d555b234070c6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Allocates thirty subtests to maxsplit despite the actual total being twenty and the supplied class having different counts."
+      ],
+      "notes": "Four-test/twenty-subtest overall result and split/maxsplit/separator behaviors are useful source-grounded fragments. It never completes the fourth category and is 121 words, exceeding the current intermediate instruction."
+    },
+    {
+      "index": 105,
+      "review_id": "ce6e4112058335b62f06831e",
+      "signature": "ed976ac0b5cb725e76ae915d5de23eb47dc4e207b4b41725db23c8ad28720b2b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names pyproject.tomls instead of pyproject.toml."
+      ],
+      "notes": "The discovery catch-22 and build requirement declaration are useful supported purpose facts; no test outcome is invented. At 179 words, the response exceeds the intermediate limit and ends in an unfinished plan."
+    },
+    {
+      "index": 107,
+      "review_id": "3e166bdb2b7b78b23cb3dfe1",
+      "signature": "54186513f16a8b875c27a9d6a98b4fb775d02f87af7bd1896c22a874ca3517b8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls PEP 527 the finalized version of PEP 526 without support.",
+        "Claims successful validation before any validation tool result, at a search-only node."
+      ],
+      "notes": "Annotation syntax/style and several target restrictions are correct fragments, but proposal identity and current validation account are false. At 170 words it is overlong and ends in an unfinished declaration."
+    }
+  ]
+}

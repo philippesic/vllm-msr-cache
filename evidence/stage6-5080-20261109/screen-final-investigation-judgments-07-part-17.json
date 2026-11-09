@@ -1,0 +1,90 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review; exact prior full source/test components and actual pytest results checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 141,
+      "review_id": "233555227e41484de2c21f03",
+      "signature": "a09b7001fc9a719e239ac6a0dca0b3b708e92eabf45dc1e8089c70a2a18a3e52",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Non-consuming indexing, all 22 actual tests and unmeasured performance/memory consequences of exhausting the iterator for negative indexing are supported. This is a source-level cache implication, not a measured leak."
+    },
+    {
+      "index": 143,
+      "review_id": "1deeb236d2ca7c7e20309e50",
+      "signature": "95664f778105d06e573e3141289cddfeb5a88b1a1d98ef74a70b9c35dbf83dfc",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Seeking/reset and all 17 actual passes are supported; maxlen explicitly limits historical recovery, qualifying the general reset statement."
+    },
+    {
+      "index": 147,
+      "review_id": "f4183b5a3bf15b29452942a1",
+      "signature": "5c665c2936cbd85fc1dcbba4873ec83259a050373b862e4a916a68a890b188c3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies invalid zero-window coverage despite test_window_size_zero."
+      ],
+      "notes": "Replacement example and actual PASS are correct and useful. Empty/noncallable cases are not in this class, but zero-window coverage is explicitly present."
+    },
+    {
+      "index": 160,
+      "review_id": "2cba818cb7b8fc0391106411",
+      "signature": "8b03029051c8e48fc07335457b6b47349afb3ada3b4d6d5051b54bbfcb00a972",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says all named tests validate strict=True/nondivisible handling, including even/odd/None tests using other modes.",
+        "Misattributes strict-None validation to test_negative and an invented test_strict_none."
+      ],
+      "notes": "Strict nondivisible ValueError and actual seven-test PASS are useful facts; the empty strict-input coverage limitation is narrower than the inaccurate test mapping."
+    },
+    {
+      "index": 164,
+      "review_id": "227e56b83756c7e95ba3f445",
+      "signature": "20abf2773cb03db7b07464227ea6bf2403279422aac7211ad0da01b96523112c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies the directly executed seven target tests plus 33 subtests.",
+        "Says duplicate-heavy inputs generate the same values at different positions as redundant permutations, contrary to the distinct-generation algorithm."
+      ],
+      "notes": "The equal-value case contains a useful fragment, but false validation denial, unsupported performance mechanism and omitted literal PASS make the report unreliable."
+    },
+    {
+      "index": 168,
+      "review_id": "1c3f56c92094825ce3d5971e",
+      "signature": "1113dccd0a3c2db6528610e4ec0e13260e2b0cff23e867d9d6fafbd27f20c804",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies direct target validation despite ten actual passes.",
+        "Claims size filtering is absent for k=None despite explicit filter logic and tests.",
+        "Confuses per-block size with number of groups."
+      ],
+      "notes": "The Stirling count example is correct, but the central claimed defect contradicts source/tests and actual literal PASS is omitted."
+    }
+  ]
+}

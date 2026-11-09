@@ -1,0 +1,89 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review; exact full source/test reuse and actual target pytest results checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 73,
+      "review_id": "3c2e9eda5005fa6146a2713b",
+      "signature": "d0a06d78bb434372e5a90431c1f189161ae8f414af49a9a9ebe4485fe69fb227",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies actual target partitions tests and invents a ParticlesTest run for other functions.",
+        "Confuses partitions and set_partitions test cases and speculates about unhandled empty sublists without evidence."
+      ],
+      "notes": "The correct order-preserving partition fragment does not repair the central denial of four passing tests plus three subtests. Literal PASS is omitted; the response reaches 150 whitespace words, outside the under-150 requirement."
+    },
+    {
+      "index": 86,
+      "review_id": "713e807563b215bb333fc8cb",
+      "signature": "f4c28bcfccebebac44ba4cd629e4f0e2ec9fbccbe90b3e7a670a263a3c5bb4ff",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Sliding windows, padding, seven actual passes plus 13 subtests and absence of an additional step-versus-length validation check are supported. The answer admits valid output for a large step, so its supposed limitation is not a demonstrated defect or a concrete untested boundary: step beyond input length is explicitly covered. The required concrete evidence-based limitation is therefore not met."
+    },
+    {
+      "index": 88,
+      "review_id": "2b1c3a0d712750b55565478c",
+      "signature": "d3caec07787e04d9bce93f0e0135604883a7ba4871ccc2e4d7e326843a26521b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says seek and elements are absent from SeekableTest despite explicit target coverage."
+      ],
+      "notes": "Automatic cache updates, maxlen and actual all-pass result are useful. The signatures lack a default argument on seek/relative_seek, but this is not evidence of an observed out-of-bounds error; colon-form status misses the literal requirement."
+    },
+    {
+      "index": 92,
+      "review_id": "de67f04a6735260ad52c7270",
+      "signature": "d6cf6a95aaba01ecdaeeb2eae77aa9e054196b6d2498c4f69dfa2173863b4b3b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies direct bucket validation although actual BucketTests passed all ten tests."
+      ],
+      "notes": "Validator rejection behavior and potential endless search for an allowed missing key in an infinite input are useful source-supported facts. The unrelated broad-rg listing does not negate target execution; actual literal PASS is omitted."
+    },
+    {
+      "index": 99,
+      "review_id": "6f495c412664cc03d071019c",
+      "signature": "dc88265c2c8d97d8a6b61e9f7b4bd50a947648cf1d38e35411e7f0e1b15a7e1d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies partial-end-window coverage and exhausted-substitutes handling despite test_window_size_large and iterable-substitutes caching coverage."
+      ],
+      "notes": "The deletion example and actual eight passing tests are correct useful facts. The absence-of-tests limitation ignores supplied tests and tuple-caching source behavior."
+    },
+    {
+      "index": 102,
+      "review_id": "77ec4e2a07d472a35a28118d",
+      "signature": "4a565081b68a34b2dde281c7f77502e24d0c927f000a8fe3d4202be4e8af9725",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents a windowed strict mode/divisibility requirement and conflates windowed_complete with this function."
+      ],
+      "notes": "Step/padding behavior and actual seven passing tests are useful. The concrete limitation refers to an API this source does not provide."
+    }
+  ]
+}

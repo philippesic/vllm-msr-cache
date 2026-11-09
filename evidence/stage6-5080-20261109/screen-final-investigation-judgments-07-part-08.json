@@ -1,0 +1,109 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer/dependency review with exact reviewed source/reference/instruction/tool components",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 181,
+      "review_id": "8074b2bfdcb45563ef569db2",
+      "signature": "d5c579423384ad1582bc012bd31b67b13d9865e85761c8f0e7a4374c5745ded5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports metadata FAIL because runtime checks were not done, contradicting actual PASS.",
+        "Applies the revised __aiter__ requirement to all Python 3.5+ rather than preserving the source protocol transition."
+      ],
+      "notes": "Final/Standards Track and the historical yield rule are correct fragments, but the central false validation outcome makes the report unreliable."
+    },
+    {
+      "index": 185,
+      "review_id": "0e49b05a4e0870f4ffe3ea96",
+      "signature": "97fda12c60fb05b3115a7f34f35fca1ff478093c9cd486608a28c067fa005e2d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, variable annotation syntax, actual metadata PASS and absence of runtime type enforcement are supported. It does not mistake type-checker metadata for interpreter safety."
+    },
+    {
+      "index": 186,
+      "review_id": "9ec745b818eb4fad7a752087",
+      "signature": "8d5fd8651d176a8cbb4dcdce0230eeb90e316044ad75a1483bba469c08a07aae",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims concurrent async-task use of the same ContextVar is unspecified, although isolation of those tasks is a central stated purpose and API behavior."
+      ],
+      "notes": "Final/Standards Track, token-based set/reset and actual PASS are useful. The side-effect limitation is invented from the intended isolation mechanism; colon-form status misses the literal requirement."
+    },
+    {
+      "index": 187,
+      "review_id": "672819e327a8220b75e3b872",
+      "signature": "d4df7dfc3554e1fdcf21269392ac5a3a296b8f73e358462ebf694e13cb1ae9e6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Labels proposal Status PASS rather than Final."
+      ],
+      "notes": "Standards Track, optional legacy setup.py and lack of a standardized error message are useful supported scope observations. The generated --test_status=FAIL argument is not an actual failed tool; requested literal PASS is missing."
+    },
+    {
+      "index": 188,
+      "review_id": "0ae44aa5eb1fa329589b66d5",
+      "signature": "34a2b1575aa558a12b3f22359585262b828042da4a34204654d149d35152448f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims nested-context and cross-thread edge handling are not explicitly addressed, despite supplied Context.run nesting/thread-entry and token-origin rules."
+      ],
+      "notes": "Final/Standards Track, async context API and actual PASS are correct. The blanket ambiguity limitation ignores concrete rules in the supplied source."
+    },
+    {
+      "index": 190,
+      "review_id": "fea896c0cce36859641bcb63",
+      "signature": "ed04041308096d80be4b6e797003d4ea50f12641f11a6e25600c8f7fdcb9a882",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says runtime validation requires Python core updates and third-party library support without any runtime test establishing those prerequisites."
+      ],
+      "notes": "Final/Standards Track, find_spec/ModuleSpec and metadata-only validator scope are useful and supported. Runtime implementation is simply untested here; core changes are not a demonstrated condition. Colon-form status misses literal test_status=PASS."
+    },
+    {
+      "index": 192,
+      "review_id": "0e4bcf52fdc30a8549f97488",
+      "signature": "35bae06288125717fa30f1b4355de961adb5e357dafac4c3c70e5149fe7f31b2",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Informational, Readability counts, metadata PASS and absence of versioned runtime enforcement correctly describe this philosophical document."
+    },
+    {
+      "index": 193,
+      "review_id": "50e11981baba244a56c881f0",
+      "signature": "f57834c8e2cf126ea2b302c6c59037bc8dd019d131ff0698316b03a1cff4c701",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, variable/class/instance annotation syntax, actual metadata PASS and no automatic runtime type safety are supported."
+    }
+  ]
+}

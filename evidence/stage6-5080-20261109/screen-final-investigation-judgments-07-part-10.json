@@ -1,0 +1,122 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer and novel dependency review; exact prior component and repeated-dependency equality checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 219,
+      "review_id": "a0593a57804e89e7de4e1e2e",
+      "signature": "51f5ce766cd6825896c1055b375f05adbf284d341e64369c71fb819e3e26d4fe",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL although actual document metadata validation passed.",
+        "Asserts dynamic build-dependency discovery has not been implemented by all tools without testing tools."
+      ],
+      "notes": "Final/Standards Track, missing-table default and PEP-508 requirements are correct fragments, but the false central failure and confused tooling account make the report unreliable."
+    },
+    {
+      "index": 221,
+      "review_id": "c17bd864010c5e68ed4677b9",
+      "signature": "dd57ff2c12b410b8475c55fad15c4dc5b2579333d21df5b787569dd1e3f0835f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL against actual PASS because semantic runtime tests were not run.",
+        "Invents static-analysis ambiguity for existing generators from the __aiter__ requirement."
+      ],
+      "notes": "Correct proposal metadata and historical yield rule do not repair the fabricated central validation result; the appended malformed command was not executed."
+    },
+    {
+      "index": 222,
+      "review_id": "fe8c97fb06d6d5bc82527165",
+      "signature": "6e26d0280dbb2f5ff11374e0441f5ec4a3ba2c4be9559bc34c7712f7b1e2b1e3",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, module or module:object backend syntax, legacy precedence and actual metadata PASS are supported. Cycle rejection/error handling is a concrete build constraint, not an observed tool failure. test_status: PASS misses the requested equals-sign form."
+    },
+    {
+      "index": 224,
+      "review_id": "0a8a7daebdde2a12257ae372",
+      "signature": "65c817c993b2eb8d9c7fc0e9f0c71042fbb9c15f6b143f1296bb7d094e136331",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correct proposal metadata, variable/class/instance annotations, real metadata PASS and no automatic runtime type safety; no false dependency claim is propagated."
+    },
+    {
+      "index": 225,
+      "review_id": "55135c8056ccaed9d8bb73be",
+      "signature": "f353699d929cfc16ce0808a6a1ef54380a4de4d0c696f4e83a083304af6115be",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Shows four quote characters as the triple-quote example."
+      ],
+      "notes": "The intended triple-double-quote convention and metadata-only content-check limitation are useful. Omits subject/proposal status/type, uses colon-form status and gives a malformed quoted delimiter example."
+    },
+    {
+      "index": 226,
+      "review_id": "0f3124cb977ac3c280322214",
+      "signature": "a18b248177472493f7c05c12b078dd0a5759b9857be441653b70ce9d8574d488",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes subgenerator-return StopIteration to the delegating generator.",
+        "Makes explicit GeneratorExit handling/re-raising a universal delegated-code requirement rather than the specified refactoring caveat."
+      ],
+      "notes": "Final/Standards Track and real PASS are useful, but the return flow and exception limitation are overstated. Test Status: PASS misses the requested literal form."
+    },
+    {
+      "index": 227,
+      "review_id": "7e43d134cc5c252a07e7f453",
+      "signature": "c8c70de583ed076c4bc235acada95792c21ccec67ae251c0654dbd86506df3b9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents [tool]/[tool-system] tables instead of build-system.requires.",
+        "Claims actual validation checked TOML-table existence and structure rather than document metadata."
+      ],
+      "notes": "Final/Standards Track are correct fragments, but wrong central declaration structure and fabricated validator scope are misleading; actual metadata PASS is not reported."
+    },
+    {
+      "index": 228,
+      "review_id": "a91f141b90eafe48817f4dd3",
+      "signature": "65fa463d3844e4aa8dfadbddd6e20bb8ce2e591246c49c10b10dfd01938db743",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, the annotation spacing convention and prohibition on type variables nested in ClassVar are supported. Intended spacing examples are identical and poorly illustrated; actual PASS uses the wrong literal delimiter, with no extra tool execution credited."
+    },
+    {
+      "index": 230,
+      "review_id": "6dfb69119bb44838029e53cf",
+      "signature": "d598db6c095e5f07d43f6bdf9d8cdeb76deaca04603ee09d5440220e33f2da8f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Informational, the simplicity aphorism, actual metadata PASS and philosophical non-enforcement limitation are supported; capitalization of Test_status does not alter its literal meaning."
+    }
+  ]
+}

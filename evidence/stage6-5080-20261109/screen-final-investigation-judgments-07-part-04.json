@@ -1,0 +1,100 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer/dependency review with exact previously reviewed source/reference/instruction/tool bindings",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 79,
+      "review_id": "ce0a3b919a0a94fbc74ec1e4",
+      "signature": "6547db9cad8369c69e22c63272676acacd894d2c2fbb6fe282323036c3c58405",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Informational, triple-double-quote convention, actual metadata PASS and absence of interpreter enforcement are supported. Must is understood as the convention here because the answer explicitly states it is not a runtime requirement."
+    },
+    {
+      "index": 82,
+      "review_id": "e777464461969d7ebe02636e",
+      "signature": "f49a3ae3717b612720537575553f3c53943c1b1d17e91a204c66904060cea53c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Process, four-space indentation, project consistency exceptions and the 79/99 line-length distinction are supported. Colon-form test_status: PASS is not literal test_status=PASS."
+    },
+    {
+      "index": 83,
+      "review_id": "94cebd713d83d5c8ac4a9d6c",
+      "signature": "0a8d65655a8da260899a56af8b35dc6851dcc310e7ecbb3f249e39bbaebeb5eb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Implies the metadata validator verifies the version scheme.",
+        "Speculates about a backward-compatibility complication from the post-release recommendation without evidence."
+      ],
+      "notes": "Final/Standards Track, canonical identifier syntax, uniqueness and micro-release recommendation are useful source facts. Actual PASS covers metadata only, and the claimed compatibility limitation is not established."
+    },
+    {
+      "index": 84,
+      "review_id": "34ccf9eeafbe69a76141d4a5",
+      "signature": "59a1a72b6e8d632d73348cd2a45a6489c43071647e1d270331819974c24e3e54",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, acyclic build requirements and actual metadata PASS are supported. The summary has no Python-Version field value; missing a required-version declaration is a limited metadata observation, while compatibility inconsistency is framed only as potential, not a tested outcome."
+    },
+    {
+      "index": 101,
+      "review_id": "c300340278c48a8ace996341",
+      "signature": "b5fd79b3cdd3ef1996ee91f538faf2301b6a978d8de8090a1dd6c5f3ad824587",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes the immutable Mapping API to context variables rather than the Context object.",
+        "Treats a thread boundary rather than the specified originating Context as the token-reset criterion."
+      ],
+      "notes": "Final/Standards Track and use of set/run with restricted reset tokens are useful fragments. Test Status: PASS misses the required literal form; wrong abstraction and reset scope weaken the concrete rule."
+    },
+    {
+      "index": 104,
+      "review_id": "abc3cb5f94abe96734a46c2b",
+      "signature": "8557684190d6c7b179a48f75ddc14310814defc97fbf61240aec5e9ba0d7e461",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports validation FAIL although the actual metadata tool returns PASS.",
+        "Adds a fabricated expected-output object with unsupported validation fields and failure status."
+      ],
+      "notes": "Final/Standards Track and namespace-package basics are correct fragments. The central validation report contradicts the actual result, and the synthetic output obscures the real metadata-only limitation."
+    },
+    {
+      "index": 111,
+      "review_id": "f1d99e66a5f361ab339c5c1c",
+      "signature": "52007d92476bfe1466bdd54535814e33f9423a2ad00d8f4984b28d6135ad24fa",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL against an actual PASS, then labels proposal Status PASS.",
+        "Claims the PEP does not document local labels in standard installation tools despite the supplied tool/distribution discussion."
+      ],
+      "notes": "Some release-numbering and local-label facts are correct, but conflicting invented validation statuses, omitted type and a misleading limitation make the report unreliable."
+    }
+  ]
+}

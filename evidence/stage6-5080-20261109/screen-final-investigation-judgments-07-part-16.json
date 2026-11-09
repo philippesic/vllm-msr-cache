@@ -1,0 +1,87 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review; exact full source/test component reuse and actual pytest counts verified",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 108,
+      "review_id": "f221ff0eacfbed9717428031",
+      "signature": "2e3fbb86fce06142ff1ca5e8485166057216ff790b0d53a3477f8e3664c03e54",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Multiple numeric representations, actual 25 passes plus 20 subtests, and floating-point membership precision concerns are supported by the source-specific _index_near/index logic. The float illustration is not described as exact Decimal arithmetic."
+    },
+    {
+      "index": 112,
+      "review_id": "9993955d35b09af6957d9176",
+      "signature": "b67d98a76cf56c0ceb5fda6189178ae5dddd2ff7e3a18b70dce044ee626f0336",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Seeking/reset, all 17 passes and bounded-history loss with maxlen are supported. The limitation explicitly scopes the earlier general reset claim to retained cache history rather than promising recovery of evicted data."
+    },
+    {
+      "index": 115,
+      "review_id": "c1ce18a351972266c1bd0420",
+      "signature": "aa6ffdb427361b96e0250f48cb72f8724025449fee34e32f809af5ff03380b01",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says the requested key is not validated during bucket access, contrary to __getitem__ calling the validator on that key."
+      ],
+      "notes": "Validator filtering, missing/rejected empty buckets and ten actual passes are useful. Lack of full item-schema validation is a narrower true observation, but does not support the false requested-key distinction."
+    },
+    {
+      "index": 116,
+      "review_id": "60a2e227177a6e72a50043c7",
+      "signature": "9a88383e5d33e1168945abd789cb2cc73fec747793d1e0f79b492d6cbdfc5c6f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims a callable predicate cannot use stateful/contextual conditions."
+      ],
+      "notes": "Pairwise splitting example and all eleven tests plus five subtests are useful correct facts. The API supplies adjacent pairs, but arbitrary callables can close over state; the blanket expressiveness prohibition is unsupported."
+    },
+    {
+      "index": 126,
+      "review_id": "8c26cbf37da67c8e22e0ab6c",
+      "signature": "dcd494fb46263d35d5e309dd9adeb330153f65685d7f68e9c1008c688ffa5d4e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Misdescribes the current target validation as tests for unrelated first/last functions."
+      ],
+      "notes": "Default grouping, actual four-test PASS and full-input memory/infinite-input limitation are useful and source-supported. The broad-rg snippet does not undo direct target execution; colon-form status misses literal test_status=PASS."
+    },
+    {
+      "index": 133,
+      "review_id": "1c75401097c4faa7c8770b7b",
+      "signature": "5f5e60b7238bc6856e0a5cf76e4e0cda5270c54e9ddbaf60bb07c3ae97e03691",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Imports chunked strict divisibility and test_strict_being_true into ichunked.",
+        "Denies incomplete-final-chunk coverage despite explicit odd-length test."
+      ],
+      "notes": "Lazy chunks, negative-size rejection and all eight actual passes are useful. The concrete limitation confuses a different function and ignores the current test class."
+    }
+  ]
+}

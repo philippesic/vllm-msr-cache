@@ -1,0 +1,77 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review with exact full-source/test-component equality and actual pytest counts checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 22,
+      "review_id": "3a8518d1eb1a59c042ac1e38",
+      "signature": "0656c8a8cd487d8bdc13be7dd445bdfcde4e0b9b0e0b05968633b5bb3d13a427",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Implies negative maxsplit should raise ValueError although the source uses negative values for unlimited splitting."
+      ],
+      "notes": "Predicate segmentation, maxsplit/keep_separator and all four tests plus 20 subtests are useful correct facts. Invalid predicate/noniterable coverage is limited, but the expected negative-maxsplit error is invented."
+    },
+    {
+      "index": 23,
+      "review_id": "79eb5aceea97f709e0de6ea7",
+      "signature": "0a4de7e187f95129b4d7cb4b12f82661dd419f5a3ccac7a3496df7c1a6246b83",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims seekable was not directly validated despite actual 17 passing SeekableTest tests."
+      ],
+      "notes": "The broad final rg listing for first/last is not the whole test execution; the answer discards actual target evidence, omits actual PASS and fails to give a concrete supported seekable behavior."
+    },
+    {
+      "index": 25,
+      "review_id": "5a096a8bef037eb560acb810",
+      "signature": "2a323d02fbd0ebe0384075cb1062cd526ee8bd7d4200bfad085d87c8d71a7290",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies actual WindowedTests results were provided despite seven passes and 13 subtests.",
+        "Claims no large-step/fillvalue test without acknowledging the supplied step/fillvalue cases."
+      ],
+      "notes": "Padding when a window exceeds input length is useful and source-supported. The validation account is wrong and literal test_status=PASS is missing."
+    },
+    {
+      "index": 28,
+      "review_id": "2bdfb71d7eae9c61a7fa7bb3",
+      "signature": "1c4d5d3260d49cf52d816387b6f65e704a3c743018faebfdc9d74dcf6ecea864",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Asserts unsortable equal-value permutation ordering depends on object identity and varies across runs without supporting evidence."
+      ],
+      "notes": "Duplicate suppression, listed three permutations and actual seven tests plus 33 subtests are correct useful facts. Equal-but-nonidentical values have documented surprises, but the invented nondeterminism mechanism is not demonstrated."
+    },
+    {
+      "index": 32,
+      "review_id": "73358512d5773d2cb93079a0",
+      "signature": "3c18afff5439e624c9d53f71dc9905c32ad4c4835ad5555b054c14987c8072c1",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Grouping, optional mapping/reduction and all four actual MapReduceTests passes are supported. The named empty/nonhashable cases are untested in this class; the answer properly leaves possible runtime issues unvalidated rather than claiming a measured failure."
+    }
+  ]
+}

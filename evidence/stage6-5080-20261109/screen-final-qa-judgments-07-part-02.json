@@ -1,0 +1,160 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded full-passage/question/reference/answer review; no tools/dependencies in these QA contexts",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 66,
+      "review_id": "e361c08a13770a3fab4f2abc",
+      "signature": "b52da3e43fa404e154c541bfdc3062c4dc71bfce5da00d83e7710832356bada7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Hemoglobin and the iron-containing vertebrate-red-cell explanation are directly supported. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 74,
+      "review_id": "80a0be217fef10edd3541a92",
+      "signature": "aef43b058263d1c4a0c24d1602b4645e602ecdb36f29a53092b672235cc7f3e9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Promotes an extra fifth-course tuning feature to a fourth common mandolin style."
+      ],
+      "notes": "The three named styles are correct useful fragments. The source says four but only names three; the Brazilian tuning example does not establish a fourth style. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 75,
+      "review_id": "2e32754b296ce2ee613100a3",
+      "signature": "ed2121a98a8ed71cdfcf3c4dc389e258a7374b142a2ad5da9d7c770f723f8ccf",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Brewing is the directly stated process. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 80,
+      "review_id": "86dc2c07501ce94e5ca361db",
+      "signature": "54253c638cb6cd08fbbcc7c470cdb8b57d93f1675a04d8ec8605044c0b991106",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "1907 is the supplied invention year. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 81,
+      "review_id": "d8563a31b8dd9194f667e8c6",
+      "signature": "16db14c75a92f06754b0fdd8b630828936e6d4e901b98bae0b5c6635239294ab",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Scavenging and the two carcass sources accurately paraphrase the supplied view. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 87,
+      "review_id": "468eb183015a5f08f4c354f5",
+      "signature": "7c02138aaccdf639625870beaa31937e4f0c51472bfdddb45b4327f5e3fd3f0b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The British Empire is semantically the reference British in this question, with no new unsupported claim. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 90,
+      "review_id": "a9a9b888d719d2055166553a",
+      "signature": "9fb45b07eba85ad297b0fa52c7dbeb80aa003f56dd2bea9a8a36d9c440e26631",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Beachfront is correct; location, housing and high rental share are all supported by this passage. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 94,
+      "review_id": "e063c27ed400c8a72031f407",
+      "signature": "c8c49b1db3d39f5fa4f7cea13be5a37dd17ffb61d9b0a31f124fcd1862146709",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Balkan is an unambiguous abbreviated answer to which peninsula; no contrary peninsula is named. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 96,
+      "review_id": "79400304b3727e42e0c1cd6c",
+      "signature": "9053abca139c511a63bd198e7455071b04a17715aadb377e3496eea76a61c11e",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The foundation name is the correct answer under the supplied historical passage; it need not repeat the whole reference sentence. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 97,
+      "review_id": "f369e461786551e94386c200",
+      "signature": "31e579efe0833a259d2201bc0f896c6737cb7c18898c77131d36d834bf6ad074",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Eight conveys the eighth-place size rank despite the grammatical cardinal instead of ordinal. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 98,
+      "review_id": "11e0ec3047d3d2b286a452ba",
+      "signature": "fc1788165b3a11cbdb929c3d468b2ae1c23b0e6998960c4a93917aedff024e6b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "400,000 BCE is directly supported. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 106,
+      "review_id": "e8d9074fef4614f25ae9593b",
+      "signature": "caf903b39986e83e73caf983ba93413de611a886f87e248d0ffaf992c56c8ac4",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correctly retains the three named styles and flags the fourth-style inconsistency rather than inventing one. Markdown fencing and literal unescaped newlines in the answer string violate the requested JSON format. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 110,
+      "review_id": "6d91f145dd2800eaf74e644d",
+      "signature": "2072f7fe6fb54e1ddfc4873029a07c41257d86c702422545c125dec49ab5c3bf",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "244 billion answers the amount; currency is omitted but the value matches the supplied dollar-denominated investment. Original objective result and timing remain unchanged."
+    },
+    {
+      "index": 118,
+      "review_id": "e7254a54a75ca834818ee71b",
+      "signature": "2847a98c98c0f4360f3214f00e5a2e32ae34f50a156adbb7d5102f5881037b9b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Archives I is the supported informal name. Original objective result and timing remain unchanged."
+    }
+  ]
+}

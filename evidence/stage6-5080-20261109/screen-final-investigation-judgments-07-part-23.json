@@ -1,0 +1,115 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded capped-intermediate review against current instruction and only preceding tools/dependencies; exact source/reference/tool binding checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 109,
+      "review_id": "53a0b495d082f3e558ad401c",
+      "signature": "e94d89a035ba781aac58bcc057bb7a77b11275aa9c47aeda57f02e7e46314c94",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls break/return exceptions, overstates no-retry behavior and confuses generator-GC timing with with-block cleanup.",
+        "Claims metadata PASS validates operational boundaries."
+      ],
+      "notes": "Actual proposal metadata/PASS are correct fragments, but runtime interpretation is false; 163 words and a truncated limitation violate the current node constraint."
+    },
+    {
+      "index": 114,
+      "review_id": "5408db9f6fcc6ab3b19ec25e",
+      "signature": "b2ea3bc34cb1376f396404252e83c610d2b29ecfc46eb6e6689f7df0d1c6a22e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The ModuleSpec/find_spec/exec/create API summary and optional is_package are useful and supported. Only search evidence exists and no outcome is invented. At 128 words it exceeds the intermediate limit and ends in an unfinished validation command."
+    },
+    {
+      "index": 117,
+      "review_id": "c5750b671b1522b9e75cd7a9",
+      "signature": "3e94ee36f9d321c7139f92528bd162c5ef4d9e9881a97a2719393ba783535c8a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts the metadata tool will check runtime expression evaluation and strict escape-rule semantics."
+      ],
+      "notes": "F-string prefix, expression context, format dispatch and supplied historical expression restrictions are useful facts. No actual outcome is invented yet, but validator scope is overstated; 138 words and an unfinished repeated command violate the current constraint."
+    },
+    {
+      "index": 124,
+      "review_id": "9bbac05e58ae345c91fb99ef",
+      "signature": "efb4cd6200294dfacaa88c7b85567ddc27fdbf1ba31c2028c149fdaeb1366862",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Calls PEP 527 the finalized version of 526.",
+        "Claims successful file validation at a search-only node.",
+        "Predicts a syntax-spacing check by the metadata tool."
+      ],
+      "notes": "Several annotation syntax/restriction fragments are correct, but central proposal identity and current validation account are false; 161 words and a truncated command violate the intermediate instruction."
+    },
+    {
+      "index": 131,
+      "review_id": "47c270f4bd8876a3f31633fb",
+      "signature": "e49c56a63809b48005c4923f667d8fca1f5b35a05efce071a742718ecccae2c8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Uses pyproject.tomls and calls the build-system table mandatory despite the source allowing its absence.",
+        "Predicts requires/default/error semantic checks from a metadata-only validator."
+      ],
+      "notes": "Correct requires-field, missing-table default and missing-key-error distinctions are useful fragments. At 128 words it exceeds the limit and ends with an invalid unfinished tool declaration."
+    },
+    {
+      "index": 135,
+      "review_id": "42bab5e0e59452b3aea849cf",
+      "signature": "93df231ff3f4a863174c95c02312dc7994336ef8a865cb421fdcaee76010c768",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Predicts the metadata validator checks abstract purpose and canonical version grammar.",
+        "Invents a tested_criteria/validated_evidence output schema not supplied by the actual tool contract."
+      ],
+      "notes": "It mainly substitutes a speculative validator plan for the requested specification/restriction summary, at 124 words with a truncated expected-output object."
+    },
+    {
+      "index": 144,
+      "review_id": "e9a958996a0767178db475fe",
+      "signature": "1a46e2cc066f4534dab9f70304bf6683b6112c75dda94ed1eea728c0040f071e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Categorically forbids dynamically computed annotations rather than the source warning that static tools may not understand them."
+      ],
+      "notes": "Gradual typing, valid annotation expressions, no automatic runtime checking and Callable restrictions are useful facts. No actual outcome is claimed; 138 words and truncated expected output violate the intermediate instruction."
+    },
+    {
+      "index": 148,
+      "review_id": "f49e3af392e70aea730299c9",
+      "signature": "9a74a7fdbd7dbf0576473ecd2dbc86ee6c4a43b8d8181c72cc6eed87563c9c3e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "The opening correctly reports real metadata PASS, Final/Standards Track and absence of semantic runtime/syntax validation. The 135-word answer devolves into repeated malformed assignment commentary and cuts off, making the overall bounded interpretation unusable despite correct opening fragments."
+    }
+  ]
+}

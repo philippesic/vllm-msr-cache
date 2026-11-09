@@ -1,0 +1,115 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer and actual dependency review with exact reviewed component reuse",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 199,
+      "review_id": "8e5b6215427d4600e4625264",
+      "signature": "932c8223f35d38c8191d16ce6ffb2990e06e89d5a7dadd722eac468a5134057c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL despite actual metadata PASS.",
+        "Claims the abstract/general structure were validated rather than the actual metadata fields.",
+        "Says local versions are discarded in public distributions and require manual handling without support."
+      ],
+      "notes": "The answer turns distribution/index restrictions into unsupported discard behavior, omits requested proposal Status/Type, and gives a contradictory central validation account."
+    },
+    {
+      "index": 204,
+      "review_id": "e698687e56194758b57d6447",
+      "signature": "d1ddaf58f01f3b4f1400bf0820f1022f69ed590ee6d35fc6138c323542d78d02",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL because semantic checks were absent although metadata validation actually passed."
+      ],
+      "notes": "Final/Standards Track, historical yield prohibition and generator-coroutine interoperability are useful fragments, but the invented central failure makes this validation report unreliable."
+    },
+    {
+      "index": 206,
+      "review_id": "94d496fe8210c89c9bfcd430",
+      "signature": "5ac4cd80a0267f39be3f871323f7389dfc7e9e8e05df7703fa45a9d50a7ea237",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says shared iterators are unsupported without blocking both throw and close, overstating the source caveat and optional workaround."
+      ],
+      "notes": "Final/Standards Track, Python 3.3 and subgenerator return-value semantics are useful facts with real metadata PASS. The source treats sharing as a special case with wrappers/avoidance options; it is not a blanket no-support rule. Literal equals-sign status is missing."
+    },
+    {
+      "index": 207,
+      "review_id": "edea458d9d21be0881967f15",
+      "signature": "88f8bfb57625a26bc4efc70fad8c15b30e57d0f9ab19e0b02e6abdcdeb4a981b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a [tool]system[requires] table in place of build-system.requires.",
+        "Reports FAIL despite actual metadata PASS.",
+        "Claims nonexistent universal tooling support/validation gaps and semantic TOML validation not run."
+      ],
+      "notes": "Correct proposal metadata is overwhelmed by a wrong central rule, fabricated validation and a long unfinished repetition loop."
+    },
+    {
+      "index": 211,
+      "review_id": "ecd1b1d6b0b916a08bee2e95",
+      "signature": "a2737bcfbcad295f5990554d37ab8cd9f517b104048ebd5204da22be26afd86f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims normal with-block cleanup is delayed by garbage collection.",
+        "Implies with exceptions are handled instead of propagating outside."
+      ],
+      "notes": "Context-manager entry/exit is a useful fragment, but deterministic block-exit behavior is confused with generator finalization. Requested proposal status/type, subject and literal validation format are omitted."
+    },
+    {
+      "index": 215,
+      "review_id": "e8e5f90e50f594bb5652ff89",
+      "signature": "1cb679acdda926bc3be9e6aa378c0ad35ca2c3797c5a5cdd23388c195e3e3181",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Process, project-consistency rule and 79/99/72 line-length scope are supported with real metadata PASS. test_status: PASS uses the wrong literal delimiter."
+    },
+    {
+      "index": 217,
+      "review_id": "f69c2cc40fbed43c8856b69a",
+      "signature": "e3ee14895daebdc1a0e19c7a39f7f13978168f28c60d8570e8c58490be5f6408",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes the subgenerator-return StopIteration value to the delegating generator rather than the terminating iterator."
+      ],
+      "notes": "Final/Standards Track and the supplied Python 3.3 version boundary are useful correct facts. The central return-value flow is misstated and colon-form status misses literal test_status=PASS."
+    },
+    {
+      "index": 218,
+      "review_id": "6196ca158c27a1eb99332899",
+      "signature": "fa21158d4c7c1dcffc0461d68e4fa5912a37dca12617df2f98224de833f4e1db",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correct metadata, read-only Mapping Context API and metadata-only runtime limitation. No universal framework compatibility is asserted; this is a scoped lack of guarantee. Test Status: PASS misses literal test_status=PASS; the extra command is not an observed result."
+    }
+  ]
+}

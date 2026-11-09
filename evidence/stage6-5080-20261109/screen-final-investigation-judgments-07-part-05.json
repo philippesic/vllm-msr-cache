@@ -1,0 +1,115 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer and full novel dependency review; exact old components and repeated dependency text checked before reuse",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 113,
+      "review_id": "8e6373c1cd7ce2b5286232b9",
+      "signature": "d9a5888976b8d4bafdfd2f25004c7d5f86094a97e56cf2e136b64a83f5f5afb5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Correct Final/Standards Track, async-def/yield rule under this archived PEP and actual metadata PASS. The refactoring consequence is explicitly potential, not a measured modern-runtime claim."
+    },
+    {
+      "index": 119,
+      "review_id": "252d101af4b977488f99a978",
+      "signature": "4294ee26e89f0c1e42f6950ddb0eac7a89decd77fd68d8d05064fe5fd8e40a73",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims marker variable identifiers such as python_version must be quoted, contrary to the supplied marker grammar."
+      ],
+      "notes": "Name-based lookups and optional extras/version/markers are useful facts with actual PASS. The limitation confuses variable identifiers with quoted comparison strings and omits requested proposal Status/Type."
+    },
+    {
+      "index": 122,
+      "review_id": "253e7d72beac77c45b71877c",
+      "signature": "1c6cb22896c0e2ab833248d437c6d4d321fb6632492d7556d9bb882d79e4a316",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Defaults to setuptools for invalid declarations instead of the specified error for a present invalid build-system table.",
+        "Asserts tooling does not yet support runtime dependency validation without testing installed tooling."
+      ],
+      "notes": "Final/Standards Track and pyproject.toml declarations are useful. It fails to report actual metadata PASS, adds an expected FAIL for an unexecuted different task and turns narrow validator scope into a wider tooling claim."
+    },
+    {
+      "index": 128,
+      "review_id": "765abec4a38e9689adfb6011",
+      "signature": "cfa998655ffc7625942aaf5bcf2462211494d927b92632b280426754f025942f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Infers the lack of Python-Version metadata limits the style guide applicability across versions, without supplied evidence for that consequence."
+      ],
+      "notes": "Active/Process, four-space indentation and actual metadata PASS are correct and useful. The style-guide scope does not establish the asserted version-compatibility limitation."
+    },
+    {
+      "index": 130,
+      "review_id": "59566a42c879da6ca017d7df",
+      "signature": "66fc1c4371aee9eeb05e493abd1ebad3fbd6b3b44a96081edfd7ae66ce941070",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Labels proposal Status PASS instead of Active."
+      ],
+      "notes": "Informational, the quoting convention and metadata-only content-validation limitation are useful and supported. It conflates validation outcome with proposal status and omits literal test_status=PASS."
+    },
+    {
+      "index": 132,
+      "review_id": "c435e030f5d5145e33217aa6",
+      "signature": "71f2efb4255e98a7183437fee57da001a6325aec757a461ea2da72dc26868a57",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Labels proposal Status PASS instead of Final."
+      ],
+      "notes": "Standards Track, increasing release numbers and metadata-only ordering-test limitation are useful facts. PEP 440 is not named and actual PASS is not given in the required literal validation form."
+    },
+    {
+      "index": 134,
+      "review_id": "3d299b50404edcd36a31e706",
+      "signature": "bfbe434e8732fc408175ba2c2bab56f917333adc74bbb0eb3df7af29507edbb0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Labels proposal Status PASS instead of Final."
+      ],
+      "notes": "Some annotation-syntax and metadata-only validator facts are correct, but the answer devolves into repeated malformed assignment examples and an unfinished code fence; literal validation form is missing."
+    },
+    {
+      "index": 136,
+      "review_id": "8affe97ab4d84a455c2f21ba",
+      "signature": "15d5bb4f8ba9460892b9dd3fbaaf81498955dc1cae493c9d46221097eac86ca7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL against the actual metadata PASS.",
+        "Says all TypeVars need at least two constraints, omitting the explicitly permitted unconstrained case.",
+        "Suggests a new annotation-validation command/result not present in actual tools."
+      ],
+      "notes": "Missing requested proposal status/type and false central validation/rule outweigh the true lack-of-built-in-runtime-checker fragment."
+    }
+  ]
+}

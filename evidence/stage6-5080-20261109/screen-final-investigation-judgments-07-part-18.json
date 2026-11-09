@@ -1,0 +1,92 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review with exact prior full source/test components and actual pytest counts checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 174,
+      "review_id": "79d63440a433e1af980f16b9",
+      "signature": "3b8651fc01d9351a53788c05dd77071c3d1ad590cfc36195c164ca34660f022b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Describes some directly executed ChunkedTests as unrelated and conflates test_odd with an invented test_strip_false label."
+      ],
+      "notes": "Partial final chunks under strict=False and absence of empty strict-input coverage are useful facts, but test mapping is confused and actual literal test_status=PASS is omitted."
+    },
+    {
+      "index": 180,
+      "review_id": "344a801beb0eddba1ae561fd",
+      "signature": "6af4c2580d99a375b76643dea3afd9451d9c8336625a47a2a9f2af8a7376c64a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies ichunked/out-of-order caching validation despite the executed whole IchunkedTests class.",
+        "Imports the unrelated test_reversed_is_none into this target class."
+      ],
+      "notes": "Caching is a correct source fragment, but false test denial, invented coverage distinction and missing literal actual PASS make the validation report unreliable."
+    },
+    {
+      "index": 189,
+      "review_id": "4984681c5994ecf07768857d",
+      "signature": "620ea2cec7602e5406641089b777047252ca2344a668769c05c45377808a8391",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Order-preserving contiguous partitions, actual four passes plus three subtests and full-input/combinatorial scale limits are supported. Infinite inputs cannot finish the initial list materialization; performance/memory were not measured."
+    },
+    {
+      "index": 191,
+      "review_id": "93579e4a837f0891ef0b4ae7",
+      "signature": "bd2436d29e635654000ec7800e28d637315c46e8251f67ad5a75b164eae0a1d3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents negative-maxsplit ValueError/divisibility behavior from unrelated chunked tests.",
+        "Denies negative maxsplit coverage despite explicit -1 unlimited-splitting cases."
+      ],
+      "notes": "maxsplit=0 returning one full segment is useful and correct. Actual four passes plus 20 subtests are not reported in the required form, and the concrete limitation contradicts source/tests."
+    },
+    {
+      "index": 194,
+      "review_id": "0fadce72dba711f07ada1023",
+      "signature": "8b29c616b7c2410aa16aff52f5e475392d1f13008b0e7f90828548b9cb9921c3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies the executed NumericRangeTests class despite 25 actual passes plus 20 subtests.",
+        "Describes an unexecuted generated direct command as actual validation."
+      ],
+      "notes": "The negative-step example and floating-point caveat are true fragments, but the central evidence account fabricates a different execution and omits literal actual PASS."
+    },
+    {
+      "index": 195,
+      "review_id": "19515ede524a4702206cc9a7",
+      "signature": "899f041858be1823a5c5933380897240e0cd03240dbe06e14b68a199e48bcb03",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Conflates split_at with chunked strict divisibility tests and an unsupported ValueError condition.",
+        "Misdescribes direct SplitAtTests validation as insufficient indirect evidence."
+      ],
+      "notes": "maxsplit=0 behavior is useful and correct, but the concrete limitation refers to another function and actual literal PASS is missing."
+    }
+  ]
+}

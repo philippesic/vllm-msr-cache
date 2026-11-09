@@ -1,0 +1,116 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded answer/dependency review with exact prior source/reference/instruction/tool reuse checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 157,
+      "review_id": "efe32bb6aed7c86d727fc5f7",
+      "signature": "e5f756ad95567cfc41d90c6d5daa808a7079ec42511528892fab7c3217acbd22",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL against actual metadata PASS.",
+        "Requires two constraints for all TypeVars rather than only constrained TypeVars.",
+        "Suggests an additional unexecuted annotation-validator result."
+      ],
+      "notes": "The added correct rejection of exactly one constraint does not repair the false universal rule or invented failure. Requested proposal Status/Type are omitted."
+    },
+    {
+      "index": 163,
+      "review_id": "c0929387b381d0766d467b19",
+      "signature": "c1435329bfc412036907a7d3f41c97b604b60d4bde8dce689068a621f89c5b14",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Places Readability counts in the abstract and throughout rather than its actual aphorism entry."
+      ],
+      "notes": "Active/Informational, the aphorism, metadata PASS and philosophical non-enforcement scope are useful. The location claim is unsupported, and Test Status: PASS misses the literal equals-sign form."
+    },
+    {
+      "index": 167,
+      "review_id": "ca2567a3d5f332369af6cfbd",
+      "signature": "b70e534603f747dab05c7618771169585f0f9b62952e3d5e03aa04a89155fd57",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "The no-init/dynamic-path and hybrid extend_path limitations match the supplied source; earlier dependency mistakes are not repeated. Omits Final/Standards Track and uses colon-form status despite actual PASS."
+    },
+    {
+      "index": 169,
+      "review_id": "a5ed09f3e0c3d60dc60c7517",
+      "signature": "c3006ec53043cd7eaf8f114a0d2d50de4bd1d558d4b372603d6975dfac565efd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Places Readability counts in the abstract.",
+        "Infers undefined version-specific interpretations from missing Python-Version metadata without support."
+      ],
+      "notes": "Active/Informational, the actual aphorism and observed metadata PASS are useful. Test status: PASS does not match the required literal format."
+    },
+    {
+      "index": 172,
+      "review_id": "b05993e7545301f601321292",
+      "signature": "2e22f096fc7ee1779d40fe3c31e9529ea1a3416f6d8009e790499cdf675913b4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls break/return exceptions and treats single block execution as preventing retry or repeated workflows."
+      ],
+      "notes": "Final/Standards Track, resource entry/exit and actual metadata PASS are correct. The no-looping limitation overstates the source and does not rule out loops around with."
+    },
+    {
+      "index": 175,
+      "review_id": "d9edefb82b3807bcaab86a91",
+      "signature": "591554ef04d56f117f839a99047965542e86766f409c161cece327cfa07305ca",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Labels proposal Status PASS instead of Final."
+      ],
+      "notes": "Standards Track, pyproject/legacy fallback and metadata-only backend/cycle-test limitation are useful and supported. It conflates proposal and validation status, without literal test_status=PASS; appended pip command is not execution evidence."
+    },
+    {
+      "index": 176,
+      "review_id": "4d56128e18e4d7bf165992e6",
+      "signature": "da4e65709dcf0cd86474f10b185c5481f1f7aa8574be25dde1b150d60f3b5189",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL because semantic runtime validation was absent even though the actual metadata validation passed.",
+        "Invents a prohibition on await with await inside async-def without support."
+      ],
+      "notes": "Final/Standards Track and the historical yield prohibition are correct fragments, but the central fabricated validation failure and confused await restriction make the report unreliable."
+    },
+    {
+      "index": 178,
+      "review_id": "9d624bcf3f93ed61c6c51447",
+      "signature": "57cc6846b03934c344a6c4e7a9fdcb8bb1258e5314bd5a2ab6755ebf64e911b3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls break/return exceptions and concludes with prevents retry workflows."
+      ],
+      "notes": "Correct proposal metadata, entry/exit methods and actual PASS are useful. The source single-execution discussion does not establish the broad retry prohibition."
+    }
+  ]
+}

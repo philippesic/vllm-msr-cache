@@ -1,0 +1,84 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review; exact reviewed source/test/old dependency matches verified and actual pytest outputs checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 50,
+      "review_id": "425aa6b4408d89d464a79b89",
+      "signature": "b5bf54a310506929d705986a71dcfaba7151152f9588c2f53610b48d7fb0fb8f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL for a min/max conflict test that actually passed.",
+        "Denies direct target validation despite ten passing SetPartitionsTests.",
+        "Claims empty input raises and conflicting limits are mishandled, contradicting the supplied returns."
+      ],
+      "notes": "The central failure and implementation defect are invented; unrelated rg examples do not replace actual target tests."
+    },
+    {
+      "index": 60,
+      "review_id": "1e87d3a1488271548bf138aa",
+      "signature": "065b7dcce2599e4e5db3bf83d42e1dfc03f9d77a4fc7623b07e5c0fe02e538b6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims the actual ReplaceTests are not shown and substitutes a nonprovided test function name."
+      ],
+      "notes": "Count limiting, actual all-pass result and filtering private marker identity are source-grounded useful fragments. The private sentinel concern is only an inference from filtering, not a tested user-facing failure. Literal test_status=PASS is missing and current target evidence is misdescribed."
+    },
+    {
+      "index": 61,
+      "review_id": "3851350db9d95c13ad436392",
+      "signature": "b6044e71442ad7d4f1e07bb3811d9a4cb20c9e002a5a6930ad5515099c99ad24",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies split_when was tested despite eleven passes plus five subtests.",
+        "Claims missing empty-input handling/coverage contrary to supplied early return and tests."
+      ],
+      "notes": "It mistakes unrelated rg output for the full test inventory, omits literal actual PASS and fails to provide a reliable supported behavior."
+    },
+    {
+      "index": 64,
+      "review_id": "ca36368380c14abdb12cbf50",
+      "signature": "242128e3a083a502ab59c735574d62721389bc6004e1b93d38c1d2d9f6ff6cb6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Shows strings as output chunks for range(10), which yields iterators over integers.",
+        "Denies nondivisible-length coverage despite its own example and explicit odd test."
+      ],
+      "notes": "Iterator chunking and eight actual passes are useful. Infinite-input laziness is also exercised; the claimed untested boundaries misrepresent this class."
+    },
+    {
+      "index": 70,
+      "review_id": "966a8b7f18f6118a3fd2aa0a",
+      "signature": "d68b9d47f5fd6d531cdbee189bffbfb57d71b649a7af9bbad89811adbfe71f8b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports an actual negative-size FAIL despite all eight target tests passing.",
+        "Claims zero-size nonempty input is unhandled despite explicit coverage.",
+        "Imports chunked strict-mode tests into ichunked."
+      ],
+      "notes": "Negative-size ValueError is a correct fragment, but the central validation and limitation mix unrelated functions and contradict actual evidence."
+    }
+  ]
+}

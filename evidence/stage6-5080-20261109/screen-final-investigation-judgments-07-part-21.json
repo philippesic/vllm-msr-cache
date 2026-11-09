@@ -1,0 +1,112 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded capped-intermediate review using only current node and preceding evidence; exact reviewed source/reference/tool prefixes checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 47,
+      "review_id": "e1ba60b17eb1fefa80ea8064",
+      "signature": "8c3f153c8b296461051ed0a7c1ca1498047f1a88ee8736f6d8765c743ec27c71",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls the partitions themselves Stirling numbers of the second kind, rather than distinguishing partitions from their counts."
+      ],
+      "notes": "Set partition purpose, unordered blocks and min/max constraints are useful and source-supported; the boundary categories are named but the plan mostly repeats implementation. At 169 words it violates the intermediate limit. No test outcome is invented."
+    },
+    {
+      "index": 58,
+      "review_id": "cae60e48329a94944f942453",
+      "signature": "2a1718214b34000552cad2ea8d885078cebfbae122961a783ce2247406a1b059",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Uses pyproject.tomls and defaults to setuptools when a present table lacks the mandatory requires key.",
+        "Claims a tested validation result before any validator output.",
+        "Introduces malformed repeated tool-table structure instead of the specified build-system table."
+      ],
+      "notes": "Correct dependency-declaration fragments are outweighed by false validation and central configuration confusion; 133 words, unfinished output, and prevalidation outcome claim violate the current node."
+    },
+    {
+      "index": 59,
+      "review_id": "235307e86fd08b4510f72f12",
+      "signature": "cdcaf49f72d22db061aebc8e2d75b2659cdad211a54951ba3b8e45b2bfed3a3a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents a deprecated with var = expr() syntax.",
+        "Says any non-None __exit__ value suppresses exceptions instead of a truthy value.",
+        "Misrepresents break/continue legality and source attribution of contextmanager."
+      ],
+      "notes": "The correct enter/exit and default propagation fragments do not repair wrong syntax and central restrictions; 140 words and an unfinished command also violate the intermediate limit."
+    },
+    {
+      "index": 63,
+      "review_id": "3bad491acf801bd88bc53d86",
+      "signature": "e4f10aeefe3ae3863b36f4e5c463890777215b15f67ad30245f9d42bb8d69d62",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims a validator must be explicitly provided although it is optional and defaults to accepting keys."
+      ],
+      "notes": "Actual ten-test PASS, grouping and missing-key behavior are useful. Infinite allowed-key scans are unmeasured here. The response is 130 words and ends in an unfinished command; the alleged mandatory-validator restriction is unsupported."
+    },
+    {
+      "index": 65,
+      "review_id": "d0a1188f8374a45b085f67db",
+      "signature": "d6c6cde6a0453de4ec5199fe12d9ea518f41060a2250eb99d1e2d788e17cb7a7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Docstring purpose, Active/Informational metadata and a proposed quoting/style check are useful and source-supported. It explicitly treats conventions as recommendations, and no tool outcome is invented. At 164 words it exceeds the intermediate limit."
+    },
+    {
+      "index": 69,
+      "review_id": "4d712b6243daae654dcc15da",
+      "signature": "2ae32f9d4155246fb849d21f588fdfcfd5cdfd5efe7f8627bbc310a11b217edd",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Dependency syntax purpose, extras, version constraints and marker/URL features are useful supported facts. No validation outcome is invented, but the status-check plan ends with an unfinished tool name and the 121-word response exceeds the intermediate limit."
+    },
+    {
+      "index": 72,
+      "review_id": "f7c38ba34af4eca5dd5c058f",
+      "signature": "6074e1e18159e50479a1e2219503cfe596338a8a849d1d24a6d61272d3fe2349",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Build-system-independent interface, hooks, config and proposed boundary checks are useful source-supported plan fragments. No validation outcome is invented; a module/object supplies callable hooks. It is 137 words and cuts off mid-rule rather than completing the requested bounded plan."
+    },
+    {
+      "index": 85,
+      "review_id": "ac4afed21d18db82e77ef043",
+      "signature": "7708677720c2cee32cc11349a3fb8e60ad42b719fafa1b47b6c18367663a9e80",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Names the configuration file pyproject.tomls instead of pyproject.toml."
+      ],
+      "notes": "The build-dependency discovery purpose and declaration idea remain useful. Looking at a project config does not establish PEP proposal status; no actual test result exists. The 178-word output ends with an unfinished declaration."
+    }
+  ]
+}

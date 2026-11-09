@@ -1,0 +1,21 @@
+{
+  "schema": "stage6-5080-final-screen-quality-finish-v1",
+  "phase": "screen",
+  "acquisition_complete_for_phase": true,
+  "status": "audited",
+  "objective_outputs": 1194,
+  "reviewed": 1248,
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "audit_digest": "e733b90fc09a62c8c9fdea9d81e13806e945408d24d6f19e31511abe7c972385",
+  "rubric_digest": "56bcc12ade38b5d68c5a11d6e58bd66c2b711a311d897ef69da1f2d3c8abbc53",
+  "review_findings": {
+    "source_unsupported": 401,
+    "instruction_failures": 725,
+    "not_useful": 111
+  },
+  "canonical_index": "screen-review-index-07.json",
+  "canonical_ratings": "screen-source-judgments-07.json",
+  "raw_finished_summary": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-audit-07/analysis/quality/summary.json",
+  "method": "Frozen finish_review validated a materialized copy of the immutable final screen snapshot in an isolated audit workspace; its hard-coded analysis/quality destination was not used inside the active campaign. All screen fields, packet, objective results and private mapping copied exactly; only source audit and summary generated.",
+  "scope": "Final screening only. Confirmation is active and has no completed source audit; final all-phase cap inventory remains pending. Selected sample includes every automatic failure and capped response, so counts are not population error/usefulness rates. No timing or acquisition changes and no quality-equivalence claim."
+}

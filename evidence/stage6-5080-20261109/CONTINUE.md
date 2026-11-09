@@ -11,12 +11,12 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The first bounded confirmation health check was healthy,
-with no issues during initial input attestation. The subsequent bounded check
-was also healthy with Qwen3-8B B01 ARC active (zero completed configurations at
-that check). It checks all three model files before creating the first
-attempt; live disk-sleep/I/O with no child or log line during that bounded startup
-is not evidence that the job stopped. Recheck live ownership and progress.
+launch a duplicate. The latest bounded confirmation health check was healthy: **12/524 valid
+configurations, six/210 complete matched blocks**, with Qwen3-8B B01 ARC repeat
+six active and no issues. Recheck actual live progress; these counts are a
+checkpoint, not the current truth. Startup checks all three model files before
+creating the first attempt; bounded disk-sleep/I/O with no child or log line
+is not by itself evidence that the job stopped. Never launch a duplicate.
 
 Screen session 65450 is **finished**. All 54 required configurations / 22 whole
 blocks completed; [screen receipt](screen-complete.json) verifies 58 verified,
@@ -93,7 +93,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 17.2 GiB ext4, 6.9 GiB WSL root and 8.5 GiB Windows; monitor all three.
+about 16.5 GiB ext4, 6.8 GiB WSL root and 8.6 GiB Windows; monitor all three.
 Keep useful caches/raw evidence. Reconsider storage for later relocation copies
 using actual sizes, not an assumption that a second raw tree will fit.
 
@@ -170,21 +170,41 @@ include system-instruction and prompt-context bindings; ordinary quality ratings
 are reused only after separately checking those additional fields.
 
 Snapshot 06 is fully rated for its partial inventory; preserve it.
-**Final screen snapshot 07 has already been prepared**, raw
-`$BASE/quality-screen-final-07/` (do not overwrite): 1,194 objective finals,
-1,248 prescribed selected items, **233 novel full contexts** versus canonical 06.
-Its `novel-contexts.json` contains 54 QA finals, 131 investigation finals and
-48 capped intermediates. No new 07 judgments/index exist yet. All source IDs
-are already familiar from prior reviews, but each novel generated answer and
-actual dependency/tool sequence must still be read and judged. Reuse canonical
-06 only on exact eight-field context equality and the same archived system
-instruction; check additional full reference test content when relevant. This
-is the final screen inventory; confirm has a separate packet after acquisition.
-Do not invent missing
-judgments or mark a partial inventory final. After acquisition regenerate final
-screen/confirmation and all-capped inventories. Capped inventory root should be
-BASE (which contains only this campaign alias), not VOLUME (which also contains
-the closed November 8 campaign). Full required audits remain pending.
+**Final screen source audit 07 is complete**, with
+[index 07](screen-review-index-07.json), [ratings 07](screen-source-judgments-07.json)
+and [frozen-validator finish receipt](screen-quality-complete.json).
+Raw immutable input: `$BASE/quality-screen-final-07/`; finished isolated audit:
+`$BASE/quality-screen-final-audit-07/analysis/quality/`. It covers 1,194 objective
+finals and all 1,248 prescribed selected items across 522 complete contexts.
+All 233 novel contexts versus canonical 06 were explicitly read and judged:
+54 QA finals, 131 investigation finals and 48 capped intermediates. Four QA
+parts and 25 investigation parts retain explicit context bindings. Exact prior
+reuse checks all eight fields and the same archived system-instruction digest;
+all sealed screen manifests share the verified instruction-source file hash.
+Selected counts, including duplicate contexts: **401 source-unsupported,
+725 instruction failures, 111 not useful**. These are not population rates or
+quality equivalence. Useful correct fragments remain useful where warranted.
+Reread pinned source/tests confirmed `windowed` rejects n<=0 and
+`PeekableTests.test_slicing_reset` exists before final consolidation; judge the
+pinned evidence rather than a remembered library implementation.
+
+The frozen `finish_review` hard-codes `analysis/quality`, so it was run on a
+materialized copy of the final screen snapshot in the isolated audit workspace,
+with exact packet/objective/private mapping and `phase=screen` preserved.
+It validated all 1,248 judgments and produced audited status. The live campaign's
+confirmation quality destination was not touched. Do not reuse this isolated
+screen status as a confirmation audit.
+
+Confirmation and final all-phase cap audits remain pending. Review any new
+confirmation contexts explicitly, reusing canonical 07 only on exact full context
+and system-instruction equality. Prepare the final confirmation packet after
+acquisition is terminal; do not invent unread judgments. Final all-cap inventory
+must be regenerated after confirm/overhead/operational are terminal and cover
+every ordinary sealed attempt, including interrupted/failed arms. Its root is
+BASE (containing only this campaign alias), not VOLUME (which also contains the
+closed November 8 campaign). Expanded cap signatures additionally bind executed
+system instructions and prompt context. All timings/objective results are
+unchanged. Preserve every earlier review snapshot as history.
 
 ## Supervision
 

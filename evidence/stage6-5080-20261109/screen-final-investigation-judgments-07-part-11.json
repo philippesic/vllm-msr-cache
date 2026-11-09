@@ -1,0 +1,78 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded repository answer/dependency review; prior full source/test classes reused by exact component equality, actual pytest outputs reread",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 3,
+      "review_id": "b5b50e9c7fa56d9df6a50e50",
+      "signature": "203b3b90102f46f6f190f5b5284a50cb05fc06e89c63d7d51ba6c2f87724a553",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims inconsistent handling of custom noniterables/None without evidence despite the source yielding noniterable leaves on TypeError."
+      ],
+      "notes": "String/bytes preservation, six actual passing tests and flattening/levels are useful correct facts. A lack of a particular test does not establish inconsistent implementation behavior."
+    },
+    {
+      "index": 4,
+      "review_id": "158e102030e92fd6761b2d62",
+      "signature": "e92bd00a6ca7a7f6bfedeed79dd2a705ba7049911ec764c9e6403c4fa1ffc886",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies sort_together was tested and denies the supplied SortTogetherTest class.",
+        "Claims missing empty-input coverage despite supplied class/source coverage."
+      ],
+      "notes": "The fixed actual tool ran all six target tests successfully. Broad rg output for unrelated first/last tests is not a complete target test inventory; the report contradicts itself and the execution."
+    },
+    {
+      "index": 6,
+      "review_id": "d73eb99d88f3383f21a0a5a2",
+      "signature": "d97a50ef721737579e2d062895ce87a332b507ce89e38f2140c111e965309462",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims strict=True cannot handle generators/non-list iterables without evidence; zip-based source accepts iterables."
+      ],
+      "notes": "Alignment, key/reverse sorting and six actual passes are useful facts. Unequal-length ValueError is not a ban on generators or mixed iterable representations."
+    },
+    {
+      "index": 7,
+      "review_id": "aece6784c7e8e10b717b9fa3",
+      "signature": "77dcd41bbded49868baabefb276c1b8bf502a0ec869b8ce44f2c823434b9caeb",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Chunk size/remainder behavior, strict errors, all seven actual ChunkedTests passes and absence of large-input performance/memory measurements are supported. The early dependency PASS is not separately credited as validation."
+    },
+    {
+      "index": 16,
+      "review_id": "c4f73af9e8913130b67f2e63",
+      "signature": "412b0473ac9e8476223c7da972a3c30e8ab2b3d95b64b158d39f32108a028412",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Describes a float example as exact Decimal precision.",
+        "Claims noninteger-step index comparisons fail from rounding without an observed failing test or supported source example."
+      ],
+      "notes": "Actual 25 tests plus 20 subtests pass, with useful floating-point/negative-step/type coverage. Decimal exactness cannot be inferred for float literals; the concrete algorithm-failure claim is unproved."
+    }
+  ]
+}

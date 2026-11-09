@@ -54,18 +54,24 @@ credit. [Whole-block recovery](recovery-complete.json) passed owned cleanup and
 replacement of both B01 arms. [Transfer seals](transfer-seals.json) and
 [old-history integrity](history-integrity.json) pass; original evidence is retained.
 
-The [partial selected source review](screen-review-index-06.json) covers 781 items
-across 289 complete contexts: 190 source failures, 424 instruction failures and
-53 outputs judged not useful, with duplicate contexts counted separately. These
-are selected-review counts, not population error rates. Failures include malformed
-or fenced JSON, wrong answers, unsupported additions/limitations, invented or
-denied validation, and overlong/unfinished intermediates. Correct useful fragments
-are separately recognized. The [partial all-cap review](caps-screen-review-index-01.json)
-covers 13 capped responses at its earlier snapshot, including intermediates.
-Both inspect actual preceding dependencies/tools and archived system instructions.
-All timings and original objective results remain; quality equivalence is not
-established. The final screen inventory has been prepared but still needs its
-233 novel contexts reviewed. Confirmation and all-phase audits remain pending.
+The [final screening source audit](screen-quality-complete.json) validates all
+1,248 prescribed selected outputs across 522 distinct full contexts, alongside
+objective checks on all 1,194 screening finals. It retains 401 source-support
+failures, 725 instruction failures and 111 outputs judged not useful, counting
+duplicate contexts separately. These are selected-review counts, not population
+error rates. Failures include malformed/fenced JSON, wrong or incomplete answers,
+unsupported additions/limitations, invented or denied validation, and overlong or
+unfinished intermediates. Correct useful fragments are separately recognized.
+[Explicit judgments](screen-source-judgments-07.json) bind the actual preceding
+dependencies/tools and archived executed system instruction. The frozen audit
+validator passed on an isolated materialized screen snapshot; the active
+confirmation analysis was not changed. All timings and original objective results
+remain, and quality equivalence is not established.
 
+The [earlier partial all-cap review](caps-screen-review-index-01.json) covers
+13 capped responses at its snapshot, including intermediates. The final cap
+inventory must still include all ordinary attempts in every acquisition phase.
+Confirmation source review, overhead, operational and final campaign audits
+remain pending.
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

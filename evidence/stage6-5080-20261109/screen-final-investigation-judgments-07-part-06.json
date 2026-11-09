@@ -1,0 +1,108 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "116e327ce07c8c976b84b6192e2f73f35d26fbb3b85f5cafee4db16a949f727f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/answer/novel dependency review; exact component reuse and relevant read-only/spacing source passages checked",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-final-07/blind-packet.json",
+  "ratings": [
+    {
+      "index": 137,
+      "review_id": "b6aa25802b91ba2b11b21d98",
+      "signature": "e2160cc0c5500c5a391c0cbc487081e90c10d4c5d9fceb4442731716dce6f685",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes the subgenerator-return StopIteration value to an exception raised by the delegating generator rather than the terminating iterator."
+      ],
+      "notes": "Final/Standards Track and genuine metadata-only validation are useful, but the central return-value flow is misstated. Colon-form test_status: PASS misses literal test_status=PASS; appended command is not executed validation."
+    },
+    {
+      "index": 138,
+      "review_id": "951c4bc83ebe1e23f7e09722",
+      "signature": "3f354fcf794a50425ea9186dc39e18249bbcf784cff5c7c5f538910dc25fb0f6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track, find_spec returning ModuleSpec and optional loader is_package handling are supported with genuine PASS. Colon-form status misses the requested literal form; optional handling is presented as a potential custom-loader consequence."
+    },
+    {
+      "index": 142,
+      "review_id": "a4fa7f636f952d1cc61cf502",
+      "signature": "e5066bf88747247b4dd0bda998b1b56afe4f098b95e8cd946f53f24e3f758e47",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Namespace-package no-init/dynamic-path rule and hybrid extend_path loss of dynamic computation are explicitly supported. Actual PASS is given in colon form, and requested proposal status/type are omitted."
+    },
+    {
+      "index": 146,
+      "review_id": "ec92af60928fb1489ce4f463",
+      "signature": "cb2365d837031b5936165fc38dfe53ee38108418b822e4bd57c852951637514f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims the PEP leaves read-only source-directory handling unspecified despite its explicit backend guidance."
+      ],
+      "notes": "Final/Standards Track, acyclic build graph and actual metadata PASS are useful and correct. The concrete limitation misrepresents the supplied read-only-source handling discussion."
+    },
+    {
+      "index": 151,
+      "review_id": "4693c141c4d642857aa1e9eb",
+      "signature": "aeb4840dd3570269a95f47c2206062b19f75b1f543c35b38ca1752f6f3b32233",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims with does not guarantee immediate __exit__ at normal block exit."
+      ],
+      "notes": "Final/Standards Track, context-manager methods and possible exception propagation are supported. The delayed-exit premise repeats the generator-GC confusion; Test Status: PASS is not the required literal validation form."
+    },
+    {
+      "index": 152,
+      "review_id": "4ed408b9d99c066283338828",
+      "signature": "0e2ca6bfb18f39c09082ed8cc2957fb6152d87a39bc72c2eabe621c28b01f958",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Active/Informational, simplicity aphorism, observed metadata PASS and philosophical non-enforcement limitation are supported."
+    },
+    {
+      "index": 153,
+      "review_id": "064b59ac8bd2ca973803bfe5",
+      "signature": "8f8e293876f0dcce3173ebb2f9e4b0cff137081132e4861099309a0f6ac765d3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports proposal Status PASS rather than Final.",
+        "Calls missing annotation whitespace invalid syntax rather than a style recommendation.",
+        "Claims type comments are preferred in stubs for all versions and Python 2.7 checkers must be custom-built without support."
+      ],
+      "notes": "The answer confuses syntax, style and backward compatibility, including an identical example for valid/invalid spacing; incorrect status and omitted literal validation form make it unreliable."
+    },
+    {
+      "index": 154,
+      "review_id": "7da93e48e89db907590f785c",
+      "signature": "8c0b82d6b0efc1ba2d5f4665a14b6ee58d22f6ad5908118711d1a293bc4c0217",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "notes": "Final/Standards Track and actual metadata-only PASS are supported. The runtime find_spec/ModuleSpec mechanism is mentioned in a correctly scoped limitation, but the supported-rule line mainly restates validation rather than a PEP rule, and colon-form status misses the literal request."
+    }
+  ]
+}
