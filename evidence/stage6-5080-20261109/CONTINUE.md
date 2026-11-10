@@ -9,11 +9,11 @@ requires repair and continuation, not a capability-failure closeout.
 ## Current state
 
 **Confirmation recovery is running** under independent user service
-`stage6-5080-confirm-20261109-02.service`. Driver ownership is
-`$BASE/confirm-driver-owner-02.private.json` (PID, birth, command, cwd, unit),
-with driver log `$BASE/confirm-driver-02.log`. Individual cell coordinators have
-`$BASE/confirm-owner-02-MODEL-CELL.private.json` and
-`$BASE/confirm-02-MODEL-CELL.log`. Revalidate both service/driver and the current
+`stage6-5080-confirm-20261109-03.service`. Driver ownership is
+`$BASE/confirm-driver-owner-03.private.json` (PID, birth, command, cwd, unit),
+with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
+`$BASE/confirm-owner-03-MODEL-CELL.private.json` and
+`$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell is Qwen3-8B B11. The latest post-repair health check has **298/524 valid
 configurations, 112/210 complete matched blocks**; full input attestation was
@@ -22,18 +22,35 @@ captures the first two complete B11 blocks.
 B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
-below, plus the interrupted B11 arm until a verified replacement resolves that
-logical case. Recheck actual live progress; these counts are a
+below, plus original interrupted/setup-failed B11 arms until verified replacements
+resolve those logical cases. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
+
+The first independent service (02) omitted the existing host-provided `rg` from
+its default PATH. Eight attempts failed and a ninth was deliberately interrupted;
+all report FileNotFoundError for `rg`, have verified cleanup/seals and no timing
+credit. [Tool-PATH repair](confirmation-tool-path-repair-03.json) retains every
+attempt, the stopped service exit state, tool version/hash and exact source/order.
+Service 02 was reset after preserving that evidence. The corrected
+[driver 03](../../benchmarks/research_checks/stage6_5080_resume_confirm_03.sh)
+requires `STAGE6_CAMPAIGN_PATH` supplied explicitly at service creation and checks
+`rg` and pinned `pytest` before any GPU acquisition. An independent service
+environment probe passed; `rg` also resolves in the actual frozen coordinator's
+environment. Current service 03 is outside the tool host's process tree.
+At its first serving checkpoint, upstream and Continuum each completed all 80
+requests and 48 tools, with no measurement error and verified cleanup/seals.
+The full four-system replacement block remains pending at that checkpoint.
+Never restart scripts 02/03 with their existing names/logs; choose fresh recovery names
+only after proving the current driver stopped and checking actual failures.
 
 Original execution session 66082 and its recorded coordinator stopped during the
 tool-host interruption around 02:09 UTC on November 10. No owned workers or GPU
 compute clients remained; both GPU locks and the writer lock were available.
 [Recovery receipt](confirmation-host-interruption-02.json) preserves the original
 partial B11 arm, its verified seal, unchanged protocol/source and exact remaining
-cell suffix. The [tracked recovery driver](../../benchmarks/research_checks/stage6_5080_resume_confirm_02.sh)
+cell suffix. The [initial recovery driver](../../benchmarks/research_checks/stage6_5080_resume_confirm_02.sh)
 runs the original frozen `resume --only MODEL:CELL` CLI for each remaining cell,
 in original order. The interrupted B11 comparison is replaced as a whole; its
 three earlier completed arms and interrupted fourth arm remain without matched
@@ -169,7 +186,9 @@ unit/log/receipt names, using the retained exec helper, for example:
 It validates the mount, exact exported source and literal pinned interpreter,
 then execs the existing coordinator with its normal reservation and cleanup.
 Run that helper under `systemd-run --user` with the mutable repository as working
-directory, explicit HF_HOME and pinned interpreter. Retain unit exit state and
+directory, explicit HF_HOME, the verified tool PATH (including existing `rg`) and
+pinned interpreter. Verify tool availability in that service environment first.
+Retain unit exit state and
 preserve logs/receipts. Add `--resume` only after verifying stopped owned resources
 and selecting the actual unfinished scope. Stop/reset owned transient services
 during final verified cleanup. Other campaign

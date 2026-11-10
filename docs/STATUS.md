@@ -39,7 +39,10 @@ with exact source/dependency bindings and all 288 archived instructions verified
 B11 acquisition continues after a tool-host interruption. Its partial comparison
 is preserved and replaced as a whole under an independent user service; the
 frozen source/order and B06 exclusion are retained. Recovery selects only the
-remaining cell suffix to avoid retrying that known activity-invalid block;
+remaining cell suffix to avoid retrying that known activity-invalid block.
+An initial service PATH omission caused nine retained setup-failed/interrupted
+attempts; the corrected service explicitly supplies the verified tool PATH and
+checks ripgrep/pinned pytest before acquisition. Failed attempts have no timing credit;
 the separate partial all-attempt cap review covers 215 responses / 135 contexts,
 including all newly sealed caps from individual arms as well as matched blocks.
 Final confirmation review and later phases remain pending. No final throughput

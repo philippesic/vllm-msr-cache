@@ -257,5 +257,17 @@ frozen CLI, in original order. Earlier complete blocks are retained, and the
 activity-invalid B06 block is deliberately not retried. This is setup recovery,
 not a capability failure or study-design change. Acquisition remains in progress.
 
+The first independent service exposed a [tool-PATH setup error](confirmation-tool-path-repair-03.json):
+its default environment could not find the existing ripgrep executable. Eight
+attempts failed and a ninth was deliberately interrupted after partial serving;
+all nine seals and cleanup verify, and none receives timing credit. The corrected
+service inherits the verified tool PATH and checks ripgrep/pinned pytest before
+GPU acquisition. The service environment probe and live coordinator PATH checks
+pass. After repair, upstream and Continuum each completed all 80 requests and 48
+tools with clean cleanup and verified seals; the complete replacement block was
+still pending at that checkpoint. Affected B11 comparisons are replaced as whole
+blocks through the frozen
+CLI; all earlier evidence and the B06 activity exclusion remain unchanged.
+
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.
