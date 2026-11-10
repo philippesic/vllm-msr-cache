@@ -140,19 +140,24 @@ validator passed on an isolated materialized screen snapshot; the active
 confirmation analysis was not changed. All timings and original objective results
 remain, and quality equivalence is not established.
 
-The [partial all-attempt cap review](caps-all-review-index-03.json) covers
-163 capped responses present through early B08: 132 screen and 31 confirmation
-responses, across 86 extended contexts (148 intermediates, 15 finals). It includes
-interrupted captures and individual arms outside matched blocks. Archived
-instructions, sealed corpus/node identities and raw prompt/workload digests
-were separately checked. Seven responses are new since the prior inventory:
-five reuse explicit confirmation08 judgments and two were explicitly read.
-All 163 miss an instruction, 108 lack source support and 46 are not useful;
-correct useful fragments are separately retained. These are cap-selected,
-duplicate-inclusive counts, not population rates. The final inventory must still
-include every ordinary attempt after all acquisition phases finish; this snapshot
-still has a pending attempt and is not finalized. Confirmation
-source review, overhead, operational and final campaign audits remain pending.
+The [partial all-attempt cap review](caps-all-review-index-04.json) covers
+**196 sealed capped responses / 119 extended contexts**: 132 screen, 64
+confirmation; 177 intermediates and nineteen finals. It includes ordinary
+individual arms outside matched blocks. Thirty-three responses are added since
+[cap03](caps-all-review-index-03.json): 29 exactly match prior explicit confirmation
+judgments, and four complete new contexts were explicitly read. One correctly
+copies actual PASS but is not useful; another invents PASS before validation.
+An eleven-word malformed repeated-token response is capped without exceeding
+the whitespace-word limit. All four new contexts are not useful.
+
+Selected duplicate-inclusive counts are **136 source-support failures, 196
+instruction failures and 73 not useful**. Archived instructions in all sixty
+cap-bearing attempts, sealed corpus/node/source/reference/role/tool branches,
+objective fields and raw prompt/workload-source digests were separately checked.
+Tokens were bound, not individually decoded. These are selected cap counts,
+not population error rates. The inventory still has a pending attempt and is
+not finalized; it must be regenerated after every acquisition phase finishes.
+Timings, objective results and frozen exclusions remain unchanged.
 
 The [latest partial confirmation review](confirm-review-index-11.json) adds the
 first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,

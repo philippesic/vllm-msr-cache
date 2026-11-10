@@ -427,7 +427,7 @@ historical addendum branches; the prompt-construction prefix matches, and the
 actual archived frozen source/hash is authoritative. Never acquire from mutable
 source or claim entire module equality from the shared instruction snippet.
 
-The newer **partial all-attempt cap review 03** covers **163 responses / 86
+The earlier **partial all-attempt cap review 03** covers **163 responses / 86
 extended contexts** through early B08: 132 screen and 31 confirmation responses,
 148 capped intermediates and 15 capped finals. [Index](caps-all-review-index-03.json),
 [ratings](caps-all-source-judgments-03.json),
@@ -449,8 +449,32 @@ independently recomputed. Each of the 86 quality contexts has one prompt-binding
 digest in this snapshot. Raw token prompts were bound, not individually decoded.
 The inventory has `complete_inventory=false` and one pending attempt; do not
 call final cap finish or treat this as all-phase completion. Preserve earlier
-snapshots and regenerate after every phase is terminal. Use cap03 for exact
-expanded-context reuse, with later novel contexts still explicitly reviewed.
+snapshots and regenerate after every phase is terminal. This checkpoint used cap03
+for exact expanded-context reuse and is extended by cap04 below.
+
+The latest **partial all-attempt cap review 04** covers **196 responses / 119
+extended contexts**: 132 screen and 64 confirmation, 177 intermediates and nineteen
+finals. [Index](caps-all-review-index-04.json),
+[ratings](caps-all-source-judgments-04.json),
+[bindings](caps-instruction-bindings-04.json), raw `$BASE/caps-all-checkpoint-04/`.
+All 163 earlier responses exactly reuse cap03 extended-context ratings. Twenty-nine
+added responses match prior explicit confirmation judgments; [four new complete
+contexts](caps-all-explicit-judgments-04-part-01.json) were explicitly read.
+Three are repetitive reverse-iteration intermediates: one correctly copies actual
+PASS but still lacks useful analysis, while another invents PASS before validation.
+The fourth is an eleven-word malformed repeated-token/wrong-metadata Decimal
+response; its cap is not a whitespace-word-limit excess. All four are not useful.
+
+Selected duplicate-inclusive counts are **136 source failures, 196 instruction
+failures and 73 not useful**. All sixty cap-bearing archived instruction sources
+verify. Every sealed source/reference/instruction/node/role/tool-branch and objective
+binding, plus raw prompt/workload-source digest, was independently recomputed.
+Each quality context has one prompt-binding digest in this snapshot; tokens were
+bound rather than individually decoded. Includes ordinary individual arms outside
+valid matched blocks, preserving all timing/objective exclusions. The snapshot
+has `complete_inventory=false` and one pending attempt; do not call frozen finish.
+Regenerate after all phases are terminal, retaining every earlier snapshot. Use
+cap04 for future exact expanded-context reuse, with novel contexts explicitly read.
 
 The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)

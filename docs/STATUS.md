@@ -37,7 +37,8 @@ are still pending. The final screen source audit covers
 and the first B09 block. Fourteen added PEP contexts (two capped intermediates)
 were explicitly judged with exact source/dependency bindings; one older exact
 context reappeared with the same judgments. B09 acquisition continues;
-the separate partial all-attempt cap review covers 163 responses / 86 contexts.
+the separate partial all-attempt cap review covers 196 responses / 119 contexts,
+including all newly sealed caps from individual arms as well as matched blocks.
 Final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),

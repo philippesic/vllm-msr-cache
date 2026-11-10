@@ -1,0 +1,80 @@
+{
+  "schema": "stage6-5080-explicit-cap-context-judgments-v1",
+  "packet_digest": "1b1677c8e88f9847214315b2ae6c963926b6299816a7692bf3a8f52ef14f7701",
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "extended_signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "59dff45242e712091c9e7161",
+      "quality_signature": "433076b6076c4d2f501798a3ffecf60c5004c7d877fbd468925eb45a7a7df1f0",
+      "extended_signature": "4e48da5d1fc9bdfb4c3495b817c26ae1060c46768bc9db0979a0c89047b4dcda",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "190-word initial repetition of 'The application is not a rule' contains no assessable supported reverse-iteration purpose or verification plan. Exceeds under-70 limit, truncates and no fixed search declaration; not useful. Supplied source exactly matches the full source text explicitly read in earlier confirmation; all new reference/instructions/current role/node, actual preceding dependencies/tools and answer explicitly read. Expanded executed instruction/tool-branch/prompt bindings checked separately; no automatic judgment or timing change."
+    },
+    {
+      "index": 1,
+      "review_id": "64a4f6a8695e5390e9fd8a66",
+      "quality_signature": "17c0f8fc5fbd38a06c161ff5fa1dfcae93453480f03c4302dc13a0fdd517f8ba",
+      "extended_signature": "eee6a63266058f81cab4eda8b70488be375ce3b391a14e8bf28bfe47226758da",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "notes": "Actual metadata validation is PASS, so the sole substantive status assertion is grounded and its bold literal is accepted. Remaining repeated wrapper phrase adds no source fact or interpretation. 187 words exceeds under-70 limit, no required summarize declaration and no useful current-step analysis. Supplied source exactly matches the full source text explicitly read in earlier confirmation; all new reference/instructions/current role/node, actual preceding dependencies/tools and answer explicitly read. Expanded executed instruction/tool-branch/prompt bindings checked separately; no automatic judgment or timing change."
+    },
+    {
+      "index": 2,
+      "review_id": "166c310780cca4a296fb9d51",
+      "quality_signature": "336e34f2559a7c9787612ee79c38647b2d9faf36e04a96f224ddc344a27a0af1",
+      "extended_signature": "702d66a4511ca1ab82ea6382ab71d61778839372027ff316b344c96006dadcac",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Current PEP327 Decimal task has PEP314/Superseded metadata."
+      ],
+      "notes": "No prior tools. Random repeated To tokens and malformed wrong-subject metadata do not provide Decimal purpose/plan or fixed search declaration. Eleven whitespace words is not a word-limit excess; token repetition/truncation/irrelevance still fail the task and usefulness. Supplied source exactly matches the full source text explicitly read in earlier confirmation; all new reference/instructions/current role/node, actual preceding dependencies/tools and answer explicitly read. Expanded executed instruction/tool-branch/prompt bindings checked separately; no automatic judgment or timing change."
+    },
+    {
+      "index": 3,
+      "review_id": "129eb988dd94f5ef43b96eee",
+      "quality_signature": "ab31f5618cad5aa9443c455db9f11cafd7c808bd415cd8ac32ced075a9d37b9a",
+      "extended_signature": "a61c4c0c230de8000911f806042d535efee4df1196f5fdd57830b1a2df340516",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Validation test_status=PASS before any validation tool."
+      ],
+      "notes": "Only actual preceding output is rg header search. Status PASS is invented at this graph step, alongside 186 repeated words, truncation and no fixed next validate command. Exceeds under-70 limit and not useful. Supplied source exactly matches the full source text explicitly read in earlier confirmation; all new reference/instructions/current role/node, actual preceding dependencies/tools and answer explicitly read. Expanded executed instruction/tool-branch/prompt bindings checked separately; no automatic judgment or timing change."
+    }
+  ]
+}
