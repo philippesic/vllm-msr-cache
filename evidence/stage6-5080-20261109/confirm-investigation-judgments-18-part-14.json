@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 52,
+      "review_id": "8cfd8c86ddeba4ecf893d486",
+      "signature": "401117b8fdcb22ca98bca9f57fd7396c7cb74e3f97ae69839a15affea01f0de4",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 4,
+      "notes": "Correct supplied British Isles answer in sole string JSON field; harmless definite article preserves reference meaning. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 53,
+      "review_id": "ef3f277beb871aaea0cde1bb",
+      "signature": "0d6a099256e88882c59a9f4f5297e6d4b2c9370fdd251ccbbb2113fb780b882a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 66,
+      "notes": "Correct initialization/consumption count and actual two-test literal PASS. The supplied empty/basic fixtures do not test repeated consumption after exhaustion or infinite inputs, a genuine explicit coverage limitation. Does not repeat predecessor claim that items_seen is necessarily read-only. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 54,
+      "review_id": "7eeb8141aae0dd2723624b77",
+      "signature": "df7248d57601464ab506527d831361a62029ab8c26c9c1b2926a052d5d184411",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 3,
+      "notes": "Correct supplied parton model answer in required one-field JSON, with no fabricated validation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

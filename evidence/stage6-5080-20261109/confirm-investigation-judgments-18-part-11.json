@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 40,
+      "review_id": "4a7d5e0963f0dd1786dd4d1c",
+      "signature": "5b30685cfae8eea2400267cea4a79018661380d89fec7f5fc6fb32b01df86849",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 81,
+      "notes": "Correct size/count batching, literal seven-test PASS and actual negative-max_count test. Read does not handle/only enforces size limits in its explicit oversized-single-item context: strict=False allows one oversized item, as doc and test_strict show. It does not assert an additional demonstrated reordering or absent ordinary batch splitting. This is a genuine hard-cap boundary for callers, not a failing test. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 41,
+      "review_id": "506e63f0da710004bb85511a",
+      "signature": "442a5bc26bf664f6cd8fbd9a3349de7bab3e500de7346f498be5d9c053ea7710",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP310/header evidence establishes current Python implementation of PEP343 lock/file functionality."
+      ],
+      "whitespace_words": 84,
+      "notes": "Correct source rejection in favor343 and resource-management intent remain useful. As novel21, modern replacement runtime is not established by supplied310 or metadata validation; generated predecessor is not authoritative runtime evidence. Bold colon status omits required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 42,
+      "review_id": "c6132f35dfe2b1e5ecc5e5e3",
+      "signature": "bd3cb6b52e03199e3430be1a51d987f2aa38aeaa2b1e6517a22a03e2f50fd2e8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Size/count splitting may reorder input items."
+      ],
+      "whitespace_words": 72,
+      "notes": "Sequential append/yield code preserves original order, and supplied tuple expectations explicitly check it. Correct batching and literal PASS useful; adding not explicitly tested/documented does not support the invented reordering limitation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 43,
+      "review_id": "37b7b14b7e223ce1e1d2e0b8",
+      "signature": "73d9327a3834ffd31741b87b1f8c2bc9860c26ffe57d0e46bdc1b9d355c7933a",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 81,
+      "notes": "Correct background callback tuple iteration and actual seven-test literal PASS. Function exception is propagated by result, a documented and tested boundary relevant to downstream error handling. Does not invent that a worker ValueError is converted to RuntimeError; status remains passing. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

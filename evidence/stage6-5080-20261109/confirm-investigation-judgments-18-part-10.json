@@ -1,0 +1,70 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 36,
+      "review_id": "52fc958382b894e892579986",
+      "signature": "de21ac9b88776a3f7de05f35fe12367b69f92b3e0b67a347b090878883503125",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP327 does not address memory usage of high-precision operations and this establishes real-time/resource applicability concerns."
+      ],
+      "whitespace_words": 81,
+      "notes": "Correct Final/Standards Track, ANSI target, bounded precision and historical stdlib integration, plus literal metadata PASS. Supplied opening explicitly discusses memory permitting precision, rounded bounded results and resource trade-offs; a blanket absence of relevant memory discussion is false. No new measured overhead/applicability result is supplied. Correct Decimal facts remain useful, but the claimed blanket omission is not an evidenced concrete limitation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 37,
+      "review_id": "179263634dead48b939be439",
+      "signature": "971ab12f7a36562978e707b1febf2879d64cb65a96024aff45145972ee22a5ae",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Superseded implies no active use and modern packaging tools neither enforce nor support any of these fields."
+      ],
+      "whitespace_words": 78,
+      "notes": "Correct Superseded/Standards Track, metadata version1.0/1.1 rule and literal metadata PASS. Specification defines normative field semantics; do not misread enforces there alone as evidence of executed runtime enforcement. PEP345 supersession is a genuine bounded limitation; universal current ecosystem non-use/non-support is unsupported and not established by metadata. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "80ae37baef1c234ffdb1ad2e",
+      "signature": "ec48e59c31ede19612bd1d69a51fc4774d31701f082d7bc00d975ea7a9bf0368",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied PEP310 and header tools establish modern PEP343 runtime implementation."
+      ],
+      "whitespace_words": 64,
+      "notes": "Source explicitly says rejected in favor343, and the old with [var=] syntax is not the adopted proposal, useful bounded history. Modern context-manager implementation is outside supplied310/header validation. Bold Test status: PASS lacks required literal equals form. No runtime credit from generated predecessor. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 39,
+      "review_id": "9cf36fc4b7e3e8981d5fcf86",
+      "signature": "cbbf83fcc7060ef45a071efd6be30ca04bfa64a74b4e7fabe5cfbb6e17fb6535",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_negative raises ValueError and fails."
+      ],
+      "whitespace_words": 78,
+      "notes": "Actual three tests pass, negative n returns empty output, and test_negative explicitly asserts that result. No failing exception discrepancy is present. Correct cycle-index/item behavior remains useful; literal FAIL and sole claimed defect contradict executed evidence. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

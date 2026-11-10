@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 44,
+      "review_id": "5ce2951d60cb63bd403c4ed7",
+      "signature": "925dc155ab805f3328a62da61b31fa4bc605df769743e3f3c03704c850d893ed",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 76,
+      "notes": "Correct key-normalized duplicate example, actual five-test literal PASS and documented slower list fallback for unhashable elements. A potential large-data cost is supported algorithmic scope, without asserting any newly measured runtime slowdown. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 45,
+      "review_id": "c70945d734f8192ce852d07b",
+      "signature": "ac71d6fee8dc66b6a37ddd8fff0de87d914ad7dfaf7d629b7efa0e39c219b919",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "All adopted/supported PEPs must be Final and Standards Track."
+      ],
+      "whitespace_words": 71,
+      "notes": "As novel35, metadata for307 does not establish this universal acceptance requirement. Correct literal PASS and historical protocol2 requires Python2.3 compatibility boundary remain useful, but the requested supported rule is substituted with an unsupported generalization. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "e835bdd8bfe89ff3b7b26a11",
+      "signature": "0b4b81c3f47d5727185b9d400c4e76783a1e8a459d5d8b90eab896bc58e6f262",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 60,
+      "notes": "Correct items_seen zero/consumption counter, actual two-test literal PASS and genuine missing infinite/non-iterable cases. This is a bounded coverage gap, not a fabricated demonstrated runtime defect. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 47,
+      "review_id": "b617721b9d30ad03a800352e",
+      "signature": "9fb658a4cce51d430a40af14d6e797cad384dd4fbfda381badd409e2dac115fb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Rejection of310 establishes no Python runtime support for the with-based acquisition/release pattern generally."
+      ],
+      "whitespace_words": 65,
+      "notes": "Source supports rejection of this specific with [var=] proposal in favor343, not the blanket absence of the general resource-management pattern in Python. Literal PASS and correct rejected/Standards Track history useful; sole no-runtime-pattern limitation is overbroad. Preserve distinction between old proposal syntax and every with-based resource-management approach. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

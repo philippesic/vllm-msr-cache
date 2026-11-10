@@ -1,0 +1,67 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "f6cc015c40786d86e1df1efb",
+      "signature": "8c606acedc1c544dcdccc242511d6951be8acbb19b9ca27ad5da3572a251d922",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Duplicate input values make combination_index undefined or inconsistent."
+      ],
+      "whitespace_words": 82,
+      "notes": "Actual multiplicity test explicitly exercises abacba and deterministic first-occurrence positional indexing; supplied implementation has defined duplicate handling. Eight passed tests and correct no-enumeration indexing remain useful. Sole claimed duplicate limitation is false, so the requested evidenced limitation is missing. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "51b5f449e745a4cc67b43641",
+      "signature": "ee4e354d14aec3cf544c2d661d71a2e6739326046f714b34ce698903ec44db90",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 76,
+      "notes": "Same supported PEP328 final as novel9 with a distinct preceding dependency chain explicitly read here. Correct relative-dot/from-form restriction and metadata; prose test_status is PASS still omits required literal equals form. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "03aa7490fddb186b3b5e233e",
+      "signature": "86f399d807a0a02f928f33f6040435c7550674149b6fb573b4260f872fbcf31f",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Metadata validation confirms package-field definitions beyond its five PEP header comparisons.",
+        "Lack of a Python-Version specification establishes general inapplicability to modern Python."
+      ],
+      "whitespace_words": 49,
+      "notes": "Correct Superseded/Standards Track and RFC822 metadata format. Five actual PEP header fields validate; summary shows Python-Version null and no such package field is supplied, a concrete bounded absence. Literal case-insensitive PASS, supported format and absence satisfy instruction; broader validation and applicability claims are not established. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 15,
+      "review_id": "2a5280025cb519824fd2d305",
+      "signature": "62a5899fc80f189482d2f7adc9e23e5ec1fd322f0eb29fb54c1b03147f178fc8",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 85,
+      "notes": "Correct finite-generator fallback to full list then reversed, literal observed PASS and actual test_nonseq_reversed generator coverage. Genuine memory/full-consumption limitation is visible in implementation and large/infinite cases are not covered by these two tests. Read inefficient infinite consumption as that lack of finite completion, not a successful infinite reversal. Generated rg block is not executed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

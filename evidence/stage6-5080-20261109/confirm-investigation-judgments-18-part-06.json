@@ -1,0 +1,64 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 20,
+      "review_id": "fbf55af1ae1f9a846a5e4062",
+      "signature": "4232b18ac480e6964a5dac3e0afd582c6267fba92f1165a816d5d77251173a43",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 3,
+      "notes": "Exact supplied French name les Appalaches in the required one-field JSON object; no fabricated status/tool claim. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "849d85d8d09e93939ed576d6",
+      "signature": "fe07011876449a03363e31525341ee06fa8820313b86a05350ceeedcec5ade60",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Supplied PEP310 or metadata tools establish that PEP343 lock/file functionality is now implemented in Python."
+      ],
+      "whitespace_words": 86,
+      "notes": "Rejected/Standards Track, resource-management intent and rejection in favor of343 are supplied and useful. Full310 describes file/lock adoption as open issues; modern343 runtime implementation is not established by these inputs. Bold colon test_status: PASS also fails required literal equals form. Do not treat the predecessor as independent runtime evidence. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "b130e0136f425c23a22fdffb",
+      "signature": "5f217d78190a64188ecd151abeaf81fec7e6fa4b7092374062662ce66c3eecb9",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 73,
+      "notes": "Correct auto-priming and immediate-send behavior; actual one-test literal PASS. No-yield/exhaustion/exception cases are genuinely absent from supplied consumer test, an explicit bounded coverage limitation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 23,
+      "review_id": "461a28f0d7584e802d078331",
+      "signature": "fee907b53736c3de2ea1b55d9897811ac4ffb90086f905f6a96c46d2ceefabb5",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 75,
+      "notes": "Correct Final/Standards Track and lazy inner evaluation, actual metadata literal PASS, and loop-variable non-leakage as a concrete visibility restriction. Parentheses is read as the generator-expression syntax (including the surrounding sole-call parentheses), not the false claim that omission inside a sole-argument call is forbidden. Does not repeat predecessor only-in-calls restriction. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

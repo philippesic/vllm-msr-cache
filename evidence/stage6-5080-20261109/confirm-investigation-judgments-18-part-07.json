@@ -1,0 +1,69 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 24,
+      "review_id": "4e3268dd1ff27a491e266d52",
+      "signature": "9e04a844becef7780e6f1ad5c49a238fddf139b2bd8f4774b7fd7ee9c1d4f60b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 80,
+      "notes": "Correct combinatorial index without prior enumeration, actual ten-test PASS including84 subtests, and genuine rejection of target sequences out of pool positional order. Lexicographic order is read relative to supplied iterable ordering, not an invented sorted/comparable element requirement. acb/abcde is an actual invalid-order case. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 25,
+      "review_id": "a02bf43729f62991bd27eb5a",
+      "signature": "4459974a1100e66d7e7e7223e217e5a4fbb04967ebe859a969dc266d284a984d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Negative n is required to raise ValueError and the tests fail.",
+        "A source test comment/docstring specifies that exception requirement."
+      ],
+      "whitespace_words": 74,
+      "notes": "Actual three tests pass and test_negative explicitly expects empty output, as quoted within this contradictory answer. Correct cycle/item behavior and that actual assertion provide useful fragments; literal FAIL and alleged bug/exception requirement are unsupported. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "eebd247a3ff5206c149edf9a",
+      "signature": "a7155630e7003fbd5360cc833ab8f4879da3d138131fafd8612ca749f697a22f",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "All emitted circular shifts have unique values."
+      ],
+      "whitespace_words": 72,
+      "notes": "GCD counts positional rotations, not value deduplication; periodic duplicate inputs explicitly yield repeated tuples. Actual six-test PASS and general rotation behavior remain useful. The separate None/non-iterable TypeError boundary follows tuple(iterable) and is genuinely not covered by supplied tests, so fact/status/limitation requirement passes despite extra uniqueness error. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "95653d085645e9b02f779e64",
+      "signature": "372e94a7008eb1f0eff15866e9c09bcde2efa1c228f36bb1a212ef6fc77b6770",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Infinite-iterator performance is inefficient or not optimized for very large/unbounded inputs."
+      ],
+      "whitespace_words": 77,
+      "notes": "Correct balanced example and actual ten-test literal PASS. Implementation buffers and tests explicitly bound infinite lookahead by n-squared; no supplied timing/resource evidence establishes the alleged broad inefficiency or absent optimization. Sole vague performance criticism is not a concrete evidenced limitation; correct behavior remains useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "stage6-5080-completed-static-source-review-validation-v1",
+  "phase": "confirm",
+  "acquisition_complete": false,
+  "source_review_complete_for_snapshot": true,
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "packet_file_sha256": "774469296697f07cd2a3a1f8a3858ad4450187c7a64950842595524fdcc1020f",
+  "canonical_index": "confirm-review-index-18.json",
+  "ratings": "confirm-source-judgments-18.json",
+  "validator": "confirm-quality-checkpoint-18.json",
+  "reviewed_outputs": 6667,
+  "distinct_full_contexts": 834,
+  "explicitly_read_novel_contexts": 55,
+  "manual_parts": 14,
+  "novel_roles": {
+    "final": 55
+  },
+  "novel_kinds": {
+    "investigation": 51,
+    "answer_json": 4
+  },
+  "novel_findings": {
+    "source_unsupported": 31,
+    "instruction_failures": 24,
+    "not_useful": 0
+  },
+  "aggregate_findings": {
+    "source_unsupported": 1411,
+    "instruction_failures": 3911,
+    "not_useful": 165
+  },
+  "archived_instruction_sources_verified": 470,
+  "distinct_supplied_sources_exactly_bound_to_prior_explicit_readings": 36,
+  "new_unmatched_source_components": 0,
+  "cap08_only_prior_quality_reuse": {
+    "distinct_contexts": 0,
+    "selected_occurrences": 0
+  },
+  "canonical_index_cap_match_field_scope": "Counts overlap of manually novel contexts with prior cap08, intentionally zero; actual prior cap-only reuse is reported separately.",
+  "checks": {
+    "all_current_review_ids_and_exact_context_signatures_match": true,
+    "all_duplicate_context_ratings_consistent": true,
+    "all55_manual_indices_and_signatures_present_once": true,
+    "all_prior_complete_context_reuse_matches": true,
+    "no_dependency_only_rating_drift": true,
+    "frozen_finish_audited_all6667": true,
+    "isolated_materialized_audit_matches_retained_packet_and_ratings": true,
+    "executed_functions_resolve_to_frozen_source": true,
+    "live_quality_directory_unchanged": true,
+    "no_unread_novel_ratings": true
+  },
+  "helper": "benchmarks/research_checks/stage6_5080_review18_consolidate.py",
+  "helper_sha256": "3b4105f9c9bdb50dcb6b220e9c530d85e812a17498d24793f288f7a28e3961a4",
+  "quality_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+  "scope": "Completed explicit source review of isolated static184-block snapshot, not terminal confirmation. All55 new finals read in14 parts; full fields/dependencies bound by consolidation and all470 archived source/SYSTEM records checked. No timing/objective/exclusion/live-quality change. Final review remains required after acquisition is terminal. Duplicate-inclusive selected findings are not population rates or quality equivalence."
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "8541c0957c7040a416d3b3fa",
+      "signature": "4396e9b3813a4c131d833db09cc34cc73d5bced48aaadb591d10715a6fa78373",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "classify_unique cannot handle infinite iterators and requires finite iteration."
+      ],
+      "whitespace_words": 79,
+      "notes": "The implementation yields incrementally and has no finiteness requirement; absent infinite-input tests do not establish inability. Unique-value storage can grow, but the asserted categorical inability is not an evidenced limitation. Correct immediate/global flags and actual fourteen-test PASS remain useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "890ff51e451b8c26523d383e",
+      "signature": "9f30736d2b1f6aa3d6789ce3d58f8f319fcc91f3df5b5da995fa30e5343ad502",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 76,
+      "notes": "Correct Final/Standards Track, leading-dot relative imports and historical ban on import .foo in favor of from forms. Prose test_status is PASS omits literal test_status=PASS. No runtime test credit is inferred from metadata validation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "2d46de359333a25c1f79dd69",
+      "signature": "f2198686ba5a6e05ae4559e2b07f583fa9ce460fa84f21ed29b2f076e11171a5",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "adjacent cannot mark neighbors in both directions.",
+        "The supplied source/evidence lacks AdjacentTests so behavior is only inferred."
+      ],
+      "whitespace_words": 73,
+      "notes": "Actual source marks both preceding and following neighbors, and full supplied AdjacentTests plus executed ten-test PASS are present. Literal PASS, correct near-three behavior and the separate genuine absence of circular wraparound satisfy the requested fact/status/limitation despite those extra unsupported statements. Do not charge the generated predecessor alone; final explicitly repeats the bidirectionality error. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "c1554b5c64d88b83a518cae8",
+      "signature": "e5a6daabb309fea135ebb2b5f835cf5ac9fbfedb12cd973afdc500437c89c631",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 90,
+      "notes": "Correct historical Final/Standards Track enumerate index/value motivation. Supplied PEP explicitly drops proposed optional start/stop arguments for ambiguity; judge its historical proposal, not modern enumerate signature. Literal case-insensitive PASS matches metadata, useful facts and genuine historical restriction retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "1848b6197f603003abf86fa0",
+      "signature": "2ffa9a61f2a218ebd320eec9f9c91d738b32abab6effd405a102106dd18007bc",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The suite leaves concurrent consumption under load untested and merely checks reconstruction/lock identity."
+      ],
+      "whitespace_words": 65,
+      "notes": "Full supplied test actually runs 100 threads against a non-concurrent producer for 100000 items each, then verifies every reconstruction, with one shared lock. Correct tee behavior and literal PASS remain useful, but the asserted lack of concurrent testing is not a genuine evidence-based limitation. This is stronger than the valid statement that one fixture cannot prove all schedules. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "51f0435467512041666eb3af",
+      "signature": "a9975d619f63dec406f8fc75c3ddae0c6dc4cb28a5121907019007ee7477f82d",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Mappings are excluded because of ambiguity with list.reverse()."
+      ],
+      "whitespace_words": 72,
+      "notes": "Final/Standards Track, sequence reverse iteration and historical mapping exclusion are correct; literal PASS matches metadata. Full PEP places list.reverse ambiguity in the naming discussion, not as the reason for excluding mappings. The concrete supported mapping restriction still satisfies the limitation requirement despite the false rationale. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "a42fc2aa500daa5876006b96",
+      "signature": "1406938300dd20dd05f35a0e951aebae69f0ff4e43b5d0009bea1ec879e7556d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The function fails on infinite iterables beyond arbitrary lookahead constraints and therefore has an established scalability limitation."
+      ],
+      "whitespace_words": 74,
+      "notes": "Correct balanced chunks/example and actual ten passed tests. Supplied tests explicitly exercise infinite iterables with bounded n-squared lookahead. The vague claimed failure beyond arbitrary constraints is not a demonstrated limitation. Literal PASS and useful chunking facts retained; the trailing generated rg declaration was not executed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "2e0731887052baa86f050113",
+      "signature": "8a12cae6d48fa30e0aeb5083d936d5affc41d1a4038be1dd7c133d20f021e69e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_negative requires ValueError and failed against an empty-result implementation."
+      ],
+      "whitespace_words": 78,
+      "notes": "Actual three tests pass; test_negative explicitly expects an empty result for negative n, as implementation provides. Literal FAIL and invented documented ValueError requirement contradict executed evidence. The initial cycle-index/item behavior is correct and useful, independently of the false test report. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

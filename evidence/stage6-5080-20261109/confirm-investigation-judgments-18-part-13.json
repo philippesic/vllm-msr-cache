@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 48,
+      "review_id": "03c7bed17086916f9282a344",
+      "signature": "6c9865cceb42dc62519161cc49c1b41fc62a5671517872ecc4714077c18e20a6",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "No empty-sequence cases are validated."
+      ],
+      "whitespace_words": 51,
+      "notes": "Actual slicing/update tests include empty views/slices, so broad empty-case denial is false. Step-zero is genuinely omitted from supplied slice grid and constitutes a separate concrete coverage limitation. Correct dynamic update/test_update, five-test literal PASS and that genuine step-zero gap satisfy instruction and remain useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 49,
+      "review_id": "77f43640bed78d4ed9d1201d",
+      "signature": "334596ea800eee2d1a0c2ea7a31d9d5ca368c629ce564bf2e04da6e84fe2e795",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "Correct supplied Detroit answer in the required sole string field JSON object, with no status or tool fabrication. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 50,
+      "review_id": "dd9b6cf96ddf84a98d9e6aed",
+      "signature": "4d6fb030e91baf8ead6e0f13ce8e491909f325a98a68ab41d8abab3b4146bddf",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 73,
+      "notes": "Correct background callback tuple iteration and actual seven-test literal PASS. Full supplied doc explicitly deprecates callback_iter since11.0 and schedules removal in a future major release; this lifecycle limitation is supported, not a fabricated deprecation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 51,
+      "review_id": "75e3ef840f0b94ec19f4e627",
+      "signature": "e2b95c7685b6ad0ff29e6c5f963f3289180f6e591b03669799a81070616392f6",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Duplicate values establish potentially incorrect indexing."
+      ],
+      "whitespace_words": 76,
+      "notes": "Actual deterministic first-occurrence behavior and multiplicity testing are defined. The answer does state the genuine inability to distinguish later duplicate occurrences by value, satisfying a bounded limitation alongside correct indexing and literal PASS. Alleged incorrect indexing exceeds that supported boundary; do not equate deterministic first-occurrence selection with a bug. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

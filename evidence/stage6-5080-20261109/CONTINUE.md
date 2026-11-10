@@ -16,8 +16,8 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The November 10 07:36 UTC health check has **475/524 valid configurations,
-184/210 complete matched blocks**, with Qwen3-4B B08 candidate repeat 7 active.
+The November 10 07:49 UTC health check has **480/524 valid configurations,
+186/210 complete matched blocks**, with Qwen3-4B B08 ARC repeat 9 active.
 Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
@@ -34,6 +34,38 @@ schedule actually assigns 60 Ministral and 100 Qwen3-4B configurations, totaling
 524 with the 364 anchor configurations. A draft inventory's mistaken 64-case
 Ministral assertion stopped before writing evidence, was corrected against the
 unchanged protocol, and then passed. Acquisition never used that draft count.
+
+The latest source review is **18, complete for its static snapshot**:
+[index](confirm-review-index-18.json), [ratings](confirm-source-judgments-18.json),
+[component bindings](confirm-review-components-18.json),
+[frozen validator](confirm-quality-checkpoint-18.json),
+[independent validation](confirm-review-validation-18.json).
+Raw `$BASE/quality-confirm-checkpoint-18/` and isolated audit
+`$BASE/quality-confirm-audit-checkpoint-18/` preserve the 184-block snapshot:
+9,464 objective finals, 5,746 automatic final failures, 291 capped intermediates,
+**6,667 selected outputs / 834 full contexts**. All **55 new finals** (four QA,
+51 investigations) were explicitly read/judged in 14 manual parts. All 36 distinct supplied sources in the new contexts
+bind earlier explicit readings; zero unmatched source component. All 470
+archived full instruction sources/SYSTEM verify. Current IDs, complete signatures,
+duplicate ratings, prior-context reuse and all 55 manual indices independently
+check; no dependency-only judgment drift. Frozen finish accepts all 6,667 ratings.
+No cap08-only quality context lies outside the earlier canonical union in this
+selection; the novel-cap-overlap field is also zero. All earlier canonical indices
+remain in the exact reuse union, including17, plus cap08 with identical executed
+SYSTEM/source. No live-quality/timing/objective/exclusion changes.
+
+New-context findings are 31 source failures, 24 instruction failures and zero not
+useful; useful correct fragments remain credited despite false test/limitation
+claims. Duplicate-inclusive selected counts are 1,411/3,911/165, not population rates.
+All four added QA answers are correct single-field JSON. Historical PEP rules are
+judged from supplied text; no modern-runtime evidence is inferred from metadata
+PASS. Correct literal PASS may coexist with source failure when a separate false
+claim is added. A genuine supported limitation can satisfy instruction despite
+another unsupported clause; a fabricated sole limitation cannot. The full notes
+retain each distinction. Do not rerun one-shot preparation/consolidation/validation.
+Future review starts with fresh19 after more acquisition or terminal confirmation;
+final all-phase audits still remain. The earlier completed17 records below remain
+history, with no overwrite or repeated review required.
 
 Review 17 is **complete for its static snapshot**, with frozen finish audited:
 [index](confirm-review-index-17.json), [ratings](confirm-source-judgments-17.json),

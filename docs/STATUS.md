@@ -33,27 +33,26 @@ incomplete scope and missing repetitions through an explicit option, with the
 default completion guard retained and 28 focused tests passing; terminal results
 are still pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-6,153 selected outputs / 784 contexts through all terminal Ministral cells and
-the first four Qwen3-4B blocks. All 201 added contexts were explicitly judged with
-exact source/dependency bindings and all 424 archived instructions verified. All 364 planned Qwen3-8B
+6,667 selected outputs / 834 contexts across 184 completed blocks. All 55 added
+contexts were explicitly judged with exact source/dependency bindings and all 470
+archived instructions verified; isolated frozen finish accepts every rating. All 364 planned Qwen3-8B
 configurations have executed; 363 are valid and 129/130 blocks are complete.
 All 377 retained anchor attempts / 35,530 files verify; the sole missing block
 is the known B06 activity failure. Secondary-model acquisition continues.
 Ministral is now terminal: all60 configurations /7,812 sealed files verify,
 with58 valid measurements and28/30 complete pairs; only the two known B06
 failures are excluded. The frozen model subtotals are364/60/100 configurations.
-Qwen3-4B continues. Review 17 is complete for its static snapshot of 6,153 outputs
-and 784 contexts; all 201 new contexts are judged and frozen finish accepts every rating.
-All 83 supplied sources bind prior readings, and 21 cap07-only contexts / 169
-occurrences exactly reuse prior quality judgments. Earlier partial progress is
-preserved; a fresh terminal review remains required. The all524 terminal-inventory helper is prepared,
+Qwen3-4B continues. Review 18 is complete for its static snapshot; all 36 distinct supplied sources in the new contexts
+bind prior readings and independent checks cover current IDs, signatures,
+duplicates and exact prior reuse, with no dependency-only judgment drift. Earlier
+reviews/progress remain preserved; a fresh terminal review is still required. The all524 terminal-inventory helper is prepared,
 and its pending-acquisition guard passes; its terminal audit still awaits the job.
 Ministral B06 candidate repeat 0 also fails frozen restore activity after all
 64 requests / 48 tools complete cleanly: zero restores despite 15 eviction-affected
 returns. Its seal and ARC peer verify; no favorable-activity retry or rule change.
 Original repeat 3 shows the same failure with verified cleanup/seal. The cell is
 now terminal: all twelve planned attempts / 1,644 files verify, with four of six
-matched blocks valid. All 62 caps remain for final all-attempt audit. Review17
+matched blocks valid. All 62 caps remain for final all-attempt audit. Review 18
 is complete for its static snapshot; later acquisition/final source/cap reviews remain pending.
 The partial B11 comparison
 is preserved and replaced as a whole under an independent user service; the

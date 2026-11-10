@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "62652f1f1f2b91c1033808fc",
+      "signature": "8df01cfdb498136fbb9411fc342dca3f11d82daa0ae1ddca845457faadf5f77e",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Validation proves structural integrity beyond the five checked metadata fields."
+      ],
+      "whitespace_words": 83,
+      "notes": "Correct Final/Standards Track, GIL/thread-state API, single-interpreter exclusion and explicit initialization limitation. Literal PASS matches validation; source failure is the extra unqualified structural-integrity claim, not the actual metadata check. Supported rule and genuine limitation remain useful and instruction-compliant. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "88e5355de3ee822bc6125d14",
+      "signature": "cc504427d1bb4e240a4535a6d7d82d1b1f17258358b2ba4b51785029a168a9e6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 84,
+      "notes": "Correct CSV metadata, parse/write interface and deliberate exclusion of data interpretation. The prose says test_status is PASS but omits required literal test_status=PASS; useful supported content retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "a568852e7595230c4896e544",
+      "signature": "3a3323dcf109d678d55be3274020c1bc3bc53d1790872f2497a10c8ad80b339c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 98,
+      "notes": "Correct rejected Standards Track do/setup-loop motivation and no syntax competing with while-True/inner-if-break. Read poor usability comparatively against that documented rejection history, not a new implementation impossibility claim. Literal case-insensitive Test_status=PASS matches metadata validation; the redundant JSON code block is not executed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "e9ed9a0aed8efe0af89b30b0",
+      "signature": "d544a293b31fe0b54f8a3a45a0b1ec181391ce408f943e445e23679801d50ac0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Logging supports no filtering beyond basic severity thresholds."
+      ],
+      "whitespace_words": 74,
+      "notes": "Correct Final/Standards Track and configurable severity ordering; literal PASS matches metadata. Supplied control flow explicitly includes optional Logger/Handler Filters and runtime configuration, contradicting the asserted filtering limitation. The combined generic performance-monitoring denial does not establish a concrete supported limitation in this answer. Core logging facts remain useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

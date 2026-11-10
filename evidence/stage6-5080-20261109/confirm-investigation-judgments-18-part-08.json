@@ -1,0 +1,68 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "0870e3b4df026344847055f6c55b8a9db8f5bd64185264afb3de484e0144c531",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-18/blind-packet.json",
+  "ratings": [
+    {
+      "index": 28,
+      "review_id": "2f18631c75b696ad28694c56",
+      "signature": "4f1b882e5d2e4e162bc270f6c56c8a53dea0d33027b7ce02c295565c719aa676",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP342 does not define nested-generator behavior and this establishes restricted high-throughput applicability."
+      ],
+      "whitespace_words": 63,
+      "notes": "Supplied motivation explicitly discusses inner/outer generators and coroutine calls via scheduler/trampoline; categorical absence is unsupported. Correct Final/Standards Track, send/throw/close coroutine mechanism and observed literal PASS are useful. Separate absence of a cross-implementation performance guarantee is a genuine bounded limitation, not a claim of measured failure; fact/status/limitation still satisfied. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "9499f5143698ac1ae94d22b0",
+      "signature": "40f7b089343f28df903c052830284d1ab42beddc08316fbe558bade24349a62d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 73,
+      "notes": "Correct background-function callback tuple iteration, actual seven-test literal PASS and documented/tested function-exception propagation via result. That propagation is a concrete result-access boundary, not a claim that the tests failed or that RuntimeError is the function ValueError. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 30,
+      "review_id": "9c51de9ec41407f18349acd9",
+      "signature": "fb40cfdbbd26cbcd77349264561dbc05be521998aab65a97237e488d2e4196d8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Custom non-iterable objects or base types beyond str/bytes are unsupported."
+      ],
+      "whitespace_words": 74,
+      "notes": "Implementation wraps arbitrary non-iterables and accepts a custom base_type or tuple thereof; supplied dict/base_type tests demonstrate configurability. Correct None-to-empty behavior, actual test_none attribution and six-test literal PASS remain useful. Sole claimed custom-object restriction is false. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "f21005447c9e934889251eeb",
+      "signature": "0d826900f1cb6c18ac2c0c888e57788c28138df0feed1ef5f0faf5d90de24ab5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Duplicate input values do not preserve defined index order and no test checks multiplicity."
+      ],
+      "whitespace_words": 71,
+      "notes": "Source explicitly selects first occurrence and supplied test_multiplicity uses repeated values. Correct index-without-enumeration and literal PASS useful; alleged incorrect order/no multiplicity test is not an evidenced limitation. Unlike novel19, this answer does not state the genuine first-occurrence boundary. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

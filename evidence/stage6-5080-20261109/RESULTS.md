@@ -520,3 +520,21 @@ fresh terminal review and final all-phase audits remain pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.
+
+The latest [partial confirmation source review18](confirm-review-index-18.json)
+is complete for a static **184-block** snapshot: **9,464 objective finals,
+5,746 automatic failures, 291 capped intermediates and 6,667 selected outputs /
+834 full contexts**. All 55 new finals (four QA/51 investigations) were explicitly
+read and judged in 14 parts. All 36 distinct supplied sources in the new contexts bind previous explicit readings;
+all 470 archived instructions/SYSTEM verify. [Independent validation](confirm-review-validation-18.json)
+checks every current ID/signature, duplicate judgment, manual index and exact prior
+reuse, with no dependency-only judgment drift. The isolated frozen validator
+accepts all 6,667 ratings; live quality and serving data remain unchanged.
+
+The 55 new-context findings are **31 source failures, 24 instruction failures and
+zero not useful**. Correct behavior fragments remain useful alongside false test
+reports or invented API limitations; all four new QA answers meet source and JSON
+requirements. Selected duplicate-inclusive counts are **1,411 source failures,
+3,911 instruction failures and 165 not useful**, not population rates or quality
+equivalence. This remains a partial snapshot. Fresh terminal confirmation quality,
+all-phase cap inventory, supplementary measurements and final audits remain required.
