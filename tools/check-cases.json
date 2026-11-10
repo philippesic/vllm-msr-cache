@@ -1,0 +1,715 @@
+[
+  {
+    "id": "format",
+    "component": "format",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "value=  1\n"
+    },
+    "diagnostic": "Would reformat"
+  },
+  {
+    "id": "F401",
+    "component": "lint",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "import os\n"
+    },
+    "diagnostic": "F401"
+  },
+  {
+    "id": "F821",
+    "component": "lint",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "print(undefined_name)\n"
+    },
+    "diagnostic": "F821"
+  },
+  {
+    "id": "I001",
+    "component": "lint",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "import sys\nimport os\nprint(sys.path, os.name)\n"
+    },
+    "diagnostic": "I001"
+  },
+  {
+    "id": "B006",
+    "component": "lint",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def f(x: list[int] = []) -> None:\n    pass\n"
+    },
+    "diagnostic": "B006"
+  },
+  {
+    "id": "UP006",
+    "component": "lint",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "from typing import List\nx: List[int] = []\n"
+    },
+    "diagnostic": "UP006"
+  },
+  {
+    "id": "types.return",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def f() -> int:\n    return \"bad\"\n"
+    },
+    "diagnostic": "[return-value]"
+  },
+  {
+    "id": "types.untyped-def",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def f():\n    return 1\n"
+    },
+    "diagnostic": "[no-untyped-def]"
+  },
+  {
+    "id": "types.incomplete-def",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def f(x: int):\n    return x\n"
+    },
+    "diagnostic": "[no-untyped-def]"
+  },
+  {
+    "id": "types.untyped-body",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def f():\n    x: int = \"bad\"\n"
+    },
+    "diagnostic": "[assignment]"
+  },
+  {
+    "id": "types.generics",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "values: dict = {}\n"
+    },
+    "diagnostic": "[type-arg]"
+  },
+  {
+    "id": "types.subclass-any",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "from typing import Any\nbase: Any\nclass Child(base):\n    pass\n"
+    },
+    "diagnostic": "[misc]"
+  },
+  {
+    "id": "types.untyped-call",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def untyped():\n    return 1\ndef typed() -> None:\n    untyped()\n"
+    },
+    "diagnostic": "[no-untyped-call]"
+  },
+  {
+    "id": "types.untyped-decorator",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def deco(f):\n    return f\n@deco\ndef f() -> int:\n    return 1\n"
+    },
+    "diagnostic": "Untyped decorator makes function"
+  },
+  {
+    "id": "types.redundant-cast",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "from typing import cast\nx = cast(int, 1)\n"
+    },
+    "diagnostic": "[redundant-cast]"
+  },
+  {
+    "id": "types.unused-ignore",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "x = 1  # type: ignore\n"
+    },
+    "diagnostic": "[unused-ignore]"
+  },
+  {
+    "id": "types.return-any",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "from typing import Any\ndef f(d: dict[str, Any]) -> int:\n    return d[\"x\"]\n"
+    },
+    "diagnostic": "[no-any-return]"
+  },
+  {
+    "id": "types.reexport",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "from helper import Path\np = Path(\".\")\n",
+      "helper.py": "from pathlib import Path\n"
+    },
+    "diagnostic": "[attr-defined]"
+  },
+  {
+    "id": "types.equality",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "def f(x: int, y: str) -> bool:\n    return x == y\n"
+    },
+    "diagnostic": "[comparison-overlap]"
+  },
+  {
+    "id": "types.bytes",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "x: bytes = bytearray()\n"
+    },
+    "diagnostic": "[assignment]"
+  },
+  {
+    "id": "types.extra-checks",
+    "component": "types",
+    "good": {
+      "probe.py": "value: int = 1\n"
+    },
+    "bad": {
+      "probe.py": "from typing import TypedDict\nclass A(TypedDict):\n    x: int\n    y: int\nclass B(TypedDict):\n    x: int\ndef f(a: A, b: B) -> None:\n    a.update(b)\n"
+    },
+    "diagnostic": "[typeddict-item]"
+  },
+  {
+    "id": "types.suppression",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "probe.py": "x = 1  # type: ignore\n"
+    },
+    "diagnostic": "types.suppression:"
+  },
+  {
+    "id": "types.config",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "pyproject.toml": "[build-system]\nrequires = [\"hatchling==1.27.0\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"vllm-cache-next\"\nversion = \"0.0.0\"\ndescription = \"Exact KV cache research; foundation only\"\nrequires-python = \"==3.12.3\"\ndependencies = []\n\n[dependency-groups]\ndev = [\n  \"ruff==0.14.4\",\n  \"mypy==1.18.2\",\n  \"import-linter==2.7\",\n  \"pytest==8.4.2\",\n]\n\n[tool.uv]\nrequired-version = \"==0.13.6\"\n\n[tool.hatch.build.targets.wheel]\npackages = [\"semantic_offload\"]\n\n[tool.ruff]\ntarget-version = \"py312\"\nline-length = 88\n\n[tool.ruff.lint]\nselect = [\"F401\", \"F821\", \"I001\", \"B006\", \"UP006\"]\n\n[tool.mypy]\npython_version = \"3.12\"\nstrict = true\nignore_missing_imports = true\nwarn_unused_configs = true\nshow_error_codes = true\nfiles = [\"semantic_offload\", \"benchmarks\", \"tools\", \"tests\"]\n\n[tool.pytest.ini_options]\naddopts = \"-ra --strict-config --strict-markers\"\ntestpaths = [\"tests\"]\n\n[tool.importlinter]\nroot_packages = [\"semantic_offload\", \"benchmarks\"]\ninclude_external_packages = true\n\n[[tool.importlinter.contracts]]\nname = \"Only vllm_adapter imports vllm\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"vllm\"]\nignore_imports = [\n  \"semantic_offload.vllm_adapter -> vllm\",\n  \"semantic_offload.vllm_adapter -> vllm.**\",\n  \"semantic_offload.vllm_adapter.** -> vllm\",\n  \"semantic_offload.vllm_adapter.** -> vllm.**\",\n]\nunmatched_ignore_imports_alerting = \"none\"\nallow_indirect_imports = true\n\n[[tool.importlinter.contracts]]\nname = \"Production never imports benchmarks\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"benchmarks\"]\n\n[[tool.importlinter.contracts]]\nname = \"Contracts never import the adapter\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload.contracts\"]\nforbidden_modules = [\"semantic_offload.vllm_adapter\"]\n\n[[tool.importlinter.contracts]]\nname = \"Production siblings are acyclic\"\ntype = \"acyclic_siblings\"\nancestors = [\"semantic_offload\"]\n"
+    },
+    "diagnostic": "types.config:"
+  },
+  {
+    "id": "types.unused-config",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "pyproject.toml": "[build-system]\nrequires = [\"hatchling==1.27.0\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"vllm-cache-next\"\nversion = \"0.0.0\"\ndescription = \"Exact KV cache research; foundation only\"\nrequires-python = \"==3.12.3\"\ndependencies = []\n\n[dependency-groups]\ndev = [\n  \"ruff==0.14.4\",\n  \"mypy==1.18.2\",\n  \"import-linter==2.7\",\n  \"pytest==8.4.2\",\n]\n\n[tool.uv]\nrequired-version = \"==0.13.6\"\n\n[tool.hatch.build.targets.wheel]\npackages = [\"semantic_offload\"]\n\n[tool.ruff]\ntarget-version = \"py312\"\nline-length = 88\n\n[tool.ruff.lint]\nselect = [\"F401\", \"F821\", \"I001\", \"B006\", \"UP006\"]\n\n[tool.mypy]\npython_version = \"3.12\"\nstrict = true\nwarn_unused_configs = true\nshow_error_codes = true\nfiles = [\"semantic_offload\", \"benchmarks\", \"tools\", \"tests\"]\n\n[tool.pytest.ini_options]\naddopts = \"-ra --strict-config --strict-markers\"\ntestpaths = [\"tests\"]\n\n[tool.importlinter]\nroot_packages = [\"semantic_offload\", \"benchmarks\"]\ninclude_external_packages = true\n\n[[tool.importlinter.contracts]]\nname = \"Only vllm_adapter imports vllm\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"vllm\"]\nignore_imports = [\n  \"semantic_offload.vllm_adapter -> vllm\",\n  \"semantic_offload.vllm_adapter -> vllm.**\",\n  \"semantic_offload.vllm_adapter.** -> vllm\",\n  \"semantic_offload.vllm_adapter.** -> vllm.**\",\n]\nunmatched_ignore_imports_alerting = \"none\"\nallow_indirect_imports = true\n\n[[tool.importlinter.contracts]]\nname = \"Production never imports benchmarks\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"benchmarks\"]\n\n[[tool.importlinter.contracts]]\nname = \"Contracts never import the adapter\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload.contracts\"]\nforbidden_modules = [\"semantic_offload.vllm_adapter\"]\n\n[[tool.importlinter.contracts]]\nname = \"Production siblings are acyclic\"\ntype = \"acyclic_siblings\"\nancestors = [\"semantic_offload\"]\n\n[[tool.mypy.overrides]]\nmodule = \"absent.*\"\nignore_errors = true\n"
+    },
+    "diagnostic": "types.config:"
+  },
+  {
+    "id": "imports.vllm",
+    "component": "imports",
+    "good": {
+      "semantic_offload/vllm_adapter/__init__.py": "import vllm\nimport semantic_offload.contracts\n"
+    },
+    "bad": {
+      "semantic_offload/contracts.py": "import vllm\n"
+    },
+    "diagnostic": "Only vllm_adapter imports vllm BROKEN"
+  },
+  {
+    "id": "imports.benchmarks-direct",
+    "component": "imports",
+    "good": {
+      "semantic_offload/vllm_adapter/__init__.py": "import vllm\nimport semantic_offload.contracts\n"
+    },
+    "bad": {
+      "semantic_offload/contracts.py": "import benchmarks\n"
+    },
+    "diagnostic": "Production never imports benchmarks BROKEN"
+  },
+  {
+    "id": "imports.benchmarks-indirect",
+    "component": "imports",
+    "good": {
+      "semantic_offload/vllm_adapter/__init__.py": "import vllm\nimport semantic_offload.contracts\n"
+    },
+    "bad": {
+      "semantic_offload/contracts.py": "import semantic_offload.bridge\n",
+      "semantic_offload/bridge.py": "import benchmarks\n"
+    },
+    "diagnostic": "Production never imports benchmarks BROKEN"
+  },
+  {
+    "id": "imports.adapter",
+    "component": "imports",
+    "good": {
+      "semantic_offload/vllm_adapter/__init__.py": "import vllm\nimport semantic_offload.contracts\n"
+    },
+    "bad": {
+      "semantic_offload/contracts.py": "import semantic_offload.vllm_adapter\n"
+    },
+    "diagnostic": "Contracts never import the adapter BROKEN"
+  },
+  {
+    "id": "imports.cycle",
+    "component": "imports",
+    "good": {
+      "semantic_offload/vllm_adapter/__init__.py": "import vllm\nimport semantic_offload.contracts\n"
+    },
+    "bad": {
+      "semantic_offload/contracts.py": "import semantic_offload.vllm_adapter\n",
+      "semantic_offload/vllm_adapter/__init__.py": "import semantic_offload.contracts\n"
+    },
+    "diagnostic": "Contracts never import the adapter BROKEN"
+  },
+  {
+    "id": "boundary.vllm",
+    "component": "boundaries",
+    "good": {},
+    "bad": {
+      "semantic_offload/other.py": "import vllm\n"
+    },
+    "diagnostic": "boundary.vllm:"
+  },
+  {
+    "id": "boundary.development",
+    "component": "boundaries",
+    "good": {},
+    "bad": {
+      "semantic_offload/other.py": "from tools import check\n"
+    },
+    "diagnostic": "boundary.development:"
+  },
+  {
+    "id": "boundary.dynamic",
+    "component": "boundaries",
+    "good": {},
+    "bad": {
+      "semantic_offload/other.py": "import importlib\nimportlib.import_module(\"vllm\")\n"
+    },
+    "diagnostic": "boundary.dynamic:"
+  },
+  {
+    "id": "boundary.dynamic-alias",
+    "component": "boundaries",
+    "good": {},
+    "bad": {
+      "semantic_offload/other.py": "from importlib import import_module as load\nload(\"vllm\")\n"
+    },
+    "diagnostic": "boundary.dynamic:"
+  },
+  {
+    "id": "boundary.pure",
+    "component": "boundaries",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "import torch\n"
+    },
+    "diagnostic": "boundary.pure:"
+  },
+  {
+    "id": "boundary.side-effect",
+    "component": "boundaries",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from pathlib import Path\nPath(\"should-not-be-written\").write_text(\"x\")\n"
+    },
+    "diagnostic": "boundary.side_effect:"
+  },
+  {
+    "id": "repo.agents",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "nested/AGENTS.md": "Duplicate\n"
+    },
+    "diagnostic": "repo.agents:"
+  },
+  {
+    "id": "repo.agents-missing",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "AGENTS.md": null
+    },
+    "diagnostic": "repo.agents:"
+  },
+  {
+    "id": "repo.claude",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "CLAUDE.md": "Duplicated instructions\n"
+    },
+    "diagnostic": "repo.claude:"
+  },
+  {
+    "id": "repo.budget-lines",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "AGENTS.md": "A\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\nA\n"
+    },
+    "diagnostic": "repo.budget:"
+  },
+  {
+    "id": "repo.budget-bytes",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "AGENTS.md": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n"
+    },
+    "diagnostic": "repo.budget:"
+  },
+  {
+    "id": "repo.output",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "output/copy.py": "\"\"\"Copied execution source.\"\"\"\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.raw",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "raw/sse.jsonl": "{}\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.vendor",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "vendor/runtime/a.py": "\"\"\"Copy.\"\"\"\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.plans",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "plans/next.md": "Plan\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.scratch",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "scratch/note.md": "Scratch\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.status",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "STATUS.md": "Diary\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.history",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "PROJECT_HISTORY.md": "Diary\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "repo.ignored-workflow",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      ".gitignore": "tools/hidden.py\n",
+      "tools/hidden.py": "\"\"\"Authored.\"\"\"\n"
+    },
+    "diagnostic": "repo.ignored_workflow:"
+  },
+  {
+    "id": "repo.gpu-lock-module",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "gpu_lock.py": "\"\"\"Forbidden module.\"\"\"\n"
+    },
+    "diagnostic": "repo.gpu_lock:"
+  },
+  {
+    "id": "repo.gpu-lock-import",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "probe.py": "from harness.gpu_lock import gpu_reserved\n"
+    },
+    "diagnostic": "repo.gpu_lock:"
+  },
+  {
+    "id": "repo.gpu-lock-env",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "probe.py": "import os\nx = os.environ.get(\"GPU_LOCK_FD\")\n"
+    },
+    "diagnostic": "repo.gpu_lock:"
+  },
+  {
+    "id": "repo.gpu-lock-protocol",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "probe.py": "def gpu_reserved() -> None:\n    pass\ngpu_reserved()\n"
+    },
+    "diagnostic": "repo.gpu_lock:"
+  },
+  {
+    "id": "repo.secret",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "README.md": "$FAKE_TOKEN\n"
+    },
+    "diagnostic": "repo.secret:"
+  },
+  {
+    "id": "repo.skills",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "skills/example/SKILL.md": "Instructions\n"
+    },
+    "diagnostic": "repo.skills:"
+  },
+  {
+    "id": "repo.size",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "huge.txt": "$OVERSIZE"
+    },
+    "diagnostic": "repo.size:"
+  },
+  {
+    "id": "repo.binary",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "blob.bin": "a\u0000b"
+    },
+    "diagnostic": "repo.binary:"
+  },
+  {
+    "id": "native.sm_75",
+    "component": "native",
+    "good": {},
+    "bad": {
+      "tools/native.json": "{\"schema\": 1, \"architectures\": [\"120\"], \"status\": \"awaiting owned native sources and qualified ABI-specific build recipes\", \"planned_commands\": [[\"clang-format\", \"--dry-run\", \"--Werror\", \"<owned C++/CUDA files>\"], [\"cmake-format\", \"--check\", \"<owned CMake files>\"], [\"cmake\", \"-S\", \"<source>\", \"-B\", \"<external clean build>\", \"-DCMAKE_CUDA_ARCHITECTURES=<75 or 120>\", \"-DCMAKE_COMPILE_WARNING_AS_ERROR=ON\", \"-DCMAKE_EXPORT_COMPILE_COMMANDS=ON\"], [\"cmake\", \"--build\", \"<external clean build>\"], [\"clang-tidy\", \"-p\", \"<external clean build>\", \"--warnings-as-errors=*\", \"<owned host translation unit>\"], [\"cuobjdump\", \"--list-elf\", \"<each relevant shared object>\"], [\"cuobjdump\", \"--dump-ptx\", \"<each relevant shared object>\"]]}"
+    },
+    "diagnostic": "native.sm_75:"
+  },
+  {
+    "id": "native.sm_120",
+    "component": "native",
+    "good": {},
+    "bad": {
+      "tools/native.json": "{\"schema\": 1, \"architectures\": [\"75\"], \"status\": \"awaiting owned native sources and qualified ABI-specific build recipes\", \"planned_commands\": [[\"clang-format\", \"--dry-run\", \"--Werror\", \"<owned C++/CUDA files>\"], [\"cmake-format\", \"--check\", \"<owned CMake files>\"], [\"cmake\", \"-S\", \"<source>\", \"-B\", \"<external clean build>\", \"-DCMAKE_CUDA_ARCHITECTURES=<75 or 120>\", \"-DCMAKE_COMPILE_WARNING_AS_ERROR=ON\", \"-DCMAKE_EXPORT_COMPILE_COMMANDS=ON\"], [\"cmake\", \"--build\", \"<external clean build>\"], [\"clang-tidy\", \"-p\", \"<external clean build>\", \"--warnings-as-errors=*\", \"<owned host translation unit>\"], [\"cuobjdump\", \"--list-elf\", \"<each relevant shared object>\"], [\"cuobjdump\", \"--dump-ptx\", \"<each relevant shared object>\"]]}"
+    },
+    "diagnostic": "native.sm_120:"
+  },
+  {
+    "id": "native.activation",
+    "component": "native",
+    "good": {},
+    "bad": {
+      "native/probe.cu": "__global__ void probe() {}\n"
+    },
+    "diagnostic": "native.unqualified:"
+  },
+  {
+    "id": "cpu.assertion",
+    "component": "cpu",
+    "good": {},
+    "bad": {
+      "test_probe.py": "def test_control() -> None:\n    assert 1 + 1 == 3\n"
+    },
+    "diagnostic": "AssertionError"
+  },
+  {
+    "id": "cpu.deleted",
+    "component": "cpu",
+    "good": {},
+    "bad": {
+      "test_probe.py": ""
+    },
+    "diagnostic": "cpu.collection:"
+  },
+  {
+    "id": "cpu.skip-marker",
+    "component": "cpu",
+    "good": {},
+    "bad": {
+      "test_probe.py": "import pytest\n@pytest.mark.skip(reason=\"not allowed\")\ndef test_control() -> None:\n    pass\n"
+    },
+    "diagnostic": "cpu.skipped:"
+  },
+  {
+    "id": "cpu.skip-runtime",
+    "component": "cpu",
+    "good": {},
+    "bad": {
+      "test_probe.py": "import pytest\ndef test_control() -> None:\n    pytest.skip(\"not allowed\")\n"
+    },
+    "diagnostic": "cpu.skipped:"
+  },
+  {
+    "id": "cpu.xfail",
+    "component": "cpu",
+    "good": {},
+    "bad": {
+      "test_probe.py": "import pytest\n@pytest.mark.xfail\ndef test_control() -> None:\n    assert False\n"
+    },
+    "diagnostic": "cpu.skipped:"
+  },
+  {
+    "id": "imports.sibling-cycle",
+    "component": "imports",
+    "good": {
+      "semantic_offload/a.py": "import semantic_offload.b\n",
+      "semantic_offload/b.py": ""
+    },
+    "bad": {
+      "semantic_offload/a.py": "import semantic_offload.b\n",
+      "semantic_offload/b.py": "import semantic_offload.a\n"
+    },
+    "diagnostic": "Production siblings are acyclic BROKEN"
+  },
+  {
+    "id": "repo.claude-nested",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "nested/CLAUDE.md": "@AGENTS.md\n"
+    },
+    "diagnostic": "repo.claude:"
+  },
+  {
+    "id": "repo.symlink",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "linked.py": "$SYMLINK:probe.py"
+    },
+    "diagnostic": "repo.symlink:"
+  },
+  {
+    "id": "repo.missing",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "missing.py": "$TRACKED_MISSING"
+    },
+    "diagnostic": "repo.missing:"
+  },
+  {
+    "id": "repo.tracked-output",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      ".gitignore": "/output/\n",
+      "output/copied.py": "$TRACKED:\"\"\"Copied execution tree.\"\"\"\n"
+    },
+    "diagnostic": "repo.artifacts:"
+  },
+  {
+    "id": "docs.link",
+    "component": "policy",
+    "good": {
+      "README.md": "[valid](AGENTS.md)\n"
+    },
+    "bad": {
+      "README.md": "[broken](docs/missing.md)\n"
+    },
+    "diagnostic": "docs.link:"
+  },
+  {
+    "id": "docs.immutable",
+    "component": "policy",
+    "good": {
+      "README.md": "[frozen](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/README.md)\n"
+    },
+    "bad": {
+      "README.md": "[mutable](https://github.com/philippesic/vllm-msr-cache/blob/main/README.md)\n"
+    },
+    "diagnostic": "docs.immutable:"
+  },
+  {
+    "id": "types.directive",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "probe.py": "# mypy: allow-untyped-defs\ndef f():\n    return 1\n"
+    },
+    "diagnostic": "types.suppression:"
+  }
+]

@@ -70,3 +70,8 @@ name = "Contracts never import the adapter"
 type = "forbidden"
 source_modules = ["semantic_offload.contracts"]
 forbidden_modules = ["semantic_offload.vllm_adapter"]
+
+[[tool.importlinter.contracts]]
+name = "Production siblings are acyclic"
+type = "acyclic_siblings"
+ancestors = ["semantic_offload"]

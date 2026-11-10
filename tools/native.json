@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "architectures": ["75", "120"],
+  "status": "awaiting owned native sources and qualified ABI-specific build recipes",
+  "planned_commands": [
+    ["clang-format", "--dry-run", "--Werror", "<owned C++/CUDA files>"],
+    ["cmake-format", "--check", "<owned CMake files>"],
+    ["cmake", "-S", "<source>", "-B", "<external clean build>", "-DCMAKE_CUDA_ARCHITECTURES=<75 or 120>", "-DCMAKE_COMPILE_WARNING_AS_ERROR=ON", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"],
+    ["cmake", "--build", "<external clean build>"],
+    ["clang-tidy", "-p", "<external clean build>", "--warnings-as-errors=*", "<owned host translation unit>"],
+    ["cuobjdump", "--list-elf", "<each relevant shared object>"],
+    ["cuobjdump", "--dump-ptx", "<each relevant shared object>"]
+  ]
+}
