@@ -1,0 +1,55 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-19/blind-packet.json",
+  "ratings": [
+    {
+      "index": 6,
+      "review_id": "14c13ace77158b3f7b1fde46",
+      "signature": "f1b5cd4d31594e7635096d3a11f3612f731d07bda228e234a5907bc17cd4ead7",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 42,
+      "notes": "Correct historical Superseded/Standards Track and Metadata-Version1.0/1.1 rule, actual metadata literal PASS. PEP314 specifies historical field semantics, not enforcement mechanisms for modern packaging tools; read this as a bounded specification/implementation-scope limitation, not the unsupported universal claim that current tools do not use/support its fields. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "0515f9274a22af264a1ac62b",
+      "signature": "2fdc092d4bed2e0abf3d172d05f557d1290c65b18a685c66263c49867d7f0d80",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The test merely checks completeness/locks and leaves concurrent consumption under heavy load untested."
+      ],
+      "whitespace_words": 64,
+      "notes": "Actual full test runs100 threads each reconstructing100000 items from a non-concurrent producer under one shared lock. Its evidence is actual concurrent consumption, not just sequential initial checks. Correct tee behavior and literal PASS remain useful. A single-copy-sharing API restriction exists but is not clearly stated here; it does not substantiate the categorical lack-of-load-testing limitation. Consistent with review18 novel4. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "1b98bbfa64132e8ca3b36b41",
+      "signature": "331e9e96fa09d9535c3b2271a1848c4a3c30f341040384c23b5b00116b690699",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Strings are invalid iterable inputs for adjacent."
+      ],
+      "whitespace_words": 62,
+      "notes": "Strings are iterable and work with appropriate predicates; no blanket string rejection exists. Correct distance-zero predicate pairing and actual ten-test literal PASS are useful. The separate non-iterable input boundary is genuine in iter/tee setup and untested in supplied class, satisfying the bounded limitation despite the extra string error. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

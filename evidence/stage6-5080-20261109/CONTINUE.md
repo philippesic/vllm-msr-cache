@@ -41,13 +41,32 @@ It writes only `$BASE/overhead-health-01/latest.private.json`. It checks executi
 not final measurement/control validity. When all38 overhead identities are terminal,
 verify seals/control requirements and launch the six operational configurations
 through the same existing launch helper under a fresh independent unit/log/owner.
-Use the frozen supplementary schedule exactly. Final terminal confirmation source
-review19 is prepared in isolated `$BASE/quality-confirm-checkpoint-19/`: 10,520
-objective finals, 5,983 automatic failures, 291 capped intermediates, 7,011 selected
-outputs /849 contexts;14 new investigation finals remain unread/unjudged. Its
-screen07/confirm01-through18/cap08 exact reuse; no new unread context may be rated
-automatically. All earlier completed review snapshots remain history. No final
-source finish/live-quality write or all-phase cap finish has occurred yet.
+Use the frozen supplementary schedule exactly. The **terminal confirmation source review19 is complete and published**:
+[index](confirm-review-index-19.json), [ratings](confirm-source-judgments-19.json),
+[components](confirm-review-components-19.json), [isolated frozen validator](confirm-quality-checkpoint-19.json),
+[independent validation](confirm-review-validation-19.json),
+[live publication/backup proof](confirm-quality-published-19.json).
+It covers **10,520 objective finals, 5,983 automatic failures, 291 capped
+intermediates and 7,011 selected outputs / 849 full contexts** across all 207 valid
+matched blocks. All 14 new investigation finals were explicitly read/judged in 5
+parts. All 12 supplied source contexts bind prior explicit readings; all 516
+archived instruction sources/SYSTEM verify. Current IDs/signatures, all manual
+indices, duplicates, exact prior reuse and dependency-only rating consistency pass.
+Frozen finish accepts all 7,011 ratings in isolation and again on the exact same
+packet/ratings materialized into live `OUT/analysis/quality`; all six live records
+match the isolated audit. The old unaudited live 635-item snapshot is preserved
+materialized at `$BASE/quality-before-terminal19-01/`. Confirmation ledger/source,
+objective/timing/validity and the three activity exclusions remain unchanged.
+
+Novel-context findings are 7 source failures, 3 instruction failures,0 not useful;
+selected duplicate-inclusive totals are 1,514/4,029/185, not population rates or
+quality equivalence. Do not rerun completed preparation, consolidation, validation,
+publication or source review19. Its source/context judgment union is now available
+for final all-attempt cap reuse. **The primary selected-block source audit is done.**
+Final ordinary all-attempt cap inventory/finish waits until overhead/operational
+are terminal and must include failed/unmatched arms. Remaining work is supplementary
+validity/integrity/campaign/recovery/portability, full 42 results/latencies/CIs,
+push and verified resource cleanup/notification; no final cap finish has occurred.
 
 Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
@@ -66,7 +85,7 @@ schedule actually assigns 60 Ministral and 100 Qwen3-4B configurations, totaling
 Ministral assertion stopped before writing evidence, was corrected against the
 unchanged protocol, and then passed. Acquisition never used that draft count.
 
-The latest source review is **18, complete for its static snapshot**:
+The earlier source review **18 is complete for its historical static snapshot**:
 [index](confirm-review-index-18.json), [ratings](confirm-source-judgments-18.json),
 [component bindings](confirm-review-components-18.json),
 [frozen validator](confirm-quality-checkpoint-18.json),

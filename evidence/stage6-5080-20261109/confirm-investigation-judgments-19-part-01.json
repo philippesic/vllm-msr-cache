@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-19/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "f16f022a228e4921b5450ea2",
+      "signature": "68a79193dc53770fd99e42720b6f39af5ab404ee0a5b97f8596dd4829792861d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The specification provides no filtering beyond severity thresholds."
+      ],
+      "whitespace_words": 74,
+      "notes": "Supplied logging control flow explicitly supports optional Filters on Logger and Handler with runtime configuration. Correct Final/Standards Track, severity ordering and actual literal PASS remain useful; the combined blanket filtering/performance-monitoring denial does not supply a concrete supported limitation. Same substantive boundary as review18 novel3; different new metadata/dependency context explicitly inspected. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "19b919fd04a696ca0bb7fb86",
+      "signature": "a4315a5f989d057f17235177919861f56cbdfc411b3930e9ef2a6eeadc38b879",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 60,
+      "notes": "Correct callback tuple iteration and actual test_basic attribution, confirmed again against the full supplied class; seven-test literal PASS. Supplied doc explicitly deprecates the class since11.0 with future major removal, a genuine lifecycle limitation. No new runtime compatibility test is claimed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "6d220aafac4af653457f1a55",
+      "signature": "4cd17c20121503a2ca11fdcafe2275605ae96326249825d72bc04c655facbb3b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 61,
+      "notes": "Correct countable consumption counter and actual empty/basic two-test literal PASS. Infinite inputs and concurrent access are absent from supplied fixtures; coverage gap is bounded, not asserted as an observed failure. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

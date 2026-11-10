@@ -544,3 +544,19 @@ requirements. Selected duplicate-inclusive counts are **1,411 source failures,
 3,911 instruction failures and 165 not useful**, not population rates or quality
 equivalence. This remains a partial snapshot. Fresh terminal confirmation quality,
 all-phase cap inventory, supplementary measurements and final audits remain required.
+
+The fresh [terminal confirmation source review19](confirm-review-index-19.json)
+is complete for all 207 valid blocks: **10,520 objective finals, 5,983 automatic
+failures, 291 capped intermediates and 7,011 selected outputs / 849 full contexts**.
+All 14 new investigation finals were explicitly read/judged; all12 supplied source
+contexts bind earlier readings and all 516 archived instruction sources/SYSTEM
+verify. [Independent checks](confirm-review-validation-19.json) cover all current
+IDs/signatures, duplicates, manual indices, exact reuse and dependency-only rating
+consistency. [Publication proof](confirm-quality-published-19.json) preserves the
+old unaudited live snapshot and verifies all six new live quality records exactly
+match the isolated audit. Frozen finish accepts all 7,011 ratings in both places.
+The three activity-invalid blocks retain their exclusions; no timing/objective or
+validity change. New-context findings are 7 source failures/3 instruction failures/
+zero not useful. Selected duplicate-inclusive totals are 1,514/4,029/185, not
+population rates or quality equivalence. The selected-block primary source audit
+is done; final ordinary all-attempt cap and campaign/portability audits remain.

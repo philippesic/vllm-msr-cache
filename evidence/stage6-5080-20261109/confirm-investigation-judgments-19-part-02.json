@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-19/blind-packet.json",
+  "ratings": [
+    {
+      "index": 3,
+      "review_id": "3451c174124655b09e26fcca",
+      "signature": "3e1003738a362e26bdcc6a91cd4ec32c95ff9688ee84ace26cec4e4cf59d697d",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 74,
+      "notes": "Correct dynamic read-only view and actual test_update pop behavior; five-test literal PASS. No item-assignment API, and large/concurrent modification cases are not in supplied tests; genuine read-only/coverage boundaries. No invented empty/slice-zero test denial. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "9954a8f8617dfbe0c4c1ca13",
+      "signature": "815a5935f63e451f33945043de4cce2452147a239abd269edf81630150b7d7da",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Emitted circular shifts are unique by value."
+      ],
+      "whitespace_words": 79,
+      "notes": "Actual algorithm counts GCD positional rotations and repeated-value input can produce repeated tuples. General shifts, actual six-test literal PASS and None/non-iterable TypeError boundary remain useful. The untested non-iterable boundary follows tuple(iterable), satisfying the separate limitation despite uniqueness error. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "07def027f6c5e5fe95dd5ac8",
+      "signature": "8c15c474f8b12f6e1c0970a5a29c6df25bc2bef9fb48d75aae828968e958a5e0",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 66,
+      "notes": "Correct items_seen increment and empty-input zero count, actual two-test literal PASS. No infinite-iterator or concurrent-access tests are present, an appropriate bounded coverage limitation rather than a claimed demonstrated bug. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

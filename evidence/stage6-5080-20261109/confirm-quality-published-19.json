@@ -1,0 +1,35 @@
+{
+  "schema": "stage6-5080-terminal-source-audit-publication-v1",
+  "recorded_unix": 1794303262.7951853,
+  "confirmation_execution_complete": true,
+  "throughput_acquisition_complete": false,
+  "live_quality_audited": true,
+  "phase": "confirm",
+  "objective_outputs": 10520,
+  "selected_outputs": 7011,
+  "distinct_full_contexts": 849,
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "ratings_digest": "3cd004282da736176a0da6a1b2c1800659ab8289cc8b526c96da2f6e40bb9f3f",
+  "canonical_index": "confirm-review-index-19.json",
+  "independent_validation": "confirm-review-validation-19.json",
+  "prior_live_summary_scope": {
+    "status": "pending_source_audit",
+    "phase": "confirm",
+    "objective_outputs": 856,
+    "blind_review_items": 635,
+    "packet_digest": "d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535"
+  },
+  "prior_live_materialized_backup": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-before-terminal19-01",
+  "prior_live_files_sha256": {
+    "rubric.json": "2ec0cb381b90e41e62a8f9ac05152ad1cf54c46c47de5bb7b10f2709d9e1ea20",
+    "private-labels.json": "faeb3f994b309d55558a01a15c0e5a3024b7f6ee3bd58f9657a2a98b39516b9b",
+    "summary.json": "75f4fd441a57ec5a56c70e343edf8d37ecbf96703d4f0ab77706f0f5513a2de7",
+    "blind-packet.json": "ddb5bc7baf10fc44c90beef4cb3ef6cd06180b5e4862f21b9505d52937d28d10",
+    "objective.json": "a7b5018e3a0168c4b4b708c9769aba6675064cd7259d99ce4e144a5634971861"
+  },
+  "all_six_live_quality_records_equal_isolated_audit": true,
+  "confirmation_ledger_unchanged": true,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "helper_sha256": "27c221d10443ad26cb2c4f3f56a5b7414bf4bdb9108346956470f808cfadb03b",
+  "scope": "Exact independently validated terminal selected-block packet/ratings published with frozen finish. Three original activity-invalid blocks stay excluded; all ordinary caps, including failed/unmatched arms and supplementary phases, require the separate final all-attempt audit. No acquisition, source, estimator, objective, validity or repetition change. Source review is not quality equivalence or a population accuracy estimate."
+}

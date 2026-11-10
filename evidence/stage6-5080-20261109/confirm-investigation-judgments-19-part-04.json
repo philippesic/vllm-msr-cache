@@ -1,0 +1,56 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-19/blind-packet.json",
+  "ratings": [
+    {
+      "index": 9,
+      "review_id": "e9ad1edb00755032acfac763",
+      "signature": "6608d2419c3da11c7efb142be5c8a93d4adce82c5d00bc7cbb1518e093f10919",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_negative expects ValueError and fails against the empty-result implementation."
+      ],
+      "whitespace_words": 79,
+      "notes": "Actual three tests pass and negative-n test explicitly expects empty output. Correct cycle-index/item behavior is useful; literal FAIL and alleged documented exception/validation defect contradict actual supplied tests and tool results. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "c4f0efd04a561b50c87d040d",
+      "signature": "59c7afdf4d1ceb8f9b6be5443ba13d18af8a49981bae61cb1cb1dbb04aa5098c",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Generator expressions allow only one for clause.",
+        "Metadata validation checks the Python version."
+      ],
+      "whitespace_words": 93,
+      "notes": "Full PEP supports nested for clauses; actual validator checks five header fields without Python-Version, which is only reported by summarize. Correct Final/Standards Track, generator-expression parentheses/lazy evaluation and genuine non-leakage scope boundary remain useful. Literal PASS, at least one supported rule/fact and that genuine restriction satisfy instruction despite additional false claims; no runtime integration test credit. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "f49967a13b5cd172ae3b9239",
+      "signature": "6610fd5cdc94a39c16957fba53c35f2523594d37d1c1d770ca2ba1daaf818316",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 81,
+      "notes": "Correct leading-dot relative imports, Final/Standards Track and actual literal metadata PASS. Full supplied Guido decision explicitly lists from ...sys import path as legal but discouraged, called insane. The answer describes discouragement, not a prohibition; reaching beyond the package is read as its documented traversal context, not a claim that legal syntax fails. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

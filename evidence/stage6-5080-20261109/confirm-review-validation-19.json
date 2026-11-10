@@ -1,0 +1,56 @@
+{
+  "schema": "stage6-5080-completed-static-source-review-validation-v1",
+  "phase": "confirm",
+  "acquisition_complete": false,
+  "source_review_complete_for_snapshot": true,
+  "confirmation_execution_complete": true,
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "packet_file_sha256": "4b7c269c5bc4479a3323258097b1e301df9d8e07d3aaaf743319e86313e72921",
+  "canonical_index": "confirm-review-index-19.json",
+  "ratings": "confirm-source-judgments-19.json",
+  "validator": "confirm-quality-checkpoint-19.json",
+  "reviewed_outputs": 7011,
+  "distinct_full_contexts": 849,
+  "explicitly_read_novel_contexts": 14,
+  "manual_parts": 5,
+  "novel_roles": {
+    "final": 14
+  },
+  "novel_kinds": {
+    "investigation": 14
+  },
+  "novel_findings": {
+    "source_unsupported": 7,
+    "instruction_failures": 3,
+    "not_useful": 0
+  },
+  "aggregate_findings": {
+    "source_unsupported": 1514,
+    "instruction_failures": 4029,
+    "not_useful": 185
+  },
+  "archived_instruction_sources_verified": 516,
+  "distinct_supplied_sources_exactly_bound_to_prior_explicit_readings": 12,
+  "new_unmatched_source_components": 0,
+  "cap08_only_prior_quality_reuse": {
+    "distinct_contexts": 0,
+    "selected_occurrences": 0
+  },
+  "canonical_index_cap_match_field_scope": "Counts overlap of manually novel contexts with prior cap08, intentionally zero; actual prior cap-only reuse is reported separately.",
+  "checks": {
+    "all_current_review_ids_and_exact_context_signatures_match": true,
+    "all_duplicate_context_ratings_consistent": true,
+    "all14_manual_indices_and_signatures_present_once": true,
+    "all_prior_complete_context_reuse_matches": true,
+    "no_dependency_only_rating_drift": true,
+    "frozen_finish_audited_all7011": true,
+    "isolated_materialized_audit_matches_retained_packet_and_ratings": true,
+    "executed_functions_resolve_to_frozen_source": true,
+    "live_quality_directory_unchanged": true,
+    "no_unread_novel_ratings": true
+  },
+  "helper": "benchmarks/research_checks/stage6_5080_review19_consolidate.py",
+  "helper_sha256": "0df074597535937e2782f4001461d041c337fe45e462344be2e8243efa8c9ed1",
+  "quality_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+  "scope": "Completed explicit source review of fresh isolated terminal207-block snapshot after all524 confirmation identities became terminal. All14 new investigation finals read in5 parts; full fields/dependencies bound by consolidation and all516 archived source/SYSTEM records checked. No timing/objective/exclusion/live-quality change. Publishing this exact reviewed packet/ratings to live quality and final all-attempt cap/campaign/portability audits remain separate. Duplicate-inclusive selected findings are not population rates or quality equivalence."
+}

@@ -32,9 +32,11 @@ controls under a fresh verified independent service with the frozen source and
 literal serving interpreter. Its owner holds the common GPU reservation; the
 service tool environment was checked before launch. Six operational configurations,
 final source/cap, integrity/campaign/recovery/portability audits and full results
-remain. Source review 18 is complete for 6,667 outputs / 834 contexts; terminal
-review 19 is prepared for 7,011 outputs / 849 contexts with 14 new contexts requiring
-explicit review. All earlier reviews and the November8 failure remain preserved.
+remain. Terminal source review19 is complete for 7,011 outputs / 849 contexts
+across all 207 valid blocks. All 14 new contexts were explicitly read; all 516 archived
+instructions verify. Independent checks and both isolated/live frozen finish pass;
+all six published live quality records match the isolated audit, with the old live
+snapshot backed up. Final all-attempt cap audit waits for supplementary completion. All earlier reviews and the November8 failure remain preserved.
 The 32 anchor conditional comparisons retain actual latency and missing identities;
 B09 candidate/ARC is 0.9733 [0.9617,0.9850], candidate/Continuum 0.6826
 [0.6558,0.7106]. The full 42 final presentation remains pending; no quality-equivalence

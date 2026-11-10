@@ -1,0 +1,19 @@
+{
+  "schema": "stage6-5080-terminal-quality-validator-v1",
+  "phase": "confirm",
+  "confirmation_execution_complete": true,
+  "acquisition_complete": false,
+  "status": "audited",
+  "reviewed": 7011,
+  "packet_digest": "8e0d8e4a7ea7a1e32809971e100eb7751412916c96901b4a7fe130494314e0c9",
+  "ratings_digest": "3cd004282da736176a0da6a1b2c1800659ab8289cc8b526c96da2f6e40bb9f3f",
+  "isolated_workspace": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-audit-checkpoint-19",
+  "quality_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+  "archived_instruction_sources_verified": 516,
+  "scope": "Frozen finish validator on isolated materialized terminal confirmation snapshot; original acquisition/live analysis-quality unchanged. Fresh selected-block source audit is complete; publishing this exact packet/ratings to live quality and all-phase cap/campaign/portability audits remain separate.",
+  "review_findings": {
+    "source_unsupported": 1514,
+    "instruction_failures": 4029,
+    "not_useful": 185
+  }
+}
