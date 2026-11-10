@@ -120,16 +120,18 @@
   "contracts.exact-tokens",
   "contracts.exact-model",
   "contracts.exact-adapter",
-  "contracts.exact-positions",
+  "contracts.exact-tokenizer",
   "contracts.exact-layout",
-  "contracts.score-substitution",
+  "contracts.schema",
   "contracts.immutable",
-  "contracts.score-type",
+  "contracts.token-type",
   "comments.bootstrap",
   "comments.license-header",
   "exceptions.type-directive",
   "exceptions.scope",
   "exceptions.unknown-rule",
   "exceptions.wildcard-path",
-  "exceptions.missing-target"
+  "exceptions.missing-target",
+  "boundary.runtime-library",
+  "types.broad-exclude"
 ]

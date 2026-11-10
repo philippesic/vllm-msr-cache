@@ -1,5 +1,9 @@
 # 005: Agent guardrails
 
+Active amendment, 10 November 2026: Review covers weakening guarantees and substantive exceptions; routine strengthening and explicit test inventory maintenance are autonomous. GPU matching must permit native block identifiers. Extension registration rules do not ban ordinary session stores. Historical illustrative scoring contracts will be replaced during source extraction.
+
+The earlier clauses below are historical where superseded by this amendment.
+
 Accepted for the non-source stage. Based on the garden audit summarized in the
 approved task: contradictory status writers, ad-hoc launchers, silent fallbacks,
 unused generated programs, interpreter drift and unreasoned suppressions.

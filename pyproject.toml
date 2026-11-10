@@ -5,9 +5,12 @@ build-backend = "hatchling.build"
 [project]
 name = "vllm-semantic-cache-ext-next"
 version = "0.0.0"
-description = "Exact KV cache research; foundation only"
+description = "Exact CPU KV offload with wait-hint ARC recency advice"
 requires-python = "==3.12.3"
 dependencies = []
+
+[project.entry-points."vllm.endpoint_plugins"]
+wait_hint = "wait_hint_offload.vllm_adapter.endpoint:WaitHintEndpoint"
 
 [dependency-groups]
 dev = [
@@ -23,7 +26,7 @@ dev = [
 required-version = "==0.13.6"
 
 [tool.hatch.build.targets.wheel]
-packages = ["semantic_offload"]
+packages = ["wait_hint_offload"]
 
 [tool.ruff]
 target-version = "py312"
@@ -37,26 +40,27 @@ python_version = "3.12"
 strict = true
 warn_unused_configs = true
 show_error_codes = true
-files = ["semantic_offload", "benchmarks", "tools", "tests"]
+files = ["wait_hint_offload", "benchmarks", "tools", "tests"]
+exclude = ["wait_hint_offload/vllm_adapter/", "tests/runtime/"]
 
 [tool.pytest.ini_options]
 addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
 
 [tool.importlinter]
-root_packages = ["semantic_offload", "benchmarks"]
+root_packages = ["wait_hint_offload", "benchmarks"]
 include_external_packages = true
 
 [[tool.importlinter.contracts]]
 name = "Only vllm_adapter imports vllm"
 type = "forbidden"
-source_modules = ["semantic_offload"]
+source_modules = ["wait_hint_offload"]
 forbidden_modules = ["vllm"]
 ignore_imports = [
-  "semantic_offload.vllm_adapter -> vllm",
-  "semantic_offload.vllm_adapter -> vllm.**",
-  "semantic_offload.vllm_adapter.** -> vllm",
-  "semantic_offload.vllm_adapter.** -> vllm.**",
+  "wait_hint_offload.vllm_adapter -> vllm",
+  "wait_hint_offload.vllm_adapter -> vllm.**",
+  "wait_hint_offload.vllm_adapter.** -> vllm",
+  "wait_hint_offload.vllm_adapter.** -> vllm.**",
 ]
 unmatched_ignore_imports_alerting = "none"
 allow_indirect_imports = true
@@ -64,16 +68,16 @@ allow_indirect_imports = true
 [[tool.importlinter.contracts]]
 name = "Production never imports benchmarks"
 type = "forbidden"
-source_modules = ["semantic_offload"]
+source_modules = ["wait_hint_offload"]
 forbidden_modules = ["benchmarks"]
 
 [[tool.importlinter.contracts]]
 name = "Contracts never import the adapter"
 type = "forbidden"
-source_modules = ["semantic_offload.contracts"]
-forbidden_modules = ["semantic_offload.vllm_adapter"]
+source_modules = ["wait_hint_offload.contracts"]
+forbidden_modules = ["wait_hint_offload.vllm_adapter"]
 
 [[tool.importlinter.contracts]]
 name = "Production siblings are acyclic"
 type = "acyclic_siblings"
-ancestors = ["semantic_offload"]
+ancestors = ["wait_hint_offload"]

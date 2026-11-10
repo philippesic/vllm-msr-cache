@@ -1,0 +1,14 @@
+[
+  "tests/runtime/test_arc.py::test_actual_arc_prefix_order_references_and_pending_boundary",
+  "tests/runtime/test_arc.py::test_pinned_arc_fallback_limitation_is_characterized",
+  "tests/runtime/test_endpoint.py::test_authenticated_endpoint_and_actual_rpc_method_chain",
+  "tests/runtime/test_scheduler.py::test_connector_construction_uses_one_native_cpu_arc_spec",
+  "tests/runtime/test_scheduler.py::test_direct_construction_refuses_optimized_execution",
+  "tests/runtime/test_scheduler.py::test_failed_native_load_invalidates_destinations_and_releases_refs",
+  "tests/runtime/test_scheduler.py::test_failed_native_store_releases_slot_without_readiness",
+  "tests/runtime/test_scheduler.py::test_finished_sample_guard_registration_and_actual_store_lifecycle",
+  "tests/runtime/test_scheduler.py::test_pinned_scheduler_truncates_failed_async_load_for_recomputation",
+  "tests/runtime/test_scheduler.py::test_unpatched_wheel_cannot_construct_connector",
+  "tests/runtime/test_transfers.py::test_failure_metadata_aggregation_rejects_destination_disagreement",
+  "tests/runtime/test_transfers.py::test_submission_and_completion_failure_never_publish_success"
+]

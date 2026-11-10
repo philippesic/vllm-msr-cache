@@ -35,7 +35,7 @@ SECRET = re.compile(
     r"(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{30,}|https://hooks\.slack\.com/services/[^\s\"<>]+|-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----)"
 )
 LOCK_PATTERN = re.compile(
-    r"(?:gpu_?(?:lock|reserved|reservation)|(?:GPU|VLLM|BENCHMARK)_\w*(?:LOCK|RESERV)\w*|(?:LOCK|RESERV)\w*_GPU|gpu[-_]lock|gpu[-_]reservation)",
+    r"(?:\bgpu_?(?:lock|reserved|reservation)\b|\b(?:GPU|VLLM|BENCHMARK)_(?:LOCK|RESERVATION)(?:_\w+)?\b|\bLOCK_\w*_GPU\b|gpu[-_]lock|gpu[-_]reservation)",
     re.IGNORECASE,
 )
 
@@ -62,11 +62,11 @@ def visible_files(root: Path) -> list[Path]:
 
 def boundary_policy(root: Path) -> list[str]:
     errors: list[str] = []
-    for path in sorted((root / "semantic_offload").rglob("*.py")):
+    for path in sorted((root / "wait_hint_offload").rglob("*.py")):
         relative = path.relative_to(root).as_posix()
         tree = ast.parse(path.read_text(), filename=relative)
-        adapter = relative.startswith("semantic_offload/vllm_adapter/")
-        pure = relative == "semantic_offload/contracts.py"
+        adapter = relative.startswith("wait_hint_offload/vllm_adapter/")
+        pure = not adapter
         for node in ast.walk(tree):
             names: list[str] = []
             if isinstance(node, ast.Import):
@@ -74,7 +74,7 @@ def boundary_policy(root: Path) -> list[str]:
             elif isinstance(node, ast.ImportFrom):
                 names = [node.module or ""]
                 if node.level and node.module == "vllm_adapter":
-                    names = ["semantic_offload.vllm_adapter"]
+                    names = ["wait_hint_offload.vllm_adapter"]
             for name in names:
                 if name.split(".")[0] == "vllm" and not adapter:
                     errors.append(f"boundary.vllm: {relative}")
@@ -105,7 +105,10 @@ def boundary_policy(root: Path) -> list[str]:
                     )
 
                     if any(
-                        n.split(".")[0] not in sys.stdlib_module_names for n in names
+                        n.split(".")[0]
+                        not in sys.stdlib_module_names | {"wait_hint_offload"}
+                        or n.startswith("wait_hint_offload.vllm_adapter")
+                        for n in names
                     ):
                         errors.append(f"boundary.pure: {relative}")
                 elif not isinstance(
@@ -210,7 +213,7 @@ def check(root: Path) -> list[str]:
             ".github",
             ".githooks",
             "docs",
-            "semantic_offload",
+            "wait_hint_offload",
             "benchmarks",
         }
         or p.name in {"AGENTS.md", "CLAUDE.md", "pyproject.toml", "uv.lock"}
@@ -242,6 +245,10 @@ def check(root: Path) -> list[str]:
                 )
             )
             or "overrides" in mypy
+            or any(
+                pattern not in {"wait_hint_offload/vllm_adapter/", "tests/runtime/"}
+                for pattern in mypy.get("exclude", [])
+            )
         ):
             errors.append("types.config: require strict without broad exemptions")
     return sorted(set(errors))

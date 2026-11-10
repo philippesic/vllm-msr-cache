@@ -1,5 +1,9 @@
 # 003: Separate runtime provenance
 
+Active amendment, 10 November 2026: One locked native runtime is active for this port. Continuum and the distinct historical development/Stage 6 closures remain provenance, not install requirements.
+
+The earlier clauses below are historical where superseded by this amendment.
+
 Accepted for later runtime work. Replace the source/wheel overlay with an
 attested installed patched runtime, or explicitly attest a temporary parity
 overlay. Imports against an arbitrary wheel do not qualify it. Keep separate

@@ -9,6 +9,24 @@ inventory. Implementation requires a subsequent task authorization. Approval of
 a task authorizes its internal steps through its stated stopping conditions;
 it does not require another permission request at every milestone.
 
+
+## Execution scope, 10 November 2026
+
+Philip authorized the minimal source port, end-to-end functional qualification and
+a lightweight fresh-agent exercise. Benchmark redesign and high-level agent
+operations remain excluded. M0–M5 are the active implementation scope on the
+available authorized host; another GPU is a distinct future gate. The functional
+verifier is bounded, records zero automatic retries and needs no notification to
+stop. Persistent research scheduling, cross-task retry policy, notifications and
+skills belong to the deferred operations work, not an implicit new framework.
+
+The active architecture/protocol is [source-port.md](source-port.md), installation
+and operational commands are [runtime.md](runtime.md), and scoped outcomes are in
+[FINDINGS](../FINDINGS.md). Earlier audit descriptions below describe the inspected
+foundation; the completion record distinguishes implemented, exercised and deferred
+capabilities. Historical evidence and adverse attempts remain preserved.
+
+
 ## Conclusion and boundaries
 
 Keep the foundation's reproducible tooling, import boundaries, strict types,
@@ -66,7 +84,7 @@ verified as an original source.
 | Proof execution dominates the recorded check time | [Prior validation](guardrail-validation.md) records 44.66 seconds full and 43.71 seconds proof-only; this audit's full check was 43.13 seconds | Add an honest targeted loop. Preserve full acceptance; do not infer a speed gain from these unrelated invocations. |
 | No automatic acceptance is established | Optional hook; no remote; hosted CI unverified | A passing local command is not enforced branch protection. Establish local acceptance; hosted CI and PRs are not prerequisites while local-only. |
 | Fixed collection catches deletion and skipping | [Pytest gate](../tools/pytest_gate.py) and manifests | Keep this guarantee; add explicit manifest-update and targeted-test workflows without silently rebaselining acceptance. |
-| Identity examples are not the runtime identity | [Contracts](../semantic_offload/contracts.py) | Replace illustrative token/string equality and retention scores with actual namespace, observed-prefix, generation and native block-key contracts. |
+| Identity examples are not the runtime identity | [Contracts](../wait_hint_offload/contracts.py) | Replace illustrative token/string equality and retention scores with actual namespace, observed-prefix, generation and native block-key contracts. |
 | Planning prose already disagrees with code | `remaining-stages.md` advertises absent `./check` | Link commands to the checked system map and keep one active plan, not duplicated command inventories. |
 | Ownership and secrets have narrow tripwires | Result filename checks; selected token/webhook patterns in repo policy | Treat these as partial detection, not proof of writer ownership or absence of credentials. |
 

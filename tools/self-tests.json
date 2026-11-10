@@ -120,11 +120,11 @@
   "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.exact-tokens]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.exact-model]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.exact-adapter]",
-  "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.exact-positions]",
+  "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.exact-tokenizer]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.exact-layout]",
-  "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.score-substitution]",
+  "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.schema]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.immutable]",
-  "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.score-type]",
+  "tests/test_check_cases.py::test_rule_rejects_specimen[contracts.token-type]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[comments.bootstrap]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[comments.license-header]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[exceptions.type-directive]",
@@ -138,5 +138,7 @@
   "tests/test_check_cases.py::test_manifest_rejects_missing_duplicate_extra[actual2]",
   "tests/test_check_cases.py::test_rejection_proof_cannot_be_faked[0-expected]",
   "tests/test_check_cases.py::test_rejection_proof_cannot_be_faked[1-unrelated failure]",
-  "tests/test_check_cases.py::test_rejection_proof_cannot_be_faked[1-tool.missing: expected]"
+  "tests/test_check_cases.py::test_rejection_proof_cannot_be_faked[1-tool.missing: expected]",
+  "tests/test_check_cases.py::test_rule_rejects_specimen[boundary.runtime-library]",
+  "tests/test_check_cases.py::test_rule_rejects_specimen[types.broad-exclude]"
 ]
