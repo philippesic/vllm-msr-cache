@@ -1317,6 +1317,24 @@ closed November 8 campaign). Expanded cap signatures additionally bind executed
 system instructions and prompt context. All timings/objective results are
 unchanged. Preserve every earlier review snapshot as history.
 
+## Completion notification requested by Philip
+
+Only after the **entire** authorized campaign is closed (all remaining phases,
+final audits and results complete and pushed), owned GPU servers/processes are
+stopped, and the RTX5080 release/locks are explicitly verified, use
+`t3_thread_send` to notify thread `6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6`.
+The recipient was read and verified on November10; its separately authorized work
+is waiting for this campaign's full release. A completed chat turn is not release.
+Include final outcome, evidence paths, pushed branch/checkpoint and explicit GPU
+release confirmation with the linked cleanup proof. Use a stable clientRequestId
+such as `stage6-5080-20261109-final-gpu-release` and retain delivery confirmation;
+if interrupted, verify delivery before sending a duplicate. Do not send a release
+notice early, shorten this campaign, start training or touch Binary Eagle checkout.
+No old webhook is authorized. Finish/push closeout and delivery evidence, disable
+this job's hourly schedule, and only then complete the active goal. The recipient
+also checks hourly as fallback. This instruction adds notification only; every
+existing campaign requirement and historical exclusion is retained.
+
 ## Supervision
 
 Health schedule: `scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae`, every
@@ -1326,7 +1344,7 @@ Keep routine healthy monitoring silent; Philip requests a user-facing return onl
 after the full run and final audits/results/repairs are handled and pushed.
 Never fill missing measurements or force readiness flags: genuine activity-invalid
 results retain their documented exclusion; repair setup/harness/storage defects.
- Reverify ownership, mount, disk, GPU and request/stream/
+Reverify ownership, mount, disk, GPU and request/stream/
 ledger progress. Run `benchmarks.research_checks.stage6_healthcheck` from mutable
 REPO with canonical OUT and `--state-dir "$BASE/confirm-health-01"`; the first
 post-activation check passed. Its source uses the now-present protocol lock and
