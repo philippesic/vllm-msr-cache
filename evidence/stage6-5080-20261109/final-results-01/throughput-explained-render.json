@@ -1,0 +1,63 @@
+{
+  "schema": "stage6-5080-plain-english-throughput-chart-v1",
+  "source": "comparisons.json",
+  "html": "throughput-explained.html",
+  "displayed_comparison_rows": 32,
+  "full_campaign_comparisons": 42,
+  "relative_throughput_method": "Existing paired geometric ratio and95%CI converted to percent difference; no estimates recomputed.",
+  "absolute_rate_method": "Total completed requests divided by sum of measured serving durations, excluding startup.",
+  "batch_time_method": "Existing arithmetic mean serving duration; same offered request count within each displayed comparison.",
+  "missing_blocks_unchanged": true,
+  "new_gpu_measurements": false,
+  "preview": {
+    "width": 728,
+    "contentHeight": 1408,
+    "consoleMessages": []
+  },
+  "render": {
+    "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-62caa1bf-4f69-496c-bf55-8cf70cd39493-html",
+    "title": "RTX 5080: throughput in plain English",
+    "height": 1408,
+    "heights": [
+      [
+        320,
+        2022
+      ],
+      [
+        375,
+        1903
+      ],
+      [
+        430,
+        1750
+      ],
+      [
+        520,
+        1523
+      ],
+      [
+        640,
+        1448
+      ],
+      [
+        728,
+        1408
+      ],
+      [
+        860,
+        1366
+      ],
+      [
+        1000,
+        1324
+      ],
+      [
+        1144,
+        1324
+      ]
+    ]
+  },
+  "source_json_sha256": "086ec9eeef6a8bebc8486b955cbf8bab8320df72162706d244436f6e50c518f8",
+  "html_sha256": "79d5a5195108481dd919465b92e5d3aa59153268e58bab34f7728ed2dc5af3a0",
+  "all_displayed_estimates_and_absolute_rate_inputs_match_source": true
+}
