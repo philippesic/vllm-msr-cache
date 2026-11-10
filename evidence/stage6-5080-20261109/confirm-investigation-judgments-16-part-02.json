@@ -1,0 +1,106 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "542ecfc400608c1640847e0a",
+      "signature": "af985217678426e76610af589b161be0a50572f68016261cc1c5b5dd4f8d3caa",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "October1845 is the explicit ruling date. Content correct; surrounding Markdown fence violates bare one-field JSON format. Original mechanical failure unchanged. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "39a44f0595ea16ccd9e36574",
+      "signature": "5213dab790ced0c5fe72bc7af1026ed25e14af2a2e934fcaddafd6a8ddc48be0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 25,
+      "notes": "The source names Chu/Jin kingdoms and Spring and Autumn period. Supported full-sentence answer; code fence violates JSON-only response format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "5e333b24c719db7f4d9579e0",
+      "signature": "1ba239b8021c255e0c64ad0d44cfa9c9b5e0dc48175dcae792821ec07831cef0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "Nontheistic religion, awakening, dependent origination and Four Noble Truths are supplied. Creator-deity contrast is a reasonable paraphrase of nontheistic, not a new claim about every tradition. Format fails due to Markdown fence. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "59f2b2f5e2e70aebce353a93",
+      "signature": "9b65d6d3db1c664ce84520660a15b8b01eb3052fe4babddfb092e2a836479bc0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 21,
+      "notes": "Elite classes explicitly held the public priesthoods. Grammatical phrasing is awkward but the answer is unambiguous and useful. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 12,
+      "review_id": "ae86cf919cd31a07f4fcfbf7",
+      "signature": "9d8e4b9111849ee6a4def425034401f38d29ffcdce437dc5a5e91b6b6867581c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "Energy, transfer/conversion and the listed forms/common work description are supported. Does not assert this is the sole comprehensive definition. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "9f5d8362a8c8fe83c975750b",
+      "signature": "6de603d0989e5ed380bedd2308df6324420cca287407c2ebbd503108e7dce61e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "The paragraph explicitly states the Emperor of India title was abandoned while George remained king. India is correct; code fence fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "646f3be4e01330120fdfb751",
+      "signature": "e90b12c3c2b277f620d3946025308922921ce01720b82741ec8ce0d89db3f15d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 10,
+      "notes": "Birds/Aves are expressly equivalent in the supplied opening sentence. Correct content, but fenced JSON is not the requested JSON object alone. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 15,
+      "review_id": "298dc86fa70f2c46b745a78f",
+      "signature": "e1aeb974a1275a58c64e517c5168e1f13e9da3e34b3407fd61055bb12883753a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 19,
+      "notes": "Bantu-speaking tribes and the pre-colonial regional setting are supported by the paragraph. Correct useful core answer; Markdown fence fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

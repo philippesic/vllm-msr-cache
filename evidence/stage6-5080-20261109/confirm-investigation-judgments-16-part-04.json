@@ -1,0 +1,112 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 24,
+      "review_id": "ba13d3371468f85e276c4be0",
+      "signature": "6b1c2c8b913fdb0fef2f44c5f66be1b260de0d0778dcc1d6ffd30dd3cefc12bd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The passage supplies fuel and construction use, but not the asserted tools/weapons/writing-tablet/scroll/ship/furniture history."
+      ],
+      "whitespace_words": 39,
+      "notes": "Fuel is the correct useful answer. Elaborated historical examples go beyond supplied evidence. Fenced JSON fails requested format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 25,
+      "review_id": "3fac9b6c6325b9a1bc13b418",
+      "signature": "65463776f705ca7263135958c7d190ca51009c9c086402bdf5f3643838e132d1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 10,
+      "notes": "Digital Monsters and Japanese characters match the supplied expansion. Romanization has a minor transcription/spelling issue but does not change the material English answer. JSON is malformed around the closing parenthesis/string and is fenced, so format fails. Correct expansion remains useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "4c1192e6ef11f598ac0dedbe",
+      "signature": "4e2e37ac77276d5f4b11bcb6849b7a2014bed861585ac3e20c9bd351fac9d7a4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The United Kingdom is listed in the source as a sovereign state, not one of the two named islands; those islands are Great Britain and Ireland."
+      ],
+      "whitespace_words": 16,
+      "notes": "Correct Ireland fragment retained as partially useful; the second answer substitutes a state for the requested island. Fenced JSON also fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "3fe158bc18d17e8ee0a7125e",
+      "signature": "80b281f000e113d3123a7ff4a9fd2d5a8fbcb2cd2688822cdd64f6bd51fd3d7f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The implementation does not hash the key function itself; its hashability is not an input requirement. Unhashable comparison results are intentionally handled by the list fallback, not an established unexpected-error failure."
+      ],
+      "whitespace_words": 144,
+      "notes": "Core uniqueness/key examples and slower unhashable fallback are supported by provided code/doctests, without an executed test claim. At144 words it exceeds under70 and ends in a truncated wrong-fence test command. Useful examples remain. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "3bb17c0a9763eb1592c07586",
+      "signature": "1855c0ef47e2eb16ff71cf4997c1a7404b9b0502d7caf07f5ea3467c0c4db161",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "The supplied GE paragraph/ref identifies1950s. Correct content with Markdown fence, so requested JSON-only format fails. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "45ed62ea67a6e776a3004e1c",
+      "signature": "0ce1ffb0e96d94f470aa1639502cfd0cc8f44b94f6720e67f1908d9a491db1cc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 31,
+      "notes": "Design/technology and vocational/practical learning versus grammar-school curricula are explicit in source; less academic-focused is a reasonable characterization of those practical additions. Missing closing quote and code fence make the response invalid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 30,
+      "review_id": "7e64c51615d8aa170bd113a0",
+      "signature": "c3f2b3df775e77faa6ae7ea60b85179a07c03c69b6c5934407ec713c4b1a0c04",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 22,
+      "notes": "Africa/Asia and Sinai land bridge are expressly supplied. Supported answer, but missing closing quote and surrounding fence violate JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "af99585fc96a32f07297cee4",
+      "signature": "259cd0c6f6e5ed15dd7a0cd4eb46413c7ac66e2f5d6c2a9fa9fda7aebcc40f53",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Boston is explicitly the capital of Massachusetts. Correct useful answer; fenced JSON fails requested format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -16,10 +16,13 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The latest post-repair health check has **380/524 valid configurations,
-137/210 complete matched blocks**, with Ministral B06 candidate repeat 3 active.
+The latest post-repair health check has **394/524 valid configurations,
+143/210 complete matched blocks**, with Ministral B08 candidate repeat 4 active.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
+Review 16 is prepared through terminal Ministral B06: 64/132 new contexts
+are explicitly judged, with 68 still unread. Continue at novel index 64 and do
+not call it audited yet; see [saved progress](confirm-review-progress-16-01.json).
 The [terminal anchor inventory](confirmation-qwen8b-attempts-complete.json)
 reconciles all 364 planned Qwen3-8B configurations: 363 valid logical cases,
 377 retained attempts / 35,530 verified files and 129/130 matched blocks.
@@ -138,6 +141,14 @@ check. Preserve the variability and original order, without activity retries.
 This is still not terminal cell inventory. Exact paths from both receipts may be
 treated as reviewed health attention; additional paths still require inspection.
 
+The [terminal Ministral B06 inventory](confirmation-ministral-b06-attempts-complete.json)
+now reconciles all **twelve planned attempts exactly once**: 768 requests,
+576 tools and 1,644 verified sealed files; every graph/unit/cleanup check passes.
+Ten measurements are valid, but only **four of six complete pairs** are selected.
+Repeats 0 and 3 retain the activity-invalid candidates and their valid unmatched ARC
+peers. All 62 raw caps remain for the final all-attempt audit. Execution is finished
+for this cell; do not resume it to replace failures. Remaining cells continue.
+
 Do not run a blanket confirmation resume, or replay the Ministral B06 cell after
 it has acquired activity-invalid attempts. The current service entered that cell
 once before these failures existed and continues its original remaining repeats;
@@ -212,7 +223,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 8.88 GiB ext4, 3.23 GiB WSL root and 11.19 GiB Windows at the last bounded
+about 8.66 GiB ext4, 3.13 GiB WSL root and 11.19 GiB Windows at the last bounded
 health check; monitor all three. Root includes the latest derived review snapshot.
 Private disk observation 03 retains recent host-owned app-server
 binary/catalog sizes: these account for part of the recent root growth, but the
@@ -1054,6 +1065,28 @@ inventory assertions and bytecode/no-overwrite guards. A misspelled audit-only
 bytecode flag generated 16 disposable caches; they were moved to
 `$BASE/generated-validation-cache-02`. The original 4,606-file bundle and
 2,192-file frozen source identity reverify unchanged; no acquisition change.
+
+**Review 16 is prepared but incomplete.** Raw snapshot
+`$BASE/quality-confirm-checkpoint-16/` contains 6,872 objective finals, 4,359
+automatic final failures, 108 capped intermediates and 4,942 selected outputs /
+561 contexts. There are 132 contexts new versus screen07 and confirm01 through15.
+[Progress checkpoint](confirm-review-progress-16-01.json) binds eight manual parts
+for novel indices 0 through 63; indices 64 through 131 remain unread/unjudged.
+Do not regenerate or overwrite this existing packet or repeat the
+[preparation script](../../benchmarks/research_checks/stage6_5080_review16_prepare.py).
+It already wrote the terminal cell proof and isolated packet from one frozen
+139-block selection, while preserving live quality hashes.
+
+Continue explicit numeric-order review at 64, using exact prior component bindings
+from confirm02 through15 or earlier actually read confirm16 contexts. The stored
+`review16prefix` and `confirm16consolidate` templates are available if tool stores
+survive; otherwise adapt review15 using these paths/union. Do not call
+retain_bindings/consolidation until all 132 have explicit judgments. Canonical
+confirm16 index/ratings and isolated validator are not written yet. Final
+instruction-source and full-component binding checks remain pending.
+The first 64 include supported QA facts inside invalid fenced/malformed JSON,
+unsupported elaborations, wrong entities, fabricated test absence and unrelated
+broad-search tests. Preserve original objective scores and separate useful fragments.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files

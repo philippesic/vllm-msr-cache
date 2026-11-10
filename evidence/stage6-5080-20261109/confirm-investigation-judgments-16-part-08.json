@@ -1,0 +1,118 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 56,
+      "review_id": "ab5f867281a582caf05122b4",
+      "signature": "de0abe4ff3339a7ab60c7ded64654350d9d93c7f5dc84e12126e1fe590d5bd2f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 14,
+      "notes": "Southern Fujian is explicit; adding China is supplied by Chinese/Fujian context. Correct useful answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 57,
+      "review_id": "cf70dd8f030e8491c9eaf049",
+      "signature": "44de797da841e2de95c5b764c414209b13f3ba99016d882e4755f77b32fff87e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CountCycleTests were executed, contrary to the denial.",
+        "The provided empty-input test expects empty output, not a ValueError; cited unrelated line numbers do not establish count_cycle failures."
+      ],
+      "whitespace_words": 101,
+      "notes": "Negative n producing empty iteration is a useful supported behavior; narrow absence of non-string test coverage does not establish an API restriction. Missing literal status and irrelevant command fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 58,
+      "review_id": "7dad4baadbfec54b9c5024a8",
+      "signature": "8d925f0fbab6745ab48423408aed57d669c95226359ff059236805a4ce830c63",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual AdjacentTests execution passed ten tests; broad search listing text is not evidence that unrelated test_odd/test_even were the executed tests.",
+        "The assigned ord/divisible/first-last test narrative does not describe the supplied adjacent validation."
+      ],
+      "whitespace_words": 82,
+      "notes": "No meaningful supported adjacent behavior or actual outcome is reported. Missing literal status; final is not useful, without separately charging its predecessors distance-zero error which this final does not repeat. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 59,
+      "review_id": "2f19eaf493e23a7f29295e24",
+      "signature": "f81259b9b97cedf77a8dd26048b791e113272128f72186782cd7357287ec5a49",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 16,
+      "notes": "The source explicitly gives Cushitic branch of Afro-Asiatic. Useful correct content, but missing closing quote and Markdown fence violate JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 60,
+      "review_id": "731f1600d253d4d68f9e6946",
+      "signature": "29ffdfe665c0530c9bb8296b7468d43ef66e9f236da81aca73f96c37e29bc682",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Detroit is explicitly Michigans most populous city. Correct answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 61,
+      "review_id": "937334bd1664be9f9adbac70",
+      "signature": "10e44c94ab88707d224d5cc0a365698b8bf87ebcc4132750c6a947d685d3c7a5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Repetitive test_odd/test_test attributions are not the supplied CombinationIndexTests or executed test output."
+      ],
+      "whitespace_words": 120,
+      "notes": "No concrete supported combination_index behavior, completed status or limitation is delivered. Generic mention of earlier successful tests does not make this repetitive unfinished answer useful. Missing literal test status; original cap and objective retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 62,
+      "review_id": "8dc0a9852c1681388a70fecf",
+      "signature": "227c2d050660e38c351a9154329b8621d83f569c0478c87285393f9cdf0a1783",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AdjacentTests did execute and all ten passed.",
+        "test_call_once does not fail for distance0; supplied test_zero_distance explicitly verifies same-item predicate mapping.",
+        "The asserted predecessor-only distance-zero implementation is false."
+      ],
+      "whitespace_words": 113,
+      "notes": "Core window/tuple behavior is useful. Literal test_status=FAIL occurs in a comment but contradicts actual PASS; the unsupported failure is repeated from prior dependencies and is charged to this final. No actual new tool execution from the proposed block. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 63,
+      "review_id": "792dbcbd972a7dcfe154e815",
+      "signature": "3fad00c4c7aff9f1a30352d15ac5ce2fd0a238e5f1e9a2c0cd2d9f95e374b230",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 13,
+      "notes": "Unitary,multi-party,democratic is the supplied Armenian government description. Supported answer; code fence fails requested format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

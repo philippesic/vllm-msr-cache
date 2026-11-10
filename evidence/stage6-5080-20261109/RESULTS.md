@@ -362,7 +362,18 @@ This additional missing comparison can further prevent full-matrix completion.
 The [next incremental receipt](confirmation-ministral-b06-inactive-restore-02.json)
 finds the same failure in original repeat 3, with another 137-file seal verified
 and four caps retained. Repeats 1 and 2 have valid complete blocks; no original
-repetition is relabeled or retried. Terminal cell counts remain pending.
+repetition is relabeled or retried. The subsequent
+[terminal cell inventory](confirmation-ministral-b06-attempts-complete.json)
+verifies all **twelve planned attempts / 1,644 sealed files**, with 768 completed
+requests, 576 tools and clean graph/unit coverage and cleanup. Ten measurements
+are valid; **four of six matched pairs** are complete. Repeats 0 and 3 remain
+excluded with their valid unmatched ARC peers. All 62 raw caps await the final
+all-attempt audit. The cell is finished without retrying activity failures.
+
+The next isolated review has 4,942 selected outputs / 561 contexts, with 132
+contexts new across completed earlier reviews. [Saved progress](confirm-review-progress-16-01.json)
+records 64 explicit new judgments and 68 unread contexts. This is work in progress;
+canonical source review16 and its final binding/validator checks are pending.
 
 The interim Qwen3-8B extraction now retains **all 32 frozen comparisons** for
 the completed anchor model: [data](anchor-results-01/comparisons.json),

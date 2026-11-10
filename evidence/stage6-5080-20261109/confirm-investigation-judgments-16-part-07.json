@@ -1,0 +1,114 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 48,
+      "review_id": "cd3cf58d706b6f370e9cd1d6",
+      "signature": "92a12ff7785dcfc6e18b256a9f34415994710c457be0e2170b43b6427162f7e1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 22,
+      "notes": "The Ottoman expansion is explicitly identified as a main cause of regional turbulence. Correct supported answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 49,
+      "review_id": "fc656090ecc99924bb07612b",
+      "signature": "4aa2fcf0d86e59c37572aa7fdc6582a9121e4a5f4b8a7db0abc512af7933bf38",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The source separates religion/philosophy/science as long-standing major study fields from business/industry/sport uses of time in measuring systems; the answer promotes all of them to major study fields."
+      ],
+      "whitespace_words": 29,
+      "notes": "Correct first three fields remain useful, while the broadened claim is unsupported. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 50,
+      "review_id": "2cb428282d8fa74fa059cd28",
+      "signature": "505d6fba38d74e5e2653da03f2d3d7dacdab5e4ce0ad1c1f7b4709ec1442d4c3",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "Dublin,Ireland is explicitly Burkes birthplace. Correct content; Markdown fence fails JSON-only format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 51,
+      "review_id": "7fbacce5858b4276b50dc464",
+      "signature": "071e26b81ec2825d3861105121f0c444dcb681ab8d2016769383cddbaf61dee4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_slicing directly compares SequenceView slices against target slices, contradicting the denial that it validates SequenceView.",
+        "The supplied test exhaustively includes negative steps; claiming that coverage is absent is false."
+      ],
+      "whitespace_words": 86,
+      "notes": "Indexing/slicing/length support and acknowledgement of successful execution remain useful. Step0 is explicitly excluded from slicing combinations, a narrower true gap that does not rescue the false negative-step claim. No literal test_status=PASS; unrelated broad tests and proposed command do not replace actual validation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 52,
+      "review_id": "419d197924bed0fc8a7337f5",
+      "signature": "0e31b6967927f74a9ee2d55e452b18d329891f80bd800c41fec5b9b70586cd0c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 41,
+      "notes": "Manuscripts/printed books, scribal alterations and reconstruction of textual transmission are supplied. Variant examples and historical-edition framing are read as ordinary descriptions of that textual evidence, not new exclusive claims about all critics. Fenced/missing-quote JSON fails format; useful document types retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 53,
+      "review_id": "5b8e9b33fba3d023a11fe7cf",
+      "signature": "e03f2ebc930286958e7061f37d9755b0df1f6c5c340ef68f6a5b5683666832ed",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CallbackIterTests tool output is seven passes, not ten, and validation did occur.",
+        "The supplied test_basic invokes the callback three times in the same function; claiming no such explicit test is wrong."
+      ],
+      "whitespace_words": 89,
+      "notes": "AbortThread behavior and basic-result coverage are supported useful facts; absent explicit multi-reader concurrency coverage is a narrower reasonable limit. Denial of actual validation and missing literal status fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 54,
+      "review_id": "e4f334de9111d0ec8e536865",
+      "signature": "7b0c345c6243813e6ca8c3cccd5db8aecb39ab4f49c7a2f5bb8374adade0f73f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Traditional509BC start and overthrow context match supplied Roman Republic paragraph. Fenced JSON fails requested format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 55,
+      "review_id": "c5df4067e25f98c5061f40c6",
+      "signature": "11df6ad8e097cb04ad21ebddb18da0569fb1f68149a676b281b2752fcf085bd0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "The paragraph explicitly states release2001 and unveilingOct23,2001. Correct year; code fence violates bare JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

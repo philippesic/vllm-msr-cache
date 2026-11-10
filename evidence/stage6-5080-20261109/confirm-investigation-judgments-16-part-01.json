@@ -1,0 +1,114 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "30c89be425ac36091134cd3f",
+      "signature": "e89861f3210b27d99ed121dc3956801222b3d1cc7eb470edad81f1644444c469",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Supplied Hydrogen paragraph explicitly gives symbol H. Fenced JSON contains the correct one-field object but the complete response is Markdown rather than the requested JSON object; automatic objective result remains unchanged. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "a8f4e4846ffa248149ec5c14",
+      "signature": "c756e8f52ccf6e5d65230315a41261c9284c8e15e801c2eea6f072b922e27620",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 163,
+      "notes": "Predicate marking, tee/padding/windowed/zip algorithm and singleton distance-zero boundary plan are supported. Read previously selected as predicate-selected, not an explicit claim that future neighbors are excluded; the described full window is symmetric. Proposed search is not an observed execution. At 163 words it exceeds under70 and supplies a different/wrong-file tool command with trailing prose; useful algorithm and boundary content retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "74c4ea20d4722cb0d0fff5d8",
+      "signature": "4ee611b9b0de5e6d4a392866cca467d7de4df54ccc0353e3305d654138f78897",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "French les Appalaches is explicitly supplied. Correct content in fenced JSON; complete response is not a bare JSON object. Original objective unchanged. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "1e6ab3d497dc77936aa7da49",
+      "signature": "54f2a7c507944a4227287a01f885212ba2ac82db0fa453e3c1809c4a509cff39",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Equality of standing does not establish that the two levels share the amount of authority and power equally; the supplied definition instead describes division of powers and equality of status."
+      ],
+      "whitespace_words": 38,
+      "notes": "Core equality-of-standing answer is useful and supported. The added equal-power-distribution inference is unsupported, and fenced JSON fails the requested response format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "eadb4e714e457c9d175a63a6",
+      "signature": "e1a4dea12be423a8a005e2a04d1f41c097d70d63d8d2b10307e0e490e172673e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The supplied closing-protocol name is eschatocol, not Eschatology."
+      ],
+      "whitespace_words": 6,
+      "notes": "Wrong term does not answer the treaty question; fenced JSON also fails requested format. No useful correct answer fragment. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "99b31df0aa8930ab38646c02",
+      "signature": "4e3c4d29ac3adc44b3e70041881f26dca3d68f009f7e42ec3da7d4d122c55961",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The actual tool executed ConstrainedBatchesTests: seven tests and ten subtests passed; claiming it was not executed is false.",
+        "Divisibility and lines53-163 refer to unrelated broad search results, not the provided constrained_batches implementation/tests.",
+        "The stated zero/negative-limit absence contradicts explicit max_size validation and supplied tests."
+      ],
+      "whitespace_words": 95,
+      "notes": "Final substitutes unrelated chunked-test behavior and denies actual validation, without a supported concrete constrained_batches result or literal test status. Proposed comment is not evidence of a new execution; not useful for this task. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "0855ba7a6159166b71410b89",
+      "signature": "0acef4b050a8e270122fb4454995b0478de68f7314ece942ef0266c66c24ecc0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "The supplied dogma paragraph explicitly describes preservation from original sin from conception by singular grace. The elaborated answer remains supported, but fenced JSON is not the requested JSON-only object; exact-match objective retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "e19e3fd0aa5abfa4176c03e6",
+      "signature": "a49e0865012d6c68a41ea36829220a3b1fe1fdfeaf63d871624760c4f4dac9df",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "The paragraph names Beijing and Shanghai and only says nearby countries without naming their cities. Read the caveat as referring to cities in those nearby countries, followed by the actual two named far-away cities; it does not invent a foreign city or explicitly place Beijing/Shanghai in another country. Useful supported names retained; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 40,
+      "review_id": "089df17a11b849c04ad99916",
+      "signature": "5d49d8d16d24a699d739536428d1529b30288d74958f9af29010dbdde7a78858",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "The answer correctly distinguishes2013 city population from2012 French metropolitan population768868; all figures match supplied text. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 41,
+      "review_id": "d305ac6804e6b230595687b0",
+      "signature": "8c21c62deb71073ff47b660aac37b94576ccf86e2d99ceace0881cdb453da707",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied function and actual ten passing tests/eighty-four subtests contradict the suggestion that it is absent or untested.",
+        "No generic string/numeric-only iterable constraint follows from equality-based pool indexing or the provided tests, which include None."
+      ],
+      "whitespace_words": 145,
+      "notes": "The final explicitly acknowledges successful actual validation, a useful fragment, while adding a contradictory test-absence narrative and unsupported type limitation. Missing literal test status and repetitive truncated command fail instructions; only final claims are rated, not all earlier dependency errors. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 42,
+      "review_id": "2e5812b0d325960a02603dca",
+      "signature": "15d476bd63e8ff775bbc53bfb041cb3af0091fbf008babdc52a5dfe1172928d8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Fumetti is explicitly the photographic form. Correct content; code fence violates bare JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 43,
+      "review_id": "cc057cac517e007a99af0fe3",
+      "signature": "b7b98b38db71d1d0389ce98cab4a65ddde745da7555c7c21446fa0e7afabc2d9",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 19,
+      "notes": "The newly fully read Turner paragraph explicitly gives Warner films released before1950. Correct useful response; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 44,
+      "review_id": "74f9833d8dcebfd76fd661b1",
+      "signature": "1da6d404ed973872d0c986484d73369c34bf93efcabd761daafabe581ba667b3",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 38,
+      "notes": "Koch postulates and pure-culture/healthy-host experimental infection are described in the supplied paragraph. The response is read as restating that evidence, not a claim that an experiment occurred. Correct core answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 45,
+      "review_id": "642fdeafe817a089edecfede",
+      "signature": "bab9cfd3e0568b91e983c8bc90a0af73d9ab66b514689ff385dca1bc04e44f44",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "The source explicitly identifies the Crusades. Correct answer; Markdown fence fails JSON-only format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "71a46fc16352be32c495364c",
+      "signature": "bd2436fc7cc1c5456b49a4af232d736a50179d1b42390711be04a8eb3ccc2d03",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "The source explicitly gives1998 for unitary authorities. Correct answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 47,
+      "review_id": "de6b17a5d258100959512882",
+      "signature": "b6285c993a926af9181707b20c1f760c371607f974fb1afeada3933ae73426dd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The source dates the whistleblowers allegations to2007, not the underlying attempted grounding itself; the response shifts the date to the event."
+      ],
+      "whitespace_words": 20,
+      "notes": "The year2007 remains useful for the actual question about allegations. Unescaped Bobby quotation marks make the JSON invalid, and code fence also violates format. Objective failure retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 32,
+      "review_id": "343d42c07e6cc1c568148c69",
+      "signature": "0e0af723c4195eb0770264a8e5da565125913f643c34d966854bf61bfb2dca37",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 21,
+      "notes": "All three Dutch Republic alternative names and parenthetical names match supplied source. JSON answer value is an array instead of the requested string, and the whole response is fenced. Correct names remain useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 33,
+      "review_id": "996774c7f362e87b4ea4e9f0",
+      "signature": "2a9beba4ac38f83c535171e28756cafff8d47338f28d00299bb739f991abe7e7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AlwaysReversibleTests execution passed; claiming those results are absent and substituting unrelated test listings misrepresents available evidence.",
+        "The broad listing does not establish the attributed test_odd/test_negative results for always_reversible or the named first/last tests."
+      ],
+      "whitespace_words": 89,
+      "notes": "The correct finite-cache/infinite-input limitation remains useful. The final does not give literal test_status=PASS, instead proposes a wrong additional command; no claimed outcome for that proposed command is credited. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 34,
+      "review_id": "b72d0467f57e8b21d51e655b",
+      "signature": "0c0920500e23c3f3b40977416036fbe5566c730daced8613d882949c6f306509",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 38,
+      "notes": "Supplied immunology paragraph supports immune-system function/disorders/components across organisms and medical applications; allergies reasonably paraphrases hypersensitivity. Fenced JSON fails response format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 35,
+      "review_id": "d5b422802c49258178298f53",
+      "signature": "6624263bd7f847eb4658b47640ec41f7e13fb56a72062a7683c0747649d47725",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 11,
+      "notes": "The source explicitly names Smile. Correct answer; surrounding Markdown fence fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 36,
+      "review_id": "329485b97899541e645cf76a",
+      "signature": "14ffcb0ba0e300eff6a94284f3a2a2dea4c28969da4b357e5d9ffe74bb31de2b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Strings/bytes are atomic by default; the asserted general character iteration conflicts with test_strings and the implementation.",
+        "base_type=None is explicitly implemented and tested, contrary to the claimed absent handling/coverage."
+      ],
+      "whitespace_words": 128,
+      "notes": "Actual six passes, None-to-empty, ordinary wrapping and configurable base_type facts remain useful. At128 words this intermediate exceeds under70 and ends in a truncated tool declaration. Earlier erroneous dependency claims are charged only where this response repeats them. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 37,
+      "review_id": "22fd60905f5a78ca4e78314c",
+      "signature": "e8ef5cfa763bb67e1eee53c86c692efba1ee83d9a8a0a7bec4ae55051e3cf804",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied Punjab paragraph gives five waters but no asserted Chilka/Chillan/Chillanwala/Chenab river list or historical-river-boundary explanation."
+      ],
+      "whitespace_words": 31,
+      "notes": "Correct five-waters meaning remains useful; fabricated elaboration unsupported. Fenced JSON also fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "7482b04edb0b1d4f43fd2316",
+      "signature": "d8f9010b086ff6a365a9630a20b81007932ee61ea997707ac6105249a99b8839",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "Ba-Shu and Chinese characters are explicitly supplied. Correct content; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 39,
+      "review_id": "7cc4cd5f6a204ac25b2405fd",
+      "signature": "0f8927bf607d58bc90c007a447d70eabd77950e89e5879a6b52ee9feebd142f3",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 48,
+      "notes": "Central Africa, landlocked status and all listed borders match the paragraph. Supported answer; code fence violates bare JSON requirement. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

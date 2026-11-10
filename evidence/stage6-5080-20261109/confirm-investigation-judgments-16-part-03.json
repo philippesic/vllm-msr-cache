@@ -1,0 +1,108 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 16,
+      "review_id": "c7133566da78c42344109fbb",
+      "signature": "1442f19619df99b0d79b61fbd3f6795db9c7261fda19c4dd4807ed53b749b2aa",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 14,
+      "notes": "Source explicitly gives east-west width81mi; supported answer, with no claim about north-south extent. Markdown fence fails bare JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 17,
+      "review_id": "e6ab5593d5d1f9cef54c07e1",
+      "signature": "7a19c33efe1bd6db6e5c35d75858faf6a0a10bcd3dbd94d26749bea7ecd7e018",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 7,
+      "notes": "Domestic servants80-hour weeks is explicitly supplied. Correct content; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 18,
+      "review_id": "8fc0fa0402c1701a9d134c01",
+      "signature": "24d7059ca16d6ad88bb33bf574a8729db896f07897006570858e6d83e15a3d5d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 17,
+      "notes": "Compression reducing storage/transmission resource use is the opening source claim. Minimizing is read as reducing, not a new absolute-optimality guarantee. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 19,
+      "review_id": "57df5b31b883b50f5d3fe47d",
+      "signature": "71f18a90c7e0e3f91f306b0fa60f89295fc34bd150bfe24d89911ac9b1a3d1f1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied passage does not attribute the1996 crawler creation to rapid Internet growth or limited systematic-collection tools."
+      ],
+      "whitespace_words": 33,
+      "notes": "Correct1996 date and crawler targets retained as useful facts. Added causal history unsupported; missing closing string quote makes the object invalid even after removing Markdown fences. Original objective remains unchanged. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 20,
+      "review_id": "5207f4eca52c4a9723d23a63",
+      "signature": "78722b1c6144bf19d589d03f042136658e3272a8c67ade36ecec8ba3d6628f2f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 49,
+      "notes": "Church preservation of literate scholarship, cathedral schools and some evolution into medieval universities are supplied. Broad learning-repository paraphrase retained without treating it as a new numerical exclusivity claim about all universities. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "32fdf609e0cca895a4dd9da4",
+      "signature": "607101ce96a7686019885ff5c2c1cc64eb688b45f0995c8e915f39a6e7382b93",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 8,
+      "notes": "Pacific Ocean to the east is explicit in the supplied paragraph. Correct answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "cbf227ce55157f5577e04a8b",
+      "signature": "90f1da65558c8ead58d4c12cf999b1fbd1580d0f8e1044ee3d60dec2349fbc04",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 14,
+      "notes": "City and Guilds founding1876 is explicit. Missing closing string quote makes the object invalid, and surrounding code fence also violates format; useful factual answer remains. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 23,
+      "review_id": "5caea83f2ce7f470b7eccf82",
+      "signature": "d74285c547f6190b59dda0a0ef7f5ac37793cacdbfc257c055b643bebe044ded",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "The source explicitly lists ship propulsion/pipeline compression/pumped storage and ratings reaching100MW. Supported answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}
