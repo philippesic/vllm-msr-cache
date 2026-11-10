@@ -42,6 +42,8 @@ is the known B06 activity failure. Secondary-model acquisition continues.
 Ministral B06 candidate repeat 0 also fails frozen restore activity after all
 64 requests / 48 tools complete cleanly: zero restores despite 15 eviction-affected
 returns. Its seal and ARC peer verify; no favorable-activity retry or rule change.
+Original repeat 3 shows the same failure with verified cleanup/seal; repeats 1
+and 2 have valid complete blocks. The cell continues in its frozen order.
 The partial B11 comparison
 is preserved and replaced as a whole under an independent user service; the
 frozen source/order and B06 exclusion are retained. Recovery selects only the

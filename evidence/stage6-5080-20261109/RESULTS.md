@@ -359,6 +359,10 @@ the frozen Qwen3-8B GPU-control exception; no rule/capacity change or favorable
 activity retry is made. Remaining original repetitions and phases continue.
 Five candidate length caps remain subject to the final all-attempt source audit.
 This additional missing comparison can further prevent full-matrix completion.
+The [next incremental receipt](confirmation-ministral-b06-inactive-restore-02.json)
+finds the same failure in original repeat 3, with another 137-file seal verified
+and four caps retained. Repeats 1 and 2 have valid complete blocks; no original
+repetition is relabeled or retried. Terminal cell counts remain pending.
 
 The interim Qwen3-8B extraction now retains **all 32 frozen comparisons** for
 the completed anchor model: [data](anchor-results-01/comparisons.json),

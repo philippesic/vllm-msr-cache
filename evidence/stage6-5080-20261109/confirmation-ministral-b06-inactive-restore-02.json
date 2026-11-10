@@ -1,0 +1,106 @@
+{
+  "schema": "stage6-5080-confirmation-activity-finding-v1",
+  "recorded_unix": 1794286126.9645135,
+  "acquisition_complete": false,
+  "source_protocol_unchanged": true,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "driver_checked_live": true,
+  "prior_finding": "confirmation-ministral-b06-inactive-restore-01.json",
+  "attempts": [
+    {
+      "attempt_id": "6183f4ab940649eaa6484d86a7b941b2",
+      "path": "attempts/1def595b33b187dcc83259edd30dbae5bcb5edbd09ed0808517a096e015bacbf/6183f4ab940649eaa6484d86a7b941b2",
+      "identity": {
+        "artifact_identity": "bf45c1f9e74528acb25dec27c43cc4714263469b631e4d9153608a6c47db1949",
+        "campaign_id": "37f88e1990a0b44fd187cbef4caeaff8b508fcb92acd437e514ff42b799cd7ba",
+        "cell": "B06",
+        "hardware": "rtx5080",
+        "hardware_digest": "3f97e323b77c27ac36c0b3d8659001ac6f1c630cb83b4dbeecd678efdecc6de4",
+        "model": "ministral3_3b",
+        "phase": "confirm",
+        "profile": {
+          "batch_tokens": 1024,
+          "cpu_bytes": 2017460224,
+          "gpu_blocks": 1408,
+          "gpu_memory_utilization": 0.85,
+          "kv_bytes_per_token": 106496,
+          "max_model_len": 8192,
+          "model_format": "hf",
+          "runtime_python": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+          "status": "development",
+          "text_only": true
+        },
+        "repeat": 3,
+        "runtime_identity": "0f108e2c765ef17d280cbdd6e43ffd71c3dfd62ae478612835550d388f5cfdf7",
+        "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+        "system": "wait",
+        "system_identity": null,
+        "workload": "2981e8b465a0c0a3f9ed31f0494873b53c093272c28f72aae408639ac47656b1"
+      },
+      "block_id": "bb1e16e98293f1e72076873ceb20e8c99f81b71b2b4991ae4e83e2c82e6fdef0",
+      "state": "failed",
+      "seal": "4ab02bdfa3403ff46f634bbbc6693ab843dd0a6a16ce2acb15aec8214a78720c",
+      "verified_files": 137,
+      "validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": false,
+        "classification": "original_measurement",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "request_summary": {
+        "completed": 64,
+        "failed": 0,
+        "output_tokens": 12634,
+        "finish_reasons": {
+          "stop": 60,
+          "length": 4
+        }
+      },
+      "request_graph_coverage_verified": true,
+      "tools": 48,
+      "offered_units": 16,
+      "completed_units": 16,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 7575699456.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 6271
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 51238,
+        "returning_computed_prompt_tokens": 34962,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 15,
+        "returning_requests_with_prior_cpu_eviction": 15,
+        "returning_requests": 48,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "scheduler_preemptions_metric": 0.0,
+      "no_timing_credit": true
+    }
+  ],
+  "activity_retry": false,
+  "scope": "Additional original scheduled Ministral B06 repeat 3 has the same genuine inactive-restore validity failure: all requests/tools/units complete, 15 eviction-affected returns, zero restores, clean cleanup and verified seal. Its four caps remain in the final all-attempt audit. No new setup/kernel/measurement error, no capacity/rule change or favorable-activity retry. Other original repetitions continue; this is not a terminal cell inventory or a complete comparison block."
+}

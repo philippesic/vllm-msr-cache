@@ -129,6 +129,15 @@ model cells and later phases running. This is an initial checkpoint, not termina
 Ministral B06 inventory. Its five capped responses must be included in the final
 all-attempt audit even though the comparison is invalid.
 
+[Incremental receipt 02](confirmation-ministral-b06-inactive-restore-02.json)
+verifies original scheduled repeat 3: again all 64 requests / 48 tools / 16 units,
+15 eviction-affected returns, zero restores and clean cleanup; all 137 sealed
+files verify. It has four caps. Repeats 0 and 3 are now known invalid Ministral
+attempts; repeats 1 and 2 have complete valid matched blocks at the latest health
+check. Preserve the variability and original order, without activity retries.
+This is still not terminal cell inventory. Exact paths from both receipts may be
+treated as reviewed health attention; additional paths still require inspection.
+
 Do not run a blanket confirmation resume, or replay the Ministral B06 cell after
 it has acquired activity-invalid attempts. The current service entered that cell
 once before these failures existed and continues its original remaining repeats;
