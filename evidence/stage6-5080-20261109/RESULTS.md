@@ -189,7 +189,7 @@ preceding dependencies/tools from sealed requests and tool files. Raw prompts
 were bound, not individually decoded. Failed/interrupted/unmatched arms remain
 included. One attempt was pending; the all-phase final inventory is still required.
 
-The latest [partial all-attempt cap review](caps-all-review-index-07.json) covers
+The historical [partial all-attempt cap review](caps-all-review-index-07.json) covers
 **418 responses / 175 extended contexts**: 132 screen and 286 confirmation,
 370 intermediates and 48 finals. All 24 novel full contexts (19 intermediates,
 five finals) were explicitly read and judged; 217 occurrences exactly reuse
@@ -211,6 +211,22 @@ Ministral B06 arms. [Independent reproduction](cap-review-validation-07.json)
 passes. Tokens were bound, not individually decoded. This is a partial snapshot
 with one pending attempt, not the final all-phase inventory or a population error
 rate; timing, objective results and frozen exclusions remain unchanged.
+
+The latest [partial all-attempt cap review](caps-all-review-index-08.json) contains
+**480 responses / 182 extended contexts**: 132 screen/348 confirmation,
+418 intermediates/62 finals. All 418 prior occurrences are retained. There are 473
+exact prior extended-context occurrences (55 added repetitions) and seven new
+extended contexts exactly matching explicitly reviewed confirm17 quality contexts;
+**no new full quality context or automatic novel rating**. [Raw bindings](caps-instruction-bindings-08.json)
+independently verify all 117 cap-bearing archived instructions, sealed corpus/node/
+role/reference/tool branches, actual dependencies/tools, objective and prompt/source
+identities. A separate [reproduction](cap-review-validation-08.json) regenerates
+all three records exactly. Duplicate-inclusive findings are **315 source failures,
+479 instruction failures and 99 not useful**, not population rates. Ordinary
+failed/interrupted/unmatched arms remain included; tokens were bound, not decoded.
+Acquisition was active with one pending attempt. This remains a partial snapshot;
+final all-phase cap inventory and finish are required. Timing and objective results
+remain unchanged.
 
 The [historical partial confirmation review](confirm-review-index-11.json) adds the
 first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,

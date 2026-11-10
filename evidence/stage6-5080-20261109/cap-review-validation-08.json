@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-cap-review-reproduction-v1",
+  "helper": "benchmarks/research_checks/stage6_5080_caps08_consolidate.py",
+  "helper_sha256": "e2627a50cde0fabcb63018678b43ba2772d868935b622d2e0c88e825209a0093",
+  "invocation": "From frozen SOURCE: PYTHONDONTWRITEBYTECODE=1 pinned local-env/bin/python absolute authored stage6_5080_caps08_consolidate.py --check",
+  "exit_code": 0,
+  "all_three_derived_records_reproduced_exactly": true,
+  "packet_digest": "dc694224bfd45cc3709adc9089112eccb95c86e9360d9aa817d9e9792b82eff5",
+  "reviewed_outputs": 480,
+  "distinct_extended_contexts": 182,
+  "explicitly_read_novel_contexts": 0,
+  "previous_cap07_occurrences_preserved": 418,
+  "exact_extended_context_reuse_occurrences": 473,
+  "added_repetitions_of_prior_extended_contexts": 55,
+  "new_extended_occurrences_matching_confirm17_quality_contexts": 7,
+  "reuse_sources": {
+    "caps-all-review-index-07.json": 473,
+    "confirm-review-index-17.json": 7
+  },
+  "review_findings": {
+    "source_unsupported": 315,
+    "instruction_failures": 479,
+    "not_useful": 99
+  },
+  "checks": {
+    "all_system_sources_match": true,
+    "all_tool_branch_flags_match_sealed_corpus": true,
+    "all_source_reference_instruction_role_node_bindings_match_sealed_corpus": true,
+    "all_objective_bindings_match": true,
+    "all_actual_dependencies_match_sealed_preceding_requests": true,
+    "all_actual_tools_match_sealed_ancestor_outputs": true,
+    "all_prompt_source_binding_digests_recomputed_from_raw_requests": true,
+    "quality_contexts": 182,
+    "maximum_prompt_binding_digests_per_quality_context": 1
+  },
+  "archived_instruction_sources_verified": 117,
+  "complete_inventory": false,
+  "acquisition_complete": false,
+  "scope": "Static partial all-attempt cap audit. No novel full quality contexts or automatic novel ratings. All ordinary failed/interrupted/unmatched responses included. Tokens bound, not individually decoded. No timing/objective/live-quality changes; final all-phase inventory remains required."
+}

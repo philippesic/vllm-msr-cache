@@ -16,8 +16,8 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The November 10 07:08 UTC health check has **462/524 valid configurations,
-177/210 complete matched blocks**, with Qwen3-4B B08 candidate repeat 0 active.
+The November 10 07:36 UTC health check has **475/524 valid configurations,
+184/210 complete matched blocks**, with Qwen3-4B B08 candidate repeat 7 active.
 Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
@@ -756,7 +756,7 @@ included. One attempt was pending, so `complete_inventory=false`; no frozen fina
 finish was called. Regenerate after all phases are terminal. Use cap06 for future
 exact expanded-context reuse and preserve earlier snapshots.
 
-The latest **partial all-attempt cap review 07** covers **418 responses / 175
+The historical **partial all-attempt cap review 07** covers **418 responses / 175
 extended contexts**: 132 screen and 286 confirmation, 370 intermediates and 48
 finals. [Index](caps-all-review-index-07.json),
 [ratings](caps-all-source-judgments-07.json),
@@ -784,6 +784,27 @@ failed/interrupted/unmatched caps include the invalid Ministral B06 arms, with n
 timing credit. One attempt pending means `complete_inventory=false`. Regenerate
 the final inventory after confirm/overhead/operational are terminal. Future exact
 expanded-context reuse starts from cap07; preserve all earlier snapshots.
+
+The latest **partial all-attempt cap review 08** covers **480 responses / 182
+extended contexts**: 132 screen and 348 confirmation, 418 intermediates and 62
+finals. [Index](caps-all-review-index-08.json), [ratings](caps-all-source-judgments-08.json),
+[raw bindings](caps-instruction-bindings-08.json), [reproduction](cap-review-validation-08.json);
+raw `$BASE/caps-all-checkpoint-08/`. All 418 cap07 occurrences remain included.
+Of 473 exact prior extended-context occurrences, 55 are added repetitions; the
+seven new extended contexts/occurrences exactly match completed confirm17 full
+quality contexts. The exact reuse union is screen07, confirm01 through17 and cap07
+with identical archived SYSTEM/source. **Zero new full quality context, unread
+answer or automatic novel rating.** All 117 cap-bearing archived instruction sources,
+sealed corpus/node/reference/role/tool branches, actual preceding dependencies/tools,
+objective and raw prompt/workload digests independently verify. All 182 quality
+contexts have one prompt-binding digest; tokens are bound, not individually decoded.
+The authored consolidation helper's separate `--check` invocation reproduces all
+three retained records exactly. Findings are 315 source failures, 479 instruction
+failures and 99 not useful, including duplicates; not population rates. Ordinary
+failed/interrupted/unmatched arms remain included. One attempt was pending:
+`complete_inventory=false`. No frozen final finish or live quality write. Future
+extended-context reuse starts at cap08; preserve all earlier snapshots and regenerate
+final inventory after confirm/overhead/operational are terminal.
 
 The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)
