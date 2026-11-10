@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 37,
+      "review_id": "10f3fb28a5385b030e7afa0d",
+      "signature": "eb1eba60436e21d5539eca998c1f36da9b8eaa2046844061ecf0fd1ac8447988",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports FAIL despite actual metadata PASS.",
+        "Claims Python2.5 lacks send/throw/yield expressions without supplied runtime evidence and contrary to this PEP's stated feature/version account.",
+        "Says send is only allowed after first yield, omitting explicitly permitted initial send(None)."
+      ],
+      "whitespace_words": 83,
+      "notes": "Final/Standards Track and next-value-or-StopIteration send behavior remain useful supported facts. Predecessor runtime-denial errors are repeated here and therefore charged. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "0a3b70285364ccfff575aaf4",
+      "signature": "7d5b3478982eefb1708ef4ec4146041cddfeac71219c08c7b4f4c9ad7e8e516f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 57,
+      "notes": "The complete supplied PEP322 was reread: its illustrative implementation explicitly raises ValueError for mappings, so modern Python behavior must not replace that historical source. Its rejected universal-iterable alternative would consume the entire input and fail for infinite iterators; the final limitation is read in that counterfactual sense, not as claiming the actual sequence iterator makes a full copy. Final/Standards Track and metadata PASS are correct. Colon-style test_status still omits literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 39,
+      "review_id": "6e68634e51b4e15d99599e1f",
+      "signature": "76f4a0fc99e7f8a0270ebf91c72e0011bdd0b2a7d0988f99cd5569b73ebfc453",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes the source's sdist behavior to the metadata validator, although actual validation checks only five document header fields and does not test sdist."
+      ],
+      "whitespace_words": 75,
+      "notes": "The complete PEP241 was reread. Superseded/Standards Track, RFC822 fields and the absence of a Python-Version metadata field are supported/useful; its License section really refers to Python1.6+. The malformed s[^]dist spelling adds no validated command. Prior never-implemented claims are not repeated in the final. Colon-style test_status omits the required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

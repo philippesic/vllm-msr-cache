@@ -471,5 +471,23 @@ latency comparisons, not correctness-adjusted useful-answer throughput. Live
 outputs, runtimes and interfaces differ; source findings and caps remain visible.
 No quality equivalence, universal superiority or GPU-only attribution follows.
 
+The [terminal Ministral inventory](confirmation-ministral-attempts-complete.json)
+now verifies all **60 planned configurations exactly once / 7,812 sealed files**,
+including inner artifact/aggregate and full graph/tool/unit/cleanup checks.
+**58 measurements and 28/30 complete pairs** are valid; B06 repeats0 and3 remain
+excluded without activity retries. The immutable schedule assigns 60 Ministral
+and 100 Qwen3-4B configurations, plus364 Qwen3-8B, totaling524. Qwen3-4B continues;
+this is model execution completion, not campaign or final analytical completion.
+
+The next [source-review snapshot](confirm-review-progress-17-01.json) is explicitly
+partial: **6,153 selected outputs / 784 contexts**, with201 new full contexts.
+All54 new QA and27 investigation contexts are read/judged; **120 investigation
+contexts remain unread and unjudged**. The subset has22 source failures,
+31 instruction failures and three not useful. No final index/ratings/finish was
+created for this incomplete snapshot; completed review16 remains authoritative.
+Exact prior reuse includes completed cap07 with matching archived instructions.
+These counts are selected findings, not population rates. Objective results,
+timings and frozen exclusions remain unchanged.
+
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

@@ -1,0 +1,150 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 70,
+      "review_id": "0f043adff996ff79c3f2b29b",
+      "signature": "2982b6830e55308178dee792328b96ed218f1699672a7299cb23e091b9ac037e",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Digital Monsters is the supplied expansion, with correctly escaped quotes in one JSON string. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 72,
+      "review_id": "3f993dd3d47c7943fa6c274e",
+      "signature": "682cbae7c1a40274c0d561641b43a45d17b5ced18bdde19ce68fd289096b6c12",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "Energy directly answers the source-defined transferable/convertible property; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 74,
+      "review_id": "560990a140d928b22d8cfdda",
+      "signature": "30e2bdc1202830f0fd0c19873b1b4c85a70718dfdd1db424a08f92ab69c9d066",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "Fuel is explicitly the other long-standing wood use; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 78,
+      "review_id": "25642aa04ac251cc7ac7823b",
+      "signature": "37f95bd2421e7a30c06ba8dff7e54c9249ac8f63ab37eaa216bd30cb43bee2df",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "Devonport is the neighboring Royal Naval shipbuilding town in the supplied paragraph; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 82,
+      "review_id": "7cdcfca1ce5076ee3e493710",
+      "signature": "b3ce32d746b389b11b34e03f6e8f178e1f0c0a56c732a98c5a7a314756106948",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "1950 correctly gives the Warner Bros cutoff rather than MGM's1986 cutoff; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 83,
+      "review_id": "d9010d2b40821919c3ab494e",
+      "signature": "043273565979458a902fe5e54fc6287f6099fcf5974a35d8c4ea3b01690a290b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 17,
+      "notes": "The overthrow of the Roman Kingdom traditionally dated509BC is directly supported, including the source's qualification; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 87,
+      "review_id": "4af7158fdd8fdfa0fe07e424",
+      "signature": "d33511f026784d2e20dd62b3a871b08255a6bc49d8e62b2274a301131d60c6e4",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 18,
+      "notes": "All eight listed Cubism pioneers/participants match the paragraph, without inventing another name; valid one-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 95,
+      "review_id": "4eb790c46e2ee727baae4e5a",
+      "signature": "48ee0775c91668f377d3dba74165af9d61efe8661fba0a0d942543eadc03ae4c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 12,
+      "notes": "Landlocked country in Central Africa is the supplied geographic description; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 102,
+      "review_id": "bf2e7de9e95a92c29060ff90",
+      "signature": "373c122076c77f0ed2bbbecfd4e7cf677c9dadee7c74b949c2baa4eb11691a25",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "81 correctly answers width in the miles requested; the missing unit inside the JSON value does not change the question's explicit unit. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 103,
+      "review_id": "dd7bfe2cfcad09b057d65202",
+      "signature": "d41893316b670f3f2e14d3053cfe866ce5050ba69fa1f897c69c240fe4a1e955",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 4,
+      "notes": "India is the supported answer to the Emperor/King title distinction, but Markdown fencing violates JSON-only output. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 113,
+      "review_id": "7865311b2c04586b30f950f0",
+      "signature": "84ebe5d5a951115de298168c1ceff11dbfff8ddc3bbbd26c8577d4041924be55",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 11,
+      "notes": "Design/technology and vocational learning are precisely the supported comparative subjects; valid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 121,
+      "review_id": "e6fc4eaf2fa59799cf3bcad4",
+      "signature": "01135375ce324591f19e2465e274cb23709783661ebc6b723a9f52ce89392dca",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 19,
+      "notes": "All five alternative Dutch Republic names occur in the paragraph; omission of parenthetical local-language renderings is not an unsupported claim. Valid one-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

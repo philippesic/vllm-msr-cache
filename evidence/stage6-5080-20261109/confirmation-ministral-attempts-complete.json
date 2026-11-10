@@ -1,0 +1,2081 @@
+{
+  "schema": "stage6-5080-terminal-model-inventory-v1",
+  "recorded_unix": 1794291125.106926,
+  "model": "ministral3_3b",
+  "execution_complete": true,
+  "acquisition_complete": false,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "schedule_digest": "669cc9138463dee4150c810ad3951a5b59ea1c90ade2b6dcadefa8b861042f0d",
+  "planned_configurations": 60,
+  "terminal_logical_configurations": 60,
+  "valid_logical_configurations": 58,
+  "retained_attempts": 60,
+  "valid_raw_attempts": 58,
+  "selected_matched_attempts": 56,
+  "states": {
+    "verified": 58,
+    "failed": 2
+  },
+  "verified_files": 7812,
+  "required_matched_blocks": 30,
+  "complete_matched_blocks": 28,
+  "missing_blocks": [
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 3
+    }
+  ],
+  "b06_attempts": 12,
+  "b06_activity_retry": false,
+  "model_inventory_stable": true,
+  "model_inventory_digest": "d1f6966bbdcf3c3bfe8c0c109349e43096ea71b221b52bf6afabcfe62e0149fe",
+  "attempts": [
+    {
+      "attempt": "fa7d3b8892b74a7ea6cb3e1550612055",
+      "case_id": "10f8a3ed5e9ce724e44c025367af584ddab5bfaf5f8bf67c7f77dbe4f0ced9db",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "block_id": "805b9ca970b85bc0c0c261e7e315dccfb80dcbc4d56cd290b8fc38a71b6f8673",
+      "state": "verified",
+      "path": "attempts/10f8a3ed5e9ce724e44c025367af584ddab5bfaf5f8bf67c7f77dbe4f0ced9db/fa7d3b8892b74a7ea6cb3e1550612055",
+      "seal": "051021241dc7d9f0a794ed7203b87cbe820d9119cd6c08e45eb23dc0c40b36a3",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "5cc2dbe8ab8f4d598f92d6de3e744916",
+      "case_id": "b0dbae28dd433f0dd2bcc70a04fe4904b493fef1fc6ce588d596b6885feb1258",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "block_id": "805b9ca970b85bc0c0c261e7e315dccfb80dcbc4d56cd290b8fc38a71b6f8673",
+      "state": "verified",
+      "path": "attempts/b0dbae28dd433f0dd2bcc70a04fe4904b493fef1fc6ce588d596b6885feb1258/5cc2dbe8ab8f4d598f92d6de3e744916",
+      "seal": "9ffd3ebe967abe21886fe104e307310b6ab875ffaf8eea17eecc7512a562df8b",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "7854346a36dd4547bfda07d1826426d8",
+      "case_id": "1b6ae2fddb9bdbbac5eb71e3366f3204c22122cf167025d6676ffdcab562c02e",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 1,
+        "system": "wait"
+      },
+      "block_id": "6b97596881e5913b8a2f347c70d679e8f882b357bd57b8fe9b57ccaf0ebda202",
+      "state": "verified",
+      "path": "attempts/1b6ae2fddb9bdbbac5eb71e3366f3204c22122cf167025d6676ffdcab562c02e/7854346a36dd4547bfda07d1826426d8",
+      "seal": "9b18b51ee37fae8d80ed707dcc2bd46d1d8b15f174b9b72bdc181dd5fa1c3f75",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "9e9192982fd54c599938b3284f026b66",
+      "case_id": "0cc1f71ed8214d3456589d9284c44370ddbb8b5cdaf04de53d578bddffeb81ce",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 1,
+        "system": "arc"
+      },
+      "block_id": "6b97596881e5913b8a2f347c70d679e8f882b357bd57b8fe9b57ccaf0ebda202",
+      "state": "verified",
+      "path": "attempts/0cc1f71ed8214d3456589d9284c44370ddbb8b5cdaf04de53d578bddffeb81ce/9e9192982fd54c599938b3284f026b66",
+      "seal": "b74ddf022e0853d53a1278acd6aa29ff6e4aee766ea44e5abc9899bf649461cb",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "ac24cc737fed42b697996ba7f6597179",
+      "case_id": "aa359afdffe63646e9d9d3e5931b16ba4fe20d5aeb446ce82214451c66625e95",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 2,
+        "system": "arc"
+      },
+      "block_id": "67f9f6c9d92dd81a573b3ad61a43f78eb1439f9f5f9fc17a01a0da3cc11a6533",
+      "state": "verified",
+      "path": "attempts/aa359afdffe63646e9d9d3e5931b16ba4fe20d5aeb446ce82214451c66625e95/ac24cc737fed42b697996ba7f6597179",
+      "seal": "89d287492871900cfee373a079e2c04efaaa92897207d187da9581f7b0a0e103",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "4fbc8f4a7fe9482c87eecfa6d1b756b0",
+      "case_id": "b334b0ce477456ab4878b0ed00a758d5eb8e53092e973ef158ca2116c9556439",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 2,
+        "system": "wait"
+      },
+      "block_id": "67f9f6c9d92dd81a573b3ad61a43f78eb1439f9f5f9fc17a01a0da3cc11a6533",
+      "state": "verified",
+      "path": "attempts/b334b0ce477456ab4878b0ed00a758d5eb8e53092e973ef158ca2116c9556439/4fbc8f4a7fe9482c87eecfa6d1b756b0",
+      "seal": "3748c365b22301855d3a1f0a588fd84a0274cb11c58c38483b9c9a044ff581a5",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "a34fae8f7761434b9c628550f613aa50",
+      "case_id": "941ec43f8eabf8c5022676f10084dbb08cede7cf97c7fec7a6fc73687166c32f",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 3,
+        "system": "wait"
+      },
+      "block_id": "9a465585f9304e988b4eb78093eadb80d1df4e4d40cb09b9c979d624def172d8",
+      "state": "verified",
+      "path": "attempts/941ec43f8eabf8c5022676f10084dbb08cede7cf97c7fec7a6fc73687166c32f/a34fae8f7761434b9c628550f613aa50",
+      "seal": "5361cd143e2a58c41458c2e0b1ce4f15d30f3f450e83950779219659a3b08d68",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "0aa490d66e7745a895bfb49697529834",
+      "case_id": "c98147e35f77338ef3b7e8dec6fae7c2ef69c5ab8508f5985a4d9c08195a4599",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 3,
+        "system": "arc"
+      },
+      "block_id": "9a465585f9304e988b4eb78093eadb80d1df4e4d40cb09b9c979d624def172d8",
+      "state": "verified",
+      "path": "attempts/c98147e35f77338ef3b7e8dec6fae7c2ef69c5ab8508f5985a4d9c08195a4599/0aa490d66e7745a895bfb49697529834",
+      "seal": "0b5e161b7f6dba9cd7f284005ed1afeba917d73fc33e125ba6c23f53629abf3e",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "bcf54ba4147e439eb50536fbc865fd39",
+      "case_id": "fd9855ad2f9db99c634aba6a579664f1bf5c70054945ba11e2bf356625b7ca00",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 4,
+        "system": "arc"
+      },
+      "block_id": "779fe5dfc94a3e5361f0b81f5d09cca263cc9303ee827fecaeb2524fd88fe515",
+      "state": "verified",
+      "path": "attempts/fd9855ad2f9db99c634aba6a579664f1bf5c70054945ba11e2bf356625b7ca00/bcf54ba4147e439eb50536fbc865fd39",
+      "seal": "9e52962d9e0f63415e6ceefe30fa0ec2bae67a30d13b6184e7b8b03cb4d26508",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "9728f54e31f240a9a603c57390e8c2e3",
+      "case_id": "27686e6076a1f0c16cdbb0f7b852dbe558f3e58c0a6f5756d75143f02d86c21d",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 4,
+        "system": "wait"
+      },
+      "block_id": "779fe5dfc94a3e5361f0b81f5d09cca263cc9303ee827fecaeb2524fd88fe515",
+      "state": "verified",
+      "path": "attempts/27686e6076a1f0c16cdbb0f7b852dbe558f3e58c0a6f5756d75143f02d86c21d/9728f54e31f240a9a603c57390e8c2e3",
+      "seal": "0be69ccee645ad9d6348ca998ce733dd927da59d83b54c86b2519de7e178012f",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "ba00bfb4746d486797a22f7a59058add",
+      "case_id": "7da2757a88a57ad2e0792354182cacb441c1333d64d57dcd518d4e24a8d0cf08",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 5,
+        "system": "wait"
+      },
+      "block_id": "aa10a039b855074096ea78c6aa51f41bc794a5bfd55892f95f83ebef8d7593e5",
+      "state": "verified",
+      "path": "attempts/7da2757a88a57ad2e0792354182cacb441c1333d64d57dcd518d4e24a8d0cf08/ba00bfb4746d486797a22f7a59058add",
+      "seal": "25d9e2fab7f460bad8f822f8edaa5e8b555a3f4a9a4c5b9ef9a6f95aadaeb0e7",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "d9fbd215c9a14f76b8fba3f3981b3879",
+      "case_id": "b15008e5888b8d472da8826add62a6a95da225e25fc5dd2382c41785346a946e",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 5,
+        "system": "arc"
+      },
+      "block_id": "aa10a039b855074096ea78c6aa51f41bc794a5bfd55892f95f83ebef8d7593e5",
+      "state": "verified",
+      "path": "attempts/b15008e5888b8d472da8826add62a6a95da225e25fc5dd2382c41785346a946e/d9fbd215c9a14f76b8fba3f3981b3879",
+      "seal": "60b46b274cfdb5ce704e163b14e4508054eee00bec85d8494f6e239842c4a217",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "inconclusive"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "740340ed6b42493dab66d7bb23e97ace",
+      "case_id": "70922608e71dd9ea104d164c8f6489c58817fefcdaf77c4a367610d75d15a464",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "block_id": "bcd2edf336084e966b28be29dbc87b4df614e42adad17c62f1d1204c63d10cee",
+      "state": "verified",
+      "path": "attempts/70922608e71dd9ea104d164c8f6489c58817fefcdaf77c4a367610d75d15a464/740340ed6b42493dab66d7bb23e97ace",
+      "seal": "c8be4d60038fad345bdb81e287c1677aedf85b58b7f3187ec4ff7671353bc850",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "a438a0a9355d45e4b8b81e50c1806a3c",
+      "case_id": "1ee37ab2f37b8f5454a3a322a2e1165930f97b4f8f57e96ff35c0f64b7d6a110",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "block_id": "bcd2edf336084e966b28be29dbc87b4df614e42adad17c62f1d1204c63d10cee",
+      "state": "failed",
+      "path": "attempts/1ee37ab2f37b8f5454a3a322a2e1165930f97b4f8f57e96ff35c0f64b7d6a110/a438a0a9355d45e4b8b81e50c1806a3c",
+      "seal": "175e72a0fe8ad05a22fa500a02579941a798b8663eedc0eb37411f9ea820af98",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "inconclusive",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": false,
+        "classification": "original_measurement",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "c12a4a10de46483bbf6f4416913be13e",
+      "case_id": "06ae2621f9fab3c2f12de372a9209a86f21e8ff10b7f983c6c0950a34b8ac919",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 1,
+        "system": "wait"
+      },
+      "block_id": "0602bfe48533e37b3a05ec7a4c76abef827afa9ca9e915120a7e8b3b7e28e1d8",
+      "state": "verified",
+      "path": "attempts/06ae2621f9fab3c2f12de372a9209a86f21e8ff10b7f983c6c0950a34b8ac919/c12a4a10de46483bbf6f4416913be13e",
+      "seal": "a5a53b339caa0b3e1179efa3ccdc3055ae586c2a35d3e907633b66d62c50bc7f",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "149743804ee448d8a3230f984ab0bbc2",
+      "case_id": "ccc8bf7eede4cc3987e773ad71648a295c33a720208b071804162d04a85d0f04",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 1,
+        "system": "arc"
+      },
+      "block_id": "0602bfe48533e37b3a05ec7a4c76abef827afa9ca9e915120a7e8b3b7e28e1d8",
+      "state": "verified",
+      "path": "attempts/ccc8bf7eede4cc3987e773ad71648a295c33a720208b071804162d04a85d0f04/149743804ee448d8a3230f984ab0bbc2",
+      "seal": "9f8358f1a7011326313812f47989276535093e7a7a224975cb7522cb23d9dbee",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "40c84e28764b46048c6d29de5d3ce04d",
+      "case_id": "28796248a9a824f4774defd23c5a70ddf5908ca16cad6ca087ef83d94eabba01",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 2,
+        "system": "arc"
+      },
+      "block_id": "d8c2c75a699bb1fa757a9bbb1613dc957e4bd8c522a1f0c20b146e68f109e8f6",
+      "state": "verified",
+      "path": "attempts/28796248a9a824f4774defd23c5a70ddf5908ca16cad6ca087ef83d94eabba01/40c84e28764b46048c6d29de5d3ce04d",
+      "seal": "9841cbd87da1b6da96bd54245e35fff32829728c0132dc2f04d15be5dabc438f",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "800516ef3717411a87819f71654a64e4",
+      "case_id": "6da45f92d2d54e31ff523658f4fece65784da65ade162ce65f93fd849d2bb142",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 2,
+        "system": "wait"
+      },
+      "block_id": "d8c2c75a699bb1fa757a9bbb1613dc957e4bd8c522a1f0c20b146e68f109e8f6",
+      "state": "verified",
+      "path": "attempts/6da45f92d2d54e31ff523658f4fece65784da65ade162ce65f93fd849d2bb142/800516ef3717411a87819f71654a64e4",
+      "seal": "4cfc9c67a5e21a64de9b04a932835f7b1fec0a6aa00fc77dbee13142ca3a2490",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "6183f4ab940649eaa6484d86a7b941b2",
+      "case_id": "1def595b33b187dcc83259edd30dbae5bcb5edbd09ed0808517a096e015bacbf",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 3,
+        "system": "wait"
+      },
+      "block_id": "bb1e16e98293f1e72076873ceb20e8c99f81b71b2b4991ae4e83e2c82e6fdef0",
+      "state": "failed",
+      "path": "attempts/1def595b33b187dcc83259edd30dbae5bcb5edbd09ed0808517a096e015bacbf/6183f4ab940649eaa6484d86a7b941b2",
+      "seal": "4ab02bdfa3403ff46f634bbbc6693ab843dd0a6a16ce2acb15aec8214a78720c",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "inconclusive",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": false,
+        "classification": "original_measurement",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "20bcc19557e44b2ea1db45e05bbc29d2",
+      "case_id": "a2d7fa1b3d8a0a5206f5742ea47d483f68af66faa248cb010e81e54a9a015a8a",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 3,
+        "system": "arc"
+      },
+      "block_id": "bb1e16e98293f1e72076873ceb20e8c99f81b71b2b4991ae4e83e2c82e6fdef0",
+      "state": "verified",
+      "path": "attempts/a2d7fa1b3d8a0a5206f5742ea47d483f68af66faa248cb010e81e54a9a015a8a/20bcc19557e44b2ea1db45e05bbc29d2",
+      "seal": "02342b9612aa9e681831fb262b5ca9bed142e0de69cf8f136749fcf32d9267c3",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "9c78d4905b234ff4a1ebdd30458d2fe5",
+      "case_id": "c4ca470d1cd15d593a7c0fe31e07b0acc5da06a1634a24f867b7cc041a8a4a83",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 4,
+        "system": "arc"
+      },
+      "block_id": "a69b32d2cf584ce7e4c71e507afb6c80249ba1fffb6cb402dd5955fc84f5e357",
+      "state": "verified",
+      "path": "attempts/c4ca470d1cd15d593a7c0fe31e07b0acc5da06a1634a24f867b7cc041a8a4a83/9c78d4905b234ff4a1ebdd30458d2fe5",
+      "seal": "5b3f9ad378a87abfeaa8da60e472253840220cb4c9d00f5aaf9a7e8fc6745bed",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "7a9f04b8b5f24a70827e3d69e4cc3856",
+      "case_id": "1331e7404669a2746e8c172083e01d03cc19ee3590a3a82c902e78cc5c0408c0",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 4,
+        "system": "wait"
+      },
+      "block_id": "a69b32d2cf584ce7e4c71e507afb6c80249ba1fffb6cb402dd5955fc84f5e357",
+      "state": "verified",
+      "path": "attempts/1331e7404669a2746e8c172083e01d03cc19ee3590a3a82c902e78cc5c0408c0/7a9f04b8b5f24a70827e3d69e4cc3856",
+      "seal": "460ceb6d6400d2d33ceb852d505d3dba15eadef6d32743a56d6801805699f205",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "2a47d6b4b4c04256974071853ffdb27a",
+      "case_id": "b76de33d06ee21dfcbeb38dc41c7a0710b3f6c804dff6d305ed01e5d5906efaf",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 5,
+        "system": "wait"
+      },
+      "block_id": "4e5d21f9cc0ce69ded70ebb49c1eb6200eeb296c263236799bac1ee21860cd5e",
+      "state": "verified",
+      "path": "attempts/b76de33d06ee21dfcbeb38dc41c7a0710b3f6c804dff6d305ed01e5d5906efaf/2a47d6b4b4c04256974071853ffdb27a",
+      "seal": "6d35fe59ffc0bda778e3bb46da2788d53c13e3a48650bb631dee7aa794e9cf78",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "8371148fe8fd44f89562492a4504112e",
+      "case_id": "504b14d894467ee1350b689a1fe5ed168cd62da4b7e1247a152aa53f47630bb7",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 5,
+        "system": "arc"
+      },
+      "block_id": "4e5d21f9cc0ce69ded70ebb49c1eb6200eeb296c263236799bac1ee21860cd5e",
+      "state": "verified",
+      "path": "attempts/504b14d894467ee1350b689a1fe5ed168cd62da4b7e1247a152aa53f47630bb7/8371148fe8fd44f89562492a4504112e",
+      "seal": "c4b7e85535fe761b925a47f4153211ed515388dad3a6082ff1849a7569348672",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "851b4fe08a5043c68f934cac6523c4d4",
+      "case_id": "c8a1f72485ade55a13c7b83ad16e011b2c8551df4ddd6fd950d3e2fb235d0e5d",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "block_id": "f59919204c9340cfbe215b71dab31b4d3ece5f7994ca2f610b1656ca7e6ebf87",
+      "state": "verified",
+      "path": "attempts/c8a1f72485ade55a13c7b83ad16e011b2c8551df4ddd6fd950d3e2fb235d0e5d/851b4fe08a5043c68f934cac6523c4d4",
+      "seal": "890b1978a8fa1be001e1bda358f5d67ca4845b89f9f0ec901adc28c1378cc7d1",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "911e878585f2495b82d784b34b35ab08",
+      "case_id": "2fb35d7907853920f976a682056851b38aefabe8a3adf2be5913b60a8b340614",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "block_id": "f59919204c9340cfbe215b71dab31b4d3ece5f7994ca2f610b1656ca7e6ebf87",
+      "state": "verified",
+      "path": "attempts/2fb35d7907853920f976a682056851b38aefabe8a3adf2be5913b60a8b340614/911e878585f2495b82d784b34b35ab08",
+      "seal": "0fd257f1278f4b0b37c2ed8b47a76eed96bddbdf9157e26f32a2fbe7275a598e",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "135e2fe3788740aea181e7677645d375",
+      "case_id": "3d80dd32f27b4d7ad8b0f8090cb1a010fd49311314619b8994047b1f82f3db56",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 1,
+        "system": "wait"
+      },
+      "block_id": "95c26cf04b716d702f71cfe9866a938672e87fd7b998243c841b3723478fe9be",
+      "state": "verified",
+      "path": "attempts/3d80dd32f27b4d7ad8b0f8090cb1a010fd49311314619b8994047b1f82f3db56/135e2fe3788740aea181e7677645d375",
+      "seal": "020ac648e432af9c31b73fd2ffc194bbd52fd4e1b8aaff2cecbb16f15d28515b",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "d721ab802fcb459c92e9cc1b2eff3db8",
+      "case_id": "eb68820d5817086fa082df1fcb9020c6ee49516fc144c89efc261115fd3b415e",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 1,
+        "system": "arc"
+      },
+      "block_id": "95c26cf04b716d702f71cfe9866a938672e87fd7b998243c841b3723478fe9be",
+      "state": "verified",
+      "path": "attempts/eb68820d5817086fa082df1fcb9020c6ee49516fc144c89efc261115fd3b415e/d721ab802fcb459c92e9cc1b2eff3db8",
+      "seal": "8ca48b0d7277c2948cae1834e1d3cb77bfc722ab32894713a0601464e5a015d5",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "a5f0280828564986954c1c6e8188d023",
+      "case_id": "c72ee2cd2d0ba21fe692718e89f5d7f10e415d14a43e3d4a7721ed8069504af0",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 2,
+        "system": "arc"
+      },
+      "block_id": "bd1b74a8af02f5ba7e07657b6725cdb16f3002d674eda5a989870ec9fd8c7f22",
+      "state": "verified",
+      "path": "attempts/c72ee2cd2d0ba21fe692718e89f5d7f10e415d14a43e3d4a7721ed8069504af0/a5f0280828564986954c1c6e8188d023",
+      "seal": "2f02dbd0110e2ce707ea6cc057ce65b4432d8368f4c7f77103bfaa22d8088f9c",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "92b1965e91874fa981d707f3baade719",
+      "case_id": "6264d5418a166c285e42e6ea2ddfa4273029580e5988f1c07472f817286932de",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 2,
+        "system": "wait"
+      },
+      "block_id": "bd1b74a8af02f5ba7e07657b6725cdb16f3002d674eda5a989870ec9fd8c7f22",
+      "state": "verified",
+      "path": "attempts/6264d5418a166c285e42e6ea2ddfa4273029580e5988f1c07472f817286932de/92b1965e91874fa981d707f3baade719",
+      "seal": "239699c1a9e7ac6d47b1ebd1f1cca1a88676d548051ba2c3f17c52d9268b5d05",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "30a2e366a77242b8ba84db8301d07b8b",
+      "case_id": "f8a0cbbaeb29f458c9997ab845c6a49a84d5d9047017bc83059db433847f3f4d",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 3,
+        "system": "wait"
+      },
+      "block_id": "8b5a5c1717db293f3c175bc7aa88c7ab6e73bae4e78db2691b100be2e8727a36",
+      "state": "verified",
+      "path": "attempts/f8a0cbbaeb29f458c9997ab845c6a49a84d5d9047017bc83059db433847f3f4d/30a2e366a77242b8ba84db8301d07b8b",
+      "seal": "39f78035e6e85f56dfde10b729a5c0a0a990fc184509870e7e5e7a4498345536",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "e98f56dc5e9447b983d8d0fb4e222db1",
+      "case_id": "17e43b52bc9c5273fbc74203ae47a67176bbf146b108f8c2d90843320cfebc2d",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 3,
+        "system": "arc"
+      },
+      "block_id": "8b5a5c1717db293f3c175bc7aa88c7ab6e73bae4e78db2691b100be2e8727a36",
+      "state": "verified",
+      "path": "attempts/17e43b52bc9c5273fbc74203ae47a67176bbf146b108f8c2d90843320cfebc2d/e98f56dc5e9447b983d8d0fb4e222db1",
+      "seal": "631591ec60b212a738bc8485f9d3b29b4ab9d206ebd25a27796917f60e722757",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "d81ae4ac47a649a1b236f42a2f4c42d3",
+      "case_id": "550a9ce428fbc1f03a065ef06c3242ebf448e69943254b9dae8a782e1a98e30d",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 4,
+        "system": "arc"
+      },
+      "block_id": "a51fb78f5e17826b6b1d7b8e4c22dd5346221d6661104143ba37997b77a1d14d",
+      "state": "verified",
+      "path": "attempts/550a9ce428fbc1f03a065ef06c3242ebf448e69943254b9dae8a782e1a98e30d/d81ae4ac47a649a1b236f42a2f4c42d3",
+      "seal": "7a9ffa5386588a4415d4ac459a2f1addae64d546e7dc732b08a56b6feaaa27b3",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "adbbcba7440942fc8612bae8ba2872c0",
+      "case_id": "23032e691b483bc9db52d2600f6e7b0519fa949aad638cd4279f8498dfbae0fe",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 4,
+        "system": "wait"
+      },
+      "block_id": "a51fb78f5e17826b6b1d7b8e4c22dd5346221d6661104143ba37997b77a1d14d",
+      "state": "verified",
+      "path": "attempts/23032e691b483bc9db52d2600f6e7b0519fa949aad638cd4279f8498dfbae0fe/adbbcba7440942fc8612bae8ba2872c0",
+      "seal": "69255ef12bcf360eec8fb3e84dff653f4091fb653905cb3c4e6a06e75e19466c",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "797b733eca1d40ccb85e6d19873fd8d6",
+      "case_id": "040b35dcf5fb828d4cd7008ef57254c07d5bd230fd0f40c686f8f008c93bdd42",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 5,
+        "system": "wait"
+      },
+      "block_id": "46ab5db0796615129a40d5bc5beaaccbf3b18232b937c79231df7b31666e1241",
+      "state": "verified",
+      "path": "attempts/040b35dcf5fb828d4cd7008ef57254c07d5bd230fd0f40c686f8f008c93bdd42/797b733eca1d40ccb85e6d19873fd8d6",
+      "seal": "b5ee56914a01ff0db8d48ceeefe0301c7f296223f9f0ef40fdce0de25ac03311",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "3ba4ffc7d7a5410c885acfa4f7bf9b11",
+      "case_id": "2503872f60196fd887f693450015544d0a54521bd38b50f0edf6fc6d9f25d22f",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B08",
+        "repeat": 5,
+        "system": "arc"
+      },
+      "block_id": "46ab5db0796615129a40d5bc5beaaccbf3b18232b937c79231df7b31666e1241",
+      "state": "verified",
+      "path": "attempts/2503872f60196fd887f693450015544d0a54521bd38b50f0edf6fc6d9f25d22f/3ba4ffc7d7a5410c885acfa4f7bf9b11",
+      "seal": "c7909e065b2464b34a44eaeb2035d1bddc74ec3efb3355362d8abf7bd154d60f",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "15b7780fad1649508262c47ba678d0c8",
+      "case_id": "ee88cb3015dbbb668571a67279f6734224f0e379f3d1e0d18446194f7c2d3d45",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "block_id": "730aad99e7d9e6e42fdd22f81a8cd0c5f9b8f64e17356e07ac22d2c18f126c0c",
+      "state": "verified",
+      "path": "attempts/ee88cb3015dbbb668571a67279f6734224f0e379f3d1e0d18446194f7c2d3d45/15b7780fad1649508262c47ba678d0c8",
+      "seal": "d8f7d0b6c0e370cb7192792a181d81eee0025ef7d67e2bebd7e5ad66760be28c",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "c67d2d1875a74d21aeee0e876278a194",
+      "case_id": "6372c3400a33a087579135b2bf79fbd5823f59ca55d973513bb72a38810b8f43",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "block_id": "730aad99e7d9e6e42fdd22f81a8cd0c5f9b8f64e17356e07ac22d2c18f126c0c",
+      "state": "verified",
+      "path": "attempts/6372c3400a33a087579135b2bf79fbd5823f59ca55d973513bb72a38810b8f43/c67d2d1875a74d21aeee0e876278a194",
+      "seal": "affd739a51d342ef449a97afd491e41ab4a695288ce272abfb8cf815730d4468",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "e8fe756d83a44bd3ab6717e66b4510f6",
+      "case_id": "bbc67e1cf85cddb487122680999435c3bf13fdb9c8355e01d21621aa4227d711",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 1,
+        "system": "wait"
+      },
+      "block_id": "dcf24f576a3fd54e4a9927d88624f9be2d80f8f9d92ad041ebb5d07ba5a8acc1",
+      "state": "verified",
+      "path": "attempts/bbc67e1cf85cddb487122680999435c3bf13fdb9c8355e01d21621aa4227d711/e8fe756d83a44bd3ab6717e66b4510f6",
+      "seal": "4f0a15afd42f3dc8d4ea117f0fa87221824356cdb019f692012f259e677b7472",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "4b64060a83b6445db092fe5ddc41064d",
+      "case_id": "9b59eaec20cfbf5a5a839e3420a09d4b2236bd4125c58b56ef6be716c8e5bdb8",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 1,
+        "system": "arc"
+      },
+      "block_id": "dcf24f576a3fd54e4a9927d88624f9be2d80f8f9d92ad041ebb5d07ba5a8acc1",
+      "state": "verified",
+      "path": "attempts/9b59eaec20cfbf5a5a839e3420a09d4b2236bd4125c58b56ef6be716c8e5bdb8/4b64060a83b6445db092fe5ddc41064d",
+      "seal": "e6c2ca29e6a94921c9d013cce8e31236475375d94e863ca9c72f28a66a1d463a",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "5c905ebdfbf048a08eeeaf3aba750e82",
+      "case_id": "9b7c83de0d01d630ec7547aa8a4fb5095a42270fc87e3c9d14d035f81f3c5b56",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 2,
+        "system": "arc"
+      },
+      "block_id": "79dfb783fbcbaaefeb2dadc11ed0d0a6e33f19aac8fe7baa117a43e34e6eea15",
+      "state": "verified",
+      "path": "attempts/9b7c83de0d01d630ec7547aa8a4fb5095a42270fc87e3c9d14d035f81f3c5b56/5c905ebdfbf048a08eeeaf3aba750e82",
+      "seal": "aa04f802984a550c219da31021e16e38e508eb3ecbd70d91babb57b61e25d0be",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "703f2426513e4c418d43f3a0d0ee25ad",
+      "case_id": "834920d625c40e50143fb423fbf650932b5debb44535d2393ba0de2f6ca80870",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 2,
+        "system": "wait"
+      },
+      "block_id": "79dfb783fbcbaaefeb2dadc11ed0d0a6e33f19aac8fe7baa117a43e34e6eea15",
+      "state": "verified",
+      "path": "attempts/834920d625c40e50143fb423fbf650932b5debb44535d2393ba0de2f6ca80870/703f2426513e4c418d43f3a0d0ee25ad",
+      "seal": "1aef6602f550595737ddede5be455766307c6ba6b4069c8a9811938ef329c1ca",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "f64df5c1098043258255958a2b812305",
+      "case_id": "4d63fbd2773fccec8613c6117a7bcc61c0cbd9aff6ab32d29b274529d0391e77",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 3,
+        "system": "wait"
+      },
+      "block_id": "3cf0292eda9cb75a04a63db598488e3316c9bb9b5bb9e25391b8e69fe0c583fe",
+      "state": "verified",
+      "path": "attempts/4d63fbd2773fccec8613c6117a7bcc61c0cbd9aff6ab32d29b274529d0391e77/f64df5c1098043258255958a2b812305",
+      "seal": "cd7ad691e3c4a8ff105a52afb63f3af18ef19b5ebdb06f169f1091c392b2ab56",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "21e690ee2ceb4363985d53c6f83ba4c7",
+      "case_id": "7def413b8093195b60e7d6af5b68fe7c64929269078ecad8b7afe505170b93bf",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 3,
+        "system": "arc"
+      },
+      "block_id": "3cf0292eda9cb75a04a63db598488e3316c9bb9b5bb9e25391b8e69fe0c583fe",
+      "state": "verified",
+      "path": "attempts/7def413b8093195b60e7d6af5b68fe7c64929269078ecad8b7afe505170b93bf/21e690ee2ceb4363985d53c6f83ba4c7",
+      "seal": "75900864c886d0192e9c453482025276fbca4bd156bbbd5220d32128435efdbe",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "cdd48012dda0402f911464c5057ac031",
+      "case_id": "36d316c3ff49983917e79ae4cfb3d95dc65f5e3f51b5e1db76db0d6f4942be9f",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 4,
+        "system": "arc"
+      },
+      "block_id": "580b432d7e9459e5fbb3b1411d8570a15d71254b5475b1fb18a43ef405fcadb0",
+      "state": "verified",
+      "path": "attempts/36d316c3ff49983917e79ae4cfb3d95dc65f5e3f51b5e1db76db0d6f4942be9f/cdd48012dda0402f911464c5057ac031",
+      "seal": "971e604394d9659f10ea75dad720368a1b80b9a74d1f26db194a7153ded63a70",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "018474fa351f4a1294e1cf8593e07239",
+      "case_id": "9da5a259338bd6537ec6277519de44ba893018aaf6614a2de0616f5331a1b63d",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 4,
+        "system": "wait"
+      },
+      "block_id": "580b432d7e9459e5fbb3b1411d8570a15d71254b5475b1fb18a43ef405fcadb0",
+      "state": "verified",
+      "path": "attempts/9da5a259338bd6537ec6277519de44ba893018aaf6614a2de0616f5331a1b63d/018474fa351f4a1294e1cf8593e07239",
+      "seal": "c4bc61cae7dfc7a7dfe17fbc76a98f3fccde9653d9d8cd5c24f31ea72725ad45",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "baa74a73d48b49778744777136193082",
+      "case_id": "7262d941673b3f1d3422402c3cae42b0341a6f5caee866b0badd3cf140a6c597",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 5,
+        "system": "wait"
+      },
+      "block_id": "9e510dc4498d8c4120f340d02c191ba11f1a55e4deabd53fcbba2b37544f3beb",
+      "state": "verified",
+      "path": "attempts/7262d941673b3f1d3422402c3cae42b0341a6f5caee866b0badd3cf140a6c597/baa74a73d48b49778744777136193082",
+      "seal": "2aa0fbc30fe1ed11a6934c7ef7f7291d2e77bd8e06d8cb4bb8604044c94b5e5c",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "2ecff103dc3e48118c7ffd552a6a4fdd",
+      "case_id": "ea85d15893531de08947665eb327b18e41c65a497c2aacd420aed92be84fa8ac",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B09",
+        "repeat": 5,
+        "system": "arc"
+      },
+      "block_id": "9e510dc4498d8c4120f340d02c191ba11f1a55e4deabd53fcbba2b37544f3beb",
+      "state": "verified",
+      "path": "attempts/ea85d15893531de08947665eb327b18e41c65a497c2aacd420aed92be84fa8ac/2ecff103dc3e48118c7ffd552a6a4fdd",
+      "seal": "da8302f188f1990b951f37d2ad26921035e69bd6a3c2561c24810aa47af77017",
+      "verified_files": 137,
+      "inner_verification": {
+        "verified_files": 132,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 64,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "e6ab0096b8964f2fb627a8997f14184b",
+      "case_id": "a69a27722ed037552067f512667515db83626735ba14bf1e501ad3af29d5386b",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "block_id": "636cf3e56004b2790cef59dd61baff9c3d62b7134e3a148dc56e9f7ccb1a5cdf",
+      "state": "verified",
+      "path": "attempts/a69a27722ed037552067f512667515db83626735ba14bf1e501ad3af29d5386b/e6ab0096b8964f2fb627a8997f14184b",
+      "seal": "ea2c4a1199e42b7ae2488a0c6da323e0057ea148cf9d02609c6a55fd01d0fb83",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "8449d557af4c4d7f9a5936b2605113b6",
+      "case_id": "037983c14be18fc9e106b8b101a750eabc9eb02ff4c05a3fc1874e0a66d11a6a",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "block_id": "636cf3e56004b2790cef59dd61baff9c3d62b7134e3a148dc56e9f7ccb1a5cdf",
+      "state": "verified",
+      "path": "attempts/037983c14be18fc9e106b8b101a750eabc9eb02ff4c05a3fc1874e0a66d11a6a/8449d557af4c4d7f9a5936b2605113b6",
+      "seal": "784abf78bab6c0d4235bb74fc7ba47199e20a0fd53bf64c3e5a6180d2f20a0d6",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "a11a1b89030b4ac9bd4e162e8c81687d",
+      "case_id": "3f0f2c69f9532efab4bc9dceb3f5c3b654bb31023c0c254c3b806daef5e7c27b",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 1,
+        "system": "wait"
+      },
+      "block_id": "4ad8be6573496d94efb1e9262b8bc9ff7164f4c090e4de62979165e87a5d21b9",
+      "state": "verified",
+      "path": "attempts/3f0f2c69f9532efab4bc9dceb3f5c3b654bb31023c0c254c3b806daef5e7c27b/a11a1b89030b4ac9bd4e162e8c81687d",
+      "seal": "c5a965d2f94d0f266d2b79e0095ccdfe0d65722b5eba66cc31ab69dc7104527f",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "0930898888424592ae8fb1ee7a7b8373",
+      "case_id": "21cdb7ae952548cd82e1e39519304c6ff46c4d493b1d9de8fc687ec2263f4ebd",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 1,
+        "system": "arc"
+      },
+      "block_id": "4ad8be6573496d94efb1e9262b8bc9ff7164f4c090e4de62979165e87a5d21b9",
+      "state": "verified",
+      "path": "attempts/21cdb7ae952548cd82e1e39519304c6ff46c4d493b1d9de8fc687ec2263f4ebd/0930898888424592ae8fb1ee7a7b8373",
+      "seal": "71ebdbef1dca40fef36bb658d85b9c625dc77667678a8185567dc5a7786e9bb8",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "5b1fe92a3bde4f53ae9b9e9c7b6c4f43",
+      "case_id": "9c3256b87787127d8d8ba46c7d3b158b5d9a4784823a895468ec61a81474206f",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 2,
+        "system": "arc"
+      },
+      "block_id": "277190ebfe1e363f64e7cb79867617ae030b8b373b3d947144c26bd03188dbc3",
+      "state": "verified",
+      "path": "attempts/9c3256b87787127d8d8ba46c7d3b158b5d9a4784823a895468ec61a81474206f/5b1fe92a3bde4f53ae9b9e9c7b6c4f43",
+      "seal": "ef619aadc11de55abe587eb3b00d3f111eebe4700679422cfe7943600675b8ac",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "afe68c7344f140efbcd5ae2ead1dcf48",
+      "case_id": "a920334967d3fa778a4de97493e24b413105f49eedf6f778c39ec25a28452179",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 2,
+        "system": "wait"
+      },
+      "block_id": "277190ebfe1e363f64e7cb79867617ae030b8b373b3d947144c26bd03188dbc3",
+      "state": "verified",
+      "path": "attempts/a920334967d3fa778a4de97493e24b413105f49eedf6f778c39ec25a28452179/afe68c7344f140efbcd5ae2ead1dcf48",
+      "seal": "58d35fe6c177afdffe6657bad8003eed7e5236ecdc22c5809b7055a374e2612f",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "89fb6a15913d4c77bd5c465e3d0ffa35",
+      "case_id": "4ce39500ae8bbd817decb2a6d0655332b8fdf98b42a8bd3fcd9cdd43541fba52",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 3,
+        "system": "wait"
+      },
+      "block_id": "5e57d3ddc37c53550a63ad3841fa30695c585c4e9ab3f8078de438695ad9dca1",
+      "state": "verified",
+      "path": "attempts/4ce39500ae8bbd817decb2a6d0655332b8fdf98b42a8bd3fcd9cdd43541fba52/89fb6a15913d4c77bd5c465e3d0ffa35",
+      "seal": "a652ff34d9137b3a986eb33d72a6e4676ac472041ab558dfc7a20c8530e84c8c",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "0c418eee91854e3aba2a06c43ee0e959",
+      "case_id": "2ff069f2f55ca2ad71903734db94af2e228f185aebc222fd26b501f385fe1af3",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 3,
+        "system": "arc"
+      },
+      "block_id": "5e57d3ddc37c53550a63ad3841fa30695c585c4e9ab3f8078de438695ad9dca1",
+      "state": "verified",
+      "path": "attempts/2ff069f2f55ca2ad71903734db94af2e228f185aebc222fd26b501f385fe1af3/0c418eee91854e3aba2a06c43ee0e959",
+      "seal": "153a18afb09a048895c136a63652d669536b7f6e641c3775ed4b87766733c05c",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "27c921fc7ceb44d8978c3d6142552362",
+      "case_id": "3b5f9569ee67919ec56ff86217f5dae30d64593903966e10cd39b7ef056482f4",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 4,
+        "system": "arc"
+      },
+      "block_id": "4ad0fac9a1cca8df6281d38dc884f2a28c4d7ca26f6887e566d494c6c2a1f98e",
+      "state": "verified",
+      "path": "attempts/3b5f9569ee67919ec56ff86217f5dae30d64593903966e10cd39b7ef056482f4/27c921fc7ceb44d8978c3d6142552362",
+      "seal": "9f98d26799f1cda4ac28c46a78f8025025eb6b6bc13fbf2dd96422a5385aee12",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "2c1e10e549a4485ea5d4020e202ba718",
+      "case_id": "7c14e9074281532d7a038f8017502a9fdc8e1332dfab79b3178ba4254d8206dc",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 4,
+        "system": "wait"
+      },
+      "block_id": "4ad0fac9a1cca8df6281d38dc884f2a28c4d7ca26f6887e566d494c6c2a1f98e",
+      "state": "verified",
+      "path": "attempts/7c14e9074281532d7a038f8017502a9fdc8e1332dfab79b3178ba4254d8206dc/2c1e10e549a4485ea5d4020e202ba718",
+      "seal": "b11a0b14549a2ce388ed7d5f850bf56d2bce1e0938e2c86fedf9848214f78188",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "15039722f263472c8647e5617b0d12cf",
+      "case_id": "511b96b8467f19717d75fc3e07a9a0d30c3517d028112154f6492f45265de2c4",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 5,
+        "system": "wait"
+      },
+      "block_id": "cdea845c2a35eeb921d09d5e45672ead2b02772bc770f9a0f88750d99e422c0b",
+      "state": "verified",
+      "path": "attempts/511b96b8467f19717d75fc3e07a9a0d30c3517d028112154f6492f45265de2c4/15039722f263472c8647e5617b0d12cf",
+      "seal": "53a874c72fe0f4aea32e7c4b3be79c7e41623707cde90899c14022d0f31e1072",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    },
+    {
+      "attempt": "f501c694cf7a497faf1eae3d561f1e0c",
+      "case_id": "06ccde89852a154b5ca7d9e23f1d45d99b0c50058aea32b3b31822f4a8f01663",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B11",
+        "repeat": 5,
+        "system": "arc"
+      },
+      "block_id": "cdea845c2a35eeb921d09d5e45672ead2b02772bc770f9a0f88750d99e422c0b",
+      "state": "verified",
+      "path": "attempts/06ccde89852a154b5ca7d9e23f1d45d99b0c50058aea32b3b31822f4a8f01663/f501c694cf7a497faf1eae3d561f1e0c",
+      "seal": "b8f8e4874bb5534b9004e9b0adab1d45489dde25f297d0d3dbf566a758be4fc6",
+      "verified_files": 153,
+      "inner_verification": {
+        "verified_files": 148,
+        "cases": 1,
+        "request_records": 80,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "full_declared_graph_tools_units_verified": true,
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "cleanup_verified": true
+    }
+  ],
+  "scope": "All60 frozen Ministral confirmation identities executed exactly once; every retained outer/inner seal and graph/tool/unit/cleanup verified. B06 candidate repeats0/3 remain activity-invalid; no favorable-activity retry or repeat reduction. The frozen selector excludes both incomplete pairs; valid unmatched original arms receive no matched timing credit. Secondary models and later phases continue. This is terminal execution for one model, not a complete campaign or performance claim."
+}

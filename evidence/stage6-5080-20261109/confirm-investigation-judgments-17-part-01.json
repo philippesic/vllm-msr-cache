@@ -1,0 +1,152 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 3,
+      "review_id": "5fd86d55b04674f275724381",
+      "signature": "363b8ac4904b2983ff3cf50b5bfd5876fc192921f4758f8413423f4132f7ca76",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 3,
+      "notes": "Original sin correctly answers the supplied dogma question in the requested single-string JSON object. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "21ace833ee5c9ab0b14722ac",
+      "signature": "f406d68b4877c615dc79771c20b94715040310518a1ffd76d39234fc00e98a94",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 3,
+      "notes": "Elite classes matches the supplied Roman-priesthood statement; correct single-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "8511a8b0a535ca279d94b97f",
+      "signature": "cf26b768a2d6263b384072d9a9df48aa02fdee4c181174f09268e93e5ef590ed",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 2,
+      "notes": "Bantu-speaking correctly paraphrases the source's Bantu-speaking tribes and answers the language question; correct JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "86dc928ff95d440c104b54c7",
+      "signature": "cad0cee02091a43b2df25204283ce45f52184b8fe982e24ae845d3dab6ce36db",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 14,
+      "notes": "Artistic/intellectual value and distinctive language use are both explicitly in the supplied literature paragraph. Extra supported detail does not violate one-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 15,
+      "review_id": "940baefbbc434717d430b806",
+      "signature": "ef87bbe24a705db1ef6858c68289e9a34e34cdc286d8dc288045572298e882ec",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 46,
+      "notes": "Correctly identifies the named people as Mainland Chinese scholars and attributes their sovereignty assertion and stated evidence to them, rather than endorsing it as settled history. All elaboration is in the supplied paragraph; valid single-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 18,
+      "review_id": "6dea0e4dd52834f1414fa47a",
+      "signature": "763a3b8c2c73c12ae03a0bc27d1f42d884d6afd715a69280f1dc5a9e1077c907",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 8,
+      "notes": "Nontheistic religion or philosophy is the supplied opening statement; valid single-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 19,
+      "review_id": "e0d9aec9cdd48f55a1f4e130",
+      "signature": "9617f76d688241e0c56b374afa87b01a15349a6c6b9adef43f22cb3a7d285791",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 21,
+      "notes": "Equality of standing between government levels is explicitly the distinguishing feature; valid single-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 20,
+      "review_id": "d3e98d2b77fe7ac6f027683f",
+      "signature": "e1404700d6dbaa14592eb6d558311d0bdd99a801aca45225948db980a5c22ee9",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": false,
+      "unsupported_claims": [
+        "Uses city-proper population275718 from2013 in response to the2012 population question; the supplied2012 metropolitan figure/reference is768868."
+      ],
+      "whitespace_words": 2,
+      "notes": "The single-string JSON format is correct, assessed separately from factual support. The only substantive answer selects the wrong year/geographic scope and is not useful for the asked2012 figure. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 25,
+      "review_id": "a9e33af74b639f7e5dcb37e8",
+      "signature": "39feb01d67e8fa43b84f1693fd14225cb2913a9948434a4fd897c8de3d07c6a1",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 4,
+      "notes": "Africa and Asia are the two source-supported continents; valid single-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "51e1bae8537255aed75f1fc8",
+      "signature": "50df4d122107a87e13799aabedbfd01472c69c6e83f5dbf9ec808420118bfbf4",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 5,
+      "notes": "Manuscripts or printed books is explicitly the material considered by textual criticism. The answer is supported even though the reference uses a longer manuscript-copy span; valid single-string JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "00ab7ebc0289d007a1ea678d",
+      "signature": "5ed6bdefd57f19b09d0fb4a2c5cba4111b650fd811887842cf585ad66f665d16",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 14,
+      "notes": "Compression reduces storage/transmission resource use as explicitly stated. Supported explanatory wording in one JSON string is allowed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "86553b29d8e01ede8f59b55a",
+      "signature": "429d985488995b5f028bfd625a6526b4fb9aafe14607094c4902505f5c05dbce",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "United Kingdom is the correct supported country, but the surrounding Markdown code fence violates JSON-only output. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

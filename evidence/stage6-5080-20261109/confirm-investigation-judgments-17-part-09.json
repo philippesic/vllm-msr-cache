@@ -1,0 +1,58 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "05ad692d2de1b01d6f0874a9",
+      "signature": "7cbaa5f52e8001461da7a5e21f93224acbe9f67ad213ac8064265b996671f853",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports metadata validation FAIL/not confirmed despite the actual supplied PASS."
+      ],
+      "whitespace_words": 87,
+      "notes": "Superseded/Standards Track, automatic sdist PKG-INFO generation and undefined Supported-Platform semantics are useful supported facts. The extra request to rerun a command does not erase the prior actual result. Wrong status and colon-label format fail the required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "efad5f0189be21274aa96903",
+      "signature": "d5dc602586b42dfc2764a46d13209960a7794898f2b3e7d38740467150cfad2e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents a restriction on custom exceptions by logging level/CRITICAL and exclusive use of exception(); the supplied logging API permits exception information via exc_info without such a level restriction."
+      ],
+      "whitespace_words": 73,
+      "notes": "Final/Standards Track, getLogger factory guidance and actual metadata PASS remain useful supported facts. The unsupported limitation fails source support, and the bold Test Status label is not the required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 16,
+      "review_id": "91280be635d4d1102b20230d",
+      "signature": "2af42e51f335b1171f6ab329670343c440cddffd09541116fa29ba6ef6cd24a2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Labels the test status FAIL because the feature lacks implementation, although the actual metadata test returned PASS.",
+        "Presents lack of native do-while support as the reason for rejection without source evidence for that causal claim."
+      ],
+      "whitespace_words": 72,
+      "notes": "Rejected/Standards Track, proposed setup-before-loop and preferred while-True/if-break workaround are useful supplied facts. Feature adoption is separate from metadata validity. Literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

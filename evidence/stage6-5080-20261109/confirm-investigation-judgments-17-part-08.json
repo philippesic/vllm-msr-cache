@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "c34769da2224d862bcc30649",
+      "signature": "fd4243845c55cdd13e712af2f3ca77db7a9b494ae2e56969a18324a1b44b9bc4",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 87,
+      "notes": "The supplied historical PEP279 supports the Python2.3 built-in proposal, any-iterable index/value iteration and dropped optional start/stop parameters. Final/Standards Track and metadata PASS are correct; this is document support, not independent runtime execution. The bold Test Status colon label is not literal test_status=PASS. Predecessor PEP2779/278 and code i+=data errors are not repeated in the final. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "a311a36df8b1651e45dcd626",
+      "signature": "0f6f48379d5c2012fb86d91550101eac5601d8b9aae2b080f497b343ffacb2d2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 66,
+      "notes": "The supplied PEP307 expressly supports string-or-2-to5-tuple reduce values, optional listitems/dictitems, and classic classes' inability to provide reduce customization in that protocol. Those classic-class restrictions are correct, not a source failure. Actual validation status is omitted entirely, so the final fails the required literal status despite useful supported facts. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "a834a51b2f51637615edbecb",
+      "signature": "c8f9e988d3feb231ae6f3ca63ea303888cc468813806e99ca007b4ed652c3a93",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports validation FAIL although the actual document-metadata validator returned PASS; a Rejected proposal can have valid metadata."
+      ],
+      "whitespace_words": 54,
+      "notes": "Rejected/Standards Track, optional do setup before the condition and the recommended while-True workaround are useful supported document facts. The unsupported universal never-implemented-in-any-version claim has no runtime validation here. The required literal actual test_status=PASS is absent; metadata and proposal acceptance are distinct. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

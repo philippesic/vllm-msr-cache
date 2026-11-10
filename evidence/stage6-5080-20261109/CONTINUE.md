@@ -16,14 +16,56 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The November 10 05:55 UTC health check has **418/524 valid configurations,
-155/210 complete matched blocks**, with Ministral B11 candidate repeat 4 active.
+The November 10 06:23 UTC health check has **437/524 valid configurations,
+165/210 complete matched blocks**, with Qwen3-4B B02 ARC repeat 8 active.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
 Review 16 is complete for its static snapshot through terminal Ministral B06:
 all 132 new contexts are judged and the isolated validator accepts 4,942 ratings.
 Its [initial partial progress](confirm-review-progress-16-01.json) remains history;
 do not regenerate the completed packet or re-review those contexts.
+All Ministral acquisition is now terminal: [model inventory](confirmation-ministral-attempts-complete.json)
+verifies **60 planned configurations exactly once / 7,812 sealed files**, including
+inner artifact/aggregate checks and every declared graph/tool/unit/cleanup.
+There are **58 valid measurements and 28/30 complete pairs**; only B06 repeats
+0 and 3 remain missing. Never resume this finished model for activity. The frozen
+schedule actually assigns 60 Ministral and 100 Qwen3-4B configurations, totaling
+524 with the 364 anchor configurations. A draft inventory's mistaken 64-case
+Ministral assertion stopped before writing evidence, was corrected against the
+unchanged protocol, and then passed. Acquisition never used that draft count.
+
+Review 17 is **prepared and partially reviewed**, not audited:
+[progress](confirm-review-progress-17-01.json), raw `$BASE/quality-confirm-checkpoint-17/`.
+Its frozen static selection has 161 blocks, 8,152 objective finals, 5,342 automatic
+final failures, 291 capped intermediates, 6,153 selected outputs / 784 contexts.
+The exact reuse union is screen07, confirm01 through16 and completed cap07 with
+matching archived SYSTEM/source. All 201 novel contexts are finals: 54 QA and
+147 investigations. **81 are explicitly read/judged in parts01 through14: all54 QA
+and27 investigations;120 investigation contexts remain unread/unjudged.**
+Every index0 through39 and all remaining QA indices are done. Next unread index
+is40; use the exact unread list in the progress receipt, not a contiguous range.
+Do not rerun the one-shot preparation or completed Ministral inventory.
+
+The authored `benchmarks/research_checks/stage6_5080_review17_tools.py` provides
+`compact_view`, `save` and `retain_bindings` from mutable REPO with the literal
+pinned interpreter and bytecode disabled. Every new answer/unmatched component
+must be explicitly read before saving. Existing full-field/individual-dependency
+bindings use confirm02 through16, cap07 and earlier17; earlier17 repeats are
+printed in full. `retain_bindings` was tested to refuse incomplete manual coverage
+without writing. Do not call frozen finish or produce canonical index17 until
+all201 are explicitly reviewed and complete archived/raw bindings checked.
+Completed index16 remains authoritative meanwhile. Part14 ends with graded
+indices37/38/39; no displayed-but-ungraded context is pending at this checkpoint.
+
+Manual subset findings are linked in the progress receipt, not population rates.
+QA20 uses the wrong Strasbourg year/scope (2013 city275718 instead of2012 metro
+768868), despite valid JSON. QA36/62 correctly say the source names no foreign
+city, despite the question/reference's faulty foreign-country premise; preserve
+the objective failure and the separate source judgment. PEP322's historical
+example explicitly raises ValueError for mappings: never substitute modern runtime
+behavior. PEP307 explicitly excludes classic-class reduce customization, and
+PEP318 explicitly documents implemented2.4a2 nested decorator semantics. Existing
+colon/bold Test Status labels still fail required literal `test_status=PASS`.
 The [terminal anchor inventory](confirmation-qwen8b-attempts-complete.json)
 reconciles all 364 planned Qwen3-8B configurations: 363 valid logical cases,
 377 retained attempts / 35,530 verified files and 129/130 matched blocks.
@@ -82,6 +124,23 @@ failed cell and preserve logs/receipts before selecting another recovery suffix;
 never blindly restart the existing script because its launch names already exist.
 Zero exit means all selected acquisition commands returned, not all cases passed.
 Reconcile the entire frozen identity inventory before overhead/operational.
+The new audit helper `benchmarks/research_checks/stage6_5080_confirm_complete.py`
+is run as an absolute script from frozen SOURCE with the literal PY and bytecode
+disabled. Its `--check-ready` probe correctly refused pending acquisition with
+exit2 and no final evidence. The terminal full path remains unexecuted: after
+service03 exits successfully, run without that flag to reconcile all524 original
+identities, unchanged anchor attempts, known failures, graph/tool/unit coverage,
+inner/outer seals and the frozen whole-block selection. It refuses new invalid
+attempts and overwrites. Expected validity is conditional on the three known
+activity failures, never 524 valid measurements. Then advance overhead and
+operational via fresh independent units/logs/receipts and the existing launcher.
+
+At 06:04 UTC the campaign occupied about10.1GB while ext4 had about8.8GB free;
+the final real portability copy already cannot fit, even before remaining growth.
+Remeasure after all timed phases and expand the existing project-owned ext4 image
+then as needed. Do not reformat it, discard evidence, use DrvFS symlinks or create
+a replacement campaign. Windows backing free space was about11.2GiB; reserve
+headroom for the extension. No resize has been performed during timed acquisition.
 
 Screen session 65450 is **finished**. All 54 required configurations / 22 whole
 blocks completed; [screen receipt](screen-complete.json) verifies 58 verified,
