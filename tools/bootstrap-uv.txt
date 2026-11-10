@@ -1,0 +1,2 @@
+# uv 0.13.6; Linux x86-64 bootstrap wheel (PyPI SHA-256).
+uv==0.13.6 --hash=sha256:22759b8895e1103578de6fb4cd27e94b4399d021023378d29f01333717751fba
