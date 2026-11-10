@@ -1,12 +1,16 @@
 # Current work
 
-Last reconciled: 2026-11-08. This is a handoff summary, not a live process monitor.
+Last reconciled: 2026-11-10. This is a handoff summary, not a live process monitor.
 Update the affected entry at a meaningful handoff, change of direction, or finish.
 Replace old state; move completed outcomes to [history](PROJECT_HISTORY.md).
 Verify stale ownership before using shared resources. Keep detailed records in
 linked evidence/run directories, not a second diary here.
 
-Latest completed handoff: [Stage 6 findings](../evidence/stage6-2080ti-20261106/RESULTS.md) and [gated 5080 replication](../evidence/stage6-2080ti-20261106/HANDOFF_5080.md). Workload-dependent gains and adverse results remain qualified; the missed repository pressure comparison is now separately measured. No 5080 jobs or production qualification.
+Latest completed handoff: [RTX 5080 Stage 6 results](../evidence/stage6-5080-20261109/RESULTS.md).
+All planned phases/audits and 42 conditional comparisons are complete/pushed; the
+full protocol failed three original activity gates. GPU released, requested
+waiting-thread notification delivered and own hourly schedule disabled. Prior
+[2080 Ti results](../evidence/stage6-2080ti-20261106/RESULTS.md) remain unchanged.
 
 Plan and completed local evidence: [wait-hint validation and release plan](WAIT_HINT_PRODUCT_PLAN.md).
 The original four stages cover causal validation, competitive comparison, repeatability
@@ -15,32 +19,21 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Stage 6 RTX 5080 rebuild — results pushed; GPU released and recipient notified
+## Stage 6 RTX 5080 rebuild — closed; GPU released
 
-All planned phases and final audits/results are finished:54 screens,524
-confirmation identities,38 overhead controls and six operational cases. Functional
-qualification passes, but the full throughput protocol fails because exactly
-three genuine B06 activity blocks stay excluded without retry/imputation:
-521 valid logical cases /207 of210 complete matched blocks. All42 geometric
-ratios/95% CIs and actual latency figures are retained and the chart rendered.
+Approved same-source LMCache sm_120+PTX rebuild and all five Continuum screens
+pass. All 524 confirmation identities,38 overhead controls and six operational
+cases ran; all 641 attempts /67,120 sealed files and final audits verify. The full
+protocol failed three genuine B06 activity gates:521 valid identities /207 of 210
+matched blocks, without replacement or imputation. All 42 conditional ratios/95%
+CIs and latency figures are published; B11 apparent gains remain unresolved,
+B09 and Qwen3-4B B08 have adverse results. Two short-QA 3% bounds are inconclusive.
 
-All641 attempts /67,120 sealed files verify; primary source, all-attempt cap,
-recovery, source/seal/campaign and actual offline relocation/import audits pass.
-Original acquisition source/design, November8 and2080Ti history remain unchanged.
-B11 candidate/ARC1.0726 [0.9478,1.2139] and candidate/Continuum1.0689
-[0.9304,1.2280] are unresolved; B09 ratios0.9733 [0.9617,0.9850] and0.6826
-[0.6558,0.7106] are adverse. Two short-QA3% overhead bounds remain inconclusive;
-all bounded operational requirements pass. No quality-equivalence/production claim.
-
-Final results/audits are pushed. All exact owned processes are gone, all eight
-known units stopped, NVML compute clients were empty and both GPU locks verified
-free. [Release proof](../evidence/stage6-5080-20261109/gpu-release-final-01.json)
-retains the timestamp/checkpoint. Requested waiting-thread notification is delivered; only own
-hourly schedule shutdown/final bookkeeping push remain; [completion](../evidence/stage6-5080-20261109/completion.json)
-tracks these final steps. [Results](../evidence/stage6-5080-20261109/RESULTS.md),
-[audit](../evidence/stage6-5080-20261109/completion-audit-01.json),
-[portability](../evidence/stage6-5080-20261109/portability-final-03.json) and
-[continuation](../evidence/stage6-5080-20261109/CONTINUE.md).
+Owned GPU processes/servers and eight units stopped; both locks verified free.
+Requested release notification delivered and own hourly schedule disabled.
+No Stage 6 job remains. [Results](../evidence/stage6-5080-20261109/RESULTS.md),
+[completion/receipts](../evidence/stage6-5080-20261109/completion.json) and
+[brief history](PROJECT_HISTORY.md). Recipient GPU work is outside this campaign.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 

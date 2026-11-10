@@ -1,0 +1,14 @@
+{
+  "schema": "stage6-5080-monitoring-closeout-v1",
+  "scheduledTaskId": "scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae",
+  "enabled": false,
+  "nextRunAt": null,
+  "schedule": {
+    "type": "interval",
+    "everyMs": 3600000
+  },
+  "all_campaign_results_audits_and_gpu_release_pushed_before_disable": true,
+  "notification_delivered_before_disable": true,
+  "delivery_checkpoint": "be20745",
+  "scope": "Only this Stage6 hourly schedule disabled after completed/pushed outcome, verified GPU release and requested delivery. Historical schedules unchanged."
+}

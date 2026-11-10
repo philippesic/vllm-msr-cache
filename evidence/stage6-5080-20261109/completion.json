@@ -1,6 +1,6 @@
 {
   "schema": "stage6-5080-completion-v1",
-  "updated_unix": 1794313738.7403438,
+  "updated_unix": 1794313855.3609736,
   "execution_and_all_audits_complete": true,
   "full_protocol_passed": false,
   "reason": "Three genuine B06 activity-invalid blocks retained; no replacement or imputation",
@@ -49,9 +49,12 @@
   "monitoring": {
     "scheduled_task_id": "scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae",
     "every_ms": 3600000,
-    "disabled": false
+    "disabled": true,
+    "nextRunAt": null,
+    "receipt": "monitoring-disabled-final-01.json"
   },
-  "closeout_complete": false,
-  "scope": "All campaign execution, audits, results and GPU release complete/pushed; requested completion notification delivered with stable idempotency key. Only own hourly shutdown and final bookkeeping push remain. No training or unrelated checkout access.",
-  "pushed_release_checkpoint": "04dba8f7f0a9b67b84430221adbdfc8d64d55446"
+  "closeout_complete": true,
+  "scope": "All authorized campaign execution, final audits/results, resource cleanup, requested completion notification and own hourly schedule shutdown handled. Full protocol failed exactly three original activity gates; no missing authorized phase, favorable retry, imputation, repeat reduction, forced flag, training or unrelated checkout access. Release proof is a timestamped handoff; recipient GPU work is outside this campaign.",
+  "pushed_release_checkpoint": "04dba8f7f0a9b67b84430221adbdfc8d64d55446",
+  "pushed_notification_checkpoint": "be20745"
 }

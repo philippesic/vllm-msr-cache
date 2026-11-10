@@ -243,3 +243,6 @@ Owned servers/processes are stopped. The RTX 5080 and both GPU locks were
 verified released after the results/audits were pushed ([release proof](gpu-release-final-01.json)).
 The [completion record](completion.json) tracks pushed checkpoints, requested
 waiting-thread delivery and monitoring shutdown. Useful artifacts remain preserved.
+The requested completion notification was delivered after the pushed release
+proof; its stable delivery receipt is retained. Own hourly monitoring is disabled
+with no next run. All authorized work is closed.

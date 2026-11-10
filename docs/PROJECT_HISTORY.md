@@ -183,3 +183,18 @@ archive verify. GPU released, useful evidence and recovery material preserved.
   audited; no answer-quality equivalence. Original primary and failed-gate
   history preserved. Source/results pushed, GPU released and health schedule
   disabled. [Recovery evidence](../evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
+
+- **November 9–10, 2026 — RTX 5080 Stage 6 rebuild:** rebuilt the pinned LMCache
+  source for sm_120+PTX and completed all 54 screens,524 confirmation identities,
+  38 overhead controls, six operational cases and final source/cap/integrity/
+  recovery/relocation audits. All 641 attempts/67,120 sealed files verify. Functional
+  qualification passes; the full protocol fails three original B06 activity gates,
+  leaving 521 valid cases/207 of 210 matched blocks, without favorable retries or
+  imputation. All 42 paired geometric ratios/95% CIs and latency figures are retained.
+  B11 candidate/ARC 1.0726 [0.9478, 1.2139] and candidate/Continuum 1.0689
+  [0.9304, 1.2280] remain unresolved; B09 and Qwen3-4B B08 have adverse results.
+  Two short-QA 3% overhead bounds remain inconclusive; bounded operation passes.
+  GPU/locks released, requested waiting-thread notification delivered and own
+  hourly monitoring disabled. November 8/2080 Ti history preserved; no training or
+  Stage 7 work. [Results](../evidence/stage6-5080-20261109/RESULTS.md),
+  [closeout](../evidence/stage6-5080-20261109/completion.json).

@@ -6,63 +6,52 @@ closed November 8 campaign and all 2080 Ti history. No other machines/projects,
 training, Stage 7 or credentials in tracked files. A setup/harness/storage failure
 requires repair and continuation, not a capability-failure closeout.
 
-## Current state
+## Current state — CLOSED
 
-**All planned campaign execution and final audits/results are finished.** The full
-protocol failed its throughput requirements because exactly three original B06
-activity-invalid blocks remain excluded. Never rerun confirmation or any other
-measured phase. No favorable retry, imputation, repeat reduction or forced flag.
-All524 confirmation identities are terminal:521 valid,207/210 matched blocks,
-537 retained attempts. All38 overhead controls and six operational cases completed
-once; all bounded operational checks pass, with two short-QA3% overhead bounds
-inconclusive. [Final results](RESULTS.md), [final analysis audit](completion-audit-01.json)
-and [all42 ratios/CIs/latencies](final-results-01/tables.md) retain the numbers.
+All authorized work is finished: approved same-source sm_120+PTX LMCache rebuild,
+kernel/serving smoke, every planned phase, final audits/results and pushed resource
+release. The requested waiting-thread notification was delivered after all
+prerequisites were pushed. Own hourly schedule is disabled with nextRunAt=null.
+[Completion record](completion.json) is authoritative. No Stage 6 work remains;
+never resume a measured phase, send another release notice or kill another job.
 
-All641 retained attempts /67,120 sealed files and inner aggregates verify.
-Primary source review covers10,520 objective finals /7,011 selected outputs /
-849 contexts; final all-attempt cap review covers516 responses /186 contexts,
-with no pending or partial fragments. Source/history/bundle/build/recovery audits
-pass. Exact2,192-file acquisition source, all measured inputs/order/repeats,
-November8's41 attempts and all2080Ti history remain unchanged.
+The full throughput protocol **failed** exactly three genuine B06 activity gates:
+Qwen3-8B repeat 0 and Ministral repeats 0/3. All 524 identities ran;521 are valid,
+207/210 matched blocks. There was no favorable activity retry, imputation, repeat
+reduction or forced flag. Functional qualification passes. All 38 overhead controls
+and six operational cases completed once; two short-QA 3% bounds remain inconclusive,
+all bounded operational requirements pass. [Results](RESULTS.md) and
+[all 42 ratios/CIs plus 54 arm latency rows](final-results-01/tables.md) retain numbers.
+All final comparison rows exactly reproduce the terminal extraction; chart was
+actually previewed/rendered and all missing identities preserved.
 
-**Portability proof03 succeeded**, including physical relocation/offline guarded
-verification of all641 attempts/67,120 files, all42 comparison digest equality,
-nine model/blob denial checks, two original-source/assets denial checks, no GPU
-imports, independent-runtime02 import/dry compilation, parent-protocol preservation
-and blocked confirmation until new hardware preflight. Original campaign restored;
-no parked path remains. Failed proofs01/02, corrupt-copy sample and all repair
-history remain preserved. Only the two declared derived transfer modules differ
-from acquisition source;19 focused regressions and245 exact-derived CPU tests pass.
-[Portability](portability-final-03.json), [copy repair](portability-copy-repair-03.json),
-[export repair](portability-repair-02.json), [storage growth](volume-growth-01.json).
+[Final audit](completion-audit-01.json) binds all 641 retained attempts /67,120
+sealed files, source/history/build/bundle/recovery checks and frozen report flags:
+quality/overhead/operational/recovery/portability=true, throughput/complete=false.
+Primary source review covers 10,520 objective finals /7,011 selected outputs /
+849 contexts; all-attempt cap review covers 516 responses /186 contexts, without
+pending responses or partial fragments. [Portability proof03](portability-final-03.json)
+physically relocates evidence, denies original model/blob/source/assets access,
+verifies all 641 attempts offline and reproduces all 42 comparisons. Runtime02
+import/dry compilation preserves parent source/order/precision and blocks future
+confirmation until hardware preflight. Original campaign restored, no parked path.
 
-Independent portability03 and final-analysis01 units are terminal success0/
-MainPID0, with exact original owners gone. Final frozen report retains:
-quality/overhead/operational/recovery/portability=true; throughput/complete=false.
-Every final comparison row exactly reproduces the earlier terminal42; all32 anchor
-rows previously reproduced exactly. The compact42-row chart was actually previewed
-and rendered: [receipt](final-results-01/render.json). Final helper assertions passed.
+Exact acquisition source/design, November 8's41 attempts and all 2080 Ti history
+remain unchanged. Declared analysis-only exporter/buffered-copy repairs and ext4
+20→28 GiB growth preserve all original measurements, failed proofs01/02 and the
+corrupt-copy sample.19 focused regressions and 245 exact-derived CPU tests pass.
+Useful raw evidence, runtimes/models/builds/source caches remain preserved.
 
-**Owned GPU resources are now released**, verified by [release proof](gpu-release-final-01.json)
-after analysis checkpoint1a381f8 was pushed. All retained owner records' exact processes
-are gone, all eight known owned units stopped, no owned coordinator/server or NVML
-compute client remained, and both GPU locks were acquired/released and found free.
-The original ext4 campaign is restored. Useful results/models/runtimes/builds and
-all failed histories are preserved. Root/ext4/Windows remain healthy within their
-available2.0/2.6/3.2GiB. No process was killed, lock unlinked or GPU reset.
-
-**Requested completion notification delivered** to the waiting thread after all
-results/audits and the verified GPU-release proof were pushed (release checkpoint
-04dba8f). [Delivery receipt](completion-notification-01.json) retains the stable
-`clientRequestId=stage6-5080-20261109-final-gpu-release` and message/run identifiers.
-DO NOT send again. GPU ownership is relinquished; recipient work may start now.
-Do not inspect/stop its processes or touch its checkout. No training launched here.
-
-**Closeout remaining:** push the delivery receipt/current completion state,
-disable only own hourly schedule, retain its disabled/nextRunAt=null receipt and
-push final closure. [Completion](completion.json) is authoritative. All campaign
-work and requested GPU-release notification are handled; no new measurement,
-repair, chart rendering or GPU action is required.
+[Release proof](gpu-release-final-01.json): after analysis/results push, all 28
+recorded exact owners had exited, all eight known owned units stopped, no owned
+coordinator/runtime server or NVML compute client remained; both GPU locks were
+acquired/released and verified free. No process killed, lock unlinked or GPU reset.
+[Notification receipt](completion-notification-01.json) retains the stable
+`clientRequestId=stage6-5080-20261109-final-gpu-release`; DO NOT send again.
+[Monitoring shutdown](monitoring-disabled-final-01.json) disables only own hourly
+schedule. Recipient may now use GPU under separate authority; do not inspect/stop
+its work or touch its checkout. No training, unrelated project/machine work or
+Stage 7 was performed here.
 
 ## Earlier phase and review history
 
@@ -1365,37 +1354,18 @@ closed November 8 campaign). Expanded cap signatures additionally bind executed
 system instructions and prompt context. All timings/objective results are
 unchanged. Preserve every earlier review snapshot as history.
 
-## Completion notification requested by Philip
+## Completion notification — delivered
 
-Only after the **entire** authorized campaign is closed (all remaining phases,
-final audits and results complete and pushed), owned GPU servers/processes are
-stopped, and the RTX5080 release/locks are explicitly verified, use
-`t3_thread_send` to notify thread `6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6`.
-The recipient was read and verified on November10; its separately authorized work
-is waiting for this campaign's full release. A completed chat turn is not release.
-Include final outcome, evidence paths, pushed branch/checkpoint and explicit GPU
-release confirmation with the linked cleanup proof. Use a stable clientRequestId
-such as `stage6-5080-20261109-final-gpu-release` and retain delivery confirmation;
-if interrupted, verify delivery before sending a duplicate. Do not send a release
-notice early, shorten this campaign, start training or touch Binary Eagle checkout.
-No old webhook is authorized. Finish/push closeout and delivery evidence, disable
-this job's hourly schedule, and only then complete the active goal. The recipient
-also checks hourly as fallback. This instruction adds notification only; every
-existing campaign requirement and historical exclusion is retained.
+Philip's exact final notification request is handled. All phases/audits/results
+and the GPU-release proof were complete and pushed before sending. Stable key:
+`stage6-5080-20261109-final-gpu-release`. The recipient was read before delivery;
+[receipt](completion-notification-01.json) retains message/run IDs and link. Do not
+resend or start its separately authorized work. No old webhook was used.
 
-## Supervision
+## Supervision — disabled after pushed closeout
 
-Health schedule: `scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae`, every
-60 minutes in this thread, changed at Philip’s explicit November10 08:18 UTC
-instruction. The scheduler confirms everyMs=3600000 and next run09:18:50 UTC.
-Keep routine healthy monitoring silent; Philip requests a user-facing return only
-after the full run and final audits/results/repairs are handled and pushed.
-Never fill missing measurements or force readiness flags: genuine activity-invalid
-results retain their documented exclusion; repair setup/harness/storage defects.
-Reverify ownership, mount, disk, GPU and request/stream/
-ledger progress. Run `benchmarks.research_checks.stage6_healthcheck` from mutable
-REPO with canonical OUT and `--state-dir "$BASE/confirm-health-01"`; the first
-post-activation check passed. Its source uses the now-present protocol lock and
-primarily assesses confirmation. Healthy long
-acquisition returns to unattended operation; a finished phase advances immediately.
-Interrupted checks are not completion. Keep the whole original objective active.
+Own schedule `scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae` ran hourly at
+Philip's explicit request. It is now disabled with nextRunAt=null, after all
+results/audits/resource release and notification evidence were pushed. [Receipt](monitoring-disabled-final-01.json).
+Historical schedules remain unchanged. Do not re-enable monitoring or rerun this
+closed campaign without new authorization.
