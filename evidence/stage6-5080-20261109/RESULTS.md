@@ -370,10 +370,30 @@ are valid; **four of six matched pairs** are complete. Repeats 0 and 3 remain
 excluded with their valid unmatched ARC peers. All 62 raw caps await the final
 all-attempt audit. The cell is finished without retrying activity failures.
 
-The next isolated review has 4,942 selected outputs / 561 contexts, with 132
-contexts new across completed earlier reviews. [Saved progress](confirm-review-progress-16-01.json)
-records 64 explicit new judgments and 68 unread contexts. This is work in progress;
-canonical source review16 and its final binding/validator checks are pending.
+The [completed partial review 16](confirm-review-index-16.json) covers **6,872
+objective finals, 4,359 automatic final failures, 108 capped intermediates and
+4,942 selected outputs / 561 contexts**. All 132 new contexts were explicitly
+read/judged across nineteen parts: 64 QA finals, 61 investigation finals and seven
+capped intermediates. Exact [component bindings](confirm-review-components-16.json)
+retain 78 previously read source matches and two newly read unmatched source
+strings, with every new dependency and answer reviewed.
+
+The new group has **77 source failures, 131 instruction failures and twelve not
+useful**. Fenced/malformed QA format remains separate from correct supplied facts;
+unsupported elaborations and entity/date mistakes remain visible. Investigation
+errors include denying actual passed tests, importing unrelated broad-search
+tests, false divisibility/type constraints and invented cache/concurrency defects.
+Supported fragments and narrow test-coverage limits retain credit. A final with
+correct required PASS/fact/limitation but an extra false opening retains instruction
+credit while failing source fidelity.
+
+Selected duplicate-inclusive counts are **721 source failures, 2,825 instruction
+failures and 99 not useful**. All 380 archived instruction sources verify, and the
+[isolated frozen validator](confirm-quality-checkpoint-16.json) accepts all 4,942
+judgments. The [initial 64-context progress](confirm-review-progress-16-01.json)
+is preserved as history. No objective, timing, live-quality or exclusion change;
+these are not population rates or quality equivalence. Later acquisition and
+final all-attempt audits remain pending.
 
 The interim Qwen3-8B extraction now retains **all 32 frozen comparisons** for
 the completed anchor model: [data](anchor-results-01/comparisons.json),

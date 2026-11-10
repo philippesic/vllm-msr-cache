@@ -1,0 +1,100 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 112,
+      "review_id": "2777a12e285f3c2f755ffb69",
+      "signature": "ca2050cae2e35a51cdfa52239450a50903617de33046ed713730519ceda3bd9c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ConsumerTests executed and passed one test.",
+        "The decorator documentation does not mention multiple consumers sharing one generator as a supported capability."
+      ],
+      "whitespace_words": 101,
+      "notes": "Automatic priming/send convenience is a useful supported fact. Sharing-test absence is a narrow coverage observation, not evidence of a promised feature. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 113,
+      "review_id": "b54fffc76c10a38c5326d7df",
+      "signature": "544f73841b529d07f0280efb1339ca195120b2d46316cb1ab300b85f96d0a7ac",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CombinationIndexTests result is eight tests, not ten.",
+        "The repetitive test_odd/test_none validation narrative is unrelated to the provided class."
+      ],
+      "whitespace_words": 154,
+      "notes": "Valid-combination index behavior for small inputs remains useful and supported; no specific failing larger/complex input establishes a runtime ordering defect. At154 words final exceeds under150 and lacks literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 114,
+      "review_id": "3a2c9d04e0b97035593f4624",
+      "signature": "62de03f86620f304b9a2b01285ff966f8c1b7b7985ee0efced4a52bf6b0303fb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "The supplied ten-test/eighty-four-subtest execution directly validates combination_with_replacement_index; shifting the report to unrelated first/last functions misrepresents the evidence."
+      ],
+      "whitespace_words": 94,
+      "notes": "Correct facts about a different helper do not answer the current source investigation; no supported current-function behavior/status/limitation. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 115,
+      "review_id": "2c1ac7a236c332291c325183",
+      "signature": "e4f15f414618dc4c9365b6eba98b64b8c9563c8653c704c1ce9e776eb92768ca",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CallbackIterTests has seven executed tests, not only test_abort.",
+        "The class is implemented and basic callback extraction/background execution are documented and tested, contradicting the asserted missing support."
+      ],
+      "whitespace_words": 102,
+      "notes": "AbortThread after abort and actual PASS meaning retain useful credit. test_status = PASS contains spaces and is not the required literal; false limitation also fails instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 116,
+      "review_id": "7e4b669d44740357c5c2aca9",
+      "signature": "8ac82226a07d85a4f08477d21ef99e31c1cda9ab6e2ffd3956ff65aa3bbc26df",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Callbacks enqueue data within one submitted target; the source does not support the claimed executor-worker exhaustion from many callback invocations.",
+        "The iterator polls/waits on its queue and can block awaiting data; a blanket nonblocking-main-thread guarantee is not established."
+      ],
+      "whitespace_words": 155,
+      "notes": "Core conversion, done/result, custom keyword, abort contract and polling setting are useful. Boundary checks are plans, not executions. At155 words the intermediate exceeds under70 and the search declaration is truncated. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 117,
+      "review_id": "93b6d90f64a274f528c4d637",
+      "signature": "84f0fc8f585afce170a14efcea4e0a48a6ffcb365202a5754a1d8e87ef604876",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual ten passes/eighty-four subtests directly validate combination-with-replacement indices; the asserted lack of core-logic tests is false."
+      ],
+      "whitespace_words": 105,
+      "notes": "Facts about unrelated first() do not report the requested function. No supported current-function behavior/status/limitation; missing literal status and misleading evidence are not useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

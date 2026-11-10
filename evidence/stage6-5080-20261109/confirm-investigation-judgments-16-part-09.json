@@ -1,0 +1,89 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 64,
+      "review_id": "baab457c8578c3ea97d82739",
+      "signature": "4856aa699968103df5300243b7ef492813263002fd69ffd715422fc194eed484",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 18,
+      "notes": "Artistic/intellectual value and distinct literary language both appear in supplied paragraph. Correct useful content; fenced JSON fails required response format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 65,
+      "review_id": "e7802232fce0acd39ad47124",
+      "signature": "67e4fdcdb98654adfa194ce587b9dc559a03db045f519147748253a56114b15f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ConsumerTests validation was supplied; unrelated first()/empty listings do not replace that execution.",
+        "The consumer docstring/decorator does not promise multiple consumers sharing one generator; each wrapped call creates and primes its returned generator."
+      ],
+      "whitespace_words": 122,
+      "notes": "Automatic first-yield priming is a supported useful fact. Test-denial/sharing claims unsupported and no literal test_status=PASS is supplied. Proposed search has no actual outcome. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 66,
+      "review_id": "2a592fb05485454af13c6445",
+      "signature": "d92c963f4fd619df999dc0a8ca97e0a3253d45c99fd7b5af34576e86c5043558",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Brasilia is explicitly the federal capital. Accent-preserving correct answer; Markdown fence fails bare JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 67,
+      "review_id": "60152033aa3f1ea9b8e6312c",
+      "signature": "e7b9a8504529068ebcf33aed916f1347a25301f695fef760609f0de20272a164",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The passage identifies the English alphabet and enumerated128 ASCII characters; the additional Latin-derived-variants basis is not supported."
+      ],
+      "whitespace_words": 25,
+      "notes": "English alphabet and numbers/punctuation/control codes are supported useful content. Do not invent a specific accented-character claim beyond the text; the broader added basis itself lacks source support. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 68,
+      "review_id": "0d6f056b6b1ced9cddc4306c",
+      "signature": "05b5957bf45eca3054be235f28f2cdc95bee70ea5c937b9cc37a47f3e720767e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 22,
+      "notes": "The source explicitly gives85 Eastern canons. Correct useful content, but missing closing quote and code fence violate JSON format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 69,
+      "review_id": "a4c3283f77bf9897992633d3",
+      "signature": "fd7574f5132ec18e71b3e908b74db15863065bc3edc5dfe8920e038137fca20c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "Mainland Chinese scholars, dates and their attributed Ming-sovereignty argument/title-renewal evidence are all supplied. The response attributes the view rather than asserting disputed sovereignty as fact. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

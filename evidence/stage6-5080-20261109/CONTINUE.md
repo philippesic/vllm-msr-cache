@@ -16,13 +16,14 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The latest post-repair health check has **394/524 valid configurations,
-143/210 complete matched blocks**, with Ministral B08 candidate repeat 4 active.
+The latest post-repair health check has **405/524 valid configurations,
+149/210 complete matched blocks**, with Ministral B09 ARC repeat 4 active.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
-Review 16 is prepared through terminal Ministral B06: 64/132 new contexts
-are explicitly judged, with 68 still unread. Continue at novel index 64 and do
-not call it audited yet; see [saved progress](confirm-review-progress-16-01.json).
+Review 16 is complete for its static snapshot through terminal Ministral B06:
+all 132 new contexts are judged and the isolated validator accepts 4,942 ratings.
+Its [initial partial progress](confirm-review-progress-16-01.json) remains history;
+do not regenerate the completed packet or re-review those contexts.
 The [terminal anchor inventory](confirmation-qwen8b-attempts-complete.json)
 reconciles all 364 planned Qwen3-8B configurations: 363 valid logical cases,
 377 retained attempts / 35,530 verified files and 129/130 matched blocks.
@@ -223,7 +224,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 8.66 GiB ext4, 3.13 GiB WSL root and 11.19 GiB Windows at the last bounded
+about 8.49 GiB ext4, 3.01 GiB WSL root and 11.19 GiB Windows at the last bounded
 health check; monitor all three. Root includes the latest derived review snapshot.
 Private disk observation 03 retains recent host-owned app-server
 binary/catalog sizes: these account for part of the recent root growth, but the
@@ -1033,7 +1034,7 @@ objective, timing or live quality change; no population accuracy/equivalence or
 final-acquisition claim. Continue exact full-context/instruction reuse from the
 union of all completed indices, retaining every historical snapshot.
 
-The latest **partial confirmation review 15** includes all twelve B12 blocks
+The historical **partial confirmation review 15** includes all twelve B12 blocks
 (129 selected Qwen3-8B blocks): [index](confirm-review-index-15.json),
 [ratings](confirm-source-judgments-15.json),
 [component bindings](confirm-review-components-15.json),
@@ -1066,27 +1067,44 @@ bytecode flag generated 16 disposable caches; they were moved to
 `$BASE/generated-validation-cache-02`. The original 4,606-file bundle and
 2,192-file frozen source identity reverify unchanged; no acquisition change.
 
-**Review 16 is prepared but incomplete.** Raw snapshot
-`$BASE/quality-confirm-checkpoint-16/` contains 6,872 objective finals, 4,359
+The latest **completed partial confirmation review 16** uses raw snapshot
+`$BASE/quality-confirm-checkpoint-16/`. It contains 6,872 objective finals, 4,359
 automatic final failures, 108 capped intermediates and 4,942 selected outputs /
 561 contexts. There are 132 contexts new versus screen07 and confirm01 through15.
-[Progress checkpoint](confirm-review-progress-16-01.json) binds eight manual parts
-for novel indices 0 through 63; indices 64 through 131 remain unread/unjudged.
+[Canonical index](confirm-review-index-16.json),
+[ratings](confirm-source-judgments-16.json),
+[bindings](confirm-review-components-16.json) and
+[isolated validator](confirm-quality-checkpoint-16.json) cover all 132 explicitly
+read/judged contexts across nineteen manual parts: 64 QA finals, 61 investigation
+finals and seven capped intermediates. Seventy-eight supplied source strings
+exactly bind prior readings; two without prior component bindings were read in full.
+All 380 included archived full instruction sources and SYSTEM branches verify.
 Do not regenerate or overwrite this existing packet or repeat the
 [preparation script](../../benchmarks/research_checks/stage6_5080_review16_prepare.py).
 It already wrote the terminal cell proof and isolated packet from one frozen
 139-block selection, while preserving live quality hashes.
 
-Continue explicit numeric-order review at 64, using exact prior component bindings
-from confirm02 through15 or earlier actually read confirm16 contexts. The stored
-`review16prefix` and `confirm16consolidate` templates are available if tool stores
-survive; otherwise adapt review15 using these paths/union. Do not call
-retain_bindings/consolidation until all 132 have explicit judgments. Canonical
-confirm16 index/ratings and isolated validator are not written yet. Final
-instruction-source and full-component binding checks remain pending.
-The first 64 include supported QA facts inside invalid fenced/malformed JSON,
-unsupported elaborations, wrong entities, fabricated test absence and unrelated
-broad-search tests. Preserve original objective scores and separate useful fragments.
+The new group has **77 source failures, 131 instruction failures and twelve not
+useful**. All 64 QA answers use Markdown fences; several also have malformed
+strings or an array instead of the requested string. Supported facts remain
+distinct from invented elaboration, wrong entities and date-role shifts.
+Investigation errors include denying actual validation, mistaking broad search
+output for executed tests, false divisibility/type restrictions and invented
+concurrency/cache defects. Correct facts, boundaries and narrow coverage gaps
+retain useful credit. One final supplies the correct literal PASS/fact/true
+coverage limitation despite an extra false opening, so source fidelity and
+instruction fulfillment remain separate dimensions.
+
+Selected duplicate-inclusive findings are **721 source failures, 2,825 instruction
+failures and 99 not useful**. Frozen finish accepts all 4,942 judgments in isolated
+`$BASE/quality-confirm-audit-checkpoint-16/`. All 132 answers and unmatched context
+components were explicitly reviewed; no automatic novel rating. Original
+objectives, timings, live quality and all three activity exclusions are unchanged.
+These selected counts are not population quality/equivalence claims. The initial
+[64-context progress](confirm-review-progress-16-01.json) is preserved, superseded
+by the completed canonical review. Future reuse must bind the union of screen07
+and confirm01 through confirm16, retaining all history. Final confirmation and
+all-phase cap audits remain pending, including invalid/unmatched Ministral caps.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files

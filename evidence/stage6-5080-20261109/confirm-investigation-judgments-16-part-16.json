@@ -1,0 +1,100 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 106,
+      "review_id": "e620a637dec7e70fa674471c",
+      "signature": "8d65bc0e6eae8871d3f65647b9206376fc1b3466f68960627a16139a897ec2b1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Broad test_odd/test_even listing is not evidence those were the executed AdjacentTests; actual class output is ten passes."
+      ],
+      "whitespace_words": 104,
+      "notes": "The final correctly acknowledges ten PASS, symmetric adjacency/distance0 self-check and nonnegative integer-compatible distance requirements. These useful facts do not supply the required literal test_status=PASS; proposed test file has no new execution. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 107,
+      "review_id": "fb32cade627448c4ca020605",
+      "signature": "7166c04d77c22159b4cc1c8a0b56d657a7765217782f928ed99ab0aee82dd4a3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AllUniqueTests execution passed five tests/five subtests, contrary to claimed class/validation absence."
+      ],
+      "whitespace_words": 122,
+      "notes": "Set/list fallback and early duplicate return are useful correct facts. Narrow absence of an error-handler option does not imply unhashable data is unsupported. Missing literal status. Same dimensions as index92 under shared context. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 108,
+      "review_id": "e58bbb0f6546b1a91b296696",
+      "signature": "f32ffcd7a848d0a969aa12c264ad422c51e8732da8e97014cf1ab17084a3eb92",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AlwaysReversibleTests did execute and pass two tests.",
+        "Finite iterables need not support len or reversed; the documented/tested generator fallback disproves a blanket no-length-check error restriction."
+      ],
+      "whitespace_words": 108,
+      "notes": "Reversing sequences/generators via list fallback and infinite-input consumption boundary retain useful support. No literal status and misleading validation narrative fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 109,
+      "review_id": "f73449e8065ea1793780e537",
+      "signature": "8a527fe60bf1f343e28af7573b11919a8aa8f209fbfc1efa194696c37c387fd1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied/actually executed CombinationWithReplacementIndexTests class exists.",
+        "Iterable-size divisibility by r is not a combinations-with-replacement requirement; the cited strict test is unrelated."
+      ],
+      "whitespace_words": 151,
+      "notes": "Supported example indexing and successful test acknowledgement remain useful. At151 whitespace words final exceeds under150; required literal status also missing and command repetitive/truncated. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 110,
+      "review_id": "b975e0490f78314f71edd6d3",
+      "signature": "1bbce166cf816784377dd490c729a00e67417f63ad6cbb505cb3ed8d2b8ac77a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual constrained_batches validation ran seven tests/ten subtests.",
+        "Strict mode does not reject nondivisible total size, and the claimed exact-boundary/empty-last-batch defect is not supported by the implementation/tests."
+      ],
+      "whitespace_words": 113,
+      "notes": "No correct concrete constrained_batches behavior/outcome/limitation is delivered; irrelevant broad test names do not rescue the false report. Missing literal status; not useful. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 111,
+      "review_id": "e2a9bfe7307ba0e41c86371e",
+      "signature": "65612632b705ccc2d1844421bbd756fda80550e977af30ac1cf1928d32f123af",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Current six-pass output is the actual CircularShiftsTests validation.",
+        "Arbitrary iterable element types are supported; noninteger steps are distinct from nonnumeric payloads."
+      ],
+      "whitespace_words": 130,
+      "notes": "Coprime-step rotation offsets and earlier successful-test acknowledgement remain useful. A missing float-specific test does not prove strings/nonnumeric contents fail. Missing literal test status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

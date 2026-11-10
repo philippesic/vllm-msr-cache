@@ -1,0 +1,125 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 124,
+      "review_id": "17f9fe9bf9162173bba63236",
+      "signature": "b8425603d637cb7a12a89afe5ee115e40275b97264fda8200facbddd2a967528",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CountableTests covers countable and passed two tests; it is not a first/last-only class or undetermined run."
+      ],
+      "whitespace_words": 136,
+      "notes": "Consumed-item counter is a supported useful fact; noniterable input is rejected by iter() as a normal boundary, not a new executed case. Missing actual literal PASS and repeated false test absence fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 125,
+      "review_id": "d98f752d38f3b165a3a5971d",
+      "signature": "fc1d4c721cfbb26434ce1290a523b762c002e234fd256ba0ef2f6aad32316438",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual TestConcurrentTee was executed and specifically reconstructs data in100 concurrent consumers.",
+        "The asserted n1 data-integrity test is not supplied; n0 is checked only for empty tuple, while n100 covers the actual shared-lock/data behavior."
+      ],
+      "whitespace_words": 97,
+      "notes": "The answer reverses the real coverage and reports no correct concrete boundary/outcome; generic lock words with incorrect scope do not provide a useful requested result. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 126,
+      "review_id": "18f2bbcc7a12326b1311d6c2",
+      "signature": "d361c785bec1f8612488f3ea26e0cbbb1d536aaeb98561c7cfe28a531228200a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AllUniqueTests executed five tests/five subtests; class/validation absence is false."
+      ],
+      "whitespace_words": 106,
+      "notes": "Set tracking and documented slower unhashable list fallback are useful supported facts. Missing literal test status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 127,
+      "review_id": "10557068dbbb9c608306caa4",
+      "signature": "d67250f25fb0b63988fa4e2191ed25ab87ae7b8b4b4c9dbecc2f739ab5ce9120",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "The opening denial of direct countable testing contradicts the actual relevant two-test execution and the answers later acknowledgement."
+      ],
+      "whitespace_words": 92,
+      "notes": "Required elements are delivered: actual literal test_status=PASS, supported consumed-item counter and a concrete true noniterable-input test-coverage gap, within150 words. Empty consumption is tested; exhausted-iterator phrase is read narrowly as no repeated-next-after-exhaustion test. Extra false opening fails source fidelity separately, without erasing correct required format/outcome/fact/limitation; useful content retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 128,
+      "review_id": "0b3e6af26836a0930c0ba7e0",
+      "signature": "ded505ddcae467cc8c3ddd6cfc743eb129b3e6f46afbca1333f1951488ce8448",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CountableTests did run and passed two tests; not-applicable/first-last-only claims are false."
+      ],
+      "whitespace_words": 94,
+      "notes": "Consumed-item counter behavior is supported and useful. Missing literal actual status and denial of validation fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 129,
+      "review_id": "e72a1903b9904cb8a29856c1",
+      "signature": "3b794471bce59f1c080e2a5c3e7b11bc6684812f0d99f339803f096b8aa7ac17",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual concurrent-consumer test ran and passed.",
+        "n means independent tee copies; input-length divisibility by n is not a requirement, and unrelated strict-chunk tests do not establish such an error."
+      ],
+      "whitespace_words": 102,
+      "notes": "Shared-lock behavior is supported and useful. Missing literal status and false limitation fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 130,
+      "review_id": "251dacbfd69c610d744b4782",
+      "signature": "b924a74d04ce307d13725d7bfc6f613186f8c87bfdb7e17f5b96dbdeca3083db",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CountableTests did run and passed two tests; the no-relevant-test narrative is false."
+      ],
+      "whitespace_words": 94,
+      "notes": "Supported consumed-item counter retained as useful. Proposed test_empty command is not a new execution. Missing literal status and false validation framing fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 131,
+      "review_id": "929f9ee1b3bf0a41a321d6be",
+      "signature": "250b0c685034c486de5588daa9a86d7fe5b91c73d8d30c4817bf5f16cb14f3a1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ConstrainedBatchesTests ran seven tests/ten subtests.",
+        "Strict divisibility is not required; broad test_one/test_odd names do not prove missing max_count overflow validation."
+      ],
+      "whitespace_words": 111,
+      "notes": "General size/count/strict-policy purpose remains useful; no specific failing case establishes the invented coverage/overflow defect. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

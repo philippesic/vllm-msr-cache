@@ -33,9 +33,9 @@ incomplete scope and missing repetitions through an explicit option, with the
 default completion guard retained and 28 focused tests passing; terminal results
 are still pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-4,024 selected outputs / 429 contexts through all twelve B12 blocks.
-Thirty-two added contexts were explicitly judged with exact source/dependency
-bindings and all 360 archived instructions verified. All 364 planned Qwen3-8B
+4,942 selected outputs / 561 contexts through terminal Ministral B06.
+All 132 added contexts were explicitly judged with exact source/dependency
+bindings and all 380 archived instructions verified. All 364 planned Qwen3-8B
 configurations have executed; 363 are valid and 129/130 blocks are complete.
 All 377 retained anchor attempts / 35,530 files verify; the sole missing block
 is the known B06 activity failure. Secondary-model acquisition continues.
@@ -45,7 +45,7 @@ returns. Its seal and ARC peer verify; no favorable-activity retry or rule chang
 Original repeat 3 shows the same failure with verified cleanup/seal. The cell is
 now terminal: all twelve planned attempts / 1,644 files verify, with four of six
 matched blocks valid. All 62 caps remain for final all-attempt audit. Review 16
-has 64/132 new contexts explicitly judged, with 68 unread; it is not yet audited.
+is complete for its static snapshot; later source/cap reviews remain pending.
 The partial B11 comparison
 is preserved and replaced as a whole under an independent user service; the
 frozen source/order and B06 exclusion are retained. Recovery selects only the

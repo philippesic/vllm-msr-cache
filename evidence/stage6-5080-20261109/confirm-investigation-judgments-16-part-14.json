@@ -1,0 +1,97 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 94,
+      "review_id": "a41e50a0d7bf7a95beabdcc9",
+      "signature": "973294d46ea58b2e270ee39360d6b05640026d68b3a704ac42558d30ee574b74",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The exhaustive slice grid includes equal start/stop and other empty slices, contradicting the asserted lack of empty-slice checks."
+      ],
+      "whitespace_words": 73,
+      "notes": "Five actual tests and negative-index/step support are correct useful facts. Step0 is excluded and concurrent mutation during slicing is not specifically tested; neither proves normal dynamic views fail. No literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 95,
+      "review_id": "0afdb1a01d9fd0f44968dfb4",
+      "signature": "c0d297c77b4ad923e871ac225d162e65ea9344be90ccaa5facbfcee69cf16ec0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual TestConcurrentTee executed and passed its concurrent-consumer test; neither class absence nor lack of concurrent consumption is supported.",
+        "The API and explicit test support independent thread-safe tee copies; claimed expected-concurrency failure is false."
+      ],
+      "whitespace_words": 84,
+      "notes": "n0 empty tuple is a useful supported boundary. Missing literal status and invented limitation fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 96,
+      "review_id": "f87f74e62a04e9cbdf7e3736",
+      "signature": "de8dc1c7e6bee6ecb14ca8d595e10eb7fcfcedccd2ba83e54b6c0fd1e2df7ef2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The actual CircularShiftsTests tool result is six passes; no-validation claim is false.",
+        "Payload elements need not be integers; strings and nonnumeric iterable values can be deque elements, unlike the integer-compatible steps parameter."
+      ],
+      "whitespace_words": 120,
+      "notes": "Coprime step/length visits all rotation offsets, a useful supported fact; distinct offsets do not promise distinct tuple values for repeated data. Noninteger-step rejection is a narrower valid boundary. No literal test status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 97,
+      "review_id": "7fc8a90f6a34d40a832449c6",
+      "signature": "a6cc5562645676c1bb5e03ae383d1ff5992ac0ce88141c0edf9811fae2d5f0fb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ConsumerTests execution passed one test, not unrelated first/last functions.",
+        "Documentation does not promise shared-generator multiple-consumer behavior."
+      ],
+      "whitespace_words": 98,
+      "notes": "Automatic first-yield priming is useful and supported. A missing sharing test is a narrow coverage fact, not a documented missing guarantee. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 98,
+      "review_id": "6de04123fad53086c7456b44",
+      "signature": "db140e22af302ccdd0b7868490662299690ff243891d224bd0dc0a5107ab2c3c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "Newly fully read Plymouth source explicitly names Devonport. Correct useful answer, but missing closing quote and surrounding code fence make it invalid JSON. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 99,
+      "review_id": "18b7e6863a97896ceb1ff265",
+      "signature": "e3bdcbd46e0029644d9fab8849f0260aabf712278d560c4194d2dac953f81ce5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_one/test_empty are not the actual ConsumerTests validation; the provided relevant class did execute and pass."
+      ],
+      "whitespace_words": 138,
+      "notes": "No explicit shared-generator concurrency test is present, a narrow useful coverage observation; no such feature is promised by the docstring. Do not infer that priming handles no-yield generators successfully. The validation narrative is misleading and literal status is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

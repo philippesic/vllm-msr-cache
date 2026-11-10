@@ -1,0 +1,101 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 88,
+      "review_id": "996703ee8ec8500af0841cf6",
+      "signature": "3741d8bc0ca9cd0a36744239bc5f7e036aee3ed71dec666f991ee67d912ece02",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual TestConcurrentTee validation did run and pass.",
+        "The implementation/test explicitly create multiple independent tees for n>1; a shared lock does not mean there is only one copy."
+      ],
+      "whitespace_words": 90,
+      "notes": "n0 empty tuple is a supported useful boundary. Multiple-copy failure claim is false and literal test status is missing. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 89,
+      "review_id": "4adaae5553538828a58f4269",
+      "signature": "e48b8a4f4dd663ac10abada0935c02b91a90ff4fc6871c518c289d29ac671746",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual six-pass output is TestAlwaysIterable, not merely first/last tests.",
+        "object and tuple are valid base_type choices with documented isinstance-driven behavior; the supposed validity defect/unexpected handling is not established, and isinstance itself rejects invalid type specifications."
+      ],
+      "whitespace_words": 92,
+      "notes": "Dictionary atomic treatment and actual PASS are correct useful facts. Literal test_status=PASS is present and under150, but the supplied concrete limitation is unsupported, so instructions still fail. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 90,
+      "review_id": "cbb58a6cfdeb950129303290",
+      "signature": "81d15336b41cd97cc897698fcc30239e24ff5eb0eb688c370caf7e6e870dd332",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ConstrainedBatchesTests execution passed seven tests/ten subtests.",
+        "Total-size divisibility is not a constrained_batches strict-mode requirement; the broad test names refer to unrelated functions."
+      ],
+      "whitespace_words": 119,
+      "notes": "General size/count/strict-constraint purpose is useful, while specific divisibility and coverage/overflow inference lack relevant evidence. Missing literal test status; no claimed new test execution from comment. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 91,
+      "review_id": "4ab8fa2e247c610066aec39d",
+      "signature": "2d219e479700058058e5810aa2e205b95e6b91d7e0381bee9e706e91eb94046f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied class is in test_more.py; unrelated test_odd/test_strict names are not circular-shift validation.",
+        "Circular shifts do not require length divisible by steps and do not raise the asserted divisibility error."
+      ],
+      "whitespace_words": 134,
+      "notes": "Correct GCD range4/steps2 example and actual pass acknowledgement remain useful. Eager deque consumption of an infinite iterator is a supported narrower boundary; the final example is unfinished. Missing literal status; prior ten-test count is not repeated here and not separately charged. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 92,
+      "review_id": "f5153af7c18abaa87c12f9fe",
+      "signature": "f18967ccf9c0dedb2ddcc3ae5d5453b2b09a04f3900e5e670520848cc2597865",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AllUniqueTests execution reports five passing tests/five subtests; denying any relevant class/tests were supplied is false."
+      ],
+      "whitespace_words": 126,
+      "notes": "Set/list fallback, early duplicate return and documented unhashable slowdown are supported useful facts. No custom error callback exists, but that does not imply unhashables are unsupported. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 93,
+      "review_id": "dc3ae7a1c52e9cc214581698",
+      "signature": "4f23527036edef9a11d9d23544d5b57b16a69681d7e2dfdd3ba95d0fa971e444",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "ConsumerTests was actually executed and passed one test, contrary to the denial.",
+        "The documentation does not promise shared-generator multiple-consumer support."
+      ],
+      "whitespace_words": 96,
+      "notes": "First-yield priming/send convenience remains useful correct content. Narrow lack of concurrency tests is distinct from inventing a documented feature. Missing literal status and wrong validation framing fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

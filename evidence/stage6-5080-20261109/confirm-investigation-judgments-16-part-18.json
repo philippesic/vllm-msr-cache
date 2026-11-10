@@ -1,0 +1,100 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 118,
+      "review_id": "2b04bac9f2bd3d1afe34563f",
+      "signature": "cc8e2b6b206850661a99a4fd1dbb0cdceee39eef1b63aa88821338c36fe2e987",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AlwaysReversibleTests execution is two passes; unrelated broad test names do not establish an absence of validation."
+      ],
+      "whitespace_words": 90,
+      "notes": "Significant storage for cached nonreversible input and no explicit large-input test are useful supported limitations. Missing literal status and wrong attribution fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 119,
+      "review_id": "6ed988bf22e43e166d1b5d03",
+      "signature": "5392b9174d90a926d25eeb924f0e5ac1b8221d52f076b3c6baa78f27dc11a18a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual TestConcurrentTee passed its real concurrent-consumer test.",
+        "The function implements independent thread-safe tees for per-tee single-thread consumption; the asserted absence of that behavior is false."
+      ],
+      "whitespace_words": 91,
+      "notes": "n0 empty tuple is a useful supported fact. Missing literal status and fabricated limitation fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 120,
+      "review_id": "2fc2168b79d3dfbcce02ac38",
+      "signature": "f697e5043f64ffbf857777bf62e9d894224c92f4bf4fecfbae8062f533bd3415",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Negative n and empty inputs return empty results; they do not raise the claimed ValueError.",
+        "Documentation describes general iterables, not an exclusively string-only interface."
+      ],
+      "whitespace_words": 78,
+      "notes": "Actual class execution/PASS and narrow absence of non-string test cases retain useful credit. The colon-form status is not the requested literal, and the stated core behavior is wrong. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 121,
+      "review_id": "ad8eaa6d0a0cff2f43127a55",
+      "signature": "c895f50bbbe037a3a0095b20091312bf2f72242a6e305ac7fef6b00841438035",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The cited TestNone/test_negative.py narrative is not the supplied TestAlwaysIterable validation.",
+        "isinstance supplies validation of type specifications; no separate prevalidation helper or empirical unexpected-behavior result was shown."
+      ],
+      "whitespace_words": 93,
+      "notes": "None-to-empty behavior and correct reference to its actual test are useful. A caller can receive TypeError for an invalid base_type, but that is not evidence of arbitrary undefined behavior. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 122,
+      "review_id": "39c48e30a3238d876b518ac8",
+      "signature": "6db85a3ec65e87d254dec172a21e0800fde7f11aff75a823c18fb5163b47ccf7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AlwaysReversibleTests were executed and passed two tests; first/last-only validation attribution is false."
+      ],
+      "whitespace_words": 105,
+      "notes": "Finite generator reversal and memory/infinite-input costs of list caching are useful supported facts. No literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 123,
+      "review_id": "21ed48acee0e0697a52dfb3c",
+      "signature": "ac74f430cb4b1db28a8e98a271d69f4074330a79c6bebd4a9df836160c44a159",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "count_cycle has no strict divisibility check; the stated([1,2,3],4) ValueError/message is invented.",
+        "Actual three tests passed; strict-size tests/likely-FAIL outcome belong to an unrelated broad listing."
+      ],
+      "whitespace_words": 128,
+      "notes": "All concrete requested behavior/outcome/limitation claims are wrong; no useful correct task result. Missing literal status and fabricated errors fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

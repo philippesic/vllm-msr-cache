@@ -1,0 +1,92 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 70,
+      "review_id": "223b6a96a0e4cbecef7b475f",
+      "signature": "b315b21f27600660497999caeeb069305e052f7cae9be1de2937525a3061bf8f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 6,
+      "notes": "The source explicitly dates Haqs launch to1990. Correct useful answer; Markdown fence fails JSON-only format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 71,
+      "review_id": "42cc83ba23c6b9a7bc0d8a7b",
+      "signature": "3ffcaf99c399bba786bbfa45866b5efe574825efb8152a8b3999cc50566d7c9f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 16,
+      "notes": "25-44 age target is explicit. Correct content; fenced JSON fails requested format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 72,
+      "review_id": "3932b4e9fdf20c158f4f6315",
+      "signature": "8e9b28c7764df7f14f5fe23329410ccf81b02b5c25416fc10e111e2ee3204512",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "CombinationWithReplacementIndexTests is supplied and actually executed; class-absence claim is false.",
+        "Combinations with replacement have no requirement that iterable length be divisible by r, nor that r exceedance of pool length raise the asserted error; the cited strict-divisibility test is unrelated."
+      ],
+      "whitespace_words": 108,
+      "notes": "Valid-combination index behavior and acknowledgement of successful tests are useful. Concrete limitation is false and literal test status is missing. Proposed extra command is not an observed outcome. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 73,
+      "review_id": "9431d6d4b506e143c7d8dde4",
+      "signature": "3215f080b53f2a84fc61449d602d5366e54f315b15e654a927d34a27547e654e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 8,
+      "notes": "United Kingdom is explicit in the supplied constitutional-history passage. Correct answer; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 74,
+      "review_id": "a8f85e7b20b55dd4d20f553c",
+      "signature": "327846809386915a683c5f55a4ee7b0e621981dce405e4a1e11b46f11554abb9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "CircularShiftsTests is in the supplied test_more.py, contrary to the asserted separation.",
+        "test_odd/test_even/test_strict divisibility narrative is unrelated to the actual CircularShiftsTests and is not its executed test coverage."
+      ],
+      "whitespace_words": 120,
+      "notes": "GCD reduction for range4/steps2 and actual successful tests are supported. Lack of explicit type prevalidation/noninteger tests is a narrower supported limit, distinct from wrong test attributions. No literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 75,
+      "review_id": "72779d20a6896e495b862f64",
+      "signature": "fd07442007e2ec1a8cd8987554a5c3b774e464ec4654124bc1c67f07ee8ccc07",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual constrained_batches class execution is seven passing tests and ten subtests, contrary to the denial that any relevant tests ran."
+      ],
+      "whitespace_words": 98,
+      "notes": "The self-contradictory filename/class narrative reports no supported behavior or outcome/limitation. Mere class-name mention does not make the requested report useful; no literal test status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 82,
+      "review_id": "23dfc8d342c50c605e3b68e2",
+      "signature": "4ca3822da2810cafd7eee97cd44f117464313dabf254cc9fba355bf3fc286f84",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual fourteen-pass output is the relevant ClassifyUniqueTests validation, not merely the unrelated broad listing.",
+        "No source/test performance evidence supports the asserted empty-input inefficiency or unexpected behavior from initializing empty tracking containers."
+      ],
+      "whitespace_words": 110,
+      "notes": "Hashable/unhashable support and successful class validation are useful correct fragments. Empty-input test coverage really is absent, but that does not establish a defect or efficiency failure. Missing literal test status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 83,
+      "review_id": "72d2e00184f302f9c38b451f",
+      "signature": "f395de47d64a5f4864ce28dd35f0c1220edb7816cbf3bb87658a1e3ffceafd5e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Negative n returns empty iteration in both implementation and test_negative; the claimed ValueError is false.",
+        "All three actual tests passed; updated-test/likely-FAIL narrative and strict-divisibility tests are invented or unrelated."
+      ],
+      "whitespace_words": 82,
+      "notes": "The narrow float/string n coverage/type limitation is useful, while None remains explicitly supported and tested. No correct literal test status, and principal behavior is wrong. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 84,
+      "review_id": "c8b832a0b9d306092437c1b5",
+      "signature": "10dd39ea673b4914f5d81717aa731a25791a458a8f705984b968fd31152e006e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual constrained_batches validation is seven passes/ten subtests; denying execution is false.",
+        "Strict mode enforces oversize-item policy, not total-size divisibility; broad chunked test names do not establish that missing constraint."
+      ],
+      "whitespace_words": 104,
+      "notes": "Supported oversize-item ValueError remains useful. Missing literal status and false limitation fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 85,
+      "review_id": "a95975ffc89021007eee6e2f",
+      "signature": "21f9ff0c2d77378857e1fd96976ebf66bf1c2c5eceb82b232b5d9ec9f765bf3d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied paragraph does not provide1969, parton constituents/quark-gluon interpretation or deep-inelastic-scattering framework."
+      ],
+      "whitespace_words": 43,
+      "notes": "Parton model itself is the correct useful answer. Additional specialist history is unsupported by supplied evidence, regardless of outside truth. Fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 86,
+      "review_id": "9d0e9b024efcc407aab2400f",
+      "signature": "f9d92e283c2ff95de64b3ae86ab6554510606443459ff2fdf95c65adad981585",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "CountableTests exists in the supplied file and actually passed two tests; denying execution/class presence and calling it FAIL is false."
+      ],
+      "whitespace_words": 112,
+      "notes": "Consumed-item counter behavior is supported. Narrow lack of explicit very-large/repeated-exhaustion tests may be a coverage limit, not a proved runtime bug. Correct useful function description retained. Colon-form Test status lacks literal format and wrong outcome contradicts actual PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 87,
+      "review_id": "c3ae9fe7c6259f042fe6cfb0",
+      "signature": "c0fb3d3970b17609801b848880140d9017662157bdc026dcc8a0cf1cf35e7fa1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied fourteen-pass output is ClassifyUniqueTests, not the unrelated broad test listing."
+      ],
+      "whitespace_words": 89,
+      "notes": "Core mixed hashability/uniqueness behavior is supported. No explicit empty-iterable test is present in the supplied class; a narrow coverage gap is reasonable and expected empty output follows the loop, not a proved failure. Successful-class acknowledgement remains useful; missing literal test status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

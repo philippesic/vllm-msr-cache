@@ -1,0 +1,96 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 76,
+      "review_id": "8a050aa5847a394e6b0d9c09",
+      "signature": "d490a230dfc46e369c3b14ad9e69f9ef781e02764b7841ea08ae12777f082b55",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Reformed tradition/British Isles and Scottish-English church roots are supplied. Correct useful answer; code fence violates JSON-only format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 77,
+      "review_id": "24f0655327e6ee110903a89f",
+      "signature": "c39831b4943ebda39783e70488f433b03e872e1bdf230415008b129219e0a38e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 22,
+      "notes": "All eight named Cubist pioneers/participants match the source. Correct content; fenced JSON fails format. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 78,
+      "review_id": "657551e4e0d3e68ac47145a0",
+      "signature": "5c49ca4e2ea5dc6a8af5abe1bbe833d2b4afbd17bd07f474dec6f0af9c3fa98e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual validation reports seven tests, not ten.",
+        "The source uses a real executor/target; the proposed mock/stub assumption is not evidenced.",
+        "test_no_result_while_running explicitly accesses result while a gate holds the future pending and checks RuntimeError, contradicting the claimed absence of direct validation."
+      ],
+      "whitespace_words": 116,
+      "notes": "Callback extraction/custom keyword/abort/exception behaviors remain useful supported facts. At116 words this intermediate exceeds under70 and ends in a truncated command. Prior thread-exhaustion claims are not separately attributed to this answer. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 79,
+      "review_id": "d9f173c745944627799fe4a6",
+      "signature": "e39ca90d0635519d374533e066907daaf07ab94b645414ae1c3bf1ab2a705fed",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The actual result is two tests, not two assertions of a test_nonseq_reversible method; the provided method is test_nonseq_reversed and has several assertions."
+      ],
+      "whitespace_words": 128,
+      "notes": "Range/list equality and reversed-result class equivalence are supported. Functional generator fallback is explicitly tested, though internal memory-allocation behavior is not directly measured. Useful correct fragments remain. At128 words the intermediate exceeds under70 and ends with an incomplete command. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 80,
+      "review_id": "23ed1915e4e199d1027bd469",
+      "signature": "3a185c24ce870d66b6fc13428fc4e00e4ebb905711c5c863779f1f60283a7eae",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ChunkedEvenTests execution passed ten tests, including finite distributions; denying that relevant tests were supplied is false.",
+        "The broad test_odd/strict listing does not substitute for the executed named class."
+      ],
+      "whitespace_words": 89,
+      "notes": "Negative n ValueError is supported by source and specific test, retaining useful content. No literal test_status=PASS and the asserted validation-absence limit are wrong. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 81,
+      "review_id": "8ad007d4ce8f6bd8cdffb58c",
+      "signature": "9c9562db38947a84803dd3d2d5f77ca057d64154d0ccb181060add8f8a43e628",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual CircularShiftsTests execution passed six tests, contrary to the repeated denial.",
+        "Broad unrelated test_odd/test_negative listing is not the class validation."
+      ],
+      "whitespace_words": 112,
+      "notes": "No concrete supported circular-shift behavior, actual status or true limitation is reported; repeated denial is not useful. Missing literal status and invented test-absence claims fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

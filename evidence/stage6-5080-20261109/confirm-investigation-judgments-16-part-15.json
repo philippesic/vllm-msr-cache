@@ -1,0 +1,100 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "4828644e0154b3ad869a1a1b6be7a3b29ec790d81e3d285cfa8e07b7fa12434c",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-16/blind-packet.json",
+  "ratings": [
+    {
+      "index": 100,
+      "review_id": "d39c9591574cad22da06e885",
+      "signature": "e3ffb3a572c60373c9fc837ed4f47e29ffbe01e08046b50ed97db8a53305a568",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CountCycleTests were directly executed and passed three tests.",
+        "Odd iterable length or nondivisibility by n is not an error condition for count_cycle; the cited strict-size test belongs elsewhere."
+      ],
+      "whitespace_words": 91,
+      "notes": "Negative n yielding empty iteration is useful and supported. Missing literal status and false limitation fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 101,
+      "review_id": "cdb135b4aa2bb97c2a40405d",
+      "signature": "f5652920dd334953327a64a88959b96642a63ba2d8c4fd5017171c26fc9ce4d7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual AlwaysReversibleTests output is two passes, not an unrelated first/last-only run."
+      ],
+      "whitespace_words": 106,
+      "notes": "Cache snapshotting is a useful narrower property: nonreversible input is consumed into a list whose output is not a dynamic view of subsequent source changes. No unexpected failure from later exhaustion/modification was demonstrated. Missing literal status and misleading test attribution fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 102,
+      "review_id": "3fff4f8c01d4b72c7feaa422",
+      "signature": "3622a0dee38ac147aa2fb233a15ca2db70c73f37f34c780683d4e0eed8f7c9b9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Repetitive test_odd claims do not correspond to the provided CombinationIndexTests or eight passing tests."
+      ],
+      "whitespace_words": 120,
+      "notes": "No concrete supported combination-index behavior, status or limitation is delivered. The unfinished repetitive fragment is not useful; literal status absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 103,
+      "review_id": "cabeccd43d5f63a441dd9e26",
+      "signature": "f7b9e2a593fa7ad81b70b35a198b0515664524a997fd8ad38c41b0280a45f861",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual six-pass validation is TestAlwaysIterable, not just first/last.",
+        "Valid object/tuple base_type choices have specified isinstance semantics; the claimed type-validity defect is not established."
+      ],
+      "whitespace_words": 91,
+      "notes": "Dictionary atomic behavior and literal test_status=PASS are correct, but unsupported concrete limitation prevents instruction compliance. Proposed valid additional pytest command has not executed. Same core judgments as index89 under exact shared context. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 104,
+      "review_id": "1bff0d369f10bd7ea9066bec",
+      "signature": "4dffe700215efc6bc52135453c84c1a606dc4bd5002478d6dd7de36ba13e51a3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual ConstrainedBatchesTests executed seven tests/ten subtests.",
+        "The implementation explicitly rejects max_size0 and handles empty valid input; lack of a specific size1 empty combination test does not establish the claimed failure."
+      ],
+      "whitespace_words": 103,
+      "notes": "Oversize item ValueError in strict mode is supported useful content. Missing literal status and false coverage-to-defect inference fail instructions. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 105,
+      "review_id": "f5fc4ab3ae10f742e46390ca",
+      "signature": "b3ca40b650e2727835ca86eb33ecf68d170f4fb31876661d1fdb5fbdd595b9d8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Public concurrent_tee is not the private helper itself; type-aware wrapper reuse is not the asserted recursive single-copy factory.",
+        "The API and explicit test support n independent streams with a shared lock, contrary to the claimed no-multiple-copy behavior."
+      ],
+      "whitespace_words": 121,
+      "notes": "n0 empty tuple is a useful supported boundary. No actual pytest has yet run in this context; no PASS credited. At121 words the intermediate exceeds under70 and has a truncated/wrong-file next-tool declaration. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}
