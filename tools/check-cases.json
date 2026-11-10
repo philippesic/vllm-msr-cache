@@ -772,7 +772,7 @@
     "component": "policy",
     "good": {
       "probe.py": "import os  # noqa: F401\n",
-      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
     },
     "bad": {
       "probe.py": "import os  # noqa: F401\n"
@@ -784,10 +784,10 @@
     "component": "policy",
     "good": {
       "probe.py": "import os  # noqa: F401\n",
-      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
     },
     "bad": {
-      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"\"\n"
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"\"\n"
     },
     "diagnostic": "exceptions.invalid:"
   },
@@ -796,10 +796,10 @@
     "component": "policy",
     "good": {
       "probe.py": "import os  # noqa: F401\n",
-      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
     },
     "bad": {
-      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
     },
     "diagnostic": "exceptions.invalid:"
   },
@@ -808,7 +808,7 @@
     "component": "policy",
     "good": {},
     "bad": {
-      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
     },
     "diagnostic": "exceptions.stale:"
   },
@@ -820,5 +820,308 @@
       "tools/exceptions.toml": null
     },
     "diagnostic": "exceptions.invalid:"
+  },
+  {
+    "id": "footgun.bare-except",
+    "component": "policy",
+    "good": {
+      "probe.py": "try:\n    value = 1\nexcept ValueError:\n    value = 0\n"
+    },
+    "bad": {
+      "probe.py": "try:\n    value = 1\nexcept:\n    value = 0\n"
+    },
+    "diagnostic": "footgun.bare-except:"
+  },
+  {
+    "id": "footgun.print",
+    "component": "policy",
+    "good": {
+      "semantic_offload/example.py": "def answer() -> int:\n    return 1\n"
+    },
+    "bad": {
+      "semantic_offload/example.py": "def answer() -> None:\n    print(\"side effect\")\n"
+    },
+    "diagnostic": "footgun.print:"
+  },
+  {
+    "id": "footgun.print-alias",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "semantic_offload/example.py": "from builtins import print as emit\ndef answer() -> None:\n    emit(\"side effect\")\n"
+    },
+    "diagnostic": "footgun.print:"
+  },
+  {
+    "id": "footgun.environment",
+    "component": "policy",
+    "good": {
+      "tools/config.py": "import os\nVALUE = os.environ.get(\"MODE\")\n"
+    },
+    "bad": {
+      "tools/other.py": "import os\nVALUE = os.environ.get(\"MODE\")\n"
+    },
+    "diagnostic": "footgun.environment:"
+  },
+  {
+    "id": "footgun.environment-alias",
+    "component": "policy",
+    "good": {
+      "semantic_offload/config.py": "from os import getenv as read\nVALUE = read(\"MODE\")\n"
+    },
+    "bad": {
+      "semantic_offload/other.py": "from os import getenv as read\nVALUE = read(\"MODE\")\n"
+    },
+    "diagnostic": "footgun.environment:"
+  },
+  {
+    "id": "footgun.test-sleep",
+    "component": "policy",
+    "good": {
+      "tests/example.py": "def test_time() -> None:\n    assert 1 == 1\n"
+    },
+    "bad": {
+      "tests/example.py": "from time import sleep as pause\ndef test_time() -> None:\n    pause(1)\n"
+    },
+    "diagnostic": "footgun.test-sleep:"
+  },
+  {
+    "id": "footgun.rng",
+    "component": "policy",
+    "good": {
+      "benchmarks/example.py": "import random\ndef draw() -> float:\n    return random.Random(42).random()\n"
+    },
+    "bad": {
+      "benchmarks/example.py": "import random\ndef draw() -> float:\n    return random.Random().random()\n"
+    },
+    "diagnostic": "footgun.rng:"
+  },
+  {
+    "id": "footgun.rng-global",
+    "component": "policy",
+    "good": {
+      "benchmarks/example.py": "from random import Random as RNG\ndef draw() -> float:\n    return RNG(42).random()\n"
+    },
+    "bad": {
+      "benchmarks/example.py": "from random import random as draw\ndef sample() -> float:\n    return draw()\n"
+    },
+    "diagnostic": "footgun.rng:"
+  },
+  {
+    "id": "footgun.rng-numpy",
+    "component": "policy",
+    "good": {
+      "benchmarks/example.py": "import numpy as np\ndef draw() -> object:\n    return np.random.default_rng(seed=42).random()\n"
+    },
+    "bad": {
+      "benchmarks/example.py": "import numpy as np\ndef draw() -> object:\n    return np.random.default_rng(None).random()\n"
+    },
+    "diagnostic": "footgun.rng:"
+  },
+  {
+    "id": "footgun.rng-torch",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "benchmarks/example.py": "import torch\ndef draw() -> object:\n    return torch.randn(10)\n"
+    },
+    "diagnostic": "footgun.rng:"
+  },
+  {
+    "id": "layout.top-script",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "one_off.py": "value = 1\n"
+    },
+    "diagnostic": "layout.script:"
+  },
+  {
+    "id": "layout.nested-script",
+    "component": "policy",
+    "good": {
+      "tools/helper.py": "def main() -> int:\n    return 0\n"
+    },
+    "bad": {
+      "tools/helper.py": "def main() -> int:\n    return 0\nif __name__ == \"__main__\":\n    main()\n"
+    },
+    "diagnostic": "layout.script:"
+  },
+  {
+    "id": "layout.script-no-guard",
+    "component": "policy",
+    "good": {
+      "tools/helper.py": "def run() -> None:\n    pass\n"
+    },
+    "bad": {
+      "tools/helper.py": "import subprocess\nsubprocess.run([\"true\"])\n"
+    },
+    "diagnostic": "layout.script:"
+  },
+  {
+    "id": "layout.shell-script",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/one_off.sh": "#!/bin/sh\ntrue\n"
+    },
+    "diagnostic": "layout.script:"
+  },
+  {
+    "id": "layout.registry",
+    "component": "policy",
+    "good": {
+      "benchmarks/example.py": "WORKLOAD_SUFFIX = \"_workload.py\"\n"
+    },
+    "bad": {
+      "benchmarks/example.py": "WORKLOAD_REGISTRY = {\"chat\": \"benchmarks.workloads.chat_workload\"}\n"
+    },
+    "diagnostic": "layout.registry:"
+  },
+  {
+    "id": "layout.registry-callables",
+    "component": "policy",
+    "good": {
+      "benchmarks/example.py": "LABELS = {\"chat\": \"Chat\"}\n"
+    },
+    "bad": {
+      "benchmarks/example.py": "def chat() -> int:\n    return 1\nHANDLERS = {\"chat\": chat}\n"
+    },
+    "diagnostic": "layout.registry:"
+  },
+  {
+    "id": "layout.registry-import",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "benchmarks/example.py": "from benchmarks.workloads.chat_workload import chat\n"
+    },
+    "diagnostic": "layout.registry:"
+  },
+  {
+    "id": "layout.extension-name",
+    "component": "policy",
+    "good": {
+      "benchmarks/workloads/chat_workload.py": "NAME = \"chat\"\n",
+      "semantic_offload/policies/arc_policy.py": "NAME = \"arc\"\n"
+    },
+    "bad": {
+      "benchmarks/workloads/chat.py": "NAME = \"chat\"\n"
+    },
+    "diagnostic": "layout.extension-name:"
+  },
+  {
+    "id": "layout.policy-name",
+    "component": "policy",
+    "good": {
+      "semantic_offload/policies/arc_policy.py": "NAME = \"arc\"\n"
+    },
+    "bad": {
+      "semantic_offload/policies/arc.py": "NAME = \"arc\"\n"
+    },
+    "diagnostic": "layout.extension-name:"
+  },
+  {
+    "id": "ownership.result-path",
+    "component": "policy",
+    "good": {
+      "benchmarks/runner.py": "RESULT_PATH = \"results.json\"\n"
+    },
+    "bad": {
+      "semantic_offload/other.py": "RESULT_PATH = \"results.json\"\n"
+    },
+    "diagnostic": "ownership.result-path:"
+  },
+  {
+    "id": "exceptions.config",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "pyproject.toml": "[build-system]\nrequires = [\"hatchling==1.27.0\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"vllm-cache-next\"\nversion = \"0.0.0\"\ndescription = \"Exact KV cache research; foundation only\"\nrequires-python = \"==3.12.3\"\ndependencies = []\n\n[dependency-groups]\ndev = [\n  \"ruff==0.14.4\",\n  \"mypy==1.18.2\",\n  \"import-linter==2.7\",\n  \"pytest==8.4.2\",\n  \"vulture==2.14\",\n  \"deptry==0.24.0\",\n]\n\n[tool.uv]\nrequired-version = \"==0.13.6\"\n\n[tool.hatch.build.targets.wheel]\npackages = [\"semantic_offload\"]\n\n[tool.ruff]\ntarget-version = \"py312\"\nline-length = 88\n\n[tool.ruff.lint]\nselect = [\"F401\", \"F821\", \"I001\", \"B006\", \"UP006\"]\n\n[tool.mypy]\npython_version = \"3.12\"\nstrict = true\nwarn_unused_configs = true\nshow_error_codes = true\nfiles = [\"semantic_offload\", \"benchmarks\", \"tools\", \"tests\"]\n\n[tool.pytest.ini_options]\naddopts = \"-ra --strict-config --strict-markers\"\ntestpaths = [\"tests\"]\n\n[tool.importlinter]\nroot_packages = [\"semantic_offload\", \"benchmarks\"]\ninclude_external_packages = true\n\n[[tool.importlinter.contracts]]\nname = \"Only vllm_adapter imports vllm\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"vllm\"]\nignore_imports = [\n  \"semantic_offload.vllm_adapter -> vllm\",\n  \"semantic_offload.vllm_adapter -> vllm.**\",\n  \"semantic_offload.vllm_adapter.** -> vllm\",\n  \"semantic_offload.vllm_adapter.** -> vllm.**\",\n]\nunmatched_ignore_imports_alerting = \"none\"\nallow_indirect_imports = true\n\n[[tool.importlinter.contracts]]\nname = \"Production never imports benchmarks\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"benchmarks\"]\n\n[[tool.importlinter.contracts]]\nname = \"Contracts never import the adapter\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload.contracts\"]\nforbidden_modules = [\"semantic_offload.vllm_adapter\"]\n\n[[tool.importlinter.contracts]]\nname = \"Production siblings are acyclic\"\ntype = \"acyclic_siblings\"\nancestors = [\"semantic_offload\"]\n\n[tool.ruff.lint.per-file-ignores]\n\"*.py\" = [\"F401\"]\n"
+    },
+    "diagnostic": "exceptions.config:"
+  },
+  {
+    "id": "exceptions.imports",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "exception = []\n"
+    },
+    "diagnostic": "exceptions.imports:"
+  },
+  {
+    "id": "unused.function",
+    "component": "unused",
+    "good": {
+      "semantic_offload/unused_probe.py": "def calculate() -> int:\n    return 1\ncalculate()\n"
+    },
+    "bad": {
+      "semantic_offload/unused_probe.py": "def calculate() -> int:\n    return 1\n"
+    },
+    "diagnostic": "unused.code:"
+  },
+  {
+    "id": "unused.stale-exception",
+    "component": "unused",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"unused\"\npath = \"probe.py\"\nmatch = \"unused function 'calculate' (60% confidence)\"\nreason = \"External hook fixture.\"\n"
+    },
+    "diagnostic": "exceptions.stale:"
+  },
+  {
+    "id": "dependencies.missing",
+    "component": "dependencies",
+    "good": {},
+    "bad": {
+      "semantic_offload/example.py": "import missing_guardrail_dependency\n"
+    },
+    "diagnostic": "DEP001"
+  },
+  {
+    "id": "dependencies.unused",
+    "component": "dependencies",
+    "good": {},
+    "bad": {
+      "pyproject.toml": "[build-system]\nrequires = [\"hatchling==1.27.0\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"vllm-cache-next\"\nversion = \"0.0.0\"\ndescription = \"Exact KV cache research; foundation only\"\nrequires-python = \"==3.12.3\"\ndependencies = [\"requests==2.32.3\"]\n\n[dependency-groups]\ndev = [\n  \"ruff==0.14.4\",\n  \"mypy==1.18.2\",\n  \"import-linter==2.7\",\n  \"pytest==8.4.2\",\n  \"vulture==2.14\",\n  \"deptry==0.24.0\",\n]\n\n[tool.uv]\nrequired-version = \"==0.13.6\"\n\n[tool.hatch.build.targets.wheel]\npackages = [\"semantic_offload\"]\n\n[tool.ruff]\ntarget-version = \"py312\"\nline-length = 88\n\n[tool.ruff.lint]\nselect = [\"F401\", \"F821\", \"I001\", \"B006\", \"UP006\"]\n\n[tool.mypy]\npython_version = \"3.12\"\nstrict = true\nwarn_unused_configs = true\nshow_error_codes = true\nfiles = [\"semantic_offload\", \"benchmarks\", \"tools\", \"tests\"]\n\n[tool.pytest.ini_options]\naddopts = \"-ra --strict-config --strict-markers\"\ntestpaths = [\"tests\"]\n\n[tool.importlinter]\nroot_packages = [\"semantic_offload\", \"benchmarks\"]\ninclude_external_packages = true\n\n[[tool.importlinter.contracts]]\nname = \"Only vllm_adapter imports vllm\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"vllm\"]\nignore_imports = [\n  \"semantic_offload.vllm_adapter -> vllm\",\n  \"semantic_offload.vllm_adapter -> vllm.**\",\n  \"semantic_offload.vllm_adapter.** -> vllm\",\n  \"semantic_offload.vllm_adapter.** -> vllm.**\",\n]\nunmatched_ignore_imports_alerting = \"none\"\nallow_indirect_imports = true\n\n[[tool.importlinter.contracts]]\nname = \"Production never imports benchmarks\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload\"]\nforbidden_modules = [\"benchmarks\"]\n\n[[tool.importlinter.contracts]]\nname = \"Contracts never import the adapter\"\ntype = \"forbidden\"\nsource_modules = [\"semantic_offload.contracts\"]\nforbidden_modules = [\"semantic_offload.vllm_adapter\"]\n\n[[tool.importlinter.contracts]]\nname = \"Production siblings are acyclic\"\ntype = \"acyclic_siblings\"\nancestors = [\"semantic_offload\"]\n"
+    },
+    "diagnostic": "DEP002"
+  },
+  {
+    "id": "dependencies.transitive",
+    "component": "dependencies",
+    "good": {},
+    "bad": {
+      "semantic_offload/example.py": "import click\n"
+    },
+    "diagnostic": "DEP003"
+  },
+  {
+    "id": "dependencies.dev-in-library",
+    "component": "dependencies",
+    "good": {},
+    "bad": {
+      "semantic_offload/example.py": "import pytest\n"
+    },
+    "diagnostic": "DEP004"
+  },
+  {
+    "id": "runtime.fake-pass",
+    "component": "runtime",
+    "good": {},
+    "bad": {
+      "tools/runtime_verify.py": "print(\"runtime verified\")\n"
+    },
+    "diagnostic": "runtime.claim:"
+  },
+  {
+    "id": "runtime.fake-skip",
+    "component": "runtime",
+    "good": {},
+    "bad": {
+      "tools/runtime_verify.py": "import sys\nprint(\"SKIPPED: verified enough\")\nsys.exit(2)\n"
+    },
+    "diagnostic": "runtime.claim:"
   }
 ]

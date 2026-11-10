@@ -28,7 +28,6 @@ def pytest_collection_modifyitems(
 @pytest.hookimpl(wrapper=True)
 def pytest_runtest_makereport(
     item: pytest.Item,
-    call: pytest.CallInfo[None],
 ) -> Generator[None, pytest.TestReport, pytest.TestReport]:
     report = yield
     if report.skipped or hasattr(report, "wasxfail"):

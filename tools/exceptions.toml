@@ -3,3 +3,87 @@ rule = "directive"
 path = "tools/check.py"
 match = "# noqa: I001"
 reason = "The documented script entry must put the repository root on sys.path before importing its tools."
+
+[[exception]]
+rule = "script"
+path = "tools/check.py"
+match = "entry"
+reason = "Established single local and CI validator; also supports module invocation."
+
+[[exception]]
+rule = "script"
+path = ".githooks/pre-commit"
+match = "entry"
+reason = "Optional existing hook delegates directly to the validator."
+
+[[exception]]
+rule = "development-root"
+path = "tools"
+match = "deptry"
+reason = "Validator tools legitimately import development dependencies; deptry scans serving and benchmark packages."
+
+[[exception]]
+rule = "development-root"
+path = "tests"
+match = "deptry"
+reason = "Tests legitimately import pytest; dependency enforcement applies to serving and benchmark packages."
+
+[[exception]]
+rule = "adapter-import"
+path = "pyproject.toml"
+match = "semantic_offload.vllm_adapter -> vllm"
+reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
+
+[[exception]]
+rule = "adapter-import"
+path = "pyproject.toml"
+match = "semantic_offload.vllm_adapter -> vllm.**"
+reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
+
+[[exception]]
+rule = "adapter-import"
+path = "pyproject.toml"
+match = "semantic_offload.vllm_adapter.** -> vllm"
+reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
+
+[[exception]]
+rule = "adapter-import"
+path = "pyproject.toml"
+match = "semantic_offload.vllm_adapter.** -> vllm.**"
+reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
+
+[[exception]]
+rule = "unused"
+path = "tools/pytest_gate.py"
+match = "unused function 'pytest_addoption' (60% confidence)"
+reason = "Pytest invokes the registered hook and consumes its report fields externally; fixed CPU test manifests prove this gate."
+
+[[exception]]
+rule = "unused"
+path = "tools/pytest_gate.py"
+match = "unused function 'pytest_collection_modifyitems' (60% confidence)"
+reason = "Pytest invokes the registered hook and consumes its report fields externally; fixed CPU test manifests prove this gate."
+
+[[exception]]
+rule = "unused"
+path = "tools/pytest_gate.py"
+match = "unused function 'pytest_runtest_makereport' (60% confidence)"
+reason = "Pytest invokes the registered hook and consumes its report fields externally; fixed CPU test manifests prove this gate."
+
+[[exception]]
+rule = "unused"
+path = "tools/pytest_gate.py"
+match = "unused attribute 'outcome' (60% confidence)"
+reason = "Pytest invokes the registered hook and consumes its report fields externally; fixed CPU test manifests prove this gate."
+
+[[exception]]
+rule = "unused"
+path = "tools/pytest_gate.py"
+match = "unused attribute 'longrepr' (60% confidence)"
+reason = "Pytest invokes the registered hook and consumes its report fields externally; fixed CPU test manifests prove this gate."
+
+[[exception]]
+rule = "script"
+path = "tools/runtime_verify.py"
+match = "entry"
+reason = "Explicit module command reports unavailable runtime qualification with exit 2; never a GPU job."

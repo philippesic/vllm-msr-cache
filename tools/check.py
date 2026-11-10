@@ -1,23 +1,21 @@
 from __future__ import annotations
 
 import argparse
-import os
 import subprocess
 import sys
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+if str(ROOT) in sys.path:
+    sys.path.remove(str(ROOT))
+sys.path.insert(0, str(ROOT))
 
-from tools import native, repo_policy  # noqa: I001
+from tools import config, native, repo_policy, runtime_policy, unused  # noqa: I001
 
 
 def run(command: list[str], root: Path) -> int:
-    env = os.environ.copy()
-    env["PYTHONPATH"] = str(root)
-    env["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] = "1"
+    env = config.check_environment(root)
     try:
         return subprocess.run(command, cwd=root, env=env, check=False).returncode
     except FileNotFoundError:
@@ -26,22 +24,33 @@ def run(command: list[str], root: Path) -> int:
 
 
 def component(name: str, root: Path) -> int:
-    if name in {"policy", "boundaries", "native"}:
+    if name in {"policy", "boundaries", "native", "unused", "runtime"}:
         if name == "policy":
             errors = repo_policy.check(root)
         elif name == "boundaries":
             errors = repo_policy.boundary_policy(root)
+        elif name == "unused":
+            errors = unused.code_check(root)
+        elif name == "runtime":
+            errors = runtime_policy.runtime_stub_check(root)
         else:
             errors = native.check(root, repo_policy.git_paths(root))
         for error in errors:
             print(error)
         if not errors:
-            print(
-                f"{name}: OK"
-                if name != "native"
-                else "skipped: no native sources yet (sm_75 and sm_120; clang-format, clang-tidy, CMake)"
-            )
+            if name == "native":
+                print(
+                    "skipped: no native sources yet (sm_75 and sm_120; clang-format, clang-tidy, CMake)"
+                )
+            elif name == "runtime":
+                print(
+                    "skipped: runtime verification is not implemented until source port (command exits 2)"
+                )
+            else:
+                print(f"{name}: OK")
         return int(bool(errors))
+    if name == "dependencies":
+        return run(unused.dependency_command(root), root)
     if name == "format":
         return run(["ruff", "format", "--check", "."], root)
     if name == "lint":
@@ -65,6 +74,9 @@ def main() -> int:
             "boundaries",
             "policy",
             "native",
+            "unused",
+            "dependencies",
+            "runtime",
         ],
     )
     parser.add_argument("--root", type=Path, default=ROOT)
@@ -82,14 +94,25 @@ def main() -> int:
     names = (
         []
         if args.self_test
-        else ["format", "lint", "types", "imports", "boundaries", "policy", "native"]
+        else [
+            "format",
+            "lint",
+            "types",
+            "imports",
+            "boundaries",
+            "policy",
+            "unused",
+            "dependencies",
+            "native",
+            "runtime",
+        ]
     )
     for name in names:
         before = time.monotonic()
         print(f"\n=== {name} ===", flush=True)
         code = component(name, ROOT)
         failed += bool(code)
-        is_skipped = name == "native" and code == 0
+        is_skipped = name in {"native", "runtime"} and code == 0
         skipped += is_skipped
         status = "FAIL" if code else ("SKIPPED" if is_skipped else "OK")
         print(
