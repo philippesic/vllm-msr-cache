@@ -1,0 +1,59 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 140,
+      "review_id": "a42c905e20809801b98565e7",
+      "signature": "da451a72cfd586410bcc3e6039f568036a62ebb2b14a3ec0520fb04bc121dc50",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Reports FAIL despite actual metadata PASS.",
+        "Unconditionally rejects initial send(), omitting permitted send(None).",
+        "Claims Python2.5 lacks send/coroutine communication without supplied runtime evidence and contrary to the PEP's API/version account."
+      ],
+      "whitespace_words": 93,
+      "notes": "Correct subject/Final/Standards Track labels do not offset the absence of a reliable functional rule or limitation; the answer's concrete guidance is misleading. Proposed commands are unexecuted and grant no support evidence. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 141,
+      "review_id": "d4ba9413cba82bd1330624f7",
+      "signature": "fdb731bbdea0ef8b8f92e1952e2f31a3d11b868ded53380ccef38038ee620b73",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reverses decorator application order to top-to-bottom; the supplied Current Syntax explicitly gives bottom-to-top nested application."
+      ],
+      "whitespace_words": 59,
+      "notes": "The @ placement and function/method-only2.4 scope remain useful supported facts. This final repeats the predecessor's wrong ordering and is charged for it. Generic PEP_Status: PASS is not required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 142,
+      "review_id": "235b36a8ab5851cb6affb2f0",
+      "signature": "72729e92f32af5c75873c26a4fe0abc34130897c1fe4bcee179f229376f9ae7e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims exception details cannot be logged via debug/info/warn or at non-critical levels; the supplied API permits exc_info and imposes no such CRITICAL-only restriction."
+      ],
+      "whitespace_words": 59,
+      "notes": "Final/Standards Track, getLogger guidance and actual metadata PASS are supported/useful. This final DOES contain literal test_status=PASS and is under150 words; its instruction failure is the false sole limitation, not status formatting. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

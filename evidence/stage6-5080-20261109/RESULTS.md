@@ -479,18 +479,28 @@ excluded without activity retries. The immutable schedule assigns 60 Ministral
 and 100 Qwen3-4B configurations, plus364 Qwen3-8B, totaling524. Qwen3-4B continues;
 this is model execution completion, not campaign or final analytical completion.
 
-The next [source-review snapshot](confirm-review-progress-17-02.json) is explicitly
-partial: **6,153 selected outputs / 784 contexts**, with201 new full contexts.
-All54 new QA and78 investigation contexts are read/judged; **69 investigation
-contexts remain unread and unjudged**. The subset has56 source failures,
-82 instruction failures and six not useful. Exact [partial component bindings](confirm-review-components-17-progress-02.json)
-verify only these132 readings; no unread item receives a judgment. The initial
-[81-context checkpoint](confirm-review-progress-17-01.json) is preserved.
-No final index/ratings/finish was
-created for this incomplete snapshot; completed review16 remains authoritative.
-Exact prior reuse includes completed cap07 with matching archived instructions.
-These counts are selected findings, not population rates. Objective results,
-timings and frozen exclusions remain unchanged.
+The latest [source-review index](confirm-review-index-17.json) is complete for
+its static 161-block snapshot: **6,153 selected outputs / 784 contexts**, including
+**all 201 new full contexts explicitly read/judged** (54 QA, 147 investigation finals).
+[Full components](confirm-review-components-17.json) check exact fields and actual
+preceding dependencies. All 424 archived instruction sources/SYSTEM verify; all 83
+supplied source strings bind earlier explicit readings. [Independent checks](confirm-review-validation-17.json)
+verify every current ID/signature, duplicate judgments and complete manual coverage.
+The isolated [frozen validator](confirm-quality-checkpoint-17.json) accepts all 6,153
+ratings. Exact prior reuse includes 21 cap07-only contexts / 169 selected occurrences
+with matching archived instructions. No novel judgment is automatic.
+
+Novel findings are **116 source failures, 150 instruction failures and 17 not
+useful**; selected duplicate-inclusive findings are **1,301, 3,786 and 153**.
+Source fidelity, instruction following and usefulness remain independent: one
+answer supplies correct literal PASS, a supported fact and genuine limitation
+while adding an unsupported send restriction. Other answers have literal PASS but
+only a false behavior/limitation. The earlier [81-context](confirm-review-progress-17-01.json)
+and [132-context](confirm-review-progress-17-02.json) checkpoints remain history;
+the 132 partial component records match the completed bindings. These are selected
+findings, not population rates or quality equivalence. Objective results, timings,
+frozen exclusions and live quality files remain unchanged. Later acquisition,
+fresh terminal review and final all-phase audits remain pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

@@ -1,0 +1,59 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 161,
+      "review_id": "ae504976f497296e65d95a40",
+      "signature": "925645e6f87b18b38a70faec9cc3955d2195b4fd7c47c587d43ce993f4d62ca2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls import .module deprecated rather than prohibited; the supplied proposal does not describe it as an existing valid syntax being deprecated."
+      ],
+      "whitespace_words": 55,
+      "notes": "Parenthesized multi-line imports and leading-dot/from relative syntax versus absolute bare import remain useful supported facts. Actual metadata PASS is not a substitute for the document's Final status or required literal test_status=PASS, which is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 163,
+      "review_id": "9d15aa58141f51dffb7441b9",
+      "signature": "f081ea733c1425b1507c5c23abba47d5d82ef027c63322f11dd88be6cfdd280f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies actual direct CountableTests execution and attributes it to unrelated first/last strict tests.",
+        "Claims no items_seen or next/list-consumption validation despite the supplied two target tests expressly checking those behaviors."
+      ],
+      "whitespace_words": 131,
+      "notes": "The counter's increment-on-consumption fact remains useful and supported. A narrow additional post-exhaustion next() gap would differ from the broad false absence claim made here. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 164,
+      "review_id": "cef79fb26c809a70640c86df",
+      "signature": "8b7185920a4c565122ab799fff427ab4e0c2ec5394930e91d70edef30837704f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies actual seven target tests/ten subtests and supplied ConstrainedBatchesTests.",
+        "Invents a max_count=None/large-item failure from unrelated odd/none tests and confuses it with max_count=1."
+      ],
+      "whitespace_words": 107,
+      "notes": "Strict oversized-item ValueError is a useful supported target fact. The proposed scenario is not an established API limitation or observed failure. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

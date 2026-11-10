@@ -16,8 +16,9 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The November 10 06:38 UTC health check has **445/524 valid configurations,
-169/210 complete matched blocks**, with Qwen3-4B B06 ARC repeat 2 active.
+The November 10 07:08 UTC health check has **462/524 valid configurations,
+177/210 complete matched blocks**, with Qwen3-4B B08 candidate repeat 0 active.
+Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
 Review 16 is complete for its static snapshot through terminal Ministral B06:
@@ -34,33 +35,45 @@ schedule actually assigns 60 Ministral and 100 Qwen3-4B configurations, totaling
 Ministral assertion stopped before writing evidence, was corrected against the
 unchanged protocol, and then passed. Acquisition never used that draft count.
 
-Review 17 is **prepared and partially reviewed**, not audited:
-[progress](confirm-review-progress-17-02.json), raw `$BASE/quality-confirm-checkpoint-17/`.
+Review 17 is **complete for its static snapshot**, with frozen finish audited:
+[index](confirm-review-index-17.json), [ratings](confirm-source-judgments-17.json),
+[full components](confirm-review-components-17.json),
+[validator](confirm-quality-checkpoint-17.json),
+[independent checks](confirm-review-validation-17.json),
+raw `$BASE/quality-confirm-checkpoint-17/` and isolated audit
+`$BASE/quality-confirm-audit-checkpoint-17/`.
 Its frozen static selection has 161 blocks, 8,152 objective finals, 5,342 automatic
 final failures, 291 capped intermediates, 6,153 selected outputs / 784 contexts.
 The exact reuse union is screen07, confirm01 through16 and completed cap07 with
 matching archived SYSTEM/source. All 201 novel contexts are finals: 54 QA and
-147 investigations. **132 are explicitly read/judged in parts01 through31: all54 QA
-and78 investigations;69 investigation contexts remain unread/unjudged.**
-Every index0 through111 and all remaining QA indices are done. Next unread index
-is112; use the exact unread list in the progress receipt, not a contiguous range.
-Do not rerun the one-shot preparation or completed Ministral inventory.
-The [earlier81-context checkpoint](confirm-review-progress-17-01.json) remains
-immutable history. [Partial component bindings](confirm-review-components-17-progress-02.json)
-independently recheck exact fields/dependencies only for the132 reviewed contexts;
-they contain no bindings or judgments for unread contexts and do not replace
-the required full `confirm-review-components-17.json` after all201 are read.
+147 investigations. **All201 are explicitly read/judged in parts01 through54;
+no unread or unjudged context remains in this snapshot.** Every current review ID,
+full signature and duplicate judgment checks, and all424 archived full instruction
+sources/SYSTEM verify. All83 distinct supplied sources exactly bind prior explicit
+readings; zero new unmatched source component. The21 cap07-only prior contexts
+account for169 selected occurrences. The index's older `cap_matches=0`-style field
+counts only overlap with manually novel contexts, not this actual prior reuse;
+the independent receipt makes that scope explicit.
+
+Do not rerun the one-shot preparation/consolidation or completed Ministral inventory.
+The [earlier81-context checkpoint](confirm-review-progress-17-01.json) and
+[132-context checkpoint](confirm-review-progress-17-02.json) remain immutable
+history, superseded by this complete review. All132 [partial component records](confirm-review-components-17-progress-02.json)
+match the completed bindings exactly. Future review starts at a fresh snapshot18
+after more acquisition or terminal confirmation; never repeat or overwrite17.
 
 The authored `benchmarks/research_checks/stage6_5080_review17_tools.py` provides
 `compact_view`, `save` and `retain_bindings` from mutable REPO with the literal
 pinned interpreter and bytecode disabled. Every new answer/unmatched component
 must be explicitly read before saving. Existing full-field/individual-dependency
 bindings use confirm02 through16, cap07 and earlier17; earlier17 repeats are
-printed in full. `retain_bindings` was tested to refuse incomplete manual coverage
-without writing. Do not call frozen finish or produce canonical index17 until
-all201 are explicitly reviewed and complete archived/raw bindings checked.
-Completed index16 remains authoritative meanwhile. Part31 ends with graded
-indices109/110/111; no displayed-but-ungraded context is pending at this checkpoint.
+printed in full. `retain_bindings` first refused incomplete coverage without
+writing, then passed after all201 were read. The authored consolidation helper
+executes only from frozen SOURCE/literal PY/bytecode-off and verifies its imported
+functions actually resolve there. It materializes five quality inputs into the
+isolated audit workspace and runs frozen finish for all6,153 ratings. Live quality
+files remain unchanged. Completed index17 is now authoritative for this snapshot;
+all earlier canonical indices remain in the exact-reuse union for future packets.
 
 Manual subset findings are linked in the progress receipt, not population rates.
 QA20 uses the wrong Strasbourg year/scope (2013 city275718 instead of2012 metro
@@ -71,13 +84,22 @@ example explicitly raises ValueError for mappings: never substitute modern runti
 behavior. PEP307 explicitly excludes classic-class reduce customization, and
 PEP318 explicitly documents implemented2.4a2 nested decorator semantics. Existing
 colon/bold Test Status labels still fail required literal `test_status=PASS`.
-The current132-context subset has56 source failures,82 instruction failures and
-six not useful. Novel59 does contain literal `test_status=PASS`, but its only
+The201 novel-context findings are116 source failures,150 instruction failures and
+17 not useful. Selected duplicate-inclusive findings are1,301/3,786/153,
+respectively; these are not population rates. Novel59 does contain literal `test_status=PASS`, but its only
 limitation falsely denies the explicit decorator-arguments example; its instruction
 failure is the missing genuine limitation, not status formatting. Novel67 retains
 a useful pointer to real invalid-combination tests despite contradictory prose;
 novel98 gives no reliable target behavior and falsely denies overlong-element
 ValueError. Preserve these independent source/format/usefulness distinctions.
+Novel150 has a correct literal PASS inside an unexecuted proposed-command
+argument, a supported send(None) fact and a genuine metadata-only limitation,
+so it earns instruction credit despite an additional overbroad send restriction.
+Novels142/180 also contain literal PASS but fail the required genuine limitation/
+supported behavior. Never classify every command-contained status as absent or
+every source failure as an instruction/usefulness failure. Final confirmation
+still needs a fresh terminal snapshot; this static completion does not finish
+the campaign, all-phase cap inventory, overhead, operational or final audits.
 The [terminal anchor inventory](confirmation-qwen8b-attempts-complete.json)
 reconciles all 364 planned Qwen3-8B configurations: 363 valid logical cases,
 377 retained attempts / 35,530 verified files and 129/130 matched blocks.

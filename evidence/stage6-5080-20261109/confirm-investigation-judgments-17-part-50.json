@@ -1,0 +1,61 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 181,
+      "review_id": "ef54e6c66c94f870d635745f",
+      "signature": "710e978d9ab8a6059f6e487ae53b89f83b2fabab9de1fea76c410f5eb6384042",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports FAIL despite actual metadata PASS.",
+        "Claims generator coroutine APIs/yield expressions require Python3.5+ and are absent in2.5, without supplied support and contrary to the PEP's feature/version account."
+      ],
+      "whitespace_words": 94,
+      "notes": "Final/Standards Track and send next-value-or-StopIteration semantics remain useful source-supported facts. The generated command is not runtime evidence. Wrong status and colon format fail required literal actual test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 182,
+      "review_id": "3a7d22d23056ee9059a62e50",
+      "signature": "6f5753dda27506c2eb6313f88afaad193762357df2bdbec12920b8b24c1f2253",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports FAIL despite actual metadata PASS.",
+        "Claims the document provides no implementation status although the supplied full PEP explicitly marks transition steps done."
+      ],
+      "whitespace_words": 61,
+      "notes": "BaseException/3.0 inheritance and the actual tool's lack of interpreter enforcement tests remain useful supported fragments. Metadata verification and the document's stated implementation history are distinct from performing a new runtime test. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 184,
+      "review_id": "1f57b4c8780424ce42283c95",
+      "signature": "dcf919fe44c1f52b130a2c8cd2730eb8ce96bbf2579d9b0d4a7e8fea200925a0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims positive-only n and ValueError for zero/negative n contrary to the supplied empty-output behavior and permitted None.",
+        "Invents ValueError-based target tests and denies actual three passing tests.",
+        "Begins another unsupported divisibility limitation before truncating."
+      ],
+      "whitespace_words": 137,
+      "notes": "No useful supported target behavior or genuine limitation remains. Real tests use empty-output expectations rather than the invented error semantics. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

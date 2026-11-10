@@ -1,0 +1,54 @@
+{
+  "schema": "stage6-5080-completed-static-source-review-validation-v1",
+  "phase": "confirm",
+  "acquisition_complete": false,
+  "source_review_complete_for_snapshot": true,
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "packet_file_sha256": "1b0a9f6bad131fbc544219a8efd8ec96c32d7db38143b5bd3f777a48ebf454f1",
+  "canonical_index": "confirm-review-index-17.json",
+  "ratings": "confirm-source-judgments-17.json",
+  "validator": "confirm-quality-checkpoint-17.json",
+  "reviewed_outputs": 6153,
+  "distinct_full_contexts": 784,
+  "explicitly_read_novel_contexts": 201,
+  "manual_parts": 54,
+  "novel_roles": {
+    "final": 201
+  },
+  "novel_kinds": {
+    "investigation": 147,
+    "answer_json": 54
+  },
+  "novel_findings": {
+    "source_unsupported": 116,
+    "instruction_failures": 150,
+    "not_useful": 17
+  },
+  "aggregate_findings": {
+    "source_unsupported": 1301,
+    "instruction_failures": 3786,
+    "not_useful": 153
+  },
+  "archived_instruction_sources_verified": 424,
+  "distinct_supplied_sources_exactly_bound_to_prior_explicit_readings": 83,
+  "new_unmatched_source_components": 0,
+  "cap07_only_prior_quality_reuse": {
+    "distinct_contexts": 21,
+    "selected_occurrences": 169
+  },
+  "canonical_index_cap_match_field_scope": "The index exact_previously_judged_cap_contexts_rechecked=0 counts overlap of201 manually novel contexts with cap07, which is intentionally zero. It is not total cap07 reuse; actual cap07-only prior-quality reuse is reported separately above.",
+  "checks": {
+    "all_current_review_ids_and_exact_context_signatures_match": true,
+    "all_duplicate_context_ratings_consistent": true,
+    "all201_manual_indices_and_signatures_present_once": true,
+    "all132_partial_component_records_match_completed_bindings": true,
+    "executed_functions_resolve_to_frozen_source": true,
+    "frozen_finish_audited_all6153": true,
+    "live_quality_directory_unchanged": true,
+    "no_unread_novel_ratings": true
+  },
+  "helper": "benchmarks/research_checks/stage6_5080_review17_consolidate.py",
+  "helper_sha256": "a4ee0578d126a62af34e341aacda1440159e8012413c01f6e62b6821768007c4",
+  "quality_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+  "scope": "Completed source review for one isolated static161-block snapshot, not terminal confirmation or final campaign quality. All201 new final contexts read; no timing/objective/exclusion/live-quality change. Prior partial progress01/02 retained as history. Final review must be regenerated after acquisition ends; selected duplicate-inclusive findings are not population rates, quality equivalence or corrected throughput."
+}
