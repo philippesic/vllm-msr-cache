@@ -117,14 +117,15 @@ credit. [Whole-block recovery](recovery-complete.json) passed owned cleanup and
 replacement of both B01 arms. [Transfer seals](transfer-seals.json) and
 [old-history integrity](history-integrity.json) pass; original evidence is retained.
 
-The ongoing [confirmation integrity snapshot](confirmation-integrity-checkpoint-04.json)
-verifies 15,456 sealed files, including 194 verified attempts, one interrupted
+The ongoing [confirmation integrity snapshot](confirmation-integrity-checkpoint-05.json)
+verifies 26,096 sealed files, including 279 verified attempts, one interrupted
 attempt and nine raw failed states (including accepted controls and the excluded
 B06 attempt). All 2,192 frozen acquisition-source files still match the lock.
 The [earlier checkpoint](confirmation-integrity-checkpoint-02.json)
 also verified the 4,606-file execution bundle
 unchanged. Active unsealed work and later attempts are outside each snapshot;
-final campaign completion remains pending.
+the ledger was unchanged during the latest check and the exact coordinator
+remained live. All older checkpoints remain; final campaign completion is pending.
 
 The [final screening source audit](screen-quality-complete.json) validates all
 1,248 prescribed selected outputs across 522 distinct full contexts, alongside

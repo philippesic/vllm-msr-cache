@@ -1,0 +1,26 @@
+{
+  "schema": "stage6-5080-integrity-checkpoint-v1",
+  "acquisition_complete": false,
+  "phase": "confirm",
+  "recorded_utc": "2026-11-10T00:15:43.441299+00:00",
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 279,
+      "interrupted": 1,
+      "failed": 9,
+      "running": 1
+    },
+    "verified_files": 26096,
+    "protocol_frozen": true,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "ledger_before_digest": "b94e6bef05e4678932e4f51948baadaf399f78811c9c77b7fcfa3b3cc0604f58",
+  "ledger_after_digest": "b94e6bef05e4678932e4f51948baadaf399f78811c9c77b7fcfa3b3cc0604f58",
+  "ledger_changed_during_check": false,
+  "coordinator_identity_checked_live": true,
+  "verifier_source": "frozen exported campaign_verify.verify_campaign",
+  "frozen_acquisition_source_matches_locked_manifest": true,
+  "frozen_acquisition_source_files_verified": 2192,
+  "scope": "Read-only integrity and aggregate verification of every sealed attempt in this campaign snapshot, retaining interrupted/raw-failed history and the B06 activity-invalid attempt. Exact current frozen acquisition source matches its lock. Active unsealed work and later attempts are outside this inventory; ledger-before/after digests disclose concurrent progress. No original measurements, protocol, source or analysis rules changed. Not final acquisition, quality, portability or performance completion. Prior whole-bundle verification remains separately recorded in checkpoint02."
+}

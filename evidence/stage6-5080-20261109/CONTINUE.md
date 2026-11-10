@@ -336,8 +336,8 @@ Release owned resources and disable only this job's schedule at actual closeout,
 record the verified release, and push the final checkpoint. Keep goal active until
 the full requested outcome and push are verified; the present document is a recipe.
 
-The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-04.json)
-verifies 15,456 sealed files / 194 verified, one interrupted and nine raw failed
+The latest read-only [confirmation integrity checkpoint](confirmation-integrity-checkpoint-05.json)
+verifies 26,096 sealed files / 279 verified, one interrupted and nine raw failed
 attempts at its snapshot, plus one active unsealed attempt. It checks attempt,
 input and protocol identities, retaining the ledger observations before/after
 the frozen verifier. Raw failed states include accepted inactive-restore controls
