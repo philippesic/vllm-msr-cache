@@ -1,5 +1,3 @@
-"""Foundation controls; cache correctness tests arrive with runtime source."""
-
 import subprocess
 import sys
 from pathlib import Path

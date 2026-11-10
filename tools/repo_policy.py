@@ -1,5 +1,3 @@
-"""Small, fail-closed repository checks. Diagnostics never echo file contents."""
-
 from __future__ import annotations
 
 import ast
@@ -8,6 +6,8 @@ import subprocess
 import sys
 import tomllib
 from pathlib import Path
+
+from tools import agent_policy
 
 SKIP_DIRS = {
     ".git",
@@ -51,7 +51,6 @@ def git_paths(root: Path) -> list[Path]:
 
 
 def visible_files(root: Path) -> list[Path]:
-    """Include ignored instruction/workflow files, excluding dependency/cache trees."""
     found: list[Path] = []
     for directory, dirs, files in root.walk(follow_symlinks=False):
         dirs[:] = [
@@ -118,8 +117,8 @@ def boundary_policy(root: Path) -> list[str]:
 
 
 def check(root: Path) -> list[str]:
-    errors: list[str] = []
     paths = git_paths(root)
+    errors = agent_policy.check(root, paths)
     visible = visible_files(root)
     if [p.as_posix() for p in visible if p.name == "AGENTS.md"] != ["AGENTS.md"]:
         errors.append("repo.agents: require exactly one root AGENTS.md")
@@ -172,10 +171,13 @@ def check(root: Path) -> list[str]:
         if SECRET.search(text):
             errors.append(f"repo.secret: {label} (redacted)")
         if path.suffix == ".py":
-            if re.search(r"#\s*(?:type:\s*ignore|mypy:)", text):
+            allowed, _ = agent_policy.exceptions(root)
+            if re.search(r"#\s*(?:type:\s*ignore|mypy:)", text) and not any(
+                e.rule == "directive" and e.path == label and e.match in text
+                for e in allowed
+            ):
                 errors.append(f"types.suppression: {label}")
-            # Inspect Python tokens via AST, so policy patterns in the checker itself
-            # and specimens encoded in JSON do not become false lock detections.
+
             tree = ast.parse(text, filename=label)
             for node in ast.walk(tree):
                 token = ""
@@ -192,7 +194,6 @@ def check(root: Path) -> list[str]:
                 elif isinstance(node, ast.ImportFrom):
                     token = node.module or ""
                 elif isinstance(node, ast.Constant) and isinstance(node.value, str):
-                    # Match complete lock identifiers/paths, not explanatory prose/regex.
                     token = node.value if re.fullmatch(r"[\w./-]+", node.value) else ""
                 if LOCK_PATTERN.search(token):
                     errors.append(f"repo.gpu_lock: {label}")

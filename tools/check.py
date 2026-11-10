@@ -1,5 +1,3 @@
-"""One local/CI validator. Never formats, launches GPUs, or alters source."""
-
 from __future__ import annotations
 
 import argparse
@@ -9,7 +7,6 @@ import sys
 import time
 from pathlib import Path
 
-# Support both the documented script invocation and package imports in tests.
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -57,7 +54,7 @@ def component(name: str, root: Path) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description="Deterministic CPU/tooling checks")
     parser.add_argument(
         "--component",
         choices=[

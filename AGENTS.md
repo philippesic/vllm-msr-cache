@@ -23,6 +23,10 @@ See [benchmarking](docs/benchmarking.md) before designing an experiment.
 
 # Judgment the checks cannot provide
 
+Philip reviews exceptions and check-configuration changes. Turn recurring
+corrections into checks with bad specimens and positive controls; commit small
+coherent checkpoints.
+
 Preserve adverse and inconclusive evidence alongside gains. Choose workloads
 that exercise the claimed mechanism; a pressure claim needs actual CPU restores
 and, for retention, eviction-affected returns. Microbenchmarks alone do not

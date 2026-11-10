@@ -70,5 +70,15 @@
   "repo.tracked-output",
   "docs.link",
   "docs.immutable",
-  "types.directive"
+  "types.directive",
+  "comments.comment",
+  "comments.docstring",
+  "comments.module-docstring",
+  "comments.config",
+  "comments.headers",
+  "exceptions.directive",
+  "exceptions.reason",
+  "exceptions.duplicate",
+  "exceptions.stale",
+  "exceptions.missing"
 ]

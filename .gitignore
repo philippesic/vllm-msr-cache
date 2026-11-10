@@ -1,8 +1,6 @@
-# Host-private state and credentials
 .env
 .env.*
 *.private.json
-# Dependencies and reproducible caches
 .venv/
 __pycache__/
 *.py[cod]
@@ -13,7 +11,6 @@ __pycache__/
 build/
 dist/
 *.egg-info/
-# External run products and transient planning (never authored workflow)
 /output/
 /outputs/
 /runs/

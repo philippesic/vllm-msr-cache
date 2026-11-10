@@ -711,5 +711,114 @@
       "probe.py": "# mypy: allow-untyped-defs\ndef f():\n    return 1\n"
     },
     "diagnostic": "types.suppression:"
+  },
+  {
+    "id": "comments.comment",
+    "component": "policy",
+    "good": {
+      "probe.py": "value = \"# a string\"\n"
+    },
+    "bad": {
+      "probe.py": "value = 1  # math assumption\n"
+    },
+    "diagnostic": "comments.banned:"
+  },
+  {
+    "id": "comments.docstring",
+    "component": "policy",
+    "good": {
+      "probe.py": "ASSUMPTION_G005_COMMENTS = \"G005-COMMENTS\"\n"
+    },
+    "bad": {
+      "probe.py": "def f() -> int:\n    \"\"\"Commentary.\"\"\"\n    return 1\n"
+    },
+    "diagnostic": "comments.docstring:"
+  },
+  {
+    "id": "comments.module-docstring",
+    "component": "policy",
+    "good": {
+      "probe.py": "value = 1\n"
+    },
+    "bad": {
+      "probe.py": "\"\"\"Module commentary.\"\"\"\n"
+    },
+    "diagnostic": "comments.docstring:"
+  },
+  {
+    "id": "comments.config",
+    "component": "policy",
+    "good": {
+      "config.toml": "value = \"# data\"\n"
+    },
+    "bad": {
+      "config.toml": "value = 1 # commentary\n"
+    },
+    "diagnostic": "comments.banned:"
+  },
+  {
+    "id": "comments.headers",
+    "component": "policy",
+    "good": {
+      "probe.py": "#!/usr/bin/env python3\n# coding: utf-8\nvalue = 1\n"
+    },
+    "bad": {
+      "probe.py": "# mathematical derivation\nvalue = 1\n"
+    },
+    "diagnostic": "comments.banned:"
+  },
+  {
+    "id": "exceptions.directive",
+    "component": "policy",
+    "good": {
+      "probe.py": "import os  # noqa: F401\n",
+      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+    },
+    "bad": {
+      "probe.py": "import os  # noqa: F401\n"
+    },
+    "diagnostic": "comments.banned:"
+  },
+  {
+    "id": "exceptions.reason",
+    "component": "policy",
+    "good": {
+      "probe.py": "import os  # noqa: F401\n",
+      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+    },
+    "bad": {
+      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"\"\n"
+    },
+    "diagnostic": "exceptions.invalid:"
+  },
+  {
+    "id": "exceptions.duplicate",
+    "component": "policy",
+    "good": {
+      "probe.py": "import os  # noqa: F401\n",
+      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+    },
+    "bad": {
+      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+    },
+    "diagnostic": "exceptions.invalid:"
+  },
+  {
+    "id": "exceptions.stale",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# noqa: F401\"\nreason = \"Fixture deliberately imports an otherwise unused dependency.\"\n"
+    },
+    "diagnostic": "exceptions.stale:"
+  },
+  {
+    "id": "exceptions.missing",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": null
+    },
+    "diagnostic": "exceptions.invalid:"
   }
 ]

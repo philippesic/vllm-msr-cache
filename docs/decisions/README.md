@@ -6,3 +6,4 @@ These records adopt the authorized foundation subset of the porting plan.
 - [002: Small boundaries and one validator](002-boundaries.md).
 - [003: Separate runtime provenance](003-runtime.md).
 - [004: Evidence and benchmark ownership](004-evidence.md).
+- [005: Agent guardrails](005-agent-guardrails.md).

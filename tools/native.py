@@ -1,5 +1,3 @@
-"""Native check dispatch. No native source or build qualification exists yet."""
-
 from __future__ import annotations
 
 import json
@@ -22,7 +20,6 @@ def check(root: Path, paths: list[Path]) -> list[str]:
         or p.suffix == ".cmake"
     ]
     if sources:
-        # Activating untested build recipes would falsely certify future native code.
         errors.append(
             "native.unqualified: native sources require qualified clang-format/clang-tidy/CMake recipes and their deliberate-failure tests for sm_75 and sm_120; see tools/native.json"
         )
