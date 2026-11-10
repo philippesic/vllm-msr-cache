@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 import subprocess
 import sys
 import tempfile
@@ -11,6 +10,8 @@ from pathlib import Path
 from typing import cast
 
 import pytest
+
+from tools import agent_policy, config
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -59,6 +60,8 @@ def write(root: Path, files: dict[str, str | None]) -> None:
             tracked = data.startswith("$TRACKED:")
             data = data.removeprefix("$TRACKED:")
             data = data.replace("$OVERSIZE", "x" * (256 * 1024 + 1))
+            if data.startswith("$APPEND:"):
+                data = target.read_text() + data.removeprefix("$APPEND:")
             target.write_text(data.replace("$FAKE_TOKEN", "ghp_" + "A" * 36))
             if tracked:
                 subprocess.run(["git", "add", "-f", name], cwd=root, check=True)
@@ -75,6 +78,15 @@ def prepare(root: Path) -> None:
             'files = ["probe.py"]',
         )
     )
+    adapter_entries, errors = agent_policy.exceptions(ROOT)
+    assert not errors
+    fixture_exceptions = "".join(
+        f'[[exception]]\nrule = "{e.rule}"\npath = "{e.path}"\nmatch = "{e.match}"\nreason = "Isolated boundary and external-hook fixture."\n'
+        for e in adapter_entries
+        if e.rule in {"adapter-import", "development-root", "unused"}
+    )
+    for path in ("probe.py", "test_probe.py", "tools/runtime_verify.py"):
+        fixture_exceptions += f'[[exception]]\nrule = "script"\npath = "{path}"\nmatch = "entry"\nreason = "Isolated control entry."\n'
     write(
         root,
         {
@@ -86,9 +98,13 @@ def prepare(root: Path) -> None:
             "semantic_offload/contracts.py": "",
             "semantic_offload/vllm_adapter/__init__.py": "",
             "benchmarks/__init__.py": "",
+            "tests/__init__.py": "",
             "vllm/__init__.py": "",
+            "tools/__init__.py": "",
+            "tools/pytest_gate.py": (ROOT / "tools/pytest_gate.py").read_text(),
             "tools/native.json": (ROOT / "tools/native.json").read_text(),
-            "tools/exceptions.toml": "exception = []\n",
+            "tools/exceptions.toml": fixture_exceptions,
+            "tools/runtime_verify.py": (ROOT / "tools/runtime_verify.py").read_text(),
             "test_probe.py": "def test_control() -> None:\n    assert 1 + 1 == 2\n",
             "cpu.json": '["test_probe.py::test_control"]\n',
         },
@@ -96,11 +112,9 @@ def prepare(root: Path) -> None:
 
 
 def invoke(root: Path, component: str) -> subprocess.CompletedProcess[str]:
-    env = os.environ.copy()
-    env["PYTHONPATH"] = os.pathsep.join([str(root), str(ROOT)])
-    env["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] = "1"
-    env["MYPY_CACHE_DIR"] = str(root.parent.parent / "mypy-cache")
+    env = config.proof_environment(root, ROOT)
     if component == "cpu":
+        env = config.check_environment(ROOT)
         command = [
             sys.executable,
             "-m",

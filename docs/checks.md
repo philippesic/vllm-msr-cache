@@ -81,3 +81,22 @@ in [decision 005](decisions/005-agent-guardrails.md). Exact tool directives requ
 a reason in [exceptions.toml](../tools/exceptions.toml). The policy rejects missing,
 duplicate, unreasoned and stale directive entries. This applies to Python and
 comment syntax in shell, TOML, YAML, Docker and ignore configuration.
+
+Vulture 2.14 checks unused code at 60% confidence. Deptry 0.24.0 checks all four
+DEP001–DEP004 categories. Both are pinned in the development lock. Vulture
+exceptions match an exact path and diagnostic (without a shifting line number),
+and stale matches fail. Deptry's development roots are explicitly listed in the
+same file. Import Linter's adapter allowances must agree with its entries;
+Ruff/unused-tool suppression settings cannot quietly add another allowlist.
+
+The policy also rejects bare excepts, library print calls, environment access
+outside config modules, test sleeps, implicit/global benchmark RNG, standalone
+scripts, static extension registries, nonconforming extension filenames and
+result-path literals outside the future runner. Aliased-import controls are
+included. [Decision 005](decisions/005-agent-guardrails.md) states the exact scope
+and limits, including future discovery and single-owner conventions.
+
+The runtime group tests the stub contract and reports **skipped**. Its standalone
+[module command](runtime.md#explicit-runtime-verification-entry) exits 2; zero or
+a misleading exit-2 message fails its mutation proofs. Absence of runtime source
+is never counted as a runtime pass.

@@ -54,3 +54,17 @@ initialization. Then each host separately needs actual FP16 CPU/GPU round trips,
 completion/failure fences, restore-versus-fresh generation, and cancellation,
 drain/recovery. A byte round trip is not full lifecycle or quality qualification.
 No old runtime source, patches, wheel assets or execution trees were copied here.
+
+## Explicit runtime verification entry
+
+```sh
+uv run --locked python -m tools.runtime_verify
+```
+
+This stub exits **2** and prints `NOT IMPLEMENTED: runtime verification is not
+implemented until source port.` It never launches GPU work or returns success.
+The ordinary validator verifies the stub's exit/message contract and counts
+runtime as **skipped**, outside passed groups. This is preparation, not evidence
+of byte equality, lifecycle correctness, working kernels, performance or quality.
+A source port must replace the stub and its mutation proofs in a separately
+reviewed change before any runtime pass is possible.
