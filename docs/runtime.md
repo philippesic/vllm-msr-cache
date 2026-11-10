@@ -1,10 +1,14 @@
-# Supported runtime
+# Runtime
 
-Portable development uses CPython 3.12.3 and uv 0.13.6 with `uv.lock`. It installs
-no vLLM/torch/CUDA dependency. The separate runtime uses the exact historical
-vLLM wheel `0.26.1rc1.dev75+gdc1be7903`, torch 2.13.0 and transformers 5.22.1.
-`runtime/requirements.txt` includes the hash-locked split closure. Install it in
-an external environment; do not mutate an environment while another attempt uses it.
+Portable development uses CPython 3.12.3 and uv 0.13.6 with `uv.lock`, and installs
+no vLLM, torch or CUDA. The separate runtime pins vLLM wheel
+`0.26.1rc1.dev75+gdc1be7903`, torch 2.13.0 and transformers 5.22.1 through the
+hash-locked `runtime/requirements.txt`. Install it outside the repository, and do
+not modify an environment while another run uses it.
+
+On DESKTOP-T4JKGJB the installed runtime is
+`/home/philip/.local/share/venvs/wait-hint-offload`. Retained attempts live under
+`/home/philip/.local/share/wait-hint-port-work/`.
 
 ```sh
 uv venv --python 3.12.3 /external/venvs/wait-hint
@@ -14,48 +18,42 @@ uv pip check --python /external/venvs/wait-hint/bin/python
 uv run --locked python tools/check.py --runtime-python /external/venvs/wait-hint/bin/python --out /external/new-cpu-attempt
 ```
 
-The runtime lane explicitly type-checks the adapter and runtime tests against
-that environment, then snapshots inputs and executes real pinned CPU integration
-with CUDA hidden. It includes real ARC/manager/scheduler construction, RPC/HTTP
-routing, submission/completion failures and computed-token guards. CPU transfer
-handlers are fakes; real workers need CUDA streams and host registration.
-After adding runtime cases, explicitly update both inventories with
+The runtime lane type-checks the adapter and runtime tests against that environment,
+then snapshots inputs and runs real pinned CPU integration with CUDA hidden. It
+covers real ARC, manager and scheduler construction, RPC/HTTP routing,
+submission/completion failures and computed-token guards. CPU transfer handlers are
+fakes; real workers need CUDA streams and host registration. After adding runtime
+tests, update both inventories with
 `uv run --locked python tools/check.py --update-tests --runtime-python /external/venvs/wait-hint/bin/python`.
-Collection also hides CUDA. The GPU inventory is separate and is never included
-in normal directory discovery.
+The GPU inventory is separate and never included in normal discovery.
 
-## Attested launcher
+## Launcher
 
-`tools.run_runtime` builds an owned temporary package overlay; installed packages
-stay intact. It verifies wheel/interpreter and private-seam hashes, inserts only
-the RPC methods in `runtime/rpc.json`, and records their resulting identities.
-The connector requires the attested overlay and rechecks its private/modified
-files at construction. Unpatched, drifting, optimized and unsupported runtimes
-refuse with a repair instruction. See `runtime/compatibility.json` and the
-[upstream attribution](../runtime/NOTICE.md).
+`tools.run_runtime` builds a temporary package overlay and leaves installed packages
+intact. It verifies the wheel, interpreter and private-seam hashes in
+`runtime/compatibility.json`, inserts only the RPC methods in `runtime/rpc.json`,
+and records their resulting hashes. The connector requires the overlay and rechecks
+its files at construction. Unpatched, drifting, optimized and unsupported runtimes
+refuse with a repair instruction. See the [upstream attribution](../runtime/NOTICE.md).
 
-Run any serving command through the same runtime Python:
+Run any serving command through the runtime Python:
 
 ```sh
 /external/venvs/wait-hint/bin/python -m tools.run_runtime --gpu --timeout 600 /external/venvs/wait-hint/bin/python -m vllm.entrypoints.openai.api_server --help
 ```
 
-The `--gpu` flag requests device visibility; it grants no authority or ownership.
-Without it, the launcher hides CUDA. The launcher has a finite timeout and
-boot/birth-checked owned-session cleanup. Functional attempts have zero automatic
-retries; each repair/retest creates another retained attempt. A general durable
-research coordinator, retry service and notification system are deferred.
+`--gpu` makes the device visible; it grants no authority. Without it, the launcher
+hides CUDA. The launcher enforces a finite timeout and cleans up only the process
+session it created. Functional attempts have no automatic retries; each repair and
+retest creates another retained attempt.
 
 ## Serving configuration
 
-The supported initial target is dense full-attention FP16, TP1, HND, eager
-execution with TRITON_ATTN. BF16 on Turing, sliding/hybrid attention, speculative
-decoding, LoRA and parallel execution refuse or remain unqualified as specified
-by construction. The pinned model's native default runner is exercised; this does
-not qualify every model/runner combination. Use an ordinary vLLM serving command
-with `--dtype float16`,
-`--enforce-eager`, `--attention-backend TRITON_ATTN`, prefix caching, an explicit
-API key, and this `--kv-transfer-config` object:
+The supported target is dense full-attention FP16, TP1, HND, eager execution with
+TRITON_ATTN. BF16 on Turing, sliding/hybrid attention, speculative decoding, LoRA
+and parallel execution refuse or are unqualified. Use an ordinary vLLM serving
+command with `--dtype float16`, `--enforce-eager`, `--attention-backend TRITON_ATTN`,
+prefix caching, an explicit API key, and this `--kv-transfer-config`:
 
 ```json
 {
@@ -76,54 +74,34 @@ API key, and this `--kv-transfer-config` object:
 }
 ```
 
-Install the project's entry point in the runtime environment and explicitly set
+Install the project's entry point in the runtime environment and set
 `VLLM_PLUGINS=wait_hint` to expose `/v1/wait-hints`. The launcher sets
-`VLLM_WSL2_ENABLE_PIN_MEMORY=1` for this WSL host. Namespace labels do not attest
-model bytes; attempt receipts separately hash the actual model/tokenizer files.
-See [the registration/hint protocol](source-port.md).
+`VLLM_WSL2_ENABLE_PIN_MEMORY=1` for WSL hosts. Namespace labels do not attest model
+bytes; attempt receipts hash the actual model and tokenizer files. The hint protocol
+is in [architecture](architecture.md). The advice-disabled control changes only
+`advice_enabled`.
 
-The advice-disabled control changes only `advice_enabled`. Both modes use the
-computed-token bound, full-transcript registration and narrow failure recovery.
-The pin's known ARC T2-empty fallback defect is intentionally retained in both
-modes and characterized. It is not silently fixed or claimed neutral for performance.
+## GPU gate
 
-## Hardware gate and retained evidence
+GPU runs need Philip's explicit authorization naming the host, device and window,
+plus an external reservation held for the whole invocation. This repository has
+no reservation mechanism; on DESKTOP-T4JKGJB use the existing wrapper from the
+older `vllm-semantic-cache-ext` checkout, from outside this repo, without passing
+its file descriptors to children. Check for other GPU work and disk headroom after
+acquiring it.
 
-After explicit authorization and external ownership, invoke the runtime Python
-with `-m tools.runtime_verify --gpu --model /local/model --timeout 600 --out /external/new-hardware-attempt`.
-This tests FP16 store/CPU eviction/restore byte equality, restored-versus-fresh
-generation in both modes, and real authenticated HTTP-to-engine advice activation.
-Keep the external reservation for the whole invocation. This repo supplies no
-reservation mechanism; on this host the existing historical wrapper is used from
-outside the repo, without passing its file descriptors to children. Check ambient
-GPU work and disk headroom again after acquiring ownership. Advisory exclusion
-covers cooperating users, not arbitrary external jobs.
+```sh
+/external/venvs/wait-hint/bin/python -m tools.runtime_verify --gpu --model /local/model --timeout 600 --out /external/new-hardware-attempt
+```
 
-`python -m tools.runtime_verify --verify /external/attempt` validates its receipt,
-frozen source, model dependencies and artifact identities without rerunning it.
-Without arguments, the verifier exits 2 and requests the explicit environment/output.
+This tests FP16 store, CPU eviction and restore byte equality, restored versus fresh
+generation in both modes, and authenticated HTTP-to-engine advice.
+`python -m tools.runtime_verify --verify /external/attempt` validates a retained
+receipt, frozen source, model dependencies and artifact hashes without rerunning it.
+Without arguments the verifier exits 2 and asks for an environment and output.
 Unknown schemas, failed attempts, missing observations and changed inputs refuse.
-Original evidence remains intact; there is no migration or automatic evidence expiry.
 
-Current evidence qualifies only the named RTX 2080 Ti/WSL2 and cached Qwen2.5-0.5B
-functional cases in [FINDINGS](../FINDINGS.md). RTX 5080/sm_120 is a separate hardware
-gate. There are no throughput, quality, production, power-loss durability or general
-agent-productivity claims. CPU warnings from optional upstream Torch/DeepGEMM paths
-are retained in logs, rather than treated as selected mechanism failures.
-
-## Historical closures
-
-These remain provenance, not alternative supported installations:
-
-| Historical closure | Native base | transformers |
-| --- | --- | --- |
-| Stage 6 native/candidate | Same nightly plus broader historical patches | 5.5.3 |
-| Root development | Same nightly plus broader historical patches | 5.22.1 |
-| Continuum | vLLM 0.10.2 / LMCache 0.3.6 / torch 2.8.0+cu128 | 4.55.2 |
-| Retention PR #59714 experiment | vLLM 0.30.1rc1.dev530 plus mapped-host-pointer patch | 5.22.1 |
-
-Do not collapse these into one tested environment or relabel historical results.
-[Decision 003](decisions/003-runtime.md) preserves provenance. No owned C++/CUDA
-source was added; the portable native-source group remains skipped. Adding owned
-native code still requires the qualified build/diagnostic recipes and separate
-sm_75/sm_120 acceptance in `tools/native.json`.
+Current GPU evidence covers only the RTX 2080 Ti/WSL2 cases in [FINDINGS](../FINDINGS.md).
+The RTX 5080/sm_120 is a separate, unqualified gate. Adding owned C++/CUDA source
+requires build and diagnostic recipes plus sm_75/sm_120 acceptance in
+`tools/native.json`.

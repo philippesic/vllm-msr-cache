@@ -1,34 +1,31 @@
-# Durable findings
+# Findings
 
-This index separates the new port's functional qualification from historical
-research results. Historical evidence root:
-`/home/philip/vllm-semantic-cache-ext/` on DESKTOP-T4JKGJB (RTX 2080 Ti/WSL2).
-The links below freeze the inspected revision, not mutable main. Paths under
-`output/` stay in the old repository's storage and were not copied or relocated.
-Confidence intervals below are conditional historical 95% intervals, not fresh
-reanalysis, population-quality estimates or selection-adjusted winner tests.
+What this project has established, newest first, each with its scope and evidence.
+Add an entry when a result is established; correct an entry in place when it turns
+out wrong, and say so in the entry.
 
-## Minimal wait-hint port, 2026-11-10
+## Functional qualification, 2026-11-10
 
-The port implements exact CPU KV offload with causal wait-hint ARC recency advice,
-an authenticated endpoint, bounded observations/replay state and transfer-failure
-bookkeeping. Semantic scoring and GPU prefetch are absent. The advice-disabled
-control shares all correctness guards.
+Exact CPU KV offload with causal wait-hint ARC advice works end to end on the tested
+configuration: authenticated endpoint, bounded observation and replay state, and
+transfer-failure bookkeeping. The advice-disabled control shares all guards.
 
-The pinned CPU lane passed 12 integration tests with CUDA uninitialized. On this
-host's RTX 2080 Ti, three hardware tests passed: exact GPU/CPU bytes across CPU
-eviction, restoration versus fresh computation in both advice modes, and real
-authenticated HTTP delivery through async engine RPC. This qualifies the tested
-dense FP16 TP1 configuration, not other hardware/models or performance.
-[Qualification and limitations](evidence/minimal-port-20261110.md).
+The pinned CPU lane passed 12 integration tests with CUDA uninitialized. On the RTX
+2080 Ti (DESKTOP-T4JKGJB, WSL2), three hardware tests passed: exact GPU/CPU bytes
+across CPU eviction, restored versus fresh generation in both advice modes, and
+authenticated HTTP delivery through async engine RPC. This covers dense FP16 TP1
+with Qwen2.5-0.5B only. It says nothing about performance, other models or other
+hardware. [Evidence and limits](evidence/functional-qualification-20261110.md).
 
-One fresh agent rejected a damaged CPU receipt and produced valid current-source
-CPU qualification without hints or source changes, within its ten-minute budget.
-The independent assessment verified its receipts and narrow factual report. This
-supports that workflow's usability, not general agent-productivity improvement.
-Benchmark redesign and high-level agent operations remain deferred.
+## Earlier research in the previous repository
 
-## Unchanged wait-hint candidate, 2026-11-05
+These results come from `/home/philip/vllm-semantic-cache-ext/` on DESKTOP-T4JKGJB,
+before this codebase existed. They measured a different, larger system, so they
+inform experiment design here but are not results for this code. Links freeze the
+inspected revision. Raw paths under `output/` stay in that repository. Intervals are
+the original 95% intervals, not reanalysis.
+
+### Unchanged wait-hint candidate, 2026-11-05
 
 Stage 5's fixed development pressure panel measured existing hints versus native
 ARC at **+6.15% workflow throughput [4.99%, 7.32%]**, across three repeats.
@@ -37,7 +34,7 @@ The selected profile is CPU recency advice, not semantic scoring/GPU staging.
 [Results](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage5-optimization-20261105/README.md)
 and [selected settings](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage5-optimization-20261105/selected-candidate.json).
 
-## Faster eviction did not establish serving value, 2026-11-05
+### Faster eviction did not establish serving value, 2026-11-05
 
 Exact-state replay sped large eviction calls roughly 5–7x, sometimes 23x.
 Native eviction was nevertheless below 0.05% of primary/tight workflow time.
@@ -48,7 +45,7 @@ establish an end-to-end gain.
 Raw states: `output/stage5-optimization-20261105/eviction-round8/` and
 `output/stage5-optimization-20261105/closeout-round9/00-live-documents/`.
 
-## Semantic/SVD costs and an inadequate advance window, 2026-11-04
+### Semantic/SVD costs and an inadequate advance window, 2026-11-04
 
 On RTX 2080 Ti/Qwen2.5-1.5B, 54 cases produced 972 responses. Final public
 semantic variants were 24–33% slower in requests/s than wait-hint ARC.
@@ -59,7 +56,7 @@ success did not establish general quality equivalence. Exact-KV defaults exclude
 [Scope, measurements and caveats](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/semantic-svd-serving-20261104/README.md).
 Raw: `output/semantic-svd-serving-20261104/`.
 
-## Stage 6 gains and losses coexist, 2026-11-06 through 2026-11-08
+### Stage 6 gains and losses coexist, 2026-11-06 through 2026-11-08
 
 The 2080 Ti primary study completed 524 configurations / 210 matched blocks.
 Paired completed-graph-units/s ratios use whole-process log Student-t intervals.
@@ -76,7 +73,7 @@ nor global dominance follows. Pinned upstream is retention PR #59714, not #50422
 [External comparison receipts](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/results/comparisons.json).
 Raw primary: `output/stage6-2080ti-20261106/`.
 
-## The original pressure premise failed; recovery was a separate study
+### The original pressure premise failed; recovery was a separate study
 
 Anchor eight-session Qwen3-8B B06 had **zero returning CPU restores and zero
 eviction-affected returns** in both native arms. Preserve it as a GPU-reuse
@@ -92,7 +89,7 @@ as distinct identities; do not rewrite the old gap as a pressure win.
 [Recovery protocol, counters and audit](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/repository-recovery-03/README.md).
 Raw recovery: `output/stage6-2080ti-20261106/addendum-03/`.
 
-## Enabled without hints and misleading hints harmed traffic
+### Enabled without hints and misleading hints harmed traffic
 
 Fresh QA enabled/no-hints throughput was **0.9667 [0.9539, 0.9797]**, an estimated
 **-3.33%** across 24 pairs; the declared 3% noninferiority condition remained
@@ -102,7 +99,7 @@ blocks. Aggregate throughput concealed interference. Per-process unhinted p99
 has only 16 requests and is descriptive.
 [Addendum outcomes and traffic definitions](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/RESULTS.md).
 
-## Answer-quality equivalence remains unestablished
+### Answer-quality equivalence remains unestablished
 
 Objective coverage was 10,616 primary and 3,504 addendum finals, with explicit
 selected source/cap reviews. Unsupported claims, invented validation, format
@@ -113,7 +110,7 @@ correctness-adjusted utility. Recovery audited all 288 finals and selected
 [Quality denominators](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/quality-final-summary.json)
 and [recovery audit](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/repository-recovery-03/quality-final.json).
 
-## 5080 binary capability
+### 5080 binary capability
 
 On DESKTOP-E78LJSI, the November 8 campaign failed all five Continuum anchor
 warmups at `multi_layer_kv_transfer`: the LMCache binary had neither sm_120 nor
@@ -132,23 +129,11 @@ blocks: one candidate had zero restores plus preemptions; it stays excluded.
 [Incomplete results](https://github.com/philippesic/vllm-msr-cache/blob/6bbdbdee7ab8ac8012dc27a2938175477d58fb0f/evidence/stage6-5080-20261109/RESULTS.md),
 [build](https://github.com/philippesic/vllm-msr-cache/blob/6bbdbdee7ab8ac8012dc27a2938175477d58fb0f/evidence/stage6-5080-20261109/lmcache-build.json),
 [qualification](https://github.com/philippesic/vllm-msr-cache/blob/6bbdbdee7ab8ac8012dc27a2938175477d58fb0f/evidence/stage6-5080-20261109/qualification.json).
-These pinned result files were re-read over read-only SSH for this foundation.
-The current live campaign state was not inspected; do not treat this snapshot as
-its final outcome or compare hosts as a GPU-only experiment.
+This is a snapshot of a campaign that was still running; do not treat it as the
+final outcome or compare hosts as a GPU-only experiment.
 
-## Historical credential exposure and earlier work
+### Earlier compact work
 
-A webhook credential appeared in the remote historical
-`evidence/stage6-5080-20261108/CONTINUE.md`, line 174 before the commit titled
-“Keep completion endpoint private.” Carry only the fact/location. No value or
-private endpoint file was read or copied in this step; revocation is **unverified**.
-The location was established in the earlier read-only porting investigation;
-the secret-bearing historical text was deliberately not reopened.
-
-Earlier compact work remains available under the old
 [a27](https://github.com/philippesic/vllm-msr-cache/tree/1319f09bafac46bab89df465dd433c67441f4b26/evidence/a27),
 [e04](https://github.com/philippesic/vllm-msr-cache/tree/1319f09bafac46bab89df465dd433c67441f4b26/evidence/e04)
-and [live wait-hint investigation](https://github.com/philippesic/vllm-msr-cache/tree/1319f09bafac46bab89df465dd433c67441f4b26/evidence/live-optimization-2080ti-20261103).
-Those scopes are not requalified here. The complete external inventory reconciles
-7,438 old tracked paths; that foundation inventory imported no old code/history/raw
-outputs. The subsequent minimal source extraction is documented separately above.
+and the [live wait-hint investigation](https://github.com/philippesic/vllm-msr-cache/tree/1319f09bafac46bab89df465dd433c67441f4b26/evidence/live-optimization-2080ti-20261103).

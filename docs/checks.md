@@ -1,146 +1,69 @@
-# Deterministic checks and their proofs
+# Checks
 
-Run `uv run --locked python tools/check.py` locally or in CI. The optional
-`.githooks/pre-commit` executes exactly that command; enable it with
-`git config --local core.hooksPath .githooks`. It does not change source or install
-hooks automatically. The complete CPU suite, including proofs, takes tens of
-seconds on the verified host. GPU tests and builds are never hidden in this hook.
+`uv run --locked python tools/check.py` is full acceptance, locally and in CI. The
+`.githooks/pre-commit` hook runs exactly that command; enable it with
+`git config core.hooksPath .githooks`. It never runs GPU tests or builds.
 
-The pinned CPU image is [Dockerfile.checks](../Dockerfile.checks):
+| Command | Purpose |
+| --- | --- |
+| `tools/check.py` | Full portable acceptance |
+| `tools/check.py --test tests/PATH.py` | Fast partial feedback; never acceptance |
+| `tools/check.py --component NAME` | One group, e.g. `policy`, `types`, `lint` |
+| `tools/check.py --self-test` | Only the rule proofs |
+| `tools/check.py --update-tests` | Refresh the test inventory and print the diff |
+| `tools/check.py --runtime-python PY --out DIR` | Strict runtime types plus pinned CPU integration |
 
-```sh
-docker build -f Dockerfile.checks -t vllm-cache-check .
-docker run --rm vllm-cache-check
-```
+All commands are prefixed with `uv run --locked python`. The pinned check image is
+[Dockerfile.checks](../Dockerfile.checks); keep `.git` in its build context because
+policy reads the index.
 
-Keep `.git` in the build context: policy uses the index plus unignored candidate
-files, catches force-added ignored output, and checks ignored authored workflows.
-The host command and image run the same validator. Image execution and hosted
-Actions execution are not claimed verified until those environments run them.
-CI uses read-only permissions, no persisted checkout credential, immutable action
-and image pins, exact Python/uv versions and the committed development lock.
+## Common failures and fixes
+
+| Diagnostic | Fix |
+| --- | --- |
+| `cpu.collection: ... extra=[...]` | You added or renamed tests. Run `--update-tests` and review the diff. |
+| `cpu.collection: missing=[...]` | A required test disappeared. Restore it, or justify the removal to Philip. |
+| `cpu.skipped` | Skip and xfail are not allowed. Make the test pass or remove it with justification. |
+| `comments.banned`, `comments.docstring` | Delete the comment. Move intent into names, constants or tests, and rationale into the topic doc. |
+| `footgun.environment` | Read environment variables only in `tools/config.py` or `wait_hint_offload/config.py`. |
+| `footgun.print` | Library code returns values or raises; it does not print. |
+| `layout.script` | Use an existing entry point instead of a new script or main guard. |
+| `unused.code` | Delete the unused code. |
+| `boundary.*`, Import Linter | Only `vllm_adapter` imports vLLM; the pure core imports only the standard library. |
+| `types.suppression`, `exceptions.*` | Fix the type error. A directive needs an exact, reasoned `tools/exceptions.toml` entry and Philip's review. |
+| `docs.link`, `docs.map` | Fix the link, or keep `docs/system-map.md` rows in sync with `tools/system_map.py`. |
 
 ## Enforced groups
 
-| Group | Enforcement | Deliberate-failure proof IDs |
-| --- | --- | --- |
-| Format | Ruff format, check only | `format` |
-| Lint | Only the selected Ruff diagnostics | `F401`, `F821`, `I001`, `B006`, `UP006` |
-| Types | mypy `--strict` on package, benchmark placeholder, tests and tools | `types.return` through `types.extra-checks`; each strict flag has a witness |
-| Type policy | Exact reasoned type directives; no broad mypy configuration exemptions or overrides | `types.suppression`, `types.config`, `types.unused-config` |
-| Import Linter | Only adapter imports vLLM; production cannot import benchmarks; contracts cannot import adapter; acyclic production siblings | `imports.*`: direct/indirect forbidden edges, adapter allowance, reverse edge and cycle witnesses |
-| AST boundaries | Contracts use stdlib and no import-time calls; production cannot import development/history trees; no dynamic import registry exists yet | `boundary.*`, including dynamic-import aliases |
-| Repository policy | Exactly one root AGENTS; one CLAUDE pointer; AGENTS <=80 lines/8192 bytes; no skills, GPU reservation modules/imports/env/protocol; no raw outputs/copied trees/plans/status diaries; no ignored authored workflows | `repo.*` |
-| Compact text/secret policy | No symlinks, missing indexed files, binary files or >256 KiB files; redacted scanning of selected GitHub token, Slack webhook and private-key patterns | `repo.symlink`, `repo.missing`, `repo.binary`, `repo.size`, `repo.secret` |
-| Documentation | Relative Markdown targets exist; old-repo links use immutable revisions | `docs.link`, `docs.immutable` |
-| Native | Separate sm_75/sm_120 target gate; no silent certification of new native material | `native.sm_75`, `native.sm_120`, `native.activation` |
-| CPU pytest | Fixed collection manifest; no missing/extra required tests, skip/skipif/xfail markers or runtime skips | `cpu.assertion`, `cpu.deleted`, `cpu.skip-marker`, `cpu.skip-runtime`, `cpu.xfail` |
-| Self-test integrity | Registry and specimens agree; positive controls pass; negative controls exit nonzero with the named diagnostic, not a missing-tool failure | Manifest mutation controls and rejection-proof mutation controls |
+| Group | Enforcement |
+| --- | --- |
+| Format, lint | Ruff format (check only) and the selected Ruff diagnostics |
+| Types | mypy `--strict` on the package, tools and tests; no broad exemptions |
+| Imports | Only the adapter imports vLLM; production never imports benchmarks; contracts never import the adapter; acyclic siblings |
+| Boundaries | Pure core uses the standard library only, has no import-time calls and no dynamic imports |
+| Repository policy | One root AGENTS.md and a CLAUDE.md pointer; size cap; no raw outputs, copied trees, symlinks, binaries or large files; selected secret patterns; doc links resolve |
+| Agent policy | No comments, bare excepts, library prints, stray environment access, test sleeps, standalone scripts or static registries |
+| Unused | Vulture at 60% confidence; deptry dependency checks |
+| Native | Fails closed if C++/CUDA/CMake material appears without qualified recipes; skipped otherwise |
+| Runtime | Confirms the runtime verifier refuses to run without explicit inputs; reported as skipped |
+| CPU pytest | Fixed test inventory; no missing, extra, skipped or xfailed tests |
+| Rule proofs | Each rule rejects a bad specimen and accepts a good one, in a throwaway repository |
 
-The complete inventory is [rules.json](../tools/rules.json); each ID maps to
-its sanitized good/bad specimen and expected diagnostic in
-[check-cases.json](../tools/check-cases.json). Negative specimens run as separate
-processes in disposable external repositories. They are data, not imported code.
-Temporary controls and shared mypy caches are removed at session exit. A required
-test list is checked before execution; it is never regenerated by the validator.
+The full rule inventory is [rules.json](../tools/rules.json), with specimens in
+[check-cases.json](../tools/check-cases.json). Tool directive exceptions live in
+[exceptions.toml](../tools/exceptions.toml); each needs an exact path, a reason and
+an actual use. Stale entries fail.
 
-Run only the proof suite with:
+## Scope
 
-```sh
-uv run --locked python tools/check.py --self-test
-```
+The portable check covers repository tooling and the pure core. It does not exercise
+KV transfers, device fences or live serving; the runtime and GPU lanes in
+[runtime](runtime.md) do. Native and runtime groups are reported as skipped, never as
+passed. Secret scanning recognizes selected patterns only.
 
-A passing specimen test means its good control passed and the bad control was
-rejected. `types.unused-config` is a policy rejection of unused override sections:
-mypy's warning alone need not cause a failing exit. Some strict flags overlap
-(e.g. incomplete and wholly untyped definitions); their witnesses remain separate.
-The proof guard itself rejects successful exits, unrelated failures and missing
-tools. Deleting/duplicating/adding manifest cases is also tested explicitly.
-
-## Scope limits
-
-With no native sources, the native group prints `skipped: no native sources yet`.
-Adding C++/CUDA/CMake material fails closed. The intended commands are recorded
-in [native.json](../tools/native.json); compilers, clang diagnostics and binary
-builds are not installed, executed or qualified by this foundation. Their pinned
-ABI recipes and native diagnostic specimens must arrive with native material.
-The aggregate reports native absence as skipped, outside the passed-group count.
-
-The portable CPU suite tests repository tooling and pure product contracts/advice.
-It does not exercise actual KV byte transfers, device fences or live serving.
-The separate pinned-runtime CPU and hardware lanes below cover their named
-integration scopes. Full benchmark schemas, comparison rejection and pressure/
-quality gates remain deferred with the benchmark harness. Secret scanning recognizes selected patterns;
-it is not an exhaustive historical credential audit. Module import checks do not
-establish runtime ownership correctness or detect every possible Python side effect.
-
-## Agent guardrails
-
-Code comments and commentary docstrings are banned; derivations use stable IDs
-in [decision 005](decisions/005-agent-guardrails.md). Exact tool directives require
-a reason in [exceptions.toml](../tools/exceptions.toml). The policy rejects missing,
-duplicate, unreasoned and stale directive entries. This applies to Python and
-comment syntax in shell, TOML, YAML, Docker and ignore configuration.
-
-Vulture 2.14 checks unused code at 60% confidence. Deptry 0.24.0 checks all four
-DEP001–DEP004 categories. Both are pinned in the development lock. Vulture
-exceptions match an exact path and diagnostic (without a shifting line number),
-and stale matches fail. Deptry's development roots are explicitly listed in the
-same file. Import Linter's adapter allowances must agree with its entries;
-Ruff/unused-tool suppression settings cannot quietly add another allowlist.
-
-The policy also rejects bare excepts, library print calls, environment access
-outside config modules, test sleeps, implicit/global benchmark RNG, standalone
-scripts, static extension registries, nonconforming extension filenames and
-result-path literals outside the future runner. Aliased-import controls are
-included. [Decision 005](decisions/005-agent-guardrails.md) states the exact scope
-and limits, including future discovery and single-owner conventions.
-
-The portable runtime group checks the explicit no-argument refusal and reports
-**skipped**; it never counts native integration as passed. The separate command
-`uv run --locked python tools/check.py --runtime-python /external/venv/bin/python --out /external/new-attempt`
-runs strict adapter/runtime-test typing and real pinned CPU integration. Only the
-adapter and runtime tests are excluded from portable mypy; broad exclusions fail.
-Formatting, lint, unused checks, boundaries and policy still cover both partitions.
-Direct runtime imports are mapped to the independent hash-pinned closure in
-`runtime/modules.json`; arbitrary missing or transitive dependencies still fail.
-
-[The system map](system-map.md) checks commands, target functions and availability.
-`contracts.*` now mutates the actual namespace/digest, schema, immutability and
-token-type contracts. Illustrative retention scores were removed. Independent
-vectors and historical negative cases complement generated bad/control specimens.
-Callable dispatch tables are allowed; manually maintained workload/policy discovery
-registries remain prohibited. Native block identifiers are allowed; GPU reservation
-APIs remain prohibited.
-
-## Targeted feedback and inventory maintenance
-
-`uv run --locked python tools/check.py --test tests/test_cpu.py` runs selected
-CPU tests and explicitly reports partial coverage. It cannot issue full acceptance.
-After adding or renaming cases, run `uv run --locked python tools/check.py --update-tests`
-and review the printed additions/removals before full validation. Validation never
-updates the manifest. CPU commands hide CUDA.
-
-
-## Functional evidence
-
-The runtime verifier snapshots tracked, dirty and untracked authored inputs into a
-new external attempt. Admission and terminal records are separate immutable files;
-partial/failing attempts remain. Tests use fixed manifests and reject skipped or
-unexpected cases. The capture records actual Python, loaded native mappings,
-package versions, source modules and CUDA initialization, with executed test count.
-No cached test pass or hardware result is substituted for execution.
-
-`--verify /external/attempt` checks supported receipt versions, frozen source,
-model dependencies and retained artifact hashes; it does not remeasure hardware.
-Hash validity is not human authorization or proof of a scientific claim. See
-[source protocol](source-port.md) and [runtime](runtime.md) for the precise scope.
-
-The owned-process helper enforces a wall-time limit without agent notifications.
-There are zero automatic retries; failed attempts remain separate. Boot/birth
-identity plus kernel process handles reject stale control. Timeout and cleanup
-only target the created session. Tests cover missing startup, timeout, stale
-identity, incomplete receipts, unknown readers, write refusal and source drift.
-This is process-level qualification, not power-loss durability or a general job
-coordinator. Persistent research scheduling, notifications and high-level agent
-operations remain deferred.
+The runtime verifier snapshots tracked, dirty and untracked inputs into a new
+external attempt, with separate admission and terminal records. It records the
+actual Python, loaded native libraries, package versions and CUDA state.
+`--verify DIR` checks a retained attempt without rerunning it. Its process helper
+enforces a wall-time limit, makes no automatic retries, and only signals the
+session it created.
