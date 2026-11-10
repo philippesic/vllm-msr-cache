@@ -560,3 +560,36 @@ validity change. New-context findings are 7 source failures/3 instruction failur
 zero not useful. Selected duplicate-inclusive totals are 1,514/4,029/185, not
 population rates or quality equivalence. The selected-block primary source audit
 is done; final ordinary all-attempt cap and campaign/portability audits remain.
+
+All **42 planned comparison rows** now have conditional paired estimates and
+actual latency/serving summaries: [full tables](primary-confirmation-results-01/tables.md),
+[JSON](primary-confirmation-results-01/comparisons.json),
+[validation](primary-confirmation-results-01/validation.json). Every one of the
+32 previously published anchor rows reproduces exactly, including all CIs,
+serving times, latency values and diagnostics. The three missing frozen blocks
+remain excluded and visible; this extraction does not close supplementary phases
+or final audits. Ratios use geometric paired whole-process means and Student-t
+95% CIs; no aggregate across different workloads.
+
+| Secondary model /cell | Candidate/ARC ratio [95% CI] | Pairs |
+| --- | --- | ---: |
+| ministral3_3b /B02 | 0.9613 [0.8980, 1.0290] | 6/6 |
+| ministral3_3b /B06 | 0.9905 [0.8376, 1.1711] | 4/6 |
+| ministral3_3b /B08 | 1.0053 [0.9705, 1.0413] | 6/6 |
+| ministral3_3b /B09 | 1.0043 [0.9926, 1.0161] | 6/6 |
+| ministral3_3b /B11 | 1.0257 [0.9567, 1.0997] | 6/6 |
+| qwen3_4b_2507 /B02 | 1.0005 [0.9782, 1.0233] | 10/10 |
+| qwen3_4b_2507 /B06 | 0.9657 [0.9321, 1.0004] | 10/10 |
+| qwen3_4b_2507 /B08 | 0.9107 [0.8740, 0.9489] | 10/10 |
+| qwen3_4b_2507 /B09 | 0.9919 [0.9773, 1.0068] | 10/10 |
+| qwen3_4b_2507 /B11 | 1.0175 [0.9904, 1.0453] | 10/10 |
+
+Qwen3-4B B08 candidate throughput is **8.9% lower than ARC** with its CI entirely
+below parity. All ten processes per arm have observed CPU pressure and active
+CPU restore, with zero output caps. Mean serving time is 48.050s candidate versus
+43.685s ARC. Mean first-token latency is 6.894s versus 6.366s; mean completion latency
+is 8.609s versus 7.906s. Means of process p95s are 14.079s versus 12.058s for first token
+and 15.739s versus 13.583s for completion; these are not pooled request percentiles.
+Ministral native intervals all include parity. Other Qwen3-4B native intervals
+include parity, including its B06 boundary whose upper CI is 1.0004. No secondary
+model has a resolved benefit in these selected cells.

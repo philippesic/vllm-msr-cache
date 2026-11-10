@@ -37,11 +37,46 @@ PYTHONDONTWRITEBYTECODE=1 /home/philip/.cache/semantic-offload/stage6-5080-runti
   --owner output/stage6-5080-20261109/overhead-owner-01.private.json
 ```
 
+**Independent phase handoff02 is live**:
+`stage6-5080-supplementary-driver-20261110-02.service`, owner
+`$BASE/supplementary-driver-owner-02.private.json`, log
+`$BASE/supplementary-driver-02.log`, [launch proof](supplementary-driver-launch-02.json).
+It waits on the exact existing overhead process (not polling GPU health), then
+runs the frozen 38-identity/outer/inner/control boundary check and writes
+`overhead-boundary-01.json`. Only if that passes does it create
+`stage6-5080-operational-20261110-01.service` with
+`$BASE/operational-owner-01.private.json` and `$BASE/operational-01.log` using the
+existing frozen launch helper. It then waits/audits all six operational identities
+and writes `operational-boundary-01.json` plus
+`supplementary-driver-complete-02.json`. **Do not launch another operational job
+while this exact driver is live**, even in the boundary-audit gap after overhead
+exit. The overhead-pending guard was exercised and refused without writing; both
+positive boundaries still await actual completion. Observer01 was stopped before
+any handoff and without a child/measurement interruption, to add robust ownership
+settling for a receipt written just before chdir/exec. Its logs/owner/script remain
+history. Measured supervision and the common GPU reservation remain in the frozen
+coordinator; neither observer retries cases. Final cleanup includes owned driver02,
+observer01 and all phase units. If driver02 stops, inspect its log, real units and
+receipts before any repair/fresh recovery prefix; never repeat completed identities.
+
 It writes only `$BASE/overhead-health-01/latest.private.json`. It checks execution,
 not final measurement/control validity. When all38 overhead identities are terminal,
 verify seals/control requirements and launch the six operational configurations
 through the same existing launch helper under a fresh independent unit/log/owner.
-Use the frozen supplementary schedule exactly. The **terminal confirmation source review19 is complete and published**:
+Use the frozen supplementary schedule exactly. All **42 terminal confirmation comparisons** have been extracted with frozen
+reporting and actual latency/serving/cap/pressure summaries:
+[full table](primary-confirmation-results-01/tables.md),
+[JSON](primary-confirmation-results-01/comparisons.json),
+[validation](primary-confirmation-results-01/validation.json).
+All 32 earlier anchor rows reproduce **exactly**, including every estimate, CI,
+serving time, latency and diagnostic field (not only the first three cells).
+Ministral B06 retains 4/6 pairs, other Ministral cells 6/6, and all Qwen3-4B cells 10/10.
+All three missing frozen identities remain explicit; no cross-workload aggregate.
+The generated full 42 HTML has not been rendered in the user conversation: Philip
+requests silence until full closeout. Final phase/audit metadata and the final
+chart still need regeneration/rendering after all remaining work.
+
+The **terminal confirmation source review19 is complete and published**:
 [index](confirm-review-index-19.json), [ratings](confirm-source-judgments-19.json),
 [components](confirm-review-components-19.json), [isolated frozen validator](confirm-quality-checkpoint-19.json),
 [independent validation](confirm-review-validation-19.json),

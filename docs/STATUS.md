@@ -39,7 +39,10 @@ all six published live quality records match the isolated audit, with the old li
 snapshot backed up. Final all-attempt cap audit waits for supplementary completion. All earlier reviews and the November8 failure remain preserved.
 The 32 anchor conditional comparisons retain actual latency and missing identities;
 B09 candidate/ARC is 0.9733 [0.9617,0.9850], candidate/Continuum 0.6826
-[0.6558,0.7106]. The full 42 final presentation remains pending; no quality-equivalence
+[0.6558,0.7106]. All 42 conditional comparisons and latency tables are now extracted; all 32 anchor
+rows reproduce exactly. Qwen3-4B B08 candidate/ARC is 0.9107 [0.8740,0.9489],
+an adverse result with observed pressure and active CPU restore in all 10 processes
+per arm. Final phase/audit metadata and rendering remain pending; no quality-equivalence
 or universal benefit claim.
 
 Hourly monitoring/repairs are silent at Philip’s request. GPU remains allocated;

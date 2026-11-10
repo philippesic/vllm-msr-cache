@@ -1,0 +1,16 @@
+{
+  "schema": "stage6-5080-event-driven-phase-handoff-v1",
+  "recorded_unix": 1794303931.3012054,
+  "unit": "stage6-5080-supplementary-driver-20261110-02.service",
+  "owner_private_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/supplementary-driver-owner-02.private.json",
+  "log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/supplementary-driver-02.log",
+  "helper": "benchmarks/research_checks/stage6_5080_advance_operational_02.py",
+  "helper_sha256": "fd488fa32615130b4cfc5838cc13c295d22e4c201f09ec0afed301a9340b163c",
+  "exact_owner_birth_command_cwd_unit_verified_live": true,
+  "current_state": "Waiting on the exact existing overhead coordinator; no operational launch yet",
+  "pending_boundary_guard_exercised": true,
+  "positive_boundary_paths_exercised": false,
+  "overhead_unit": "stage6-5080-overhead-20261110-01.service",
+  "future_operational_unit": "stage6-5080-operational-20261110-01.service",
+  "scope": "Advances only after original overhead process exit and a frozen38-control identity/seal/inner/control audit. Launches existing frozen operational CLI once, then audits all six identities. No case retries or source/design changes. Observer01 was stopped before any handoff, with no child or measurement interrupted, to add robust receipt-before-exec ownership settling; its files remain history. Measured GPU supervision/reservation remains solely with the existing frozen coordinator. Final campaign audits/results/push/cleanup/notification remain required."
+}

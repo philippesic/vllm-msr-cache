@@ -1,0 +1,20 @@
+{
+  "schema": "stage6-5080-terminal-confirmation-findings-v1",
+  "final_campaign": false,
+  "terminal_confirmation": true,
+  "frozen_report_sha256": "28bd46855e5743629008ced67a099f368da1fa1b442fd321aac7adcb3bfae831",
+  "presentation_sha256": "a6549db665865e57a7cb219ea382c8e5779dd96b4485bdc14a2625516a115727",
+  "full_private_report": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/primary-confirmation-report-01/full-report.json",
+  "full_report_digest": "00d3a1a319dbd03b12e127465ac68b508d3a19731495ee39fd44b152dd0a04ac",
+  "scoped_report_digest": "50926f0fac863493aab76ad4558cd201c90f2c2f8e677fce7d9072804ca80ae7",
+  "original_report_directory_unchanged": true,
+  "frozen_completed_blocks_snapshot": 207,
+  "anchor_completed_blocks": 129,
+  "all_42_planned_comparisons_present": true,
+  "all_32_anchor_rows_reproduce_exactly": true,
+  "all_32_anchor_comparisons_present": true,
+  "all_missing_blocks_preserved": true,
+  "earlier_three_cell_ratios_intervals_serving_and_latency_reproduced": true,
+  "b06_seven_of_eight_all_comparisons": true,
+  "scope": "Frozen report code and validated presentation functions; only JSON/CSV writes redirected. No acquisition, source, estimator, repetition, validity, quality or live-report change. All42 conditional estimates do not complete the campaign or establish quality equivalence; three original missing blocks are not imputed and supplementary phases/final audits remain separate."
+}
