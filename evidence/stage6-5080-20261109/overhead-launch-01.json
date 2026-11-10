@@ -1,0 +1,24 @@
+{
+  "schema": "stage6-5080-independent-supplementary-launch-v1",
+  "phase": "overhead",
+  "unit": "stage6-5080-overhead-20261110-01.service",
+  "recorded_unix": 1794302634.0529072,
+  "prior_confirmation_inventory": "confirmation-attempts-complete.json",
+  "planned_configurations": 38,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "owner_private_path": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/overhead-owner-01.private.json",
+  "log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/overhead-01.log",
+  "exact_pid_birth_command_cwd_unit_identity_verified_live": true,
+  "frozen_source_and_literal_interpreter_verified": true,
+  "common_gpu_reservation_owned": true,
+  "prior_original_confirmation_processes_exited": true,
+  "prior_gpu_clients_absent_and_both_reservations_free": true,
+  "running_attempts_at_check": 0,
+  "service_environment_probe": {
+    "unit": "stage6-5080-overhead-environment-20261110-01.service",
+    "result": "success",
+    "ripgrep": "15.2.0",
+    "pinned_pytest": "9.2.0"
+  },
+  "scope": "Independent Type=exec/Restart=no/RemainAfterExit=yes/KillMode=control-group service execs existing frozen coordinator. Input attestation may precede the first ledger attempt; an initial receipt guard wrongly required an already running attempt and stopped before writing, then was corrected without touching acquisition. No source/design/schedule/model/validity change; launch is not measurement completion."
+}

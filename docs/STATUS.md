@@ -15,72 +15,39 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Stage 6 RTX 5080 rebuild — active
+## Stage 6 RTX 5080 rebuild — supplementary acquisition active
 
-The same pinned LMCache source was rebuilt for sm_120 plus PTX in a separate
-Continuum environment; exact KV round trip and live serving passed. All 54 screen
-configurations / 22 matched blocks and functional qualification pass, including
-all five Continuum fixtures and every model's native pressure gate. The imported
-524-configuration / 210-block confirmation is running under the durable
-coordinator and hourly health schedule (Philip’s latest monitoring instruction). The first chat/QA/document cells have complete
-paired estimates without a resolved throughput difference; the full matrix remains
-pending. The first confirmation B06 candidate process completed serving but failed
-the frozen activity rule (zero restores, eight scheduler preemptions); its block
-has no comparison credit. All 32 B06 attempts finished; seven of eight matched
-blocks are valid. Remaining scheduled measurements continue without
-relabeling or favorable-activity retries. Reporting preparation now preserves
-incomplete scope and missing repetitions through an explicit option, with the
-default completion guard retained and 28 focused tests passing; terminal results
-are still pending. The final screen source audit covers
-1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-6,667 selected outputs / 834 contexts across 184 completed blocks. All 55 added
-contexts were explicitly judged with exact source/dependency bindings and all 470
-archived instructions verified; isolated frozen finish accepts every rating. All 364 planned Qwen3-8B
-configurations have executed; 363 are valid and 129/130 blocks are complete.
-All 377 retained anchor attempts / 35,530 files verify; the sole missing block
-is the known B06 activity failure. Secondary-model acquisition continues.
-Ministral is now terminal: all60 configurations /7,812 sealed files verify,
-with58 valid measurements and28/30 complete pairs; only the two known B06
-failures are excluded. The frozen model subtotals are364/60/100 configurations.
-Qwen3-4B continues. Review 18 is complete for its static snapshot; all 36 distinct supplied sources in the new contexts
-bind prior readings and independent checks cover current IDs, signatures,
-duplicates and exact prior reuse, with no dependency-only judgment drift. Earlier
-reviews/progress remain preserved; a fresh terminal review is still required. The all524 terminal-inventory helper is prepared,
-and its pending-acquisition guard passes; its terminal audit still awaits the job.
-Ministral B06 candidate repeat 0 also fails frozen restore activity after all
-64 requests / 48 tools complete cleanly: zero restores despite 15 eviction-affected
-returns. Its seal and ARC peer verify; no favorable-activity retry or rule change.
-Original repeat 3 shows the same failure with verified cleanup/seal. The cell is
-now terminal: all twelve planned attempts / 1,644 files verify, with four of six
-matched blocks valid. All 62 caps remain for final all-attempt audit. Review 18
-is complete for its static snapshot; later acquisition/final source/cap reviews remain pending.
-The partial B11 comparison
-is preserved and replaced as a whole under an independent user service; the
-frozen source/order and B06 exclusion are retained. Recovery selects only the
-remaining cell suffix to avoid retrying that known activity-invalid block.
-An initial service PATH omission caused nine retained setup-failed/interrupted
-attempts; the corrected service explicitly supplies the verified tool PATH and
-checks ripgrep/pinned pytest before acquisition. All four arms of the first repaired
-block now pass (320 requests / 192 tools); the frozen selector excludes the old
-partial/setup-failed blocks. Failed attempts have no timing credit;
-the separate partial all-attempt cap review now covers 480 responses / 182 contexts,
-including sealed caps from individual arms as well as matched blocks. All 418 prior
-occurrences remain included; 473 current occurrences reuse prior extended contexts
-and seven additions match completed confirm17 quality contexts. No new full quality
-context or automatic novel rating. All 117 archived instructions and raw dependency/
-tool/prompt bindings verify, including activity-invalid arms; independent reproduction
-passes. A final all-phase inventory remains required.
-All 32 anchor comparisons now have conditional paired estimates and actual latency
-tables, with all missing identities retained. B09 candidate/ARC is 0.9733
-[0.9617, 0.9850] and candidate/Continuum 0.6826 [0.6558, 0.7106]; adverse results
-and output/cap differences remain explicit. The initial three cells reproduce
-unchanged and 28 reporting checks pass. This interim model subset is not the
-final 42-comparison matrix. Final confirmation review and later phases remain pending. No final throughput
-or quality-equivalence claim. The November 8
-failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
-[continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and
-[latest integrity snapshot](../evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-05.json)
-retain actual ownership/progress and verified evidence.
+The pinned LMCache source was rebuilt for sm_120 plus PTX; exact KV transfer and
+live serving pass. All 54 screen configurations / 22 blocks and functional
+qualification pass. Confirmation execution is terminal: **all 524 planned identities,
+537 retained attempts and 56,362 sealed files verify**, including inner artifacts
+and every declared request/tool/unit/cleanup requirement. There are **521 valid
+logical measurements and 207/210 matched blocks**. Only the three original B06
+activity failures remain excluded (anchor repeat0, Ministral repeats0/3), without
+retry, imputation or repeat reduction. Qwen3-4B completed all 100 identities / 50 pairs.
+The frozen full throughput-acquisition flag remains false.
+
+The independent confirmation service exited cleanly. Overhead now runs its 38
+controls under a fresh verified independent service with the frozen source and
+literal serving interpreter. Its owner holds the common GPU reservation; the
+service tool environment was checked before launch. Six operational configurations,
+final source/cap, integrity/campaign/recovery/portability audits and full results
+remain. Source review 18 is complete for 6,667 outputs / 834 contexts; terminal
+review 19 is prepared for 7,011 outputs / 849 contexts with 14 new contexts requiring
+explicit review. All earlier reviews and the November8 failure remain preserved.
+The 32 anchor conditional comparisons retain actual latency and missing identities;
+B09 candidate/ARC is 0.9733 [0.9617,0.9850], candidate/Continuum 0.6826
+[0.6558,0.7106]. The full 42 final presentation remains pending; no quality-equivalence
+or universal benefit claim.
+
+Hourly monitoring/repairs are silent at Philip’s request. GPU remains allocated;
+no release notification has been sent. After the entire campaign and audits/results
+are finished/pushed and owned servers/processes/locks are verified released, notify
+the separately authorized waiting thread as recorded in [continuation](../evidence/stage6-5080-20261109/CONTINUE.md).
+Do not touch its checkout or start its training. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
+[terminal confirmation proof](../evidence/stage6-5080-20261109/confirmation-attempts-complete.json)
+and [active overhead ownership](../evidence/stage6-5080-20261109/overhead-launch-01.json)
+retain the evidence and exact next steps.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 

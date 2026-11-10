@@ -8,16 +8,47 @@ requires repair and continuation, not a capability-failure closeout.
 
 ## Current state
 
-**Confirmation recovery is running** under independent user service
-`stage6-5080-confirm-20261109-03.service`. Driver ownership is
-`$BASE/confirm-driver-owner-03.private.json` (PID, birth, command, cwd, unit),
-with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
-`$BASE/confirm-owner-03-MODEL-CELL.private.json` and
-`$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
-frozen coordinator before any action; never launch a duplicate. The initial
-cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The November 10 08:18 UTC health check has **495/524 valid configurations,
-194/210 complete matched blocks**, with Qwen3-4B B09 candidate repeat 7 active.
+**Confirmation execution is terminal; overhead is running.**
+[Whole confirmation inventory](confirmation-attempts-complete.json) verifies all 524
+frozen identities / 537 retained attempts / 56,362 outer sealed files plus inner
+artifacts and full declared graph/tool/unit/cleanup coverage. There are 521 valid
+logical measurements and 207/210 complete matched blocks, exactly the three known
+original B06 exclusions. Qwen3-4B has all 100 valid identities / 50 matched pairs.
+The original independent confirmation driver and final coordinator exited;
+`stage6-5080-confirm-20261109-03.service` is active/exited, MainPID0, success/status0.
+Do not resume any finished confirmation cell or rerun its one-shot full inventory.
+
+**Active overhead owner**: `stage6-5080-overhead-20261110-01.service`,
+`$BASE/overhead-owner-01.private.json`, `$BASE/overhead-01.log`.
+[Launch/ownership proof](overhead-launch-01.json) checks exact PID/birth/command/cwd/
+unit, literal serving interpreter, frozen source and common GPU reservation. Both
+reservations and GPU clients were free after confirmation and before this launch.
+The independent environment probe verified existing rg15.2.0 and pinned pytest9.2.0.
+A healthy initial input attestation can precede any running ledger attempt; do not
+mistake that for a dead job. At 09:25 UTC the first O0/B01 attempt is running with
+no issues, the exact coordinator owns the common reservation, and free disk is
+about 6.96GiB ext4 /2.36GiB root /11.15GiB Windows. The new bounded phase-aware check:
+
+```bash
+cd /home/philip/vllm-semantic-cache-ext
+PYTHONDONTWRITEBYTECODE=1 /home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python \
+  -m benchmarks.research_checks.stage6_5080_phase_health --phase overhead \
+  --unit stage6-5080-overhead-20261110-01.service \
+  --owner output/stage6-5080-20261109/overhead-owner-01.private.json
+```
+
+It writes only `$BASE/overhead-health-01/latest.private.json`. It checks execution,
+not final measurement/control validity. When all38 overhead identities are terminal,
+verify seals/control requirements and launch the six operational configurations
+through the same existing launch helper under a fresh independent unit/log/owner.
+Use the frozen supplementary schedule exactly. Final terminal confirmation source
+review19 is prepared in isolated `$BASE/quality-confirm-checkpoint-19/`: 10,520
+objective finals, 5,983 automatic failures, 291 capped intermediates, 7,011 selected
+outputs /849 contexts;14 new investigation finals remain unread/unjudged. Its
+screen07/confirm01-through18/cap08 exact reuse; no new unread context may be rated
+automatically. All earlier completed review snapshots remain history. No final
+source finish/live-quality write or all-phase cap finish has occurred yet.
+
 Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
@@ -194,7 +225,7 @@ The new audit helper `benchmarks/research_checks/stage6_5080_confirm_complete.py
 is run as an absolute script from frozen SOURCE with the literal PY and bytecode
 disabled. Its `--check-ready` probe correctly refused pending acquisition with
 exit2 and no final evidence. The terminal full path remains unexecuted: after
-service03 exits successfully, run without that flag to reconcile all524 original
+service03 exits successfully, run without that flag to reconcile all 524 original
 identities, unchanged anchor attempts, known failures, graph/tool/unit coverage,
 inner/outer seals and the frozen whole-block selection. It refuses new invalid
 attempts and overwrites. Expected validity is conditional on the three known

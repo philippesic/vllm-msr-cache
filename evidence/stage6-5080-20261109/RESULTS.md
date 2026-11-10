@@ -1,26 +1,32 @@
-# RTX 5080 Stage 6 — qualified; confirmation running
+# RTX 5080 Stage 6 — confirmation terminal; supplementary phases running
 
-The pinned LMCache rebuild works on the RTX 5080. All five frozen Continuum
-screens pass, all 54 required screening configurations form 22 complete matched
-blocks, and the full functional qualification gate passes. The imported frozen
-confirmation schedule is activated and running: 524 configurations in 210
-matched blocks. The first three native cells have complete repeated estimates below.
-Headline comparisons with Continuum and the remaining cells are still pending;
-overhead, operational and final audits have not completed.
+The pinned LMCache rebuild works on the RTX5080. All five Continuum screens,
+all 54 screening configurations / 22 complete blocks, and functional qualification
+pass. [Terminal confirmation inventory](confirmation-attempts-complete.json)
+reconciles **all 524 frozen configurations**, retaining 537 attempts and verifying
+**56,362 sealed files**, inner artifacts and the complete declared request/tool/
+unit/cleanup coverage. There are **521 valid logical measurements and 207/210
+complete matched blocks**. Only the three documented original B06 activity failures
+are excluded: Qwen3-8B repeat0 and Ministral repeats0/3. No activity retry,
+imputation, relabeling or repeat reduction was performed. The frozen full
+throughput-acquisition completion flag remains **false**.
 
-Latest bounded health: **327/524 valid configurations and 120/210 matched
-blocks**, with Qwen3-8B B12 running under the independent recovery service.
-All eight B11 comparisons are complete. There are no new health issues beyond
-the retained first B06 exclusion; progress and disk checks continue.
+The independent confirmation service exited successfully and its original driver
+and final coordinator are gone. The next [independent overhead service](overhead-launch-01.json)
+is running the 38 frozen control configurations, using the same literal interpreter
+and frozen source. Operational has six configurations after that. Final source/cap,
+control/operational, integrity, campaign and portability audits/results are still
+pending; the campaign and GPU allocation are **not released**. Existing 32 anchor
+conditional estimates below remain measured evidence, not a final campaign pass.
 
 Confirmation now has a retained [B06 activity failure](confirmation-b06-inactive-restore-01.json):
 the first candidate process served all 32 requests and 24 tools with no caps and
 clean cleanup, but recorded zero CPU restores and eight scheduler preemptions.
 The frozen analysis rejects it; the zero-preemption GPU-resident-control exception
 does not apply. Its four-system block therefore cannot receive comparison credit.
-This is not an LMCache kernel-loading failure. Remaining planned measurements
-continue without a favorable-activity retry, capacity change or analysis-rule
-change. A complete final matrix is unproven and may remain unavailable.
+This is not an LMCache kernel-loading failure. All planned confirmation measurements have now executed without a favorable-activity
+retry, capacity change or analysis-rule change. The three excluded blocks remain
+explicitly missing; a complete required matrix has not passed.
 The [finished B06 attempt inventory](confirmation-b06-attempts-complete.json)
 verifies all 32 scheduled attempts and 2,648 sealed files: 1,024 completed
 responses, zero caps and all coverage/cleanup checks passed. It has 31 valid
