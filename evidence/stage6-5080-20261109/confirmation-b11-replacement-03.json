@@ -1,0 +1,95 @@
+{
+  "schema": "stage6-5080-replacement-block-proof-v1",
+  "recorded_unix": 1794278440.9296262,
+  "model": "qwen3_8b_awq",
+  "cell": "B11",
+  "repeat": 3,
+  "selected_block_id": "bd58e27cb8cba21a2a1929768316f47ffd56b0f7db021ee023dacd57e2da8bc3",
+  "selected_by_frozen_completed_blocks": true,
+  "all_four_new_arms_valid_and_sealed": true,
+  "arms": [
+    {
+      "system": "upstream",
+      "attempt": "b45abf51622841f4abc551bdf6dc71af",
+      "path": "attempts/204fcba718ab31fcc9e7621561110dfccf08c6f4cc94e799a5311864c4609725/b45abf51622841f4abc551bdf6dc71af",
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "completed_requests": 80,
+      "completed_tools": 48,
+      "completed_units": 32,
+      "load_duration_s": 20.72826573200291,
+      "cleanup_verified": true,
+      "seal": "2665f7959b0d229203d735c7e2b4ab09c2f100146d3f4b0374544f206b8bfa19"
+    },
+    {
+      "system": "continuum",
+      "attempt": "1306a64722fb447b9ff72b9683563724",
+      "path": "attempts/070e3d87e955e33a753cdfeb6d36eb2aa4b0ad5c9ae56dc8d2c9b8d31e62f3bd/1306a64722fb447b9ff72b9683563724",
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed"
+      },
+      "completed_requests": 80,
+      "completed_tools": 48,
+      "completed_units": 32,
+      "load_duration_s": 20.94698308999068,
+      "cleanup_verified": true,
+      "seal": "2eb124db4640bc56996a3d9561d8714280285014327a1c4ac52468738fa69802"
+    },
+    {
+      "system": "arc",
+      "attempt": "c0d3677ae4d6454393463c632de65387",
+      "path": "attempts/1f90c7f74f47d6696847f586bf088be825257ccbf22e06ada5989b74817c9e41/c0d3677ae4d6454393463c632de65387",
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "completed_tools": 48,
+      "completed_units": 32,
+      "load_duration_s": 21.099645729002077,
+      "cleanup_verified": true,
+      "seal": "2e742d068a9726e8ff5856405d41313e11e084270c36ccff02980034c7b39398"
+    },
+    {
+      "system": "wait",
+      "attempt": "9d8f90f0a0674ae6a756e8a1be041859",
+      "path": "attempts/7f3800beb27057d2af3e9796ea61e19be8ed0769fa804187d5df17f742cfdc46/9d8f90f0a0674ae6a756e8a1be041859",
+      "measurement_validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "active",
+        "cpu_pressure_evidence": "observed"
+      },
+      "completed_requests": 80,
+      "completed_tools": 48,
+      "completed_units": 32,
+      "load_duration_s": 20.41799261601409,
+      "cleanup_verified": true,
+      "seal": "30e360f3826b53687702462ab52df5fd6b124731b8d2a74236cb59088398580f"
+    }
+  ],
+  "original_partial_block_not_selected": true,
+  "setup_failed_replacements_not_selected": true,
+  "qwen_b06_attempts_still_32": true,
+  "qwen_b06_activity_invalid_not_retried": true,
+  "complete_matched_blocks_at_snapshot": 113,
+  "acquisition_complete": false,
+  "scope": "Post-repair full-block proof only. All four arms complete80 requests/48 tools with common workload units and valid cleanup; frozen selector chooses the new common block. Original partial block and service-PATH failures retained without comparison credit. Remaining campaign phases and final audits still required."
+}

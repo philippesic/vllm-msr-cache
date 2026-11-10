@@ -42,7 +42,9 @@ frozen source/order and B06 exclusion are retained. Recovery selects only the
 remaining cell suffix to avoid retrying that known activity-invalid block.
 An initial service PATH omission caused nine retained setup-failed/interrupted
 attempts; the corrected service explicitly supplies the verified tool PATH and
-checks ripgrep/pinned pytest before acquisition. Failed attempts have no timing credit;
+checks ripgrep/pinned pytest before acquisition. All four arms of the first repaired
+block now pass (320 requests / 192 tools); the frozen selector excludes the old
+partial/setup-failed blocks. Failed attempts have no timing credit;
 the separate partial all-attempt cap review covers 215 responses / 135 contexts,
 including all newly sealed caps from individual arms as well as matched blocks.
 Final confirmation review and later phases remain pending. No final throughput

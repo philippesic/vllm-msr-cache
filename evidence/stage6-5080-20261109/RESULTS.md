@@ -266,8 +266,17 @@ GPU acquisition. The service environment probe and live coordinator PATH checks
 pass. After repair, upstream and Continuum each completed all 80 requests and 48
 tools with clean cleanup and verified seals; the complete replacement block was
 still pending at that checkpoint. Affected B11 comparisons are replaced as whole
-blocks through the frozen
-CLI; all earlier evidence and the B06 activity exclusion remain unchanged.
+blocks through the frozen CLI; all earlier evidence and the B06 activity
+exclusion remain unchanged.
+
+The subsequent [whole-block recovery proof](confirmation-b11-replacement-03.json)
+passes: all four systems complete **320 requests and 192 tools** in total, with
+common workload units, valid measurements, cleanup and seals. The frozen selector
+chooses the new block and excludes the original partial and PATH-failed attempts.
+Qwen3-8B B06 remains at its original 32 attempts. Latest health has **300/524 valid
+configurations and 113/210 matched blocks**, with no new issue beyond the retained
+activity exclusion and setup attempts awaiting valid replacement. This proves
+recovery of that block, not completion of confirmation or the campaign.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

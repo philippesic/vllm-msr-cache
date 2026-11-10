@@ -15,9 +15,9 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-owner-03-MODEL-CELL.private.json` and
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
-cell is Qwen3-8B B11. The latest post-repair health check has **298/524 valid
-configurations, 112/210 complete matched blocks**; full input attestation was
-running at that check, then replacement B11 repetition 4 started. Review 13
+cell is Qwen3-8B B11. The latest post-repair health check has **300/524 valid
+configurations, 113/210 complete matched blocks**, with B11 candidate repeat 4
+(the fifth scheduled block) active. Review 13
 captures the first two complete B11 blocks.
 B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
@@ -42,6 +42,11 @@ environment. Current service 03 is outside the tool host's process tree.
 At its first serving checkpoint, upstream and Continuum each completed all 80
 requests and 48 tools, with no measurement error and verified cleanup/seals.
 The full four-system replacement block remains pending at that checkpoint.
+The subsequent [replacement proof](confirmation-b11-replacement-03.json)
+verifies all four systems: 320 requests and 192 tools, common workload units,
+clean cleanup and valid seals. The frozen block selector chooses only the new
+shared block; the original partial comparison and failed service replacements
+remain outside matched timing credit. Qwen3-8B B06 still has exactly 32 attempts.
 Never restart scripts 02/03 with their existing names/logs; choose fresh recovery names
 only after proving the current driver stopped and checking actual failures.
 
@@ -165,9 +170,9 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 11.3 GiB ext4, 4.11 GiB WSL root and 6.36 GiB Windows at the last bounded
-health check; monitor all three. Root subsequently received another derived
-review snapshot. Private disk observation 03 retains recent host-owned app-server
+about 10.7 GiB ext4, 3.65 GiB WSL root and 11.32 GiB Windows at the last bounded
+health check; monitor all three. Root includes the latest derived review snapshot.
+Private disk observation 03 retains recent host-owned app-server
 binary/catalog sizes: these account for part of the recent root growth, but the
 full cause is not established. Runtime/tmp had no large recent writes. Shared
 application files, configuration and all raw/derived evidence were preserved.
