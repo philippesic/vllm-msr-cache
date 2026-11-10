@@ -19,14 +19,9 @@ def proof_environment(root: Path, project: Path) -> dict[str, str]:
     return env
 
 
-def runtime_environment(root: Path, overlay: Path, gpu: bool) -> dict[str, str]:
-    env = os.environ.copy()
-    env["PYTHONPATH"] = os.pathsep.join((str(overlay), str(root)))
-    env["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] = "1"
-    if not gpu:
-        env["CUDA_VISIBLE_DEVICES"] = ""
-    env["VLLM_WSL2_ENABLE_PIN_MEMORY"] = "1"
-    return env
+def attempts_root() -> Path:
+    data = os.environ.get("XDG_DATA_HOME") or str(Path.home() / ".local/share")
+    return Path(data) / "vllm-semantic-cache-ext-next/attempts"
 
 
 def hardware_environment(root: Path, model: Path) -> dict[str, str]:

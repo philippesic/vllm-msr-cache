@@ -31,6 +31,7 @@ from tests.runtime.support import native_fixture
 from tools.config import hardware_model
 from wait_hint_offload.contracts import Hint, Namespace
 from wait_hint_offload.vllm_adapter.arc import ARCRecency
+from wait_hint_offload.vllm_adapter.engine_rpc import PUBLISH_METHOD
 from wait_hint_offload.vllm_adapter.transfers import TransferWorker
 
 
@@ -202,8 +203,8 @@ def test_serving_restore_matches_fresh_in_both_advice_modes() -> None:
                         now + 1_000_000_000,
                         observed["clock_domain"],
                     )
-                    result: dict[str, Any] = engine.publish_kv_connector_wait_hint(
-                        hint.mapping()
+                    result: dict[str, Any] = engine.call_utility(
+                        PUBLISH_METHOD, hint.mapping()
                     )
                     if result["ready_cpu_prefix_keys"] == 6:
                         return result

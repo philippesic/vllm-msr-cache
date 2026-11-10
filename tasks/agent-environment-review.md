@@ -19,12 +19,14 @@ Branch `main`, local only. Documentation, rules, proof split and this convention
 committed. Comment ban kept everywhere. All sections reviewed. Decided: runtime lane
 defaults its output to the attempts folder and prints a one-line verdict; run-record
 tooling is revisited with benchmark design; CI waits for the GitHub repository change;
-agent operations are listed in `tasks/agent-operations.md`. Open: the runtime binding
-redesign (replace the overlay and fingerprints with a vLLM general plugin and one pin)
-and a project-agnostic efficacy test.
+agent operations are listed in `tasks/agent-operations.md`. The runtime binding
+redesign is done: one version pin, no patched vLLM files, no fingerprints, an engine
+method installed by the connector; the runtime CPU lane passes. Pending: rerun the
+three GPU tests on the new path once Philip authorizes GPU use. Being designed with
+Philip: skills for repository audits and for efficacy testing.
 
 ## Next
-Apply the approved core fixes: a new generation per turn and a new incarnation
+Rerun the GPU lane when authorized. Apply the approved core fixes: a new generation per turn and a new incarnation
 replaces the old session; exact replays return the original answer even after the
 deadline; the observation store owns all its mutations; validation in constructors;
 typed outcomes with refusal reasons; named limits; a deliberate memory bound; remove

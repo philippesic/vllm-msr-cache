@@ -2,68 +2,54 @@ from __future__ import annotations
 
 import asyncio
 import time
-from collections.abc import Awaitable, Callable
+from collections.abc import Callable
 from types import SimpleNamespace
 from typing import Any, cast
 
 import httpx
 import pytest
 from fastapi import FastAPI
-from vllm.v1.core.sched.scheduler import Scheduler
-from vllm.v1.engine.async_llm import AsyncLLM
 from vllm.v1.engine.core import EngineCore
-from vllm.v1.engine.core_client import AsyncMPClient
 
 from tests.runtime.support import scheduler_fixture
 from wait_hint_offload.contracts import Hint
 from wait_hint_offload.observed import Observation
+from wait_hint_offload.vllm_adapter import engine_rpc
 from wait_hint_offload.vllm_adapter.endpoint import WaitHintEndpoint
+from wait_hint_offload.vllm_adapter.engine_rpc import PUBLISH_METHOD
 
 
 class UtilityBoundary:
-    def __init__(self, connector: Any) -> None:
-        self.core = SimpleNamespace(scheduler=SimpleNamespace(connector=connector))
+    def __init__(self, connector: object) -> None:
+        self.core = SimpleNamespace(
+            scheduler=SimpleNamespace(get_kv_connector=lambda: connector)
+        )
         self.calls = 0
 
     async def call_utility_async(
         self, method: str, hint: dict[str, Any]
     ) -> dict[str, Any]:
-        assert callable(self.call_utility_async)
-        assert method == "publish_kv_connector_wait_hint"
         self.calls += 1
-        scheduler = self.core.scheduler
-        self.core.scheduler.publish_kv_connector_wait_hint = lambda raw: cast(
+        dispatch = cast(
             Callable[[Any, dict[str, Any]], dict[str, Any]],
-            getattr(Scheduler, "publish_kv_connector_wait_hint"),
-        )(scheduler, raw)
-        return cast(
-            Callable[[Any, dict[str, Any]], dict[str, Any]],
-            getattr(EngineCore, "publish_kv_connector_wait_hint"),
-        )(self.core, hint)
-
-
-class EngineBoundary:
-    def __init__(self, connector: Any) -> None:
-        self.utility = UtilityBoundary(connector)
-        self.engine_core = SimpleNamespace(
-            publish_kv_connector_wait_hint_async=self.rpc
+            getattr(EngineCore, method),
         )
+        return dispatch(self.core, hint)
 
-    async def rpc(self, raw: dict[str, Any]) -> dict[str, Any]:
-        return await cast(
-            Callable[[Any, dict[str, Any]], Awaitable[dict[str, Any]]],
-            getattr(AsyncMPClient, "publish_kv_connector_wait_hint_async"),
-        )(self.utility, raw)
 
-    async def publish_kv_connector_wait_hint(
-        self, raw: dict[str, Any]
+class FailingUtility:
+    async def call_utility_async(
+        self, method: str, hint: dict[str, Any]
     ) -> dict[str, Any]:
-        if self.engine_core is None:
-            raise RuntimeError("engine not initialized")
-        return await cast(
-            Callable[[Any, dict[str, Any]], Awaitable[dict[str, Any]]],
-            getattr(AsyncLLM, "publish_kv_connector_wait_hint"),
-        )(self, raw)
+        raise RuntimeError(f"no utility {method} for {sorted(hint)}")
+
+
+def test_engine_method_reports_missing_connector() -> None:
+    scheduler_fixture()
+    assert getattr(EngineCore, PUBLISH_METHOD) is engine_rpc.publish
+    engine_rpc.install()
+    core = UtilityBoundary(None).core
+    assert engine_rpc.publish(cast(Any, core), {})["status"] == "unsupported"
 
 
 def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
@@ -73,7 +59,10 @@ def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
         assert plugin.required_tasks == ("generate",)
         plugin.attach_router(app)
         scheduler = scheduler_fixture()
-        engine = EngineBoundary(scheduler)
+        utility = UtilityBoundary(
+            SimpleNamespace(publish_wait_hint=scheduler.publish_wait_hint)
+        )
+        engine = SimpleNamespace(engine_core=utility)
         await plugin.init_state(
             engine, app.state, SimpleNamespace(api_key=["test-key"])
         )
@@ -107,20 +96,20 @@ def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
         ) as client:
             rejected = await client.post("/v1/wait-hints", json=hint.mapping())
             assert rejected.status_code == 401
-            assert engine.utility.calls == 0
+            assert utility.calls == 0
             headers = {"Authorization": "Bearer test-key"}
             malformed = await client.post(
                 "/v1/wait-hints",
                 json={**hint.mapping(), "schema": "unknown"},
                 headers=headers,
             )
-            assert malformed.status_code == 400 and engine.utility.calls == 0
+            assert malformed.status_code == 400 and utility.calls == 0
             okay = await client.post(
                 "/v1/wait-hints", json=hint.mapping(), headers=headers
             )
             assert okay.status_code == 200
             assert okay.json()["decision"] == "no_ready_prefix"
-            assert engine.utility.calls == 1
+            assert utility.calls == 1
             assert okay.json()["mechanisms"]["semantic_scoring"] == "absent"
             foreign = await client.post(
                 "/v1/wait-hints",
@@ -128,6 +117,12 @@ def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
                 headers=headers,
             )
             assert foreign.json()["decision"] == "unobserved"
+            app.state.wait_hint_engine = SimpleNamespace(engine_core=FailingUtility())
+            failed = await client.post(
+                "/v1/wait-hints", json=hint.mapping(), headers=headers
+            )
+            assert failed.status_code == 502
+            assert PUBLISH_METHOD in failed.json()["detail"]
             app.state.wait_hint_engine = object()
             missing = await client.post(
                 "/v1/wait-hints", json=hint.mapping(), headers=headers

@@ -6,6 +6,7 @@ from typing import Any
 from fastapi import FastAPI, HTTPException, Request
 
 from wait_hint_offload.contracts import Hint
+from wait_hint_offload.vllm_adapter.engine_rpc import PUBLISH_METHOD
 
 
 class WaitHintEndpoint:
@@ -37,9 +38,11 @@ class WaitHintEndpoint:
         ):
             raise HTTPException(status_code=401, detail="authentication required")
         engine = getattr(request.app.state, "wait_hint_engine", None)
-        publish = getattr(engine, "publish_kv_connector_wait_hint", None)
-        if not callable(publish):
-            raise HTTPException(status_code=503, detail="hint RPC unavailable")
+        call = getattr(getattr(engine, "engine_core", None), "call_utility_async", None)
+        if not callable(call):
+            raise HTTPException(
+                status_code=503, detail="engine utility RPC unavailable"
+            )
         try:
             raw = await request.json()
             if not isinstance(raw, dict):
@@ -47,7 +50,12 @@ class WaitHintEndpoint:
             Hint.parse(raw)
         except (TypeError, ValueError) as error:
             raise HTTPException(status_code=400, detail=str(error)) from error
-        result = await publish(raw)
+        try:
+            result = await call(PUBLISH_METHOD, raw)
+        except Exception as error:
+            raise HTTPException(
+                status_code=502, detail=f"engine rejected hint RPC: {error}"
+            ) from error
         if not isinstance(result, dict) or result.get("schema") != "wait-hint-ack-v2":
             raise HTTPException(
                 status_code=502, detail="invalid engine acknowledgement"

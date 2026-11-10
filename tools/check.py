@@ -49,7 +49,7 @@ def component(name: str, root: Path) -> int:
                 )
             elif name == "runtime":
                 print(
-                    "skipped: runtime qualification requires explicit pinned Python and external --out"
+                    "skipped: runtime lane needs --runtime-python; see docs/runtime.md"
                 )
             else:
                 print(f"{name}: OK")
@@ -116,9 +116,6 @@ def main() -> int:
                 command = [
                     str(args.runtime_python),
                     "-m",
-                    "tools.run_runtime",
-                    str(args.runtime_python),
-                    "-m",
                     "pytest",
                     "--collect-only",
                     "-q",
@@ -151,9 +148,12 @@ def main() -> int:
             print(manifest, "Removed:", sorted(previous - set(collected)))
             manifest_path.write_text(json.dumps(collected, indent=2) + "\n")
         return 0
+    if args.runtime_python and args.test:
+        print(
+            "PARTIAL runtime CPU tests; no types, record or full acceptance", flush=True
+        )
+        return run([str(args.runtime_python), "-m", "pytest", "-q", args.test], ROOT)
     if args.runtime_python:
-        if args.out is None:
-            parser.error("--runtime-python requires a new external --out")
         selected_files = sorted(
             (ROOT / "wait_hint_offload/vllm_adapter").glob("*.py")
         ) + sorted((ROOT / "tests/runtime").glob("*.py"))
@@ -172,16 +172,10 @@ def main() -> int:
         code = run(command, ROOT)
         if code:
             return code
-        return run(
-            [
-                str(args.runtime_python),
-                "-m",
-                "tools.runtime_verify",
-                "--out",
-                str(args.out),
-            ],
-            ROOT,
-        )
+        verify = [str(args.runtime_python), "-m", "tools.runtime_verify"]
+        if args.out is not None:
+            verify.extend(["--out", str(args.out)])
+        return run(verify, ROOT)
     if args.test:
         print("PARTIAL CPU tests; all other acceptance groups omitted")
         return run([sys.executable, "-m", "pytest", "-q", args.test], ROOT)

@@ -89,12 +89,6 @@ match = "entry"
 reason = "Functional verifier owns its external attempt receipts; hardware execution requires explicit opt-in and external authorization."
 
 [[exception]]
-rule = "script"
-path = "tools/run_runtime.py"
-match = "entry"
-reason = "Bounded runtime invocation attests the exact wheel and RPC patch without changing installed files."
-
-[[exception]]
 rule = "unused"
 path = "tools/runtime_capture.py"
 match = "unused function 'pytest_addoption' (60% confidence)"

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -14,7 +13,7 @@ from vllm.distributed.kv_transfer.kv_connector.v1.offloading.worker import (
 )
 from vllm.v1.kv_offload.base import GPULoadStoreSpec
 
-from wait_hint_offload.vllm_adapter.binding import require_binding
+from wait_hint_offload.vllm_adapter.binding import require_runtime
 
 
 @dataclass
@@ -46,9 +45,7 @@ class TransferMetadata(OffloadingWorkerMetadata):
 
 class TransferWorker(OffloadingConnectorWorker):
     def __init__(self, spec: Any, kv_cache_config: Any) -> None:
-        if sys.flags.optimize:
-            raise RuntimeError("optimized pinned runtime is unsupported")
-        require_binding()
+        require_runtime()
         super().__init__(spec, kv_cache_config)
         self._connector_worker_meta = TransferMetadata()
         self.destinations: dict[int, tuple[int, ...]] = {}

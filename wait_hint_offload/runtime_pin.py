@@ -1,0 +1,2 @@
+PYTHON_VERSION = (3, 12, 3)
+VLLM_VERSION = "0.26.1rc1.dev75+gdc1be7903"
