@@ -1,5 +1,9 @@
 # Remaining port stages
 
+Historical planning inventory. The newer [wait-hint port plan](porting-overhaul.md)
+proposes the replacement scope and sequence after Philip's clarification. Existing
+implementation policies remain in force until its M0 changes are authorized.
+
 This is the consolidated plan for the work that remains after stage 0, the non-source foundation already in this repository. The remaining stages are source port, benchmark, GPU qualification, and skills. Nothing advances a stage without Philip's explicit go. This document is planning only; it does not authorize starting any of those stages.
 
 The original porting plan used twelve implementation steps. Steps 1 and 2 were the provenance capture and the foundation check layer, which are done. The mapping below uses Philip's stage names and pulls the later steps into them. Where a later plan or foundation note narrowed a step, that narrowing is recorded. Where a stage was left undefined, this document says so and does not invent detail.
