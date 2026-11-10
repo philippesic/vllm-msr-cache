@@ -43,23 +43,22 @@ Every final comparison row exactly reproduces the earlier terminal42; all32 anch
 rows previously reproduced exactly. The compact42-row chart was actually previewed
 and rendered: [receipt](final-results-01/render.json). Final helper assertions passed.
 
-**Closeout remaining: push results/audits/render; stop/reset only known owned
-units, verify all exact owners/servers/NVML/both GPU locks released, push release
-proof; read and notify the waiting thread with the stable clientRequestId, retain
-its receipt; disable only this hourly schedule, push final closure.** No GPU
-release has been announced and notification has NOT been sent yet. Do not send it
-until every prerequisite is satisfied. The prepared `stage6_5080_release.py` checks
-that final analysis/render are pushed, every owned process has exited, and no GPU
-compute client or lock owner remains before writing `gpu-release-final-01.json`.
-Never kill foreign/new work or unlink locks; no training/other-checkout access.
+**Owned GPU resources are now released**, verified by [release proof](gpu-release-final-01.json)
+after analysis checkpoint1a381f8 was pushed. All retained owner records' exact processes
+are gone, all eight known owned units stopped, no owned coordinator/server or NVML
+compute client remained, and both GPU locks were acquired/released and found free.
+The original ext4 campaign is restored. Useful results/models/runtimes/builds and
+all failed histories are preserved. Root/ext4/Windows remain healthy within their
+available2.0/2.6/3.2GiB. No process was killed, lock unlinked or GPU reset.
 
-Owned units to retire after pushed analysis: confirm20261109-03,
-overhead20261110-01, operational20261110-01, supplementary-driver20261110-02,
-portability20261110-01/02/03, final-analysis20261110-01 (all have the stage6-5080-
-prefix and.service suffix). Preserve their logs/owner receipts, failed histories,
-raw ext4 campaign, rebuilt wheel/runtimes/models/source caches. Root/ext4/Windows
-free space at12:19UTC was2.0/2.6/3.2GiB; ext4 loop0 mountedrw,noatime; no NVML
-compute client. This is health evidence, not the final release proof.
+**Closeout remaining:** push the release proof/current completion record, read the
+waiting thread, then send the authorized final notification with stable
+`clientRequestId=stage6-5080-20261109-final-gpu-release`; retain delivery receipt.
+Disable only own hourly schedule, push final closure. Notification has NOT been
+sent yet. [Completion record](completion.json) is the authoritative state; never
+send twice if interrupted—check its receipt and use the same clientRequestId.
+After delivery the recipient may immediately use the GPU; do not stop or inspect
+its work as an owned Stage6 server. Do not touch its checkout or start training.
 
 ## Earlier phase and review history
 

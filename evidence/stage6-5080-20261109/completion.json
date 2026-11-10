@@ -1,0 +1,47 @@
+{
+  "schema": "stage6-5080-completion-v1",
+  "updated_unix": 1794313606.0798957,
+  "execution_and_all_audits_complete": true,
+  "full_protocol_passed": false,
+  "reason": "Three genuine B06 activity-invalid blocks retained; no replacement or imputation",
+  "phase_counts": {
+    "screen": 54,
+    "confirm": 524,
+    "overhead": 38,
+    "operational": 6
+  },
+  "valid_confirmation_identities": 521,
+  "complete_matched_blocks": 207,
+  "required_matched_blocks": 210,
+  "retained_attempts": 641,
+  "verified_files": 67120,
+  "conditional_comparisons": 42,
+  "latency_model_cell_system_rows": 54,
+  "analysis_audit": "completion-audit-01.json",
+  "results": "RESULTS.md",
+  "findings": "final-results-01/",
+  "portability": "portability-final-03.json",
+  "pushed_analysis_checkpoint": "1a381f8a2fd3830ed9ff43f3ac507fb0fdc1ee00",
+  "gpu_release": {
+    "verified": true,
+    "receipt": "gpu-release-final-01.json",
+    "sha256": "30472393c3879758e72708db0dc47297ee377448a10bfec7824b1e2e46cb6578",
+    "checked_unix": 1794313530.620818,
+    "owned_processes_stopped": true,
+    "compute_clients_empty_at_release": true,
+    "both_locks_free": true
+  },
+  "notification": {
+    "delivered": false,
+    "pending": true,
+    "thread_id": "6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6",
+    "clientRequestId": "stage6-5080-20261109-final-gpu-release"
+  },
+  "monitoring": {
+    "scheduled_task_id": "scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae",
+    "every_ms": 3600000,
+    "disabled": false
+  },
+  "closeout_complete": false,
+  "scope": "All authorized campaign measurements, audits, final comparisons and cleanup complete. Full protocol did not pass; release proof must be pushed before requested completion delivery. No training or unrelated checkout access."
+}

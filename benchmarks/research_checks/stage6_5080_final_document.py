@@ -280,6 +280,15 @@ announce GPU release. See [continuation](CONTINUE.md) for closure state.
                           ('12.0+PTX', '`12.0+PTX`'), ('20→28GiB', '20→28 GiB'),
                           ('terminal42-row', 'terminal 42-row'), ('repeat0', 'repeat 0')]:
         text = text.replace(before, after)
+    if (EVIDENCE / 'gpu-release-final-01.json').exists() and (EVIDENCE / 'completion.json').exists():
+        release = load('gpu-release-final-01.json')
+        assert release['known_owned_units_stopped'] and release['both_gpu_locks_acquired_and_released']
+        footer = text.index('Resource cleanup, push and the requested waiting-thread delivery')
+        text = text[:footer] + '''Owned servers/processes are stopped. The RTX 5080 and both GPU locks were
+verified released after the results/audits were pushed ([release proof](gpu-release-final-01.json)).
+The [completion record](completion.json) tracks pushed checkpoints, requested
+waiting-thread delivery and monitoring shutdown. Useful artifacts remain preserved.
+'''
     (EVIDENCE / 'RESULTS.md').write_text(text)
 
 

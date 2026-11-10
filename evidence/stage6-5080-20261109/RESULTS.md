@@ -239,6 +239,7 @@ attempts, source review packets, reusable runtimes/models/builds and relocation
 proofs remain locally preserved; compact evidence and authored tools are tracked.
 There was no model training, other-machine/project work or Stage 7 writing.
 
-Resource cleanup, push and the requested waiting-thread delivery are recorded
-separately in the final closure receipt; the analysis audit by itself does not
-announce GPU release. See [continuation](CONTINUE.md) for closure state.
+Owned servers/processes are stopped. The RTX 5080 and both GPU locks were
+verified released after the results/audits were pushed ([release proof](gpu-release-final-01.json)).
+The [completion record](completion.json) tracks pushed checkpoints, requested
+waiting-thread delivery and monitoring shutdown. Useful artifacts remain preserved.

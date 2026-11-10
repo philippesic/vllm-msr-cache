@@ -1,0 +1,583 @@
+{
+  "schema": "stage6-5080-final-gpu-release-v1",
+  "checked_unix": 1794313530.620818,
+  "all_phase_execution_and_audits_complete": true,
+  "full_protocol_passed": false,
+  "pushed_analysis_checkpoint": "1a381f8a2fd3830ed9ff43f3ac507fb0fdc1ee00",
+  "owned_processes": [
+    {
+      "receipt": "confirm-driver-owner-02.private.json",
+      "pid": 150852,
+      "birth": 1794276828.06,
+      "command": [
+        "/bin/bash",
+        "/home/philip/vllm-semantic-cache-ext/benchmarks/research_checks/stage6_5080_resume_confirm_02.sh"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-driver-owner-03.private.json",
+      "pid": 158308,
+      "birth": 1794277865.3,
+      "command": [
+        "/bin/bash",
+        "/home/philip/vllm-semantic-cache-ext/benchmarks/research_checks/stage6_5080_resume_confirm_03.sh"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-01.private.json",
+      "pid": 61296,
+      "birth": 1794247424.15,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "run",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-02-qwen3_8b_awq-B11.private.json",
+      "pid": 150854,
+      "birth": 1794276828.09,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_8b_awq:B11"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-ministral3_3b-B02.private.json",
+      "pid": 199830,
+      "birth": 1794284097.23,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "ministral3_3b:B02"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-ministral3_3b-B06.private.json",
+      "pid": 203954,
+      "birth": 1794285157.53,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "ministral3_3b:B06"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-ministral3_3b-B08.private.json",
+      "pid": 209400,
+      "birth": 1794286438.98,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "ministral3_3b:B08"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-ministral3_3b-B09.private.json",
+      "pid": 212696,
+      "birth": 1794287780.88,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "ministral3_3b:B09"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-ministral3_3b-B11.private.json",
+      "pid": 216316,
+      "birth": 1794289090.64,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "ministral3_3b:B11"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_4b_2507-B02.private.json",
+      "pid": 221599,
+      "birth": 1794290375.44,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_4b_2507:B02"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_4b_2507-B06.private.json",
+      "pid": 228801,
+      "birth": 1794292096.94,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_4b_2507:B06"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_4b_2507-B08.private.json",
+      "pid": 238701,
+      "birth": 1794294324.59,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_4b_2507:B08"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_4b_2507-B09.private.json",
+      "pid": 245724,
+      "birth": 1794296930.29,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_4b_2507:B09"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_4b_2507-B11.private.json",
+      "pid": 256849,
+      "birth": 1794299412.25,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_4b_2507:B11"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_8b_awq-B11.private.json",
+      "pid": 158319,
+      "birth": 1794277865.45,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_8b_awq:B11"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "confirm-owner-03-qwen3_8b_awq-B12.private.json",
+      "pid": 184307,
+      "birth": 1794279911.14,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "confirm",
+        "--only",
+        "qwen3_8b_awq:B12"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "final-analysis-owner-01.private.json",
+      "pid": 289248,
+      "birth": 1794312874.47,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.research_checks.stage6_5080_finish_analysis"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "operational-owner-01.private.json",
+      "pid": 276791,
+      "birth": 1794306197.37,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "run",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "operational"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "overhead-owner-01.private.json",
+      "pid": 265937,
+      "birth": 1794302546.3,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "run",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "overhead"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "portability-owner-01.private.json",
+      "pid": 285410,
+      "birth": 1794310379.48,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign_portability",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--destination",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-20261109-final-01",
+        "--runtimes",
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-02"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "portability-owner-02.private.json",
+      "pid": 286710,
+      "birth": 1794311139.41,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign_portability",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--destination",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-20261109-final-02",
+        "--runtimes",
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-02"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-analysis-source-02",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "portability-owner-03.private.json",
+      "pid": 287948,
+      "birth": 1794312112.53,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign_portability",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--destination",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-20261109-final-03",
+        "--runtimes",
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-02",
+        "--reuse-evidence",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-20261109-final-02/relocated-evidence"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-analysis-source-03",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "preflight-owner-02.private.json",
+      "pid": 45093,
+      "birth": 1794240965.52,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "run",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "preflight"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "recovery-watcher-owner-01.private.json",
+      "pid": 46124,
+      "birth": 1794241487.05,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign_recovery",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--only",
+        "qwen3_8b_awq:B01",
+        "--timeout",
+        "900"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "screen-owner-01.private.json",
+      "pid": 46111,
+      "birth": 1794241487.04,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "run",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "screen"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "screen-owner-02.private.json",
+      "pid": 46642,
+      "birth": 1794241826.2,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.serving_suite.campaign",
+        "resume",
+        "--out",
+        "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109",
+        "--phase",
+        "screen"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "supplementary-driver-owner-01.private.json",
+      "pid": 269394,
+      "birth": 1794303769.29,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.research_checks.stage6_5080_advance_operational_01"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext",
+      "exact_process_exited": true
+    },
+    {
+      "receipt": "supplementary-driver-owner-02.private.json",
+      "pid": 269753,
+      "birth": 1794303873.17,
+      "command": [
+        "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+        "-m",
+        "benchmarks.research_checks.stage6_5080_advance_operational_02"
+      ],
+      "cwd": "/home/philip/vllm-semantic-cache-ext",
+      "exact_process_exited": true
+    }
+  ],
+  "known_owned_unit_terminal_states": {
+    "stage6-5080-confirm-20261109-03.service": {
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0"
+    },
+    "stage6-5080-overhead-20261110-01.service": {
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0"
+    },
+    "stage6-5080-operational-20261110-01.service": {
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0"
+    },
+    "stage6-5080-supplementary-driver-20261110-02.service": {
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0"
+    },
+    "stage6-5080-portability-20261110-01.service": {
+      "LoadState": "loaded",
+      "ActiveState": "failed",
+      "SubState": "failed",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "ExecMainStatus": "1"
+    },
+    "stage6-5080-portability-20261110-02.service": {
+      "LoadState": "loaded",
+      "ActiveState": "failed",
+      "SubState": "failed",
+      "MainPID": "0",
+      "Result": "exit-code",
+      "ExecMainStatus": "1"
+    },
+    "stage6-5080-portability-20261110-03.service": {
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0"
+    },
+    "stage6-5080-final-analysis-20261110-01.service": {
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainStatus": "0"
+    }
+  },
+  "known_owned_units_stopped": true,
+  "owned_coordinators": [],
+  "owned_runtime_servers": [],
+  "gpu": {
+    "memory_used": 2012053504,
+    "memory_total": 17094934528,
+    "utilization": 0,
+    "temperature_c": 29,
+    "processes": []
+  },
+  "gpu_compute_clients_empty": true,
+  "both_gpu_locks_acquired_and_released": true,
+  "gpu_lock_paths": [
+    "/home/philip/.cache/semantic-offload/gpu-0.lock",
+    "/tmp/vllm-semantic-cache-gpu.lock"
+  ],
+  "gpu_lock_owners": [],
+  "original_campaign_restored": true,
+  "ext4_mount_verified": true,
+  "disk_free_gib": {
+    "ext4": 2.5,
+    "root": 1.99,
+    "Windows": 3.15
+  },
+  "useful_artifacts_preserved": true,
+  "final_notification_pending": true,
+  "scope": "Verified release after all results/audits were pushed; no process killed, lock unlinked, GPU reset, training launched or unrelated checkout accessed. Display memory is not a compute allocation."
+}
