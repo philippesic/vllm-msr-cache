@@ -8,20 +8,46 @@ requires repair and continuation, not a capability-failure closeout.
 
 ## Current state
 
-**Confirmation is running**, persistent execution session **66082**. Ownership
-is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
-`$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check has **290/524 valid
-configurations, 110/210 complete matched blocks**, with Qwen3-8B B11 upstream
-repeat 1 active at that check. Review 13 captures the second complete B11 block.
+**Confirmation recovery is running** under independent user service
+`stage6-5080-confirm-20261109-02.service`. Driver ownership is
+`$BASE/confirm-driver-owner-02.private.json` (PID, birth, command, cwd, unit),
+with driver log `$BASE/confirm-driver-02.log`. Individual cell coordinators have
+`$BASE/confirm-owner-02-MODEL-CELL.private.json` and
+`$BASE/confirm-02-MODEL-CELL.log`. Revalidate both service/driver and the current
+frozen coordinator before any action; never launch a duplicate. The initial
+cell is Qwen3-8B B11. The latest post-repair health check has **298/524 valid
+configurations, 112/210 complete matched blocks**; full input attestation was
+running at that check, then replacement B11 repetition 4 started. Review 13
+captures the first two complete B11 blocks.
 B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
-below; the owner is live, progress continues, and no ownership/resource issue was
-reported. Recheck actual live progress; these counts are a
+below, plus the interrupted B11 arm until a verified replacement resolves that
+logical case. Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
+
+Original execution session 66082 and its recorded coordinator stopped during the
+tool-host interruption around 02:09 UTC on November 10. No owned workers or GPU
+compute clients remained; both GPU locks and the writer lock were available.
+[Recovery receipt](confirmation-host-interruption-02.json) preserves the original
+partial B11 arm, its verified seal, unchanged protocol/source and exact remaining
+cell suffix. The [tracked recovery driver](../../benchmarks/research_checks/stage6_5080_resume_confirm_02.sh)
+runs the original frozen `resume --only MODEL:CELL` CLI for each remaining cell,
+in original order. The interrupted B11 comparison is replaced as a whole; its
+three earlier completed arms and interrupted fourth arm remain without matched
+timing credit. Existing complete blocks are reused. Do not restart session 66082
+or run a full-phase resume: that would retry the activity-invalid B06 block.
+The selected suffix deliberately excludes earlier Qwen3-8B B06. The independent
+service is outside the tool host's process tree; its exact driver and frozen
+coordinator descendants were checked live. No study-design change.
+
+The service has `Restart=no` and retains its exit state. If it stops, inspect the
+failed cell and preserve logs/receipts before selecting another recovery suffix;
+never blindly restart the existing script because its launch names already exist.
+Zero exit means all selected acquisition commands returned, not all cases passed.
+Reconcile the entire frozen identity inventory before overhead/operational.
 
 Screen session 65450 is **finished**. All 54 required configurations / 22 whole
 blocks completed; [screen receipt](screen-complete.json) verifies 58 verified,
@@ -131,24 +157,29 @@ application files, configuration and all raw/derived evidence were preserved.
 Keep useful caches/raw evidence. Reconsider storage for later relocation copies
 using actual sizes, not an assumption that a second raw tree will fit.
 
-To launch another phase from the mutable project root, use the retained exec
-helper with new log/receipt names, e.g. after screen qualification/activation:
+After the entire confirmation driver is terminal and the frozen identity inventory
+is reconciled, launch another phase from an independent user service with fresh
+unit/log/receipt names, using the retained exec helper, for example:
 
 ```bash
-"$PY" -m benchmarks.research_checks.stage6_5080_launch --phase confirm \
-  --log "$BASE/confirm-01.log" --receipt "$BASE/confirm-owner-01.private.json"
+"$PY" -m benchmarks.research_checks.stage6_5080_launch --phase overhead \
+  --log "$BASE/overhead-01.log" --receipt "$BASE/overhead-owner-01.private.json"
 ```
 
 It validates the mount, exact exported source and literal pinned interpreter,
 then execs the existing coordinator with its normal reservation and cleanup.
-Add `--resume` only after verifying stopped owned resources. Other campaign
+Run that helper under `systemd-run --user` with the mutable repository as working
+directory, explicit HF_HOME and pinned interpreter. Retain unit exit state and
+preserve logs/receipts. Add `--resume` only after verifying stopped owned resources
+and selecting the actual unfinished scope. Stop/reset owned transient services
+during final verified cleanup. Other campaign
 commands must run after **cd into `$BUNDLE/source`** with `$PY`. Initial wrong-cwd
 setup/import launches were stopped before any acquisition and preserved; do not
 repeat that mistake. Never acquire from mutable source or a test interpreter.
 
 ## Remaining work
 
-1. Supervise the existing confirmation session through all 524 configurations /
+1. Supervise the independent confirmation service through all 524 configurations /
    210 matched blocks. Inspect real failures and measurement_validity; retained
    restore-inactive GPU controls are not CPU-pressure evidence. Preserve every
    original status and whole-block repairs. Do not repeat screen, qualification

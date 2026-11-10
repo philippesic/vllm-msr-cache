@@ -247,5 +247,15 @@ This is a partial selected-cohort audit, not a population error rate or quality
 equivalence. Timings, objectives, live quality and first-B06 exclusion are unchanged.
 Final confirmation and all-phase audits remain pending.
 
+A [declared orchestration repair](confirmation-host-interruption-02.json) records
+the tool-host interruption after 298 valid confirmation configurations / 112
+matched blocks. The recorded coordinator and all workers were absent, with no
+GPU compute clients and free reservations. The interrupted B11 arm was sealed
+and verified; its partial comparison has no timing credit. An independent user
+service resumes the complete B11 block and remaining cells through the unchanged
+frozen CLI, in original order. Earlier complete blocks are retained, and the
+activity-invalid B06 block is deliberately not retried. This is setup recovery,
+not a capability failure or study-design change. Acquisition remains in progress.
+
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.
