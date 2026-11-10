@@ -13,7 +13,8 @@
 | `tools/check.py --test tests/PATH.py` | Fast partial feedback; never acceptance |
 | `tools/check.py --component NAME` | One group, e.g. `policy`, `types`, `lint` |
 | `tools/check.py --update-tests` | Refresh both test inventories and print the diff |
-| `tools/check.py --runtime-python PY --out DIR` | Strict runtime types plus pinned CPU integration |
+| `tools/check.py --runtime-python PY` | Runtime lane: strict runtime types plus pinned CPU integration, one-line verdict |
+| `tools/check.py --runtime-python PY --test tests/runtime/PATH.py` | Fast partial runtime feedback; never acceptance |
 
 All commands are prefixed with `uv run --locked python`. Supported entry points are
 listed in the [system map](system-map.md). The pinned check image is

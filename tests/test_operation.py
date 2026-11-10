@@ -82,50 +82,19 @@ def test_receipt_unknown_incomplete_and_tampered_evidence_refuse(
         verify(tmp_path)
 
 
-def test_runtime_rejects_optimization_wrong_wheel_and_private_drift(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    import importlib.metadata
-    import subprocess
-    from types import SimpleNamespace
-    from typing import Any, cast
-
-    from tools.run_runtime import stage_runtime
+def test_runtime_pin_matches_lock_files() -> None:
+    from wait_hint_offload.runtime_pin import PYTHON_VERSION, VLLM_VERSION
 
     root = Path(__file__).resolve().parents[1]
-    optimized = subprocess.run(
-        [
-            sys.executable,
-            "-O",
-            "-c",
-            "from pathlib import Path; from tools.run_runtime import stage_runtime; stage_runtime(Path('.'), Path('.'))",
-        ],
-        cwd=root,
-        env=check_environment(root),
-        capture_output=True,
-        text=True,
-        timeout=10,
-    )
-    assert (
-        optimized.returncode != 0
-        and "optimized execution is unsupported" in optimized.stderr
-    )
-    distribution = SimpleNamespace(version="wrong")
-    monkeypatch.setattr(importlib.metadata, "distribution", lambda _name: distribution)
-    with pytest.raises(RuntimeError, match="wrong vLLM"):
-        stage_runtime(tmp_path, tmp_path / "overlay")
-    (tmp_path / "runtime").mkdir()
-    (tmp_path / "native").mkdir()
-    (tmp_path / "native/seam.py").write_text("changed")
-    (tmp_path / "runtime/compatibility.json").write_text(
-        json.dumps({"seam.py": "incorrect-hash"})
-    )
-    native = SimpleNamespace(
-        version="0.26.1rc1.dev75+gdc1be7903",
-        locate_file=lambda _name: tmp_path / "native",
-    )
-    monkeypatch.setattr(
-        importlib.metadata, "distribution", cast(Any, lambda _name: native)
-    )
-    with pytest.raises(RuntimeError, match="private runtime seam drift"):
-        stage_runtime(tmp_path, tmp_path / "overlay")
+    wheel = f"/vllm-{VLLM_VERSION.replace('+', '%2B')}-"
+    for pattern in ("requirements.in", "requirements-*.txt"):
+        pins = [
+            line
+            for path in sorted((root / "runtime").glob(pattern))
+            for line in path.read_text().splitlines()
+            if line.startswith("vllm @ ")
+        ]
+        assert len(pins) == 1 and wheel in pins[0], pattern
+    python = ".".join(map(str, PYTHON_VERSION))
+    assert (root / ".python-version").read_text().strip() == python
+    assert f'requires-python = "=={python}"' in (root / "pyproject.toml").read_text()

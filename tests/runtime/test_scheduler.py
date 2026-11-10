@@ -6,6 +6,7 @@ from dataclasses import replace
 from types import SimpleNamespace
 from typing import Any, cast
 
+import pytest
 import torch
 from vllm import SamplingParams
 from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
@@ -255,7 +256,7 @@ def test_direct_construction_refuses_optimized_execution() -> None:
         timeout=60,
     )
     assert result.returncode != 0
-    assert "optimized pinned runtime is unsupported" in result.stderr
+    assert "optimized Python is unsupported" in result.stderr
 
 
 def test_pinned_scheduler_truncates_failed_async_load_for_recomputation() -> None:
@@ -284,22 +285,12 @@ def test_pinned_scheduler_truncates_failed_async_load_for_recomputation() -> Non
     assert core.failed_recving_kv_req_ids == {"request"}
 
 
-def test_unpatched_wheel_cannot_construct_connector() -> None:
-    import subprocess
-    import sys
-    from pathlib import Path
+def test_wrong_vllm_version_refuses(monkeypatch: pytest.MonkeyPatch) -> None:
+    import importlib.metadata
 
-    from tools.config import check_environment
+    from wait_hint_offload.vllm_adapter.binding import require_runtime
 
-    root = Path(__file__).resolve().parents[2]
-    script = "from wait_hint_offload.vllm_adapter.connector import WaitHintConnector; WaitHintConnector(None, None, None)"
-    result = subprocess.run(
-        [sys.executable, "-c", script],
-        cwd=root,
-        env=check_environment(root),
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    assert result.returncode != 0
-    assert "attested RPC overlay missing" in result.stderr
+    require_runtime()
+    monkeypatch.setattr(importlib.metadata, "version", lambda _name: "0.0.0")
+    with pytest.raises(RuntimeError, match="required, found 0.0.0"):
+        require_runtime()

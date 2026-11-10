@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import sys
 import time
 import uuid
 from dataclasses import replace
@@ -28,16 +27,16 @@ from wait_hint_offload.advice import advise
 from wait_hint_offload.config import Settings
 from wait_hint_offload.contracts import Hint, Registration, prefix_digest
 from wait_hint_offload.observed import Observation, ObservedStore
+from wait_hint_offload.vllm_adapter import engine_rpc
 from wait_hint_offload.vllm_adapter.arc import ARCRecency
-from wait_hint_offload.vllm_adapter.binding import require_binding
+from wait_hint_offload.vllm_adapter.binding import require_runtime
 from wait_hint_offload.vllm_adapter.transfers import TransferMetadata, TransferWorker
 
 
 class WaitHintScheduler(OffloadingConnectorScheduler):
     def __init__(self, spec: Any, vllm_config: Any, kv_cache_config: Any) -> None:
-        if sys.flags.optimize:
-            raise RuntimeError("optimized pinned runtime is unsupported")
-        require_binding()
+        require_runtime()
+        engine_rpc.install()
         super().__init__(spec, vllm_config, kv_cache_config)
         self.settings = Settings.parse(spec.extra_config)
         if (
@@ -207,9 +206,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
 
 class WaitHintConnector(OffloadingConnector):
     def __init__(self, vllm_config: Any, role: Any, kv_cache_config: Any) -> None:
-        if sys.flags.optimize:
-            raise RuntimeError("optimized pinned runtime is unsupported")
-        require_binding()
+        require_runtime()
         if vllm_config.kv_transfer_config.kv_load_failure_policy != "recompute":
             raise ValueError("kv_load_failure_policy must be recompute")
         groups = kv_cache_config.kv_cache_groups

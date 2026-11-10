@@ -20,7 +20,7 @@
   "tests/test_cpu.py::test_repository_policy_positive_control",
   "tests/test_operation.py::test_owned_timeout_and_failed_startup",
   "tests/test_operation.py::test_receipt_unknown_incomplete_and_tampered_evidence_refuse",
-  "tests/test_operation.py::test_runtime_rejects_optimization_wrong_wheel_and_private_drift",
+  "tests/test_operation.py::test_runtime_pin_matches_lock_files",
   "tests/test_operation.py::test_snapshot_includes_dirty_and_untracked_inputs",
   "tests/test_operation.py::test_stale_control_does_not_signal_current_process"
 ]

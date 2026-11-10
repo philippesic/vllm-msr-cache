@@ -4,11 +4,12 @@ import argparse
 import hashlib
 import importlib.metadata
 import json
-import subprocess
 import sys
 import time
 from pathlib import Path
 from typing import Any
+
+UNAVAILABLE = "UNAVAILABLE: run with the runtime Python; install runtime/requirements.txt with --require-hashes in a separate environment."
 
 
 def write_record(path: Path, record: dict[str, Any]) -> None:
@@ -112,26 +113,26 @@ def main() -> int:
         except (OSError, ValueError, KeyError) as error:
             print(f"INVALID: {error}")
             return 1
-    if args.out is None:
-        print(
-            "UNAVAILABLE: supply --out outside the repository using pinned runtime Python."
-        )
-        return 2
-    from tools.config import check_environment
-
-    root = Path(__file__).resolve().parents[1]
-    directory = args.out.resolve()
-    if directory.is_relative_to(root) or not 0 < args.timeout <= 1800:
-        parser.error("use a new external output root and timeout in 1..1800 seconds")
     try:
         version = importlib.metadata.version("vllm")
     except importlib.metadata.PackageNotFoundError:
-        print(
-            "UNAVAILABLE: install runtime/requirements.txt with --require-hashes in a separate environment."
-        )
+        print(UNAVAILABLE)
         return 2
-    if version != "0.26.1rc1.dev75+gdc1be7903":
-        parser.error("wrong runtime wheel")
+    from wait_hint_offload.runtime_pin import VLLM_VERSION
+
+    if version != VLLM_VERSION:
+        parser.error(f"vLLM {VLLM_VERSION} required, found {version}")
+    from tools.config import attempts_root, check_environment
+    from tools.process import run_owned
+
+    root = Path(__file__).resolve().parents[1]
+    mode = "hardware" if args.gpu else "runtime-cpu"
+    stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+    directory = (args.out or attempts_root() / f"{mode}-{stamp}").resolve()
+    if directory.is_relative_to(root) or not 0 < args.timeout <= 1800:
+        parser.error(
+            "use a new output root outside the repository and timeout in 1..1800 seconds"
+        )
     if args.gpu and (args.model is None or not args.model.is_dir()):
         parser.error(
             "hardware verification needs --model pointing to a local model directory"
@@ -139,7 +140,6 @@ def main() -> int:
     directory.mkdir(parents=True, exist_ok=False)
     source = directory / "source"
     identity = snapshot(root, source)
-    mode = "hardware" if args.gpu else "runtime-cpu"
     model_identity = (
         {
             str(p): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -170,30 +170,19 @@ def main() -> int:
     command = [
         sys.executable,
         "-m",
-        "tools.run_runtime",
-        "--timeout",
-        str(args.timeout),
+        "pytest",
+        "-q",
+        "-s",
+        selected,
+        "-p",
+        "tools.pytest_gate",
+        "--gate-manifest",
+        manifest,
+        "-p",
+        "tools.runtime_capture",
+        "--runtime-capture",
+        str(directory / "observed.json"),
     ]
-    if args.gpu:
-        command.append("--gpu")
-    command.extend(
-        [
-            sys.executable,
-            "-m",
-            "pytest",
-            "-q",
-            "-s",
-            selected,
-            "-p",
-            "tools.pytest_gate",
-            "--gate-manifest",
-            manifest,
-            "-p",
-            "tools.runtime_capture",
-            "--runtime-capture",
-            str(directory / "observed.json"),
-        ]
-    )
     environment = check_environment(source)
     if args.gpu:
         from tools.config import hardware_environment
@@ -204,17 +193,8 @@ def main() -> int:
     failure_detail: str | None = None
     try:
         with (directory / "execution.log").open("x") as log:
-            result = subprocess.run(
-                command,
-                cwd=source,
-                env=environment,
-                stdout=log,
-                stderr=subprocess.STDOUT,
-                timeout=args.timeout + 60,
-                check=False,
-            )
-        code = result.returncode
-    except (OSError, subprocess.TimeoutExpired) as failure:
+            code = run_owned(command, environment, source, args.timeout, log)
+    except OSError as failure:
         failure_detail = str(failure)
     artifacts = {
         p.name: hashlib.sha256(p.read_bytes()).hexdigest()
@@ -234,14 +214,23 @@ def main() -> int:
         "cause": "confirmed exit status; detailed diagnosis in execution.log",
     }
     write_record(directory / "terminal.json", terminal)
-    print(json.dumps(terminal, sort_keys=True))
-    if code == 0:
-        try:
-            verify(directory)
-        except (OSError, ValueError, KeyError) as failure:
-            print(f"INVALID: {failure}")
-            return 1
-    return int(code != 0)
+    elapsed = terminal["elapsed_seconds"]
+    if code != 0:
+        reason = "timed out" if code == 124 else f"exit {code}"
+        print(
+            f"{mode}: FAILED ({reason}, {elapsed:.0f}s); log {directory / 'execution.log'}"
+        )
+        return 1
+    try:
+        verify(directory)
+    except (OSError, ValueError, KeyError) as failure:
+        print(f"{mode}: INVALID ({failure}); record {directory}")
+        return 1
+    observed = json.loads((directory / "observed.json").read_text())
+    print(
+        f"{mode}: PASSED ({observed['collected']} tests, {elapsed:.0f}s); record {directory}"
+    )
+    return 0
 
 
 if __name__ == "__main__":
