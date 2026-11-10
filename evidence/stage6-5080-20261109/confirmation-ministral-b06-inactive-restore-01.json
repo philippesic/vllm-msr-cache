@@ -1,0 +1,147 @@
+{
+  "schema": "stage6-5080-confirmation-activity-finding-v1",
+  "recorded_unix": 1794285809.4132807,
+  "acquisition_complete": false,
+  "source_protocol_unchanged": true,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "frozen_validity_sha256": "d9b9f4d61f7edbb60963784483d0fc3a9bcaef6a84ef660fb3d4af1ae49efa92",
+  "driver_checked_live": true,
+  "attempts": [
+    {
+      "attempt_id": "a438a0a9355d45e4b8b81e50c1806a3c",
+      "path": "attempts/1ee37ab2f37b8f5454a3a322a2e1165930f97b4f8f57e96ff35c0f64b7d6a110/a438a0a9355d45e4b8b81e50c1806a3c",
+      "identity": {
+        "artifact_identity": "bf45c1f9e74528acb25dec27c43cc4714263469b631e4d9153608a6c47db1949",
+        "campaign_id": "37f88e1990a0b44fd187cbef4caeaff8b508fcb92acd437e514ff42b799cd7ba",
+        "cell": "B06",
+        "hardware": "rtx5080",
+        "hardware_digest": "3f97e323b77c27ac36c0b3d8659001ac6f1c630cb83b4dbeecd678efdecc6de4",
+        "model": "ministral3_3b",
+        "phase": "confirm",
+        "profile": {
+          "batch_tokens": 1024,
+          "cpu_bytes": 2017460224,
+          "gpu_blocks": 1408,
+          "gpu_memory_utilization": 0.85,
+          "kv_bytes_per_token": 106496,
+          "max_model_len": 8192,
+          "model_format": "hf",
+          "runtime_python": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python",
+          "status": "development",
+          "text_only": true
+        },
+        "repeat": 0,
+        "runtime_identity": "0f108e2c765ef17d280cbdd6e43ffd71c3dfd62ae478612835550d388f5cfdf7",
+        "source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+        "system": "wait",
+        "system_identity": null,
+        "workload": "2981e8b465a0c0a3f9ed31f0494873b53c093272c28f72aae408639ac47656b1"
+      },
+      "block_id": "bcd2edf336084e966b28be29dbc87b4df614e42adad17c62f1d1204c63d10cee",
+      "state": "failed",
+      "seal": "175e72a0fe8ad05a22fa500a02579941a798b8663eedc0eb37411f9ea820af98",
+      "verified_files": 137,
+      "validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": false,
+        "classification": "original_measurement",
+        "raw_ledger_state": "failed",
+        "raw_evaluation": "inconclusive",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "evaluation": {
+        "status": "inconclusive",
+        "errors": [],
+        "unavailable_activity": [],
+        "inactive_activity": [
+          "restore"
+        ]
+      },
+      "request_summary": {
+        "completed": 64,
+        "failed": 0,
+        "output_tokens": 12632,
+        "finish_reasons": {
+          "stop": 59,
+          "length": 5
+        }
+      },
+      "request_graph_coverage_verified": true,
+      "tools": 48,
+      "offered_units": 16,
+      "completed_units": 16,
+      "cleanup": {
+        "verified": true,
+        "survivors": [],
+        "exit_code": 0
+      },
+      "activity": {
+        "scoring": 0.0,
+        "store": 7582515200.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 6267
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 51236,
+        "returning_computed_prompt_tokens": 34960,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 15,
+        "returning_requests_with_prior_cpu_eviction": 15,
+        "returning_requests": 48,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      },
+      "scheduler_preemptions_metric": 0.0,
+      "gpu_prefix_hits": 60992.0,
+      "no_timing_credit": true
+    }
+  ],
+  "arc_peers": [
+    {
+      "attempt_id": "740340ed6b42493dab66d7bb23e97ace",
+      "path": "attempts/70922608e71dd9ea104d164c8f6489c58817fefcdaf77c4a367610d75d15a464/740340ed6b42493dab66d7bb23e97ace",
+      "block_id": "bcd2edf336084e966b28be29dbc87b4df614e42adad17c62f1d1204c63d10cee",
+      "state": "verified",
+      "seal": "c8be4d60038fad345bdb81e287c1677aedf85b58b7f3187ec4ff7671353bc850",
+      "verified_files": 137,
+      "validity": {
+        "version": "stage6-measurement-validity-v3",
+        "valid": true,
+        "classification": "original_measurement",
+        "raw_ledger_state": "verified",
+        "raw_evaluation": "passed",
+        "cpu_restore_activity": "inactive",
+        "cpu_pressure_evidence": "observed"
+      },
+      "cleanup_verified": true,
+      "activity": {
+        "scoring": 0.0,
+        "store": 7904559104.0,
+        "restore": 0.0,
+        "hint_accepted": 0,
+        "cpu_recency": 0
+      },
+      "native_cache": {
+        "receipts": 64,
+        "complete": true,
+        "computed_prompt_tokens": 52067,
+        "returning_computed_prompt_tokens": 35791,
+        "loaded_tokens": 0,
+        "returning_loaded_tokens": 0,
+        "prior_cpu_evicted_key_observations": 14,
+        "returning_requests_with_prior_cpu_eviction": 14,
+        "returning_requests": 48,
+        "preemptions": 0,
+        "scope": "Actual native per-request receipts; eviction-key observations can repeat and are not unique physical evictions"
+      }
+    }
+  ],
+  "activity_retry": false,
+  "scope": "Ministral B06 candidate measurements finish every request/tool/unit with clean cleanup but zero CPU restores. Frozen v3 rejects these raw inconclusive attempts; its special GPU-resident control exception is limited to the eight-session Qwen3-8B cohort and also requires zero eviction/preemption. The first candidate has 15 eviction-affected returning requests; its ARC peer has 14 but zero returning restored tokens, explaining the health coverage warning. This is an observed activity/workload-validity failure, not a serving/kernel/setup/filesystem error. Preserve raw results and all capped outputs for the final all-attempt audit. No capacity/source/rule change or favorable-activity retry. Continue remaining original repetitions/models and later phases; missing blocks can prevent full campaign completion."
+}

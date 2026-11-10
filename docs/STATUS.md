@@ -39,6 +39,9 @@ bindings and all 360 archived instructions verified. All 364 planned Qwen3-8B
 configurations have executed; 363 are valid and 129/130 blocks are complete.
 All 377 retained anchor attempts / 35,530 files verify; the sole missing block
 is the known B06 activity failure. Secondary-model acquisition continues.
+Ministral B06 candidate repeat 0 also fails frozen restore activity after all
+64 requests / 48 tools complete cleanly: zero restores despite 15 eviction-affected
+returns. Its seal and ARC peer verify; no favorable-activity retry or rule change.
 The partial B11 comparison
 is preserved and replaced as a whole under an independent user service; the
 frozen source/order and B06 exclusion are retained. Recovery selects only the
@@ -50,7 +53,12 @@ block now pass (320 requests / 192 tools); the frozen selector excludes the old
 partial/setup-failed blocks. Failed attempts have no timing credit;
 the separate partial all-attempt cap review covers 217 responses / 137 contexts,
 including all newly sealed caps from individual arms as well as matched blocks.
-Final confirmation review and later phases remain pending. No final throughput
+All 32 anchor comparisons now have conditional paired estimates and actual latency
+tables, with all missing identities retained. B09 candidate/ARC is 0.9733
+[0.9617, 0.9850] and candidate/Continuum 0.6826 [0.6558, 0.7106]; adverse results
+and output/cap differences remain explicit. The initial three cells reproduce
+unchanged and 28 reporting checks pass. This interim model subset is not the
+final 42-comparison matrix. Final confirmation review and later phases remain pending. No final throughput
 or quality-equivalence claim. The November 8
 failure is preserved. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
 [continuation](../evidence/stage6-5080-20261109/CONTINUE.md) and

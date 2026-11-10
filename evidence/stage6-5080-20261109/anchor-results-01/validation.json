@@ -1,0 +1,25 @@
+{
+  "schema": "stage6-5080-interim-anchor-findings-v1",
+  "final_campaign": false,
+  "frozen_report_sha256": "28bd46855e5743629008ced67a099f368da1fa1b442fd321aac7adcb3bfae831",
+  "presentation_sha256": "a6549db665865e57a7cb219ea382c8e5779dd96b4485bdc14a2625516a115727",
+  "full_private_report": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/anchor-report-02/full-report.json",
+  "full_report_digest": "10a6f4be16d1557443eb9384b19a5a97177c5c3a80d90f84161552d90ca64783",
+  "scoped_report_digest": "c0b379312bb21ec7c12dcda040da0366f76d72c44890fc38660df8694a5c859a",
+  "original_report_directory_unchanged": true,
+  "frozen_completed_blocks_snapshot": 135,
+  "anchor_completed_blocks": 129,
+  "all_32_anchor_comparisons_present": true,
+  "all_missing_blocks_preserved": true,
+  "earlier_three_cell_ratios_intervals_serving_and_latency_reproduced": true,
+  "b06_seven_of_eight_all_comparisons": true,
+  "scope": "Frozen report code and validated presentation functions; only JSON/CSV writes redirected. No acquisition, source, estimator, repetition, validity, quality or live-report change. Conditional estimates do not complete the campaign or establish quality equivalence.",
+  "initial_isolated_authoring_error_repaired": "Forwarded non-confirm and source-filtered block queries to the unchanged frozen function; first empty failed draft retained privately.",
+  "missing_block_ids_retained_in_collapsible_display": true,
+  "focused_reporting_tests": {
+    "passed": 28,
+    "command": "pinned PY -m pytest -q -p no:cacheprovider tests/test_stage6_primary_findings.py tests/test_campaign_reporting.py",
+    "seconds": 0.09
+  },
+  "derived_helper_sha256": "704cae1d9b738e2ed559c20300cf8245a9e29f57fed353955804ece2bd7d042e"
+}

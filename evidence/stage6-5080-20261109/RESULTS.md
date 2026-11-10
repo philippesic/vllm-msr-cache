@@ -350,5 +350,68 @@ The [inventory validation](anchor-inventory-validation.json) also reverifies the
 original source and execution bundle after audit-generated caches were moved
 outside the frozen source. Final confirmation and all-phase audits remain pending.
 
+Ministral B06 has an additional [activity-validity failure](confirmation-ministral-b06-inactive-restore-01.json):
+candidate repeat 0 completes **64 requests / 48 tools / 16 units** with clean
+cleanup, but zero CPU restores and 15 eviction-affected returning requests. Its
+ARC peer has 14 affected returns and also zero returning restored tokens. Both
+137-file seals verify. The sixteen-session secondary-model case does not satisfy
+the frozen Qwen3-8B GPU-control exception; no rule/capacity change or favorable
+activity retry is made. Remaining original repetitions and phases continue.
+Five candidate length caps remain subject to the final all-attempt source audit.
+This additional missing comparison can further prevent full-matrix completion.
+
+The interim Qwen3-8B extraction now retains **all 32 frozen comparisons** for
+the completed anchor model: [data](anchor-results-01/comparisons.json),
+[throughput and latency tables](anchor-results-01/tables.md),
+[interactive display](anchor-results-01/comparisons.html),
+[extraction checks](anchor-results-01/validation.json) and
+[render binding](anchor-results-01/render.json). This is a model subset of the
+42 planned campaign comparisons; secondary models, later phases and final audits
+remain pending. The actual incomplete flags and every globally missing block
+remain preserved. The frozen report writes were isolated; live report files
+were unchanged. The first three published ratios, CIs, serving times and latency
+summaries reproduce unchanged. All 28 focused reporting tests pass.
+
+Candidate throughput divided by each baseline is shown below. Each ratio is a
+geometric mean with a paired whole-process Student-t 95% CI, without multiplicity
+adjustment. Below one means slower. B06 uses only seven valid blocks of eight;
+the failed first block is not imputed, replaced or counted through its other arms.
+
+| Qwen3-8B cell | Valid / required blocks | Candidate / ARC [95% CI] | Candidate / Continuum [95% CI] | Candidate / upstream [95% CI] |
+| --- | ---: | --- | --- | --- |
+| B06 | 7 / 8 | 0.9781 [0.9546, 1.0021] | 0.9477 [0.9246, 0.9714] | 1.0015 [0.9716, 1.0323] |
+| B08 | 12 / 12 | 0.9857 [0.9646, 1.0072] | 0.6851 [0.6397, 0.7336] | 0.9003 [0.8690, 0.9327] |
+| B09 | 12 / 12 | 0.9733 [0.9617, 0.9850] | 0.6826 [0.6558, 0.7106] | 0.9395 [0.9277, 0.9514] |
+| B11 | 8 / 8 | 1.0726 [0.9478, 1.2139] | 1.0689 [0.9304, 1.2280] | 1.0014 [0.8952, 1.1203] |
+| B12 | 12 / 12 | 0.9759 [0.9227, 1.0321] | 0.9248 [0.8867, 0.9645] | 0.9869 [0.9504, 1.0248] |
+
+The candidate is slower than ARC on B09: about 2.7%, with its CI below parity.
+Its apparent B11 advantage remains unresolved because the interval includes one.
+Against Continuum, B06/B08/B09/B12 are slower with intervals below one; B11 is
+unresolved. All twelve native-cell results, including the small adverse B07
+roomy-control result, remain in the linked table. No new across-workload aggregate
+is introduced. B06's native CPU-pressure evidence remains inconclusive, while
+both native B09 arms have observed pressure and active CPU restores in all twelve
+blocks. Missing external native counters are unavailable, not zero.
+
+For B09, serving seconds average 43.643 candidate, 42.484 ARC, 29.840 Continuum
+and 41.008 upstream. Actual latency figures follow in milliseconds; each is an
+arithmetic mean of the named process statistic. A mean of process p95s is not a
+pooled percentile or population-tail guarantee.
+
+| B09 arm | Mean TTFT ms | Mean process p95 TTFT ms | Mean completion ms | Mean process p95 completion ms |
+| --- | ---: | ---: | ---: | ---: |
+| Candidate | 5881.409 | 13087.611 | 8820.174 | 15664.495 |
+| ARC | 5492.068 | 12631.278 | 8321.630 | 15723.632 |
+| Continuum | 2708.248 | 15290.478 | 4770.513 | 18386.012 |
+| Upstream | 5085.238 | 13605.931 | 7797.725 | 16533.650 |
+
+All four B09 arms complete 768 requests. Output tokens are 84,360 candidate,
+84,384 ARC, 80,055 Continuum and 83,828 upstream; Continuum has 25 length caps,
+the other arms zero. These are completed workload throughput and observed
+latency comparisons, not correctness-adjusted useful-answer throughput. Live
+outputs, runtimes and interfaces differ; source findings and caps remain visible.
+No quality equivalence, universal superiority or GPU-only attribution follows.
+
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

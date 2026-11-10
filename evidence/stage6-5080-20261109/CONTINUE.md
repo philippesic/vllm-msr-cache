@@ -16,8 +16,8 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The latest post-repair health check has **370/524 valid configurations,
-132/210 complete matched blocks**, with Ministral B02 ARC repeat 3 active.
+The latest post-repair health check has **380/524 valid configurations,
+137/210 complete matched blocks**, with Ministral B06 candidate repeat 3 active.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
 The [terminal anchor inventory](confirmation-qwen8b-attempts-complete.json)
@@ -28,9 +28,10 @@ remain unchanged. Execution is complete for that model, not analytical
 completion or a complete campaign. Continue the remaining model cells.
 B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
-Health reports attention for the known first-block B06 candidate activity failure
-below, plus original interrupted/setup-failed B11 arms until verified replacements
-resolve those logical cases. Recheck actual live progress; these counts are a
+Health reports attention for the known Qwen3-8B and Ministral B06 candidate
+activity failures below. All B11 setup failures now have verified whole-block
+replacements; their original evidence remains outside matched credit.
+Recheck actual live progress; these counts are a
 checkpoint, not the current truth. Startup checks all three model files before
 creating the first attempt; bounded disk-sleep/I/O with no child or log line
 is not by itself evidence that the job stopped. Never launch a duplicate.
@@ -111,6 +112,31 @@ There are **31 valid measurements / seven complete matched blocks**, not the
 required eight. All eight planned repetitions ran exactly once; the first remains
 excluded. B06 execution is finished and must not be resumed to replace it.
 
+The [first Ministral B06 activity receipt](confirmation-ministral-b06-inactive-restore-01.json)
+adds a second genuine validity failure: candidate repeat 0 serves all **64
+requests / 48 tools / 16 units**, with five caps and clean cleanup, but zero CPU
+restores despite **15 eviction-affected returning requests**. Both native receipts
+and scheduler metrics show zero preemptions. Its ARC peer has 14 eviction-affected
+returns and zero returning restored tokens, explaining the health coverage warning:
+eviction pressure is observed, but CPU restoration is absent. Both 137-file seals
+verify. There are no request, tool, measurement, cleanup or kernel errors.
+
+Frozen v3 rejects the candidate. Its special GPU-resident exception is limited
+to the eight-session Qwen3-8B repository cohort and requires zero evictions/
+preemptions; the sixteen-session Ministral case is outside it. Do not relabel,
+change capacity or retry for activity. Keep all remaining original repetitions,
+model cells and later phases running. This is an initial checkpoint, not terminal
+Ministral B06 inventory. Its five capped responses must be included in the final
+all-attempt audit even though the comparison is invalid.
+
+Do not run a blanket confirmation resume, or replay the Ministral B06 cell after
+it has acquired activity-invalid attempts. The current service entered that cell
+once before these failures existed and continues its original remaining repeats;
+it has no restart policy. If it stops mid-cell, inspect actual terminal identities
+and recover only genuinely unfinished scheduled scope, preserving every completed
+activity failure. Exact known invalid paths are listed in the linked receipts;
+investigate and seal-check any additional invalid attempt before treating it as known.
+
 [Qualification](qualification.json) **passes**: all native correctness fixtures,
 registry, external activation/pinned geometry, all required screens, all three
 ARC pressure gates and the roomy reduction (one to zero affected returns).
@@ -177,7 +203,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 9.0 GiB ext4, 3.26 GiB WSL root and 11.19 GiB Windows at the last bounded
+about 8.88 GiB ext4, 3.23 GiB WSL root and 11.19 GiB Windows at the last bounded
 health check; monitor all three. Root includes the latest derived review snapshot.
 Private disk observation 03 retains recent host-owned app-server
 binary/catalog sizes: these account for part of the recent root growth, but the
@@ -275,6 +301,32 @@ not acquisition source. Current receipt exists: do not rerun to overwrite it.
 
 Final report extraction must reproduce all three estimates unchanged and include
 all remaining cells, external systems, overhead, operational and audits.
+
+The newer [interim anchor extraction](anchor-results-01/comparisons.json) covers
+all 32 frozen Qwen3-8B comparisons (twelve native and twenty external-baseline
+comparisons) with [full throughput/latency tables](anchor-results-01/tables.md).
+The frozen report is captured under `$BASE/anchor-report-02/` with only JSON/CSV
+writes redirected; live report files remain unchanged. The initial isolated
+authoring draft failed on a missing source keyword in the snapshot wrapper and
+is retained at `$BASE/anchor-report-01/authoring-error.private.json`; no acquisition
+attempt or output was affected. The wrapper now forwards all non-confirmation
+and source-filtered requests to the original frozen function.
+
+[Extraction validation](anchor-results-01/validation.json) reproduces all first
+three ratios/CIs/serving/latency summaries, checks B06 seven-of-eight for all five
+comparisons and preserves actual global missing identities and incomplete flags.
+All 28 focused reporting tests pass. The interactive HTML was previewed/rendered
+with [bound proof](anchor-results-01/render.json); do not repeat unchanged previews.
+All 32 anchor estimates and latency summaries must reproduce unchanged in the
+final 42-comparison extraction. This is still interim, not campaign completion.
+RESULTS.md now includes the five anchor candidate/ARC/Continuum/upstream ratios
+and B09 latency figures, with adverse results and live-output/cap/quality limits.
+
+The tracked [anchor extraction helper](../../benchmarks/research_checks/stage6_5080_anchor_findings.py)
+requires SOURCE/literal PY/disabled bytecode and refuses existing destinations;
+its outputs already exist. Do not rerun to overwrite. The presentation helper's
+missing-block list is now expandable, retaining every identity while keeping
+the incomplete warning visible. Final full-matrix chart/extraction is pending.
 
 ## Final report preparation
 

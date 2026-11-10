@@ -1,0 +1,62 @@
+{
+  "schema": "stage6-5080-interim-anchor-render-v1",
+  "final_campaign": false,
+  "preview": {
+    "width": 728,
+    "contentHeight": 1667,
+    "capturedHeight": 1667,
+    "consoleMessages": [],
+    "screenshot": {
+      "mimeType": "image/png",
+      "width": 728,
+      "height": 1667
+    }
+  },
+  "render": {
+    "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-d5559aa3-33c5-4faa-9f30-157fd65a6385-html",
+    "title": "Interim Qwen3-8B paired throughput",
+    "height": 1667,
+    "heights": [
+      [
+        320,
+        2342
+      ],
+      [
+        375,
+        2225
+      ],
+      [
+        430,
+        2147
+      ],
+      [
+        520,
+        2036
+      ],
+      [
+        640,
+        1724
+      ],
+      [
+        728,
+        1667
+      ],
+      [
+        860,
+        1412
+      ],
+      [
+        1000,
+        1412
+      ],
+      [
+        1144,
+        1412
+      ]
+    ]
+  },
+  "scope": "Interim Qwen3-8B only. All missing IDs remain in the data and expandable disclosure; not final campaign completion.",
+  "recorded_unix": 1794285557.255916,
+  "html_sha256": "e85788f5c73646a6ac0b927c5743dbc5d58c4c36b84f7be4ff45ab3ad80354c5",
+  "data_sha256": "63e86cffcb59ac3b38de315f8b38ec8ff7de7311ed0e9137d7b1a6ffcf82d386"
+}
