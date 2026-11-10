@@ -96,14 +96,51 @@ result-path literals outside the future runner. Aliased-import controls are
 included. [Decision 005](decisions/005-agent-guardrails.md) states the exact scope
 and limits, including future discovery and single-owner conventions.
 
-The runtime group tests the stub contract and reports **skipped**. Its standalone
-[module command](runtime.md#explicit-runtime-verification-entry) exits 2; zero or
-a misleading exit-2 message fails its mutation proofs. Absence of runtime source
-is never counted as a runtime pass.
+The portable runtime group checks the explicit no-argument refusal and reports
+**skipped**; it never counts native integration as passed. The separate command
+`uv run --locked python tools/check.py --runtime-python /external/venv/bin/python --out /external/new-attempt`
+runs strict adapter/runtime-test typing and real pinned CPU integration. Only the
+adapter and runtime tests are excluded from portable mypy; broad exclusions fail.
+Formatting, lint, unused checks, boundaries and policy still cover both partitions.
+Direct runtime imports are mapped to the independent hash-pinned closure in
+`runtime/modules.json`; arbitrary missing or transitive dependencies still fail.
 
-[The system map](system-map.md) is checked against command rows, target files,
-entry functions and the explicit absence of the future benchmark entry.
-`docs.map-*`, `docs.entry-*` and `docs.future-entry` prove those checks.
-`contracts.*` supplies identity-field and score-separation mutation specimens,
-plus a mypy rejection when a retention score is passed as a KV identity. The CPU
-suite also runs the contract examples directly; these do not qualify a runtime.
+[The system map](system-map.md) checks commands, target functions and availability.
+`contracts.*` now mutates the actual namespace/digest, schema, immutability and
+token-type contracts. Illustrative retention scores were removed. Independent
+vectors and historical negative cases complement generated bad/control specimens.
+Callable dispatch tables are allowed; manually maintained workload/policy discovery
+registries remain prohibited. Native block identifiers are allowed; GPU reservation
+APIs remain prohibited.
+
+## Targeted feedback and inventory maintenance
+
+`uv run --locked python tools/check.py --test tests/test_cpu.py` runs selected
+CPU tests and explicitly reports partial coverage. It cannot issue full acceptance.
+After adding or renaming cases, run `uv run --locked python tools/check.py --update-tests`
+and review the printed additions/removals before full validation. Validation never
+updates the manifest. CPU commands hide CUDA.
+
+
+## Functional evidence
+
+The runtime verifier snapshots tracked, dirty and untracked authored inputs into a
+new external attempt. Admission and terminal records are separate immutable files;
+partial/failing attempts remain. Tests use fixed manifests and reject skipped or
+unexpected cases. The capture records actual Python, loaded native mappings,
+package versions, source modules and CUDA initialization, with executed test count.
+No cached test pass or hardware result is substituted for execution.
+
+`--verify /external/attempt` checks supported receipt versions, frozen source,
+model dependencies and retained artifact hashes; it does not remeasure hardware.
+Hash validity is not human authorization or proof of a scientific claim. See
+[source protocol](source-port.md) and [runtime](runtime.md) for the precise scope.
+
+The owned-process helper enforces a wall-time limit without agent notifications.
+There are zero automatic retries; failed attempts remain separate. Boot/birth
+identity plus kernel process handles reject stale control. Timeout and cleanup
+only target the created session. Tests cover missing startup, timeout, stale
+identity, incomplete receipts, unknown readers, write refusal and source drift.
+This is process-level qualification, not power-loss durability or a general job
+coordinator. Persistent research scheduling, notifications and high-level agent
+operations remain deferred.

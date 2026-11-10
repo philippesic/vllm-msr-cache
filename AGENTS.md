@@ -1,42 +1,35 @@
-# Research context
+# Purpose
 
-Can exact CPU KV offload plus causal tool-wait advice improve completed,
-correct agent work over matched native ARC, without unacceptable overhead
-or interference with other traffic? This repository is currently foundation only.
+Port exact CPU KV offload with causal wait-hint CPU ARC recency advice.
+Semantic ranking and GPU prefetch stay in the historical repository.
+A hint never pins KV, manufactures readiness or authorizes approximate reuse.
+Use the same runtime with advice disabled as the matched functional control.
 
-KV means attention keys and values. Reuse requires identical prefix tokens,
-model, adapter, positions and layout. Semantic scores may rank retention or
-prefetch candidates; they never substitute an answer or authorize approximate KV.
-ARC is adaptive replacement; a wait hint is a fallible declaration of future
-need, not pinning, ownership or proof of residency. TTFT is time to first token.
+# Work and validation
 
-Refuse comparisons across machines or cache states. A declared system comparison
-may vary runtime fields within matched machine/cache state; cross-host observations
-cannot isolate GPU effects. Report missing observations as unavailable.
+Follow [the port plan](docs/porting-overhaul.md) within the authorized task's scope
+and stopping conditions. Proceed through routine reversible repairs autonomously.
+Use a separate worktree for parallel implementation and integrate serially.
 
-# Working here
+Run `uv run --locked python tools/check.py` for full portable acceptance.
+Use `--test tests/PATH.py` for explicitly partial feedback.
+Use `--update-tests` explicitly after adding tests; review additions/removals.
+Runtime and hardware qualification remain distinct from portable checks.
+See [system map](docs/system-map.md) and [checks](docs/checks.md).
 
-Run `uv run --locked python tools/check.py`; see [checks](docs/checks.md).
-The future benchmark entry is `uv run --locked python -m benchmarks`
-with plan/run/verify/report modes; it does not exist yet.
-See [benchmarking](docs/benchmarking.md) before designing an experiment.
+No code comments or commentary docstrings. Keep exactly one root AGENTS.md.
+Do not add skills or GPU reservation machinery. GPU execution needs explicit
+user authorization and externally established ownership of the host/device.
 
-# Judgment the checks cannot provide
+Changes weakening guarantees or adding substantive exceptions need Philip's
+review unless the task explicitly authorizes them. Routine strengthening and
+mechanical test-manifest maintenance proceed within scope.
 
-Philip reviews exceptions and check-configuration changes. Turn recurring
-corrections into checks with bad specimens and positive controls; commit small
-coherent checkpoints.
+# Evidence and communication
 
-Preserve adverse and inconclusive evidence alongside gains. Choose workloads
-that exercise the claimed mechanism; a pressure claim needs actual CPU restores
-and, for retention, eviction-affected returns. Microbenchmarks alone do not
-establish serving value. Frozen failures do not justify favorable retries.
-
-Treat functional qualification, throughput and answer quality as separate claims.
-Do not infer quality equivalence from token counts, identical selected answers,
-or failure-selected reviews. Declare useful-effect and fairness margins before
-confirmation. Coordinate shared hardware with its owner before future GPU work.
-
-Use [FINDINGS](FINDINGS.md) for durable conclusions, with scope and immutable
-sources. Read the actual evidence when changing a claim. Keep the old repository
-and its sealed evidence intact; this step grants no authority to repair history.
+Use [FINDINGS](FINDINGS.md) for scoped conclusions with immutable evidence.
+Preserve failed, adverse and incomplete attempts. Report actual mechanism,
+executed versus reused checks, unavailable observations and qualification scope.
+A healthy process, passing CPU checks and useful research are separate facts.
+Keep the historical repository and sealed runs intact.
+Benchmark methodology and high-level agent features are deferred.

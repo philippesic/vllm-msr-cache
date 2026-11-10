@@ -1,0 +1,66 @@
+[
+  {
+    "path": "v1/core/sched/scheduler.py",
+    "sha256": "b67095aeaf2575f6c1c53c351562ea802f4e1d803b38605efe2338294692c2d8",
+    "methods": [
+      {
+        "class": "Scheduler",
+        "name": "publish_kv_connector_wait_hint",
+        "source": "def publish_kv_connector_wait_hint(self, hint: dict[str, Any]) -> dict[str, Any]:\n    if self.connector is None:\n        return {'status': 'unsupported', 'reason': 'kv_connector_unconfigured'}\n    return self.connector.publish_wait_hint(hint)"
+      }
+    ]
+  },
+  {
+    "path": "v1/engine/core.py",
+    "sha256": "8e2f1f20974f3b72c507b94eae662d8c6078a7f134e56033db5bc4e74e1bd32f",
+    "methods": [
+      {
+        "class": "EngineCore",
+        "name": "publish_kv_connector_wait_hint",
+        "source": "def publish_kv_connector_wait_hint(self, hint: dict[str, Any]) -> dict[str, Any]:\n    return self.scheduler.publish_kv_connector_wait_hint(hint)"
+      }
+    ]
+  },
+  {
+    "path": "v1/engine/core_client.py",
+    "sha256": "7f5e1ac1a999faf36eab7d0c184bea7c93ae5e92234c39a148a809fd6e89840c",
+    "methods": [
+      {
+        "class": "EngineCoreClient",
+        "name": "publish_kv_connector_wait_hint",
+        "source": "def publish_kv_connector_wait_hint(self, hint: dict[str, Any]) -> dict[str, Any]:\n    raise NotImplementedError"
+      },
+      {
+        "class": "EngineCoreClient",
+        "name": "publish_kv_connector_wait_hint_async",
+        "source": "async def publish_kv_connector_wait_hint_async(self, hint: dict[str, Any]) -> dict[str, Any]:\n    raise NotImplementedError"
+      },
+      {
+        "class": "InprocClient",
+        "name": "publish_kv_connector_wait_hint",
+        "source": "def publish_kv_connector_wait_hint(self, hint: dict[str, Any]) -> dict[str, Any]:\n    return self.engine_core.publish_kv_connector_wait_hint(hint)"
+      },
+      {
+        "class": "SyncMPClient",
+        "name": "publish_kv_connector_wait_hint",
+        "source": "def publish_kv_connector_wait_hint(self, hint: dict[str, Any]) -> dict[str, Any]:\n    return self.call_utility('publish_kv_connector_wait_hint', hint)"
+      },
+      {
+        "class": "AsyncMPClient",
+        "name": "publish_kv_connector_wait_hint_async",
+        "source": "async def publish_kv_connector_wait_hint_async(self, hint: dict[str, Any]) -> dict[str, Any]:\n    return await self.call_utility_async('publish_kv_connector_wait_hint', hint)"
+      }
+    ]
+  },
+  {
+    "path": "v1/engine/async_llm.py",
+    "sha256": "1174270049b723542e105ff81a3843b6a8fdb2988baba2add9abd4616413b993",
+    "methods": [
+      {
+        "class": "AsyncLLM",
+        "name": "publish_kv_connector_wait_hint",
+        "source": "async def publish_kv_connector_wait_hint(self, hint: dict[str, Any]) -> dict[str, Any]:\n    return await self.engine_core.publish_kv_connector_wait_hint_async(hint)"
+      }
+    ]
+  }
+]

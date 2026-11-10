@@ -31,25 +31,25 @@ reason = "Tests legitimately import pytest; dependency enforcement applies to se
 [[exception]]
 rule = "adapter-import"
 path = "pyproject.toml"
-match = "semantic_offload.vllm_adapter -> vllm"
+match = "wait_hint_offload.vllm_adapter -> vllm"
 reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
 
 [[exception]]
 rule = "adapter-import"
 path = "pyproject.toml"
-match = "semantic_offload.vllm_adapter -> vllm.**"
+match = "wait_hint_offload.vllm_adapter -> vllm.**"
 reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
 
 [[exception]]
 rule = "adapter-import"
 path = "pyproject.toml"
-match = "semantic_offload.vllm_adapter.** -> vllm"
+match = "wait_hint_offload.vllm_adapter.** -> vllm"
 reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
 
 [[exception]]
 rule = "adapter-import"
 path = "pyproject.toml"
-match = "semantic_offload.vllm_adapter.** -> vllm.**"
+match = "wait_hint_offload.vllm_adapter.** -> vllm.**"
 reason = "Only the reserved adapter boundary may import pinned vLLM; enforced by AST and import-linter."
 
 [[exception]]
@@ -86,4 +86,22 @@ reason = "Pytest invokes the registered hook and consumes its report fields exte
 rule = "script"
 path = "tools/runtime_verify.py"
 match = "entry"
-reason = "Explicit module command reports unavailable runtime qualification with exit 2; never a GPU job."
+reason = "Functional verifier owns its external attempt receipts; hardware execution requires explicit opt-in and external authorization."
+
+[[exception]]
+rule = "script"
+path = "tools/run_runtime.py"
+match = "entry"
+reason = "Bounded runtime invocation attests the exact wheel and RPC patch without changing installed files."
+
+[[exception]]
+rule = "unused"
+path = "tools/runtime_capture.py"
+match = "unused function 'pytest_addoption' (60% confidence)"
+reason = "The runtime pytest lane invokes this hook; its immutable capture is required by the receipt reader."
+
+[[exception]]
+rule = "unused"
+path = "tools/runtime_capture.py"
+match = "unused function 'pytest_sessionfinish' (60% confidence)"
+reason = "Runtime pytest invokes this hook to capture actual executable and loaded binary identities."

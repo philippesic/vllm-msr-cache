@@ -1,5 +1,9 @@
 # 004: Evidence and benchmark ownership
 
+Active amendment, 10 November 2026: Functional verification owns its own correctness receipts through a caller-owned sink. Benchmark runner ownership applies only to later benchmark results. No hosted CI or remote is required for local acceptance.
+
+The earlier clauses below are historical where superseded by this amendment.
+
 Accepted. `FINDINGS.md` is the single conclusions index, linking immutable old
 receipts and external raw paths. Git holds definitions, compact findings and
 sanitized fixtures; generated plans, copied execution trees and raw runs remain

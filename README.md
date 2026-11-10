@@ -1,55 +1,53 @@
 # vllm-semantic-cache-ext-next
 
-A fresh foundation for research on **exact KV reuse** with CPU offload and
-causal tool-wait advice, compared with matched native ARC. Semantic scores rank
-retention or prefetch candidates; they never replace answers or permit approximate
-KV reuse. The temporary project name does not imply a public release.
+Exact CPU KV offload with causal wait-hint ARC recency advice. Semantic ranking
+and GPU prefetch stay in the historical repository. Advice only reorders ready
+native CPU residents; exact native block keys remain the reuse boundary.
 
-This repository contains packaging, CPU validation and source-linked documentation.
-Typed identity contracts are CPU examples. There is no cache runtime, CUDA
-extension or benchmark harness yet. It installs no vLLM, torch or CUDA dependency
-and makes no hardware support claim.
+The minimal port includes typed hint contracts, bounded session state, a native
+vLLM adapter, authenticated HTTP publication and separate portable/runtime/hardware
+checks. Benchmark redesign and high-level agent operations remain deferred.
+Functional qualification is recorded in [FINDINGS](FINDINGS.md); it is not evidence
+of a speedup, answer quality or support for another GPU/model/runtime.
 
-## Install and check
+## Development
 
-Use uv **0.13.6** and CPython **3.12.3** (Linux x86-64 is the verified host).
-With Python/pip available, the hash-pinned bootstrap is optional:
+Use uv **0.13.6** and CPython **3.12.3**:
 
 ```sh
-python3 -m pip install --require-hashes -r tools/bootstrap-uv.txt
-uv python install 3.12.3
 uv sync --locked
 uv run --locked python tools/check.py
+uv run --locked python tools/check.py --test tests/test_advice.py
 ```
 
-The validator checks without editing files. It runs format, lint, strict typing,
-import boundaries, repository policy, unused code/dependencies, separately
-reported native/runtime groups, and CPU pytest including deliberate-violation
-proofs. Native reports `skipped: no native sources yet`; runtime reports not
-implemented and skips. [Checks and proofs](docs/checks.md) explain exact coverage
-and limitations. CI runs the identical command in the pinned
-[CPU image](Dockerfile.checks); the same image can be built locally with Docker.
+The full portable check includes deliberate bad/control specimens and hides CUDA.
+The targeted command reports partial coverage. After changing test discovery, use
+`--update-tests` and review its diff. See [checks](docs/checks.md).
 
-The optional pre-commit hook runs that same command (no GPU/build work):
+Install the independent hash-locked runtime only when needed:
 
 ```sh
-git config --local core.hooksPath .githooks
+uv venv --python 3.12.3 /external/venvs/wait-hint
+uv pip install --python /external/venvs/wait-hint/bin/python --require-hashes -r runtime/requirements.txt
+uv pip install --python /external/venvs/wait-hint/bin/python --no-deps -e .
+uv run --locked python tools/check.py --runtime-python /external/venvs/wait-hint/bin/python --out /external/new-cpu-attempt
 ```
 
-It is not enabled automatically. Typical timing is recorded in the handoff;
-this hook includes the proofs rather than maintaining a weaker check path.
+This runs strict runtime types and real pinned CPU integration. It snapshots
+source and retains logs and receipts. It never acquires or uses a GPU.
+[Runtime instructions](docs/runtime.md) explain the supported serving configuration,
+HTTP contract and separately authorized hardware gate. No GPU reservation machinery
+is included here. The optional full portable commit hook is enabled with
+`git config --local core.hooksPath .githooks`; setup does not enable it silently.
 
 ## Navigation
 
-- [System map](docs/system-map.md): commands, targets and availability.
-- [Proposed wait-hint port plan](docs/porting-overhaul.md): audit, architecture, checks, and staged acceptance.
-- [Historical remaining stages](docs/remaining-stages.md): the previous broader port inventory.
-- [Issue and failure analysis](docs/issue-analysis.md): old-repo failures and what now addresses them.
-- [Research instructions](AGENTS.md) and [durable findings](FINDINGS.md).
-- [Runtime assumptions](docs/runtime.md): distinct historical environments and GPUs.
-- [Benchmark protocol](docs/benchmarking.md): future invocation and comparison rules.
-- [Decisions](docs/decisions/README.md): boundaries, default candidate and evidence policy.
+- [System map](docs/system-map.md), [architecture and protocol](docs/source-port.md).
+- [Port plan and disposition](docs/porting-overhaul.md).
+- [Research instructions](AGENTS.md), [findings](FINDINGS.md).
+- [Historical failure analysis](docs/issue-analysis.md), [decisions](docs/decisions/README.md).
+- [Deferred benchmark interface](docs/benchmarking.md).
 
-Raw runs, execution snapshots, transient plans and scratch live outside Git.
-The old repository remains read-only evidence. No remote is configured; no
-license has been selected for publication and no distribution is authorized.
+Track code, tests, workflow definitions and compact findings here. Raw attempts,
+execution snapshots and retained wheels live outside Git. The historical repo
+remains intact. This checkout has no remote; no public release is authorized.

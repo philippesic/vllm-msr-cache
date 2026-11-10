@@ -1,3 +1,7 @@
+> Historical pre-port proposal. The active scope and superseding decisions are in
+> [the port plan](porting-overhaul.md). Benchmark methodology and high-level agent
+> operations remain deferred; no commands below imply implemented capability.
+
 # Remaining port stages
 
 Historical planning inventory. The newer [wait-hint port plan](porting-overhaul.md)

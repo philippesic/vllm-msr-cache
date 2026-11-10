@@ -32,7 +32,7 @@ def component(name: str, root: Path) -> int:
         elif name == "unused":
             errors = unused.code_check(root)
         elif name == "runtime":
-            errors = runtime_policy.runtime_stub_check(root)
+            errors = runtime_policy.runtime_interface_check(root)
         else:
             errors = native.check(root, repo_policy.git_paths(root))
         for error in errors:
@@ -44,7 +44,7 @@ def component(name: str, root: Path) -> int:
                 )
             elif name == "runtime":
                 print(
-                    "skipped: runtime verification is not implemented until source port (command exits 2)"
+                    "skipped: runtime qualification requires explicit pinned Python and external --out"
                 )
             else:
                 print(f"{name}: OK")
@@ -83,7 +83,98 @@ def main() -> int:
     parser.add_argument(
         "--self-test", action="store_true", help="only deliberate-violation proofs"
     )
+    parser.add_argument(
+        "--test", help="Run selected CPU tests; partial, never full acceptance"
+    )
+    parser.add_argument("--update-tests", action="store_true")
+    parser.add_argument("--runtime-python", type=Path)
+    parser.add_argument("--out", type=Path)
     args = parser.parse_args()
+    if args.update_tests:
+        import json
+
+        if args.runtime_python:
+            inventories = [
+                ("tests/runtime", "runtime/cpu-tests.json"),
+                ("tests/runtime/gpu_cases.py", "runtime/gpu-tests.json"),
+            ]
+        else:
+            inventories = [("tests", "tools/cpu-tests.json")]
+        for selected, manifest in inventories:
+            command = [sys.executable, "-m", "pytest", "--collect-only", "-q", selected]
+            if args.runtime_python:
+                command = [
+                    str(args.runtime_python),
+                    "-m",
+                    "tools.run_runtime",
+                    str(args.runtime_python),
+                    "-m",
+                    "pytest",
+                    "--collect-only",
+                    "-q",
+                    selected,
+                ]
+            else:
+                command.append("--ignore=tests/runtime")
+            result = subprocess.run(
+                command,
+                cwd=ROOT,
+                env=config.check_environment(ROOT),
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode:
+                print(result.stderr + result.stdout)
+                return result.returncode
+            manifest_path = ROOT / manifest
+            previous = (
+                set(json.loads(manifest_path.read_text()))
+                if manifest_path.exists()
+                else set()
+            )
+            collected = sorted(
+                line
+                for line in result.stdout.splitlines()
+                if line.startswith("tests/") and "::" in line
+            )
+            print(manifest, "Added:", sorted(set(collected) - previous))
+            print(manifest, "Removed:", sorted(previous - set(collected)))
+            manifest_path.write_text(json.dumps(collected, indent=2) + "\n")
+        return 0
+    if args.runtime_python:
+        if args.out is None:
+            parser.error("--runtime-python requires a new external --out")
+        selected_files = sorted(
+            (ROOT / "wait_hint_offload/vllm_adapter").glob("*.py")
+        ) + sorted((ROOT / "tests/runtime").glob("*.py"))
+        command = [
+            "mypy",
+            "--strict",
+            "--follow-imports=silent",
+            "--python-executable",
+            str(args.runtime_python),
+            *[str(path) for path in selected_files],
+        ]
+        print(
+            "Runtime lane: strict adapter/test types, then pinned CPU integration; GPU omitted",
+            flush=True,
+        )
+        code = run(command, ROOT)
+        if code:
+            return code
+        return run(
+            [
+                str(args.runtime_python),
+                "-m",
+                "tools.runtime_verify",
+                "--out",
+                str(args.out),
+            ],
+            ROOT,
+        )
+    if args.test:
+        print("PARTIAL CPU tests; all other acceptance groups omitted")
+        return run([sys.executable, "-m", "pytest", "-q", args.test], ROOT)
     if args.component:
         return component(args.component, args.root.resolve())
     if args.root.resolve() != ROOT:
@@ -127,6 +218,7 @@ def main() -> int:
         "pytest",
         "-v",
         "-s",
+        "--ignore=tests/runtime",
         "-p",
         "tools.pytest_gate",
         "--gate-manifest",

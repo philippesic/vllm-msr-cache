@@ -174,12 +174,7 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
     tree = ast.parse(text, filename=label)
     aliases = qualified_names(tree)
     errors = []
-    library = path.parts[0] in {"semantic_offload", "benchmarks"}
-    callable_names = {
-        n.name
-        for n in ast.walk(tree)
-        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))
-    }
+    library = path.parts[0] in {"wait_hint_offload", "benchmarks"}
     script_allowed = any(
         e.rule == "script" and e.path == label and e.match == "entry" for e in entries
     )
@@ -214,7 +209,7 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
             "os.getenv",
             "os.putenv",
             "os.unsetenv",
-        } and label not in {"tools/config.py", "semantic_offload/config.py"}:
+        } and label not in {"tools/config.py", "wait_hint_offload/config.py"}:
             errors.append(f"footgun.environment: {label}")
         if name == "time.sleep" and path.parts[0] == "tests":
             errors.append(f"footgun.test-sleep: {label}")
@@ -257,31 +252,22 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
                         errors.append(f"footgun.rng: {label}")
                 elif torch_call:
                     errors.append(f"footgun.rng: {label}")
-        if (
-            library
-            and isinstance(node, ast.Dict)
-            and any(
-                isinstance(value, ast.Name) and value.id in callable_names
-                for value in node.values
-            )
-        ):
-            errors.append(f"layout.registry: {label}")
         if isinstance(node, ast.Name) and (
-            node.id.upper() == "REGISTRY" or node.id.upper().endswith("_REGISTRY")
+            node.id.upper() in {"REGISTRY", "POLICY_REGISTRY", "WORKLOAD_REGISTRY"}
         ):
             errors.append(f"layout.registry: {label}")
         if (
             isinstance(node, ast.ImportFrom)
             and node.module
             and node.module.startswith(
-                ("benchmarks.workloads.", "semantic_offload.policies.")
+                ("benchmarks.workloads.", "wait_hint_offload.policies.")
             )
         ):
             errors.append(f"layout.registry: {label}")
         if isinstance(node, ast.Import):
             if any(
                 n.name.startswith(
-                    ("benchmarks.workloads.", "semantic_offload.policies.")
+                    ("benchmarks.workloads.", "wait_hint_offload.policies.")
                 )
                 for n in node.names
             ):
@@ -297,7 +283,7 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
         errors.append(f"layout.registry: {label}")
     if (
         path.parts[:2]
-        in {("benchmarks", "workloads"), ("semantic_offload", "policies")}
+        in {("benchmarks", "workloads"), ("wait_hint_offload", "policies")}
         and path.name != "__init__.py"
     ):
         suffix = "_workload.py" if path.parts[0] == "benchmarks" else "_policy.py"

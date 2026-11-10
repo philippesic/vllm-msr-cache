@@ -67,14 +67,14 @@ def write(root: Path, files: dict[str, str | None]) -> None:
                 subprocess.run(["git", "add", "-f", name], cwd=root, check=True)
 
 
-def prepare(root: Path) -> None:
+def prepare(root: Path, component: str) -> None:
     root.mkdir()
     subprocess.run(["git", "init", "-q", str(root)], check=True)
     config = (
         (ROOT / "pyproject.toml")
         .read_text()
         .replace(
-            'files = ["semantic_offload", "benchmarks", "tools", "tests"]',
+            'files = ["wait_hint_offload", "benchmarks", "tools", "tests"]',
             'files = ["probe.py"]',
         )
     )
@@ -98,11 +98,11 @@ def prepare(root: Path) -> None:
             "AGENTS.md": "Research instructions.\n",
             "CLAUDE.md": "@AGENTS.md\n",
             "probe.py": "value: int = 1\n",
-            "semantic_offload/__init__.py": "",
-            "semantic_offload/contracts.py": (
-                ROOT / "semantic_offload/contracts.py"
+            "wait_hint_offload/__init__.py": "",
+            "wait_hint_offload/contracts.py": (
+                ROOT / "wait_hint_offload/contracts.py"
             ).read_text(),
-            "semantic_offload/vllm_adapter/__init__.py": "",
+            "wait_hint_offload/vllm_adapter/__init__.py": "",
             "benchmarks/__init__.py": "",
             "tests/__init__.py": "",
             "vllm/__init__.py": "",
@@ -111,6 +111,7 @@ def prepare(root: Path) -> None:
             "tests/test_contracts.py": (ROOT / "tests/test_contracts.py").read_text(),
             "tools/__init__.py": "",
             "tools/pytest_gate.py": (ROOT / "tools/pytest_gate.py").read_text(),
+            "tools/runtime_capture.py": (ROOT / "tools/runtime_capture.py").read_text(),
             "tools/native.json": (ROOT / "tools/native.json").read_text(),
             "tools/exceptions.toml": fixture_exceptions,
             "tools/runtime_verify.py": (ROOT / "tools/runtime_verify.py").read_text(),
@@ -118,6 +119,9 @@ def prepare(root: Path) -> None:
             "cpu.json": '["test_probe.py::test_control"]\n',
         },
     )
+    if component == "unused":
+        (root / "wait_hint_offload/contracts.py").write_text("")
+        (root / "tests/test_contracts.py").write_text("")
 
 
 def invoke(root: Path, component: str) -> subprocess.CompletedProcess[str]:
@@ -178,7 +182,7 @@ def test_rule_rejects_specimen(case: Case, proof_workspace: Path) -> None:
     positive = tmp_path / "positive"
     negative = tmp_path / "negative"
     for root, changes in ((positive, case.good), (negative, case.bad)):
-        prepare(root)
+        prepare(root, case.component)
         write(root, changes)
     good = invoke(positive, case.component)
     assert good.returncode == 0, good.stdout + good.stderr

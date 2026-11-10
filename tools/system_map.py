@@ -16,7 +16,7 @@ ENTRY_POINTS = (
         "uv run --locked python -m tools.runtime_verify",
         "tools/runtime_verify.py",
         "main",
-        "unavailable; exits 2",
+        "implemented; explicit runtime and output required",
     ),
     (
         "Benchmarks",

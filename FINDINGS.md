@@ -1,12 +1,29 @@
 # Durable findings
 
-This index carries scoped conclusions from immutable old evidence; it contains no
-new serving measurements. Local evidence root:
+This index separates the new port's functional qualification from historical
+research results. Historical evidence root:
 `/home/philip/vllm-semantic-cache-ext/` on DESKTOP-T4JKGJB (RTX 2080 Ti/WSL2).
 The links below freeze the inspected revision, not mutable main. Paths under
 `output/` stay in the old repository's storage and were not copied or relocated.
 Confidence intervals below are conditional historical 95% intervals, not fresh
 reanalysis, population-quality estimates or selection-adjusted winner tests.
+
+## Minimal wait-hint port, 2026-11-10
+
+The port implements exact CPU KV offload with causal wait-hint ARC recency advice,
+an authenticated endpoint, bounded observations/replay state and transfer-failure
+bookkeeping. Semantic scoring and GPU prefetch are absent. The advice-disabled
+control shares all correctness guards.
+
+The pinned CPU lane passed 12 integration tests with CUDA uninitialized. On this
+host's RTX 2080 Ti, three hardware tests passed: exact GPU/CPU bytes across CPU
+eviction, restoration versus fresh computation in both advice modes, and real
+authenticated HTTP delivery through async engine RPC. This qualifies the tested
+dense FP16 TP1 configuration, not other hardware/models or performance.
+[Qualification and limitations](evidence/minimal-port-20261110.md).
+
+The lightweight fresh-agent exercise is a separate usability checkpoint, reported
+in that record. Benchmark redesign and high-level agent operations remain deferred.
 
 ## Unchanged wait-hint candidate, 2026-11-05
 
@@ -130,4 +147,5 @@ Earlier compact work remains available under the old
 [e04](https://github.com/philippesic/vllm-msr-cache/tree/1319f09bafac46bab89df465dd433c67441f4b26/evidence/e04)
 and [live wait-hint investigation](https://github.com/philippesic/vllm-msr-cache/tree/1319f09bafac46bab89df465dd433c67441f4b26/evidence/live-optimization-2080ti-20261103).
 Those scopes are not requalified here. The complete external inventory reconciles
-7,438 old tracked paths; no old code/history/raw outputs were imported.
+7,438 old tracked paths; that foundation inventory imported no old code/history/raw
+outputs. The subsequent minimal source extraction is documented separately above.

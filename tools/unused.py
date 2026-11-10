@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -14,7 +15,7 @@ def code_check(root: Path) -> list[str]:
     result = subprocess.run(
         [
             "vulture",
-            "semantic_offload",
+            "wait_hint_offload",
             "benchmarks",
             "tools",
             "tests",
@@ -47,6 +48,21 @@ def dependency_command(root: Path) -> list[str]:
     if errors:
         raise ValueError(errors[0])
     command = ["deptry", ".", "--no-ansi", "--exclude", r"(?:\.venv|\.git)(?:/|$)"]
+    modules_path = root / "runtime/modules.json"
+    if modules_path.exists():
+        modules = json.loads(modules_path.read_text())
+        requirements = (root / "runtime/requirements.in").read_text()
+        for module, distribution in modules.items():
+            if not re.fullmatch(r"[a-z_]+", module) or not re.search(
+                rf"^{re.escape(distribution)}(?:==| @ )", requirements, re.MULTILINE
+            ):
+                raise ValueError("runtime import is not pinned")
+        command.extend(
+            [
+                "--per-rule-ignores",
+                ",".join("DEP001=" + module for module in sorted(modules)),
+            ]
+        )
     for entry in entries:
         if entry.rule == "development-root" and entry.match == "deptry":
             command.extend(["--extend-exclude", f"^{re.escape(entry.path)}(?:/|$)"])

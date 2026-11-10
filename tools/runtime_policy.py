@@ -7,7 +7,7 @@ from pathlib import Path
 from tools.config import check_environment
 
 
-def runtime_stub_check(root: Path) -> list[str]:
+def runtime_interface_check(root: Path) -> list[str]:
     result = subprocess.run(
         [sys.executable, "-m", "tools.runtime_verify"],
         cwd=root,
@@ -19,10 +19,10 @@ def runtime_stub_check(root: Path) -> list[str]:
     if (
         result.returncode != 2
         or result.stdout
-        != "NOT IMPLEMENTED: runtime verification is not implemented until source port.\n"
+        != "UNAVAILABLE: supply --out outside the repository using pinned runtime Python.\n"
         or result.stderr
     ):
         return [
-            "runtime.claim: stub must exit 2 and report not implemented until source port"
+            "runtime.claim: no-argument interface must exit 2 without claiming qualification"
         ]
     return []
