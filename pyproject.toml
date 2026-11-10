@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vllm-cache-next"
+version = "0.0.0"
+description = "Exact KV cache research; foundation only"
+requires-python = "==3.12.3"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "ruff==0.14.4",
+  "mypy==1.18.2",
+  "import-linter==2.7",
+  "pytest==8.4.2",
+]
+
+[tool.uv]
+required-version = "==0.13.6"
+
+[tool.hatch.build.targets.wheel]
+packages = ["semantic_offload"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["F401", "F821", "I001", "B006", "UP006"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_configs = true
+show_error_codes = true
+files = ["semantic_offload", "benchmarks", "tools", "tests"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.importlinter]
+root_packages = ["semantic_offload", "benchmarks"]
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "Only vllm_adapter imports vllm"
+type = "forbidden"
+source_modules = ["semantic_offload"]
+forbidden_modules = ["vllm"]
+ignore_imports = [
+  "semantic_offload.vllm_adapter -> vllm",
+  "semantic_offload.vllm_adapter -> vllm.**",
+  "semantic_offload.vllm_adapter.** -> vllm",
+  "semantic_offload.vllm_adapter.** -> vllm.**",
+]
+unmatched_ignore_imports_alerting = "none"
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "Production never imports benchmarks"
+type = "forbidden"
+source_modules = ["semantic_offload"]
+forbidden_modules = ["benchmarks"]
+
+[[tool.importlinter.contracts]]
+name = "Contracts never import the adapter"
+type = "forbidden"
+source_modules = ["semantic_offload.contracts"]
+forbidden_modules = ["semantic_offload.vllm_adapter"]
