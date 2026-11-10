@@ -26,6 +26,13 @@ and operational commands are [runtime.md](runtime.md), and scoped outcomes are i
 foundation; the completion record distinguishes implemented, exercised and deferred
 capabilities. Historical evidence and adverse attempts remain preserved.
 
+Implementation checkpoint: M0–M5 and the bounded fresh-agent CPU exercise are
+complete for the tested host/configuration. See the [completion record](../evidence/minimal-port-20261110.md)
+for actual executed cases, failed attempts, retained native ARC limitation and
+unqualified capabilities. M6 benchmark redesign and high-level operations remain
+the next separately scoped work. This is functional qualification, not a new
+policy/performance or general agent-productivity result.
+
 
 ## Conclusion and boundaries
 

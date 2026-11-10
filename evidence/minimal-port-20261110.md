@@ -41,8 +41,11 @@ inputs and terminal record. Paths below are local dependencies, not remote backu
 | Hardware | `hardware-04/`, `hardware-04-wrapper.log`, `hardware-04-sanity.json` | Three real hardware tests; external historical ownership wrapper; RTX 2080 Ti/WSL2; dense FP16, TP1, TRITON_ATTN, eager execution, FCFS |
 | Setup | `development-logs/wait-port-install.log`, `development-logs/wait-port-lock.log`, retained `wheels/vllm.whl` | Hash-required installation from the locked closure; installed dependency consistency checked; archived native wheel |
 
-The portable log above precedes the final coherent checkpoint; the normal commit
-hook reruns full acceptance on the committed source. CPU fixtures construct real
+The coherent source checkpoint is `6eb7faf` (`Port minimal wait-hint offload`). Its
+normal commit hook re-executed all 166 tests: nine groups passed, two explicitly
+omitted, zero failed, 55.99 seconds. `checkpoint-commit.log` retains that result.
+`checkpoint-assessment.json` independently confirms both final functional receipts
+and unchanged executable inputs against that checkpoint. CPU fixtures construct real
 native ARC/manager/scheduler/RPC bodies and fake only transfer handlers or utility
 transport where necessary. They cannot prove CUDA streams, device fences or bytes.
 Small independent oracles include an externally calculated digest vector, explicit
@@ -91,10 +94,44 @@ reservations. No active/shared data or historical evidence was reclaimed.
 
 ## Fresh-agent checkpoint
 
-The public task is [exercise v1](../docs/agent-exercise.md). Its outcome is appended
-after the source checkpoint so the evaluated agent receives a pinned, clean source.
-One trial can establish only that workflow's usability, with product correctness,
-truthful reporting and causal productivity treated as separate claims.
+The public task is [exercise v1](../docs/agent-exercise.md). A fresh context received
+the clean source checkpoint, ordinary docs, installed runtime Python, a disposable
+candidate CPU receipt and an external output root. CPU checks were authorized;
+source changes, GPU execution, publication and further agents were excluded. The
+assessor kept the fault key outside the permitted task roots and gave no hints.
+
+The disposable candidate was derived from `runtime-cpu-06`, with copied paths
+retargeted and verified before deliberately changing the observed collection count
+without updating its artifact seal. It also predates the source checkpoint's new
+findings text. Neither the original attempt nor any real GPU/evidence data was
+modified. The candidate was rejected with `receipt artifact drift`; it remained
+intact and supplied no reused qualification.
+
+The agent freshly ran the full 166-test portable suite, strict typing on 12 runtime
+files and all 12 pinned-runtime CPU cases, dependency consistency and receipt
+verification. Its new attempt reports CUDA uninitialized. It correctly limited
+its conclusions to CPU fixtures/bookkeeping and made no hardware, serving or
+performance claim. The authored source stayed clean and all 87 frozen inputs
+matched the evaluated checkpoint. No retries, diagnostic hints or interventions
+were needed. It reused the installed environment and ordinary tool caches, not
+test results.
+
+Retained records: `agent-exercise-01/agent-output/REPORT.txt`, command logs and
+receipts, plus independently written `agent-exercise-01/assessment.json` and the
+assessor key. The agent reported 276.8 seconds from its first inspection. The
+assessor independently observed completion within a 354.7-second upper bound from
+launch preparation, below the 600-second budget. Those observations are task wall
+time, not scientific performance. Complete tool-call counts, individual tool
+latency, model cost and a comprehensive unsafe-attempt trace were unavailable.
+
+This was one same-provider/model fresh-context trial on a warm installed host,
+not a comparison with the previous repository. The assessor and agent share an
+OS identity; there was no technical access isolation protecting the key. The
+prompt withheld it, and the evidence/source checks supplied the acceptance oracle.
+This does not prove malicious-agent resistance, general development quality,
+edit/repair or interruption/resume usability, or causal productivity improvement.
+After freezing the result, stale portable-scope prose was clarified; commands,
+source behavior and acceptance criteria did not change.
 
 ## Deferred work
 

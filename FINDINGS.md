@@ -22,8 +22,11 @@ authenticated HTTP delivery through async engine RPC. This qualifies the tested
 dense FP16 TP1 configuration, not other hardware/models or performance.
 [Qualification and limitations](evidence/minimal-port-20261110.md).
 
-The lightweight fresh-agent exercise is a separate usability checkpoint, reported
-in that record. Benchmark redesign and high-level agent operations remain deferred.
+One fresh agent rejected a damaged CPU receipt and produced valid current-source
+CPU qualification without hints or source changes, within its ten-minute budget.
+The independent assessment verified its receipts and narrow factual report. This
+supports that workflow's usability, not general agent-productivity improvement.
+Benchmark redesign and high-level agent operations remain deferred.
 
 ## Unchanged wait-hint candidate, 2026-11-05
 
