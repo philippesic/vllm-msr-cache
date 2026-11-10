@@ -7,7 +7,7 @@ import sys
 import tomllib
 from pathlib import Path
 
-from tools import agent_policy
+from tools import agent_policy, system_map
 
 SKIP_DIRS = {
     ".git",
@@ -119,6 +119,7 @@ def boundary_policy(root: Path) -> list[str]:
 def check(root: Path) -> list[str]:
     paths = git_paths(root)
     errors = agent_policy.check(root, paths)
+    errors.extend(system_map.check(root))
     visible = visible_files(root)
     if [p.as_posix() for p in visible if p.name == "AGENTS.md"] != ["AGENTS.md"]:
         errors.append("repo.agents: require exactly one root AGENTS.md")

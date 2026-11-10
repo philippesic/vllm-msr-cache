@@ -33,8 +33,8 @@ configuration changes; this task authorizes the initial implementation and entri
 Future extension definitions use isolated `benchmarks/workloads/*_workload.py`
 and `semantic_offload/policies/*_policy.py` modules, discovered by suffix. There
 are no adapters, discovery loader or registry implementation in this stage.
-Static named registries, callable dictionaries and hardcoded imports into those
-extension modules are rejected. A future loader needs a separately reviewed,
+Static named registries, dictionaries of local functions and hardcoded imports
+into those extension modules are rejected. A future loader needs a separately reviewed,
 path-specific dynamic-import allowance and its own discovery behavior proofs.
 New top-level Python files, executable shell files, main guards and import-time
 script calls require exact entry membership. Module helpers remain ordinary
@@ -84,3 +84,24 @@ never as a passed group. A rebuilt binary, prose summary or CPU check cannot
 satisfy future runtime verification. The future body requires lifecycle,
 restore/fresh equality, architecture and failure-path observations described in
 [runtime](../runtime.md); there is no GPU execution in this stage.
+
+## G005-IDENTITY
+
+The standard-library-only contract is a frozen `ExactKVIdentity`: identical
+prefix tokens, model, adapter, positions and layout are all necessary. Its
+identity predicate takes identities, never retention scores. `RetentionScore`
+is a distinct static type; `RetentionCandidate` associates ranking information
+with an identity without substituting for it. The CPU suite mutates each field,
+checks immutability and shows a higher-ranked mismatched candidate being refused.
+These are contract examples, not a cache implementation: no tensor storage,
+byte proof, allocation ownership, event fences, serving behavior or quality is
+qualified. A future runtime must also validate actual digests, token/position
+geometry, adapters, layouts and lifecycle before using a matching identity.
+
+## G005-MAP
+
+[The system map](../system-map.md) lists command, target function and availability.
+A deterministic check verifies those rows and actual targets. The benchmark
+entry must remain absent while documented as future; adding it requires updating
+the map and qualification together. This prevents inert placeholders being
+reported as completed runtime or benchmark flows.

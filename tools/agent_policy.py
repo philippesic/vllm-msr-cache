@@ -39,6 +39,14 @@ def exceptions(root: Path) -> tuple[list[ExceptionEntry], list[str]]:
                     "development-root",
                     "adapter-import",
                 }
+                or (entry.rule == "script" and entry.match != "entry")
+                or (
+                    entry.rule == "development-root"
+                    and (
+                        entry.path not in {"tools", "tests"} or entry.match != "deptry"
+                    )
+                )
+                or (entry.rule == "adapter-import" and entry.path != "pyproject.toml")
                 or not entry.reason.strip()
                 or Path(entry.path).is_absolute()
                 or ".." in Path(entry.path).parts
@@ -102,6 +110,8 @@ def comment_errors(
                 errors.append(f"comments.docstring: {label}")
         elif path.suffix in {".toml", ".yml", ".yaml", ".sh"} or path.name in {
             "Dockerfile.checks",
+            "bootstrap-uv.txt",
+            ".editorconfig",
             "pre-commit",
             ".gitignore",
             ".dockerignore",
@@ -165,6 +175,11 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
     aliases = qualified_names(tree)
     errors = []
     library = path.parts[0] in {"semantic_offload", "benchmarks"}
+    callable_names = {
+        n.name
+        for n in ast.walk(tree)
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))
+    }
     script_allowed = any(
         e.rule == "script" and e.path == label and e.match == "entry" for e in entries
     )
@@ -246,7 +261,8 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
             library
             and isinstance(node, ast.Dict)
             and any(
-                isinstance(value, (ast.Name, ast.Attribute)) for value in node.values
+                isinstance(value, ast.Name) and value.id in callable_names
+                for value in node.values
             )
         ):
             errors.append(f"layout.registry: {label}")

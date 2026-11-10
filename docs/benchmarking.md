@@ -59,3 +59,12 @@ quality review scope; selected failures are not population accuracy estimates.
 The historical measurements and exact evidence pointers live only in
 [FINDINGS](../FINDINGS.md). [Runtime](runtime.md) describes qualification needed
 before either GPU can be used. No GPU acquisition is part of this step.
+
+## Extension and writer conventions
+
+New workload definitions will be isolated `benchmarks/workloads/*_workload.py`
+files discovered by filename suffix. No static name registry or host-specific
+launcher is permitted. Only the future `benchmarks/runner.py` writes durable
+result records; report mode derives views from immutable records. Neither module
+exists yet. See [decision 005](decisions/005-agent-guardrails.md) for single-owner
+contracts, static tripwires and their limits.

@@ -982,7 +982,7 @@
     "id": "layout.registry-callables",
     "component": "policy",
     "good": {
-      "benchmarks/example.py": "LABELS = {\"chat\": \"Chat\"}\n"
+      "benchmarks/example.py": "def config(capacity: int) -> dict[str, int]:\n    return {\"bytes\": capacity}\n"
     },
     "bad": {
       "benchmarks/example.py": "def chat() -> int:\n    return 1\nHANDLERS = {\"chat\": chat}\n"
@@ -1123,5 +1123,203 @@
       "tools/runtime_verify.py": "import sys\nprint(\"SKIPPED: verified enough\")\nsys.exit(2)\n"
     },
     "diagnostic": "runtime.claim:"
+  },
+  {
+    "id": "docs.map-required",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "docs/system-map.md": null
+    },
+    "diagnostic": "docs.map:"
+  },
+  {
+    "id": "docs.map-command",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "docs/system-map.md": "| Runtime verify | `uv run --locked python -m tools.runtime_verify` | `tools/runtime_verify.py:main` | unavailable; exits 2 |\n| Benchmarks | `uv run --locked python -m benchmarks` | `benchmarks/__main__.py` | future; absent |\n"
+    },
+    "diagnostic": "docs.map:"
+  },
+  {
+    "id": "docs.map-status",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "docs/system-map.md": "| CPU checks | `uv run --locked python tools/check.py` | `tools/check.py:main` | implemented |\n| Runtime verify | `uv run --locked python -m tools.runtime_verify` | `tools/runtime_verify.py:main` | implemented |\n| Benchmarks | `uv run --locked python -m benchmarks` | `benchmarks/__main__.py` | future; absent |\n"
+    },
+    "diagnostic": "docs.map:"
+  },
+  {
+    "id": "docs.entry-file",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/check.py": null
+    },
+    "diagnostic": "docs.entry:"
+  },
+  {
+    "id": "docs.entry-symbol",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/check.py": "def removed() -> int:\n    return 0\n"
+    },
+    "diagnostic": "docs.entry:"
+  },
+  {
+    "id": "docs.future-entry",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "benchmarks/__main__.py": "def main() -> int:\n    return 0\n"
+    },
+    "diagnostic": "docs.entry:"
+  },
+  {
+    "id": "contracts.exact-tokens",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=True)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=True)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return stored.model == requested.model and stored.adapter == requested.adapter and stored.positions == requested.positions and stored.layout == requested.layout\n"
+    },
+    "diagnostic": "test_g005_identity_difference_refuses_reuse[tokens]"
+  },
+  {
+    "id": "contracts.exact-model",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=True)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=True)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return stored.prefix_tokens == requested.prefix_tokens and stored.adapter == requested.adapter and stored.positions == requested.positions and stored.layout == requested.layout\n"
+    },
+    "diagnostic": "test_g005_identity_difference_refuses_reuse[model]"
+  },
+  {
+    "id": "contracts.exact-adapter",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=True)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=True)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return stored.prefix_tokens == requested.prefix_tokens and stored.model == requested.model and stored.positions == requested.positions and stored.layout == requested.layout\n"
+    },
+    "diagnostic": "test_g005_identity_difference_refuses_reuse[adapter]"
+  },
+  {
+    "id": "contracts.exact-positions",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=True)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=True)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return stored.prefix_tokens == requested.prefix_tokens and stored.model == requested.model and stored.adapter == requested.adapter and stored.layout == requested.layout\n"
+    },
+    "diagnostic": "test_g005_identity_difference_refuses_reuse[positions]"
+  },
+  {
+    "id": "contracts.exact-layout",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=True)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=True)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return stored.prefix_tokens == requested.prefix_tokens and stored.model == requested.model and stored.adapter == requested.adapter and stored.positions == requested.positions\n"
+    },
+    "diagnostic": "test_g005_identity_difference_refuses_reuse[layout]"
+  },
+  {
+    "id": "contracts.score-substitution",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=True)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=True)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return True\n"
+    },
+    "diagnostic": "test_g005_scores_rank_without_substitution"
+  },
+  {
+    "id": "contracts.immutable",
+    "component": "contracts",
+    "good": {},
+    "bad": {
+      "semantic_offload/contracts.py": "from __future__ import annotations\n\nfrom dataclasses import dataclass\n\nclass RetentionScore(float):\n    pass\n\n\n@dataclass(frozen=False)\nclass ExactKVIdentity:\n    prefix_tokens: tuple[int, ...]\n    model: str\n    adapter: str | None\n    positions: tuple[int, ...]\n    layout: str\n\n\n@dataclass(frozen=False)\nclass RetentionCandidate:\n    identity: ExactKVIdentity\n    score: RetentionScore\n\n\ndef same_kv_identity(stored: ExactKVIdentity, requested: ExactKVIdentity) -> bool:\n    return stored == requested\n"
+    },
+    "diagnostic": "test_g005_identity_is_immutable"
+  },
+  {
+    "id": "contracts.score-type",
+    "component": "types",
+    "good": {
+      "probe.py": "from semantic_offload.contracts import ExactKVIdentity, RetentionScore, same_kv_identity\nkey = ExactKVIdentity((1,), \"model\", None, (0,), \"layout\")\nsame_kv_identity(key, key)\n"
+    },
+    "bad": {
+      "probe.py": "from semantic_offload.contracts import ExactKVIdentity, RetentionScore, same_kv_identity\nkey = ExactKVIdentity((1,), \"model\", None, (0,), \"layout\")\nsame_kv_identity(RetentionScore(1.0), key)\n"
+    },
+    "diagnostic": "[arg-type]"
+  },
+  {
+    "id": "comments.bootstrap",
+    "component": "policy",
+    "good": {
+      "tools/bootstrap-uv.txt": "uv==0.13.6\n"
+    },
+    "bad": {
+      "tools/bootstrap-uv.txt": "# bootstrap commentary\nuv==0.13.6\n"
+    },
+    "diagnostic": "comments.banned:"
+  },
+  {
+    "id": "comments.license-header",
+    "component": "policy",
+    "good": {
+      "probe.py": "# SPDX-License-Identifier: MIT\nvalue = 1\n"
+    },
+    "bad": {
+      "probe.py": "# legal discussion belongs in docs\nvalue = 1\n"
+    },
+    "diagnostic": "comments.banned:"
+  },
+  {
+    "id": "exceptions.type-directive",
+    "component": "policy",
+    "good": {
+      "probe.py": "value: int = \"fixture\"  # type: ignore[assignment]\n",
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"directive\"\npath = \"probe.py\"\nmatch = \"# type: ignore[assignment]\"\nreason = \"Specimen deliberately illustrates a typed assignment suppression.\"\n"
+    },
+    "bad": {
+      "probe.py": "value: int = \"fixture\"  # type: ignore[assignment]\n"
+    },
+    "diagnostic": "types.suppression:"
+  },
+  {
+    "id": "exceptions.scope",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"development-root\"\npath = \".\"\nmatch = \"deptry\"\nreason = \"Fixture development root.\"\n"
+    },
+    "diagnostic": "exceptions.invalid:"
+  },
+  {
+    "id": "exceptions.unknown-rule",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"anything\"\npath = \"tools\"\nmatch = \"deptry\"\nreason = \"Fixture development root.\"\n"
+    },
+    "diagnostic": "exceptions.invalid:"
+  },
+  {
+    "id": "exceptions.wildcard-path",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"development-root\"\npath = \"tools/*\"\nmatch = \"deptry\"\nreason = \"Fixture development root.\"\n"
+    },
+    "diagnostic": "exceptions.invalid:"
+  },
+  {
+    "id": "exceptions.missing-target",
+    "component": "policy",
+    "good": {},
+    "bad": {
+      "tools/exceptions.toml": "$APPEND:[[exception]]\nrule = \"development-root\"\npath = \"absent\"\nmatch = \"deptry\"\nreason = \"Fixture development root.\"\n"
+    },
+    "diagnostic": "exceptions.invalid:"
   }
 ]

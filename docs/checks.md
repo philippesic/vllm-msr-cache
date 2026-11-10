@@ -27,7 +27,7 @@ and image pins, exact Python/uv versions and the committed development lock.
 | Format | Ruff format, check only | `format` |
 | Lint | Only the selected Ruff diagnostics | `F401`, `F821`, `I001`, `B006`, `UP006` |
 | Types | mypy `--strict` on package, benchmark placeholder, tests and tools | `types.return` through `types.extra-checks`; each strict flag has a witness |
-| Type policy | No blanket ignores, missing-import exemptions or per-module overrides | `types.suppression`, `types.config`, `types.unused-config` |
+| Type policy | Exact reasoned type directives; no broad mypy configuration exemptions or overrides | `types.suppression`, `types.config`, `types.unused-config` |
 | Import Linter | Only adapter imports vLLM; production cannot import benchmarks; contracts cannot import adapter; acyclic production siblings | `imports.*`: direct/indirect forbidden edges, adapter allowance, reverse edge and cycle witnesses |
 | AST boundaries | Contracts use stdlib and no import-time calls; production cannot import development/history trees; no dynamic import registry exists yet | `boundary.*`, including dynamic-import aliases |
 | Repository policy | Exactly one root AGENTS; one CLAUDE pointer; AGENTS <=80 lines/8192 bytes; no skills, GPU reservation modules/imports/env/protocol; no raw outputs/copied trees/plans/status diaries; no ignored authored workflows | `repo.*` |
@@ -66,9 +66,9 @@ builds are not installed, executed or qualified by this foundation. Their pinned
 ABI recipes and native diagnostic specimens must arrive with native material.
 The aggregate reports native absence as skipped, outside the passed-group count.
 
-The CPU suite tests repository tooling and inert placeholders, not exact-prefix
-logic, ownership fences or serving behavior. Future runtime source requires
-those correctness tests. Full benchmark schemas, comparison rejection and
+The CPU suite tests repository tooling and typed identity examples, not actual
+KV transfers, ownership fences or serving behavior. Future runtime source
+requires those correctness tests. Full benchmark schemas, comparison rejection and
 pressure/quality gates arrive with the benchmark harness. This step does not
 claim plan C5/C7/parity completion. Secret scanning recognizes selected patterns;
 it is not an exhaustive historical credential audit. Module import checks do not
@@ -100,3 +100,10 @@ The runtime group tests the stub contract and reports **skipped**. Its standalon
 [module command](runtime.md#explicit-runtime-verification-entry) exits 2; zero or
 a misleading exit-2 message fails its mutation proofs. Absence of runtime source
 is never counted as a runtime pass.
+
+[The system map](system-map.md) is checked against command rows, target files,
+entry functions and the explicit absence of the future benchmark entry.
+`docs.map-*`, `docs.entry-*` and `docs.future-entry` prove those checks.
+`contracts.*` supplies identity-field and score-separation mutation specimens,
+plus a mypy rejection when a retention score is passed as a KV identity. The CPU
+suite also runs the contract examples directly; these do not qualify a runtime.
