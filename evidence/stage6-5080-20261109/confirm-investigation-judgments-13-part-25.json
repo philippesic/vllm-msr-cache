@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 39,
+      "review_id": "5c00b6d69186d24692ac1e40",
+      "signature": "bafa9088cf95148a1d44e66b6b7c18af1b7856d648b5fad061c40a86cfa22077",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "Source has no wrapper-specific invalid-type handling around iter/next, so the narrow lack of such handling is supported. Two actual passes and consumption counting useful. Missing literal status; trailing search command is not credited as a new result. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 40,
+      "review_id": "6718fb639f69d21a224aeaeb",
+      "signature": "180fb3e990a1ab3b1636a3fecbe7965d11c5cd5992a68833f7201e7bacb8605c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents divisibility ValueError and says it is explicitly tested; CountCycleTests covers basic/empty/negative n with no such restriction."
+      ],
+      "whitespace_words": 51,
+      "notes": "Cycling behavior and actual three passes remain useful. Unrelated broad test-search output cannot establish this function's restriction. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

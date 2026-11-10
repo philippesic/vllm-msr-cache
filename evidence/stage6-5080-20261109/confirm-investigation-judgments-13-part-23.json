@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 35,
+      "review_id": "36e6ec0b9a05629f21111ff9",
+      "signature": "bf314289cca8a1c158d415ef63468536dd39c9497d8396d57052dd1d2424a115",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 31,
+      "notes": "Two actual tests support reverse fallback for finite generators and regular reversibles. Source explicitly warns caching may require significant storage, a supported limitation. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 36,
+      "review_id": "bebfdb8049c88f6a106e65d8",
+      "signature": "4a1395ecead3e6f3e361b0cfb82e8bc766c3acda617161dc923f35a96d93495d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "No direct test results contradicts five actual passes."
+      ],
+      "whitespace_words": 76,
+      "notes": "Same useful dynamic-view behavior and invalid-slice/index coverage as index12, with reordered chain. Contradiction remains unresolved and literal status is absent. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

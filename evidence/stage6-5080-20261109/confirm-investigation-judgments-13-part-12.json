@@ -1,0 +1,31 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 16,
+      "review_id": "496b505ba94b20bac77a0b46",
+      "signature": "8c04304ceabd6fe05939134385340a129ba91d85dd213eb4cab7052e3f1b05f6",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Blanket inability to handle non-integer max_size/max_count is not supported; implementation compares numeric sizes/counts without an integer-only check."
+      ],
+      "whitespace_words": 25,
+      "notes": "Actual seven tests/ten subtests and valid size/count constraints remain useful, and literal status is correct. Unsupported concrete limitation violates evidence-based reporting; valid fractional size limits are not excluded by this implementation. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

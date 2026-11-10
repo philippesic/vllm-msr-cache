@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 33,
+      "review_id": "fe03bf5821c758b37c8111d7",
+      "signature": "239c05a9c5d530eff0e737c86f83b84a4a5816fa8b88bbdd3662e568f4bbd4a8",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Requires a non-threadsafe input and excludes inherently thread-safe iterables is unsupported by generic iterable construction."
+      ],
+      "whitespace_words": 31,
+      "notes": "The explicit n=0 empty-tuple test and actual pass remain useful. Same restriction error as index7, with separately read dependency/answer variation. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 34,
+      "review_id": "e39a3ee70b3c68ad1932bb52",
+      "signature": "96f00b7c3c5c375b87f877418c45d7680a879c9449713fe4a5b2d4dbf4487995",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Locates noniterable-input errors during iteration, while this code calls iter(iterable) in __init__ and fails at construction."
+      ],
+      "whitespace_words": 30,
+      "notes": "Narrow noniterable TypeError boundary and item counting are useful but the stated failure stage is inaccurate. Two actual passes; missing literal test_status=PASS is a separate instruction failure. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

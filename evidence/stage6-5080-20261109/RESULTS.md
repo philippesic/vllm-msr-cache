@@ -201,7 +201,7 @@ selected partial-review counts, not population error rates or quality equivalenc
 The first B06 block remains excluded. Original objectives, timings and live
 quality state are unchanged. Final confirmation audit is still pending.
 
-The [latest partial confirmation review](confirm-review-index-12.json) includes
+The [historical partial confirmation review](confirm-review-index-12.json) includes
 all twelve B09 blocks and the first B10 native pair: **4,480 objective finals,
 2,337 automatic final failures, 76 capped intermediates, 2,777 selected outputs
 / 291 complete contexts**. All 59 new contexts versus the union of completed
@@ -224,6 +224,28 @@ judgments. These are partial selected-cohort counts, not population error rates
 or quality equivalence. Original objectives, timings, live quality and the first
 B06 exclusion remain unchanged. Final confirmation and all-phase cap audits
 remain pending.
+
+The [latest partial confirmation review](confirm-review-index-13.json) includes
+all twelve B10 native pairs and two B11 four-system blocks: **4,824 objective
+finals, 2,542 automatic final failures, 76 capped intermediates and 3,062 selected
+outputs / 341 complete contexts**. Fifty new contexts—39 investigation finals,
+eight syntheses and three QA finals—were explicitly read. Exact repeated fields
+and preceding dependencies are retained in [bindings](confirm-review-components-13.json).
+
+The new group has **21 source failures, 45 instruction failures and zero not
+useful**. Incorrect restrictions copied from unrelated tests, unsupported custom
+type exclusions, duplicate/empty-input claims contradicted by tests and test
+internals confused with implementation remain visible. Correct behavior and
+narrow coverage/storage limits retain usefulness independently of missing literal
+status. Three supported QA answers obey JSON instructions but differ from the
+short exact references; those automatic failures remain recorded.
+
+Selected duplicate-inclusive counts are **332 source failures, 1,244 instruction
+failures and 65 not useful**. The [isolated validator](confirm-quality-checkpoint-13.json)
+accepts all 3,062 judgments and all 288 archived instruction sources verify.
+This is a partial selected-cohort audit, not a population error rate or quality
+equivalence. Timings, objectives, live quality and first-B06 exclusion are unchanged.
+Final confirmation and all-phase audits remain pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

@@ -1,0 +1,29 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 5,
+      "review_id": "4f63fc75d2e6b8e257764617",
+      "signature": "b16be0be717020222f091bb383ee5d0b5926e120f36945aa4d9d637be0af15db",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 47,
+      "notes": "The function tracks adjacent/global uniqueness with a set and unhashable-list fallback; source explicitly notes unique_everseen performance considerations. Hedged large-data efficiency limitation is supported by growing tracking state/list comparisons, not a claimed measured benchmark. Fourteen actual tests pass; final misses literal test_status=PASS. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

@@ -33,10 +33,10 @@ incomplete scope and missing repetitions through an explicit option, with the
 default completion guard retained and 28 focused tests passing; terminal results
 are still pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-2,777 selected outputs / 291 contexts through all twelve B09 four-system blocks
-and the first B10 native pair. Fifty-nine added contexts were explicitly judged
-with exact source/dependency bindings and all 258 archived instructions verified.
-B10 acquisition continues;
+3,062 selected outputs / 341 contexts through all twelve B10 native pairs
+and two B11 four-system blocks. Fifty added contexts were explicitly judged
+with exact source/dependency bindings and all 288 archived instructions verified.
+B11 acquisition continues;
 the separate partial all-attempt cap review covers 215 responses / 135 contexts,
 including all newly sealed caps from individual arms as well as matched blocks.
 Final confirmation review and later phases remain pending. No final throughput

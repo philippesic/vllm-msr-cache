@@ -1,0 +1,31 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 7,
+      "review_id": "b8ee26c06075ea3a5e2fd22d",
+      "signature": "c38d6ebe70f4fee3cbbeb86d830a82b633c1413c46c047c55425079d9668fbc5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Requires a non-threadsafe input and cannot use inherently thread-safe sources is not supported; the function accepts an iterable and has no such restriction."
+      ],
+      "whitespace_words": 32,
+      "notes": "The n=0 empty-tuple behavior is explicitly tested and useful, and one actual test passed. Source says it can make copies of a non-threadsafe source, not that only such sources are accepted. Missing literal status fails format. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

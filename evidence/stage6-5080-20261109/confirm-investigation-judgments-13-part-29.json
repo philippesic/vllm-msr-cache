@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 47,
+      "review_id": "f5352b9eed134951ba3fa0df",
+      "signature": "6392b15fa4a0863ee604c1a097a722f5f049eb73ec4874b1675c70d989d70262",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unsupported blanket non-hashable/non-comparable restriction; tuple/list equality lookup imposes no hashability requirement and tests include None."
+      ],
+      "whitespace_words": 49,
+      "notes": "Same useful combination-index behavior as index2, with extra trailing search text. Ten tests/84 subtests pass; missing literal status and unsupported limitation. No later search result is invented. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 48,
+      "review_id": "db9df3268a4e72afec94f2b3",
+      "signature": "2f96ce1f448a1e09d1c1755e693fba265d0d3b0446f052172226ee35da1aae5f",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 13,
+      "notes": "Valid one-field JSON states source-supported Ba-Shu in a full sentence. It differs from short normalized exact reference, so objective exact-match failure stays recorded independently. No fabricated tool or irrelevant investigation status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

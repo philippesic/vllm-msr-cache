@@ -11,9 +11,10 @@ requires repair and continuation, not a capability-failure closeout.
 **Confirmation is running**, persistent execution session **66082**. Ownership
 is `$BASE/confirm-owner-01.private.json` (PID, birth, command, cwd, source), log
 `$BASE/confirm-01.log`. Revalidate the actual process before any resume; never
-launch a duplicate. The latest bounded confirmation health check has **270/524 valid
-configurations, 102/210 complete matched blocks**, with Qwen3-8B B10 ARC
-repeat 5 active at that check. B08 and B09 completed all twelve frozen four-system blocks;
+launch a duplicate. The latest bounded confirmation health check has **290/524 valid
+configurations, 110/210 complete matched blocks**, with Qwen3-8B B11 upstream
+repeat 1 active at that check. Review 13 captures the second complete B11 block.
+B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
 below; the owner is live, progress continues, and no ownership/resource issue was
@@ -121,7 +122,12 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 11.6 GiB ext4, 5.14 GiB WSL root and 6.36 GiB Windows; monitor all three.
+about 11.3 GiB ext4, 4.11 GiB WSL root and 6.36 GiB Windows at the last bounded
+health check; monitor all three. Root subsequently received another derived
+review snapshot. Private disk observation 03 retains recent host-owned app-server
+binary/catalog sizes: these account for part of the recent root growth, but the
+full cause is not established. Runtime/tmp had no large recent writes. Shared
+application files, configuration and all raw/derived evidence were preserved.
 Keep useful caches/raw evidence. Reconsider storage for later relocation copies
 using actual sizes, not an assumption that a second raw tree will fit.
 
@@ -772,7 +778,7 @@ retain all older snapshots, including contexts temporarily outside the selected
 sample. A reappearing exact historical context may reuse its explicit judgment
 after full binding and current-ID checks.
 
-The latest **partial confirmation review 12** includes all twelve B09 four-system
+The historical **partial confirmation review 12** includes all twelve B09 four-system
 blocks and the first B10 native pair (98 selected blocks):
 [index](confirm-review-index-12.json), [ratings](confirm-source-judgments-12.json),
 [component bindings](confirm-review-components-12.json),
@@ -803,6 +809,35 @@ timings and live quality are unchanged; first B06 remains excluded. This is
 partial acquisition, not a population accuracy/equivalence result. Future reuse
 should bind the union of screen07 and all completed confirmation indices to
 avoid losing older contexts temporarily absent from the selected sample.
+
+The latest **partial confirmation review 13** includes all twelve B10 native
+pairs and two B11 four-system blocks (111 selected blocks):
+[index](confirm-review-index-13.json), [ratings](confirm-source-judgments-13.json),
+[component bindings](confirm-review-components-13.json),
+[isolated validator](confirm-quality-checkpoint-13.json), raw
+`$BASE/quality-confirm-checkpoint-13/`. It has **4,824 objective finals, 2,542
+automatic final failures, 76 capped intermediates and 3,062 selected outputs /
+341 complete contexts**. All fifty new contexts were explicitly read in thirty
+manual parts: 39 investigation finals, eight team syntheses and three QA finals.
+New unmatched source/test components were read in full; prior complete fields
+and individual dependencies exactly bind confirm08 through confirm12 or preceding
+confirm13 readings. Earlier static reference preparation does not replace these
+actual-answer reviews. No novel judgment was automatic.
+
+The new group has **21 source failures, 45 instruction failures and zero not
+useful**. Findings include copied restrictions from unrelated broad search output,
+blanket custom-type exclusions, duplicate/empty-input claims contradicted by tests,
+test-private executor state confused with implementation, and missing literal
+status. Narrow TypeError/coverage/storage limitations retain credit where supported.
+Three QA answers use the required one-string-field JSON and supported full-sentence
+answers; their automatic normalized exact-match failures remain unchanged.
+
+Selected duplicate-inclusive counts are **332 source failures, 1,244 instruction
+failures and 65 not useful**. All 288 archived instruction sources verify; the
+frozen validator accepts all 3,062 judgments in isolation. No timing/objective or
+live quality change, no first-B06 comparison credit, no final acquisition or
+population accuracy/equivalence claim. Reuse only exact complete contexts and
+archived instructions from the union of completed indices, retaining all history.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files

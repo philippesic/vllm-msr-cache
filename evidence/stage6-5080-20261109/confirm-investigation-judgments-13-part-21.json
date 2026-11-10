@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 31,
+      "review_id": "39f6dc8d4df20147a188e74f",
+      "signature": "6062f22a5cfda678fdd74bda8529a2721f19a27185f0b5900817a2cac5a67d71",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Requires a non-threadsafe input is unsupported; accepting such an iterator does not exclude thread-safe inputs."
+      ],
+      "whitespace_words": 39,
+      "notes": "Actual one test covers concurrent per-copy consumers, lock sharing and zero/negative n. Per-copy single-thread consumption restriction is supported by docstring, and core distribution useful. Missing literal status plus false exclusion. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 32,
+      "review_id": "1c6aa01d23cec3c21914020a",
+      "signature": "b3f959e096580cfb0b7207eea0160d49b8c5fc3a424a26197d24305de5fe3ca0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Cannot handle duplicate pool elements is contradicted by test_multiplicity with abacba and first-index expectations."
+      ],
+      "whitespace_words": 42,
+      "notes": "Combination rank and eight actual test passes remain useful. Incorrect duplicate limitation and missing literal status fail requested reporting; no new test was run by review. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

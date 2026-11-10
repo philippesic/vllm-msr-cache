@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 43,
+      "review_id": "7113b8a4f4a1d860a5fe556e",
+      "signature": "466de7f6b129b374156b55e9d0a386d8e401c5761be28e84c4b5b592a8212c85",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 30,
+      "notes": "Direct docstring states slower unhashable fallback, and key/no-key duplicate detection is covered by actual five tests/five subtests. Useful supported final omits literal status; prior infinite-test assumption not repeated. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 44,
+      "review_id": "430474684a5aaa26362a4cde",
+      "signature": "0679d42bdf29621a6f649038300a5494f73d0c38bbf16ab5f19ac63ee7d9a6e9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Again attributes private ThreadPoolExecutor-state dependence to implementation rather than the test's _shutdown assertion."
+      ],
+      "whitespace_words": 41,
+      "notes": "Callback iteration/background execution and seven actual passes remain useful. Same source/test distinction as index28 despite correct literal status; generated fake transcripts are not actual tools. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

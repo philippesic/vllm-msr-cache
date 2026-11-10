@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "a7d4b8be8b03218463ec3e30",
+      "signature": "d02ce6f80e09ef776d1715ab117a5272eee078fa5bac687e5a642b34a6b34ee4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "count_cycle raises ValueError when length is not divisible by n is contradicted by its product/range implementation and is imported from unrelated broad-search tests."
+      ],
+      "whitespace_words": 54,
+      "notes": "Correct cycling behavior and actual three passing tests remain useful. The concrete restriction is false and the bold Test status colon form omits the required literal; trailing search code is not actual new evidence. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "8bceceaeb77cbb90e359da19",
+      "signature": "e391d7b52dcef5c82538013c0d2d87ec72bfb6b9e6dba5ac48de1a4bba9573e0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 54,
+      "notes": "Source wrapper primes a generator with next; the one actual test confirms immediate send. No-yield/early-ending edge cases are untested and can error, a valid coverage limit. Useful final misses the required literal test_status=PASS; no later tools are credited for its trailing command. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

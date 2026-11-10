@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 10,
+      "review_id": "2a03c9e4e626cddbdcec3268",
+      "signature": "beb4283785efb28b17ec54a5d064ac2a02a77e2f670daa567239e05dbf0266ee",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Blanket non-hashable/non-comparable handling restriction is not supported by tuple/list equality search; None and repeated elements are explicitly tested."
+      ],
+      "whitespace_words": 40,
+      "notes": "Same useful valid-index/ValueError behavior and actual validation as index2, with a separately read answer formatting variant. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "57c28ed0d7eb15ac7216d91e",
+      "signature": "694ed2a4f95fac0ed50e5794d11c01ac79f475906138b6191916dafe6e544ca4",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 68,
+      "notes": "Actual five tests/five subtests pass, so final appropriately corrects the preceding specialist FAIL. Set/list fallback and possible inefficiency for large unhashable datasets are source-supported. Missing literal test_status=PASS is the instruction failure; no measured throughput claim. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

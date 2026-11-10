@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 2,
+      "review_id": "27d35f3c16c7b1135861c44f",
+      "signature": "18a41a776ce87eb12bcc1a024ef37862a257a569510ec7ef2c6d4540f2ff49b1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Blanket lack of graceful handling for non-hashable/non-comparable elements is not established; implementation uses tuple/list equality search and supplied tests explicitly handle None and repeated values."
+      ],
+      "whitespace_words": 39,
+      "notes": "The valid combination-index behavior, invalid-element ValueError and actual ten tests/84 subtests remain useful. No hashability restriction exists in this code; bold Test status colon omits required literal. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "73e8f5f2a9be935918cdff3b",
+      "signature": "f8797f795f82e40861c1f4a57a6d281bd8be384fad359c4177062fea19a5fe02",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Blanket inability to handle non-integer or invalid input types gracefully is not established by the supplied source/tests; no specific failing input or exception evidence is identified."
+      ],
+      "whitespace_words": 28,
+      "notes": "Size/count batching and seven tests/ten subtests are supported. Explicit nonpositive count/size and oversize checks exist; custom get_len and Record types are tested. Vague unsupported limitation and missing literal status fail the requested report. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

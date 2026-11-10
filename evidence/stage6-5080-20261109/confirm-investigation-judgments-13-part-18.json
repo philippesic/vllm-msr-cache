@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 25,
+      "review_id": "c5ac35e085531a0f040704d7",
+      "signature": "f39a34f2ef39955da51d7eeb6c3dee718ea32790b3ca772dc7ce7244319591c0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Custom iterable types with undefined distance behavior is an unsupported exclusion; distance is an independent parameter and the source uses generic iterables."
+      ],
+      "whitespace_words": 33,
+      "notes": "Typical adjacent labeling and ten actual tests are useful. Does not repeat the prior confusion of a test's tracking set with function internals. Unsupported concrete limitation and missing literal status fail the report. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "3436624569623cb23dcc1c69",
+      "signature": "395d1c20c190dfb5534d2f91255a9a405ce7b5dbcdf3778a69652c8521cf0b42",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 34,
+      "notes": "Six actual passes and zero-step ValueError are directly supported. The documentation gives a zero-step message but no explicit noninteger-input error contract, so the claimed missing clarification is read as a documentation limitation, not denial of underlying deque errors. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

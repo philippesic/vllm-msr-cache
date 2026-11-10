@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 37,
+      "review_id": "d87236cb1b093352e9334ddc",
+      "signature": "cdebde8618a8522695aedca71a30d8f153cc9ba5ac319061c493b288eb1cd455",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Does not handle empty input when n is nonzero contradicts test_0 with empty string,n=3 yielding no chunks and the empty-buffer return."
+      ],
+      "whitespace_words": 34,
+      "notes": "Balanced chunk behavior and ten actual passes remain useful. Final does not repeat the earlier wrong assertion that zero n raises, but invents another unsupported limitation. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "81871db6e6b9d7cbe2b90079",
+      "signature": "708fd0e2461a63d356aabf8c0ef8f3d9384db20a1cd9b3c84d90219ab4683b78",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 72,
+      "notes": "Supported all_unique final as indices4/confirm12 with a different exact specialist-chain combination. Five tests/five subtests and legitimate complex-key/large-data coverage limitation; missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

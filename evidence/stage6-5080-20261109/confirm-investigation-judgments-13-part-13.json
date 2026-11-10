@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 17,
+      "review_id": "5097c0f15191808f52269704",
+      "signature": "01ffd7ac8a0b633b91db9496649033cc8291f4ad8a9b98e89e2f6e513eeaa6ae",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "Two actual tests cover empty/basic item counting; neither infinite iterators nor invalid noniterable inputs is tested. The final states a test-coverage limitation rather than denying runtime ability and does not repeat a premature prior validation claim. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 18,
+      "review_id": "4f81f2a8b78096f2840d2719",
+      "signature": "22c7721871b5444e57952f6e7ef5882b430435d36927d241f395208e13355242",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "No direct test results is contradicted by five actual pytest passes."
+      ],
+      "whitespace_words": 93,
+      "notes": "Same useful dynamic sequence behavior and legitimate untested invalid-slice/index coverage as index12, with reordered specialist chain and a separately read final. It repeats a contradiction rather than resolving evidence, and lacks literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

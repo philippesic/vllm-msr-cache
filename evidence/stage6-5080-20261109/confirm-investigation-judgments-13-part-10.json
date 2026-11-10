@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "65c5c7e56a0e1529c91059cf",
+      "signature": "11f7b74db190078e000a5a9a97199d3c05befef1b131a208305d7032df51c3d3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "No direct test results is contradicted by the actual five pytest passes."
+      ],
+      "whitespace_words": 76,
+      "notes": "Dynamic sequence behavior and untested invalid slice/noninteger index cases remain useful. The final repeats a specialist contradiction and fails synthesis against actual evidence, plus omits required literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "06997d11c995dfe2b82fc0ef",
+      "signature": "b4e53b2011ae3e45ab6b67a6862b1b2a7e0e3599f9e5d2fbd56505fb075dfd8f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "Six actual tests support the limited statement that all tested cases passed; custom iterable types and arbitrary nested input data are not exhaustively covered. Nested base_type tuples are explicitly tested, so this limitation is read narrowly as incomplete general input coverage, not absence of every nested test. Useful validation summary misses required literal status and a concrete function behavior. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "8661e9bcc594d40769557867",
+      "signature": "69601bf1b6361fd62842de8fab2f3452ba5ab4e5fa824b2ac135f3a298939b3e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "Duplicate detection with/without keys and slower unhashable-list fallback are source-supported, with five actual tests/five subtests. Hedged performance issue is an implementation limitation rather than a measured claim. Missing literal status is the instruction failure; preceding mistaken infinite-test assumption is not repeated. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

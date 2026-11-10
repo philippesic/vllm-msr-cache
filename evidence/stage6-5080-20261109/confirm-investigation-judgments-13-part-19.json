@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 27,
+      "review_id": "dfe5f4da2feb59f2a6e2ce45",
+      "signature": "c08ebafb2bc06e38d7c1fe99e56c2bd4e2ba253756f9f27e2fc445f63f09b70c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 29,
+      "notes": "Two actual tests cover basic/empty inputs, not noniterable or large-data cases. Final corrects prior assertion that empty input was untested by naming test_empty; useful supported count and coverage limit, missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "5428c0a7f4c92b69579c0736",
+      "signature": "e9c65a0e6a2e5112ad4dcf57ead4eb18614cd4aebe25c63a245e9e9c34a98629",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes reliance on private ThreadPoolExecutor state to callback_iter itself; supplied source shows that reliance in test_basic's _shutdown assertion, while implementation uses public executor methods."
+      ],
+      "whitespace_words": 46,
+      "notes": "Seven actual passes and callback/termination/exception behavior remain useful. The final fails to distinguish an implementation limitation from test fragility, despite correct literal status; prior fake ACTUAL DEPENDENCY transcripts are not repeated as such. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

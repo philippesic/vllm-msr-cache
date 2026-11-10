@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 45,
+      "review_id": "7ba5771457309f3597d66ef2",
+      "signature": "d753ea6c1ba611542345ac63ca5ff6f945e9ef8766502d0acd823313a5ffbee9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Cannot handle duplicate pool elements contradicts explicit test_multiplicity and first-index expectations."
+      ],
+      "whitespace_words": 39,
+      "notes": "Combination indexing/invalid-element ValueError and actual eight passes are useful. Prior interpretation even names multiplicity, but final contradicts it. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "a1656837a143d88f89020c21",
+      "signature": "b51d6b68a65bfecf9b92117a1e6d8a7f415991d67d8df56b6bacd51f5d4a9f8b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "Valid one-string-field JSON, supported Beijing/Shanghai and distances; full explanatory wording differs from the short reference while preserving automatic exact-match failure. No unsupported foreign-country claim is made. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

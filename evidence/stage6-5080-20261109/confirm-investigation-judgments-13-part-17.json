@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 23,
+      "review_id": "592705e223dea44d1db1d63a",
+      "signature": "01ee8013bbda2280d8f40fe2e5cb4ce6ea47aeafd6ccac8c33c4d591799d689f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 37,
+      "notes": "Actual tests confirm cycling/counting and list(count_cycle(...,-3)) == []. Negative n yields empty output without a dedicated error, so the diagnostic limitation is supported; empty list is read as the demonstrated materialized output. Missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 24,
+      "review_id": "1fd1ece6297976620127e5cc",
+      "signature": "9f5cb813619971b2fbd1947a511640f5285f8f02f3af478fe7ad34a70e2e0488",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 46,
+      "notes": "Source wrapper calls next on the returned iterator and assumes it reaches a yield; immediate-send behavior and a possible early/error/no-yield boundary are supported. One actual pass. Missing literal status is the instruction failure. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

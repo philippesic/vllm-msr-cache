@@ -1,0 +1,40 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "082dc3042686f9fc8cec3848c4950a71f62e7ec5a3408b65aa3812475217c2f2",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-13/blind-packet.json",
+  "ratings": [
+    {
+      "index": 41,
+      "review_id": "b25ab6ce91a7a00667951065",
+      "signature": "5f2274d9f380a3bdf3ec9269d0444bbeb98a5cd3dbaf5c2e69a19bb3f89fb231",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 31,
+      "notes": "No explicit prevalidation for noniterables exists before iter(iterable), which may raise its native TypeError. Read as lack of wrapper validation, not absence of Python's iterability check. Counting and actual two passes supported; missing literal status. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 42,
+      "review_id": "5310bebf71ef9edfb8f03589",
+      "signature": "f258a8c7f0fa0f2a2174e0a9ae91a4f8ee565c0fa9a3adefa570d96c4318d963",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 47,
+      "notes": "Actual one pass and automatic first-yield priming support immediate send. No-yield/early-ending boundary can raise due to direct next call. Missing literal status; no invented validation outcome. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}
