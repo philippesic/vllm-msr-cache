@@ -451,7 +451,7 @@ call final cap finish or treat this as all-phase completion. Preserve earlier
 snapshots and regenerate after every phase is terminal. This checkpoint used cap03
 for exact expanded-context reuse and is extended by cap04 below.
 
-The latest **partial all-attempt cap review 04** covers **196 responses / 119
+The historical **partial all-attempt cap review 04** covers **196 responses / 119
 extended contexts**: 132 screen and 64 confirmation, 177 intermediates and nineteen
 finals. [Index](caps-all-review-index-04.json),
 [ratings](caps-all-source-judgments-04.json),
@@ -474,6 +474,26 @@ valid matched blocks, preserving all timing/objective exclusions. The snapshot
 has `complete_inventory=false` and one pending attempt; do not call frozen finish.
 Regenerate after all phases are terminal, retaining every earlier snapshot. Use
 cap04 for future exact expanded-context reuse, with novel contexts explicitly read.
+
+The latest **partial all-attempt cap review 05** covers **215 responses / 135
+extended contexts**: 132 screen and 83 confirmation, 194 intermediates and 21
+finals. [Index](caps-all-review-index-05.json),
+[ratings](caps-all-source-judgments-05.json),
+[bindings](caps-instruction-bindings-05.json), raw `$BASE/caps-all-checkpoint-05/`.
+Nineteen response occurrences were added: three repeat an old extended signature,
+and sixteen new extended items exactly match full quality contexts already
+explicitly read in confirm12. Thus 199 occurrences reuse cap04 and sixteen reuse
+confirm12, with zero novel full quality contexts or automatic novel judgments.
+Selected duplicate-inclusive counts are **152 source failures, 214 instruction
+failures and 79 not useful**. Source support, requested status/rule/limitation
+format and usefulness remain separate judgments; a capped final may fit the
+whitespace-word instructions while making an unsupported additional claim.
+All 68 cap-bearing archived instruction sources verify; sealed corpus/node,
+source/reference/role/tool branches, objective and raw prompt/workload digests
+were independently rechecked. Tokens were bound, not individually decoded.
+Includes failed/interrupted/unmatched ordinary arms. One attempt was pending,
+so `complete_inventory=false`; no final finish was called. Regenerate after all
+phases are terminal. Use cap05 for exact expanded-context reuse, retaining history.
 
 The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)

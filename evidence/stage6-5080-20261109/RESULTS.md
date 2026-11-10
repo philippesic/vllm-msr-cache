@@ -160,6 +160,18 @@ not population error rates. The inventory still has a pending attempt and is
 not finalized; it must be regenerated after every acquisition phase finishes.
 Timings, objective results and frozen exclusions remain unchanged.
 
+The newer [partial cap review](caps-all-review-index-05.json) contains **215
+responses / 135 contexts**: 132 screen and 83 confirmation, 194 intermediate and
+21 final responses. Nineteen occurrences were added; three repeat an earlier
+extended signature and sixteen exactly match full contexts already explicitly
+judged in confirm12. No new answer rating was automatic. Selected counts are
+**152 source-support failures, 214 instruction failures and 79 not useful**.
+Source fidelity, requested format and usefulness are assessed separately.
+[Bindings](caps-instruction-bindings-05.json) check all 68 cap-bearing archived
+instruction sources and sealed corpus/node/prompt identities. Raw tokens were
+bound, not individually decoded. Acquisition remains active and one attempt was
+pending; this is not a final cap inventory or population error rate.
+
 The [historical partial confirmation review](confirm-review-index-11.json) adds the
 first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,
 2,190 automatic final failures, 55 capped intermediates and 2,545 selected outputs
