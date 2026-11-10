@@ -74,7 +74,7 @@ def prepare(root: Path, component: str) -> None:
         (ROOT / "pyproject.toml")
         .read_text()
         .replace(
-            'files = ["wait_hint_offload", "benchmarks", "tools", "tests"]',
+            'files = ["wait_hint_offload", "tools", "tests"]',
             'files = ["probe.py"]',
         )
     )
@@ -103,7 +103,6 @@ def prepare(root: Path, component: str) -> None:
                 ROOT / "wait_hint_offload/contracts.py"
             ).read_text(),
             "wait_hint_offload/vllm_adapter/__init__.py": "",
-            "benchmarks/__init__.py": "",
             "tests/__init__.py": "",
             "vllm/__init__.py": "",
             "tools/check.py": "def main() -> int:\n    return 0\n",
@@ -126,16 +125,7 @@ def prepare(root: Path, component: str) -> None:
 
 def invoke(root: Path, component: str) -> subprocess.CompletedProcess[str]:
     env = config.proof_environment(root, ROOT)
-    if component == "contracts":
-        command = [
-            sys.executable,
-            "-m",
-            "pytest",
-            "-q",
-            "--import-mode=importlib",
-            "tests/test_contracts.py",
-        ]
-    elif component == "cpu":
+    if component == "cpu":
         env = config.check_environment(ROOT)
         command = [
             sys.executable,

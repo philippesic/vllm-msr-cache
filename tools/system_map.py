@@ -18,19 +18,12 @@ ENTRY_POINTS = (
         "main",
         "implemented; explicit runtime and output required",
     ),
-    (
-        "Benchmarks",
-        "uv run --locked python -m benchmarks",
-        "benchmarks/__main__.py",
-        "",
-        "future; absent",
-    ),
 )
 
 
 def rows() -> list[str]:
     return [
-        f"| {name} | `{command}` | `{path}{':' + symbol if symbol else ''}` | {state} |"
+        f"| {name} | `{command}` | `{path}:{symbol}` | {state} |"
         for name, command, path, symbol, state in ENTRY_POINTS
     ]
 
@@ -47,14 +40,9 @@ def check(root: Path) -> list[str]:
         )
     for _name, _command, path, symbol, _state in ENTRY_POINTS:
         target = root / path
-        if symbol:
-            if not target.is_file() or not any(
-                isinstance(node, ast.FunctionDef) and node.name == symbol
-                for node in ast.parse(target.read_text()).body
-            ):
-                errors.append(f"docs.entry: {path}:{symbol} disappeared")
-        elif target.exists() or not (root / "benchmarks/__init__.py").is_file():
-            errors.append(
-                "docs.entry: benchmarks must remain an inert placeholder until the entry is qualified"
-            )
+        if not target.is_file() or not any(
+            isinstance(node, ast.FunctionDef) and node.name == symbol
+            for node in ast.parse(target.read_text()).body
+        ):
+            errors.append(f"docs.entry: {path}:{symbol} disappeared")
     return errors

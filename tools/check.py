@@ -13,6 +13,9 @@ sys.path.insert(0, str(ROOT))
 
 from tools import config, native, repo_policy, runtime_policy, unused  # noqa: I001
 
+FIXES = "Fixes for common diagnostics: docs/checks.md, 'Common failures and fixes'."
+PROOFS = "tests/test_check_cases.py"
+
 
 def run(command: list[str], root: Path) -> int:
     env = config.check_environment(root)
@@ -37,7 +40,9 @@ def component(name: str, root: Path) -> int:
             errors = native.check(root, repo_policy.git_paths(root))
         for error in errors:
             print(error)
-        if not errors:
+        if errors:
+            print(FIXES)
+        else:
             if name == "native":
                 print(
                     "skipped: no native sources yet (sm_75 and sm_120; clang-format, clang-tidy, CMake)"
@@ -81,7 +86,9 @@ def main() -> int:
     )
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument(
-        "--self-test", action="store_true", help="only deliberate-violation proofs"
+        "--self-test",
+        action="store_true",
+        help="only the rule proofs; required when rules or tooling change",
     )
     parser.add_argument(
         "--test", help="Run selected CPU tests; partial, never full acceptance"
@@ -99,7 +106,10 @@ def main() -> int:
                 ("tests/runtime/gpu_cases.py", "runtime/gpu-tests.json"),
             ]
         else:
-            inventories = [("tests", "tools/cpu-tests.json")]
+            inventories = [
+                ("tests", "tools/cpu-tests.json"),
+                (PROOFS, "tools/self-tests.json"),
+            ]
         for selected, manifest in inventories:
             command = [sys.executable, "-m", "pytest", "--collect-only", "-q", selected]
             if args.runtime_python:
@@ -114,8 +124,8 @@ def main() -> int:
                     "-q",
                     selected,
                 ]
-            else:
-                command.append("--ignore=tests/runtime")
+            elif selected == "tests":
+                command.extend(["--ignore=tests/runtime", f"--ignore={PROOFS}"])
             result = subprocess.run(
                 command,
                 cwd=ROOT,
@@ -210,23 +220,26 @@ def main() -> int:
             f"{name}: {status} ({time.monotonic() - before:.2f}s)",
             flush=True,
         )
-    print("\n=== deliberate-violation proofs / CPU pytest ===", flush=True)
+    label = "rule proofs" if args.self_test else "CPU pytest"
+    print(f"\n=== {label} ===", flush=True)
     manifest = "tools/self-tests.json" if args.self_test else "tools/cpu-tests.json"
     command = [
         sys.executable,
         "-m",
         "pytest",
-        "-v",
-        "-s",
-        "--ignore=tests/runtime",
+        "-q" if not args.self_test else "-v",
         "-p",
         "tools.pytest_gate",
         "--gate-manifest",
         manifest,
     ]
     if args.self_test:
-        command.append("tests/test_check_cases.py")
+        command.extend(["-s", PROOFS])
+    else:
+        command.extend(["--ignore=tests/runtime", f"--ignore={PROOFS}", "tests"])
     code = run(command, ROOT)
+    if code:
+        print(FIXES)
     failed += bool(code)
     groups = len(names) + 1
     print(
@@ -234,7 +247,9 @@ def main() -> int:
         flush=True,
     )
     print(
-        "Scope: deterministic CPU/tooling checks; no runtime, GPU, performance or native-build qualification."
+        "Scope: rule proofs only."
+        if args.self_test
+        else "Scope: deterministic CPU/tooling checks; rule proofs not run (--self-test); no runtime, GPU, performance or native-build qualification."
     )
     return int(bool(failed))
 

@@ -83,12 +83,9 @@ is in [architecture](architecture.md). The advice-disabled control changes only
 
 ## GPU gate
 
-GPU runs need Philip's explicit authorization naming the host, device and window,
-plus an external reservation held for the whole invocation. This repository has
-no reservation mechanism; on DESKTOP-T4JKGJB use the existing wrapper from the
-older `vllm-semantic-cache-ext` checkout, from outside this repo, without passing
-its file descriptors to children. Check for other GPU work and disk headroom after
-acquiring it.
+GPU runs need Philip's explicit authorization. There is no GPU reservation system.
+Before starting, check with `nvidia-smi` that no other process is using the GPU and
+that there is disk headroom for the output.
 
 ```sh
 /external/venvs/wait-hint/bin/python -m tools.runtime_verify --gpu --model /local/model --timeout 600 --out /external/new-hardware-attempt

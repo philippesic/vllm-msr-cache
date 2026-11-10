@@ -134,7 +134,7 @@ def main() -> int:
         parser.error("wrong runtime wheel")
     if args.gpu and (args.model is None or not args.model.is_dir()):
         parser.error(
-            "hardware verification needs --model and externally established GPU ownership"
+            "hardware verification needs --model pointing to a local model directory"
         )
     directory.mkdir(parents=True, exist_ok=False)
     source = directory / "source"

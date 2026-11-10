@@ -9,12 +9,8 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
 
 - [README](README.md): setup and everyday commands.
 - [Architecture](docs/architecture.md): components, ownership and the hint protocol.
-- [Runtime](docs/runtime.md): pinned vLLM runtime, serving and the GPU gate.
-- [Checks](docs/checks.md): what the check enforces and how to fix failures.
-- [System map](docs/system-map.md): supported entry points.
-- [FINDINGS](FINDINGS.md): what is established, with evidence. Read it before
-  planning experiments or claiming results, and do not redo closed work without
-  a stated reason.
+- [Runtime](docs/runtime.md): pinned vLLM runtime, runtime test lane, serving, GPU gate.
+- [Checks](docs/checks.md): check modes, entry points and how to fix failures.
 
 # Code
 
@@ -31,11 +27,13 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
 
 # Validation
 
-- `uv run --locked python tools/check.py` is full acceptance. The pre-commit hook
-  runs it; enable it in a new clone with `git config core.hooksPath .githooks`.
+- `uv run --locked python tools/check.py` is acceptance and takes seconds. The
+  pre-commit hook runs it; enable it in a new clone with `git config core.hooksPath .githooks`.
+- `--self-test` proves each rule still rejects a violation. The hook runs it when a
+  commit touches `tools/`, `pyproject.toml` or the hook or CI; run it yourself
+  before finishing any change to rules or tooling.
 - `--test tests/PATH.py` gives fast partial feedback. Never report it as acceptance.
 - After adding or renaming tests, run `--update-tests` and review the printed diff.
-- The runtime lane (`--runtime-python`, `--out`) is separate; see [Runtime](docs/runtime.md).
 - When a check fails, fix the cause. Weakening a check or adding an exception in
   `tools/exceptions.toml` needs Philip's review.
 
@@ -45,16 +43,32 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
   repairs, tests, refactors, reruns and commits. Ask only for a missing
   consequential decision, a scope change, a weaker guarantee or an unauthorized
   resource. Do not wait for permission you already have.
-- GPU use needs Philip's explicit authorization naming the host and window.
-  Without it, stay on CPU.
+- GPU use needs Philip's explicit authorization; otherwise stay on CPU. There is no
+  GPU reservation system and none should be built; check the GPU is idle first.
 - Parallel agents each use their own git worktree. Integrate one at a time and
-  rerun the full check on the combined tree.
+  rerun the check on the combined tree.
 - Commit coherent checkpoints with the check passing.
+
+# Documents
+
+Each fact has one home, chosen by how long it stays true:
+
+- `AGENTS.md`: rules for every task. Philip owns it; propose changes.
+- `docs/*.md`: how each part works now, and why. Update in the same commit as the
+  code. Delete outdated text instead of marking it superseded; git keeps history.
+- [FINDINGS](FINDINGS.md): closed questions with evidence, including failures and
+  dead ends.
+- `evidence/`: dated records backing findings. Never edited afterwards.
+- [`tasks/`](tasks/README.md): one file per open multi-session task, owned by the
+  agent doing it and deleted when the task completes.
+- Git history: what changed and when. There is no status or history document.
+
+At the start of a task, read FINDINGS and `tasks/`. Do not redo closed work without
+a stated reason.
 
 # Evidence and reporting
 
-- Raw runs, logs and generated data live outside the repository. Git holds code,
-  tests, compact records in `evidence/` and conclusions in FINDINGS.
+- Raw runs, logs and generated data live outside the repository.
 - Keep failed, unfavorable and incomplete results. Never rerun selectively until a
   result looks good.
 - Done means the claimed behavior was exercised and acceptance passed, not that

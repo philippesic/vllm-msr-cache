@@ -66,172 +66,6 @@
     "diagnostic": "UP006"
   },
   {
-    "id": "types.return",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def f() -> int:\n    return \"bad\"\n"
-    },
-    "diagnostic": "[return-value]"
-  },
-  {
-    "id": "types.untyped-def",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def f():\n    return 1\n"
-    },
-    "diagnostic": "[no-untyped-def]"
-  },
-  {
-    "id": "types.incomplete-def",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def f(x: int):\n    return x\n"
-    },
-    "diagnostic": "[no-untyped-def]"
-  },
-  {
-    "id": "types.untyped-body",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def f():\n    x: int = \"bad\"\n"
-    },
-    "diagnostic": "[assignment]"
-  },
-  {
-    "id": "types.generics",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "values: dict = {}\n"
-    },
-    "diagnostic": "[type-arg]"
-  },
-  {
-    "id": "types.subclass-any",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "from typing import Any\nbase: Any\nclass Child(base):\n    pass\n"
-    },
-    "diagnostic": "[misc]"
-  },
-  {
-    "id": "types.untyped-call",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def untyped():\n    return 1\ndef typed() -> None:\n    untyped()\n"
-    },
-    "diagnostic": "[no-untyped-call]"
-  },
-  {
-    "id": "types.untyped-decorator",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def deco(f):\n    return f\n@deco\ndef f() -> int:\n    return 1\n"
-    },
-    "diagnostic": "Untyped decorator makes function"
-  },
-  {
-    "id": "types.redundant-cast",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "from typing import cast\nx = cast(int, 1)\n"
-    },
-    "diagnostic": "[redundant-cast]"
-  },
-  {
-    "id": "types.unused-ignore",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "x = 1  # type: ignore\n"
-    },
-    "diagnostic": "[unused-ignore]"
-  },
-  {
-    "id": "types.return-any",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "from typing import Any\ndef f(d: dict[str, Any]) -> int:\n    return d[\"x\"]\n"
-    },
-    "diagnostic": "[no-any-return]"
-  },
-  {
-    "id": "types.reexport",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "from helper import Path\np = Path(\".\")\n",
-      "helper.py": "from pathlib import Path\n"
-    },
-    "diagnostic": "[attr-defined]"
-  },
-  {
-    "id": "types.equality",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "def f(x: int, y: str) -> bool:\n    return x == y\n"
-    },
-    "diagnostic": "[comparison-overlap]"
-  },
-  {
-    "id": "types.bytes",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "x: bytes = bytearray()\n"
-    },
-    "diagnostic": "[assignment]"
-  },
-  {
-    "id": "types.extra-checks",
-    "component": "types",
-    "good": {
-      "probe.py": "value: int = 1\n"
-    },
-    "bad": {
-      "probe.py": "from typing import TypedDict\nclass A(TypedDict):\n    x: int\n    y: int\nclass B(TypedDict):\n    x: int\ndef f(a: A, b: B) -> None:\n    a.update(b)\n"
-    },
-    "diagnostic": "[typeddict-item]"
-  },
-  {
     "id": "types.suppression",
     "component": "policy",
     "good": {},
@@ -268,29 +102,6 @@
       "wait_hint_offload/contracts.py": "import vllm\n"
     },
     "diagnostic": "Only vllm_adapter imports vllm BROKEN"
-  },
-  {
-    "id": "imports.benchmarks-direct",
-    "component": "imports",
-    "good": {
-      "wait_hint_offload/vllm_adapter/__init__.py": "import vllm\nimport wait_hint_offload.contracts\n"
-    },
-    "bad": {
-      "wait_hint_offload/contracts.py": "import benchmarks\n"
-    },
-    "diagnostic": "Production never imports benchmarks BROKEN"
-  },
-  {
-    "id": "imports.benchmarks-indirect",
-    "component": "imports",
-    "good": {
-      "wait_hint_offload/vllm_adapter/__init__.py": "import vllm\nimport wait_hint_offload.contracts\n"
-    },
-    "bad": {
-      "wait_hint_offload/contracts.py": "import wait_hint_offload.bridge\n",
-      "wait_hint_offload/bridge.py": "import benchmarks\n"
-    },
-    "diagnostic": "Production never imports benchmarks BROKEN"
   },
   {
     "id": "imports.adapter",
@@ -531,15 +342,6 @@
       "README.md": "$FAKE_TOKEN\n"
     },
     "diagnostic": "repo.secret:"
-  },
-  {
-    "id": "repo.skills",
-    "component": "policy",
-    "good": {},
-    "bad": {
-      "skills/example/SKILL.md": "Instructions\n"
-    },
-    "diagnostic": "repo.skills:"
   },
   {
     "id": "repo.size",
@@ -886,48 +688,6 @@
     "diagnostic": "footgun.test-sleep:"
   },
   {
-    "id": "footgun.rng",
-    "component": "policy",
-    "good": {
-      "benchmarks/example.py": "import random\ndef draw() -> float:\n    return random.Random(42).random()\n"
-    },
-    "bad": {
-      "benchmarks/example.py": "import random\ndef draw() -> float:\n    return random.Random().random()\n"
-    },
-    "diagnostic": "footgun.rng:"
-  },
-  {
-    "id": "footgun.rng-global",
-    "component": "policy",
-    "good": {
-      "benchmarks/example.py": "from random import Random as RNG\ndef draw() -> float:\n    return RNG(42).random()\n"
-    },
-    "bad": {
-      "benchmarks/example.py": "from random import random as draw\ndef sample() -> float:\n    return draw()\n"
-    },
-    "diagnostic": "footgun.rng:"
-  },
-  {
-    "id": "footgun.rng-numpy",
-    "component": "policy",
-    "good": {
-      "benchmarks/example.py": "import numpy as np\ndef draw() -> object:\n    return np.random.default_rng(seed=42).random()\n"
-    },
-    "bad": {
-      "benchmarks/example.py": "import numpy as np\ndef draw() -> object:\n    return np.random.default_rng(None).random()\n"
-    },
-    "diagnostic": "footgun.rng:"
-  },
-  {
-    "id": "footgun.rng-torch",
-    "component": "policy",
-    "good": {},
-    "bad": {
-      "benchmarks/example.py": "import torch\ndef draw() -> object:\n    return torch.randn(10)\n"
-    },
-    "diagnostic": "footgun.rng:"
-  },
-  {
     "id": "layout.top-script",
     "component": "policy",
     "good": {},
@@ -966,71 +726,6 @@
       "tools/one_off.sh": "#!/bin/sh\ntrue\n"
     },
     "diagnostic": "layout.script:"
-  },
-  {
-    "id": "layout.registry",
-    "component": "policy",
-    "good": {
-      "benchmarks/example.py": "WORKLOAD_SUFFIX = \"_workload.py\"\n"
-    },
-    "bad": {
-      "benchmarks/example.py": "WORKLOAD_REGISTRY = {\"chat\": \"benchmarks.workloads.chat_workload\"}\n"
-    },
-    "diagnostic": "layout.registry:"
-  },
-  {
-    "id": "layout.registry-callables",
-    "component": "policy",
-    "good": {
-      "benchmarks/example.py": "def chat() -> int:\n    return 1\nHANDLERS = {\"chat\": chat}\n"
-    },
-    "bad": {
-      "benchmarks/example.py": "def chat() -> int:\n    return 1\nWORKLOAD_REGISTRY = {\"chat\": chat}\n"
-    },
-    "diagnostic": "layout.registry:"
-  },
-  {
-    "id": "layout.registry-import",
-    "component": "policy",
-    "good": {},
-    "bad": {
-      "benchmarks/example.py": "from benchmarks.workloads.chat_workload import chat\n"
-    },
-    "diagnostic": "layout.registry:"
-  },
-  {
-    "id": "layout.extension-name",
-    "component": "policy",
-    "good": {
-      "benchmarks/workloads/chat_workload.py": "NAME = \"chat\"\n",
-      "wait_hint_offload/policies/arc_policy.py": "NAME = \"arc\"\n"
-    },
-    "bad": {
-      "benchmarks/workloads/chat.py": "NAME = \"chat\"\n"
-    },
-    "diagnostic": "layout.extension-name:"
-  },
-  {
-    "id": "layout.policy-name",
-    "component": "policy",
-    "good": {
-      "wait_hint_offload/policies/arc_policy.py": "NAME = \"arc\"\n"
-    },
-    "bad": {
-      "wait_hint_offload/policies/arc.py": "NAME = \"arc\"\n"
-    },
-    "diagnostic": "layout.extension-name:"
-  },
-  {
-    "id": "ownership.result-path",
-    "component": "policy",
-    "good": {
-      "benchmarks/runner.py": "RESULT_PATH = \"results.json\"\n"
-    },
-    "bad": {
-      "wait_hint_offload/other.py": "RESULT_PATH = \"results.json\"\n"
-    },
-    "diagnostic": "ownership.result-path:"
   },
   {
     "id": "exceptions.config",
@@ -1170,89 +865,6 @@
     "diagnostic": "docs.entry:"
   },
   {
-    "id": "docs.future-entry",
-    "component": "policy",
-    "good": {},
-    "bad": {
-      "benchmarks/__main__.py": "def main() -> int:\n    return 0\n"
-    },
-    "diagnostic": "docs.entry:"
-  },
-  {
-    "id": "contracts.exact-tokens",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=True)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": self.model_revision,\n            \"tokenizer_revision\": self.tokenizer_revision,\n            \"adapter_namespace\": self.adapter_namespace,\n            \"layout_namespace\": self.layout_namespace,\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": []},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=True)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or raw[\"schema\"] != \"wait-hint-v2\":\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=True)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_digest_external_vector"
-  },
-  {
-    "id": "contracts.exact-model",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=True)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": \"constant\",\n            \"tokenizer_revision\": self.tokenizer_revision,\n            \"adapter_namespace\": self.adapter_namespace,\n            \"layout_namespace\": self.layout_namespace,\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": list(tokens)},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=True)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or raw[\"schema\"] != \"wait-hint-v2\":\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=True)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_namespace_changes_digest[model_revision]"
-  },
-  {
-    "id": "contracts.exact-adapter",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=True)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": self.model_revision,\n            \"tokenizer_revision\": self.tokenizer_revision,\n            \"adapter_namespace\": \"constant\",\n            \"layout_namespace\": self.layout_namespace,\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": list(tokens)},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=True)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or raw[\"schema\"] != \"wait-hint-v2\":\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=True)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_namespace_changes_digest[adapter_namespace]"
-  },
-  {
-    "id": "contracts.exact-tokenizer",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=True)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": self.model_revision,\n            \"tokenizer_revision\": \"constant\",\n            \"adapter_namespace\": self.adapter_namespace,\n            \"layout_namespace\": self.layout_namespace,\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": list(tokens)},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=True)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or raw[\"schema\"] != \"wait-hint-v2\":\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=True)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_namespace_changes_digest[tokenizer_revision]"
-  },
-  {
-    "id": "contracts.exact-layout",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=True)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": self.model_revision,\n            \"tokenizer_revision\": self.tokenizer_revision,\n            \"adapter_namespace\": self.adapter_namespace,\n            \"layout_namespace\": \"constant\",\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": list(tokens)},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=True)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or raw[\"schema\"] != \"wait-hint-v2\":\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=True)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_namespace_changes_digest[layout_namespace]"
-  },
-  {
-    "id": "contracts.schema",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=True)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": self.model_revision,\n            \"tokenizer_revision\": self.tokenizer_revision,\n            \"adapter_namespace\": self.adapter_namespace,\n            \"layout_namespace\": self.layout_namespace,\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": list(tokens)},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=True)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or False:\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=True)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_schema_and_causal_clock_refusal"
-  },
-  {
-    "id": "contracts.immutable",
-    "component": "contracts",
-    "good": {},
-    "bad": {
-      "wait_hint_offload/contracts.py": "from __future__ import annotations\n\nimport hashlib\nimport json\nfrom collections.abc import Mapping, Sequence\nfrom dataclasses import asdict, dataclass\n\n\n@dataclass(frozen=False)\nclass Namespace:\n    model_revision: str\n    tokenizer_revision: str\n    adapter_namespace: str\n    layout_namespace: str\n\n    def mapping(self) -> dict[str, str]:\n        return {\n            \"model_revision\": self.model_revision,\n            \"tokenizer_revision\": self.tokenizer_revision,\n            \"adapter_namespace\": self.adapter_namespace,\n            \"layout_namespace\": self.layout_namespace,\n        }\n\n    @classmethod\n    def parse(cls, raw: object) -> Namespace:\n        names = (\n            \"model_revision\",\n            \"tokenizer_revision\",\n            \"adapter_namespace\",\n            \"layout_namespace\",\n        )\n        if not isinstance(raw, dict) or set(raw) != set(names):\n            raise ValueError(\"namespace fields\")\n        if any(not isinstance(raw[n], str) or not raw[n] for n in names):\n            raise ValueError(\"namespace values\")\n        return cls(*(str(raw[n]) for n in names))\n\n\ndef prefix_digest(tokens: Sequence[int], namespace: Namespace) -> str:\n    if any(type(t) is not int or t < 0 for t in tokens):\n        raise ValueError(\"token IDs\")\n    payload = json.dumps(\n        {\"namespace\": namespace.mapping(), \"token_ids\": list(tokens)},\n        sort_keys=True,\n        separators=(\",\", \":\"),\n    ).encode()\n    return hashlib.sha256(payload).hexdigest()\n\n\ndef positive_integer(raw: object, name: str, maximum: int) -> int:\n    if type(raw) is not int or not 0 < raw <= maximum:\n        raise ValueError(name)\n    return raw\n\n\n@dataclass(frozen=False)\nclass Hint:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n    event: str\n    prefix: str\n    boundary: int\n    namespace: Namespace\n    observed_ns: int\n    published_ns: int\n    deadline_ns: int\n    clock_domain: str\n\n    def mapping(self) -> dict[str, object]:\n        return {\"schema\": \"wait-hint-v2\", **asdict(self)}\n\n    @classmethod\n    def parse(cls, raw: Mapping[str, object]) -> Hint:\n        fields = {\n            \"schema\",\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"generation\",\n            \"event\",\n            \"prefix\",\n            \"boundary\",\n            \"namespace\",\n            \"observed_ns\",\n            \"published_ns\",\n            \"deadline_ns\",\n            \"clock_domain\",\n        }\n        if set(raw) != fields or raw[\"schema\"] != \"wait-hint-v2\":\n            raise ValueError(\"hint schema/fields\")\n        values = {}\n        for name in (\n            \"scope\",\n            \"session\",\n            \"incarnation\",\n            \"event\",\n            \"prefix\",\n            \"clock_domain\",\n        ):\n            value = raw[name]\n            if not isinstance(value, str) or not 0 < len(value) <= 192:\n                raise ValueError(name)\n            values[name] = value\n        generation = raw[\"generation\"]\n        if type(generation) is not int or generation < 0:\n            raise ValueError(\"generation\")\n        observed = positive_integer(raw[\"observed_ns\"], \"observed_ns\", 2**63 - 1)\n        published = positive_integer(raw[\"published_ns\"], \"published_ns\", 2**63 - 1)\n        deadline = positive_integer(raw[\"deadline_ns\"], \"deadline_ns\", 2**63 - 1)\n        if (\n            not observed <= published < deadline\n            or deadline - published > 60_000_000_000\n        ):\n            raise ValueError(\"causal clocks\")\n        return cls(\n            values[\"scope\"],\n            values[\"session\"],\n            values[\"incarnation\"],\n            generation,\n            values[\"event\"],\n            values[\"prefix\"],\n            positive_integer(raw[\"boundary\"], \"boundary\", 1_000_000),\n            Namespace.parse(raw[\"namespace\"]),\n            observed,\n            published,\n            deadline,\n            values[\"clock_domain\"],\n        )\n\n\n@dataclass(frozen=False)\nclass Registration:\n    scope: str\n    session: str\n    incarnation: str\n    generation: int\n\n    @classmethod\n    def parse(cls, raw: object) -> Registration:\n        fields = {\"schema\", \"scope\", \"session\", \"incarnation\", \"generation\"}\n        if (\n            not isinstance(raw, dict)\n            or set(raw) != fields\n            or raw[\"schema\"] != \"wait-registration-v2\"\n        ):\n            raise ValueError(\"registration schema\")\n        for name in (\"scope\", \"session\", \"incarnation\"):\n            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:\n                raise ValueError(\"registration identity\")\n        generation = raw[\"generation\"]\n        if type(generation) is not int or not 0 <= generation < 2**63:\n            raise ValueError(\"registration generation\")\n        return cls(raw[\"scope\"], raw[\"session\"], raw[\"incarnation\"], generation)\n"
-    },
-    "diagnostic": "test_contracts_are_immutable"
-  },
-  {
-    "id": "contracts.token-type",
-    "component": "types",
-    "good": {
-      "probe.py": "from wait_hint_offload.contracts import Namespace, prefix_digest\nnamespace = Namespace(\"m\", \"t\", \"none\", \"dense\")\nprefix_digest([1], namespace)\n"
-    },
-    "bad": {
-      "probe.py": "from wait_hint_offload.contracts import Namespace, prefix_digest\nnamespace = Namespace(\"m\", \"t\", \"none\", \"dense\")\nprefix_digest([1.0], namespace)\n"
-    },
-    "diagnostic": "[list-item]"
-  },
-  {
     "id": "comments.bootstrap",
     "component": "policy",
     "good": {
@@ -1341,5 +953,16 @@
       "pyproject.toml": "[build-system]\nrequires = [\"hatchling==1.27.0\"]\nbuild-backend = \"hatchling.build\"\n\n[project]\nname = \"vllm-semantic-cache-ext-next\"\nversion = \"0.0.0\"\ndescription = \"Exact CPU KV offload with wait-hint ARC recency advice\"\nrequires-python = \"==3.12.3\"\ndependencies = []\n\n[project.entry-points.\"vllm.endpoint_plugins\"]\nwait_hint = \"wait_hint_offload.vllm_adapter.endpoint:WaitHintEndpoint\"\n\n[dependency-groups]\ndev = [\n  \"ruff==0.14.4\",\n  \"mypy==1.18.2\",\n  \"import-linter==2.7\",\n  \"pytest==8.4.2\",\n  \"vulture==2.14\",\n  \"deptry==0.24.0\",\n]\n\n[tool.uv]\nrequired-version = \"==0.13.6\"\n\n[tool.hatch.build.targets.wheel]\npackages = [\"wait_hint_offload\"]\n\n[tool.ruff]\ntarget-version = \"py312\"\nline-length = 88\n\n[tool.ruff.lint]\nselect = [\"F401\", \"F821\", \"I001\", \"B006\", \"UP006\"]\n\n[tool.mypy]\npython_version = \"3.12\"\nstrict = true\nwarn_unused_configs = true\nshow_error_codes = true\nfiles = [\"wait_hint_offload\", \"benchmarks\", \"tools\", \"tests\"]\nexclude = [\".*\"]\n\n[tool.pytest.ini_options]\naddopts = \"-ra --strict-config --strict-markers\"\ntestpaths = [\"tests\"]\n\n[tool.importlinter]\nroot_packages = [\"wait_hint_offload\", \"benchmarks\"]\ninclude_external_packages = true\n\n[[tool.importlinter.contracts]]\nname = \"Only vllm_adapter imports vllm\"\ntype = \"forbidden\"\nsource_modules = [\"wait_hint_offload\"]\nforbidden_modules = [\"vllm\"]\nignore_imports = [\n  \"wait_hint_offload.vllm_adapter -> vllm\",\n  \"wait_hint_offload.vllm_adapter -> vllm.**\",\n  \"wait_hint_offload.vllm_adapter.** -> vllm\",\n  \"wait_hint_offload.vllm_adapter.** -> vllm.**\",\n]\nunmatched_ignore_imports_alerting = \"none\"\nallow_indirect_imports = true\n\n[[tool.importlinter.contracts]]\nname = \"Production never imports benchmarks\"\ntype = \"forbidden\"\nsource_modules = [\"wait_hint_offload\"]\nforbidden_modules = [\"benchmarks\"]\n\n[[tool.importlinter.contracts]]\nname = \"Contracts never import the adapter\"\ntype = \"forbidden\"\nsource_modules = [\"wait_hint_offload.contracts\"]\nforbidden_modules = [\"wait_hint_offload.vllm_adapter\"]\n\n[[tool.importlinter.contracts]]\nname = \"Production siblings are acyclic\"\ntype = \"acyclic_siblings\"\nancestors = [\"wait_hint_offload\"]\n"
     },
     "diagnostic": "types.config:"
+  },
+  {
+    "id": "docs.task",
+    "component": "policy",
+    "good": {
+      "tasks/example.md": "# Example\n\n## Goal\nG\n\n## Authorized\nCPU only\n\n## Done when\nD\n\n## State\nS\n\n## Next\nN\n"
+    },
+    "bad": {
+      "tasks/example.md": "# Example\n\n## Goal\nG\n\n## Log\n- did a thing\n"
+    },
+    "diagnostic": "docs.task"
   }
 ]

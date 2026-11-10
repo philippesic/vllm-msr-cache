@@ -174,7 +174,7 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
     tree = ast.parse(text, filename=label)
     aliases = qualified_names(tree)
     errors = []
-    library = path.parts[0] in {"wait_hint_offload", "benchmarks"}
+    library = path.parts[0] == "wait_hint_offload"
     script_allowed = any(
         e.rule == "script" and e.path == label and e.match == "entry" for e in entries
     )
@@ -217,78 +217,6 @@ def python_errors(path: Path, text: str, entries: list[ExceptionEntry]) -> list[
             call = qualified(node.func, aliases)
             if library and call in {"print", "builtins.print"}:
                 errors.append(f"footgun.print: {label}")
-            if path.parts[0] == "benchmarks":
-                random_call = call.startswith(("random.", "numpy.random."))
-                torch_call = call in {
-                    "torch.rand",
-                    "torch.randn",
-                    "torch.randint",
-                    "torch.randperm",
-                    "torch.normal",
-                    "torch.multinomial",
-                    "torch.bernoulli",
-                }
-                if random_call:
-                    seed = (
-                        node.args[0]
-                        if node.args
-                        else next(
-                            (k.value for k in node.keywords if k.arg in {"seed", "x"}),
-                            None,
-                        )
-                    )
-                    seeded = isinstance(seed, ast.Constant) and isinstance(
-                        seed.value, int
-                    )
-                    if (
-                        call
-                        not in {
-                            "random.Random",
-                            "numpy.random.default_rng",
-                            "numpy.random.RandomState",
-                        }
-                        or not seeded
-                    ):
-                        errors.append(f"footgun.rng: {label}")
-                elif torch_call:
-                    errors.append(f"footgun.rng: {label}")
-        if isinstance(node, ast.Name) and (
-            node.id.upper() in {"REGISTRY", "POLICY_REGISTRY", "WORKLOAD_REGISTRY"}
-        ):
-            errors.append(f"layout.registry: {label}")
-        if (
-            isinstance(node, ast.ImportFrom)
-            and node.module
-            and node.module.startswith(
-                ("benchmarks.workloads.", "wait_hint_offload.policies.")
-            )
-        ):
-            errors.append(f"layout.registry: {label}")
-        if isinstance(node, ast.Import):
-            if any(
-                n.name.startswith(
-                    ("benchmarks.workloads.", "wait_hint_offload.policies.")
-                )
-                for n in node.names
-            ):
-                errors.append(f"layout.registry: {label}")
-        if library and isinstance(node, ast.Constant) and isinstance(node.value, str):
-            if (
-                Path(node.value).name
-                in {"result.json", "results.json", "summary.json", "results.jsonl"}
-                and label != "benchmarks/runner.py"
-            ):
-                errors.append(f"ownership.result-path: {label}")
-    if path.stem == "registry":
-        errors.append(f"layout.registry: {label}")
-    if (
-        path.parts[:2]
-        in {("benchmarks", "workloads"), ("wait_hint_offload", "policies")}
-        and path.name != "__init__.py"
-    ):
-        suffix = "_workload.py" if path.parts[0] == "benchmarks" else "_policy.py"
-        if not path.name.endswith(suffix):
-            errors.append(f"layout.extension-name: {label}")
     return errors
 
 

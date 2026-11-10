@@ -18,7 +18,8 @@ def pytest_collection_modifyitems(
     actual = {item.nodeid for item in items}
     if actual != expected:
         raise pytest.UsageError(
-            f"cpu.collection: missing={sorted(expected - actual)} extra={sorted(actual - expected)}"
+            f"cpu.collection: missing={sorted(expected - actual)} extra={sorted(actual - expected)}; "
+            "after adding or renaming tests run tools/check.py --update-tests and review the diff"
         )
     for item in items:
         if any(any(item.iter_markers(name=n)) for n in ("skip", "skipif", "xfail")):
