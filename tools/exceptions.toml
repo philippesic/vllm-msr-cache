@@ -1,0 +1,5 @@
+[[exception]]
+rule = "directive"
+path = "tools/check.py"
+match = "# noqa: I001"
+reason = "The documented script entry must put the repository root on sys.path before importing its tools."

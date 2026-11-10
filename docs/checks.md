@@ -73,3 +73,11 @@ pressure/quality gates arrive with the benchmark harness. This step does not
 claim plan C5/C7/parity completion. Secret scanning recognizes selected patterns;
 it is not an exhaustive historical credential audit. Module import checks do not
 establish runtime ownership correctness or detect every possible Python side effect.
+
+## Agent guardrails
+
+Code comments and commentary docstrings are banned; derivations use stable IDs
+in [decision 005](decisions/005-agent-guardrails.md). Exact tool directives require
+a reason in [exceptions.toml](../tools/exceptions.toml). The policy rejects missing,
+duplicate, unreasoned and stale directive entries. This applies to Python and
+comment syntax in shell, TOML, YAML, Docker and ignore configuration.

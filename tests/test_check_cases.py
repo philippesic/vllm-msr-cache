@@ -1,5 +1,3 @@
-"""Versioned positive/negative controls, isolated outside the working repository."""
-
 from __future__ import annotations
 
 import json
@@ -83,13 +81,14 @@ def prepare(root: Path) -> None:
             "pyproject.toml": config,
             "AGENTS.md": "Research instructions.\n",
             "CLAUDE.md": "@AGENTS.md\n",
-            "probe.py": '"""Valid control."""\n',
+            "probe.py": "value: int = 1\n",
             "semantic_offload/__init__.py": "",
             "semantic_offload/contracts.py": "",
             "semantic_offload/vllm_adapter/__init__.py": "",
             "benchmarks/__init__.py": "",
             "vllm/__init__.py": "",
             "tools/native.json": (ROOT / "tools/native.json").read_text(),
+            "tools/exceptions.toml": "exception = []\n",
             "test_probe.py": "def test_control() -> None:\n    assert 1 + 1 == 2\n",
             "cpu.json": '["test_probe.py::test_control"]\n',
         },
@@ -164,7 +163,6 @@ def require_manifest(required: set[str], actual: list[str]) -> None:
 
 
 def test_manifest_covers_adopted_rules() -> None:
-    # Independent registry means deleting a specimen cannot quietly reduce coverage.
     required = set(json.loads((ROOT / "tools/rules.json").read_text()))
     actual = [c.id for c in cases()]
     require_manifest(required, actual)

@@ -1,5 +1,3 @@
-"""Reject disappearing, skipped, xfailed or unexpectedly added required CPU tests."""
-
 from __future__ import annotations
 
 import json
@@ -34,7 +32,6 @@ def pytest_runtest_makereport(
 ) -> Generator[None, pytest.TestReport, pytest.TestReport]:
     report = yield
     if report.skipped or hasattr(report, "wasxfail"):
-        # Change the report before pytest updates its failure count/exit status.
         report.outcome = "failed"
         report.longrepr = f"cpu.skipped: {report.nodeid}"
     return report
