@@ -1,0 +1,55 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "9b9a6c5fbf232f6ece2c2587",
+      "signature": "f429a1fc49d9898726ec5cc9faf2d8e2b81ff7c4115fff2045a08da4bd019f32",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Duplicate-pool exclusion contradicts test_multiplicity with abacba and first-index expectations."
+      ],
+      "whitespace_words": 43,
+      "notes": "Rank computation, invalid-element ValueError and eight actual passes remain useful. Prior mistaken large/order assumptions are not separately charged to final. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "49f81a93a57b12c5e4f6ddf2",
+      "signature": "942d8c7ced32f70b48d31737d245cae4d1377ac9f22680ce6653e659939e0ea1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 47,
+      "notes": "Fourteen actual passes and uniqueness classification supported. Source set/list tracking and stated performance considerations support hedged large-data efficiency limitation. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "962776568cd5963170b6b3af",
+      "signature": "1510fc08672ac8d8fb7559963ba1d55d06d5a0172a2c1178c5eb9eae17762694",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "enumerate and combinatorial math do not establish a non-hashable correctness limitation; equality scan imposes no hashability requirement."
+      ],
+      "whitespace_words": 40,
+      "notes": "Correct rank behavior and eight actual passes remain useful. The final repeats a predecessor's unsupported restriction, but does not repeat its performance-test assertion. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

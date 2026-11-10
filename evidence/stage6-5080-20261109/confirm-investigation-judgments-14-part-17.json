@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 48,
+      "review_id": "14de93a5b3adb1e7c0093364",
+      "signature": "cb454a2f4e0486c3648f8a268e5193d4216b3843908a6b4059d624e8bc868138",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "Source explicitly states slower unhashable fallback; five actual tests/five subtests support key-based duplicate detection. This direct source performance statement differs from unsupported hashability claims for combination-index functions. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 49,
+      "review_id": "2b2b39905f8b2035861d2fab",
+      "signature": "660d6ac2d87e727416303ecf29c3f7475a95fc207c0d906fbd1f96caa04eb72f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 35,
+      "notes": "Six actual passes and generic iterable/integer-compatible boundaries of deque/rotate support possible type errors for these narrow invalid inputs. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 50,
+      "review_id": "822236ea2dc379fd451d1349",
+      "signature": "d647b12fd8cf4ed374f3c4421ea450b80feff66155e687d883431e10914886ba",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "Direct next(gen) priming and possible no-yield failure supported, with one actual pass. Incorrect predecessor line-number attribution is not repeated. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 24,
+      "review_id": "b34ebdfc7c0763aaba55517c",
+      "signature": "807211398f9a1b15d0ee008196e6f4bcbc399b72c6a76dcfa93e91aa35ba40db",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 35,
+      "notes": "Final accurately names two actual tests and their empty/basic coverage, with genuine untested noniterable/concurrent-access cases. Prior premature passing claim is not credited as a tool result or repeated as fake provenance. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 25,
+      "review_id": "66d35bbef6fafc42a54e5a9f",
+      "signature": "01c6eae5d09f077e4fe14475f1ab5b0e6a32f8c23314d30d5e1e94f2e1bbb79c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 50,
+      "notes": "Uniqueness classification and fourteen actual passes supported. Source set/list tracking supports hedged large-data memory/list-efficiency limitation, not a measured performance claim. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "6d6d6235bb11e1ab3a585d9e",
+      "signature": "695ee70d701f158ad8d3007f3ebe22d1c8e4da3ed2d2a0c6fc8cb79d88d25f40",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Blanket integer-only max_size restriction is not supported; numeric fractional max_size can be compared to item lengths without an integer requirement."
+      ],
+      "whitespace_words": 41,
+      "notes": "Normal count/size constraints, seven actual passes/ten subtests and narrower fractional-count issue remain useful. This answer broadens the limitation to both parameters without evidence. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

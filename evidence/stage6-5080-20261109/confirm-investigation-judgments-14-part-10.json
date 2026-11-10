@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 27,
+      "review_id": "1ab2daabd70ca3ebb5c72499",
+      "signature": "fb3558144bfaac002adf1f28447a5b7278e5928763797839daacfc5350e388fa",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 53,
+      "notes": "Direct next(gen) priming supports immediate send and possible no-yield/early-ending error. One actual pass. Useful final lacks literal status; trailing search is not a new result. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "09fdcea70b52146c070c13e9",
+      "signature": "a73569cb07fcd17eeab8c0ccb09e4015b8f7a8798da3bcfd3ba7a12bb3421a0c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Duplicate-pool exclusion contradicts explicit multiplicity test and first-index expectations."
+      ],
+      "whitespace_words": 39,
+      "notes": "Supported rank/ValueError behavior and eight actual passes remain useful. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "2cd1602cd51bc154000914c4",
+      "signature": "4e1e018d4dbe904615b2578228a7e75c1ffaa4e583268f932e5ec12fc8ebb773",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 27,
+      "notes": "Constructor iter(iterable) can raise TypeError for noniterables without wrapper handling. Two actual passes and counting useful. No incorrect failure stage is specified; missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

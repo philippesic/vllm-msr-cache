@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 45,
+      "review_id": "6a4a13f17f0572dbc55d188a",
+      "signature": "1252e3b1c9a6bd4d19914b0185377f2d4d67b18f2c32c66cb605faa504de7d46",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "Six actual passes, explicit zero-step ValueError and rotate integer-compatible step requirement support the narrow limitation. Missing literal status; trailing search adds no executed evidence. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "29e0d7c2b738e3a31186891f",
+      "signature": "9e8848f07b77f060461dce5cd69c5802bbed3a22ac5399088c164f97738bcd5d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Potential infinite loops for numeric noninteger chunk sizes are unsupported; islice rejects incompatible size/step types."
+      ],
+      "whitespace_words": 38,
+      "notes": "Ten actual passes and balanced chunk behavior useful. Valid integer infinite inputs are explicitly tested; final narrows to nonintegers but invents the failure mode. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 47,
+      "review_id": "388350d391dd67161dd6536b",
+      "signature": "c2fd06db5c4655cc6232dbd913cd3573b0bc36ce5a3f8ec3408a5d30338e07ab",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 38,
+      "notes": "Two tests cover basic/empty counting, not noniterable input or large-data cases. Legitimate coverage limit with supported counting; missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

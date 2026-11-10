@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 15,
+      "review_id": "b485b700a2439e6d844e0c79",
+      "signature": "94d54abebcf04b0b9d1a866737d401c665454936242dfa2b91cfc264a84a686f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "Seven actual tests/ten subtests support normal size/count batching. Fractional max_count never equals the integer batch_count and lacks an explicit integer validation path, so the narrow nongraceful-fractional-count limitation is supported by implementation. This is not a blanket restriction on numeric max_size. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 16,
+      "review_id": "be8cd8fbef9d72366e16979e",
+      "signature": "eefb682f00195c8bceaf5de3599d6e2921938110875124c1fd6a965e3cf6f08b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "Six actual passes and noniterable wrapping supported. Default str/bytes atomic treatment is explicit, with configurable base_type; final states a default/use-case limitation without denying customization. Missing underscore literal in Test status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 17,
+      "review_id": "d9292e756eff31fa373436cc",
+      "signature": "e8df627528a58ff574f33e401861a06f396d8824efa2ab96053d1f3571c303af",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Empty-input error limitation contradicts explicit empty-input test and empty-buffer return."
+      ],
+      "whitespace_words": 40,
+      "notes": "Balanced chunk behavior and actual ten passes remain useful; correct literal status does not repair the unsupported concrete limitation. Prior zero-n error claim is not repeated. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

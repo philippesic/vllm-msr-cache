@@ -1,0 +1,55 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 6,
+      "review_id": "1dd126d44415bbf38403cc76",
+      "signature": "f7a1fc43390b79479c4646e68fa02f5cd6d6125e5a8f0e0612d17ad900cb271f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Attributes Python-version instability to callback_iter's internal thread management without supporting implementation/API evidence; the supplied explicit instability comment concerns a test's private _shutdown assertion."
+      ],
+      "whitespace_words": 41,
+      "notes": "Callback iteration/result retrieval and seven actual passes are useful. Same implementation/test distinction as earlier review; missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "5c2ab2048b00336da8728dba",
+      "signature": "e21c9782f0e8b86ea67376ee74c1e76c94ddc193fe2013d803be89253c4793ec",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "Automatic first-yield priming and possible early/no-yield error are directly supported; one actual test passed. Useful final omits literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "b6b356a95d8253508e2db87c",
+      "signature": "611bffd58a60e4067f5c3cf51faf15b55ef4ec1fa36fc54df238d3994546d22e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified test-performance validation and possible non-hashable correctness restriction are not established; source uses equality and tests check correctness, not performance timing."
+      ],
+      "whitespace_words": 206,
+      "notes": "The capped intermediate has useful rank-without-enumeration and invalid-element ValueError facts. Only source search has run, and source test bodies are not executed outcomes. At206 words it exceeds under70, repeats content and omits exact next pytest command; no invented PASS literal is charged. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

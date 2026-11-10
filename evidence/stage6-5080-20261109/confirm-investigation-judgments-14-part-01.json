@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "66f582035857393c3035bedd",
+      "signature": "fefeae7285e485b74f1a9adf755f3a254cbe2a5a87ecd0b3ab99b96343b54237",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 30,
+      "notes": "For provided numeric n, range(n) requires an integer-compatible value and can reject nonintegers; None is separately the unlimited mode. Three actual passes support cycling. Narrow error boundary is source-supported, but literal test_status=PASS is missing. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "4e61c2620820d29639a24d0e",
+      "signature": "767a8a3f97c29e6fe434506f262b633387c08c00e23a6266182dd386d9a0f58b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "Chunk size is used as an islice count/step, so noninteger sizes can fail even with an infinite input. Ten actual passes support balanced chunks and the infinite-input tests use integers. The final limits noninteger sizes rather than denying valid infinite-iterator support; missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "3827580632061b75f3e653b2",
+      "signature": "1da455b99435eb4bd3ea3023433500a99593439f832893998c8de54a10fd6931",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified non-hashable-specific inefficiency is not established by this tuple.index algorithm or supplied tests; no hashability-specific slow path or performance result is shown."
+      ],
+      "whitespace_words": 27,
+      "notes": "Invalid-element ValueError and ten actual tests/84 subtests are useful. This is an unsupported performance limitation rather than a claim of runtime rejection. Missing literal status is separate. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

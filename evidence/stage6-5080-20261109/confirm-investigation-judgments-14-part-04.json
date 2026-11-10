@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 9,
+      "review_id": "48d03caa8c68d52611112579",
+      "signature": "5915b76e4995a92b7b1c33b806a27e6aad7b839b528169a8352df1a4c0234c45",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 34,
+      "notes": "Integer-compatible n is required by islice count/step use; numeric noninteger sizes can fail. Ten actual passes and balanced chunks are supported. Does not deny valid n=0/infinite behavior. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "4d0b5b84197c2b81ca1013e3",
+      "signature": "1600db855a587594e8ebe7f51a1f9ede161b4bbfed0993b7bb802f071469918b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 46,
+      "notes": "Eight actual passes support combination rank and generic invalid-combination ValueError. Message lacks offending-input detail, supporting the hedged clarity limit. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "81a9ca145cf66cf7629fe5d7",
+      "signature": "9eafc95743d31344fae3e90a5021f6e567da9b248acfce3e13fab389d18e6ba7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "deque(iterable) and rotate(steps) impose iterable/integer-compatible boundaries without wrapper handling; narrow type-error limitation is supported. Six actual passes and circular shifts useful. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

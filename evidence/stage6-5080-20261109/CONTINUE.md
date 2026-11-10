@@ -15,10 +15,11 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-owner-03-MODEL-CELL.private.json` and
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
-cell is Qwen3-8B B11. The latest post-repair health check has **300/524 valid
-configurations, 113/210 complete matched blocks**, with B11 candidate repeat 4
-(the fifth scheduled block) active. Review 13
-captures the first two complete B11 blocks.
+cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
+The latest post-repair health check has **327/524 valid configurations,
+120/210 complete matched blocks**, with B12 upstream repeat 3 (the fourth
+scheduled block) active. Review 14 captures all B11 blocks and the first B12
+block; later acquisition is outside that static snapshot.
 B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
@@ -170,7 +171,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 10.7 GiB ext4, 3.65 GiB WSL root and 11.32 GiB Windows at the last bounded
+about 10.0 GiB ext4, 3.56 GiB WSL root and 11.20 GiB Windows at the last bounded
 health check; monitor all three. Root includes the latest derived review snapshot.
 Private disk observation 03 retains recent host-owned app-server
 binary/catalog sizes: these account for part of the recent root growth, but the
@@ -865,7 +866,7 @@ partial acquisition, not a population accuracy/equivalence result. Future reuse
 should bind the union of screen07 and all completed confirmation indices to
 avoid losing older contexts temporarily absent from the selected sample.
 
-The latest **partial confirmation review 13** includes all twelve B10 native
+The historical **partial confirmation review 13** includes all twelve B10 native
 pairs and two B11 four-system blocks (111 selected blocks):
 [index](confirm-review-index-13.json), [ratings](confirm-source-judgments-13.json),
 [component bindings](confirm-review-components-13.json),
@@ -893,6 +894,39 @@ frozen validator accepts all 3,062 judgments in isolation. No timing/objective o
 live quality change, no first-B06 comparison credit, no final acquisition or
 population accuracy/equivalence claim. Reuse only exact complete contexts and
 archived instructions from the union of completed indices, retaining all history.
+
+The latest **partial confirmation review 14** includes all eight B11 four-system
+blocks and the first B12 block (118 selected blocks):
+[index](confirm-review-index-14.json), [ratings](confirm-source-judgments-14.json),
+[component bindings](confirm-review-components-14.json),
+[isolated validator](confirm-quality-checkpoint-14.json), raw
+`$BASE/quality-confirm-checkpoint-14/`. It covers **5,624 objective finals,
+3,191 automatic final failures, 78 capped intermediates and 3,720 selected
+outputs / 398 complete contexts**. All 61 new contexts were explicitly read and
+judged in twenty manual parts: 58 investigation finals, two capped intermediates
+and one QA final. All fourteen supplied source strings exactly match earlier
+explicit readings; every new reference/instruction/dependency/tool/answer was
+separately read, with full-field and individual-dependency bindings checked.
+No novel judgment was automatic.
+
+The added group has **18 source failures, 60 instruction failures and one not
+useful**. Unsupported duplicate/custom-type/hashability restrictions, performance
+validation and infinite-loop claims remain distinct from source-supported type,
+coverage and tracking-memory limitations. A claim of unique locks contradicts
+the explicit shared-lock test and is not useful; another final correctly resolves
+prior lock errors against actual evidence. Both capped intermediates retain useful
+source facts but exceed the under-70 limit and invent performance-test coverage.
+The JSON QA answer is supported and follows format while retaining its automatic
+short-reference exact-match failure.
+
+Selected duplicate-inclusive counts are **440 source failures, 1,612 instruction
+failures and 67 not useful**. All 316 included archived instruction sources verify;
+the isolated frozen validator accepts all 3,720 judgments. The selected B11
+recovery blocks follow the unchanged frozen selector; original partial/PATH-failed
+attempts remain without comparison credit. First B06 remains excluded. No original
+objective, timing or live quality change; no population accuracy/equivalence or
+final-acquisition claim. Continue exact full-context/instruction reuse from the
+union of all completed indices, retaining every historical snapshot.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files

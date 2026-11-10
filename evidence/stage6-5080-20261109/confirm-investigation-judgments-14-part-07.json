@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 18,
+      "review_id": "38ae117d494a45ac8b12f198",
+      "signature": "9bdb57fd383065bd5c7efd8ed083b5eb3abda51869279ac98ce114ca3c431a33",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "Eight actual passes support rank computation. Supplied long-input case checks correctness, not performance benchmarking for extremely large inputs, so the narrow unmeasured-performance limitation is supported. Final does not repeat malformed prior commands as actual tools. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 19,
+      "review_id": "272bb55f2b4a3b2ea6135760",
+      "signature": "f75f9d4e4030cea0701c81be29609ca2513850913f3c2ff763d46ed7726f0322",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 40,
+      "notes": "Three actual passes and cycle/count outputs supported. Provided numeric n is passed to range, so nonintegers can error; None remains the documented unlimited mode. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 20,
+      "review_id": "95492066dc81bdc9a34bebbc",
+      "signature": "13017cb5a81ec75c11e0b22a779a4bcc309353b68cfe17d3ef1512e50992d96e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 23,
+      "notes": "Two tests cover basic/empty counting, not noniterable inputs or concurrent access. Final states a legitimate coverage limit, without repeating the prior premature PASS as fake provenance. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 3,
+      "review_id": "97ff914132ac1492c4f6305f",
+      "signature": "dadcd37a5306727230bdcdebad03fb6e88fa2fbd166c0e9fd3064a400b2d98c7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 40,
+      "notes": "Constructor directly calls iter(iterable), so noniterable errors during initialization are accurately located. Two actual test passes and item counting supported. Missing literal status; trailing search is not credited as an executed result. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "8d6c0424a90251850f3681f7",
+      "signature": "306312c75587ba37caab87cc1ca58441e298f8cca69b19681cb908d4df7f4c34",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 38,
+      "notes": "Key/no-key duplicate detection and slower unhashable list fallback are explicitly supported. Five actual tests/five subtests pass. Useful final lacks literal status; extra trailing search adds no tool result. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "6c0e5c14a68ff1a3d46a5602",
+      "signature": "efd52214a74c6903f6e73ef4df80a550ac13bb84aa7e9130cfd18e9bcc4b3281",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 48,
+      "notes": "Same supported classify_unique behavior and hedged large-data tracking-state/list-performance limitation as confirm13. Fourteen actual passes; new final punctuation explicitly read. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

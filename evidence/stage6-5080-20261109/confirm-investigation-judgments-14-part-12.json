@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 33,
+      "review_id": "5042f3e3daadb144fce08fd5",
+      "signature": "2db2f6a0a5dbeb90ab7144c611b20147375f0bdf0864dfc7cefe7d3ace70359f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 23,
+      "notes": "deque construction requires iterable input and rotate requires integer-compatible steps; this narrow type boundary is supported. Six actual passes and circular shifts useful. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 34,
+      "review_id": "ce4a4ce92d02b2455666e647",
+      "signature": "d2f113b3091b6e3005d965c8d6ae4bf39f6dbf476d18c8151583e885030f7367",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 48,
+      "notes": "Fourteen actual passes and classification supported. Hedged large-data state/list-efficiency limitation is grounded in the implementation and source performance note. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 35,
+      "review_id": "611acc336e933c9bc881a5a9",
+      "signature": "a0b077220e624da5620c860ebcd4f88a06bd786781f261330d1908cb09f7b365",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 30,
+      "notes": "Explicit zero-step ValueError and rotate integer-compatible requirement support the concrete limitation. Six actual passes; no claim that noninteger behavior was tested. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

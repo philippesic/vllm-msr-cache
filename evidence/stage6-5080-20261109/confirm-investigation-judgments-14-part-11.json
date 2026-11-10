@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 30,
+      "review_id": "558e17e3a85c38f0cc459936",
+      "signature": "2f95b8320e8076a29ccd5d0fac5510481505e7db3ca360de3fc0f11f2b1b7ff5",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 55,
+      "notes": "One actual pass and direct next(gen) support immediate send and possible no-yield error. Useful final lacks literal status. Prior unclear decorator/caller next phrasing is not repeated. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "dc4145bb617d18bb4a5fdef1",
+      "signature": "ef130220717ff0d2a80870a1350dde3947bf5146e407a7316bb7bb086f3468ac",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "Eight actual passes and rank without prior enumeration supported. Both invalid order and missing element reach the same generic ValueError, so failure-category diagnostic limitation is supported. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 32,
+      "review_id": "8b3beed893a7202b0772300a",
+      "signature": "75d0240c0a5879de1101baf0624fe08fba80d884fab2e91532e5c22ede127130",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Three actual passes support cycle numbers. Numeric n goes to range, so nonintegers can fail while None remains the unlimited mode. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

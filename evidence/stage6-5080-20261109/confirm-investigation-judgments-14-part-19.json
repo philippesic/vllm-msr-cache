@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 54,
+      "review_id": "e65a7363ebdf8742008084d0",
+      "signature": "9c2629f4f1c5b578cd4cf0ca176a0eb29c629c5cd5ccdaa7b2c49405303a59db",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 12,
+      "notes": "Correct key/no-key duplicate detection is useful partial content. No test status or concrete limitation is supplied, so the report instruction fails. Prior infinite-coverage assumption not repeated. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 55,
+      "review_id": "04bd430cf8175c20f38b1d8c",
+      "signature": "1d9af5090b60b61d725cb17a9c779a1b473d0d3a96fe1e0a04375b6cb062854d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 29,
+      "notes": "Three actual passes support cycle numbers; provided numeric n goes to range and can reject nonintegers. None remains unlimited mode. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 56,
+      "review_id": "2f35b1e678447f7982691f8d",
+      "signature": "e367c936224627e7adaa3dbc5ceb1da5c0374914c1ba88b87769f7ad4fa8ba36",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 49,
+      "notes": "Final corrects predecessors using actual shared-lock evidence and one passing concurrency test. Per-copy single-thread consumption and serialize for sharing a single copy across threads are explicit source limitations; not a denial of concurrent distinct-copy use. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

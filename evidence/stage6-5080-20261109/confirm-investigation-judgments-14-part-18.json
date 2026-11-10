@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 51,
+      "review_id": "3af5c4a09c90ab3dbec8087d",
+      "signature": "98bd90bff6602963ad16f9ffb293f32a3f462b2f2fd354e1ff7d56fd2ca2c4f0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims performance testing from correctness-only unit tests; no performance metric/bound is supplied."
+      ],
+      "whitespace_words": 202,
+      "notes": "Actual eight passes, invalid-combination checks and rank implementation remain useful. Capped202-word intermediate exceeds under70, repeats content and omits exact next search declaration. Prior non-hashable claim is not repeated. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 52,
+      "review_id": "2eb768d6f445b172d8c5f98c",
+      "signature": "75194498d614de91b3da14baa7d1cd45db9c82d9f602f95851ea00fa9a514e1e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "Six actual passes and noniterable wrapping supported. Default string atomic treatment is explicit; configurable base_type is not denied. Missing underscore literal in Test status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 53,
+      "review_id": "42aee54715448f477634a3c4",
+      "signature": "bd41c13a0a1cc041141768b481314c863592c20b65c137e225928a6feb5155c8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "Seven actual passes and callback/exception behavior supported. Background ThreadPoolExecutor execution is explicit, supporting the hedged synchronous-coordination complexity limitation without a claimed measured cost or private-API dependence. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 36,
+      "review_id": "95efcc3b7082f33fff0de0f4",
+      "signature": "8a6f99e9a8b86ab11cd3b2967502c79efc6528136b2a0d4fbf3e104d88aa6c17",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Predicts infinite loops or incorrect chunking for noninteger n without evidence; numeric noninteger islice sizes fail the type boundary instead."
+      ],
+      "whitespace_words": 46,
+      "notes": "Balanced chunks and ten actual passes remain useful. Narrow noninteger failure is real, but asserted failure modes are unsupported. Correct literal status does not fix evidence-based limitation failure. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 37,
+      "review_id": "dfc0e86459d837beb6c7e33e",
+      "signature": "0f0be6711fd23c4cdbdd91447aa627df348c5acccb406d51b733894bc8dd69bc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "Noniterable wrapping and default str/bytes atomic treatment are supported, with None separately producing empty output. test_single/test_none both actually passed; parenthetical names them for PASS, not as proof that None is wrapped. Does not repeat prior reversed dictionary behavior. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "373dba66a5ca9502921aeb83",
+      "signature": "9170e080653d13e311948bcc1c4280e1ad45865cd13b91cb39b10b140b74c704",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 48,
+      "notes": "Fourteen actual passes and classification supported. Growing set/list tracking and source performance note support hedged large-data efficiency limitation. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

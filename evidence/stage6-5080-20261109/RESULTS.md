@@ -8,6 +8,11 @@ matched blocks. The first three native cells have complete repeated estimates be
 Headline comparisons with Continuum and the remaining cells are still pending;
 overhead, operational and final audits have not completed.
 
+Latest bounded health: **327/524 valid configurations and 120/210 matched
+blocks**, with Qwen3-8B B12 running under the independent recovery service.
+All eight B11 comparisons are complete. There are no new health issues beyond
+the retained first B06 exclusion; progress and disk checks continue.
+
 Confirmation now has a retained [B06 activity failure](confirmation-b06-inactive-restore-01.json):
 the first candidate process served all 32 requests and 24 tools with no caps and
 clean cleanup, but recorded zero CPU restores and eight scheduler preemptions.
@@ -225,7 +230,7 @@ or quality equivalence. Original objectives, timings, live quality and the first
 B06 exclusion remain unchanged. Final confirmation and all-phase cap audits
 remain pending.
 
-The [latest partial confirmation review](confirm-review-index-13.json) includes
+The [historical partial confirmation review](confirm-review-index-13.json) includes
 all twelve B10 native pairs and two B11 four-system blocks: **4,824 objective
 finals, 2,542 automatic final failures, 76 capped intermediates and 3,062 selected
 outputs / 341 complete contexts**. Fifty new contexts—39 investigation finals,
@@ -245,6 +250,30 @@ failures and 65 not useful**. The [isolated validator](confirm-quality-checkpoin
 accepts all 3,062 judgments and all 288 archived instruction sources verify.
 This is a partial selected-cohort audit, not a population error rate or quality
 equivalence. Timings, objectives, live quality and first-B06 exclusion are unchanged.
+Final confirmation and all-phase audits remain pending.
+
+The [latest partial confirmation review](confirm-review-index-14.json) includes
+all eight B11 four-system blocks and the first B12 block: **5,624 objective
+finals, 3,191 automatic final failures, 78 capped intermediates and 3,720 selected
+outputs / 398 complete contexts**. All 61 new contexts (58 investigation finals,
+two capped intermediates and one QA final) were explicitly read and judged.
+Fourteen supplied source strings match prior readings; exact full-field and
+individual-dependency [bindings](confirm-review-components-14.json) preserve
+those matches, with every new component and answer separately reviewed.
+
+The new group has **18 source failures, 60 instruction failures and one not
+useful**. Unsupported input exclusions, performance validation, infinite-loop
+predictions and a unique-lock claim remain visible. Source-supported type,
+coverage and memory limits retain credit. Both capped intermediates contain
+useful source facts but exceed the intermediate word limit. A supported JSON
+answer differs from the short exact reference, whose automatic failure remains.
+
+Selected duplicate-inclusive counts are **440 source failures, 1,612 instruction
+failures and 67 not useful**. All 316 archived instruction sources verify; the
+[isolated frozen validator](confirm-quality-checkpoint-14.json) accepts all 3,720
+judgments. These are partial selected-cohort counts, not population rates or
+quality equivalence. Original objectives, timings and live quality are unchanged;
+failed/partial B11 setup attempts and first B06 remain outside comparison credit.
 Final confirmation and all-phase audits remain pending.
 
 A [declared orchestration repair](confirmation-host-interruption-02.json) records
@@ -273,7 +302,7 @@ The subsequent [whole-block recovery proof](confirmation-b11-replacement-03.json
 passes: all four systems complete **320 requests and 192 tools** in total, with
 common workload units, valid measurements, cleanup and seals. The frozen selector
 chooses the new block and excludes the original partial and PATH-failed attempts.
-Qwen3-8B B06 remains at its original 32 attempts. Latest health has **300/524 valid
+Qwen3-8B B06 remains at its original 32 attempts. At that checkpoint health had **300/524 valid
 configurations and 113/210 matched blocks**, with no new issue beyond the retained
 activity exclusion and setup attempts awaiting valid replacement. This proves
 recovery of that block, not completion of confirmation or the campaign.

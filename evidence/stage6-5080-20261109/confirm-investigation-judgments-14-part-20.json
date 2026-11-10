@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 57,
+      "review_id": "7594fc16dc0dc82a0b75c087",
+      "signature": "334ad047842380df79984dbd7415664c188c256e12445ce58de6c974f58290e3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Requires non-threadsafe source and mishandles thread-safe iterators is unsupported by generic construction."
+      ],
+      "whitespace_words": 35,
+      "notes": "One actual concurrency test and safe distinct-copy consumption remain useful. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 58,
+      "review_id": "b100721178426afe1681486d",
+      "signature": "f3e896df19441926a998bb4adec798c024a1f6e019c0f860df5db30a2bb3a8d5",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Python-version instability attributed to callback_iter's internal threading is not established; explicit private-state fragility is in the test, not the public executor methods used by implementation."
+      ],
+      "whitespace_words": 33,
+      "notes": "Seven actual passes and callback/termination behavior remain useful. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 59,
+      "review_id": "7978402cc961934e1e0da89e",
+      "signature": "3c46c50a273c56d1b6dd24c6567b6171dfd473b4a1e40de9f528402848db8035",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Six actual passes and iterable/integer-compatible deque/rotate type boundaries support possible invalid-input errors. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 60,
+      "review_id": "e9588c2de41afd016abf72c7",
+      "signature": "41861d49373f7b62e3ed29b57ac9e0dd322b3861b37b6921d98945e02bc7b940",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Three actual passes support cycling; no test covers fractional n. Absence of a test alone does not prove runtime exclusion, but range(n) independently supports the integer-compatible input boundary. Final supplies true source-supported facts; missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 39,
+      "review_id": "a67b4d2d09994bbf2307c6a1",
+      "signature": "1fcd03c10013ab73e5f5873632c5c36071598d882459f0670bb7c8e949e49174",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Empty-input nongraceful behavior with nonzero n contradicts test_0 (empty input,n=3) and empty-buffer return."
+      ],
+      "whitespace_words": 38,
+      "notes": "Ten actual passes and balanced chunks remain useful; prior mistaken zero-n claim not repeated. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 40,
+      "review_id": "82197bcebbf5ddf49a6fd4cb",
+      "signature": "0f7ad252c772426e24b016a08948f5063784d42e6e1528f53a9be9dc019990c2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Excludes custom iterable-like objects despite generic iter(obj) handling and no standard-type-only restriction."
+      ],
+      "whitespace_words": 24,
+      "notes": "Wrapping behavior and six actual passes remain useful. Missing underscore literal in Test status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 41,
+      "review_id": "9c524ef5cd878a47b16ed705",
+      "signature": "c6eeb487fa2e829083c07845881d0b9a3b213ce7f95d6869abae145b9a36e9ea",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Requires non-threadsafe input and mishandles thread-safe iterators is unsupported; function accepts generic iterable inputs without that exclusion."
+      ],
+      "whitespace_words": 38,
+      "notes": "One actual concurrency test supports full per-consumer data; claimed limitation is wrong. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

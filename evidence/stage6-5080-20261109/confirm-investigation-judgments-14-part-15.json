@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "5abea1b4cf97997e37a33b9edcca82a1fca08a04e30d6285478b394c4b384356",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-14/blind-packet.json",
+  "ratings": [
+    {
+      "index": 42,
+      "review_id": "c4d480be329ae096d192310b",
+      "signature": "41582f972910d1aaeee9b25fa24ac0e4f8457f65fe1d2c673204223ff8056162",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 39,
+      "notes": "One actual pass confirms immediate send. Calling next on a generator that reaches no yield can raise, supporting the concrete boundary. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 43,
+      "review_id": "8da145dbf0533275ccefd5b8",
+      "signature": "1d6626c0225838ea60205e9ed81ae2f6081200a7528a734d6c97061b2eb27099",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Unique lock per iterator contradicts test assertion that all tee objects share one lock; required non-threadsafe input is also unsupported."
+      ],
+      "whitespace_words": 40,
+      "notes": "Both substantive behavior and limitation are wrong. Actual one passing test alone is not a useful task-specific investigation. Final repeats predecessor lock error despite later actual shared-lock evidence and omits literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 44,
+      "review_id": "c3b7a1d8d2000a44ff1f948c",
+      "signature": "d426ef1665ada09bfa0ddf18cce8a34c35cbc8be2c02629b50f5d97f01f66f4a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "Automatic priming and possible no-yield error supported by source, with one actual pass. Useful final omits literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

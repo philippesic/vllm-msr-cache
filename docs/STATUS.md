@@ -33,10 +33,10 @@ incomplete scope and missing repetitions through an explicit option, with the
 default completion guard retained and 28 focused tests passing; terminal results
 are still pending. The final screen source audit covers
 1,248 selected outputs / 522 full contexts. Partial confirmation review now covers
-3,062 selected outputs / 341 contexts through all twelve B10 native pairs
-and two B11 four-system blocks. Fifty added contexts were explicitly judged
-with exact source/dependency bindings and all 288 archived instructions verified.
-B11 acquisition continues after a tool-host interruption. Its partial comparison
+3,720 selected outputs / 398 contexts through all eight B11 four-system blocks
+and the first B12 block. Sixty-one added contexts were explicitly judged
+with exact source/dependency bindings and all 316 archived instructions verified.
+B12 acquisition continues after a tool-host interruption. The partial B11 comparison
 is preserved and replaced as a whole under an independent user service; the
 frozen source/order and B06 exclusion are retained. Recovery selects only the
 remaining cell suffix to avoid retrying that known activity-invalid block.
