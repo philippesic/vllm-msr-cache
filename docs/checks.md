@@ -1,19 +1,22 @@
 # Checks
 
-`uv run --locked python tools/check.py` is full acceptance, locally and in CI. The
-`.githooks/pre-commit` hook runs exactly that command; enable it with
+`uv run --locked python tools/check.py` is acceptance and takes a few seconds. The
+`.githooks/pre-commit` hook runs it on every commit, and also runs the rule proofs
+(`--self-test`, about 30 seconds) when a commit touches `tools/`, the proof tests,
+`pyproject.toml`, the hook or CI. CI runs both. Enable the hook with
 `git config core.hooksPath .githooks`. It never runs GPU tests or builds.
 
 | Command | Purpose |
 | --- | --- |
-| `tools/check.py` | Full portable acceptance |
+| `tools/check.py` | Acceptance |
+| `tools/check.py --self-test` | Rule proofs: each rule rejects a bad specimen and accepts a good one |
 | `tools/check.py --test tests/PATH.py` | Fast partial feedback; never acceptance |
 | `tools/check.py --component NAME` | One group, e.g. `policy`, `types`, `lint` |
-| `tools/check.py --self-test` | Only the rule proofs |
-| `tools/check.py --update-tests` | Refresh the test inventory and print the diff |
+| `tools/check.py --update-tests` | Refresh both test inventories and print the diff |
 | `tools/check.py --runtime-python PY --out DIR` | Strict runtime types plus pinned CPU integration |
 
-All commands are prefixed with `uv run --locked python`. The pinned check image is
+All commands are prefixed with `uv run --locked python`. Supported entry points are
+listed in the [system map](system-map.md). The pinned check image is
 [Dockerfile.checks](../Dockerfile.checks); keep `.git` in its build context because
 policy reads the index.
 
@@ -32,6 +35,8 @@ policy reads the index.
 | `boundary.*`, Import Linter | Only `vllm_adapter` imports vLLM; the pure core imports only the standard library. |
 | `types.suppression`, `exceptions.*` | Fix the type error. A directive needs an exact, reasoned `tools/exceptions.toml` entry and Philip's review. |
 | `docs.link`, `docs.map` | Fix the link, or keep `docs/system-map.md` rows in sync with `tools/system_map.py`. |
+| `docs.task` | Task files follow the template in [tasks/README.md](../tasks/README.md). |
+| `repo.artifacts` | Raw outputs, logs, plans, scratch and status diaries stay out of Git. Use `tasks/`, FINDINGS or `evidence/`. |
 
 ## Enforced groups
 
@@ -39,15 +44,15 @@ policy reads the index.
 | --- | --- |
 | Format, lint | Ruff format (check only) and the selected Ruff diagnostics |
 | Types | mypy `--strict` on the package, tools and tests; no broad exemptions |
-| Imports | Only the adapter imports vLLM; production never imports benchmarks; contracts never import the adapter; acyclic siblings |
+| Imports | Only the adapter imports vLLM; contracts never import the adapter; acyclic siblings |
 | Boundaries | Pure core uses the standard library only, has no import-time calls and no dynamic imports |
-| Repository policy | One root AGENTS.md and a CLAUDE.md pointer; size cap; no raw outputs, copied trees, symlinks, binaries or large files; selected secret patterns; doc links resolve |
-| Agent policy | No comments, bare excepts, library prints, stray environment access, test sleeps, standalone scripts or static registries |
+| Repository policy | One root AGENTS.md and a CLAUDE.md pointer; size cap; no raw outputs, copied trees, status diaries, GPU reservation code, symlinks, binaries or large files; selected secret patterns; doc links resolve; task file shape |
+| Agent policy | No comments, bare excepts, library prints, stray environment access, test sleeps or standalone scripts |
 | Unused | Vulture at 60% confidence; deptry dependency checks |
 | Native | Fails closed if C++/CUDA/CMake material appears without qualified recipes; skipped otherwise |
 | Runtime | Confirms the runtime verifier refuses to run without explicit inputs; reported as skipped |
 | CPU pytest | Fixed test inventory; no missing, extra, skipped or xfailed tests |
-| Rule proofs | Each rule rejects a bad specimen and accepts a good one, in a throwaway repository |
+| Rule proofs (`--self-test`) | Each project rule rejects a bad specimen and accepts a good one, in a throwaway repository. Third-party tool behavior is trusted and only its configuration is checked. |
 
 The full rule inventory is [rules.json](../tools/rules.json), with specimens in
 [check-cases.json](../tools/check-cases.json). Tool directive exceptions live in

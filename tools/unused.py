@@ -16,7 +16,6 @@ def code_check(root: Path) -> list[str]:
         [
             "vulture",
             "wait_hint_offload",
-            "benchmarks",
             "tools",
             "tests",
             "--min-confidence",

@@ -14,3 +14,4 @@ jobs:
           persist-credentials: false
       - run: python -m pip install --require-hashes -r tools/bootstrap-uv.txt
       - run: uv run --locked python tools/check.py
+      - run: uv run --locked python tools/check.py --self-test

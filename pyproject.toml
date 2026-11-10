@@ -40,7 +40,7 @@ python_version = "3.12"
 strict = true
 warn_unused_configs = true
 show_error_codes = true
-files = ["wait_hint_offload", "benchmarks", "tools", "tests"]
+files = ["wait_hint_offload", "tools", "tests"]
 exclude = ["wait_hint_offload/vllm_adapter/", "tests/runtime/"]
 
 [tool.pytest.ini_options]
@@ -48,7 +48,7 @@ addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
 
 [tool.importlinter]
-root_packages = ["wait_hint_offload", "benchmarks"]
+root_packages = ["wait_hint_offload"]
 include_external_packages = true
 
 [[tool.importlinter.contracts]]
@@ -64,12 +64,6 @@ ignore_imports = [
 ]
 unmatched_ignore_imports_alerting = "none"
 allow_indirect_imports = true
-
-[[tool.importlinter.contracts]]
-name = "Production never imports benchmarks"
-type = "forbidden"
-source_modules = ["wait_hint_offload"]
-forbidden_modules = ["benchmarks"]
 
 [[tool.importlinter.contracts]]
 name = "Contracts never import the adapter"

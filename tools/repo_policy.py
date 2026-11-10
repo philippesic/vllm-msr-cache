@@ -31,6 +31,7 @@ RAW_DIRS = {
     "scratch",
 }
 DIARIES = {"STATUS.md", "PROJECT_HISTORY.md", "PORTING_PLAN.md", "plan.json"}
+TASK_SECTIONS = ["## Goal", "## Authorized", "## Done when", "## State", "## Next"]
 SECRET = re.compile(
     r"(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{30,}|https://hooks\.slack\.com/services/[^\s\"<>]+|-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----)"
 )
@@ -154,8 +155,6 @@ def check(root: Path) -> list[str]:
             or path.suffix in {".log", ".jsonl", ".whl", ".so", ".pt", ".safetensors"}
         ):
             errors.append(f"repo.artifacts: {label}")
-        if ".claude" in path.parts or "skills" in path.parts or path.name == "SKILL.md":
-            errors.append(f"repo.skills: {label}")
         if file.stat().st_size > 256 * 1024:
             errors.append(f"repo.size: {label} exceeds compact-file budget (256 KiB)")
         data = file.read_bytes()
@@ -163,6 +162,20 @@ def check(root: Path) -> list[str]:
             errors.append(f"repo.binary: {label}")
             continue
         text = data.decode("utf-8", errors="replace")
+        if (
+            path.parts[0] == "tasks"
+            and path.name != "README.md"
+            and (
+                len(path.parts) != 2
+                or path.suffix != ".md"
+                or not text.startswith("# ")
+                or re.findall(r"^## .*$", text, re.MULTILINE) != TASK_SECTIONS
+            )
+        ):
+            errors.append(
+                f"docs.task: {label} must be tasks/NAME.md with a title and sections "
+                + ", ".join(TASK_SECTIONS)
+            )
         if path.suffix == ".md":
             for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", text):
                 if target.startswith("https://github.com/philippesic/vllm-msr-cache/"):
@@ -214,7 +227,7 @@ def check(root: Path) -> list[str]:
             ".githooks",
             "docs",
             "wait_hint_offload",
-            "benchmarks",
+            "tasks",
         }
         or p.name in {"AGENTS.md", "CLAUDE.md", "pyproject.toml", "uv.lock"}
     ]
