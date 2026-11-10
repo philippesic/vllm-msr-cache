@@ -16,8 +16,8 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The November 10 07:49 UTC health check has **480/524 valid configurations,
-186/210 complete matched blocks**, with Qwen3-4B B08 ARC repeat 9 active.
+The November 10 08:18 UTC health check has **495/524 valid configurations,
+194/210 complete matched blocks**, with Qwen3-4B B09 candidate repeat 7 active.
 Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
@@ -1320,7 +1320,13 @@ unchanged. Preserve every earlier review snapshot as history.
 ## Supervision
 
 Health schedule: `scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae`, every
-15 minutes in this thread. Reverify ownership, mount, disk, GPU and request/stream/
+60 minutes in this thread, changed at Philip’s explicit November10 08:18 UTC
+instruction. The scheduler confirms everyMs=3600000 and next run09:18:50 UTC.
+Keep routine healthy monitoring silent; Philip requests a user-facing return only
+after the full run and final audits/results/repairs are handled and pushed.
+Never fill missing measurements or force readiness flags: genuine activity-invalid
+results retain their documented exclusion; repair setup/harness/storage defects.
+ Reverify ownership, mount, disk, GPU and request/stream/
 ledger progress. Run `benchmarks.research_checks.stage6_healthcheck` from mutable
 REPO with canonical OUT and `--state-dir "$BASE/confirm-health-01"`; the first
 post-activation check passed. Its source uses the now-present protocol lock and

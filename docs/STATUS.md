@@ -22,7 +22,7 @@ Continuum environment; exact KV round trip and live serving passed. All 54 scree
 configurations / 22 matched blocks and functional qualification pass, including
 all five Continuum fixtures and every model's native pressure gate. The imported
 524-configuration / 210-block confirmation is running under the durable
-coordinator and 15-minute health schedule. The first chat/QA/document cells have complete
+coordinator and hourly health schedule (Philip’s latest monitoring instruction). The first chat/QA/document cells have complete
 paired estimates without a resolved throughput difference; the full matrix remains
 pending. The first confirmation B06 candidate process completed serving but failed
 the frozen activity rule (zero restores, eight scheduler preemptions); its block
