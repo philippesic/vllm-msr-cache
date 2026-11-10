@@ -76,6 +76,18 @@ lock protects reversible park/restore. If it dies, first verify state/ownership,
 then restore a parked original only if needed; preserve failed proof trees/logs.
 Proofs01/02 are failed setup history, not capability failures or measured reruns.
 
+A fresh independent CPU-only report driver is now waiting on this **exact** proof03:
+`stage6-5080-final-analysis-20261110-01.service`, owner
+`$BASE/final-analysis-owner-01.private.json`, log `$BASE/final-analysis-01.log`.
+It checks the proof's terminal success, then immediately runs the final frozen
+report/extraction and writes the final narrative. Do not duplicate it or run the
+one-shot `stage6_5080_final_findings.py` / `stage6_5080_final_document.py` while
+its exact owner is live. At12:15UTC both owners' PID/birth/command/cwd verified;
+proof03's offline verification finished and the original was restored; its GPU-free
+runtime02 import/compile child is running. No compute client; locks free. Private
+health snapshot: `$BASE/portability-health-03.private.json`. This is not final
+resource release or authorization for another workload.
+
 Remaining: finish actual offline relocation/model/source guards and GPU-free
 runtime02 import/dry compilation, verify original restoration and all42 comparison
 digest equality; regenerate final frozen report and final findings/chart (render
