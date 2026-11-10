@@ -1,0 +1,20 @@
+{
+  "schema": "stage6-5080-cap-instruction-bindings-v1",
+  "packet_digest": "e0b788b8767d52b45de107fbf33219004a7f701e24c1b0d4c07508a9027985f6",
+  "executed_instruction_source_sha256": "34054f5dfeae46bb950f221188d18724af270891999b3cee38f741deada6116c",
+  "executed_system_instruction_digest": "7222f30b61e9acb7dd4a7f7fa74e4d3cd23ab17260c3a7191fe7dc50b4216a71",
+  "archived_instruction_sources_verified": 137,
+  "instruction_wrapper_reuse": "Same complete archived workload source and previously inspected SYSTEM/system_instruction/request wrapper as cap07. Each task branch, corpus/node and raw prompt/workload binding rechecked.",
+  "checks": {
+    "all_system_sources_match": true,
+    "all_tool_branch_flags_match_sealed_corpus": true,
+    "all_source_reference_instruction_role_node_bindings_match_sealed_corpus": true,
+    "all_objective_bindings_match": true,
+    "all_actual_dependencies_match_sealed_preceding_requests": true,
+    "all_actual_tools_match_sealed_ancestor_outputs": true,
+    "all_prompt_source_binding_digests_recomputed_from_raw_requests": true,
+    "quality_contexts": 186,
+    "maximum_prompt_binding_digests_per_quality_context": 1
+  },
+  "scope": "Terminal all-attempt inventory after all planned phases executed; ordinary failed/interrupted/unmatched arms included. Token prompts bound, not individually decoded. Three genuine activity-invalid comparison blocks retain exclusion; no timing/objective/validity change."
+}

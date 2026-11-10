@@ -5,8 +5,9 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 
-from .campaign_contracts import Ledger,atomic_json,digest,load,read_protocol,verify_tree
+from .campaign_contracts import Ledger,atomic_json,digest,file_hash,load,read_protocol,verify_tree
 from .campaign_verify import export_campaign
 
 
@@ -74,7 +75,39 @@ print(json.dumps(dict(import_result=result,preflight_dry_compile=dry,confirmatio
     return result
 
 
-def prove(out,destination,*,runtimes=None):
+def copy_verified(source,destination):
+    """Copy through userspace and verify bytes; safely reuse an identical file.
+
+    Some WSL loop-backed filesystems return successful fast copies with zeroed
+    ranges in larger files. Never use sendfile/copy_file_range for this proof.
+    """
+    source,destination = Path(source),Path(destination)
+    if source.is_symlink() or destination.is_symlink():
+        raise ValueError('Portable evidence must be materialized')
+    expected = file_hash(source)
+    if destination.is_file() and file_hash(destination)==expected:
+        return str(destination)
+    destination.parent.mkdir(parents=True,exist_ok=True)
+    fd,name = tempfile.mkstemp(prefix='.portable-copy-',dir=destination.parent)
+    temporary = Path(name)
+    try:
+        with os.fdopen(fd,'wb') as output,source.open('rb') as input:
+            shutil.copyfileobj(input,output,length=4*1024*1024)
+            output.flush()
+            os.fsync(output.fileno())
+        if file_hash(temporary)!=expected or file_hash(source)!=expected:
+            raise ValueError('Portable evidence copy changed bytes')
+        shutil.copystat(source,temporary)
+        os.replace(temporary,destination)
+        if file_hash(destination)!=expected:
+            raise ValueError('Portable evidence copy changed after replacement')
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+    return str(destination)
+
+
+def prove(out,destination,*,runtimes=None,reuse_evidence=None):
     out,destination = Path(out).resolve(),Path(destination).resolve()
     if destination.exists():
         raise ValueError('Use a new portability proof destination')
@@ -95,7 +128,23 @@ def prove(out,destination,*,runtimes=None):
     with Ledger(out).writer():
         if any(e['state'] in ('running','planned') for e in Ledger(out).index().values()):
             raise ValueError('Finish or recover active attempts before relocation')
-        shutil.copytree(out,relocated)
+        if reuse_evidence is None:
+            shutil.copytree(out,relocated,copy_function=copy_verified)
+        else:
+            reuse = Path(reuse_evidence).resolve()
+            if reuse==out or reuse.is_relative_to(out) or out.is_relative_to(reuse) or not reuse.is_dir():
+                raise ValueError('Reuse requires a separate prior evidence copy')
+            # A matching campaign/specification/protocol/ledger is required
+            # before repairing a disposable copy from the intact original.
+            for name in ('campaign.json','resolved.json','protocol.lock.json','ledger.jsonl'):
+                if file_hash(reuse/name)!=file_hash(out/name):
+                    raise ValueError('Prior evidence copy belongs to a different campaign state')
+            shutil.copytree(out,reuse,dirs_exist_ok=True,copy_function=copy_verified)
+            original_files = {str(p.relative_to(out)) for p in out.rglob('*') if p.is_file()}
+            reused_files = {str(p.relative_to(reuse)) for p in reuse.rglob('*') if p.is_file()}
+            if original_files!=reused_files:
+                raise ValueError('Prior evidence copy has extra or missing files')
+            reuse.rename(relocated)
         host = load(out/'host.private.json')
         out.rename(parked)
         try:
@@ -180,6 +229,8 @@ print(json.dumps(dict(verification=result,model_access_guard_negative_tests=guar
         confirmation_blocked_until_hardware_preflight=blocked,parent_protocol_preserved=preserved,
         parent_acquisition_source_preserved=True,
         source_revision_limited_to_derived_analysis=bool(analysis_source.get('revised')),
+        evidence_copy_method='Userspace buffered copy with source/destination byte verification; no kernel fast-copy path',
+        reused_prior_evidence_copy=str(Path(reuse_evidence).resolve()) if reuse_evidence else None,
         protocol_identity=digest(parent),
         scope='Offline integrity, relocation and GPU-free import compilation; no 5080 or imported native execution')
     atomic_json(out/'analysis/portability-proof.json',proof)
@@ -192,5 +243,6 @@ if __name__=='__main__':
     parser.add_argument('--out',type=Path,required=True)
     parser.add_argument('--destination',type=Path,required=True)
     parser.add_argument('--runtimes',type=Path,help='Optional independently rebuilt runtimes; reuse pinned cached weights offline')
+    parser.add_argument('--reuse-evidence',type=Path,help='Repair/reuse an earlier disposable copy of this exact terminal campaign state')
     args = parser.parse_args()
-    print(json.dumps(prove(args.out,args.destination,runtimes=args.runtimes),indent=2))
+    print(json.dumps(prove(args.out,args.destination,runtimes=args.runtimes,reuse_evidence=args.reuse_evidence),indent=2))

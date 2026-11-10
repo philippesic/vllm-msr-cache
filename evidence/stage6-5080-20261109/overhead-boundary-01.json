@@ -1,0 +1,2477 @@
+{
+  "schema": "stage6-5080-frozen-supplementary-boundary-v1",
+  "phase": "overhead",
+  "recorded_unix": 1794306197.9296486,
+  "execution_complete": true,
+  "frozen_phase_complete": true,
+  "planned_configurations": 38,
+  "retained_attempts": 38,
+  "verified_files": 2150,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "phase_ledger_digest": "bb87f6d795fa73a45c21b23049dec8dd293f6686dc836ed869d1169e4c3ba051",
+  "service_terminal_state": {
+    "ActiveState": "active",
+    "SubState": "exited",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0"
+  },
+  "attempts": [
+    {
+      "attempt": "1d0033aeb6554529a9310905ae9d7ca1",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 0,
+        "system": "O0"
+      },
+      "path": "attempts/0f97ed5f5c909d0496293cc5f9ae6ba449fb062630114d9fef59d002f6d1bbc1/1d0033aeb6554529a9310905ae9d7ca1",
+      "state": "verified",
+      "seal": "301c4e05bc14e7fc86af5fd95dddc6b5ff40b4fbc51568202b100a6d17dd494a",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "20effa4da10b4f63a2987d38fed1507d",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 0,
+        "system": "O1"
+      },
+      "path": "attempts/65751d16487859b5e800c2b35233b673c5d3fe8148cb06b2c0ff383f370c52d2/20effa4da10b4f63a2987d38fed1507d",
+      "state": "verified",
+      "seal": "98ad53b822d12cb6885188a52c3fd63d865a329cef74bbea2840e6940c5c1475",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "5b8d6d64ed314e608dae05932ee57b0f",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 0,
+        "system": "O2"
+      },
+      "path": "attempts/84add25f98bd3197da87c11c132f636ea47738ea3ac1080c9e575ac54c420683/5b8d6d64ed314e608dae05932ee57b0f",
+      "state": "verified",
+      "seal": "661eb4899e8a5444b79d0aec6b71c22c7d81831769a1c5f6066e3a15fc710e9b",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "cddd416075ff42a691e07630f156edde",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 1,
+        "system": "O1"
+      },
+      "path": "attempts/6fbdeefd919ea4778dcc99673d6334677b122ed337a965445ef6bd7c48ede514/cddd416075ff42a691e07630f156edde",
+      "state": "verified",
+      "seal": "3b0abc02e3165a7f305a1911579f1afcbedc478682152c97711cfb1900c06657",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "d082aac848a74005b23939559dfca635",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 1,
+        "system": "O2"
+      },
+      "path": "attempts/6b9ee09b3d8cdfa08137aa237dc3679730d743192ccd96ad6b9167987e775556/d082aac848a74005b23939559dfca635",
+      "state": "verified",
+      "seal": "64e1f11405c39542fec880438f198799b10631cf6fd0e5285d7a2b5e2ecdcaef",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "7ddbd9602b184353a6f86b25a4dfd592",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 1,
+        "system": "O0"
+      },
+      "path": "attempts/03c81fda541b32ccc2b27d03ffd1465fdfe4942b52d25728e8e2557e5b131b05/7ddbd9602b184353a6f86b25a4dfd592",
+      "state": "verified",
+      "seal": "95a0193eaf3a84dfe0b8a8a695fcc8621edaa27211502b8f33e13d66011ccab6",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "528de67da3d245a2b044abf0f558747f",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 2,
+        "system": "O2"
+      },
+      "path": "attempts/d238cccbe380452f224ecfa3d3ca7de565951371db6caedf174e58b363a86968/528de67da3d245a2b044abf0f558747f",
+      "state": "verified",
+      "seal": "f11842b23d54c6f64018c244808d49217734c1dc137e8626972ae515a8fc3c92",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "4d4f14e04cc544ff961ad85a9d8902f5",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 2,
+        "system": "O0"
+      },
+      "path": "attempts/95439e6c8d8b97ae0a66ec67e81371ce97885606c8d81eb2402b804771a653e3/4d4f14e04cc544ff961ad85a9d8902f5",
+      "state": "verified",
+      "seal": "810ac68c1ed3cdf0ed11b538af9c046b98d04eef60c4a6e02cd0f67eb7c6dd10",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "7680f6a75e674937990cec711fae5739",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 2,
+        "system": "O1"
+      },
+      "path": "attempts/63ddc729e0c8d24ddbbdc362c6f8cf4c8b829e61586ef2dd85263f8bf795dfc6/7680f6a75e674937990cec711fae5739",
+      "state": "verified",
+      "seal": "f6d81a3a4878349f1fad57441c94287826929f1a39f26b47dfe25fa08b9676ff",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "d92e7c20408d425aba8127493c185f00",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 3,
+        "system": "O2"
+      },
+      "path": "attempts/ec7ca169c63791352040d4dcb20775629e59da869952100ca59a0b98d34b6429/d92e7c20408d425aba8127493c185f00",
+      "state": "verified",
+      "seal": "3b2ca6850130fd140328f21294ae532a96cdada5951c2b42f2ae387c1b8856bc",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "d910bb93e78d4883b751c390c4d21789",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 3,
+        "system": "O1"
+      },
+      "path": "attempts/93431491d76faabe7ca7cba35945a5501381e0e7dd3af49487f668856d91dbce/d910bb93e78d4883b751c390c4d21789",
+      "state": "verified",
+      "seal": "981735136e2c99094de25dd86ec6b7a9d846a45f2ea74919df63c7aeb82c77ec",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "76cac7a073a8407f8be3e2f897b3c413",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 3,
+        "system": "O0"
+      },
+      "path": "attempts/92d23ccc9379d60b42a02b5262dc3bce3cb2f161d90cb5c7fdfc4369b0b00841/76cac7a073a8407f8be3e2f897b3c413",
+      "state": "verified",
+      "seal": "98e32bd2104041319c664ccde2bf8438c273882e0cc47230419b64080169f7cf",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "63072072d4b74030b7d0bdd0534a5824",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 4,
+        "system": "O1"
+      },
+      "path": "attempts/2a9cb518eee2584bc7f8092fdf614195147acdd6c359a6c64d0e6440e2064a7c/63072072d4b74030b7d0bdd0534a5824",
+      "state": "verified",
+      "seal": "a990ef778f1c97a9563d621e583c7d8c96c9a5f87cc02db80d473a0833b9f01f",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "707462b6f4484140a60dc921fede3310",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 4,
+        "system": "O0"
+      },
+      "path": "attempts/ba5e1c7a9bfadf3dfe4e6efbe0d2d81262d2924536501ca697dabd31cc474569/707462b6f4484140a60dc921fede3310",
+      "state": "verified",
+      "seal": "962fa7672b9cb16fb61e514b05c97fcaedfac56606e4ea5cb0b23ed2232b8e29",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "a17e1b5c23a64304a7791a9163b10417",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 4,
+        "system": "O2"
+      },
+      "path": "attempts/01b5372f2f5119a5edf3fdbf579afe1c2499d3cfb8adcc5b6f932a29c758fe27/a17e1b5c23a64304a7791a9163b10417",
+      "state": "verified",
+      "seal": "0c76141094bd02a1625be02f67cfc5deac54db1caea02ff5f16557cfef30dbb4",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "04dbfe95515e44cbafb5af608785d5e4",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 5,
+        "system": "O0"
+      },
+      "path": "attempts/fa2dc001c60fdc75b66cc9971dbb60944eca8b6a8cb7f94ca7e7bf98e4788a2f/04dbfe95515e44cbafb5af608785d5e4",
+      "state": "verified",
+      "seal": "38246f2404dd932927d9bf5ab9b53f99bef56f62ef1b96b7a163bdec2e4e9429",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "09580d91647245329965dac974f1a3de",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 5,
+        "system": "O2"
+      },
+      "path": "attempts/b83a7d91e36f26e76dcbb639afceb653a2c873203616ec3b52009789f7b2008c/09580d91647245329965dac974f1a3de",
+      "state": "verified",
+      "seal": "9a3e5a3f4121cd27b9dc754bb8131b6903525af12ae7de79b17b96e3c86dd0f1",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "d2987cadf8d742daacad10249149da8f",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 5,
+        "system": "O1"
+      },
+      "path": "attempts/aba79b2ae6577e02519e76f34d3f672b2297b987c26b23c9113c1b87f8364daa/d2987cadf8d742daacad10249149da8f",
+      "state": "verified",
+      "seal": "88cd585003d2e824b869493ce2b9ebf27013ac21e2593f427ec07b01df91e71d",
+      "verified_files": 29,
+      "inner_verification": {
+        "verified_files": 24,
+        "cases": 1,
+        "request_records": 6,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 6,
+      "expected_requests": 6,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "0eabce4275e64a1690e54fab05325290",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "O0"
+      },
+      "path": "attempts/9611a543e6531bca6f33b59f28aa287e4909656492d3ab6ebc9995d1f958eab1/0eabce4275e64a1690e54fab05325290",
+      "state": "verified",
+      "seal": "aa64f2cf36d08180c23c881f4d98af0beab2487c5cd24b401cd92b7be14401d0",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "13693493acfe477eaaee8268307109e0",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "O1"
+      },
+      "path": "attempts/043a213e157f14250925b8f1b7d6c283147b1d4fb9942d2b8886d4e6978c95c1/13693493acfe477eaaee8268307109e0",
+      "state": "verified",
+      "seal": "4adb15536a5cef6d82a7d3bc45b6bdff24537ace3e558360e2ba7dae180c317d",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "00267737bd734308b65a36185b89804c",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "O2"
+      },
+      "path": "attempts/c1957804c7e92cb2b852f7ad20f2fb79247eac1df4233ff99aa88109f8270078/00267737bd734308b65a36185b89804c",
+      "state": "verified",
+      "seal": "1cabdf749a2dacc1b3cc878173fddb173ea5fa5dfbe7b3500a6ce57627f63b6e",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "466139fb3e8141b88f8d2f23f7b86fc0",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 1,
+        "system": "O1"
+      },
+      "path": "attempts/c53264ed1e8ea537bc26942ccfb45595628866ad86cba6922ad60be080ead3ef/466139fb3e8141b88f8d2f23f7b86fc0",
+      "state": "verified",
+      "seal": "98240c454b2c5e8ef2ede8af4935fcf2450555720c1f47012fb7c3952f751d87",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "22ac99ae0ada4f1c90b79fe6c4eed417",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 1,
+        "system": "O2"
+      },
+      "path": "attempts/02b86579a70dfbdda897c31646b0a8098d15543682c67a8f2efabc34093dd62c/22ac99ae0ada4f1c90b79fe6c4eed417",
+      "state": "verified",
+      "seal": "88b683993e9a07f799b8b95ca732f5bdc6541698e2b6d357abc568d65ae65cc7",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "8e10be03694b4b5092b446a2b94b929d",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 1,
+        "system": "O0"
+      },
+      "path": "attempts/d695c3aad5ba25a3fc7bc6a4771f00c55e5bd48fa7a70acb65e8a093b846e350/8e10be03694b4b5092b446a2b94b929d",
+      "state": "verified",
+      "seal": "5244214acd7f8612cf16fbac89875fa31d193a9a325f6689fac23af5d5cec0b4",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "26bfb49be99a4e13b18281c1dadbf4c7",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 2,
+        "system": "O2"
+      },
+      "path": "attempts/bb0fde40e1e7714140241a26d024ba327677e64a5e5898d951383904f216019e/26bfb49be99a4e13b18281c1dadbf4c7",
+      "state": "verified",
+      "seal": "0bad10a884d1f94d3f9b29097aeb2a417bbad7e634c5ad1abfabe7a04073c4ba",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "2714b79931c74a32ab9a9f695902ce4c",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 2,
+        "system": "O0"
+      },
+      "path": "attempts/bbe11c678a480af3f13b0dd4086f0eb617502f7fac4692ba1f7c90b921e391c3/2714b79931c74a32ab9a9f695902ce4c",
+      "state": "verified",
+      "seal": "8177d59516fb6b465066d9380e8cc383f6ad1f3bd9ce75681ec0beeea90ac733",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "66c4141c99b24eedb4569b3d998ce04a",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 2,
+        "system": "O1"
+      },
+      "path": "attempts/9b7d3a3fcfc70945c40984e3a065fb3410d4e326012a6f20cd3ff9bd05f50f03/66c4141c99b24eedb4569b3d998ce04a",
+      "state": "verified",
+      "seal": "e367731f70625141604c0dd88156798a1c5604b0c22317713d67f50cbb4eafae",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "4fc3754097e442dfa7b98e3f38e11740",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 3,
+        "system": "O2"
+      },
+      "path": "attempts/8eca3a36492acd63936e76162a9a0ca6a31c9f2c37436a5979ffaa1609f0276f/4fc3754097e442dfa7b98e3f38e11740",
+      "state": "verified",
+      "seal": "c79c86e0a527123a5d2c120245aeeef08527a04ae32e4dd58d8ccb6ab7d0262f",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "992e010f4bb5411092f87ed0a98405b2",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 3,
+        "system": "O1"
+      },
+      "path": "attempts/58eb40eb5d5d7388cc58e3a9a0917941b7eb1f904ee787a4cd904e2c1eabc819/992e010f4bb5411092f87ed0a98405b2",
+      "state": "verified",
+      "seal": "bb2aa58f44bec39f3d9337e53bd594e2fa68d415dd6c56c5223d78ad6060e9c0",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "52d47e056df24438a74fa853127dc8df",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 3,
+        "system": "O0"
+      },
+      "path": "attempts/d4ba390b3eb81ed6ed714b5132c4679a7973d0c652132b8f5bd295ad791d9cc8/52d47e056df24438a74fa853127dc8df",
+      "state": "verified",
+      "seal": "c70c2ff35e650f37f11ea12ff376b35a1562a48968b0118fd42cd34a5196bff2",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "982e8aa23b4344ec962210a311aaee90",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 4,
+        "system": "O1"
+      },
+      "path": "attempts/101a2830ab096d8224e65bed6fb938943dfae4adff6d8d194025f03fa167abb2/982e8aa23b4344ec962210a311aaee90",
+      "state": "verified",
+      "seal": "274eeaf77d5bda0dceeb8bad46b4e9558fe24174266c0e232598f2ba5e014755",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "ae80f19f8eed4224b2421ef7ab6bc70b",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 4,
+        "system": "O0"
+      },
+      "path": "attempts/7b4def453dcbc10ceb670949cb94b4856091ee6b2b2a5d2996c2a3681c6fe184/ae80f19f8eed4224b2421ef7ab6bc70b",
+      "state": "verified",
+      "seal": "ad443ae0a1a8ab99d26c8ec38ba1025e20a17e57b7ea746997d17870222ab06b",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "94ebde3a4b50485984ea6d662c9dd1f9",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 4,
+        "system": "O2"
+      },
+      "path": "attempts/d602377c255893b60f5279059803727eb7d9f505945b19f25357ebfb8afcbcf1/94ebde3a4b50485984ea6d662c9dd1f9",
+      "state": "verified",
+      "seal": "1eac338fa730535d39acdaa997ea8e2a668ea4f0db154e87d264ccc02af674c7",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "3552388abdf34e95b4d634cf3b4b76c6",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 5,
+        "system": "O0"
+      },
+      "path": "attempts/6930d7108d076bc1705f11e90004db0414d6051bd018f1636fa88255985488f8/3552388abdf34e95b4d634cf3b4b76c6",
+      "state": "verified",
+      "seal": "4a901d14ca74bfbc7e63a4123693a2936c09864da918e548a9823aafe08c5cc4",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "8217bd218e214838beb69db5bbf78725",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 5,
+        "system": "O2"
+      },
+      "path": "attempts/51d5c57696ad36442d6b748387101486a42e2e2a936c9438f11fa4fecb20f00e/8217bd218e214838beb69db5bbf78725",
+      "state": "verified",
+      "seal": "e77487003b80a6e6525abef52a17ef94d8ddde504f9f2508ac9825768b5e7496",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "a9268b68c8c34d5284a010f0111940cd",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 5,
+        "system": "O1"
+      },
+      "path": "attempts/a84847e7e121d882a51f92ce514dbe457f5340fa532dd666777f514c6e611d9a/a9268b68c8c34d5284a010f0111940cd",
+      "state": "verified",
+      "seal": "0403ff48beec318ded45d79decd874853d27939a10a809952fae088a03b2fd3f",
+      "verified_files": 87,
+      "inner_verification": {
+        "verified_files": 82,
+        "cases": 1,
+        "request_records": 64,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 64,
+      "expected_requests": 64,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "2d84ff5c7dcb46e392ad60a7eee6a388",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "O2"
+      },
+      "path": "attempts/f56f3e40d27c99ca3cc4a31a881110de8ab119757f2851ada68d933629f95fb5/2d84ff5c7dcb46e392ad60a7eee6a388",
+      "state": "verified",
+      "seal": "f5144c76649e3cc1ebadea05e14ed2708a71987b62b672039327afa5263dc6f6",
+      "verified_files": 31,
+      "inner_verification": {
+        "verified_files": 26,
+        "cases": 1,
+        "request_records": 8,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 8,
+      "expected_requests": 8,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "5b3202ee03d3453b8f406e4a9979d5de",
+      "identity": {
+        "model": "qwen3_4b_2507",
+        "cell": "B02",
+        "repeat": 0,
+        "system": "O2"
+      },
+      "path": "attempts/9844662af4e0afbc96f5b810222ebcf805fd938980cd00225dceb428eb7be9fe/5b3202ee03d3453b8f406e4a9979d5de",
+      "state": "verified",
+      "seal": "efdc6bb2d1041c5001c4d2fd9c7d4fa18e9e8447fbd0fddc8c635a03a886a18e",
+      "verified_files": 31,
+      "inner_verification": {
+        "verified_files": 26,
+        "cases": 1,
+        "request_records": 8,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 8,
+      "expected_requests": 8,
+      "measurement_errors": []
+    }
+  ],
+  "frozen_outcome": {
+    "complete": true,
+    "missing": [],
+    "controls": [
+      {
+        "model": "ministral3_3b",
+        "cell": "B02",
+        "repeat": 0,
+        "control": "O2",
+        "completed_units_per_s": 8.631931443621573,
+        "duration_s": 0.9267914200027008,
+        "startup_s": 62.87697251001373,
+        "resources": {
+          "samples": 4,
+          "gpu_peak_bytes": 11874537472,
+          "host_rss_peak_bytes": 7531327488,
+          "host_available_min_bytes": 12208103424,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 49,
+          "gpu_sm_clock_range_mhz": [
+            352,
+            3007
+          ],
+          "process_cpu_elapsed_s": 0.9699999999999971,
+          "client_tool_cpu_elapsed_s": 0.03000000000000025,
+          "client_tool_rss_peak_bytes": 1069625344,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "2d84ff5c7dcb46e392ad60a7eee6a388",
+          "path": "attempts/f56f3e40d27c99ca3cc4a31a881110de8ab119757f2851ada68d933629f95fb5/2d84ff5c7dcb46e392ad60a7eee6a388",
+          "seal": "f5144c76649e3cc1ebadea05e14ed2708a71987b62b672039327afa5263dc6f6"
+        }
+      },
+      {
+        "model": "qwen3_4b_2507",
+        "cell": "B02",
+        "repeat": 0,
+        "control": "O2",
+        "completed_units_per_s": 9.359147917427851,
+        "duration_s": 0.8547786690178327,
+        "startup_s": 69.28603606298566,
+        "resources": {
+          "samples": 3,
+          "gpu_peak_bytes": 12086349824,
+          "host_rss_peak_bytes": 8851365888,
+          "host_available_min_bytes": 10973028352,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 49,
+          "gpu_sm_clock_range_mhz": [
+            907,
+            3000
+          ],
+          "process_cpu_elapsed_s": 0.6199999999999974,
+          "client_tool_cpu_elapsed_s": 0.009999999999999787,
+          "client_tool_rss_peak_bytes": 954806272,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "5b3202ee03d3453b8f406e4a9979d5de",
+          "path": "attempts/9844662af4e0afbc96f5b810222ebcf805fd938980cd00225dceb428eb7be9fe/5b3202ee03d3453b8f406e4a9979d5de",
+          "seal": "efdc6bb2d1041c5001c4d2fd9c7d4fa18e9e8447fbd0fddc8c635a03a886a18e"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 0,
+        "control": "O0",
+        "completed_units_per_s": 0.029851846960611494,
+        "duration_s": 33.498764793999726,
+        "startup_s": 64.78907525699469,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9014607872,
+          "host_available_min_bytes": 11137622016,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 43,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.049999999999997,
+          "client_tool_cpu_elapsed_s": 0.3899999999999997,
+          "client_tool_rss_peak_bytes": 962985984,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "1d0033aeb6554529a9310905ae9d7ca1",
+          "path": "attempts/0f97ed5f5c909d0496293cc5f9ae6ba449fb062630114d9fef59d002f6d1bbc1/1d0033aeb6554529a9310905ae9d7ca1",
+          "seal": "301c4e05bc14e7fc86af5fd95dddc6b5ff40b4fbc51568202b100a6d17dd494a"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 0,
+        "control": "O1",
+        "completed_units_per_s": 0.029663810523937552,
+        "duration_s": 33.711110687989276,
+        "startup_s": 62.67460663602105,
+        "resources": {
+          "samples": 114,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9013149696,
+          "host_available_min_bytes": 11006353408,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 43,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.389999999999999,
+          "client_tool_cpu_elapsed_s": 0.40000000000000036,
+          "client_tool_rss_peak_bytes": 965136384,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "20effa4da10b4f63a2987d38fed1507d",
+          "path": "attempts/65751d16487859b5e800c2b35233b673c5d3fe8148cb06b2c0ff383f370c52d2/20effa4da10b4f63a2987d38fed1507d",
+          "seal": "98ad53b822d12cb6885188a52c3fd63d865a329cef74bbea2840e6940c5c1475"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 0,
+        "control": "O2",
+        "completed_units_per_s": 0.02927293191142697,
+        "duration_s": 34.161251870013075,
+        "startup_s": 60.164028255007,
+        "resources": {
+          "samples": 115,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9013821440,
+          "host_available_min_bytes": 10784833536,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 44,
+          "gpu_sm_clock_range_mhz": [
+            337,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.649999999999999,
+          "client_tool_cpu_elapsed_s": 0.4200000000000008,
+          "client_tool_rss_peak_bytes": 965341184,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "5b8d6d64ed314e608dae05932ee57b0f",
+          "path": "attempts/84add25f98bd3197da87c11c132f636ea47738ea3ac1080c9e575ac54c420683/5b8d6d64ed314e608dae05932ee57b0f",
+          "seal": "661eb4899e8a5444b79d0aec6b71c22c7d81831769a1c5f6066e3a15fc710e9b"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 1,
+        "control": "O1",
+        "completed_units_per_s": 0.0298717007147529,
+        "duration_s": 33.47650036899722,
+        "startup_s": 63.4773304759874,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9013317632,
+          "host_available_min_bytes": 11085426688,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 45,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.100000000000001,
+          "client_tool_cpu_elapsed_s": 0.39999999999999947,
+          "client_tool_rss_peak_bytes": 965177344,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "cddd416075ff42a691e07630f156edde",
+          "path": "attempts/6fbdeefd919ea4778dcc99673d6334677b122ed337a965445ef6bd7c48ede514/cddd416075ff42a691e07630f156edde",
+          "seal": "3b0abc02e3165a7f305a1911579f1afcbedc478682152c97711cfb1900c06657"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 1,
+        "control": "O2",
+        "completed_units_per_s": 0.029519836037262107,
+        "duration_s": 33.8755269079993,
+        "startup_s": 59.66405570201459,
+        "resources": {
+          "samples": 114,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9020510208,
+          "host_available_min_bytes": 10832150528,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 51,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.369999999999999,
+          "client_tool_cpu_elapsed_s": 0.41999999999999993,
+          "client_tool_rss_peak_bytes": 965275648,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "d082aac848a74005b23939559dfca635",
+          "path": "attempts/6b9ee09b3d8cdfa08137aa237dc3679730d743192ccd96ad6b9167987e775556/d082aac848a74005b23939559dfca635",
+          "seal": "64e1f11405c39542fec880438f198799b10631cf6fd0e5285d7a2b5e2ecdcaef"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 1,
+        "control": "O0",
+        "completed_units_per_s": 0.029941401805586746,
+        "duration_s": 33.398569862998556,
+        "startup_s": 58.95955896601663,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9018003456,
+          "host_available_min_bytes": 10825957376,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 46,
+          "gpu_sm_clock_range_mhz": [
+            337,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.050000000000001,
+          "client_tool_cpu_elapsed_s": 0.40000000000000124,
+          "client_tool_rss_peak_bytes": 965242880,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "7ddbd9602b184353a6f86b25a4dfd592",
+          "path": "attempts/03c81fda541b32ccc2b27d03ffd1465fdfe4942b52d25728e8e2557e5b131b05/7ddbd9602b184353a6f86b25a4dfd592",
+          "seal": "95a0193eaf3a84dfe0b8a8a695fcc8621edaa27211502b8f33e13d66011ccab6"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 2,
+        "control": "O2",
+        "completed_units_per_s": 0.029335545623616645,
+        "duration_s": 34.08833818297717,
+        "startup_s": 58.95745856198482,
+        "resources": {
+          "samples": 115,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 9013837824,
+          "host_available_min_bytes": 10775044096,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 1622016,
+          "gpu_temperature_peak_c": 47,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.860000000000001,
+          "client_tool_cpu_elapsed_s": 0.4599999999999991,
+          "client_tool_rss_peak_bytes": 965263360,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "528de67da3d245a2b044abf0f558747f",
+          "path": "attempts/d238cccbe380452f224ecfa3d3ca7de565951371db6caedf174e58b363a86968/528de67da3d245a2b044abf0f558747f",
+          "seal": "f11842b23d54c6f64018c244808d49217734c1dc137e8626972ae515a8fc3c92"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 2,
+        "control": "O0",
+        "completed_units_per_s": 0.029247922579154567,
+        "duration_s": 34.19046249502571,
+        "startup_s": 64.79239320298075,
+        "resources": {
+          "samples": 115,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 8934785024,
+          "host_available_min_bytes": 11001647104,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 1847296,
+          "gpu_temperature_peak_c": 47,
+          "gpu_sm_clock_range_mhz": [
+            337,
+            3022
+          ],
+          "process_cpu_elapsed_s": 7.83,
+          "client_tool_cpu_elapsed_s": 0.4500000000000002,
+          "client_tool_rss_peak_bytes": 959315968,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "4d4f14e04cc544ff961ad85a9d8902f5",
+          "path": "attempts/95439e6c8d8b97ae0a66ec67e81371ce97885606c8d81eb2402b804771a653e3/4d4f14e04cc544ff961ad85a9d8902f5",
+          "seal": "810ac68c1ed3cdf0ed11b538af9c046b98d04eef60c4a6e02cd0f67eb7c6dd10"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 2,
+        "control": "O1",
+        "completed_units_per_s": 0.02949640530022786,
+        "duration_s": 33.90243623999413,
+        "startup_s": 60.680695994000416,
+        "resources": {
+          "samples": 114,
+          "gpu_peak_bytes": 11102261248,
+          "host_rss_peak_bytes": 8962170880,
+          "host_available_min_bytes": 10906411008,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 48,
+          "gpu_sm_clock_range_mhz": [
+            337,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.4300000000000015,
+          "client_tool_cpu_elapsed_s": 0.41999999999999993,
+          "client_tool_rss_peak_bytes": 947060736,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "7680f6a75e674937990cec711fae5739",
+          "path": "attempts/63ddc729e0c8d24ddbbdc362c6f8cf4c8b829e61586ef2dd85263f8bf795dfc6/7680f6a75e674937990cec711fae5739",
+          "seal": "f6d81a3a4878349f1fad57441c94287826929f1a39f26b47dfe25fa08b9676ff"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 3,
+        "control": "O2",
+        "completed_units_per_s": 0.02904926768945522,
+        "duration_s": 34.4242757060274,
+        "startup_s": 60.46861709599034,
+        "resources": {
+          "samples": 116,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8986161152,
+          "host_available_min_bytes": 11182432256,
+          "host_swap_in_delta_bytes": 4096,
+          "host_swap_out_delta_bytes": 1548288,
+          "gpu_temperature_peak_c": 48,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 8.069999999999999,
+          "client_tool_cpu_elapsed_s": 0.4499999999999993,
+          "client_tool_rss_peak_bytes": 960704512,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "d92e7c20408d425aba8127493c185f00",
+          "path": "attempts/ec7ca169c63791352040d4dcb20775629e59da869952100ca59a0b98d34b6429/d92e7c20408d425aba8127493c185f00",
+          "seal": "3b2ca6850130fd140328f21294ae532a96cdada5951c2b42f2ae387c1b8856bc"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 3,
+        "control": "O1",
+        "completed_units_per_s": 0.029653893143507935,
+        "duration_s": 33.72238495500642,
+        "startup_s": 61.669197231996804,
+        "resources": {
+          "samples": 114,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8942649344,
+          "host_available_min_bytes": 11151437824,
+          "host_swap_in_delta_bytes": 4096,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 48,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.470000000000001,
+          "client_tool_cpu_elapsed_s": 0.45999999999999996,
+          "client_tool_rss_peak_bytes": 936648704,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "d910bb93e78d4883b751c390c4d21789",
+          "path": "attempts/93431491d76faabe7ca7cba35945a5501381e0e7dd3af49487f668856d91dbce/d910bb93e78d4883b751c390c4d21789",
+          "seal": "981735136e2c99094de25dd86ec6b7a9d846a45f2ea74919df63c7aeb82c77ec"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 3,
+        "control": "O0",
+        "completed_units_per_s": 0.029826081823554295,
+        "duration_s": 33.52770256300573,
+        "startup_s": 59.457704598025884,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8983416832,
+          "host_available_min_bytes": 10901082112,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 51,
+          "gpu_sm_clock_range_mhz": [
+            337,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.099999999999998,
+          "client_tool_cpu_elapsed_s": 0.40999999999999925,
+          "client_tool_rss_peak_bytes": 955416576,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "76cac7a073a8407f8be3e2f897b3c413",
+          "path": "attempts/92d23ccc9379d60b42a02b5262dc3bce3cb2f161d90cb5c7fdfc4369b0b00841/76cac7a073a8407f8be3e2f897b3c413",
+          "seal": "98e32bd2104041319c664ccde2bf8438c273882e0cc47230419b64080169f7cf"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 4,
+        "control": "O1",
+        "completed_units_per_s": 0.029725677569063625,
+        "duration_s": 33.640948896005284,
+        "startup_s": 59.1572873609839,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8978333696,
+          "host_available_min_bytes": 10908262400,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 48,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.110000000000003,
+          "client_tool_cpu_elapsed_s": 0.40999999999999925,
+          "client_tool_rss_peak_bytes": 955187200,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "63072072d4b74030b7d0bdd0534a5824",
+          "path": "attempts/2a9cb518eee2584bc7f8092fdf614195147acdd6c359a6c64d0e6440e2064a7c/63072072d4b74030b7d0bdd0534a5824",
+          "seal": "a990ef778f1c97a9563d621e583c7d8c96c9a5f87cc02db80d473a0833b9f01f"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 4,
+        "control": "O0",
+        "completed_units_per_s": 0.029549603879215545,
+        "duration_s": 33.84140119398944,
+        "startup_s": 58.456673797016265,
+        "resources": {
+          "samples": 114,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8972910592,
+          "host_available_min_bytes": 10902052864,
+          "host_swap_in_delta_bytes": 32768,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 49,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.450000000000001,
+          "client_tool_cpu_elapsed_s": 0.45000000000000107,
+          "client_tool_rss_peak_bytes": 955236352,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "707462b6f4484140a60dc921fede3310",
+          "path": "attempts/ba5e1c7a9bfadf3dfe4e6efbe0d2d81262d2924536501ca697dabd31cc474569/707462b6f4484140a60dc921fede3310",
+          "seal": "962fa7672b9cb16fb61e514b05c97fcaedfac56606e4ea5cb0b23ed2232b8e29"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 4,
+        "control": "O2",
+        "completed_units_per_s": 0.029838182770882696,
+        "duration_s": 33.51410532198497,
+        "startup_s": 60.66635929400218,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8979632128,
+          "host_available_min_bytes": 10940141568,
+          "host_swap_in_delta_bytes": 4096,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 54,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.09,
+          "client_tool_cpu_elapsed_s": 0.40000000000000036,
+          "client_tool_rss_peak_bytes": 955260928,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "a17e1b5c23a64304a7791a9163b10417",
+          "path": "attempts/01b5372f2f5119a5edf3fdbf579afe1c2499d3cfb8adcc5b6f932a29c758fe27/a17e1b5c23a64304a7791a9163b10417",
+          "seal": "0c76141094bd02a1625be02f67cfc5deac54db1caea02ff5f16557cfef30dbb4"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 5,
+        "control": "O0",
+        "completed_units_per_s": 0.02977023302624005,
+        "duration_s": 33.59060035299626,
+        "startup_s": 58.958887613000115,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8982388736,
+          "host_available_min_bytes": 10914918400,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 49,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.109999999999999,
+          "client_tool_cpu_elapsed_s": 0.41999999999999993,
+          "client_tool_rss_peak_bytes": 955224064,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "04dbfe95515e44cbafb5af608785d5e4",
+          "path": "attempts/fa2dc001c60fdc75b66cc9971dbb60944eca8b6a8cb7f94ca7e7bf98e4788a2f/04dbfe95515e44cbafb5af608785d5e4",
+          "seal": "38246f2404dd932927d9bf5ab9b53f99bef56f62ef1b96b7a163bdec2e4e9429"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 5,
+        "control": "O2",
+        "completed_units_per_s": 0.02981488042531528,
+        "duration_s": 33.54029886200442,
+        "startup_s": 59.460827257018536,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8978833408,
+          "host_available_min_bytes": 10873344000,
+          "host_swap_in_delta_bytes": 16384,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 52,
+          "gpu_sm_clock_range_mhz": [
+            337,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.0500000000000025,
+          "client_tool_cpu_elapsed_s": 0.41000000000000014,
+          "client_tool_rss_peak_bytes": 955244544,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "09580d91647245329965dac974f1a3de",
+          "path": "attempts/b83a7d91e36f26e76dcbb639afceb653a2c873203616ec3b52009789f7b2008c/09580d91647245329965dac974f1a3de",
+          "seal": "9a3e5a3f4121cd27b9dc754bb8131b6903525af12ae7de79b17b96e3c86dd0f1"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B01",
+        "repeat": 5,
+        "control": "O1",
+        "completed_units_per_s": 0.029945880332925813,
+        "duration_s": 33.39357497199671,
+        "startup_s": 59.35527138700127,
+        "resources": {
+          "samples": 113,
+          "gpu_peak_bytes": 11108814848,
+          "host_rss_peak_bytes": 8987402240,
+          "host_available_min_bytes": 10872987648,
+          "host_swap_in_delta_bytes": 118784,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 49,
+          "gpu_sm_clock_range_mhz": [
+            345,
+            3007
+          ],
+          "process_cpu_elapsed_s": 7.059999999999998,
+          "client_tool_cpu_elapsed_s": 0.40000000000000036,
+          "client_tool_rss_peak_bytes": 955326464,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "d2987cadf8d742daacad10249149da8f",
+          "path": "attempts/aba79b2ae6577e02519e76f34d3f672b2297b987c26b23c9113c1b87f8364daa/d2987cadf8d742daacad10249149da8f",
+          "seal": "88cd585003d2e824b869493ce2b9ebf27013ac21e2593f427ec07b01df91e71d"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 0,
+        "control": "O0",
+        "completed_units_per_s": 9.434881825822874,
+        "duration_s": 6.783338803972583,
+        "startup_s": 58.25620590700419,
+        "resources": {
+          "samples": 23,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8974622720,
+          "host_available_min_bytes": 11134816256,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 57,
+          "gpu_sm_clock_range_mhz": [
+            562,
+            3000
+          ],
+          "process_cpu_elapsed_s": 7.039999999999999,
+          "client_tool_cpu_elapsed_s": 0.28000000000000025,
+          "client_tool_rss_peak_bytes": 955416576,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "0eabce4275e64a1690e54fab05325290",
+          "path": "attempts/9611a543e6531bca6f33b59f28aa287e4909656492d3ab6ebc9995d1f958eab1/0eabce4275e64a1690e54fab05325290",
+          "seal": "aa64f2cf36d08180c23c881f4d98af0beab2487c5cd24b401cd92b7be14401d0"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 0,
+        "control": "O1",
+        "completed_units_per_s": 9.086763577726025,
+        "duration_s": 7.043211749987677,
+        "startup_s": 59.063014515006216,
+        "resources": {
+          "samples": 24,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8981131264,
+          "host_available_min_bytes": 11077632000,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 57,
+          "gpu_sm_clock_range_mhz": [
+            450,
+            3000
+          ],
+          "process_cpu_elapsed_s": 7.26,
+          "client_tool_cpu_elapsed_s": 0.2999999999999998,
+          "client_tool_rss_peak_bytes": 954318848,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "13693493acfe477eaaee8268307109e0",
+          "path": "attempts/043a213e157f14250925b8f1b7d6c283147b1d4fb9942d2b8886d4e6978c95c1/13693493acfe477eaaee8268307109e0",
+          "seal": "4adb15536a5cef6d82a7d3bc45b6bdff24537ace3e558360e2ba7dae180c317d"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 0,
+        "control": "O2",
+        "completed_units_per_s": 10.324970697670006,
+        "duration_s": 6.19856480701128,
+        "startup_s": 58.95824270497542,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8982691840,
+          "host_available_min_bytes": 10926227456,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            480,
+            2992
+          ],
+          "process_cpu_elapsed_s": 6.399999999999999,
+          "client_tool_cpu_elapsed_s": 0.2400000000000002,
+          "client_tool_rss_peak_bytes": 955224064,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "00267737bd734308b65a36185b89804c",
+          "path": "attempts/c1957804c7e92cb2b852f7ad20f2fb79247eac1df4233ff99aa88109f8270078/00267737bd734308b65a36185b89804c",
+          "seal": "1cabdf749a2dacc1b3cc878173fddb173ea5fa5dfbe7b3500a6ce57627f63b6e"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 1,
+        "control": "O1",
+        "completed_units_per_s": 10.236681822986647,
+        "duration_s": 6.25202591100242,
+        "startup_s": 59.66193984201527,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8990031872,
+          "host_available_min_bytes": 10882318336,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 60,
+          "gpu_sm_clock_range_mhz": [
+            577,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.4300000000000015,
+          "client_tool_cpu_elapsed_s": 0.1900000000000004,
+          "client_tool_rss_peak_bytes": 955183104,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "466139fb3e8141b88f8d2f23f7b86fc0",
+          "path": "attempts/c53264ed1e8ea537bc26942ccfb45595628866ad86cba6922ad60be080ead3ef/466139fb3e8141b88f8d2f23f7b86fc0",
+          "seal": "98240c454b2c5e8ef2ede8af4935fcf2450555720c1f47012fb7c3952f751d87"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 1,
+        "control": "O2",
+        "completed_units_per_s": 10.35816331515147,
+        "duration_s": 6.178701576020103,
+        "startup_s": 59.2624169519986,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8991289344,
+          "host_available_min_bytes": 10920112128,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 60,
+          "gpu_sm_clock_range_mhz": [
+            660,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.369999999999999,
+          "client_tool_cpu_elapsed_s": 0.2400000000000002,
+          "client_tool_rss_peak_bytes": 955203584,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "22ac99ae0ada4f1c90b79fe6c4eed417",
+          "path": "attempts/02b86579a70dfbdda897c31646b0a8098d15543682c67a8f2efabc34093dd62c/22ac99ae0ada4f1c90b79fe6c4eed417",
+          "seal": "88b683993e9a07f799b8b95ca732f5bdc6541698e2b6d357abc568d65ae65cc7"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 1,
+        "control": "O0",
+        "completed_units_per_s": 10.57188376789724,
+        "duration_s": 6.053793383005541,
+        "startup_s": 59.15990206899005,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8982290432,
+          "host_available_min_bytes": 10913689600,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            472,
+            2992
+          ],
+          "process_cpu_elapsed_s": 6.329999999999997,
+          "client_tool_cpu_elapsed_s": 0.22999999999999954,
+          "client_tool_rss_peak_bytes": 955269120,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "8e10be03694b4b5092b446a2b94b929d",
+          "path": "attempts/d695c3aad5ba25a3fc7bc6a4771f00c55e5bd48fa7a70acb65e8a093b846e350/8e10be03694b4b5092b446a2b94b929d",
+          "seal": "5244214acd7f8612cf16fbac89875fa31d193a9a325f6689fac23af5d5cec0b4"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 2,
+        "control": "O2",
+        "completed_units_per_s": 10.220336616892551,
+        "duration_s": 6.262024666997604,
+        "startup_s": 59.06007618198055,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8990167040,
+          "host_available_min_bytes": 11063074816,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 60,
+          "gpu_sm_clock_range_mhz": [
+            577,
+            2992
+          ],
+          "process_cpu_elapsed_s": 6.460000000000001,
+          "client_tool_cpu_elapsed_s": 0.27000000000000046,
+          "client_tool_rss_peak_bytes": 955346944,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "26bfb49be99a4e13b18281c1dadbf4c7",
+          "path": "attempts/bb0fde40e1e7714140241a26d024ba327677e64a5e5898d951383904f216019e/26bfb49be99a4e13b18281c1dadbf4c7",
+          "seal": "0bad10a884d1f94d3f9b29097aeb2a417bbad7e634c5ad1abfabe7a04073c4ba"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 2,
+        "control": "O0",
+        "completed_units_per_s": 10.681826335993923,
+        "duration_s": 5.991484787984518,
+        "startup_s": 57.75200238198158,
+        "resources": {
+          "samples": 20,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8984035328,
+          "host_available_min_bytes": 10898538496,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            547,
+            2992
+          ],
+          "process_cpu_elapsed_s": 6.090000000000005,
+          "client_tool_cpu_elapsed_s": 0.21999999999999975,
+          "client_tool_rss_peak_bytes": 955068416,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "2714b79931c74a32ab9a9f695902ce4c",
+          "path": "attempts/bbe11c678a480af3f13b0dd4086f0eb617502f7fac4692ba1f7c90b921e391c3/2714b79931c74a32ab9a9f695902ce4c",
+          "seal": "8177d59516fb6b465066d9380e8cc383f6ad1f3bd9ce75681ec0beeea90ac733"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 2,
+        "control": "O1",
+        "completed_units_per_s": 9.250448381163226,
+        "duration_s": 6.918583549995674,
+        "startup_s": 59.0587811510195,
+        "resources": {
+          "samples": 23,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8983027712,
+          "host_available_min_bytes": 11100688384,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 56,
+          "gpu_sm_clock_range_mhz": [
+            675,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.979999999999997,
+          "client_tool_cpu_elapsed_s": 0.22999999999999954,
+          "client_tool_rss_peak_bytes": 955142144,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "66c4141c99b24eedb4569b3d998ce04a",
+          "path": "attempts/9b7d3a3fcfc70945c40984e3a065fb3410d4e326012a6f20cd3ff9bd05f50f03/66c4141c99b24eedb4569b3d998ce04a",
+          "seal": "e367731f70625141604c0dd88156798a1c5604b0c22317713d67f50cbb4eafae"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 3,
+        "control": "O2",
+        "completed_units_per_s": 10.21957858727079,
+        "duration_s": 6.2624891480081715,
+        "startup_s": 59.259454644983634,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8985255936,
+          "host_available_min_bytes": 11114618880,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 56,
+          "gpu_sm_clock_range_mhz": [
+            607,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.319999999999997,
+          "client_tool_cpu_elapsed_s": 0.16000000000000014,
+          "client_tool_rss_peak_bytes": 955301888,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "4fc3754097e442dfa7b98e3f38e11740",
+          "path": "attempts/8eca3a36492acd63936e76162a9a0ca6a31c9f2c37436a5979ffaa1609f0276f/4fc3754097e442dfa7b98e3f38e11740",
+          "seal": "c79c86e0a527123a5d2c120245aeeef08527a04ae32e4dd58d8ccb6ab7d0262f"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 3,
+        "control": "O1",
+        "completed_units_per_s": 10.318213892160015,
+        "duration_s": 6.2026238910038956,
+        "startup_s": 58.15852074199938,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8982683648,
+          "host_available_min_bytes": 10874179584,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            607,
+            2992
+          ],
+          "process_cpu_elapsed_s": 6.389999999999999,
+          "client_tool_cpu_elapsed_s": 0.16000000000000014,
+          "client_tool_rss_peak_bytes": 955142144,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "992e010f4bb5411092f87ed0a98405b2",
+          "path": "attempts/58eb40eb5d5d7388cc58e3a9a0917941b7eb1f904ee787a4cd904e2c1eabc819/992e010f4bb5411092f87ed0a98405b2",
+          "seal": "bb2aa58f44bec39f3d9337e53bd594e2fa68d415dd6c56c5223d78ad6060e9c0"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 3,
+        "control": "O0",
+        "completed_units_per_s": 10.53096302552264,
+        "duration_s": 6.077316940994933,
+        "startup_s": 59.06188068698975,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8981606400,
+          "host_available_min_bytes": 10899042304,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            525,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.390000000000002,
+          "client_tool_cpu_elapsed_s": 0.19000000000000128,
+          "client_tool_rss_peak_bytes": 955195392,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "52d47e056df24438a74fa853127dc8df",
+          "path": "attempts/d4ba390b3eb81ed6ed714b5132c4679a7973d0c652132b8f5bd295ad791d9cc8/52d47e056df24438a74fa853127dc8df",
+          "seal": "c70c2ff35e650f37f11ea12ff376b35a1562a48968b0118fd42cd34a5196bff2"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 4,
+        "control": "O1",
+        "completed_units_per_s": 10.351406922616462,
+        "duration_s": 6.182734431989957,
+        "startup_s": 58.957253608008614,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11104620544,
+          "host_rss_peak_bytes": 8981831680,
+          "host_available_min_bytes": 10875027456,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            420,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.380000000000001,
+          "client_tool_cpu_elapsed_s": 0.1800000000000015,
+          "client_tool_rss_peak_bytes": 955260928,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "982e8aa23b4344ec962210a311aaee90",
+          "path": "attempts/101a2830ab096d8224e65bed6fb938943dfae4adff6d8d194025f03fa167abb2/982e8aa23b4344ec962210a311aaee90",
+          "seal": "274eeaf77d5bda0dceeb8bad46b4e9558fe24174266c0e232598f2ba5e014755"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 4,
+        "control": "O0",
+        "completed_units_per_s": 10.519045680766673,
+        "duration_s": 6.084202117024688,
+        "startup_s": 58.46118385400041,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11111174144,
+          "host_rss_peak_bytes": 8981651456,
+          "host_available_min_bytes": 10881658880,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            517,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.370000000000002,
+          "client_tool_cpu_elapsed_s": 0.22999999999999954,
+          "client_tool_rss_peak_bytes": 955203584,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "ae80f19f8eed4224b2421ef7ab6bc70b",
+          "path": "attempts/7b4def453dcbc10ceb670949cb94b4856091ee6b2b2a5d2996c2a3681c6fe184/ae80f19f8eed4224b2421ef7ab6bc70b",
+          "seal": "ad443ae0a1a8ab99d26c8ec38ba1025e20a17e57b7ea746997d17870222ab06b"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 4,
+        "control": "O2",
+        "completed_units_per_s": 10.224993212653049,
+        "duration_s": 6.259172858990496,
+        "startup_s": 58.96506428401335,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11111174144,
+          "host_rss_peak_bytes": 8983179264,
+          "host_available_min_bytes": 10896318464,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 56,
+          "gpu_sm_clock_range_mhz": [
+            465,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.389999999999995,
+          "client_tool_cpu_elapsed_s": 0.20000000000000018,
+          "client_tool_rss_peak_bytes": 955293696,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "94ebde3a4b50485984ea6d662c9dd1f9",
+          "path": "attempts/d602377c255893b60f5279059803727eb7d9f505945b19f25357ebfb8afcbcf1/94ebde3a4b50485984ea6d662c9dd1f9",
+          "seal": "1eac338fa730535d39acdaa997ea8e2a668ea4f0db154e87d264ccc02af674c7"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 5,
+        "control": "O0",
+        "completed_units_per_s": 10.403670817298654,
+        "duration_s": 6.151674838998588,
+        "startup_s": 58.15302866799175,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11111174144,
+          "host_rss_peak_bytes": 8979333120,
+          "host_available_min_bytes": 10907717632,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 60,
+          "gpu_sm_clock_range_mhz": [
+            517,
+            2992
+          ],
+          "process_cpu_elapsed_s": 6.41,
+          "client_tool_cpu_elapsed_s": 0.16999999999999993,
+          "client_tool_rss_peak_bytes": 955310080,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "3552388abdf34e95b4d634cf3b4b76c6",
+          "path": "attempts/6930d7108d076bc1705f11e90004db0414d6051bd018f1636fa88255985488f8/3552388abdf34e95b4d634cf3b4b76c6",
+          "seal": "4a901d14ca74bfbc7e63a4123693a2936c09864da918e548a9823aafe08c5cc4"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 5,
+        "control": "O2",
+        "completed_units_per_s": 10.159789187740367,
+        "duration_s": 6.299343304999638,
+        "startup_s": 59.45911324498593,
+        "resources": {
+          "samples": 21,
+          "gpu_peak_bytes": 11111174144,
+          "host_rss_peak_bytes": 8982286336,
+          "host_available_min_bytes": 10882777088,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 61,
+          "gpu_sm_clock_range_mhz": [
+            532,
+            3000
+          ],
+          "process_cpu_elapsed_s": 6.290000000000003,
+          "client_tool_cpu_elapsed_s": 0.22999999999999954,
+          "client_tool_rss_peak_bytes": 955330560,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "8217bd218e214838beb69db5bbf78725",
+          "path": "attempts/51d5c57696ad36442d6b748387101486a42e2e2a936c9438f11fa4fecb20f00e/8217bd218e214838beb69db5bbf78725",
+          "seal": "e77487003b80a6e6525abef52a17ef94d8ddde504f9f2508ac9825768b5e7496"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B02",
+        "repeat": 5,
+        "control": "O1",
+        "completed_units_per_s": 8.71613305557939,
+        "duration_s": 7.342705715011107,
+        "startup_s": 58.856953644019086,
+        "resources": {
+          "samples": 25,
+          "gpu_peak_bytes": 11111174144,
+          "host_rss_peak_bytes": 8983138304,
+          "host_available_min_bytes": 10904555520,
+          "host_swap_in_delta_bytes": 0,
+          "host_swap_out_delta_bytes": 0,
+          "gpu_temperature_peak_c": 59,
+          "gpu_sm_clock_range_mhz": [
+            495,
+            3000
+          ],
+          "process_cpu_elapsed_s": 7.73,
+          "client_tool_cpu_elapsed_s": 0.33999999999999986,
+          "client_tool_rss_peak_bytes": 955084800,
+          "sample_interval_s": 0.25,
+          "error": null,
+          "scope": "Load-window sampled whole-device GPU memory and summed server-tree RSS (shared pages may double count); CPU lifetime deltas exclude startup. Not allocator peaks."
+        },
+        "artifacts": {
+          "attempt": "a9268b68c8c34d5284a010f0111940cd",
+          "path": "attempts/a84847e7e121d882a51f92ce514dbe457f5340fa532dd666777f514c6e611d9a/a9268b68c8c34d5284a010f0111940cd",
+          "seal": "0403ff48beec318ded45d79decd874853d27939a10a809952fae088a03b2fd3f"
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "cell": "B01",
+        "candidate": "O1",
+        "baseline": "O0",
+        "estimate": {
+          "process_pairs": 6,
+          "geometric_throughput_ratio": 1.0009744998440437,
+          "throughput_gain_pct": 0.09744998440437413,
+          "time_reduction_pct": 0.09735511186305112,
+          "paired_95_interval": [
+            0.9941152361069748,
+            1.0078810915943104
+          ],
+          "method": "Student t on paired whole-process log throughput ratios",
+          "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+          "per_run_ratios": [
+            0.9937010116351578,
+            0.9976720832482586,
+            1.0084957391555183,
+            0.9942269091506891,
+            1.005958580377855,
+            1.0059000984819617
+          ]
+        },
+        "three_percent_throughput_loss_bound": "bounded",
+        "scope": "Fixed six process repetitions; tool-free identical requests within cell"
+      },
+      {
+        "cell": "B01",
+        "candidate": "O2",
+        "baseline": "O0",
+        "estimate": {
+          "process_pairs": 6,
+          "geometric_throughput_ratio": 0.9923718053947725,
+          "throughput_gain_pct": -0.7628194605227456,
+          "time_reduction_pct": -0.7686831249899218,
+          "paired_95_interval": [
+            0.9775019707935931,
+            1.0074678410550526
+          ],
+          "method": "Student t on paired whole-process log throughput ratios",
+          "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+          "per_run_ratios": [
+            0.9806070609316608,
+            0.9859203062347609,
+            1.0029958724153807,
+            0.9739552067651873,
+            1.009765914049025,
+            1.0014997329391369
+          ]
+        },
+        "three_percent_throughput_loss_bound": "bounded",
+        "scope": "Fixed six process repetitions; tool-free identical requests within cell"
+      },
+      {
+        "cell": "B01",
+        "candidate": "O2",
+        "baseline": "O1",
+        "estimate": {
+          "process_pairs": 6,
+          "geometric_throughput_ratio": 0.9914056807135332,
+          "throughput_gain_pct": -0.8594319286466812,
+          "time_reduction_pct": -0.8668821909797231,
+          "paired_95_interval": [
+            0.9826519824430564,
+            1.0002373590163913
+          ],
+          "method": "Student t on paired whole-process log throughput ratios",
+          "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+          "per_run_ratios": [
+            0.9868230478280882,
+            0.9882208019941424,
+            0.9945464650701022,
+            0.9796105876848388,
+            1.0037847817449301,
+            0.995625444763883
+          ]
+        },
+        "three_percent_throughput_loss_bound": "bounded",
+        "scope": "Fixed six process repetitions; tool-free identical requests within cell"
+      },
+      {
+        "cell": "B02",
+        "candidate": "O1",
+        "baseline": "O0",
+        "estimate": {
+          "process_pairs": 6,
+          "geometric_throughput_ratio": 0.9312842638092031,
+          "throughput_gain_pct": -6.871573619079685,
+          "time_reduction_pct": -7.378599516943507,
+          "paired_95_interval": [
+            0.8650141325141278,
+            1.0026314570120443
+          ],
+          "method": "Student t on paired whole-process log throughput ratios",
+          "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+          "per_run_ratios": [
+            0.9631030621767763,
+            0.9682930731864009,
+            0.8659987618402419,
+            0.9797977513692708,
+            0.9840633111369859,
+            0.8377940064276813
+          ]
+        },
+        "three_percent_throughput_loss_bound": "inconclusive",
+        "scope": "Fixed six process repetitions; tool-free identical requests within cell"
+      },
+      {
+        "cell": "B02",
+        "candidate": "O2",
+        "baseline": "O0",
+        "estimate": {
+          "process_pairs": 6,
+          "geometric_throughput_ratio": 0.9906236323048443,
+          "throughput_gain_pct": -0.9376367695155707,
+          "time_reduction_pct": -0.9465116104024451,
+          "paired_95_interval": [
+            0.9405201142741941,
+            1.043396271900199
+          ],
+          "method": "Student t on paired whole-process log throughput ratios",
+          "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+          "per_run_ratios": [
+            1.094340224740388,
+            0.9797840708961674,
+            0.9567967401280137,
+            0.9704315324726538,
+            0.972045708609168,
+            0.97655811743363
+          ]
+        },
+        "three_percent_throughput_loss_bound": "inconclusive",
+        "scope": "Fixed six process repetitions; tool-free identical requests within cell"
+      },
+      {
+        "cell": "B02",
+        "candidate": "O2",
+        "baseline": "O1",
+        "estimate": {
+          "process_pairs": 6,
+          "geometric_throughput_ratio": 1.0637177828528177,
+          "throughput_gain_pct": 6.371778285281771,
+          "time_reduction_pct": 5.990102250799179,
+          "paired_95_interval": [
+            0.9844343186515399,
+            1.14938650565049
+          ],
+          "method": "Student t on paired whole-process log throughput ratios",
+          "scope": "Conditional on frozen cohort/host; not multiplicity adjusted",
+          "per_run_ratios": [
+            1.136264920876685,
+            1.0118672724487767,
+            1.1048476998914256,
+            0.9904406609593381,
+            0.9877877750427126,
+            1.1656303458145194
+          ]
+        },
+        "three_percent_throughput_loss_bound": "bounded",
+        "scope": "Fixed six process repetitions; tool-free identical requests within cell"
+      }
+    ],
+    "O3_active_reference": [
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 1,
+        "artifacts": {
+          "attempt": "dc5159eb6f55437a950c171633a6aa0d",
+          "path": "attempts/e36e5ce7df9e21e66295fdbe4ea353faba8650346d43ede78bc08779a13ca26a/dc5159eb6f55437a950c171633a6aa0d",
+          "seal": "c902578e3b49815ee31ee6c8ca3118ca62837d688acf8b7ffa10ce3a04bf147a"
+        },
+        "completed_units_per_s": 1.0356570979283544
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 2,
+        "artifacts": {
+          "attempt": "4757cf62e6c94cba9609ef407895b25e",
+          "path": "attempts/2f88518d8af994dd6c8f43c014161250915a6bd878f1633b73e935062170188d/4757cf62e6c94cba9609ef407895b25e",
+          "seal": "5fc5c54a66fc639a434defb25e64bb48b7497e649d7d748fb81b257f780499de"
+        },
+        "completed_units_per_s": 1.0573959316245118
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 3,
+        "artifacts": {
+          "attempt": "f97e84e54ffd41829a3a115e552c0d17",
+          "path": "attempts/c1bd16d55f95e63da9aeb8db95294bdedec9a2c1cdd678962fe9381a4646e11f/f97e84e54ffd41829a3a115e552c0d17",
+          "seal": "f970b15adfc1ba12d30d5c842813f00769a779c750305a0cd84f75b32a61ebf8"
+        },
+        "completed_units_per_s": 1.017820748030078
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 4,
+        "artifacts": {
+          "attempt": "d1dcb12c3838419e900e966c674b21c1",
+          "path": "attempts/4c0af1435ecbaa146e30453c927f20a36ef34b7dd14c3bb9e40211a0dcde5c54/d1dcb12c3838419e900e966c674b21c1",
+          "seal": "9bb5cd469cc3b68ed2c6249f5ddc6ee6a1c475093c783bc636d48ff6d6586452"
+        },
+        "completed_units_per_s": 1.0082353675562221
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 5,
+        "artifacts": {
+          "attempt": "7c27723d87cd4b049c50d1d45b953d6b",
+          "path": "attempts/482982670dc839778c12cc0c7fa7a4dc41a7695794549293fc8c05a6cb4a0db3/7c27723d87cd4b049c50d1d45b953d6b",
+          "seal": "73685a37a69c427ad496fc1b68ccbc46651912c9ab7954bcd94a0fd4fa8dcc90"
+        },
+        "completed_units_per_s": 1.0290199833361375
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 6,
+        "artifacts": {
+          "attempt": "fbd398cef6b04a1a9050ecd6baf86780",
+          "path": "attempts/7f1a25b3c9289c4deda9e7d4b14c3e0ebe4c69412acdade12d880831d9a07d09/fbd398cef6b04a1a9050ecd6baf86780",
+          "seal": "06f7f417cb00f19efa1a55f855eae6340010f727b7dfd5d5edf0b40921da8902"
+        },
+        "completed_units_per_s": 1.0450444794373621
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 7,
+        "artifacts": {
+          "attempt": "40865adae6b24162b127f29393d0d82e",
+          "path": "attempts/144827dd959c5795f8aa8641e984ba60223bdcc43ab899ed10d9fb179c8497b0/40865adae6b24162b127f29393d0d82e",
+          "seal": "731af8fcb64674ec98d3f4789f1f227fd70c9a46477b93cdfd51ad7d62442b67"
+        },
+        "completed_units_per_s": 1.042032160937464
+      }
+    ],
+    "O3_scope": "B06 confirmation reference; never paired with B01/B02 O0"
+  },
+  "scope": "All original supplementary identities once, full identity/outer and inner artifacts plus frozen control or operational requirements. No retry, source/design/workload/repetition change. A passing boundary does not close final all-attempt-cap/campaign/portability/results audits."
+}

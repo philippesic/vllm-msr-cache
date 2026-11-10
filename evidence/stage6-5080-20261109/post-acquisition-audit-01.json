@@ -1,0 +1,118 @@
+{
+  "schema": "stage6-5080-final-post-acquisition-audit-v1",
+  "recorded_unix": 1794310285.1794183,
+  "execution_complete": true,
+  "full_throughput_acquisition_complete": false,
+  "verification": {
+    "schema": "serving-campaign-verification-v1",
+    "attempts": {
+      "verified": 603,
+      "interrupted": 3,
+      "failed": 35
+    },
+    "verified_files": 67120,
+    "protocol_frozen": true,
+    "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+  },
+  "verification_cli_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/campaign-verification-final-01.log",
+  "verification_cli_log_sha256": "2ba05707469c741d4ea82051d708d0f9efa1a73fcb2bd2218e21ad092d281b61",
+  "stable_ledger_digest": "c1f87fd4760d54352c72329e7b88bd3f0b52f0eae080487d42f52a51f5f7e0eb",
+  "frozen_acquisition_source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "frozen_acquisition_source_files_verified": 2192,
+  "execution_bundle_files_verified": 4606,
+  "imported_bundle_files_verified": 4606,
+  "source_equals_protocol": true,
+  "confirmation": "confirmation-attempts-complete.json",
+  "supplementary_boundaries": {
+    "overhead": {
+      "receipt": "overhead-boundary-01.json",
+      "complete": true,
+      "configurations": 38,
+      "verified_files": 2150
+    },
+    "operational": {
+      "receipt": "operational-boundary-01.json",
+      "complete": true,
+      "configurations": 6,
+      "verified_files": 2448
+    }
+  },
+  "primary_source_audit": {
+    "published": "confirm-quality-published-19.json",
+    "objective_finals": 10520,
+    "reviewed": 7011,
+    "contexts": 849,
+    "status": "audited"
+  },
+  "all_attempt_cap_audit": {
+    "index": "caps-all-review-index-final-01.json",
+    "complete_inventory": true,
+    "status": "audited",
+    "reviewed": 516,
+    "contexts": 186,
+    "ledger_unchanged": true
+  },
+  "recovery": {
+    "complete": true,
+    "proofs": [
+      {
+        "interrupted_attempt": "5be8d36b8c4e42fa8e70bd00d9727d2c",
+        "interrupted_artifacts": "attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/5be8d36b8c4e42fa8e70bd00d9727d2c",
+        "prior_partial_block_attempts": [
+          "e0232f840c9d4e39989c92ead12323f1"
+        ],
+        "replacement_attempts": [
+          {
+            "attempt": "a17aefecbce041ea9daa161e848d72db",
+            "path": "attempts/d498eb870443c61f5f432b957972dede3458b3ac7238a128122e34b69ddd64f3/a17aefecbce041ea9daa161e848d72db",
+            "seal": "7fc3d5ddea6723ef5b70af0f5f7cf7891f0496eaa5ba59efbf51440e421dac75"
+          },
+          {
+            "attempt": "7cd6cbcaa6b84436ab9af12eafa5185b",
+            "path": "attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/7cd6cbcaa6b84436ab9af12eafa5185b",
+            "seal": "5767b028af1aad12cf6120a6a6138703eb188ef23559e8846df42e3bb7bf4667"
+          }
+        ],
+        "owned_cleanup_verified": true,
+        "whole_block_replaced": true
+      }
+    ],
+    "scope": "Real interrupted measured process and sealed whole-block replacement; no partial-process continuation"
+  },
+  "november8_history": {
+    "verification": {
+      "schema": "serving-campaign-verification-v1",
+      "attempts": {
+        "verified": 33,
+        "interrupted": 2,
+        "failed": 6
+      },
+      "verified_files": 3142,
+      "protocol_frozen": false,
+      "scope": "Integrity and aggregate consistency; acquisition/correctness/quality completion is separate"
+    },
+    "unchanged_original_lmcache_binary": true
+  },
+  "rebuilt_wheel_and_installed_extension_match_build_receipt": true,
+  "volume_growth": "volume-growth-01.json",
+  "missing_confirmation_blocks": [
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 3
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B06",
+      "repeat": 0
+    }
+  ],
+  "portability_pending": true,
+  "resource_release_announced": false,
+  "scope": "Every retained sealed attempt and inner aggregate verified by frozen CLI after all timed phases and online storage growth. Source, execution/import bundles, Nov8 campaign and original kernel unchanged; rebuilt artifacts still match recorded hashes. All phase execution and source/cap/recovery audits handled, with three genuine activity exclusions retained. Final offline relocation/import proof, final report/render/push and owned cleanup/notification remain required."
+}

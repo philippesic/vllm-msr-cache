@@ -1,0 +1,41 @@
+{
+  "schema": "stage6-5080-existing-volume-growth-v1",
+  "recorded_unix": 1794309753.6305265,
+  "image": "/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/stage6-5080-outputs-01.ext4",
+  "old_bytes": 21474836480,
+  "new_bytes": 30064771072,
+  "append_bytes": 8589934592,
+  "allocated_bytes": 30064967680,
+  "same_image_inode": true,
+  "never_formatted_replaced_or_unmounted": true,
+  "all_timed_phases_terminal": true,
+  "model_weights_not_copied_by_portability": true,
+  "raw_campaign_bytes": 12157677568,
+  "source_bundle_bytes": 89534464,
+  "relocation_budget_bytes": 13500022784,
+  "topology": {
+    "mount": {
+      "target": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01",
+      "source": "/dev/loop0",
+      "fstype": "ext4",
+      "options": "rw,noatime"
+    },
+    "loop": {
+      "name": "/dev/loop0",
+      "back-file": "/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/stage6-5080-outputs-01.ext4",
+      "sizelimit": 0
+    }
+  },
+  "before_free_bytes": {
+    "ext4": 6809403392,
+    "root": 2171252736,
+    "Windows": 11980509184
+  },
+  "after_free_bytes": {
+    "ext4": 15264595968,
+    "root": 2162704384,
+    "Windows": 3390218240
+  },
+  "resize_output": "Filesystem at /dev/loop0 is mounted on /home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01; on-line resizing required\nold_desc_blocks = 3, new_desc_blocks = 4\nThe filesystem on /dev/loop0 is now 7340032 (4k) blocks long.",
+  "scope": "Declared storage repair for full materialized relocation. Appended zero-backed space to the existing20GiB image, refreshed its exact loop capacity and grew mounted ext4 to28GiB. All November8/November9 data retained in place; subsequent campaign/history seal audits still required. No model/source/study-design change."
+}

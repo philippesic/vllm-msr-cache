@@ -106,8 +106,21 @@ def portable_inventory(out, destination):
     from .campaign import ROOT
     replacements = {str(ROOT):'${project}',host['asset_cache']:'${asset_cache}',
                     host['runtime_python']:'${runtime_python}'}
+    acquisition_root = host.get('runtime_bindings',{}).get('project_root')
+    if acquisition_root:
+        replacements[acquisition_root] = '${project}'
     replacements.update({p:'${model:'+m+'}' for m,p in host['models'].items()})
-    sources = load(Path(host['asset_cache'])/'sources.json')
+    imported = out/'imported'
+    imported_inventory = None
+    if (imported/'portable.json').is_file():
+        # Imported runs execute the sealed bundle assets, without requiring a
+        # second native preparation cache or a .git directory in tool sources.
+        verify_tree(imported)
+        imported_inventory = load(imported/'portable.json')['inventory']
+        sources = {name:dict(entry,path=str(imported/'assets/sources'/name))
+                   for name,entry in imported_inventory['public_sources'].items()}
+    else:
+        sources = load(Path(host['asset_cache'])/'sources.json')
     manifest = {}
 
     def add(source, relative, expected=None):
@@ -123,9 +136,16 @@ def portable_inventory(out, destination):
         manifest['assets/'+relative] = actual
         replacements[str(source)] = '${bundle}/assets/'+relative
 
+    if imported_inventory is not None:
+        for relative,expected in imported_inventory['included_files'].items():
+            if not relative.startswith('assets/'):
+                raise ValueError('Imported asset inventory is outside bundle assets')
+            add(local_path(imported,relative),relative.removeprefix('assets/'),expected)
     for name,entry in sources.items():
         root = Path(entry['path'])
         replacements[str(root)] = '${bundle}/assets/sources/'+name
+        if imported_inventory is not None:
+            continue  # Every sealed tracked tool/support file was copied above.
         if name=='more-itertools':
             # pytest imports helpers beyond the selected source/test excerpts.
             files = subprocess.check_output(['git','-C',str(root),'ls-files','-z']).decode().split('\0')
@@ -142,10 +162,11 @@ def portable_inventory(out, destination):
             for session in load(binding['corpus'])['sessions']:
                 for path,expected in session.get('input_files',{}).items():
                     source = Path(path)
+                    asset_root = imported/'assets' if imported_inventory is not None else Path(host['asset_cache'])
                     try:
-                        relative = str(source.relative_to(host['asset_cache']))
+                        relative = str(source.relative_to(asset_root))
                     except ValueError:
-                        raise ValueError('Executed external input is outside the prepared asset cache')
+                        raise ValueError('Executed external input is outside the prepared asset cache or imported assets')
                     add(source,relative,expected)
     public_sources = {k:{a:b for a,b in v.items() if a!='path'} for k,v in sources.items()}
     return replacements,dict(included_files=manifest,public_sources=public_sources,

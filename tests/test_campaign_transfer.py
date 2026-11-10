@@ -143,6 +143,97 @@ def test_transfer_refuses_missing_or_changed_input(transfer):
         export_campaign(original,root/'bad-export')
 
 
+def imported_with_empty_cache(transfer):
+    original,host,root = transfer
+    bundle = root/'bundle'
+    export_campaign(original,bundle)
+    cache = root/'rebound-cache'
+    cache.mkdir()
+    host = dict(host,id='second',asset_cache=str(cache))
+    host_path = root/'rebound-host.json'
+    atomic_json(host_path,host)
+    imported = root/'rebound'
+    import_campaign(bundle,host_path,imported)
+    return imported,host,root
+
+
+def test_imported_inventory_reexports_sealed_assets_without_native_cache(transfer,monkeypatch):
+    from benchmarks.serving_suite.campaign_verify import portable_inventory
+    imported,host,root = imported_with_empty_cache(transfer)
+    analysis = root/'separate-analysis-source'
+    analysis.mkdir()
+    monkeypatch.setattr(campaign,'ROOT',analysis)
+    assert not (Path(host['asset_cache'])/'sources.json').exists()
+    destination = root/'second-bundle'
+    replacements,inventory = portable_inventory(imported,destination)
+    tool = destination/'assets/sources/more-itertools'
+    # The importable helper is required even though the selected corpus points
+    # only to selected.py. No .git directory is required in the sealed copy.
+    assert (tool/'selected.py').read_text()=='from helper import VALUE\n'
+    assert (tool/'helper.py').read_text()=='VALUE=1\n'
+    assert (tool/'LICENSE').is_file() and not (tool/'.git').exists()
+    original = load(imported/'imported/portable.json')['inventory']
+    assert inventory['included_files']==original['included_files']
+    assert inventory['public_sources']==original['public_sources']
+    assert replacements[host['runtime_bindings']['project_root']]=='${project}'
+    assert replacements[str(analysis)]=='${project}'
+
+
+def test_imported_inventory_reexport_rejects_tampered_support_file(transfer):
+    from benchmarks.serving_suite.campaign_verify import portable_inventory
+    imported,host,root = imported_with_empty_cache(transfer)
+    (imported/'imported/assets/sources/more-itertools/helper.py').write_text('tampered\n')
+    with pytest.raises(ValueError):
+        portable_inventory(imported,root/'bad-second-bundle')
+
+
+def test_imported_inventory_reexport_rejects_input_outside_sealed_assets(transfer):
+    from benchmarks.serving_suite.campaign_verify import portable_inventory
+    imported,host,root = imported_with_empty_cache(transfer)
+    outside = root/'unrelated.py'
+    outside.write_text('unrelated\n')
+    path = Path(load(imported/'resolved.json')['cells'][0]['confirmation_binding']['corpus'])
+    corpus = load(path)
+    corpus['sessions'][0]['input_files'] = {str(outside):file_hash(outside)}
+    atomic_json(path,corpus)
+    with pytest.raises(ValueError,match='outside'):
+        portable_inventory(imported,root/'bad-second-bundle')
+
+
+def test_portability_repairs_zeroed_copy_without_changing_source(tmp_path,monkeypatch):
+    from benchmarks.serving_suite.campaign_portability import copy_verified
+    source,destination = tmp_path/'source.tar.gz',tmp_path/'copied.tar.gz'
+    content = b'compressed-source-content' * 10000
+    source.write_bytes(content)
+    destination.write_bytes(content[:1000]+bytes(len(content)-1000))
+    original_hash = file_hash(source)
+    # Reproduce a successful but corrupt kernel fast-copy transport. The
+    # portability path must still restore every original byte.
+    def corrupt_sendfile(output,input,offset,count):
+        length = min(count,source.stat().st_size-offset)
+        os.write(output,bytes(length))
+        return length
+    monkeypatch.setattr(os,'sendfile',corrupt_sendfile)
+    copy_verified(source,destination)
+    assert destination.read_bytes()==content
+    assert file_hash(source)==original_hash==file_hash(destination)
+
+
+def test_portability_reuses_identical_file_and_rejects_symlink(tmp_path):
+    from benchmarks.serving_suite.campaign_portability import copy_verified
+    source,destination = tmp_path/'source',tmp_path/'copy'
+    source.write_bytes(b'preserved evidence')
+    destination.write_bytes(source.read_bytes())
+    before = destination.stat()
+    copy_verified(source,destination)
+    assert destination.stat().st_ino==before.st_ino
+    assert destination.stat().st_mtime_ns==before.st_mtime_ns
+    destination.unlink()
+    destination.symlink_to(source)
+    with pytest.raises(ValueError,match='materialized'):
+        copy_verified(source,destination)
+
+
 def test_import_checks_bundle_and_executed_source(transfer,monkeypatch):
     original,host,root = transfer
     bundle = root/'bundle'

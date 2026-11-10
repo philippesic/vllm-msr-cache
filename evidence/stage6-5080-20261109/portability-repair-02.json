@@ -1,0 +1,31 @@
+{
+  "schema": "stage6-5080-imported-export-repair-v1",
+  "classification": "repairable_analysis_transfer_setup_failure",
+  "failure": "Original native-cache exporter requires sources.json even though imported campaigns execute sealed imported/assets; first proof stopped before raw copy or original-path park.",
+  "failed_unit": "stage6-5080-portability-20261110-01.service",
+  "failed_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/portability-final-01.log",
+  "failed_destination": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-20261109-final-01",
+  "original_campaign_never_parked_or_modified_by_failed_export": true,
+  "parent_acquisition_source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "analysis_source": "b8c3b350e5a7f9513b8dca2955751a6c5817aaeeeff5981fc3eeda43937d855f",
+  "changed_files": [
+    "benchmarks/serving_suite/campaign_verify.py"
+  ],
+  "parent_source_files": 2192,
+  "analysis_source_files": 2192,
+  "exact_parent_source_snapshot_verified": true,
+  "analysis_root": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-analysis-source-02",
+  "asset_policy": "Re-export the complete sealed imported inventory, including helper files; validate every bound external input hash and root; normalize both acquisition and analysis project roots. Native-preparation export remains supported.",
+  "serving_models_workloads_profiles_order_repetitions_estimators_and_attempts_unchanged": true,
+  "regression_tests": "tests/test_campaign_transfer.py",
+  "focused_regression_tests_passed": 17,
+  "full_bench_tests_pending": false,
+  "scope": "Only the explicitly allowed derived campaign_verify transfer module changes; exact acquisition closure remains untouched and is exported separately as parent-source. New tests are validation support, excluded from acquisition identity. Preserve failed proof01, then retry under a fresh proof/unit02 without any GPU measurements.",
+  "maintained_repo_bench_tests_passed": 260,
+  "maintained_repo_bench_test_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/portability-repair-bench-tests-02.log",
+  "maintained_repo_bench_test_log_sha256": "13fe38162546963d5818ee2e8698e25c0c00c364e04e925e7eea325673464b10",
+  "derived_analysis_bench_tests_passed": 243,
+  "derived_analysis_bench_test_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/portability-analysis-bench-tests-02.log",
+  "derived_analysis_bench_test_log_sha256": "93426da50eba6d8c0724f3080aa201a3a887790fa9246a7961c9d74af4d12e30",
+  "portability_retry_pending": true
+}

@@ -1,0 +1,1498 @@
+{
+  "schema": "stage6-5080-frozen-supplementary-boundary-v1",
+  "phase": "operational",
+  "recorded_unix": 1794307229.418168,
+  "execution_complete": true,
+  "frozen_phase_complete": true,
+  "planned_configurations": 6,
+  "retained_attempts": 6,
+  "verified_files": 2448,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "protocol_digest": "704fe6e97a2cb5e611fa4622356f95bc3ce1047b808a88cb2658b3e27e2e6272",
+  "phase_ledger_digest": "037083d202e367f8ad0eac5447f463ab15434cf1aabe98b94b147ec626d01b51",
+  "service_terminal_state": {
+    "ActiveState": "active",
+    "SubState": "exited",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0"
+  },
+  "attempts": [
+    {
+      "attempt": "3693282132134dfe94608d271c2edab3",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "path": "attempts/08744a1247faec9a825f7bcd14847c69c2c666ed1804d91f28d3bfea658efb42/3693282132134dfe94608d271c2edab3",
+      "state": "verified",
+      "seal": "4a5517761ef9a71c42e2ae82c5cb4c161095dd2fab9561858970517868784a50",
+      "verified_files": 712,
+      "inner_verification": {
+        "verified_files": 707,
+        "cases": 1,
+        "request_records": 385,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 384,
+      "expected_requests": 384,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "7f545508ede0482cb42a15113a82d322",
+      "identity": {
+        "model": "qwen3_8b_awq",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "path": "attempts/9d62a912c8dfcf5cb22311d28be9c93a048cec693db53ea5b821bec0e23c08b4/7f545508ede0482cb42a15113a82d322",
+      "state": "verified",
+      "seal": "8c62e7c340cea94d4636c7ad6f871b28d3eb783218fc135a33c407f5517648f7",
+      "verified_files": 712,
+      "inner_verification": {
+        "verified_files": 707,
+        "cases": 1,
+        "request_records": 385,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 384,
+      "expected_requests": 384,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "fe33d1ac44674cd19ac4f4b470ab2cb2",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "path": "attempts/abfacebea1b0bbf76900a1c4282bbad1a08d65e200180b721bf4315a6f902eb9/fe33d1ac44674cd19ac4f4b470ab2cb2",
+      "state": "verified",
+      "seal": "7d7a0fe257f8052fa4f0016e24633e0e42628e969aca7f7b38a9654344fa4c4e",
+      "verified_files": 256,
+      "inner_verification": {
+        "verified_files": 251,
+        "cases": 1,
+        "request_records": 129,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 128,
+      "expected_requests": 128,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "d34f550337424a4d858eb3981319be36",
+      "identity": {
+        "model": "ministral3_3b",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "path": "attempts/ee1935e5e086f9532693647e1e5ba89f7f63e6d042f2662350dc56e4eca0feaf/d34f550337424a4d858eb3981319be36",
+      "state": "verified",
+      "seal": "e7a375613370dd0a2b1f9c02dc15de9884f8d5248c4148bc5a24b9491e175a98",
+      "verified_files": 256,
+      "inner_verification": {
+        "verified_files": 251,
+        "cases": 1,
+        "request_records": 129,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 128,
+      "expected_requests": 128,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "a894df0a33ff466ba4fa251bd4a4b0cf",
+      "identity": {
+        "model": "qwen3_4b_2507",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "arc"
+      },
+      "path": "attempts/940d7de2f7d7843c08a2954c1710ae755033d1780fe984e838b6013a42b03da7/a894df0a33ff466ba4fa251bd4a4b0cf",
+      "state": "verified",
+      "seal": "51becf0b8d9c6062649e98f35713cba67e67fd79ed11c44514b739cb3487281f",
+      "verified_files": 256,
+      "inner_verification": {
+        "verified_files": 251,
+        "cases": 1,
+        "request_records": 129,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 128,
+      "expected_requests": 128,
+      "measurement_errors": []
+    },
+    {
+      "attempt": "8bdb8e26f1a94147880e5a93dc86c0ad",
+      "identity": {
+        "model": "qwen3_4b_2507",
+        "cell": "B06",
+        "repeat": 0,
+        "system": "wait"
+      },
+      "path": "attempts/0b6aeefc352f5f99a406d43256cd4bd138a89bc9b0a337b902d5a6fbc0430f60/8bdb8e26f1a94147880e5a93dc86c0ad",
+      "state": "verified",
+      "seal": "9c816c67e13ec1c54bc64843d1bf6076497acaa4d5e2c11a41aa7b0b07117f1a",
+      "verified_files": 256,
+      "inner_verification": {
+        "verified_files": 251,
+        "cases": 1,
+        "request_records": 129,
+        "measurement_status": "passed",
+        "scope": "Artifact integrity and aggregate consistency; not a new GPU/quality qualification."
+      },
+      "evaluation": "passed",
+      "cleanup_verified": true,
+      "completed_requests": 128,
+      "expected_requests": 128,
+      "measurement_errors": []
+    }
+  ],
+  "frozen_outcome": {
+    "complete": true,
+    "missing": [],
+    "cases": [
+      {
+        "model": "ministral3_3b",
+        "system": "arc",
+        "waves": 2,
+        "completed_requests": 128,
+        "completed_units": 32,
+        "operational": {
+          "arrival_interval_s": 0,
+          "wave_interval_s": 0,
+          "client_cancel": true,
+          "backend_abort_receipts": [
+            {
+              "schema": "semantic-backend-abort-v1",
+              "probe_id": "66e1ef99-9f66-47f5-8f99-c6d193a3a3ec",
+              "internal_request_id": "cmpl-suite-cancel-probe-0-bb9353a7",
+              "status": "FINISHED_ABORTED",
+              "output_tokens": 1,
+              "at_ns": 185505422352208
+            }
+          ],
+          "recovery_generation": true,
+          "drain_checks": 2,
+          "passed": true,
+          "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification.",
+          "native_transfer_drain_verified": true,
+          "first_final_memory": [
+            {
+              "monotonic_s": 185458.256769784,
+              "rss_bytes": 7548874752,
+              "gpu_used_bytes": 11874537472,
+              "host_available_bytes": 12023099392,
+              "host_swap_used_bytes": 362881024
+            },
+            {
+              "monotonic_s": 185505.1268929,
+              "rss_bytes": 7611179008,
+              "gpu_used_bytes": 11874537472,
+              "host_available_bytes": 11991900160,
+              "host_swap_used_bytes": 362881024
+            }
+          ],
+          "wave_resources": [
+            {
+              "wave": 0,
+              "samples": 83,
+              "rss_peak_bytes": 7605358592
+            },
+            {
+              "wave": 1,
+              "samples": 75,
+              "rss_peak_bytes": 7611179008
+            }
+          ],
+          "rss_growth_alarm_512_mib": false
+        },
+        "registry_first_final": [
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185456582230411,
+            "pid": 279609
+          },
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185505662266017,
+            "pid": 279609
+          }
+        ],
+        "registry_peaks": {
+          "sessions": 0,
+          "prefixes": 0,
+          "results": 0,
+          "leases": 0,
+          "native_jobs": 8
+        },
+        "checks": [],
+        "artifacts": {
+          "attempt": "fe33d1ac44674cd19ac4f4b470ab2cb2",
+          "path": "attempts/abfacebea1b0bbf76900a1c4282bbad1a08d65e200180b721bf4315a6f902eb9/fe33d1ac44674cd19ac4f4b470ab2cb2",
+          "seal": "7d7a0fe257f8052fa4f0016e24633e0e42628e969aca7f7b38a9654344fa4c4e"
+        }
+      },
+      {
+        "model": "ministral3_3b",
+        "system": "wait",
+        "waves": 2,
+        "completed_requests": 128,
+        "completed_units": 32,
+        "operational": {
+          "arrival_interval_s": 0,
+          "wave_interval_s": 0,
+          "client_cancel": true,
+          "backend_abort_receipts": [
+            {
+              "schema": "semantic-backend-abort-v1",
+              "probe_id": "a9bd5602-038d-4e66-8d58-58403524939f",
+              "internal_request_id": "cmpl-suite-cancel-probe-0-a67623df",
+              "status": "FINISHED_ABORTED",
+              "output_tokens": 1,
+              "at_ns": 185628861838201
+            }
+          ],
+          "recovery_generation": true,
+          "drain_checks": 2,
+          "passed": true,
+          "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification.",
+          "native_transfer_drain_verified": true,
+          "first_final_memory": [
+            {
+              "monotonic_s": 185579.392964019,
+              "rss_bytes": 7538155520,
+              "gpu_used_bytes": 11874537472,
+              "host_available_bytes": 12125831168,
+              "host_swap_used_bytes": 362881024
+            },
+            {
+              "monotonic_s": 185628.389603905,
+              "rss_bytes": 7568080896,
+              "gpu_used_bytes": 11874537472,
+              "host_available_bytes": 12049625088,
+              "host_swap_used_bytes": 362881024
+            }
+          ],
+          "wave_resources": [
+            {
+              "wave": 0,
+              "samples": 83,
+              "rss_peak_bytes": 7560560640
+            },
+            {
+              "wave": 1,
+              "samples": 82,
+              "rss_peak_bytes": 7568080896
+            }
+          ],
+          "rss_growth_alarm_512_mib": false
+        },
+        "registry_first_final": [
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185577817481035,
+            "pid": 280194
+          },
+          {
+            "event": "registry_snapshot",
+            "sessions": 32,
+            "prefixes": 160,
+            "results": 156,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185629102971779,
+            "pid": 280194
+          }
+        ],
+        "registry_peaks": {
+          "sessions": 32,
+          "prefixes": 160,
+          "results": 156,
+          "leases": 0,
+          "native_jobs": 8
+        },
+        "checks": [
+          {
+            "event": "advice_probe",
+            "ns": 185581810285803,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "duplicate_is_idempotent",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "0335102a6bccc2a2c4fc8349b61f6264128b7d1e44554ae92fef8cc6a7bc67c3",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "21886a0576e38f54530ce910f1aec8ffc79d47cd1e0fbce394429cf309477e6d",
+              "prefix_boundary_tokens": 1168,
+              "observation_available_ns": 185581675107501,
+              "input_publication_ns": 185581675107501,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "adapter_namespace": "none",
+                "layout_namespace": "ministral3_3b-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "0335102a6bccc2a2c4fc8349b61f6264128b7d1e44554ae92fef8cc6a7bc67c3",
+              "status": "no_action",
+              "reason": "cpu_prefix_recency_refreshed",
+              "observed_at_ns": 185581682242514,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "nomination_deadline_ns": 185582425107501,
+              "expires_at_ns": 185587425107501,
+              "ready_cpu_prefix_keys": 73,
+              "reserved_gpu_blocks": 0,
+              "speculative_transfer_bytes": 0,
+              "idempotent_replay": true
+            },
+            "observed_ns": 185581743661758
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185581810318714,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "unknown_session_cannot_protect_prefix",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "7be450edfd5c13353ceba88b9cd9fddc0adf32084afbea1a94af1fc5c104d30e",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main-unobserved",
+              "generation": 0,
+              "observed_prefix_id": "21886a0576e38f54530ce910f1aec8ffc79d47cd1e0fbce394429cf309477e6d",
+              "prefix_boundary_tokens": 1168,
+              "observation_available_ns": 185581675107501,
+              "input_publication_ns": 185581675107501,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "adapter_namespace": "none",
+                "layout_namespace": "ministral3_3b-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "7be450edfd5c13353ceba88b9cd9fddc0adf32084afbea1a94af1fc5c104d30e",
+              "status": "no_action",
+              "reason": "observed_prefix_unavailable",
+              "observed_at_ns": 185581806535839,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main-unobserved",
+              "generation": 0,
+              "nomination_deadline_ns": 185582425107501,
+              "expires_at_ns": 185587425107501
+            },
+            "observed_ns": 185581807901729
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185581810330224,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "future_information_rejected",
+            "passed": true,
+            "http_status": 400,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "511ae77f6817a9bfbeda906a7ecef5086946d3a799ced2f767dc66912aeedeab",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "21886a0576e38f54530ce910f1aec8ffc79d47cd1e0fbce394429cf309477e6d",
+              "prefix_boundary_tokens": 1168,
+              "observation_available_ns": 185581675107501,
+              "input_publication_ns": 185581675107501,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "adapter_namespace": "none",
+                "layout_namespace": "ministral3_3b-dense-tp1-fp16-block16"
+              },
+              "actual_resume_ns": 186581807922299
+            },
+            "response": {
+              "error": {
+                "message": "wait hint contains forbidden future or diagnostic fields",
+                "type": "Bad Request",
+                "param": null,
+                "code": 400
+              }
+            },
+            "observed_ns": 185581809483375
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185581810340165,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "oversize_identifier_rejected",
+            "passed": true,
+            "http_status": 400,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "a0973c754e3865b2b7afcd412d16f8393b5123a91dfa112dd1a3c17a15ca8456",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "generation": 0,
+              "observed_prefix_id": "21886a0576e38f54530ce910f1aec8ffc79d47cd1e0fbce394429cf309477e6d",
+              "prefix_boundary_tokens": 1168,
+              "observation_available_ns": 185581675107501,
+              "input_publication_ns": 185581675107501,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "adapter_namespace": "none",
+                "layout_namespace": "ministral3_3b-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "error": {
+                "message": "wait hint session_id must be opaque",
+                "type": "Bad Request",
+                "param": null,
+                "code": 400
+              }
+            },
+            "observed_ns": 185581810277123
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185607475679205,
+            "wave": 1,
+            "session_id": "w1:more-SequenceView",
+            "check": "delayed_advice_expires",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "db0336e6f8b7eaae8f5a7a72f93009f9a7cf005a33b321842889a14832d74d87",
+              "owner_id": "sc|suite|case|w1-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w1:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "21886a0576e38f54530ce910f1aec8ffc79d47cd1e0fbce394429cf309477e6d",
+              "prefix_boundary_tokens": 1168,
+              "observation_available_ns": 185606354549006,
+              "input_publication_ns": 185606354549006,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "tokenizer_revision": "b6d637bef2393152b3da2b2fde72eecdee30557e",
+                "adapter_namespace": "none",
+                "layout_namespace": "ministral3_3b-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "db0336e6f8b7eaae8f5a7a72f93009f9a7cf005a33b321842889a14832d74d87",
+              "status": "expired",
+              "reason": "nomination_deadline_elapsed",
+              "observed_at_ns": 185607474298473,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w1:more-SequenceView:main",
+              "generation": 0,
+              "nomination_deadline_ns": 185607104549006,
+              "expires_at_ns": 185612104549006
+            },
+            "observed_ns": 185607475671665
+          }
+        ],
+        "artifacts": {
+          "attempt": "d34f550337424a4d858eb3981319be36",
+          "path": "attempts/ee1935e5e086f9532693647e1e5ba89f7f63e6d042f2662350dc56e4eca0feaf/d34f550337424a4d858eb3981319be36",
+          "seal": "e7a375613370dd0a2b1f9c02dc15de9884f8d5248c4148bc5a24b9491e175a98"
+        }
+      },
+      {
+        "model": "qwen3_4b_2507",
+        "system": "arc",
+        "waves": 2,
+        "completed_requests": 128,
+        "completed_units": 32,
+        "operational": {
+          "arrival_interval_s": 0,
+          "wave_interval_s": 0,
+          "client_cancel": true,
+          "backend_abort_receipts": [
+            {
+              "schema": "semantic-backend-abort-v1",
+              "probe_id": "31fcf59f-a3ae-4913-b401-e676e390bb44",
+              "internal_request_id": "cmpl-suite-cancel-probe-0-b2826c24",
+              "status": "FINISHED_ABORTED",
+              "output_tokens": 1,
+              "at_ns": 185767845055434
+            }
+          ],
+          "recovery_generation": true,
+          "drain_checks": 2,
+          "passed": true,
+          "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification.",
+          "native_transfer_drain_verified": true,
+          "first_final_memory": [
+            {
+              "monotonic_s": 185709.999056102,
+              "rss_bytes": 8852000768,
+              "gpu_used_bytes": 12084252672,
+              "host_available_bytes": 10827812864,
+              "host_swap_used_bytes": 362881024
+            },
+            {
+              "monotonic_s": 185767.6228297,
+              "rss_bytes": 8901386240,
+              "gpu_used_bytes": 12086349824,
+              "host_available_bytes": 10860961792,
+              "host_swap_used_bytes": 362881024
+            }
+          ],
+          "wave_resources": [
+            {
+              "wave": 0,
+              "samples": 99,
+              "rss_peak_bytes": 8899014656
+            },
+            {
+              "wave": 1,
+              "samples": 95,
+              "rss_peak_bytes": 8902430720
+            }
+          ],
+          "rss_growth_alarm_512_mib": false
+        },
+        "registry_first_final": [
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185708687313959,
+            "pid": 280705
+          },
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185768088962194,
+            "pid": 280705
+          }
+        ],
+        "registry_peaks": {
+          "sessions": 0,
+          "prefixes": 0,
+          "results": 0,
+          "leases": 0,
+          "native_jobs": 7
+        },
+        "checks": [],
+        "artifacts": {
+          "attempt": "a894df0a33ff466ba4fa251bd4a4b0cf",
+          "path": "attempts/940d7de2f7d7843c08a2954c1710ae755033d1780fe984e838b6013a42b03da7/a894df0a33ff466ba4fa251bd4a4b0cf",
+          "seal": "51becf0b8d9c6062649e98f35713cba67e67fd79ed11c44514b739cb3487281f"
+        }
+      },
+      {
+        "model": "qwen3_4b_2507",
+        "system": "wait",
+        "waves": 2,
+        "completed_requests": 128,
+        "completed_units": 32,
+        "operational": {
+          "arrival_interval_s": 0,
+          "wave_interval_s": 0,
+          "client_cancel": true,
+          "backend_abort_receipts": [
+            {
+              "schema": "semantic-backend-abort-v1",
+              "probe_id": "99fdf0f1-6001-4359-ab7a-3fd0ecbb446c",
+              "internal_request_id": "cmpl-suite-cancel-probe-0-947955ed",
+              "status": "FINISHED_ABORTED",
+              "output_tokens": 1,
+              "at_ns": 185906695089734
+            }
+          ],
+          "recovery_generation": true,
+          "drain_checks": 2,
+          "passed": true,
+          "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification.",
+          "native_transfer_drain_verified": true,
+          "first_final_memory": [
+            {
+              "monotonic_s": 185848.885977764,
+              "rss_bytes": 8855502848,
+              "gpu_used_bytes": 12084252672,
+              "host_available_bytes": 10913935360,
+              "host_swap_used_bytes": 362876928
+            },
+            {
+              "monotonic_s": 185906.253048067,
+              "rss_bytes": 8906178560,
+              "gpu_used_bytes": 12086349824,
+              "host_available_bytes": 10861244416,
+              "host_swap_used_bytes": 362876928
+            }
+          ],
+          "wave_resources": [
+            {
+              "wave": 0,
+              "samples": 97,
+              "rss_peak_bytes": 8904798208
+            },
+            {
+              "wave": 1,
+              "samples": 96,
+              "rss_peak_bytes": 8909819904
+            }
+          ],
+          "rss_growth_alarm_512_mib": false
+        },
+        "registry_first_final": [
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185847503672847,
+            "pid": 281211
+          },
+          {
+            "event": "registry_snapshot",
+            "sessions": 32,
+            "prefixes": 160,
+            "results": 279,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185906938445462,
+            "pid": 281211
+          }
+        ],
+        "registry_peaks": {
+          "sessions": 32,
+          "prefixes": 160,
+          "results": 279,
+          "leases": 0,
+          "native_jobs": 7
+        },
+        "checks": [
+          {
+            "event": "advice_probe",
+            "ns": 185851079242224,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "duplicate_is_idempotent",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "c40b00f19e4f3a2e56f9647594a3c4f6c1ffff55d46d303c49c95016c1dd0f60",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "cdc58487cfadb084a3cf57338082779963d6b7d433fd2220c5ce7971057bd58e",
+              "prefix_boundary_tokens": 1088,
+              "observation_available_ns": 185851037617668,
+              "input_publication_ns": 185851037617668,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_4b_2507-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "c40b00f19e4f3a2e56f9647594a3c4f6c1ffff55d46d303c49c95016c1dd0f60",
+              "status": "no_action",
+              "reason": "cpu_prefix_recency_refreshed",
+              "observed_at_ns": 185851047799079,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "nomination_deadline_ns": 185851787617668,
+              "expires_at_ns": 185856787617668,
+              "ready_cpu_prefix_keys": 68,
+              "reserved_gpu_blocks": 0,
+              "speculative_transfer_bytes": 0,
+              "idempotent_replay": true
+            },
+            "observed_ns": 185851062831901
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185851079269055,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "unknown_session_cannot_protect_prefix",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "ba69f5934ba6e69810cc482cc1611f8023e8934dd0bc4cafa8c03bc0c6e372eb",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main-unobserved",
+              "generation": 0,
+              "observed_prefix_id": "cdc58487cfadb084a3cf57338082779963d6b7d433fd2220c5ce7971057bd58e",
+              "prefix_boundary_tokens": 1088,
+              "observation_available_ns": 185851037617668,
+              "input_publication_ns": 185851037617668,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_4b_2507-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "ba69f5934ba6e69810cc482cc1611f8023e8934dd0bc4cafa8c03bc0c6e372eb",
+              "status": "no_action",
+              "reason": "observed_prefix_unavailable",
+              "observed_at_ns": 185851074989287,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main-unobserved",
+              "generation": 0,
+              "nomination_deadline_ns": 185851787617668,
+              "expires_at_ns": 185856787617668
+            },
+            "observed_ns": 185851077171357
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185851079277445,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "future_information_rejected",
+            "passed": true,
+            "http_status": 400,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "005fcbcc8e86a70f6f72cc6c4d9298af96eb7cf842eb1c98f550d99096852f70",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "cdc58487cfadb084a3cf57338082779963d6b7d433fd2220c5ce7971057bd58e",
+              "prefix_boundary_tokens": 1088,
+              "observation_available_ns": 185851037617668,
+              "input_publication_ns": 185851037617668,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_4b_2507-dense-tp1-fp16-block16"
+              },
+              "actual_resume_ns": 186851077184877
+            },
+            "response": {
+              "error": {
+                "message": "wait hint contains forbidden future or diagnostic fields",
+                "type": "Bad Request",
+                "param": null,
+                "code": 400
+              }
+            },
+            "observed_ns": 185851078528038
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185851079283715,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "oversize_identifier_rejected",
+            "passed": true,
+            "http_status": 400,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "9f70077a62bf3bc46456e85dad6ce666742368c4eed8b7fe5a041761090f870a",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "generation": 0,
+              "observed_prefix_id": "cdc58487cfadb084a3cf57338082779963d6b7d433fd2220c5ce7971057bd58e",
+              "prefix_boundary_tokens": 1088,
+              "observation_available_ns": 185851037617668,
+              "input_publication_ns": 185851037617668,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_4b_2507-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "error": {
+                "message": "wait hint session_id must be opaque",
+                "type": "Bad Request",
+                "param": null,
+                "code": 400
+              }
+            },
+            "observed_ns": 185851079234684
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185880911933723,
+            "wave": 1,
+            "session_id": "w1:more-SequenceView",
+            "check": "delayed_advice_expires",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "5cd075b582afb766bef102395ef6537b3a422786aa00afb27b9bd63b28e2c7b1",
+              "owner_id": "sc|suite|case|w1-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w1:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "cdc58487cfadb084a3cf57338082779963d6b7d433fd2220c5ce7971057bd58e",
+              "prefix_boundary_tokens": 1088,
+              "observation_available_ns": 185879778836037,
+              "input_publication_ns": 185879778836037,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_4b_2507-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "5cd075b582afb766bef102395ef6537b3a422786aa00afb27b9bd63b28e2c7b1",
+              "status": "expired",
+              "reason": "nomination_deadline_elapsed",
+              "observed_at_ns": 185880909934094,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w1:more-SequenceView:main",
+              "generation": 0,
+              "nomination_deadline_ns": 185880528836037,
+              "expires_at_ns": 185885528836037
+            },
+            "observed_ns": 185880911923423
+          }
+        ],
+        "artifacts": {
+          "attempt": "8bdb8e26f1a94147880e5a93dc86c0ad",
+          "path": "attempts/0b6aeefc352f5f99a406d43256cd4bd138a89bc9b0a337b902d5a6fbc0430f60/8bdb8e26f1a94147880e5a93dc86c0ad",
+          "seal": "9c816c67e13ec1c54bc64843d1bf6076497acaa4d5e2c11a41aa7b0b07117f1a"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "system": "arc",
+        "waves": 6,
+        "completed_requests": 384,
+        "completed_units": 96,
+        "operational": {
+          "arrival_interval_s": 0,
+          "wave_interval_s": 0,
+          "client_cancel": true,
+          "backend_abort_receipts": [
+            {
+              "schema": "semantic-backend-abort-v1",
+              "probe_id": "34c6a17c-f367-4dc0-803e-a48a52de2b84",
+              "internal_request_id": "cmpl-suite-cancel-probe-0-98106a31",
+              "status": "FINISHED_ABORTED",
+              "output_tokens": 1,
+              "at_ns": 185210746239896
+            }
+          ],
+          "recovery_generation": true,
+          "drain_checks": 6,
+          "passed": true,
+          "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification.",
+          "native_transfer_drain_verified": true,
+          "first_final_memory": [
+            {
+              "monotonic_s": 185094.819631821,
+              "rss_bytes": 8951259136,
+              "gpu_used_bytes": 11111174144,
+              "host_available_bytes": 10913644544,
+              "host_swap_used_bytes": 362889216
+            },
+            {
+              "monotonic_s": 185210.205740913,
+              "rss_bytes": 8983408640,
+              "gpu_used_bytes": 11115368448,
+              "host_available_bytes": 10863517696,
+              "host_swap_used_bytes": 362889216
+            }
+          ],
+          "wave_resources": [
+            {
+              "wave": 0,
+              "samples": 61,
+              "rss_peak_bytes": 8964108288
+            },
+            {
+              "wave": 1,
+              "samples": 61,
+              "rss_peak_bytes": 8970211328
+            },
+            {
+              "wave": 2,
+              "samples": 72,
+              "rss_peak_bytes": 8974364672
+            },
+            {
+              "wave": 3,
+              "samples": 74,
+              "rss_peak_bytes": 8979959808
+            },
+            {
+              "wave": 4,
+              "samples": 57,
+              "rss_peak_bytes": 8980606976
+            },
+            {
+              "wave": 5,
+              "samples": 61,
+              "rss_peak_bytes": 8983408640
+            }
+          ],
+          "rss_growth_alarm_512_mib": false
+        },
+        "registry_first_final": [
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185093541372247,
+            "pid": 277221
+          },
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185210991703832,
+            "pid": 277221
+          }
+        ],
+        "registry_peaks": {
+          "sessions": 0,
+          "prefixes": 0,
+          "results": 0,
+          "leases": 0,
+          "native_jobs": 9
+        },
+        "checks": [],
+        "artifacts": {
+          "attempt": "3693282132134dfe94608d271c2edab3",
+          "path": "attempts/08744a1247faec9a825f7bcd14847c69c2c666ed1804d91f28d3bfea658efb42/3693282132134dfe94608d271c2edab3",
+          "seal": "4a5517761ef9a71c42e2ae82c5cb4c161095dd2fab9561858970517868784a50"
+        }
+      },
+      {
+        "model": "qwen3_8b_awq",
+        "system": "wait",
+        "waves": 6,
+        "completed_requests": 384,
+        "completed_units": 96,
+        "operational": {
+          "arrival_interval_s": 0,
+          "wave_interval_s": 0,
+          "client_cancel": true,
+          "backend_abort_receipts": [
+            {
+              "schema": "semantic-backend-abort-v1",
+              "probe_id": "cedfb86b-867d-476c-bfb1-d32c2221110e",
+              "internal_request_id": "cmpl-suite-cancel-probe-0-9de74c65",
+              "status": "FINISHED_ABORTED",
+              "output_tokens": 1,
+              "at_ns": 185383496016576
+            }
+          ],
+          "recovery_generation": true,
+          "drain_checks": 6,
+          "passed": true,
+          "scope": "Persistent-server waves, request drain, one isolated disconnect with exact scheduler abort receipt, recovery generation. Not byte-integrity or production certification.",
+          "native_transfer_drain_verified": true,
+          "first_final_memory": [
+            {
+              "monotonic_s": 185281.966802059,
+              "rss_bytes": 8974430208,
+              "gpu_used_bytes": 11111174144,
+              "host_available_bytes": 10817392640,
+              "host_swap_used_bytes": 362889216
+            },
+            {
+              "monotonic_s": 185383.046012027,
+              "rss_bytes": 9007808512,
+              "gpu_used_bytes": 11115368448,
+              "host_available_bytes": 10767773696,
+              "host_swap_used_bytes": 362889216
+            }
+          ],
+          "wave_resources": [
+            {
+              "wave": 0,
+              "samples": 58,
+              "rss_peak_bytes": 8987201536
+            },
+            {
+              "wave": 1,
+              "samples": 57,
+              "rss_peak_bytes": 8993955840
+            },
+            {
+              "wave": 2,
+              "samples": 62,
+              "rss_peak_bytes": 8997036032
+            },
+            {
+              "wave": 3,
+              "samples": 54,
+              "rss_peak_bytes": 9000435712
+            },
+            {
+              "wave": 4,
+              "samples": 52,
+              "rss_peak_bytes": 9004851200
+            },
+            {
+              "wave": 5,
+              "samples": 56,
+              "rss_peak_bytes": 9008840704
+            }
+          ],
+          "rss_growth_alarm_512_mib": false
+        },
+        "registry_first_final": [
+          {
+            "event": "registry_snapshot",
+            "sessions": 0,
+            "prefixes": 0,
+            "results": 0,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185280789492899,
+            "pid": 278462
+          },
+          {
+            "event": "registry_snapshot",
+            "sessions": 96,
+            "prefixes": 480,
+            "results": 393,
+            "leases": 0,
+            "speculative_jobs": 0,
+            "native_jobs": 0,
+            "request_bindings": 0,
+            "session_limit": null,
+            "prefix_limit": 1024,
+            "result_limit": 4096,
+            "reserved_gpu_blocks": 0,
+            "preservation_audit": true,
+            "monotonic_ns": 185383738601227,
+            "pid": 278462
+          }
+        ],
+        "registry_peaks": {
+          "sessions": 96,
+          "prefixes": 480,
+          "results": 393,
+          "leases": 0,
+          "native_jobs": 9
+        },
+        "checks": [
+          {
+            "event": "advice_probe",
+            "ns": 185284655594744,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "duplicate_is_idempotent",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "eebfabc990e1f7fcabb71db4a2ded50bee2fb9591620fa3620d1040e8dceba96",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "67579050f3efb1b89a9e525758e6bdf328b13129673d8f928908fa6bb64b1634",
+              "prefix_boundary_tokens": 1056,
+              "observation_available_ns": 185284601494285,
+              "input_publication_ns": 185284601494285,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "tokenizer_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_8b_awq-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "eebfabc990e1f7fcabb71db4a2ded50bee2fb9591620fa3620d1040e8dceba96",
+              "status": "no_action",
+              "reason": "cpu_prefix_recency_refreshed",
+              "observed_at_ns": 185284614078168,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "nomination_deadline_ns": 185285351494285,
+              "expires_at_ns": 185290351494285,
+              "ready_cpu_prefix_keys": 66,
+              "reserved_gpu_blocks": 0,
+              "speculative_transfer_bytes": 0,
+              "idempotent_replay": true
+            },
+            "observed_ns": 185284639814215
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185284655615905,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "unknown_session_cannot_protect_prefix",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "d78f2772f86939af4ebd873f96603a198bfb68ff467c7735d34c1b4b6f11c38f",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main-unobserved",
+              "generation": 0,
+              "observed_prefix_id": "67579050f3efb1b89a9e525758e6bdf328b13129673d8f928908fa6bb64b1634",
+              "prefix_boundary_tokens": 1056,
+              "observation_available_ns": 185284601494285,
+              "input_publication_ns": 185284601494285,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "tokenizer_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_8b_awq-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "d78f2772f86939af4ebd873f96603a198bfb68ff467c7735d34c1b4b6f11c38f",
+              "status": "no_action",
+              "reason": "observed_prefix_unavailable",
+              "observed_at_ns": 185284651661656,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main-unobserved",
+              "generation": 0,
+              "nomination_deadline_ns": 185285351494285,
+              "expires_at_ns": 185290351494285
+            },
+            "observed_ns": 185284653202455
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185284655628945,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "future_information_rejected",
+            "passed": true,
+            "http_status": 400,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "fa7a8a171f664c251da00a9f6ba639eb5e25babbd152d45ab8ce6c0bc434f743",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w0:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "67579050f3efb1b89a9e525758e6bdf328b13129673d8f928908fa6bb64b1634",
+              "prefix_boundary_tokens": 1056,
+              "observation_available_ns": 185284601494285,
+              "input_publication_ns": 185284601494285,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "tokenizer_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_8b_awq-dense-tp1-fp16-block16"
+              },
+              "actual_resume_ns": 186284653253046
+            },
+            "response": {
+              "error": {
+                "message": "wait hint contains forbidden future or diagnostic fields",
+                "type": "Bad Request",
+                "param": null,
+                "code": 400
+              }
+            },
+            "observed_ns": 185284654954740
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185284655635595,
+            "wave": 0,
+            "session_id": "w0:more-SequenceView",
+            "check": "oversize_identifier_rejected",
+            "passed": true,
+            "http_status": 400,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "09e483c9c8fa5277e44e35cbe63cf6dc121e9b9c09e5288e4941fb931e750a46",
+              "owner_id": "sc|suite|case|w0-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "generation": 0,
+              "observed_prefix_id": "67579050f3efb1b89a9e525758e6bdf328b13129673d8f928908fa6bb64b1634",
+              "prefix_boundary_tokens": 1056,
+              "observation_available_ns": 185284601494285,
+              "input_publication_ns": 185284601494285,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "tokenizer_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_8b_awq-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "error": {
+                "message": "wait hint session_id must be opaque",
+                "type": "Bad Request",
+                "param": null,
+                "code": 400
+              }
+            },
+            "observed_ns": 185284655587494
+          },
+          {
+            "event": "advice_probe",
+            "ns": 185302649242121,
+            "wave": 1,
+            "session_id": "w1:more-SequenceView",
+            "check": "delayed_advice_expires",
+            "passed": true,
+            "http_status": 200,
+            "request": {
+              "schema": "semantic-known-prefix-wait-hint-v1",
+              "event_id": "03337870333760b80b2f9f8276025ea6141f3eb9356ea97cd9ec887dee68c02c",
+              "owner_id": "sc|suite|case|w1-s0|sample-0",
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w1:more-SequenceView:main",
+              "generation": 0,
+              "observed_prefix_id": "67579050f3efb1b89a9e525758e6bdf328b13129673d8f928908fa6bb64b1634",
+              "prefix_boundary_tokens": 1056,
+              "observation_available_ns": 185301530042816,
+              "input_publication_ns": 185301530042816,
+              "declared_wait_ms": 750,
+              "wait_provenance": "driver_declared_tool_wait_budget",
+              "namespace": {
+                "model_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "tokenizer_revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+                "adapter_namespace": "none",
+                "layout_namespace": "qwen3_8b_awq-dense-tp1-fp16-block16"
+              }
+            },
+            "response": {
+              "schema": "semantic-known-prefix-wait-hint-ack-v1",
+              "event_id": "03337870333760b80b2f9f8276025ea6141f3eb9356ea97cd9ec887dee68c02c",
+              "status": "expired",
+              "reason": "nomination_deadline_elapsed",
+              "observed_at_ns": 185302648057314,
+              "run_id": "suite",
+              "cell_id": "case",
+              "session_id": "w1:more-SequenceView:main",
+              "generation": 0,
+              "nomination_deadline_ns": 185302280042816,
+              "expires_at_ns": 185307280042816
+            },
+            "observed_ns": 185302649230920
+          }
+        ],
+        "artifacts": {
+          "attempt": "7f545508ede0482cb42a15113a82d322",
+          "path": "attempts/9d62a912c8dfcf5cb22311d28be9c93a048cec693db53ea5b821bec0e23c08b4/7f545508ede0482cb42a15113a82d322",
+          "seal": "8c62e7c340cea94d4636c7ad6f871b28d3eb783218fc135a33c407f5517648f7"
+        }
+      }
+    ],
+    "scope": "Bounded persistent sequences and native receipts; no production or leak-freedom claim"
+  },
+  "scope": "All original supplementary identities once, full identity/outer and inner artifacts plus frozen control or operational requirements. No retry, source/design/workload/repetition change. A passing boundary does not close final all-attempt-cap/campaign/portability/results audits."
+}

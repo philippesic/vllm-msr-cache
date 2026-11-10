@@ -1,0 +1,72 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "e0b788b8767d52b45de107fbf33219004a7f701e24c1b0d4c07508a9027985f6",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/caps-all-final-01/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "a1608f0d655f04b523711df1",
+      "signature": "a7914fc5fe9f491ce796abedbefd390f537dd240cb4296c62505d01d1332a16f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The executed adjacent class omitted test_zero_distance and tests consecutive matches only through unrelated/absent functions."
+      ],
+      "whitespace_words": 131,
+      "notes": "Actual full AdjacentTests ran ten passing tests, including test_zero_distance and test_consecutive_true. The broad unrelated rg excerpt does not erase this actual class/test evidence. Correct distance-zero zip/map behavior remains useful. Final omits required literal test_status=PASS and ends in an incomplete generated command without a complete concrete limitation; under150 words does not rescue these failures. Generated commands were not executed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "940e478eea6bb93a08244295",
+      "signature": "fa0faa66a37fc83eaedf4257c15855637d79293c15335441f59bb34f5370a38a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "None-containing tuples are ordered by Python tuple comparison in this function.",
+        "Combination membership/order is not validated beyond arbitrary element lookup."
+      ],
+      "whitespace_words": 147,
+      "notes": "Actual equality/positional lookup enforces nondecreasing pool indices and raises for invalid order; comparing None with integers is not required and the supplied None/subsequence tests use input order. Correct None-value first-occurrence/index behavior is useful. Full ten-test/84-subtest class passed, not only the proposed generated selection.147 words exceeds intermediate under70 requirement and the unfinished wrong-path pytest declaration is not the fixed required next tool; generated command not executed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "80b55ae8e708ed11863d34e7",
+      "signature": "1d52507a446bb2c66b066db400ad67dae7d9b99c5f92567213fd2ac7a41304e3",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Relevant circular_shifts tests are test_negative/test_strict_being_true and require divisibility by steps.",
+        "Failure to prevalidate step divisibility is a defect."
+      ],
+      "whitespace_words": 129,
+      "notes": "Actual six-test CircularShiftsTests pass from test_more.py and include positive/negative coprime steps without divisibility requirement; strict-divisibility excerpt belongs to another function. Correct GCD orbit-size fact and range4/step2 example remain useful. Final lacks literal test_status=PASS, asserts a false sole limitation and truncates its last clause. Under150 words alone does not establish instruction compliance. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "6d41593278b25bbb986c5905",
+      "signature": "61372e80cfa16d9719a1e8301d58f4720dfa7adbcfbec34d6998b1be4d82d5dd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_zero_distance explicitly checks the predicate call count."
+      ],
+      "whitespace_words": 149,
+      "notes": "The actual zero-distance fixture compares outputs with zip/map using mod4 predicate; explicit once-per-item instrumentation is in the separate test_call_once, not zero-distance. Core zero-distance zip/map behavior and the narrower absence of consecutive true inputs specifically at distance0 are supported/useful; do not falsely deny the separate default-distance consecutive_true test.149 words exceeds intermediate under70 requirement, and generated unfinished pytest command is not the required next fixed rg declaration. No generated command executed. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "stage6-5080-cap-review-reproduction-v1",
+  "helper": "benchmarks/research_checks/stage6_5080_caps_final_consolidate.py",
+  "helper_sha256": "9548610375a5cefb3981cc6ccbc7f25c5989c09036c77dfc949c7eaa83e1d3c9",
+  "invocation": "From frozen SOURCE, pinned literal interpreter and bytecode disabled: authored final consolidation --check",
+  "exit_code": 0,
+  "all_three_derived_records_reproduced_exactly": true,
+  "frozen_final_finish_audited_complete_inventory": true,
+  "packet_digest": "e0b788b8767d52b45de107fbf33219004a7f701e24c1b0d4c07508a9027985f6",
+  "reviewed_outputs": 516,
+  "distinct_extended_contexts": 186,
+  "explicitly_read_novel_contexts": 4,
+  "manual_parts": 1,
+  "prior_cap08_occurrences_preserved": 480,
+  "exact_extended_context_reuse_occurrences": 511,
+  "new_occurrences_explicitly_judged": 5,
+  "novel_findings": {
+    "source_unsupported": 4,
+    "instruction_failures": 4,
+    "not_useful": 0
+  },
+  "review_findings": {
+    "source_unsupported": 348,
+    "instruction_failures": 515,
+    "not_useful": 101
+  },
+  "checks": {
+    "all_system_sources_match": true,
+    "all_tool_branch_flags_match_sealed_corpus": true,
+    "all_source_reference_instruction_role_node_bindings_match_sealed_corpus": true,
+    "all_objective_bindings_match": true,
+    "all_actual_dependencies_match_sealed_preceding_requests": true,
+    "all_actual_tools_match_sealed_ancestor_outputs": true,
+    "all_prompt_source_binding_digests_recomputed_from_raw_requests": true,
+    "quality_contexts": 186,
+    "maximum_prompt_binding_digests_per_quality_context": 1
+  },
+  "archived_instruction_sources_verified": 137,
+  "complete_inventory": true,
+  "execution_complete": true,
+  "full_throughput_acquisition_complete": false,
+  "scope": "Final all-phase ordinary capped audit after stable terminal acquisition; every new answer/context explicitly read. Ordinary failed/interrupted/unmatched arms included. No timing/objective/validity change, population accuracy or quality-equivalence claim. Tokens bound, not individually decoded."
+}

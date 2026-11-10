@@ -15,44 +15,30 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Stage 6 RTX 5080 rebuild — supplementary acquisition active
+## Stage 6 RTX 5080 rebuild — final portability running
 
-The pinned LMCache source was rebuilt for sm_120 plus PTX; exact KV transfer and
-live serving pass. All 54 screen configurations / 22 blocks and functional
-qualification pass. Confirmation execution is terminal: **all 524 planned identities,
-537 retained attempts and 56,362 sealed files verify**, including inner artifacts
-and every declared request/tool/unit/cleanup requirement. There are **521 valid
-logical measurements and 207/210 matched blocks**. Only the three original B06
-activity failures remain excluded (anchor repeat0, Ministral repeats0/3), without
-retry, imputation or repeat reduction. Qwen3-4B completed all 100 identities / 50 pairs.
-The frozen full throughput-acquisition flag remains false.
+All timed phases are terminal:54 screens,524 confirmation identities,38 overhead
+controls and six operational cases. Functional qualification passes. Confirmation
+has521 valid logical cases /207 of210 complete matched blocks; exactly three
+original B06 activity failures remain excluded, with no retry or imputation.
+The full throughput-acquisition flag stays false. All42 conditional comparisons
+and latency tables are retained; all32 anchor rows reproduce exactly.
 
-The independent confirmation service exited cleanly. Overhead now runs its 38
-controls under a fresh verified independent service with the frozen source and
-literal serving interpreter. Its owner holds the common GPU reservation; the
-service tool environment was checked before launch. Six operational configurations,
-final source/cap, integrity/campaign/recovery/portability audits and full results
-remain. Terminal source review19 is complete for 7,011 outputs / 849 contexts
-across all 207 valid blocks. All 14 new contexts were explicitly read; all 516 archived
-instructions verify. Independent checks and both isolated/live frozen finish pass;
-all six published live quality records match the isolated audit, with the old live
-snapshot backed up. Final all-attempt cap audit waits for supplementary completion. All earlier reviews and the November8 failure remain preserved.
-The 32 anchor conditional comparisons retain actual latency and missing identities;
-B09 candidate/ARC is 0.9733 [0.9617,0.9850], candidate/Continuum 0.6826
-[0.6558,0.7106]. All 42 conditional comparisons and latency tables are now extracted; all 32 anchor
-rows reproduce exactly. Qwen3-4B B08 candidate/ARC is 0.9107 [0.8740,0.9489],
-an adverse result with observed pressure and active CPU restore in all 10 processes
-per arm. Final phase/audit metadata and rendering remain pending; no quality-equivalence
-or universal benefit claim.
+Final primary source, all-attempt cap, recovery, source/seal/campaign audits pass;
+all641 retained attempts /67,120 sealed files verify. All operational requirements
+pass. Short-QA overhead leaves two3% loss bounds inconclusive. Final portability
+proof03 runs GPU-free after exporter/copy repairs and245 derived-source CPU tests;
+failed proofs and corrupt-copy evidence are preserved. Acquisition source/design,
+November8 and2080Ti history remain unchanged. The original path is reversibly
+parked while the exact offline verifier runs: never recreate or duplicate it.
 
-Hourly monitoring/repairs are silent at Philip’s request. GPU remains allocated;
-no release notification has been sent. After the entire campaign and audits/results
-are finished/pushed and owned servers/processes/locks are verified released, notify
-the separately authorized waiting thread as recorded in [continuation](../evidence/stage6-5080-20261109/CONTINUE.md).
-Do not touch its checkout or start its training. [Current results](../evidence/stage6-5080-20261109/RESULTS.md),
-[terminal confirmation proof](../evidence/stage6-5080-20261109/confirmation-attempts-complete.json)
-and [active overhead ownership](../evidence/stage6-5080-20261109/overhead-launch-01.json)
-retain the evidence and exact next steps.
+Hourly health checks/repairs are silent. Final portability/report/render/push,
+owned-resource cleanup and requested waiting-thread notification remain. No final
+GPU release has been announced. [Continuation](../evidence/stage6-5080-20261109/CONTINUE.md),
+[results](../evidence/stage6-5080-20261109/RESULTS.md),
+[integrity](../evidence/stage6-5080-20261109/post-acquisition-audit-01.json) and
+[copy repair](../evidence/stage6-5080-20261109/portability-copy-repair-03.json)
+retain the exact state. No training or unrelated checkout access.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 

@@ -1,0 +1,10 @@
+{
+  "schema": "stage6-5080-supplementary-driver-v1",
+  "recorded_unix": 1794307229.4490283,
+  "overhead": "overhead-boundary-01.json",
+  "operational": "operational-boundary-01.json",
+  "both_frozen_phase_boundaries_pass": true,
+  "final_campaign_complete": false,
+  "gpu_release_announced": false,
+  "scope": "Only the38 overhead and six operational identities advanced, without retry. Final caps/campaign/portability/results/push and resource cleanup/notification remain required."
+}

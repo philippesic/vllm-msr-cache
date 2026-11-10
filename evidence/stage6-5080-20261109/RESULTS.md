@@ -1,4 +1,4 @@
-# RTX 5080 Stage 6 — confirmation terminal; supplementary phases running
+# RTX 5080 Stage 6 — measurements and audits terminal; portability running
 
 The pinned LMCache rebuild works on the RTX5080. All five Continuum screens,
 all 54 screening configurations / 22 complete blocks, and functional qualification
@@ -11,13 +11,22 @@ are excluded: Qwen3-8B repeat0 and Ministral repeats0/3. No activity retry,
 imputation, relabeling or repeat reduction was performed. The frozen full
 throughput-acquisition completion flag remains **false**.
 
-The independent confirmation service exited successfully and its original driver
-and final coordinator are gone. The next [independent overhead service](overhead-launch-01.json)
-is running the 38 frozen control configurations, using the same literal interpreter
-and frozen source. Operational has six configurations after that. Final source/cap,
-control/operational, integrity, campaign and portability audits/results are still
-pending; the campaign and GPU allocation are **not released**. Existing 32 anchor
-conditional estimates below remain measured evidence, not a final campaign pass.
+All timed acquisition is now terminal: [38 overhead controls](overhead-boundary-01.json)
+and [six operational cases](operational-boundary-01.json) completed exactly once.
+All operational requirements pass; short-QA overhead leaves two declared3% loss
+bounds inconclusive. [Final integrity](post-acquisition-audit-01.json) verifies all
+641 retained attempts /67,120 sealed files and unchanged acquisition source,
+execution bundles and November8 history. Terminal primary source and
+[all-attempt cap audits](caps-all-review-index-final-01.json) are complete.
+All42 conditional comparisons and latencies are retained in
+[full tables](primary-confirmation-results-01/tables.md); all32 anchor rows reproduce exactly.
+
+Final portability proof03 is running after declared analysis-only exporter and
+verified-copy repairs ([repair evidence](portability-copy-repair-03.json));245 CPU
+tests in its exact derived source pass. Failed setup proofs and the corrupt
+copy sample are preserved; every original measured artifact remains intact.
+Final portability/report consolidation, chart rendering, push, cleanup and the
+requested GPU-release notification remain. No full pass or GPU release is claimed.
 
 Confirmation now has a retained [B06 activity failure](confirmation-b06-inactive-restore-01.json):
 the first candidate process served all 32 requests and 24 tools with no caps and

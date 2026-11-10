@@ -8,100 +8,84 @@ requires repair and continuation, not a capability-failure closeout.
 
 ## Current state
 
-**Confirmation execution is terminal; overhead is running.**
-[Whole confirmation inventory](confirmation-attempts-complete.json) verifies all 524
-frozen identities / 537 retained attempts / 56,362 outer sealed files plus inner
-artifacts and full declared graph/tool/unit/cleanup coverage. There are 521 valid
-logical measurements and 207/210 complete matched blocks, exactly the three known
-original B06 exclusions. Qwen3-4B has all 100 valid identities / 50 matched pairs.
-The original independent confirmation driver and final coordinator exited;
-`stage6-5080-confirm-20261109-03.service` is active/exited, MainPID0, success/status0.
-Do not resume any finished confirmation cell or rerun its one-shot full inventory.
+**All timed acquisition and primary/cap/integrity/recovery audits are done.**
+No measured coordinator/server remains active. Do not rerun any campaign phase.
+[Confirmation](confirmation-attempts-complete.json): all 524 identities / 537 retained
+attempts, 521 valid logical cases and 207/210 matched blocks; exactly the three
+known original activity exclusions, without retry or imputation.
+[Overhead](overhead-boundary-01.json): all 38 identities once, 2,150 files and full
+frozen control checks pass. Chat 3% loss bounds are bounded; short-QA O1/O0 and
+O2/O0 remain inconclusive. [Operational](operational-boundary-01.json): all six
+identities once, 2,448 files and every frozen persistent/cancel/drain/restore/advice
+requirement pass. [Event-driven phase completion](supplementary-driver-complete-02.json)
+is terminal, with no measured process interrupted or retried.
 
-**Active overhead owner**: `stage6-5080-overhead-20261110-01.service`,
-`$BASE/overhead-owner-01.private.json`, `$BASE/overhead-01.log`.
-[Launch/ownership proof](overhead-launch-01.json) checks exact PID/birth/command/cwd/
-unit, literal serving interpreter, frozen source and common GPU reservation. Both
-reservations and GPU clients were free after confirmation and before this launch.
-The independent environment probe verified existing rg15.2.0 and pinned pytest9.2.0.
-A healthy initial input attestation can precede any running ledger attempt; do not
-mistake that for a dead job. At 09:25 UTC the first O0/B01 attempt is running with
-no issues, the exact coordinator owns the common reservation, and free disk is
-about 6.96GiB ext4 /2.36GiB root /11.15GiB Windows. The new bounded phase-aware check:
+[Final integrity audit](post-acquisition-audit-01.json): all 641 retained attempts /
+67,120 sealed files plus inner aggregates verify. Current frozen source 2,192,
+execution/import bundles 4,606 each and November8's 41 attempts /3,142 files and
+original kernel remain unchanged. Rebuilt wheel/installed kernel hashes match.
+[Terminal primary source audit](confirm-quality-published-19.json) covers 10,520
+objective finals and 7,011 selected outputs / 849 contexts; all 516 archived
+instructions verify and all live records equal the isolated audited packet.
+[Final ordinary-cap audit](caps-all-review-index-final-01.json) is complete for
+516 responses / 186 contexts: 132 screen, 348 confirm, 18 overhead, 18 operational;
+447 intermediates/69 finals. All 480 old occurrences retained; 511 exact prior
+extended-context occurrences plus five occurrences of four explicitly read/judged
+new contexts. [Reproduction](cap-review-validation-final-01.json) and frozen final
+finish pass; 137 archived instructions/raw bindings independently verify. Counts
+348 source failures/515 instruction failures/101 not useful include duplicates,
+not population rates. No source/timing/validity changes.
+All 42 conditional comparisons/latencies exist at
+`primary-confirmation-results-01/`; all 32 anchor rows reproduce exactly. Full
+throughput/readiness stays false because three B06 blocks are genuinely excluded.
 
-```bash
-cd /home/philip/vllm-semantic-cache-ext
-PYTHONDONTWRITEBYTECODE=1 /home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python \
-  -m benchmarks.research_checks.stage6_5080_phase_health --phase overhead \
-  --unit stage6-5080-overhead-20261110-01.service \
-  --owner output/stage6-5080-20261109/overhead-owner-01.private.json
-```
+**Portability setup repair is active; no full closeout or GPU release announced.**
+Existing project image was safely grown 20→28GiB after all timed phases, without
+format/replacement/unmount: [growth proof](volume-growth-01.json). Raw campaign is
+about 12.16GB allocated; models are reused offline, not copied. The first proof
+failed before copying because the native exporter assumed a sources.json cache
+that imported campaigns do not have. [Exporter repair](portability-repair-02.json)
+reuses sealed imported/assets, validates full tool support and input hashes, and
+normalizes both project roots. 17 focused tests/260 maintained-suite/243 derived
+suite pass. Failed proof01 and log remain preserved.
 
-**Independent phase handoff02 is live**:
-`stage6-5080-supplementary-driver-20261110-02.service`, owner
-`$BASE/supplementary-driver-owner-02.private.json`, log
-`$BASE/supplementary-driver-02.log`, [launch proof](supplementary-driver-launch-02.json).
-It waits on the exact existing overhead process (not polling GPU health), then
-runs the frozen 38-identity/outer/inner/control boundary check and writes
-`overhead-boundary-01.json`. Only if that passes does it create
-`stage6-5080-operational-20261110-01.service` with
-`$BASE/operational-owner-01.private.json` and `$BASE/operational-01.log` using the
-existing frozen launch helper. It then waits/audits all six operational identities
-and writes `operational-boundary-01.json` plus
-`supplementary-driver-complete-02.json`. **Do not launch another operational job
-while this exact driver is live**, even in the boundary-audit gap after overhead
-exit. The overhead-pending guard was exercised and refused without writing; both
-positive boundaries still await actual completion. Observer01 was stopped before
-any handoff and without a child/measurement interruption, to add robust ownership
-settling for a receipt written just before chdir/exec. Its logs/owner/script remain
-history. Measured supervision and the common GPU reservation remain in the frozen
-coordinator; neither observer retries cases. Final cleanup includes owned driver02,
-observer01 and all phase units. If driver02 stops, inspect its log, real units and
-receipts before any repair/fresh recovery prefix; never repeat completed identities.
+Proof02 exported successfully and copied the raw tree, but offline seal checks
+caught **one** 44MB upstream-source gzip copy with zeroed ranges beginning 32MiB;
+the original still matches its seal and decompresses. Original path was restored
+by finally. [Copy repair](portability-copy-repair-03.json) preserves the corrupt
+sample outside the disposable copy and adds userspace buffered/fsynced/hash-verified
+copy plus reuse of an exact same-campaign/spec/protocol/ledger tree.19 focused
+transfer/copy regressions pass. Derived analysis03 changes only allowed
+`campaign_verify.py` and `campaign_portability.py`; original 2,192-file acquisition
+source and every measured input remain unchanged, exported separately as parent-source.
 
-It writes only `$BASE/overhead-health-01/latest.private.json`. It checks execution,
-not final measurement/control validity. When all38 overhead identities are terminal,
-verify seals/control requirements and launch the six operational configurations
-through the same existing launch helper under a fresh independent unit/log/owner.
-Use the frozen supplementary schedule exactly. All **42 terminal confirmation comparisons** have been extracted with frozen
-reporting and actual latency/serving/cap/pressure summaries:
-[full table](primary-confirmation-results-01/tables.md),
-[JSON](primary-confirmation-results-01/comparisons.json),
-[validation](primary-confirmation-results-01/validation.json).
-All 32 earlier anchor rows reproduce **exactly**, including every estimate, CI,
-serving time, latency and diagnostic field (not only the first three cells).
-Ministral B06 retains 4/6 pairs, other Ministral cells 6/6, and all Qwen3-4B cells 10/10.
-All three missing frozen identities remain explicit; no cross-workload aggregate.
-The generated full 42 HTML has not been rendered in the user conversation: Philip
-requests silence until full closeout. Final phase/audit metadata and the final
-chart still need regeneration/rendering after all remaining work.
+Fresh **proof03** is running under
+`stage6-5080-portability-20261110-03.service`, owner
+`$BASE/portability-owner-03.private.json`, log `$BASE/portability-final-03.log`,
+analysis root `$VOLUME/portability-analysis-source-03`, destination
+`$VOLUME/portability-20261109-final-03`, reusing/repairing proof02's disposable
+`relocated-evidence` tree to avoid another 12GB allocation. 245 CPU tests in this
+exact derived source passed before launch. At12:07UTC its exact owner/birth/command/cwd
+verified; the original is intentionally parked and its offline verifier child is
+running from the relocated source. Ext4/root/Windows free space was2.7/2.0/3.2GiB;
+no NVML compute client. Reverify exact PID/birth/command/cwd/
+unit and source hash; do not duplicate a live proof. While proof runs, original
+OUT may be intentionally absent and `primary-20261109-portability-parked` present:
+**never recreate or restore it while the exact proof worker is alive.** Its writer
+lock protects reversible park/restore. If it dies, first verify state/ownership,
+then restore a parked original only if needed; preserve failed proof trees/logs.
+Proofs01/02 are failed setup history, not capability failures or measured reruns.
 
-The **terminal confirmation source review19 is complete and published**:
-[index](confirm-review-index-19.json), [ratings](confirm-source-judgments-19.json),
-[components](confirm-review-components-19.json), [isolated frozen validator](confirm-quality-checkpoint-19.json),
-[independent validation](confirm-review-validation-19.json),
-[live publication/backup proof](confirm-quality-published-19.json).
-It covers **10,520 objective finals, 5,983 automatic failures, 291 capped
-intermediates and 7,011 selected outputs / 849 full contexts** across all 207 valid
-matched blocks. All 14 new investigation finals were explicitly read/judged in 5
-parts. All 12 supplied source contexts bind prior explicit readings; all 516
-archived instruction sources/SYSTEM verify. Current IDs/signatures, all manual
-indices, duplicates, exact prior reuse and dependency-only rating consistency pass.
-Frozen finish accepts all 7,011 ratings in isolation and again on the exact same
-packet/ratings materialized into live `OUT/analysis/quality`; all six live records
-match the isolated audit. The old unaudited live 635-item snapshot is preserved
-materialized at `$BASE/quality-before-terminal19-01/`. Confirmation ledger/source,
-objective/timing/validity and the three activity exclusions remain unchanged.
+Remaining: finish actual offline relocation/model/source guards and GPU-free
+runtime02 import/dry compilation, verify original restoration and all42 comparison
+digest equality; regenerate final frozen report and final findings/chart (render
+with html_preview then html_render); consolidate RESULTS.md with ratios/CIs/latencies,
+overhead/operational outcomes and genuine exclusions; push; stop/reset only owned
+units and verify GPU/servers/both locks released; send the requested waiting-thread
+notification with stable clientRequestId; retain receipt, disable only own hourly
+schedule, push final closeout and complete the goal. No routine user updates.
 
-Novel-context findings are 7 source failures, 3 instruction failures,0 not useful;
-selected duplicate-inclusive totals are 1,514/4,029/185, not population rates or
-quality equivalence. Do not rerun completed preparation, consolidation, validation,
-publication or source review19. Its source/context judgment union is now available
-for final all-attempt cap reuse. **The primary selected-block source audit is done.**
-Final ordinary all-attempt cap inventory/finish waits until overhead/operational
-are terminal and must include failed/unmatched arms. Remaining work is supplementary
-validity/integrity/campaign/recovery/portability, full 42 results/latencies/CIs,
-push and verified resource cleanup/notification; no final cap finish has occurred.
+## Earlier phase and review history
 
 Qwen3-4B B06 is terminal without a new activity failure; no new coverage gap.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed

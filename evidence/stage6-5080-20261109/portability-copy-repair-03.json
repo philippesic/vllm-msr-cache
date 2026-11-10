@@ -1,0 +1,34 @@
+{
+  "schema": "stage6-5080-portability-copy-repair-v1",
+  "classification": "repairable_filesystem_fast_copy_failure",
+  "failed_unit": "stage6-5080-portability-20261110-02.service",
+  "failed_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/portability-final-02.log",
+  "original_campaign_restored": true,
+  "original_archives_match_seals": true,
+  "changed_copy_archives": 1,
+  "copy_differences": [
+    {
+      "path": "attempts/c7b8e63078dbc64b9937786ca05a886d7abe9b841c384d7d5d9b460f7a91d4a2/64c59e936c8d40b3b682e8eebdec84b3/measurement/upstream-source.tar.gz",
+      "expected_sha256": "3a17af11827738217376d75094f18d511dbd0ef3906e497e0e5b67a13dacc8e5",
+      "copy_sha256": "98735ae075c405e845b6d038cf59f018862722a00981ad73fffc536b04621e26",
+      "size": 43629867
+    }
+  ],
+  "fault_sample": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-20261109-final-02/copy-fault-samples-03/upstream-source.tar.gz",
+  "fault_sample_sha256": "98735ae075c405e845b6d038cf59f018862722a00981ad73fffc536b04621e26",
+  "observed_failure": "Copied43.6MB gzip archive retains its header/size but has zeroed ranges starting at32MiB and fails gzip integrity; original archive matches its retained seal and decompresses successfully.",
+  "repair": "Userspace4MiB buffered copy, fsync and source/destination hash verification; repair/reuse only an exact same-campaign/specification/protocol/ledger disposable copy. Move the verified repaired tree into fresh proof03, preserving failed proof02 metadata, log and bad-file sample. No second raw-tree allocation or acquisition retry.",
+  "parent_acquisition_source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "analysis_source": "c5caa118fb98814b60bd022fe0f3349a4b6684782c1f03bccafdc8d319d08a7d",
+  "analysis_root": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/portability-analysis-source-03",
+  "changed_files": [
+    "benchmarks/serving_suite/campaign_portability.py",
+    "benchmarks/serving_suite/campaign_verify.py"
+  ],
+  "focused_transfer_and_copy_tests_passed": 19,
+  "derived_analysis_bench_tests_pending": false,
+  "scope": "Only allowed derived transfer/portability modules change after all timed phases. Every measured attempt and original acquisition closure stays intact; no models, workloads, policies, geometry, repetitions, estimators or validity rules change.",
+  "derived_analysis_bench_tests_passed": 245,
+  "derived_analysis_bench_test_log": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/portability-analysis-bench-tests-03.log",
+  "derived_analysis_bench_test_log_sha256": "42d8c387fd6c55bc6b9ed14809c1f71ba47cf07e264e39ae9f314c1adfc6249b"
+}
