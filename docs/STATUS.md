@@ -34,6 +34,11 @@ Requested release notification delivered and own hourly schedule disabled.
 No Stage 6 job remains. [Results](../evidence/stage6-5080-20261109/RESULTS.md),
 [completion/receipts](../evidence/stage6-5080-20261109/completion.json) and
 [brief history](PROJECT_HISTORY.md). Recipient GPU work is outside this campaign.
+Post-campaign [cross-host analysis](../evidence/stage6-5080-20261109/cross-gpu-01/EXPLANATION.md)
+finds the document/Continuum gap already existed on2080Ti;5080 mixed-traffic
+variation is about9x greater, with a variable100-thread CPU tool on the measured
+completion path. Transfer/hint work does not always reduce recomputation. No new
+measurement or GPU use; exact per-kernel attribution remains unproved.
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 

@@ -1,0 +1,26 @@
+{
+  "schema": "stage6-cross-gpu-validation-v1",
+  "comparison_rows": 42,
+  "unique_host_model_cell_system_arms": 108,
+  "original_geometric_estimates_and_CIs_preserved": true,
+  "all_414_native_5080_case_results_verified_against_retained_seals": true,
+  "sealed_case_workflow_tool_files_checked": 446,
+  "all_16_thread_test_invocations_verified": true,
+  "eight_mixed_pairs_present_on_each_host": true,
+  "no_invented_or_removed_data": true,
+  "all_22_resource_profiles_preserved": true,
+  "original_source_reports_and_raw_ledger_unchanged": true,
+  "no_new_gpu_or_cpu_tool_measurements": true,
+  "no_old_machine_or_other_project_access": true,
+  "all_chart_projection_fields_verified": true,
+  "chart_count": 2,
+  "render_receipt": "render.json",
+  "scope": "Derived post-campaign analysis. No primary estimator, validity, exclusion or acquisition change.",
+  "sha256": {
+    "render.json": "726bbd264ae7a649592ab30436c3e2c0776d42463b69a91f17234499dc48f58c",
+    "mixed-variance.html": "5e987508fe78e6cbfc54b11afdfeee0fb3362704f93c8955ecee18e9601b5c3d",
+    "EXPLANATION.md": "ae5d5be84b7ffa0625acbdf0c7f018a7d3ddbff465733bbdd5b6b6545dcbc736",
+    "comparison.json": "c2ffb9eb232dc08221b4ba142f66a043cd56c4cce8f03d84d1a330861979ec25",
+    "side-by-side.html": "d0bd9e061c5eb1e97dc9ce6240d7bee46addb543b8b663975afdf255d3ca2ea7"
+  }
+}

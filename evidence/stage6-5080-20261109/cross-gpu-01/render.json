@@ -1,0 +1,109 @@
+{
+  "schema": "stage6-cross-gpu-render-v1",
+  "charts": [
+    {
+      "file": "side-by-side.html",
+      "preview": {
+        "width": 728,
+        "contentHeight": 1612,
+        "consoleMessages": []
+      },
+      "render": {
+        "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-9c80fafc-fb51-4557-9a14-0d2db061c4e7-html",
+        "title": "2080 Ti versus5080: the same throughput comparisons",
+        "height": 1612,
+        "heights": [
+          [
+            320,
+            2404
+          ],
+          [
+            375,
+            2310
+          ],
+          [
+            430,
+            2223
+          ],
+          [
+            520,
+            1853
+          ],
+          [
+            640,
+            1648
+          ],
+          [
+            728,
+            1612
+          ],
+          [
+            860,
+            1572
+          ],
+          [
+            1000,
+            1535
+          ],
+          [
+            1144,
+            1535
+          ]
+        ]
+      }
+    },
+    {
+      "file": "mixed-variance.html",
+      "preview": {
+        "width": 728,
+        "contentHeight": 1311,
+        "consoleMessages": []
+      },
+      "render": {
+        "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-a7df7e7e-e523-495c-a3d0-24dfc47285b3-html",
+        "title": "Why5080 mixed-traffic timing is much noisier",
+        "height": 1311,
+        "heights": [
+          [
+            320,
+            1865
+          ],
+          [
+            375,
+            1724
+          ],
+          [
+            430,
+            1607
+          ],
+          [
+            520,
+            1473
+          ],
+          [
+            640,
+            1371
+          ],
+          [
+            728,
+            1311
+          ],
+          [
+            860,
+            1290
+          ],
+          [
+            1000,
+            1251
+          ],
+          [
+            1144,
+            1251
+          ]
+        ]
+      }
+    }
+  ],
+  "new_measurements": false,
+  "scope": "Original measured inputs projected into direct cross-host and mixed-traffic diagnostic views. Both HTML files previewed and rendered."
+}
