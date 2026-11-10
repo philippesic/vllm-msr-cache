@@ -1,4 +1,4 @@
-# vllm-cache-next
+# vllm-semantic-cache-ext-next
 
 A fresh foundation for research on **exact KV reuse** with CPU offload and
 causal tool-wait advice, compared with matched native ARC. Semantic scores rank
@@ -42,6 +42,8 @@ this hook includes the proofs rather than maintaining a weaker check path.
 ## Navigation
 
 - [System map](docs/system-map.md): commands, targets and availability.
+- [Remaining port stages](docs/remaining-stages.md): source, benchmark, GPU qualification, and skills.
+- [Issue and failure analysis](docs/issue-analysis.md): old-repo failures and what now addresses them.
 - [Research instructions](AGENTS.md) and [durable findings](FINDINGS.md).
 - [Runtime assumptions](docs/runtime.md): distinct historical environments and GPUs.
 - [Benchmark protocol](docs/benchmarking.md): future invocation and comparison rules.
