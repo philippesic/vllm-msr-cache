@@ -1,0 +1,54 @@
+{
+  "schema": "stage6-candidate-audit-chart-render-v1",
+  "preview": {
+    "width": 728,
+    "contentHeight": 624,
+    "consoleMessages": []
+  },
+  "result": {
+    "htmlRender": {
+      "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-6d4351a2-2b84-4193-868e-f10d41afdbaa-html",
+      "title": "Wait-hint audit: interference and limited prefix refresh",
+      "height": 624,
+      "heights": [
+        [
+          320,
+          946
+        ],
+        [
+          375,
+          813
+        ],
+        [
+          430,
+          758
+        ],
+        [
+          520,
+          728
+        ],
+        [
+          640,
+          667
+        ],
+        [
+          728,
+          624
+        ],
+        [
+          860,
+          604
+        ],
+        [
+          1000,
+          568
+        ],
+        [
+          1144,
+          568
+        ]
+      ]
+    },
+    "message": "Shown to the reader above your reply. Don't mention or describe the page; reply with only what it doesn't already say."
+  }
+}

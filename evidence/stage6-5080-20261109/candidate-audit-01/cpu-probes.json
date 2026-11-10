@@ -1,0 +1,143 @@
+{
+  "schema": "stage6-candidate-cpu-structural-probes-v1",
+  "gpu_visible_devices": "",
+  "gpu_arrays_allocated": false,
+  "tested_candidate_files": [
+    "semantic_offload/connector.py",
+    "semantic_offload/manager.py",
+    "semantic_offload/wait_hint.py"
+  ],
+  "estimate_contract": [
+    {
+      "estimate_ms": 0,
+      "accepted": true
+    },
+    {
+      "estimate_ms": 50,
+      "accepted": true
+    },
+    {
+      "estimate_ms": 250,
+      "accepted": true
+    },
+    {
+      "estimate_ms": 750,
+      "accepted": true
+    },
+    {
+      "estimate_ms": 1000,
+      "accepted": false,
+      "reason": "wait hint declared estimate is outside the frozen screen"
+    },
+    {
+      "estimate_ms": 2000,
+      "accepted": false,
+      "reason": "wait hint declared estimate is outside the frozen screen"
+    },
+    {
+      "estimate_ms": null,
+      "accepted": true
+    }
+  ],
+  "completed_session_capacity": [
+    {
+      "session": 0,
+      "result": {
+        "status": "no_action",
+        "reason": "cpu_prefix_recency_refreshed",
+        "ready_cpu_prefix_keys": 0,
+        "reserved_gpu_blocks": 0,
+        "speculative_transfer_bytes": 0
+      },
+      "active_requests_after_finish": 0,
+      "lifetime_session_tombstones": 1
+    },
+    {
+      "session": 1,
+      "result": {
+        "status": "no_action",
+        "reason": "cpu_prefix_recency_refreshed",
+        "ready_cpu_prefix_keys": 0,
+        "reserved_gpu_blocks": 0,
+        "speculative_transfer_bytes": 0
+      },
+      "active_requests_after_finish": 0,
+      "lifetime_session_tombstones": 2
+    },
+    {
+      "session": 2,
+      "result": {
+        "status": "no_action",
+        "reason": "session_registry_capacity"
+      },
+      "active_requests_after_finish": 0,
+      "lifetime_session_tombstones": 2
+    }
+  ],
+  "mixed_gpu_cpu_prefix": {
+    "selected_default": {
+      "status": "no_action",
+      "reason": "cpu_prefix_recency_refreshed",
+      "ready_cpu_prefix_keys": 0,
+      "reserved_gpu_blocks": 0,
+      "speculative_transfer_bytes": 0
+    },
+    "optional_bridge_not_selected": {
+      "status": "no_action",
+      "reason": "cpu_prefix_recency_refreshed",
+      "ready_cpu_prefix_keys": 1,
+      "reserved_gpu_blocks": 0,
+      "speculative_transfer_bytes": 0
+    },
+    "gpu_prefix_keys": 1,
+    "cpu_suffix_keys": 1,
+    "scope": "Real native CPU manager/block-index metadata, no GPU allocation. Demonstrates a capability limit, not its frequency in recorded serving."
+  },
+  "conflicting_idempotency_key": {
+    "original": {
+      "status": "no_action",
+      "reason": "cpu_prefix_recency_refreshed",
+      "ready_cpu_prefix_keys": 4,
+      "reserved_gpu_blocks": 0,
+      "speculative_transfer_bytes": 0
+    },
+    "same_event_id_changed_namespace": {
+      "status": "no_action",
+      "reason": "cpu_prefix_recency_refreshed",
+      "ready_cpu_prefix_keys": 4,
+      "idempotent_replay": true,
+      "reserved_gpu_blocks": 0,
+      "speculative_transfer_bytes": 0
+    },
+    "new_event_id_changed_namespace": {
+      "status": "rejected",
+      "reason": "namespace_mismatch"
+    },
+    "queue_unchanged_on_replay": true,
+    "scope": "A conflicting retry can receive an old success-like acknowledgement before namespace validation; no new wrong-namespace cache operation occurs. Not observed in campaign-generated unique IDs."
+  },
+  "expired_advice_semantics": {
+    "ack": {
+      "status": "no_action",
+      "reason": "cpu_prefix_recency_refreshed",
+      "ready_cpu_prefix_keys": 4,
+      "reserved_gpu_blocks": 0,
+      "speculative_transfer_bytes": 0
+    },
+    "late_fresh_event": {
+      "status": "expired",
+      "reason": "nomination_deadline_elapsed"
+    },
+    "expired_input_rejected": true,
+    "previous_recency_change_not_undone": true,
+    "no_retention_lease": true,
+    "scope": "CPU-only advice changes ordinary ARC recency. Expiry rejects late inputs; it is not rollback or a lease releasing earlier recency changes."
+  },
+  "candidate_implementation_changed": false,
+  "source_sha256": {
+    "semantic_offload/connector.py": "3422923e9fa21bf7df7f30b03f5d608faaac7856e24ab7910dd5760f62ced467",
+    "semantic_offload/manager.py": "8ea5f063cf16a3025297011db0fb1751f142dbf49d1b9222c746c8cbeaf4c65c",
+    "semantic_offload/wait_hint.py": "6754823734d640f38a49d0548b7ed2133805f486551cb8b9e7ebd84ff0441be0"
+  },
+  "scope": "CPU-only structural demonstrations using native metadata and established unit fixtures; no new performance measurement, GPU inference, model allocation or benchmark reclassification."
+}

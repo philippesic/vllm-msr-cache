@@ -1,0 +1,11 @@
+{
+  "schema": "stage6-current-candidate-assessment-v1",
+  "assessment_date": "2026-11-10",
+  "performance_assessment": "inconclusive",
+  "scope": "Evidence for a general wait-hint candidate benefit across the2080Ti and5080 campaigns",
+  "requested_by_user": true,
+  "original_cell_estimates_intervals_and_adverse_findings_preserved": true,
+  "original_protocol_outcomes_and_three_5080_activity_exclusions_preserved": true,
+  "investigation": "Structural operational issues in the selected CPU-retention-only candidate, distinguished from benchmark coverage and timing artifacts",
+  "authorization_boundary": "Read saved local evidence and code, and run GPU-free audit probes. No candidate implementation change, campaign rerun, GPU use, training, old-host access or other-project access."
+}

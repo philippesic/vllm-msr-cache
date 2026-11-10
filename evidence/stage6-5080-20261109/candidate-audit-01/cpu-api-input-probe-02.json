@@ -1,0 +1,30 @@
+{
+  "schema": "stage6-candidate-api-input-cpu-probe-v1",
+  "gpu_visible_devices": "",
+  "cases": [
+    {
+      "json_type": "list",
+      "http_status": 500
+    },
+    {
+      "json_type": "NoneType",
+      "http_status": 500
+    },
+    {
+      "json_type": "int",
+      "http_status": 500
+    },
+    {
+      "json_type": "str",
+      "http_status": 500
+    },
+    {
+      "json_type": "dict",
+      "http_status": 400
+    }
+  ],
+  "in_process_ASGI_only": true,
+  "scheduler_not_called": true,
+  "interpretation": "Non-object JSON causes an uncaught AttributeError andHTTP500 instead of a client error. Empty object is correctly rejected with400. No model crash, cache mutation or campaign observation is claimed.",
+  "candidate_implementation_changed": false
+}

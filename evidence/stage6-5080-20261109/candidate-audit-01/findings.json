@@ -1,0 +1,386 @@
+{
+  "schema": "stage6-candidate-structural-evidence-index-v1",
+  "current_performance_assessment": "inconclusive",
+  "old2080_comparisons": {
+    "unhinted:H02_vs_H00:end_user_ttft_mean_s": {
+      "process_pairs": 4,
+      "required_process_pairs": 4,
+      "geometric_ratio": 1.1456286646511118,
+      "paired_95_interval": [
+        1.10664367017882,
+        1.1859870278372544
+      ],
+      "declared_bound": 1.05,
+      "bound_met": false,
+      "status": "fixed_set_complete",
+      "metric": "latency numerator/denominator; smaller is better",
+      "method": "Student t on paired whole-process log ratios, conditional on fixed cohort/host; no multiplicity adjustment",
+      "per_pair_ratios": [
+        1.1625772242470755,
+        1.1172465222929227,
+        1.1331615019256323,
+        1.1703421668868137
+      ],
+      "baseline_pressure_in_all_fixed_blocks": true,
+      "no_return_cpu_recency_in_all_fixed_blocks": true
+    },
+    "unhinted:H02_vs_H00:end_user_e2e_mean_s": {
+      "process_pairs": 4,
+      "required_process_pairs": 4,
+      "geometric_ratio": 1.1252461735840686,
+      "paired_95_interval": [
+        1.033650387009322,
+        1.2249586195474125
+      ],
+      "declared_bound": 1.05,
+      "bound_met": false,
+      "status": "fixed_set_complete",
+      "metric": "latency numerator/denominator; smaller is better",
+      "method": "Student t on paired whole-process log ratios, conditional on fixed cohort/host; no multiplicity adjustment",
+      "per_pair_ratios": [
+        1.185957985971843,
+        1.0554998608615416,
+        1.1643733352682608,
+        1.0999436669474136
+      ],
+      "baseline_pressure_in_all_fixed_blocks": true,
+      "no_return_cpu_recency_in_all_fixed_blocks": true
+    },
+    "advice:H02_vs_H00": {
+      "process_pairs": 4,
+      "required_process_pairs": 4,
+      "geometric_ratio": 1.0032389446008603,
+      "paired_95_interval": [
+        0.9952714940343119,
+        1.0112701770288512
+      ],
+      "declared_bound": null,
+      "bound_met": null,
+      "status": "fixed_set_complete",
+      "metric": "throughput numerator/denominator; larger is better",
+      "method": "Student t on paired whole-process log ratios, conditional on fixed cohort/host; no multiplicity adjustment",
+      "per_pair_ratios": [
+        1.0073310713446253,
+        1.0048305129710058,
+        1.004903894885494,
+        0.9959280320146254
+      ],
+      "baseline_pressure_in_all_fixed_blocks": true,
+      "no_return_cpu_recency_in_all_fixed_blocks": true
+    },
+    "overhead:O2_vs_O0": {
+      "process_pairs": 24,
+      "required_process_pairs": 24,
+      "geometric_ratio": 0.9667171539815249,
+      "paired_95_interval": [
+        0.9539315529987245,
+        0.9796741211299349
+      ],
+      "declared_bound": 0.97,
+      "bound_met": false,
+      "status": "fixed_set_complete",
+      "metric": "throughput numerator/denominator; larger is better",
+      "method": "Student t on paired whole-process log ratios, conditional on fixed cohort/host; no multiplicity adjustment",
+      "per_pair_ratios": [
+        1.0073853136961728,
+        0.8977439741723164,
+        0.9816214821750048,
+        1.019780742033228,
+        0.9677924292681196,
+        1.0185467474137708,
+        0.9761050810361882,
+        0.952489820295901,
+        1.007738650059134,
+        0.9492966862754143,
+        0.9489209919847741,
+        0.9518591887879388,
+        0.9781341468542677,
+        0.9227788747766379,
+        0.9929071689676326,
+        0.9553151523781632,
+        0.9827310927654133,
+        0.9538792033915511,
+        0.9270823888513826,
+        0.9350153657373707,
+        0.9821944708166951,
+        0.9742264372769859,
+        0.9717979544638794,
+        0.9568956332814622
+      ]
+    }
+  },
+  "hint_delivery": {
+    "measured_cases": 269,
+    "selected_confirmation_cases": 207,
+    "hint_events": 22805,
+    "selected_hint_events": 18929,
+    "selected_positive_refresh_events": 18914,
+    "selected_zero_ready_events": 0,
+    "selected_delivery_errors": 0,
+    "inconsistent_event_acks": 0,
+    "late_positive_refreshes": 0,
+    "hints_with_gpu_side_effects": 0
+  },
+  "prefix_coverage": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B05",
+      "processes": 12,
+      "hint_events": 288,
+      "positive_ready_events": 288,
+      "full_cpu_prefix_ready_events": 288,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 1.0,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B06",
+      "processes": 7,
+      "hint_events": 168,
+      "positive_ready_events": 168,
+      "full_cpu_prefix_ready_events": 168,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 1.0,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B07",
+      "processes": 12,
+      "hint_events": 288,
+      "positive_ready_events": 288,
+      "full_cpu_prefix_ready_events": 288,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 1.0,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B08",
+      "processes": 12,
+      "hint_events": 2775,
+      "positive_ready_events": 2775,
+      "full_cpu_prefix_ready_events": 190,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.06846846846846846,
+      "median_extent_of_cpu_prefix": 0.09523809523809523
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B09",
+      "processes": 12,
+      "hint_events": 3267,
+      "positive_ready_events": 3267,
+      "full_cpu_prefix_ready_events": 0,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.0,
+      "median_extent_of_cpu_prefix": 0.044444444444444446
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B10",
+      "processes": 12,
+      "hint_events": 187,
+      "positive_ready_events": 187,
+      "full_cpu_prefix_ready_events": 187,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 1.0,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B11",
+      "processes": 8,
+      "hint_events": 514,
+      "positive_ready_events": 514,
+      "full_cpu_prefix_ready_events": 315,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.6128404669260701,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B12",
+      "processes": 12,
+      "hint_events": 309,
+      "positive_ready_events": 309,
+      "full_cpu_prefix_ready_events": 309,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 1.0,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "processes": 4,
+      "hint_events": 326,
+      "positive_ready_events": 326,
+      "full_cpu_prefix_ready_events": 120,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.36809815950920244,
+      "median_extent_of_cpu_prefix": 0.9354166666666667
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B08",
+      "processes": 6,
+      "hint_events": 993,
+      "positive_ready_events": 993,
+      "full_cpu_prefix_ready_events": 2,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.002014098690835851,
+      "median_extent_of_cpu_prefix": 0.041884816753926704
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B09",
+      "processes": 6,
+      "hint_events": 983,
+      "positive_ready_events": 983,
+      "full_cpu_prefix_ready_events": 0,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.0,
+      "median_extent_of_cpu_prefix": 0.03773584905660377
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B11",
+      "processes": 6,
+      "hint_events": 513,
+      "positive_ready_events": 513,
+      "full_cpu_prefix_ready_events": 187,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.3645224171539961,
+      "median_extent_of_cpu_prefix": 0.9211822660098522
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "cell": "B06",
+      "processes": 10,
+      "hint_events": 1233,
+      "positive_ready_events": 1233,
+      "full_cpu_prefix_ready_events": 731,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.5928629359286294,
+      "median_extent_of_cpu_prefix": 1.0
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "cell": "B08",
+      "processes": 10,
+      "hint_events": 3106,
+      "positive_ready_events": 3091,
+      "full_cpu_prefix_ready_events": 397,
+      "positive_fraction": 0.9951706374758532,
+      "full_cpu_prefix_ready_fraction": 0.12781712813908563,
+      "median_extent_of_cpu_prefix": 0.5228426395939086
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "cell": "B09",
+      "processes": 10,
+      "hint_events": 2760,
+      "positive_ready_events": 2760,
+      "full_cpu_prefix_ready_events": 152,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.05507246376811594,
+      "median_extent_of_cpu_prefix": 0.048484848484848485
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "cell": "B11",
+      "processes": 10,
+      "hint_events": 1219,
+      "positive_ready_events": 1219,
+      "full_cpu_prefix_ready_events": 623,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.5110746513535686,
+      "median_extent_of_cpu_prefix": 1.0
+    }
+  ],
+  "source_references": {
+    "CPU_ready_prefix_stops_at_first_hole": "semantic_offload/connector.py:863",
+    "CPU_only_branch_and_optional_gpu_bridge": "semantic_offload/connector.py:2366",
+    "fresh_hints_apply_recency_without_utility_gate": "semantic_offload/connector.py:2435",
+    "refresh_preserves_ARC_membership_but_reorders_shared_queues": "semantic_offload/manager.py:1647",
+    "lifetime_session_tombstones_and_default4096": "semantic_offload/connector.py:1465",
+    "bounded_session_admission": "semantic_offload/connector.py:1920",
+    "replay_cache_before_namespace_validation": "semantic_offload/connector.py:2236",
+    "fixed_estimate_choices": "semantic_offload/wait_hint.py:16",
+    "non_object_JSON_uncaught": "semantic_offload/wait_hint_endpoint.py:35",
+    "client_ack_checks_schema_and_id_only": "benchmarks/serving_suite/repo_workload.py:130",
+    "operational_completion_limited_checks": "benchmarks/serving_suite/campaign_completion.py:79",
+    "false_advice_experiment_not_runtime_policy_change": "benchmarks/serving_suite/addendum_advice.py:13"
+  },
+  "source_scope": "Current candidate files equal frozen5080 source. Ordinary hint producer branch equal; mutable workload runner additionally has older addendum-only branches.",
+  "confirmed_findings": [
+    {
+      "id": "1",
+      "priority": "high",
+      "finding": "Valid but wrong hints can harm other traffic",
+      "kind": "Observed design risk",
+      "evidence": "2080Ti addendum: misleading advice raises unhinted meanTTFT14.6%; all four fixed blocks show pressure and actual no-return key touches",
+      "limit": "Stress workload; no broad population latency or unique causal stall attribution",
+      "remediation_direction": "Budget and feedback for shared-cache interference; do not equate a valid observed prefix with useful advice"
+    },
+    {
+      "id": "2",
+      "priority": "high",
+      "finding": "Bounded operating mode loses advice for new sessions after lifetime registry capacity",
+      "kind": "CPU-demonstrated lifecycle limit, explicitly implemented",
+      "evidence": "Cap2 probe refuses third session after both previous requests finish; documented default4096 lifetime identities",
+      "limit": "Base model serving continues; not a GPU leak or an observed Stage6 saturation",
+      "remediation_direction": "Design bounded session retirement/epochs and replay protection together; do not simply delete tombstones"
+    },
+    {
+      "id": "3",
+      "priority": "high",
+      "finding": "Positive refresh count is much weaker than preserving useful returning KV",
+      "kind": "Observed coverage and utility weakness with CPU-demonstrated selected-policy blind spot",
+      "evidence": "Qwen8B half-cache documents:3267 positive refreshes, zero full CPU-prefix-ready acknowledgements, median CPU-prefix extent4.4%; CPU probe default misses a ready CPU suffix behind a GPU-resident root",
+      "limit": "CPU-only extent is not total GPU+CPU reuse and is not a new failure rule; optional bridge exists but was not selected",
+      "remediation_direction": "Measure demand-reachable GPU+CPU coverage and later useful consumption, not just acknowledgements or bytes"
+    },
+    {
+      "id": "4",
+      "priority": "medium",
+      "finding": "Conflicting retry payload can return cached acknowledgement before namespace validation",
+      "kind": "Source-audit API correctness gap, reproducedCPU-only",
+      "evidence": "Same eventID with changed model namespace returns old positive acknowledgement; new eventID correctly rejects namespace",
+      "limit": "No second cache action occurs; no incorrect-modelKV reuse; not observed in unique campaign IDs",
+      "remediation_direction": "Bind idempotency results to complete validated payload and reject key conflicts"
+    },
+    {
+      "id": "5",
+      "priority": "low",
+      "finding": "Non-object JSON producesHTTP500 instead of client error",
+      "kind": "Source-audit input-validation bug, reproduced in-processASGI",
+      "evidence": "JSONlist/null/int/string each500; invalid object400; scheduler never called",
+      "limit": "Request failure only; no model crash or cache mutation",
+      "remediation_direction": "Validate mapping shape before field access and return a client error"
+    },
+    {
+      "id": "6",
+      "priority": "medium",
+      "finding": "Public hint contract remains tied to benchmark wait estimates and one clock domain",
+      "kind": "Explicit integration limitation",
+      "evidence": "Only0/50/250/750ms estimates accepted;1000/2000 rejected; absent estimate yields no action; shared-monotonic-clock requirement",
+      "limit": "Not a failure of the supported local750ms client path",
+      "remediation_direction": "Define general bounded estimates, clock translation and application integration requirements before claiming general support"
+    }
+  ],
+  "not_supported_as_findings": [
+    "Hints silently disabled or broadly missing in the5080 campaign",
+    "SpeculativeGPU copies or reservations accidentally active in the selected CPU-only path",
+    "Wrong-prefixKV corruption demonstrated by the saved benchmarks",
+    "Cancellation/drain/refcount leak demonstrated within the retained bounded sequences",
+    "The three B06 activity exclusions prove an algorithm bug by themselves",
+    "An unbiased source-quality or broad performance guarantee from the original quality checks"
+  ],
+  "operational_coverage_note": "All three5080 candidate operational cases use preservation_audit=true and session_limit=null, with96/32/32 observed sessions. A separate registry preflight uses cap2 and proves fail-closed behavior; it does not provide session recycling.",
+  "overhead_scope": "The2080 fresh24-pair enabled/no-hint profile showed3.33% throughput loss; this is the measured research profile, not an isolated proof of minimal unaudited production overhead.",
+  "existing_CPU_guard_tests_passed": 125,
+  "candidate_implementation_changed": false,
+  "new_gpu_jobs": false
+}

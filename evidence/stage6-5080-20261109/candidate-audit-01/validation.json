@@ -1,0 +1,53 @@
+{
+  "schema": "stage6-candidate-structural-audit-validation-v1",
+  "checks_pass": true,
+  "current_overall_performance_assessment": "inconclusive",
+  "candidate_implementation_unchanged": true,
+  "old_2080_and_nov8_tracked_history_unchanged": true,
+  "original_ledger_sha256": "d9c0c90298b5916a12a2cc3fbdb5f4f2e8aae9505ea728153017129561aa85f0",
+  "original_report_sha256": "58a06dc1539085716b9d98f9844b66888972fcc6840fcd08873a6d9d58f6df26",
+  "audited_sealed_results": 269,
+  "cross_gpu_source_hashes_unchanged": {
+    "evidence/stage6-2080ti-20261106/results/comparisons.json": "b7c0f43f195d17bf9083b3a531cbe0c4f3bc09c1b74ac82f56f4dbf7ca7e57a6",
+    "evidence/stage6-5080-20261109/final-results-01/comparisons.json": "086ec9eeef6a8bebc8486b955cbf8bab8320df72162706d244436f6e50c518f8",
+    "output/stage6-5080-20261108/linux-volume-01/primary-20261109/analysis/current/results.json": "58a06dc1539085716b9d98f9844b66888972fcc6840fcd08873a6d9d58f6df26",
+    "output/stage6-5080-20261108/primary-execution-bundle-01/portable.json": "334fc0c1a60870b0d6a246548592ce09769458765aad2515ee50cb81eaf8368b"
+  },
+  "source_equal_to_frozen_sha256": {
+    "semantic_offload/connector.py": "3422923e9fa21bf7df7f30b03f5d608faaac7856e24ab7910dd5760f62ced467",
+    "semantic_offload/manager.py": "8ea5f063cf16a3025297011db0fb1751f142dbf49d1b9222c746c8cbeaf4c65c",
+    "semantic_offload/wait_hint.py": "6754823734d640f38a49d0548b7ed2133805f486551cb8b9e7ebd84ff0441be0",
+    "semantic_offload/wait_hint_endpoint.py": "8fda4ff147f431441c4d7061efd18f86e898e805d46b0169906b60ff562b5f5c",
+    "semantic_offload/spec.py": "47b6b0fe534449288016bc18d141b7e90818f5ab6d503497ba884d3ce7792f44",
+    "benchmarks/serving_suite/campaign_validity.py": "d9b9f4d61f7edbb60963784483d0fc3a9bcaef6a84ef660fb3d4af1ae49efa92",
+    "benchmarks/serving_suite/campaign_completion.py": "c38807a1381de77cb2288bb65a275b40b4d71449b410f2d27cc1f68cb41d324a"
+  },
+  "helper_sha256": {
+    "stage6_candidate_hint_audit.py": "627a935d958fa8e09cf071bfb0a97964b4ae6ec8ee236c324d58e8c39632a70c",
+    "stage6_candidate_prefix_audit.py": "a5d58695f78d50bfda5f5bbea7e9b41478f45cf2735e0bc33ad9ab606f1cb89e",
+    "stage6_candidate_cpu_probes.py": "69aeb6411fac8f0e1d63ba147f65bff5b4c1c07bd75d1f3fd9acd8dd4bd5a78c"
+  },
+  "evidence_sha256": {
+    "AUDIT.md": "03d8c8fd2efc88d77eaea865352aabf7b8cd6ef59d8b2fb01d7b61fef43afcc0",
+    "assessment.json": "949e3b15c4593cf5ae4f022923ddf5d953679b0651d6a8275924c1aa7e1e52dd",
+    "chart-data.json": "77226c4da814bff9fa49250ae38c4b0d4fe8eddd2cfa7193b6cabfd7600ca855",
+    "chart.html": "2681a23fe2fea4e382fe4532fb0cdd7a1d7dab20a3bf35b785d15c98a9f700c3",
+    "cpu-api-input-probe-02.json": "629c1b33bd72563a0bc31bf938454a4cae818b60306aa7b9005aa8db31fe30bb",
+    "cpu-probes.json": "966d4bef05e0a9649da9408cd53a6e7f92f18a26d5ce7b69d1949f4c73b2e5bb",
+    "findings.json": "52ccf3ee4085d7874243fcb6f54d323df1901aa1b7b2b68b946dce7b996d6c81",
+    "hint-flow.json": "e883c72fada0164d3cc745875ce440839172b7b0b68bb142410888671d95a7b4",
+    "prefix-coverage.json": "48806cf5593778ca48b0bc7b4980a02d0e2692edd0ca78888f04f4561b4e758b"
+  },
+  "existing_guard_tests": {
+    "passed": 125,
+    "duration_s": 6.32,
+    "log": "output/stage6-5080-20261109/candidate-guard-tests-01.log",
+    "log_sha256": "a6a82a772fc2e6ad1ddda3de26e24cab8f42a450bb5ad0dee0372518387051ba",
+    "command": "PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 SEMANTIC_VLLM_STAGE_PARENT=output/stage6-5080-20261108/linux-volume-01 <pinned-runtime-python> tools/vllm_runtime.py <pinned-runtime-python> -m pytest -q -p no:cacheprovider tests/test_wait_hint.py tests/test_wait_hint_cpu_recency.py tests/test_wait_hint_endpoint.py tests/test_preservation_audit_mode.py tests/test_gpu_gated_cpu_retention.py",
+    "runtime_python": "/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python"
+  },
+  "gpu_work_performed": false,
+  "notification_resent": false,
+  "schedules_reenabled": false,
+  "scope": "Saved-data checks and CPU-only structural probes. No new production/performance qualification or repair."
+}

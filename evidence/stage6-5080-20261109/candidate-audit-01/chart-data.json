@@ -1,0 +1,101 @@
+{
+  "schema": "stage6-candidate-audit-chart-data-v1",
+  "latency": [
+    {
+      "label": "accurate",
+      "record": {
+        "process_pairs": 4,
+        "required_process_pairs": 4,
+        "geometric_ratio": 0.9478105892582865,
+        "paired_95_interval": [
+          0.8903080007711482,
+          1.0090271145850995
+        ],
+        "declared_bound": 1.05,
+        "bound_met": true,
+        "status": "fixed_set_complete",
+        "metric": "latency numerator/denominator; smaller is better",
+        "method": "Student t on paired whole-process log ratios, conditional on fixed cohort/host; no multiplicity adjustment",
+        "per_pair_ratios": [
+          0.9903870453333438,
+          0.905017174883592,
+          0.9650842700182708,
+          0.9329518211335266
+        ],
+        "baseline_pressure_in_all_fixed_blocks": true,
+        "no_return_cpu_recency_in_all_fixed_blocks": true
+      }
+    },
+    {
+      "label": "misleading",
+      "record": {
+        "process_pairs": 4,
+        "required_process_pairs": 4,
+        "geometric_ratio": 1.1456286646511118,
+        "paired_95_interval": [
+          1.10664367017882,
+          1.1859870278372544
+        ],
+        "declared_bound": 1.05,
+        "bound_met": false,
+        "status": "fixed_set_complete",
+        "metric": "latency numerator/denominator; smaller is better",
+        "method": "Student t on paired whole-process log ratios, conditional on fixed cohort/host; no multiplicity adjustment",
+        "per_pair_ratios": [
+          1.1625772242470755,
+          1.1172465222929227,
+          1.1331615019256323,
+          1.1703421668868137
+        ],
+        "baseline_pressure_in_all_fixed_blocks": true,
+        "no_return_cpu_recency_in_all_fixed_blocks": true
+      }
+    }
+  ],
+  "cpu_extent": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B08",
+      "processes": 12,
+      "hint_events": 2775,
+      "positive_ready_events": 2775,
+      "full_cpu_prefix_ready_events": 190,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.06846846846846846,
+      "median_extent_of_cpu_prefix": 0.09523809523809523
+    },
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B09",
+      "processes": 12,
+      "hint_events": 3267,
+      "positive_ready_events": 3267,
+      "full_cpu_prefix_ready_events": 0,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.0,
+      "median_extent_of_cpu_prefix": 0.044444444444444446
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B08",
+      "processes": 6,
+      "hint_events": 993,
+      "positive_ready_events": 993,
+      "full_cpu_prefix_ready_events": 2,
+      "positive_fraction": 1.0,
+      "full_cpu_prefix_ready_fraction": 0.002014098690835851,
+      "median_extent_of_cpu_prefix": 0.041884816753926704
+    },
+    {
+      "model": "qwen3_4b_2507",
+      "cell": "B08",
+      "processes": 10,
+      "hint_events": 3106,
+      "positive_ready_events": 3091,
+      "full_cpu_prefix_ready_events": 397,
+      "positive_fraction": 0.9951706374758532,
+      "full_cpu_prefix_ready_fraction": 0.12781712813908563,
+      "median_extent_of_cpu_prefix": 0.5228426395939086
+    }
+  ]
+}

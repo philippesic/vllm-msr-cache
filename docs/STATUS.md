@@ -19,6 +19,18 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
+## Candidate operational audit — complete, GPU-free
+
+Philip's current overall performance assessment across both GPUs is **inconclusive**;
+original cell estimates, adverse findings and protocol outcomes remain preserved.
+The saved-data/source audit finds valid-wrong-advice interference, a lifetime
+session-admission limit, weak usefulness evidence and a GPU/CPU-prefix eligibility
+blind spot. CPU probes also reproduce conflicting-retry acknowledgement and JSON
+input-validation gaps; 125 existing guard tests pass. No candidate implementation
+change or GPU rerun. [Ranked findings and limits](../evidence/stage6-5080-20261109/candidate-audit-01/AUDIT.md),
+[assessment](../evidence/stage6-5080-20261109/candidate-audit-01/assessment.json) and
+[validation](../evidence/stage6-5080-20261109/candidate-audit-01/validation.json).
+
 ## Stage 6 RTX 5080 rebuild — closed; GPU released
 
 Approved same-source LMCache sm_120+PTX rebuild and all five Continuum screens
