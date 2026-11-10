@@ -1,52 +1,24 @@
-__pycache__/
-*.pyc
-.pytest_cache/
-.ruff_cache/
-.serena/
-*.egg-info/
-dgx_logs/
-results/
-
-# Local agent and editor state
-.DS_Store
-.idea/
-.vscode/
-
-# Experiment runs, staging, and local orchestration
-/output/**
-/archive/
-ep-builder-*/
-ep-evaluator-*/
-ep-runner-*/
-*.log
-
-# Project documentation is tracked; run-local notes belong in output/.
-
-# Optional pinned runtime environment
-.venv-runtime/
-
-# Host-private agent state only; authored skills/settings remain visible.
-.codex/auth.json
-.codex/sessions/
-.claude/settings.local.json
+# Host-private state and credentials
 .env
 .env.*
-!.env.example
-
-# Campaign-level authored code/reports stay visible; frozen copies/raw data stay local.
-!/output/
-!/output/*/
-!/output/*.py
-!/output/*/*.py
-!/output/*.sh
-!/output/*/*.sh
-!/output/*.md
-!/output/*/*.md
-!/output/*.patch
-!/output/*/*.patch
-!/output/*.toml
-!/output/*/*.toml
-!/output/*.yaml
-!/output/*/*.yaml
-!/output/*.yml
-!/output/*/*.yml
+*.private.json
+# Dependencies and reproducible caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.import_linter_cache/
+build/
+dist/
+*.egg-info/
+# External run products and transient planning (never authored workflow)
+/output/
+/outputs/
+/runs/
+/artifacts/
+/raw/
+/plans/
+/scratch/
+/PORTING_PLAN.md

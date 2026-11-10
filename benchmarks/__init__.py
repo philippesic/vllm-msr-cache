@@ -1,2 +1,1 @@
-# SPDX-License-Identifier: Apache-2.0
-"""Benchmark drivers for the semantic-cache extension."""
+"""Import-boundary placeholder; the benchmark entry point is not implemented."""

@@ -1,2 +1,0 @@
-# CPU-only checks: no torch, vLLM, model downloads, or GPU required.
-pytest==9.0.2
