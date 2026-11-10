@@ -87,7 +87,9 @@ POST hints to `/v1/wait-hints`. The endpoint uses explicit server API keys and
 refuses startup without them; `VLLM_PLUGINS=wait_hint` enables its installed entry.
 It checks authentication before JSON/schema processing and routes through the
 engine owner. Valid identity acknowledgements include ready CPU prefix length,
-acknowledged and newly refreshed counts, replay flag, decision and resolved mechanisms. Replayed events preserve their acknowledged count but report zero new refreshes. This supports a single
+acknowledged and newly refreshed counts, replay flag, decision and resolved
+mechanisms. Replayed events preserve their acknowledged count but report zero
+new refreshes. This supports a single
 trusted operator: scope prevents client-name collisions, and API access does not
 provide tenant isolation or establish permission to run an experiment.
 

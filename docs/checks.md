@@ -66,11 +66,11 @@ builds are not installed, executed or qualified by this foundation. Their pinned
 ABI recipes and native diagnostic specimens must arrive with native material.
 The aggregate reports native absence as skipped, outside the passed-group count.
 
-The CPU suite tests repository tooling and typed identity examples, not actual
-KV transfers, ownership fences or serving behavior. Future runtime source
-requires those correctness tests. Full benchmark schemas, comparison rejection and
-pressure/quality gates arrive with the benchmark harness. This step does not
-claim plan C5/C7/parity completion. Secret scanning recognizes selected patterns;
+The portable CPU suite tests repository tooling and pure product contracts/advice.
+It does not exercise actual KV byte transfers, device fences or live serving.
+The separate pinned-runtime CPU and hardware lanes below cover their named
+integration scopes. Full benchmark schemas, comparison rejection and pressure/
+quality gates remain deferred with the benchmark harness. Secret scanning recognizes selected patterns;
 it is not an exhaustive historical credential audit. Module import checks do not
 establish runtime ownership correctness or detect every possible Python side effect.
 

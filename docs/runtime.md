@@ -52,7 +52,8 @@ The supported initial target is dense full-attention FP16, TP1, HND, eager
 execution with TRITON_ATTN. BF16 on Turing, sliding/hybrid attention, speculative
 decoding, LoRA and parallel execution refuse or remain unqualified as specified
 by construction. The pinned model's native default runner is exercised; this does
-not qualify every model/runner combination. Use an ordinary vLLM serving command with `--dtype float16`,
+not qualify every model/runner combination. Use an ordinary vLLM serving command
+with `--dtype float16`,
 `--enforce-eager`, `--attention-backend TRITON_ATTN`, prefix caching, an explicit
 API key, and this `--kv-transfer-config` object:
 
