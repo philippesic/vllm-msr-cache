@@ -16,9 +16,12 @@ with the check and rule proofs passing.
 
 ## State
 Branch `main`, local only. Documentation, rules, proof split and this convention are
-committed. The comment ban is unchanged pending Philip's final call. Remaining review
-topics: the vLLM adapter and runtime pinning layer, benchmark design, agent operations
-and skills.
+committed. Comment ban kept everywhere. All sections reviewed. Decided: runtime lane
+defaults its output to the attempts folder and prints a one-line verdict; run-record
+tooling is revisited with benchmark design; CI waits for the GitHub repository change;
+agent operations are listed in `tasks/agent-operations.md`. Open: the runtime binding
+redesign (replace the overlay and fingerprints with a vLLM general plugin and one pin)
+and a project-agnostic efficacy test.
 
 ## Next
 Apply the approved core fixes: a new generation per turn and a new incarnation
