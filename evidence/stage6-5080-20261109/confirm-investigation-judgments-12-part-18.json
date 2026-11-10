@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 57,
+      "review_id": "c66ee2f7543628727a222ccb",
+      "signature": "5aef92f5fa13216d8accede11112d5d13f4cb2340884179fa274e9b79c5c141c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 26,
+      "notes": "The historical enumerate proposal supplies indexed iteration for all iterables and explicitly drops optional start/stop arguments in Note D. Correct actual metadata PASS and literal; no inference about modern enumerate is added. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 58,
+      "review_id": "9572c4c3b1c744cf8688487f",
+      "signature": "c381eeb19f61b38ffada33d0766401ab193c9878e14b1556a57db60a0d72b733",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified Python 2.3 and later runtime support and blanket nonapplicability before 2.3 exceed the supplied historical protocol description/metadata tools."
+      ],
+      "whitespace_words": 39,
+      "notes": "Protocol-2 superset and Final Standards Track identification remain useful; historical new-protocol compatibility is not independent proof of all later runtimes or blanket applicability. Missing literal status is a separate instruction failure. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

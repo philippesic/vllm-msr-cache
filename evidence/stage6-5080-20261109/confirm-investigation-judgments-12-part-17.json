@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 55,
+      "review_id": "a86f37f5a7eac675ac339b31",
+      "signature": "002e887709d64a2660cf01bb904245297c3100a0ee6969c12e048d5537fe207d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Decimal proposal is mislabeled Informational/rejected and mixed with do-while and other PEP numbers; unsupported nonimplementation/nonadoption claims."
+      ],
+      "whitespace_words": 176,
+      "notes": "A 176-word initial wrong-subject fragment fails the investigation plan and exact next command as well as the intermediate limit. It provides no reliable task-specific finding. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 56,
+      "review_id": "749d595b7b9ad6facea13574",
+      "signature": "01c1be2fccaaec132889fd11dd124e28706a619364ef40942c573813be2c9f72",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents an ACTUAL DEPENDENCY t1 dictionary and test PASS before the validator executed."
+      ],
+      "whitespace_words": 148,
+      "notes": "Superset protocol and untrusted-data risk are useful source-supported points. Only actual search output exists at this stage; invented tool provenance, 148-word intermediate and omitted exact next declaration violate instructions. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

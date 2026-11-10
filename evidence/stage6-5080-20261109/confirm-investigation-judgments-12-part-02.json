@@ -1,0 +1,77 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 5,
+      "review_id": "e899a1e35e9feb4e71c667f2",
+      "signature": "7bb7c6d29736c0c894d134add1d75a640049240696a58fbdaa05f0241e4500cd",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 27,
+      "notes": "Historical supplied enumerate source and NoteD support indexed iteration and dropped optional start/stop parameters due to ambiguity. Correct metadata/actual literal PASS; no modern signature comparison inferred. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "810c6aa98a19903e3903120f",
+      "signature": "b20967797f6db894638a2d5e9372e2ceb21f92091a23046f6815083c61786389",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 40,
+      "notes": "Any-iterable rule and metadata/actual PASS supported. Historical no-start/stop restriction entails less configurable counting within that proposal; final does not compare modern implementations or repeat unsupported noninteger-indexing dependency claim. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "1aace343a744987d4b41f031",
+      "signature": "fe5527b91a0e2cbcfd93f698c278cbb2c80d0476b553afa39852769269f00165",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "Supplied acceptance/built-in/memory efficiency and historical dropped start/stop claims supported, with useful correct purpose/limitation. Final omits actual validation status and required literal test_status=PASS entirely. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 8,
+      "review_id": "a4da1ef694c7214963837c43",
+      "signature": "5864b65082701af854b35a0af07c9dfe736a7d5947014a8572470c760815b563",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Actual Decimal header search returned rejected resource-acquisition PEP text and PASS."
+      ],
+      "whitespace_words": 86,
+      "notes": "Only actual preceding tool lists Decimal title/Final; generated t1 invents validation and replaces subject/status with PEP310 lock/with text while mixing Decimal date. 86 words exceeds under-70 limit, truncated/no fixed validate declaration and no useful Decimal specification analysis. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "fcfc84127af1a22b78c73d29",
+      "signature": "a86f9a855bd8c5ea0f4374d7a6d33ca3e378bf0601e76abcc3dea92182917843",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "PEP327 rule is reversed() added in Python2.4; unrelated document metrics/headings belong to it."
+      ],
+      "whitespace_words": 121,
+      "notes": "Initial no-tool Decimal task receives wrong-subject reverse-iteration/rejected-loop metadata and repeated wrapper. 121 words exceeds under-70 limit, unfinished invalid declaration and no useful Decimal purpose/plan. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

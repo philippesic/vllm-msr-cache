@@ -1,0 +1,79 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 20,
+      "review_id": "123892e77e2a46f87f72de13",
+      "signature": "edfc5fbb8b461faabd2dd69e152216d8d98210d1467e5683f258d5ac80ba0825",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Initial PEP328 task has zero Decimal context/exponent data, PEP310 title and observed tool result311/FAIL."
+      ],
+      "whitespace_words": 112,
+      "notes": "No preceding tools: invented tool/status plus wrong-number Decimal/import fragments and repeated counters. 112 words exceeds under-70 limit, ends unfinished and no useful purpose/verification declaration. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "794b43a9f7a869148862ad65",
+      "signature": "fd66c648de33e333e6e9b2c0ef8441c6ab348f265f29c220d94c27604c50ae33",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 35,
+      "notes": "Complete supplied Notice supports rejection/lack-of-support and proposed do-clause duplication goal; correct metadata/actual Test_status=PASS. Final corrects earlier generated FAIL instead of repeating it as actual tool result. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "521b51c9ba6fe98b3d41d431",
+      "signature": "e3c87b63e6e5e1eee684f71caec6d60ff1cec09a63742b51bc64564ceff00bc6",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "Exact supplied Implementation Notes explicitly give KeyboardInterrupt between __enter__ completion and try as a resource-leak/deadlock race. Historical with proposal/metadata and actual literal PASS correct, with a precise supported limitation. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 23,
+      "review_id": "aee363ade1c577ad14ba0882",
+      "signature": "9ee627beef7878a184caf9d66a5c1957191cfeb343f3437e7a3b751fd183e52a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP314 lacks author-related metadata fields."
+      ],
+      "whitespace_words": 24,
+      "notes": "Complete source explicitly defines Author and Author-email. Metadata-Version purpose, status/type and actual PASS remain useful, but unsupported limitation and missing required underscore-equals format fail instructions. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 24,
+      "review_id": "a28a7cd7b12a72fb71686c6e",
+      "signature": "bcd3eac8ca18125a873fd909d832c287e1d7cdbb3ccceb70e7ed8eb38148bc55",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual validation failed for lack of a Specification heading."
+      ],
+      "whitespace_words": 32,
+      "notes": "Actual validator returns PASS on five headers; no Specification-section criterion exists. Exact heading absence is not feature-validation failure and Basic Syntax/Semantics supplies specification content. Correct rejected resource-management purpose still useful. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

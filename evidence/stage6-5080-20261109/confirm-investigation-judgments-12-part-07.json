@@ -1,0 +1,66 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 30,
+      "review_id": "ec6c3a9f4a8092244cfdd2f9",
+      "signature": "d66b0e5ec2583186499bfbb75feed83decf90e8c65097a483b630c698f47adfd",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 8,
+      "notes": "Final response is only a source-search shell command. It supplies no factual synthesis, validation interpretation or concrete limitation despite the three actual findings and six passing tests; no invented factual claim or word-limit violation is charged. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "b68a84838c9b2a4a14440f79",
+      "signature": "95bd29059cc0ac6af877b03613ec5292833d07090b0d3ff007dd38478caca96d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified Python 2.4 and later runtime support exceeds the supplied historical acceptance/implementation evidence; the claimed possible incompleteness of document-references.json was not inspected."
+      ],
+      "whitespace_words": 38,
+      "notes": "PEP metadata and the 2.4 acceptance/implemented-CVS passages were checked directly. The version-target portion has support, but later-version coverage and the stated reference-file limitation are not established. Some useful identification remains; TestStatus: PASS is not the required literal test_status=PASS. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 32,
+      "review_id": "6aeecdce9400066487278057",
+      "signature": "637db3217ef83eea7be3819f5b635f1a9f10e33a9d7e31d1ee1746c650ddec61",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 80,
+      "notes": "The same supported adjacent synthesis as index 15 is supplied with the same three specialist findings in a different order. Ten actual tests pass; negative distances raise ValueError, and untested noninteger/nonnumeric inputs are stated as a coverage limitation rather than an unsupported implementation claim. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 33,
+      "review_id": "783769cbbfbf9ee28ca9d28e",
+      "signature": "5a373652fe3982aaf9c155d540b44e84a7c468c08332fdd34605bc575c4f122f",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Python 2.5+ lacks full runtime support for the proposed coroutine features is not supported by the supplied PEP opening or metadata-only tools."
+      ],
+      "whitespace_words": 28,
+      "notes": "The final repeats an unsupported specialist claim of runtime nonimplementation; the PEP identity, Final status and send rule remain useful. Test status=PASS lacks the required underscore literal. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

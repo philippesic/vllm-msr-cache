@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 45,
+      "review_id": "6aba80ed8363fbabddb86074",
+      "signature": "40ab9383497bd74c761d5a806f45492dc7cb1961cc6c7afad59c7902c81ecb2e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims non-Sequence types are untested although test_init rejects a dict; claims no direct test results despite five actual passes."
+      ],
+      "whitespace_words": 76,
+      "notes": "Useful dynamic-view and sequence-operation behavior remains. The final repeats conflicting specialist findings instead of resolving actual test evidence and omits the required literal status; invalid slice arguments are genuinely not exhaustively tested. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 46,
+      "review_id": "684e1beb8a4109ef8abcd684",
+      "signature": "267570481763b8a42fa4464534f1fa715591d92fb91b7f29475245fdc9ad8a23",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Answers about PEP 315 and rejected do-while syntax for a PEP 342 coroutine task; reports FAIL despite actual metadata PASS."
+      ],
+      "whitespace_words": 23,
+      "notes": "Wrong proposal identity and unsupported status make this final unusable for the requested coroutine investigation. Prior fabricated dependency transcripts are not actual tools. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

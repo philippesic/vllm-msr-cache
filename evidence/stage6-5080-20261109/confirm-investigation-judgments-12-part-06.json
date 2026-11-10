@@ -1,0 +1,78 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 25,
+      "review_id": "b44d06a10b0c05c15eeaf36e",
+      "signature": "e1c05d3c18af27e61ad2dbd5117bf81eb3887a93480c52b920c8a416c221bacc",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 85,
+      "notes": "Actual PASS is correctly copied; vague repeated wrapper phrase contributes no other assessable claim. Under150 final words, but no requested metadata/specification/limitation and no useful investigation content beyond status. Do not infer a word-limit failure. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "8d0bfb97457c9efd9bb87afc",
+      "signature": "336e34f2559a7c9787612ee79c38647b2d9faf36e04a96f224ddc344a27a0af1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Current PEP327 task has PEP314/Superseded metadata."
+      ],
+      "whitespace_words": 11,
+      "notes": "Same complete context/judgment as prior explicit cap04 malformed Decimal response. Eleven whitespace words does not exceed under-70 limit; repeated To tokens, wrong subject/metadata, truncation and no fixed purpose/plan declaration still fail. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "39200d87a42ca45ded931ab7",
+      "signature": "4f2e9b23832fa6da9b8ae4d5165fc9321b3c4e933ca83317e031c7a1e9f71dfb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual first tool returned generated GIL JSON/abstract/rationale.",
+        "PASS follows from Final before metadata validation."
+      ],
+      "whitespace_words": 143,
+      "notes": "Actual preceding rg lists header/section lines only. Source-supported ensure/release/manual-initialization/single-interpreter content remains useful despite fake observation/PASS attribution. 143 words exceeds under-70 limit, truncated and no required validate declaration. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "bb88fd9d23d4d010b536bc5c",
+      "signature": "d03f8369f42c63e12445e484f19dbef6bf20f23946383787c9805cce75b81d6f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 52,
+      "notes": "Rejection/nonadoption, historical do-clause goal and prescribed whileTrue/inner-if-break alternative are supported by Notice. Actual PASS correct but required literal test_status=PASS absent. Useful bounded proposal evidence, not modern runtime test. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "7edeaa9b154ae64f6cee131a",
+      "signature": "433076b6076c4d2f501798a3ffecf60c5004c7d877fbd468925eb45a7a7df1f0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 190,
+      "notes": "Same full context/rating as explicit cap04 initial reverse-iteration response: 190-word repeated wrapper phrase and empty Status label supply no assessable source purpose or verification plan. Over under-70 limit, unfinished/no fixed declaration and not useful. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

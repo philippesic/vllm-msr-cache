@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 53,
+      "review_id": "0e18dd113d2fe649db9d3c1d",
+      "signature": "cc5b7c55706813b58ff7727e79340c85c3965b039b9c8f686743982d49928f2c",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Protocol-2 superset rule and untrusted-unpickling warning are explicitly in the supplied opening. Correct metadata and actual PASS with required case-insensitive literal; does not repeat prior fabricated transcript or unsupported later-runtime claim. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 54,
+      "review_id": "1b8507155a6f5dc76b6e85ba",
+      "signature": "7549dc801444f5b6caf67b6976058d9280ab8745f23b165138611893b7084a62",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports FAIL despite the actual validator PASS; current Python-core implementation claim is not established by this old rejected proposal."
+      ],
+      "whitespace_words": 34,
+      "notes": "This proposal's nonadoption and rejected Standards Track identity remain useful. The final repeats a specialist's false test outcome instead of actual tools and lacks the required underscore literal. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

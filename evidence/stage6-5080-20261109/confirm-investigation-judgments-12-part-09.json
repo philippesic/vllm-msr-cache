@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 37,
+      "review_id": "e9e3c5f72f502714c4f5908f",
+      "signature": "013a8a07a7fc441b81974a354bf3d798e95c2a2b33a47d21c0f64735f75231c2",
+      "source_supported": false,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified reversed() added in Python 2.4 overstates the supplied conditional acceptance/version target and metadata-only validation."
+      ],
+      "whitespace_words": 135,
+      "notes": "Direct source reread confirms conditional acceptance for 2.4 with possible removal before beta, not an independent runtime check. Historical indexable/nonmapping proposal restrictions are supported and useful; 135-word final includes Test_status=PASS (case accepted), a rule and a concrete limitation. Repetition alone is not a word-limit failure. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 38,
+      "review_id": "f127db5a4405f5972c5cae39",
+      "signature": "8f9ab8dc439db240c2a6d9d05fb357b792f458bbf83857de8a55305cdf218ae7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Limited to Python 2.5 and no support for multiple interpreter states is unsupported by the generator-coroutine source and tools."
+      ],
+      "whitespace_words": 29,
+      "notes": "The Final Standards Track identity and Python-Version target are useful. The runtime/interpreter restriction is unsupported, and bold test_status followed by a colon is not the literal required status expression. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 39,
+      "review_id": "99564ad2e6d6a309dd396834",
+      "signature": "ab31f5618cad5aa9443c455db9f11cafd7c808bd415cd8ac32ced075a9d37b9a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims validation PASS before the validator ran."
+      ],
+      "whitespace_words": 186,
+      "notes": "The only actual tool is source search, not validation. A 186-word intermediate wrapper mantra provides no substantive investigation, exceeds the under-70 limit and omits the exact next tool declaration. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

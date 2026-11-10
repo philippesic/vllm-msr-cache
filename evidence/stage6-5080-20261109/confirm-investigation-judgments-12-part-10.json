@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 40,
+      "review_id": "008cb65db3f018aac78907f4",
+      "signature": "6d5514c5debddb8a9f15415c37f56a8c1f35e751674d6831f1dded251d8ade6b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents validation PASS before any tools and asserts Python 2.4 runtime implementation beyond conditional acceptance evidence."
+      ],
+      "whitespace_words": 129,
+      "notes": "A supported reverse-iteration purpose remains, but the initial 129-word repetitive answer invents validation, exceeds the intermediate limit and omits the required exact source-search command. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 41,
+      "review_id": "21e13f855673e60793807953",
+      "signature": "0792cf0bcd24477fb1b15b77f56db4dd45746abc8403e0e8ea55d49a9d64ef8d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Treats metadata Final as proof of runtime implementation and Python 2.4 support rather than conditional acceptance evidence."
+      ],
+      "whitespace_words": 146,
+      "notes": "Actual validator PASS concerns five metadata headers only. Historical indexable/nonmapping restrictions remain useful; the 146-word intermediate exceeds the limit and has no required next command. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

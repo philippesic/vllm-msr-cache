@@ -1,0 +1,79 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 10,
+      "review_id": "f3e9e1049f7bf5e0a6ae1114",
+      "signature": "5328fb3a2853ff2ca6abf33db325b451db48b6abd6b5f213b68a88a134190c7e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied evidence establishes Decimal was implemented in Python2.4."
+      ],
+      "whitespace_words": 51,
+      "notes": "Bounded decimal floating point and possible inexact division are supported/useful, as are metadata/actual PASS. Header target PythonVersion2.4 and a proposal excerpt are not independent implementation evidence for the asserted completed runtime event. Required literal test_status format also missing. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 11,
+      "review_id": "c82711b1bdbd7e61d54108eb",
+      "signature": "df5e913ceb5c19fd8a49da91923e0f22931c71e5a1999be3995dae287a4354ff",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual metadata validation test_status=FAIL."
+      ],
+      "whitespace_words": 48,
+      "notes": "Actual validator returns PASS; generated dependency FAIL is not tool evidence. Source CSV/formatting purpose, Final/Standards Track and out-of-scope locale/data interpretation correct and useful. Wrong actual status violates instruction despite correctly shaped literal. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 12,
+      "review_id": "e3f8bce9223a035ad7650cd3",
+      "signature": "fc47c9f793a0ffde9b9622f574cfac506cfc2a9cc16bac8dd7b225aa57ad05ee",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "Read not-implemented as nonadoption of this rejected PEP310 proposal, not absence of all resource-management features in Python. Supplied source supports new with/interface purpose, required class adaptation and acquisition race. Correct metadata/actual PASS useful; required literal underscore-equals status omitted. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "6a90d25936b904cabf1c3a59",
+      "signature": "17c0f8fc5fbd38a06c161ff5fa1dfcae93453480f03c4302dc13a0fdd517f8ba",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 187,
+      "notes": "Actual metadata PASS and bold literal are grounded; no false claim inferred from vague repeated wrapper phrase. 187-word intermediate exceeds under-70 limit and supplies no useful validation/runtime interpretation or fixed summarize declaration. Same judgment as prior explicit cap04 context. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "6624adfac72a3958d0020633",
+      "signature": "ef7fb386357da3a97eca73b866a4f684adeb368fd079551b82f206683307c39c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "PEP315 does not address interpreter versions or runtime support (unqualified)."
+      ],
+      "whitespace_words": 70,
+      "notes": "Correct rejection, proposed do-clause, nonadoption and Notice remain useful. Complete source includes version header/Future Statement and Implementation discussion, so broad absence is unsupported. Actual validation passes but final omits required literal test_status=PASS. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

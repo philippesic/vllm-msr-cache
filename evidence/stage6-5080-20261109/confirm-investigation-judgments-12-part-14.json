@@ -1,0 +1,44 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 49,
+      "review_id": "36718a340aa9a2872f0c4875",
+      "signature": "c22e81370057eb9242627ee9e845afda0c6e85e87d0b42109f3538dcf38a659b",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Unqualified absence of backward compatibility discussion is not established by the supplied opening excerpt or metadata summary tools."
+      ],
+      "whitespace_words": 58,
+      "notes": "Hierarchical logging/levels/handlers/formatters and actual metadata PASS are useful. The claimed whole-document absence supplies an unsupported limitation, violating source-grounded reporting despite the correct literal. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 50,
+      "review_id": "dd4af3fb9333a887136cf2fb",
+      "signature": "50d342e015d99462f9a0af6bf13036e61607c52864282b42b0c70039b1cbbb23",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Repeated assertions of actual Python 3.0 implementation exceed the supplied historical transition plan and no-tool evidence."
+      ],
+      "whitespace_words": 178,
+      "notes": "The BaseException hierarchy purpose and intended transition are useful and source grounded. The initial 178-word repetitive response exceeds the intermediate limit and omits the required next command; historical planned Python versions do not independently verify releases. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

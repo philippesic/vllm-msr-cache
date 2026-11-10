@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 51,
+      "review_id": "b000bcd611cfafd8dda0ffd6",
+      "signature": "2c148975cbcf0d8c67c887e3f553c61146102231513086001d954d5cbe6a7abb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The proposal was not implemented in Python is unsupported by the supplied BaseException proposal and metadata tools."
+      ],
+      "whitespace_words": 43,
+      "notes": "Correct Final/Standards Track identity and common exception superclass purpose remain useful. The final repeats unsupported nonadoption and has no literal test_status=PASS. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 52,
+      "review_id": "478de3639b12eb999d56a81b",
+      "signature": "5c90347879f1faa81092e7649f7bad1358726ec1d1cccebba3e41a20638380b0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [],
+      "whitespace_words": 150,
+      "notes": "Metadata Final/type/version-target and actual PASS are supported, but the 150-word repetitive final supplies neither a substantive supported rule nor a concrete limitation. Under-150 fails at exactly 150; no fabricated tool claim is charged for a prior malformed declaration. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

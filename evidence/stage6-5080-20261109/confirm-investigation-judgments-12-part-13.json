@@ -1,0 +1,42 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 47,
+      "review_id": "c818b8974e7923a08fb5a163",
+      "signature": "47079ca8ba86a09c75e3d6f7ae3c73a35927b0ec5121fed268efb66fffcab281",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Default context set to 0 and the repeated precision/rounding values are not supported by the supplied Decimal proposal."
+      ],
+      "whitespace_words": 93,
+      "notes": "The initial 93-word numeric fragment provides no coherent investigation plan or boundary check and no exact required command; it exceeds the intermediate limit. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 48,
+      "review_id": "2ddac8cd7159b88e329a8e5e",
+      "signature": "7a131d23d2a59b7eb56a1cb00c83ac460bcd3bc8576ed867df7e7ce2132947c9",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 72,
+      "notes": "Same supported final synthesis as index 43 with slightly different actual specialist wording. Five actual tests/five subtests pass, complex custom keys and large-dataset performance remain untested. Missing literal test_status=PASS is the instruction failure. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

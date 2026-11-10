@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 34,
+      "review_id": "1ae156849ee2ae17e5a2e847",
+      "signature": "b489a3389ebfeb8eddff018455bf71a593c84825edb2630ffdd75060c83fce71",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims validation test_status=PASS before the metadata validator has executed."
+      ],
+      "whitespace_words": 142,
+      "notes": "Indexable-only/nonmapping historical proposal restrictions are supported and useful, but the only actual tool at this intermediate turn is the source search. The 142-word repetitive intermediate exceeds under-70 words and omits the required next tool declaration. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 35,
+      "review_id": "4beab494ad9eb4223cde3522",
+      "signature": "05ff0a270aea22f34816db22a69e6a1e59c2bb56d33bcb8a421c60c898a9d5db",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims the investigation lacks direct test results despite the actual five passing SequenceView tests."
+      ],
+      "whitespace_words": 115,
+      "notes": "Supported dynamic read-only sequence behavior and realistic untested index/type coverage remain useful. The final repeats a specialist contradiction rather than resolving it against actual pytest output, violating synthesis/evidence requirements despite correct literal status and length. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 36,
+      "review_id": "b1fdfa7e0422848765c42c81",
+      "signature": "1e5dc8a599474091c1f3a7ca3291618da854bf17dde5067ad973dc8a3a3cf904",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Presents an invented ACTUAL DEPENDENCY t1 transcript and test_status=PASS before validation ran."
+      ],
+      "whitespace_words": 104,
+      "notes": "The rejected with-block proposal and resource-pair source excerpt are useful supported material. Actual search output is not the fabricated numbered transcript; intermediate 104 words exceeds the limit and omits the exact next command. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

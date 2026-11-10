@@ -1,0 +1,51 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "b5a78f5336822a296b024791683b1bea725513a1620b2fd01be3905c171d1e3f",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-12/blind-packet.json",
+  "ratings": [
+    {
+      "index": 42,
+      "review_id": "066d4cc6b23311dfd1492b9d",
+      "signature": "c3751da1a30dbe415380785b224d08bbef683e31c28b7460ed06b39aa22a2e0b",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 44,
+      "notes": "The full PEP explicitly rejects this do-clause proposal for lack of agreement and recommends existing while-True/inner-break syntax. Accurate purpose, status/type, actual metadata PASS and concrete nonadoption limitation; prior specialist errors are not repeated. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 43,
+      "review_id": "b0893a3d222532fa0ad63459",
+      "signature": "2c908099ceed8ce69618c915d1667bfb667a10d29e79792992837da9f2e1d63b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 72,
+      "notes": "Five actual tests and five subtests support duplicate/unique behavior. Complex custom keys and large-data performance are untested in the supplied class; final is useful but Test status: PASS omits the required literal test_status=PASS. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    },
+    {
+      "index": 44,
+      "review_id": "5a78d3cf6d54bbecf9858cf8",
+      "signature": "05434ed64e73c0f8f1c06bc2bfec4e30f716732bb49505ab716a233fb265b6de",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 171,
+      "notes": "The supported reverse-iteration purpose and search plan provide some task value. Repetitive file-confirmation wording adds no evidence, but does not invent a tool result. The 171-word intermediate exceeds the limit and its broken command is not the required exact next search. Complete supplied source text was explicitly read earlier or at its first unmatched full component in this snapshot and exactly bound separately; every new reference/instruction/dependency/tool/answer explicitly read and judged. No automatic novel judgment. Original objective/timing unchanged."
+    }
+  ]
+}

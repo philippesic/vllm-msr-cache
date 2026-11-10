@@ -160,7 +160,7 @@ not population error rates. The inventory still has a pending attempt and is
 not finalized; it must be regenerated after every acquisition phase finishes.
 Timings, objective results and frozen exclusions remain unchanged.
 
-The [latest partial confirmation review](confirm-review-index-11.json) adds the
+The [historical partial confirmation review](confirm-review-index-11.json) adds the
 first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,
 2,190 automatic final failures, 55 capped intermediates and 2,545 selected outputs
 / 234 complete contexts**. B09 is another PEP-investigation fixture. Fourteen
@@ -188,6 +188,30 @@ judgments; all 212 included archived instruction sources verify. These are
 selected partial-review counts, not population error rates or quality equivalence.
 The first B06 block remains excluded. Original objectives, timings and live
 quality state are unchanged. Final confirmation audit is still pending.
+
+The [latest partial confirmation review](confirm-review-index-12.json) includes
+all twelve B09 blocks and the first B10 native pair: **4,480 objective finals,
+2,337 automatic final failures, 76 capped intermediates, 2,777 selected outputs
+/ 291 complete contexts**. All 59 new contexts versus the union of completed
+earlier reviews were explicitly read. Fifteen supplied source strings match
+earlier readings; four new team-source/test bodies were read in full.
+[Bindings](confirm-review-components-12.json) retain exact repeated fields and
+individual dependencies. Four contexts also match earlier explicit cap ratings.
+
+The new group has **36 source failures, 47 instruction failures and 14 not
+useful**. Wrong proposals, fabricated tool outcomes, unsupported runtime or
+whole-document absence claims, caps and missing literal status remain visible.
+B10 synthesis sometimes repeats claims that tests are absent despite actual
+passes, or misses a boundary case already tested. Supported facts and legitimate
+coverage limits retain credit independently of formatting failures.
+
+Selected duplicate-inclusive counts are **264 source failures, 1,085 instruction
+failures and 54 not useful**. All 258 archived instruction sources verify; the
+[isolated frozen validator](confirm-quality-checkpoint-12.json) accepts all 2,777
+judgments. These are partial selected-cohort counts, not population error rates
+or quality equivalence. Original objectives, timings, live quality and the first
+B06 exclusion remain unchanged. Final confirmation and all-phase cap audits
+remain pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.
