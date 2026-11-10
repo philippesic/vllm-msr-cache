@@ -1,0 +1,88 @@
+{
+  "schema": "stage6-5080-explicit-novel-cap-judgments-v1",
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit expanded-context source/instruction/usefulness review",
+  "ratings": [
+    {
+      "index": 16,
+      "review_id": "28b18137f4cf0778e24d509c",
+      "quality_signature": "1c648e906bc9e50d5d8b6d1803904ee8792104f23f7f4e30b7d6aaaa2c65c755",
+      "extended_signature": "b08e9b67981ee6e591441ef634e31b871956900f36779120f52f7cc2887de78a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Substitutes setattr for the mapping population operation of dictitems (__setitem__)."
+      ],
+      "whitespace_words": 106,
+      "notes": "Protocol 2, new-style efficiency, reduce string-or-tuple and iterator requirements provide useful supported fragments. The invented restrictions fail source support; the 106-word intermediate and incomplete expected-format declaration fail instruction following. No unexecuted expected validator result receives credit. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change. Correction after rereading the complete supplied excerpt: its Important paragraph explicitly says classic classes cannot provide reduce functionality and must customize with getinitargs/getstate; that restriction IS supported and is not charged. Source failure remains solely for confusing dictitems with state setattr fallback."
+    },
+    {
+      "index": 17,
+      "review_id": "f256b61f41728858778603a1",
+      "quality_signature": "d0045522e7ce19471d4e18bb73758fd2398ca2f0c58d698cdfd2774cdc8346c9",
+      "extended_signature": "64d3a7dc98614fc1fe2526a87579935109d12389e4f9607e2ead67ea6b10d02f",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 160,
+      "notes": "Same source-supported decorator purpose/order as explicitly read novel8, with a different placeholder command. No claim that the proposed tests ran; the 160-word intermediate and wrong next declaration fail instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 18,
+      "review_id": "f7f9e0ef778a008c6fc3230f",
+      "quality_signature": "879013e6de20ea8cf69b47696d35dea86a4ca1b47350360de1d9c983f90bb116",
+      "extended_signature": "080cd7f74b83bcc6669eb6d315bd4aef8403fe74825480367c940bf8e58d9bf7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims generator expressions were not yet implemented in Python 2.4 without source/tool support.",
+        "Its generated expected validator object substitutes PEP 202 for actual PEP 289."
+      ],
+      "whitespace_words": 134,
+      "notes": "Actual metadata PASS/Final/Standards Track and the distinction from implementation validation are useful and supported. The historical source does not establish the claimed runtime absence. Comma restrictions must be read as the source's generator-expression syntax restriction, not a general ban on surrounding calls. The 134-word intermediate and truncated commented expected output fail instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 19,
+      "review_id": "e942c79a7fd915cef734f2b9",
+      "quality_signature": "e332b3f85ff5bf9be1aa7219726c76b79f69d09bfff457cc95a69b8188c35bd8",
+      "extended_signature": "90e6a924e37495bab4f20d0ee0a767983cbd2822e5faa7593f91f0dcc0fe874c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents test_nonseq_reversible/test_regular_reversed and mi.returns/mi.always_reversable evidence instead of the actual test_regular_reversible/test_nonseq_reversed and function calls."
+      ],
+      "whitespace_words": 104,
+      "notes": "Two target tests did pass, and sequence reversal/generator fallback and finite-input memory limitations remain useful. Wrong names and invented calls fail source support independently. The 104-word intermediate and truncated pytest declaration fail instruction following. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    }
+  ]
+}

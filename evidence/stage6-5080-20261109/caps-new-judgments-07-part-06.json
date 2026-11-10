@@ -1,0 +1,95 @@
+{
+  "schema": "stage6-5080-explicit-novel-cap-judgments-v1",
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit expanded-context source/instruction/usefulness review",
+  "ratings": [
+    {
+      "index": 20,
+      "review_id": "19163ea1cf33dd1879741dc4",
+      "quality_signature": "3b11d36aadefbcca6baf355c4d9cca6b7ee412f451afa7eba8b1d1ff8a534a39",
+      "extended_signature": "0fa11aa3eee872f099ed538448791a9dfcfe8d0cff63cc4b89c2f97ba45752a9",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims unique rotations/avoidance of duplicate values although test_duplicates explicitly preserves repeated tuples.",
+        "Claims steps equal to input length produces the same shifts as steps=1; the gcd orbit has one tuple, not four.",
+        "Claims single-element input repeats rather than producing a single tuple."
+      ],
+      "whitespace_words": 162,
+      "notes": "The fully printed implementation and six-test class support deque rotations, signed directions, gcd orbit length, zero-step ValueError and empty-input behavior. These fragments are useful, but distinct positions do not imply distinct values and the predicted boundary results are wrong. The 162-word intermediate and truncated cat declaration fail instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 21,
+      "review_id": "9db53cc4ce3f8277901c49d6",
+      "quality_signature": "60d36fcb2cbf8ad66762e07c3aea8b503f1eec5fccf1e0ae1b5612ce2fa05df6",
+      "extended_signature": "cb2c2b0b231c80fd32394741bca56d8ad2fff9c96b8e7df193aa2f95158bf193",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Claims count_cycle requires positive n and raises ValueError for negative/zero; the supplied implementation/tests produce empty output for negative/zero and permit None.",
+        "Denies actual target test results and invents unrelated test_odd/test_strip evidence.",
+        "Invents a divisibility-by-n constraint unrelated to this cycle-count API."
+      ],
+      "whitespace_words": 132,
+      "notes": "No useful supported target behavior remains. Actual three passing target tests contradict the alleged validation uncertainty. Literal test_status is absent and the command loops/truncates. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 22,
+      "review_id": "8a59c8f6a736540e56fba64d",
+      "quality_signature": "8055ae0da57e3bb090b79914e36900869a5f7db2d550629297adccbf334ad9ad",
+      "extended_signature": "7c431a168bb3022c379630bfc3b8a3e2780b23e41c8b6e0aaf7374c42df1ff05",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies actual direct CountableTests execution and misattributes the provided test_empty/test_basic class to first/last and invented class names."
+      ],
+      "whitespace_words": 128,
+      "notes": "The items_seen counter fact is supported/useful. The supplied full target class and actual two passing tests refute the claimed unknown status. No required literal test_status or genuine concrete limitation is supplied. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 23,
+      "review_id": "3b540f87300d0375aaf80219",
+      "quality_signature": "8db3fe2d8492a469852bba8ba5fb562b4bb3f76ca5f8e7ddec0184e7a36d6929",
+      "extended_signature": "089a9547343d6804771d8bb17a978d02b233723e813bbe6501354ce6990e24d1",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says strings/bytes iterate over characters by default although the default base_type treats them as single items.",
+        "Claims no base_type=None edge case is tested although the supplied class explicitly tests it.",
+        "Invents test_generator in the target class."
+      ],
+      "whitespace_words": 127,
+      "notes": "Actual six passing tests and None-to-empty/noniterable wrapping/existing iterable fragments are supported/useful. The full class also covers base_type=None and nested type tuples, contrary to the claimed gap. The 127-word intermediate and truncated pytest declaration fail instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    }
+  ]
+}

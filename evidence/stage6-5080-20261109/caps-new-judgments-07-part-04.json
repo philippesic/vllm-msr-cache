@@ -1,0 +1,90 @@
+{
+  "schema": "stage6-5080-explicit-novel-cap-judgments-v1",
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit expanded-context source/instruction/usefulness review",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "2dd1ecafaab046e74111d0d0",
+      "quality_signature": "e2835905b746ae8c1315c5e0d4ebb37614174c7cfbbd8136fb5540ea7999f764",
+      "extended_signature": "f81d7e7ce1f9f393f519d88be3f32abef2a99ba9fdd6b521a62aeeb20c825743",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents 10 passing CallbackIterTests; the actual target has seven passing tests.",
+        "Treats tests as covering all documented behavior without evidence."
+      ],
+      "whitespace_words": 138,
+      "notes": "Correct background callback extraction, result/done and abort fragments remain useful. The supplied full class/actual output contradict the count; no assumptions about complete coverage or future compatibility are established. The 138-word intermediate and malformed looping command fail instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 13,
+      "review_id": "2dc4d6267517a587db75506e",
+      "quality_signature": "a6dd08205ad87850e54a60b44710b9b2831ff0634857d8de405870ca2ee3b678",
+      "extended_signature": "9680a8be38d93dff0985f71caba6681ae1fd39472f284cddea8662c539995092",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Invents an unsafe-expression rationale for prohibiting import .module; the source explains .moduleY cannot be used as an expression."
+      ],
+      "whitespace_words": 129,
+      "notes": "The full supplied PEP reread supports Final/Standards Track, parentheses in 2.4, absolute defaults, leading-dot from syntax and removal of the old None-valued indirection under the new semantics. The unsupported safety explanation fails source support. The 129-word intermediate and unfinished expected status fail instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 14,
+      "review_id": "b8bb1e432cd916e21c3840dc",
+      "quality_signature": "f65c200fae1cbac06edd49c1f08299e6dd8430d680dbcba9823e4f5aec7e3799",
+      "extended_signature": "0a287425dc0ec426c1f1088e807539479ba27a3e3af316f9f3b807a41a15081e",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Invents unrelated test_odd/test_even results and misattributes them to combination_index despite the supplied target class and successful tests."
+      ],
+      "whitespace_words": 125,
+      "notes": "Looping unrelated names never give a useful supported combination_index behavior or concrete limitation, and omit literal test_status. Prior successful target tests do not support the invented test descriptions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 15,
+      "review_id": "3bbcb2eade0a3502ba1ca42e",
+      "quality_signature": "83ef304d955f3f461ff2b3186a4279a8954201859d229277d0780839e60675ec",
+      "extended_signature": "1cbbba6f67a8335a510bb377b06204588d78af4ddf6c28278c21295b1bb53c58",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims the hierarchy change prevents unintended interpreter exits; its rationale instead permits intended SystemExit/KeyboardInterrupt propagation by avoiding overbroad catching."
+      ],
+      "whitespace_words": 110,
+      "notes": "The full supplied PEP was reread. Actual metadata validator PASS, Final status and BaseException root are supported, but metadata verification is not runtime validation. Correct document/hierarchy fragments are useful. The 110-word intermediate and malformed validation echo (including wrong PEP 358) fail instructions; no proposed command was executed. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change. The unqualified string-exception deprecation year can refer to catching in 2.6 and is not independently charged; raising was deprecated in 2.5. The malformed proposed JSON also substitutes PEP358 for actual352, without actual validation credit."
+    }
+  ]
+}

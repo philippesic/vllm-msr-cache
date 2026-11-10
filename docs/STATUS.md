@@ -55,8 +55,10 @@ attempts; the corrected service explicitly supplies the verified tool PATH and
 checks ripgrep/pinned pytest before acquisition. All four arms of the first repaired
 block now pass (320 requests / 192 tools); the frozen selector excludes the old
 partial/setup-failed blocks. Failed attempts have no timing credit;
-the separate partial all-attempt cap review covers 217 responses / 137 contexts,
+the separate partial all-attempt cap review covers 418 responses / 175 contexts,
 including all newly sealed caps from individual arms as well as matched blocks.
+All 24 novel contexts were explicitly read; 106 archived instruction sources and
+raw dependency/tool/prompt bindings verify, including activity-invalid arms.
 All 32 anchor comparisons now have conditional paired estimates and actual latency
 tables, with all missing identities retained. B09 candidate/ARC is 0.9733
 [0.9617, 0.9850] and candidate/Continuum 0.6826 [0.6558, 0.7106]; adverse results

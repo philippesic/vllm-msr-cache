@@ -1,0 +1,83 @@
+{
+  "schema": "stage6-5080-explicit-novel-cap-judgments-v1",
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit expanded-context source/instruction/usefulness review",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "782372820b14afa374fe5f8b",
+      "quality_signature": "96fce29f2a449c45320d89e6ba8e69c429a27bc87ef7aa967bbe1654e1950b78",
+      "extended_signature": "cc8c6975481cbc20de8f12aff4ab8af2513008375b0fc30411f042c380fab074",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 143,
+      "notes": "CSV parsing/generation, dialect variation and excluding data interpretation/locale are supported by the supplied opening excerpt. Status/type checks and rule checks are plans, not claims of executed validation. At143 words the intermediate exceeds under70 and ends in a truncated/wrong-file search declaration. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 1,
+      "review_id": "b572865ad04d07e609e42c51",
+      "quality_signature": "df73d5d64403ade116447fa8397295fdc4870323a0aad32bc12e2b36015f28e6",
+      "extended_signature": "7dc02b87b303a68e2d3d5869f9fcf74da87ba938bff041a5049ea667b630780d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 157,
+      "notes": "Full supplied PEP315 reread confirms optional do setup, reduced duplication, break exiting and continue jumping directly to the while-condition check. This is a rejected proposal, and answer is framed as a proposal/verification plan rather than adoption. At157 words it exceeds under70 and its fixed-next-tool declaration is truncated. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 2,
+      "review_id": "10f9aaf879b5579a99bd5151",
+      "quality_signature": "b802499812ff8aaf8d99b1943fe3464a008abb1918e7e1413505d9957381077a",
+      "extended_signature": "5572a0490d7e9844e85369d58d9ff0b704c20623520baf14f8640e98dac5960c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The supplied PEP282 explicitly says CRITICAL/FATAL severity does not enforce an uncaught exception or exit; the claimed CRITICAL exception-policy rule is not supported."
+      ],
+      "whitespace_words": 126,
+      "notes": "Core configurable hierarchy/levels/handlers/filter/formatting and deferred work are supported useful content. Before-tool text does not invent an actual test outcome. At126 words exceeds under70 and search declaration is truncated. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 3,
+      "review_id": "541561273af3b1dfbe14663f",
+      "quality_signature": "1e3b672db4d2c63a3837c5cf06108600ddd6913fb6f6508e5f736778c54ac1a8",
+      "extended_signature": "ef7c392095a04e17bd8023734d4dde9b5f95699283effa3f3f762f5ad921bca5",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 163,
+      "notes": "PEP315 explicitly states continue jumps to the while condition, so skipping do on continue is source-supported despite differing from other do-while intuitions. Purpose/proposed syntax and break semantics are supported. No actual adoption/test outcome is claimed. At163 words exceeds under70 and ends in a truncated search. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    }
+  ]
+}

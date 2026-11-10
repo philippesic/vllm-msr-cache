@@ -16,8 +16,8 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The latest post-repair health check has **405/524 valid configurations,
-149/210 complete matched blocks**, with Ministral B09 ARC repeat 4 active.
+The November 10 05:55 UTC health check has **418/524 valid configurations,
+155/210 complete matched blocks**, with Ministral B11 candidate repeat 4 active.
 All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
 Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
 Review 16 is complete for its static snapshot through terminal Ministral B06:
@@ -641,7 +641,7 @@ Includes failed/interrupted/unmatched ordinary arms. One attempt was pending,
 so `complete_inventory=false`; no final finish was called. Regenerate after all
 phases are terminal. Use cap05 for exact expanded-context reuse, retaining history.
 
-The latest **partial all-attempt cap review 06** covers **217 responses / 137
+The historical **partial all-attempt cap review 06** covers **217 responses / 137
 extended contexts**: 132 screen and 85 confirmation, 196 intermediates and 21
 finals. [Index](caps-all-review-index-06.json),
 [ratings](caps-all-source-judgments-06.json),
@@ -662,6 +662,35 @@ not individually decoded. All ordinary failed/interrupted/unmatched arms were
 included. One attempt was pending, so `complete_inventory=false`; no frozen final
 finish was called. Regenerate after all phases are terminal. Use cap06 for future
 exact expanded-context reuse and preserve earlier snapshots.
+
+The latest **partial all-attempt cap review 07** covers **418 responses / 175
+extended contexts**: 132 screen and 286 confirmation, 370 intermediates and 48
+finals. [Index](caps-all-review-index-07.json),
+[ratings](caps-all-source-judgments-07.json),
+[components](caps-review-components-07.json),
+[raw bindings](caps-instruction-bindings-07.json),
+[reproduction](cap-review-validation-07.json); raw `$BASE/caps-all-checkpoint-07/`.
+All 24 novel full contexts (19 intermediates/five finals) are explicitly read and
+judged in six `caps-new-judgments-07-part-XX.json` files. Their 142 occurrences,
+217 exact cap06 occurrences and 59 exact confirm16 occurrences cover the packet.
+The quality reuse union checks screen07 and confirm01 through16. No automatic
+novel rating. All 106 cap-bearing archived instructions, sealed corpus/node/
+role/reference/tool flags, actual preceding dependencies/tools, objective and raw
+prompt/workload bindings verify. Each quality context has one prompt digest;
+tokens are bound, not individually decoded. The authored consolidation helper
+supports `--check` and reproduces all retained records. It does not write live
+quality files or call frozen final finish.
+
+Duplicate-inclusive counts are **264 source failures, 417 instruction failures
+and 91 not useful**; the 24 novel-context counts are 16/24/three. The complete
+supplied PEP 307 explicitly supports classic-class reduce restrictions; an initial
+explanatory objection was corrected before commit without changing the boolean
+rating (the mapping/setattr error remains). The ambiguous string-exception year
+in novel15 is not independently charged. Preserve these distinctions. Ordinary
+failed/interrupted/unmatched caps include the invalid Ministral B06 arms, with no
+timing credit. One attempt pending means `complete_inventory=false`. Regenerate
+the final inventory after confirm/overhead/operational are terminal. Future exact
+expanded-context reuse starts from cap07; preserve all earlier snapshots.
 
 The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)

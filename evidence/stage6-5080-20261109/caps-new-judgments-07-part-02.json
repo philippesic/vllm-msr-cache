@@ -1,0 +1,87 @@
+{
+  "schema": "stage6-5080-explicit-novel-cap-judgments-v1",
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit expanded-context source/instruction/usefulness review",
+  "ratings": [
+    {
+      "index": 4,
+      "review_id": "6ebd7430c2bdfd0ccf6c8c48",
+      "quality_signature": "1486f7c95d596ba1dc788a3d66cf34729de1f6c1b88d176ccbad7c8f5cdfc64a",
+      "extended_signature": "590f60a2acb026231c3f4ad476deb600c04370f5721c8537648c96ff85ef67fb",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Actual CombinationIndexTests executed eight tests; contradictory denial and unrelated test_odd/test_none attributions misrepresent that evidence."
+      ],
+      "whitespace_words": 126,
+      "notes": "The provided test class does not explicitly call the exact adf/abcdefg r3 docstring example, a narrow useful coverage observation, while it does exercise other exhaustive/duplicate/invalid/large cases. No supported current-function behavior or actual literal PASS is supplied; repetitive command does not execute. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 5,
+      "review_id": "3a7c1d2bec631052eda5574c",
+      "quality_signature": "c8a610e3528878e9fb0c25d8582354bff3a732b4c9f9d11d8d017d21d10ee117",
+      "extended_signature": "d4a83e28f507e98d71de086688bf6cfbeb90b96fe29f34bf16d3d3d3b135078d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The source explicitly proposes a platform-independent implementation for thread-enabled builds; the unqualified platform-dependent claim is unsupported."
+      ],
+      "whitespace_words": 145,
+      "notes": "Ensure/Release matching, initialized Python and single-interpreter restriction are useful source facts. Rationale assumes no extra thread-state APIs, but Proposal expressly permits them if state is restored; do not interpret the answer as an absolute ban. No actual validation is claimed;145-word intermediate and wrong-file command violate under70/fixed declaration. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 6,
+      "review_id": "d7f21fd16ab4d8fa742e4129",
+      "quality_signature": "fe42b6e6f055bb1799946ff3c48ef735f3955baa25e33a1e45e0f739ecc01da2",
+      "extended_signature": "c6b3b59529221b1e472e3460ff0001ce0edbde3b82277f78ce59e050018b483c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "No actual evidence supports predicted FAIL because of no implementation; supplied PEP311 links an implementation, and lack of a validation result is not a failed result."
+      ],
+      "whitespace_words": 139,
+      "notes": "Initialization responsibility, one-interpreter scope and per-call release handle are useful supported facts. Read no-shared-state narrowly as no shared handles, not as independent GIL locks.139-word intermediate with a malformed declaration and invented expected-failure rationale fails instructions. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 7,
+      "review_id": "d51c503ae7c9d0b7e691fcf8",
+      "quality_signature": "7114a33858fa28510df303f37d6910ce0a71b0abf55bc5df28d86b9caa670109",
+      "extended_signature": "eb5c16f4fc6c715f167ffa30d723a4a3cb2983f5eaffd19a86cec25edd3d28f8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 151,
+      "notes": "Provided PEP328 supports parentheses, absolute/from syntax, leading-dot relative imports and eventual retirement of None-valued sys.modules indirection under the new semantics. Read all as historical proposal content, not an independent current-runtime proof or a ban on absolute from-import. Expected PASS is only an unexecuted example and receives no validation credit.151 words exceeds under70 and no complete fixed validate command is emitted. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    }
+  ]
+}

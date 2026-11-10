@@ -1,0 +1,38 @@
+{
+  "schema": "stage6-5080-cap-review-reproduction-v1",
+  "helper": "benchmarks/research_checks/stage6_5080_caps07_consolidate.py",
+  "helper_sha256": "a549238b91e8cb74ef33b6c36d2363538ba212bf7c4a58bc1f3f3c4cafdc4715",
+  "invocation": "PYTHONDONTWRITEBYTECODE=1 pinned local-env/bin/python -m benchmarks.research_checks.stage6_5080_caps07_consolidate --check",
+  "exit_code": 0,
+  "all_three_derived_records_reproduced_exactly": true,
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "reviewed_outputs": 418,
+  "distinct_extended_contexts": 175,
+  "explicitly_read_novel_contexts": 24,
+  "manual_parts": 6,
+  "manual_novel_findings": {
+    "source_unsupported": 16,
+    "instruction_failures": 24,
+    "not_useful": 3
+  },
+  "review_findings": {
+    "source_unsupported": 264,
+    "instruction_failures": 417,
+    "not_useful": 91
+  },
+  "checks": {
+    "all_system_sources_match": true,
+    "all_tool_branch_flags_match_sealed_corpus": true,
+    "all_source_reference_instruction_role_node_bindings_match_sealed_corpus": true,
+    "all_objective_bindings_match": true,
+    "all_actual_dependencies_match_sealed_preceding_requests": true,
+    "all_actual_tools_match_sealed_ancestor_outputs": true,
+    "all_prompt_source_binding_digests_recomputed_from_raw_requests": true,
+    "quality_contexts": 175,
+    "maximum_prompt_binding_digests_per_quality_context": 1
+  },
+  "archived_instruction_sources_verified": 106,
+  "complete_inventory": false,
+  "acquisition_complete": false,
+  "scope": "Static partial all-attempt cap audit, not final phase completion. All ordinary failed/interrupted/unmatched responses remain included; no timing/objective/live-quality changes."
+}

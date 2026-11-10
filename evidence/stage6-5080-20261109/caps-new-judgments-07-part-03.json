@@ -1,0 +1,83 @@
+{
+  "schema": "stage6-5080-explicit-novel-cap-judgments-v1",
+  "packet_digest": "f4a277810140d5ea5c501eaff982b4853beaae4bb1c1682b90ee8c237577b898",
+  "signature_fields": [
+    "actual_dependencies",
+    "answer",
+    "current_instruction",
+    "executed_system_instruction_source",
+    "instruction_context_digest",
+    "instructions",
+    "node_id",
+    "objective",
+    "reference",
+    "response_role",
+    "source_context",
+    "source_id",
+    "task_uses_tools",
+    "tools"
+  ],
+  "quality_signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit expanded-context source/instruction/usefulness review",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "418912bbe544b834b007b274",
+      "quality_signature": "09fa12c11900d32c1233d193ab01c9ac6b1594b4432a299b5e02889bfb62a2c4",
+      "extended_signature": "52f2457fe94fd4dfde83176d1d659e973b964d52171ac5f43fa13339052de712",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 160,
+      "notes": "Source-bound purpose and bottom-to-top decorator order are supported. This is an explicit placeholder plan, not an executed verification claim; the illustrative command/syntax is not validation evidence. The 160-word intermediate violates under 70 words and does not provide the fixed next tool declaration. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 9,
+      "review_id": "b9d1ed7e3cd01f5dc9092137",
+      "quality_signature": "95c057112f2fe76c2beb429cd3b663b1c704da6d4e44cd0f529d61455efadb3b",
+      "extended_signature": "97db0a650105142262bf711ddbab3d63dc91914e4c90b6faf287032190e1ace2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 153,
+      "notes": "CSV dialect API and exclusion of data interpretation/locale are supported. Status/type checks and Final-or-Accepted are proposed expectations, not claimed tool outcomes. The 153-word intermediate and truncated/wrong-path tool declaration fail the current instruction. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 10,
+      "review_id": "dfc98fd224621f6414995e9c",
+      "quality_signature": "eb9527698fb7a7e1638fb0a877aac0a73368907e845f3b20a92ca9015882df65",
+      "extended_signature": "0fb72e9c352dbbefb5b7a7e74d795e1bf4195621d8f8b69037426248d5207c74",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Denies the actual two passing AlwaysReversibleTests and substitutes unrelated test names and mi.last behavior."
+      ],
+      "whitespace_words": 121,
+      "notes": "The provided full target implementation/class and actual two passing tests establish always_reversible behavior. The answer discusses a different function, supplies no useful target fact, omits literal test_status and does not synthesize the requested result. The predecessor's wrong test names are not independently charged. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    },
+    {
+      "index": 11,
+      "review_id": "e200609ddbeaa395f301ade9",
+      "quality_signature": "7d78c6874daeda8acca950ce233f444da98e32929c05de1372ff6f77b9843de5",
+      "extended_signature": "f455aa4d1f03f7a6f1d3ca66a20f89e218a28560a9e2db07dfe9b42f34096dc1",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 134,
+      "notes": "The actual metadata tool confirms Final/Standards Track; the supplied historical proposal supports parentheses, absolute defaults, leading-dot from imports and removal of None-valued sys.modules indirection under its new semantics. These are document rules rather than runtime proof. The 134-word intermediate and unfinished comment-only validation declaration fail instruction following. All14 extended fields explicitly read or exactly bound to prior explicit readings, with every unmatched component and answer explicitly read. Independent raw prompt/corpus/node/dependency/tool/instruction checks remain required in consolidation. No automatic novel rating or timing/objective change."
+    }
+  ]
+}

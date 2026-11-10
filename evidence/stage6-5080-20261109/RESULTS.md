@@ -177,7 +177,7 @@ instruction sources and sealed corpus/node/prompt identities. Raw tokens were
 bound, not individually decoded. Acquisition remains active and one attempt was
 pending; this is not a final cap inventory or population error rate.
 
-The latest [partial cap review](caps-all-review-index-06.json) contains **217
+The historical [partial cap review](caps-all-review-index-06.json) contains **217
 responses / 137 contexts**: 132 screen and 85 confirmation, 196 intermediate and
 21 final responses. All earlier judgments exactly reuse cap05; the two additions
 exactly match the explicitly reviewed confirm14 intermediates. They retain useful
@@ -188,6 +188,29 @@ cap-bearing archived instruction sources and independently reconstruct actual
 preceding dependencies/tools from sealed requests and tool files. Raw prompts
 were bound, not individually decoded. Failed/interrupted/unmatched arms remain
 included. One attempt was pending; the all-phase final inventory is still required.
+
+The latest [partial all-attempt cap review](caps-all-review-index-07.json) covers
+**418 responses / 175 extended contexts**: 132 screen and 286 confirmation,
+370 intermediates and 48 finals. All 24 novel full contexts (19 intermediates,
+five finals) were explicitly read and judged; 217 occurrences exactly reuse
+cap06 and 59 exactly reuse completed confirm16 contexts. The 24 manual judgments
+apply to 142 repeated occurrences. No unread or automatically rated novel answer
+is included. [Component bindings](caps-review-components-07.json) retain exact
+prior readings and every newly read dependency; [raw bindings](caps-instruction-bindings-07.json)
+independently reconstruct corpus, node, instruction, objective, preceding requests,
+tools and prompt/source identity for all 106 cap-bearing archived attempts.
+
+Duplicate-inclusive findings are **264 source-support failures, 417 instruction
+failures and 91 not useful**. Among the 24 novel contexts the respective counts
+are 16, 24 and three. Incorrect test-result claims and boundary predictions remain
+visible alongside useful source-grounded fragments. The supplied PEP 307 explicitly
+supports its classic-class pickling restriction; that point is not charged as an
+error. Source failure there is the incorrect mapping-population operation.
+Ordinary failed/interrupted/unmatched responses are included, including the invalid
+Ministral B06 arms. [Independent reproduction](cap-review-validation-07.json)
+passes. Tokens were bound, not individually decoded. This is a partial snapshot
+with one pending attempt, not the final all-phase inventory or a population error
+rate; timing, objective results and frozen exclusions remain unchanged.
 
 The [historical partial confirmation review](confirm-review-index-11.json) adds the
 first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,
