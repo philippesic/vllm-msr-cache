@@ -11,7 +11,7 @@ from typing import cast
 
 import pytest
 
-from tools import agent_policy, config
+from tools import agent_policy, config, system_map
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -85,7 +85,11 @@ def prepare(root: Path) -> None:
         for e in adapter_entries
         if e.rule in {"adapter-import", "development-root", "unused"}
     )
-    for path in ("probe.py", "test_probe.py", "tools/runtime_verify.py"):
+    for path in (
+        "probe.py",
+        "test_probe.py",
+        "tools/runtime_verify.py",
+    ):
         fixture_exceptions += f'[[exception]]\nrule = "script"\npath = "{path}"\nmatch = "entry"\nreason = "Isolated control entry."\n'
     write(
         root,
@@ -95,11 +99,16 @@ def prepare(root: Path) -> None:
             "CLAUDE.md": "@AGENTS.md\n",
             "probe.py": "value: int = 1\n",
             "semantic_offload/__init__.py": "",
-            "semantic_offload/contracts.py": "",
+            "semantic_offload/contracts.py": (
+                ROOT / "semantic_offload/contracts.py"
+            ).read_text(),
             "semantic_offload/vllm_adapter/__init__.py": "",
             "benchmarks/__init__.py": "",
             "tests/__init__.py": "",
             "vllm/__init__.py": "",
+            "tools/check.py": "def main() -> int:\n    return 0\n",
+            "docs/system-map.md": "\n".join(system_map.rows()) + "\n",
+            "tests/test_contracts.py": (ROOT / "tests/test_contracts.py").read_text(),
             "tools/__init__.py": "",
             "tools/pytest_gate.py": (ROOT / "tools/pytest_gate.py").read_text(),
             "tools/native.json": (ROOT / "tools/native.json").read_text(),
@@ -113,7 +122,16 @@ def prepare(root: Path) -> None:
 
 def invoke(root: Path, component: str) -> subprocess.CompletedProcess[str]:
     env = config.proof_environment(root, ROOT)
-    if component == "cpu":
+    if component == "contracts":
+        command = [
+            sys.executable,
+            "-m",
+            "pytest",
+            "-q",
+            "--import-mode=importlib",
+            "tests/test_contracts.py",
+        ]
+    elif component == "cpu":
         env = config.check_environment(ROOT)
         command = [
             sys.executable,

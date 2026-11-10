@@ -6,8 +6,9 @@ retention or prefetch candidates; they never replace answers or permit approxima
 KV reuse. The temporary project name does not imply a public release.
 
 This repository contains packaging, CPU validation and source-linked documentation.
-There is no cache runtime, CUDA extension or benchmark harness yet. It installs
-no vLLM, torch or CUDA dependency and makes no hardware support claim.
+Typed identity contracts are CPU examples. There is no cache runtime, CUDA
+extension or benchmark harness yet. It installs no vLLM, torch or CUDA dependency
+and makes no hardware support claim.
 
 ## Install and check
 
@@ -22,10 +23,11 @@ uv run --locked python tools/check.py
 ```
 
 The validator checks without editing files. It runs format, lint, strict typing,
-import boundaries, repository policy, a separately reported native group, and
-CPU pytest including deliberate-violation proofs. Native currently reports
-`skipped: no native sources yet`. [Checks and proofs](docs/checks.md) explain
-exact coverage and limitations. CI runs the identical command in the pinned
+import boundaries, repository policy, unused code/dependencies, separately
+reported native/runtime groups, and CPU pytest including deliberate-violation
+proofs. Native reports `skipped: no native sources yet`; runtime reports not
+implemented and skips. [Checks and proofs](docs/checks.md) explain exact coverage
+and limitations. CI runs the identical command in the pinned
 [CPU image](Dockerfile.checks); the same image can be built locally with Docker.
 
 The optional pre-commit hook runs that same command (no GPU/build work):
@@ -39,6 +41,7 @@ this hook includes the proofs rather than maintaining a weaker check path.
 
 ## Navigation
 
+- [System map](docs/system-map.md): commands, targets and availability.
 - [Research instructions](AGENTS.md) and [durable findings](FINDINGS.md).
 - [Runtime assumptions](docs/runtime.md): distinct historical environments and GPUs.
 - [Benchmark protocol](docs/benchmarking.md): future invocation and comparison rules.
