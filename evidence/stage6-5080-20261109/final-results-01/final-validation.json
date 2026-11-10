@@ -1,0 +1,30 @@
+{
+  "schema": "stage6-5080-final-presentation-independent-check-v1",
+  "all_42_rows_equal_terminal": true,
+  "all_final_report_and_audit_bindings_verified": true,
+  "all_latency_fields_finite": true,
+  "distinct_model_cell_system_latency_rows": 54,
+  "all_chart_projection_fields_exact": true,
+  "chart_preview_and_render_receipt": "render.json",
+  "missing_blocks_preserved": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 3
+    }
+  ],
+  "ledger_unchanged": true,
+  "all_641_attempts_terminal": true,
+  "project_result_continuation_and_affected_status_links_resolve": true,
+  "scope": "Final data/report/visual consistency; unrelated historical status links excluded. No acquisition or reinterpretation of the three genuine exclusions."
+}

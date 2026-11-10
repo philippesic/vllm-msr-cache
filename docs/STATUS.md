@@ -15,30 +15,29 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Stage 6 RTX 5080 rebuild — final portability running
+## Stage 6 RTX 5080 rebuild — analysis finished; closing resources
 
-All timed phases are terminal:54 screens,524 confirmation identities,38 overhead
-controls and six operational cases. Functional qualification passes. Confirmation
-has521 valid logical cases /207 of210 complete matched blocks; exactly three
-original B06 activity failures remain excluded, with no retry or imputation.
-The full throughput-acquisition flag stays false. All42 conditional comparisons
-and latency tables are retained; all32 anchor rows reproduce exactly.
+All planned phases and final audits/results are finished:54 screens,524
+confirmation identities,38 overhead controls and six operational cases. Functional
+qualification passes, but the full throughput protocol fails because exactly
+three genuine B06 activity blocks stay excluded without retry/imputation:
+521 valid logical cases /207 of210 complete matched blocks. All42 geometric
+ratios/95% CIs and actual latency figures are retained and the chart rendered.
 
-Final primary source, all-attempt cap, recovery, source/seal/campaign audits pass;
-all641 retained attempts /67,120 sealed files verify. All operational requirements
-pass. Short-QA overhead leaves two3% loss bounds inconclusive. Final portability
-proof03 runs GPU-free after exporter/copy repairs and245 derived-source CPU tests;
-failed proofs and corrupt-copy evidence are preserved. Acquisition source/design,
-November8 and2080Ti history remain unchanged. The original path is reversibly
-parked while the exact offline verifier runs: never recreate or duplicate it.
+All641 attempts /67,120 sealed files verify; primary source, all-attempt cap,
+recovery, source/seal/campaign and actual offline relocation/import audits pass.
+Original acquisition source/design, November8 and2080Ti history remain unchanged.
+B11 candidate/ARC1.0726 [0.9478,1.2139] and candidate/Continuum1.0689
+[0.9304,1.2280] are unresolved; B09 ratios0.9733 [0.9617,0.9850] and0.6826
+[0.6558,0.7106] are adverse. Two short-QA3% overhead bounds remain inconclusive;
+all bounded operational requirements pass. No quality-equivalence/production claim.
 
-Hourly health checks/repairs are silent. Final portability/report/render/push,
-owned-resource cleanup and requested waiting-thread notification remain. No final
-GPU release has been announced. [Continuation](../evidence/stage6-5080-20261109/CONTINUE.md),
-[results](../evidence/stage6-5080-20261109/RESULTS.md),
-[integrity](../evidence/stage6-5080-20261109/post-acquisition-audit-01.json) and
-[copy repair](../evidence/stage6-5080-20261109/portability-copy-repair-03.json)
-retain the exact state. No training or unrelated checkout access.
+Final results push, owned-unit cleanup/release proof and requested waiting-thread
+notification remain; no final GPU release announced yet. Hourly health checks
+remain enabled until pushed closeout. [Results](../evidence/stage6-5080-20261109/RESULTS.md),
+[audit](../evidence/stage6-5080-20261109/completion-audit-01.json),
+[portability](../evidence/stage6-5080-20261109/portability-final-03.json) and
+[exact next steps](../evidence/stage6-5080-20261109/CONTINUE.md).
 
 ## Stage 6 RTX 5080 replication — closed on capability failure; GPU released
 

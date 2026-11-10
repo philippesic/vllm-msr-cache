@@ -1,0 +1,17 @@
+{
+  "schema": "stage6-5080-final-analysis-driver-v1",
+  "complete": true,
+  "recorded_unix": 1794313176.5883546,
+  "proof_unit": "stage6-5080-portability-20261110-03.service",
+  "proof_terminal_state": {
+    "SubState": "exited",
+    "MainPID": "0",
+    "Result": "success",
+    "ExecMainStatus": "0"
+  },
+  "final_audit": "completion-audit-01.json",
+  "findings": "final-results-01/",
+  "results": "RESULTS.md",
+  "render_push_cleanup_notification_pending": true,
+  "scope": "GPU-free derived reporting only; failed throughput requirements preserved"
+}

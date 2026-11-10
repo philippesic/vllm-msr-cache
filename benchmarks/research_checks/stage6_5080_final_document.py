@@ -52,6 +52,14 @@ External comparisons cover the configured anchor subset, not every model/cell.
 The models are Qwen3-8B-AWQ, Ministral3-3B and Qwen3-4B-Instruct-2507, with
 TP1/FP16/eager and the original dense full-attention GQA support scope.
 
+Cells cover chat(B01), independent QA(B02), document summaries(B03), hot/scan
+traffic(B04), sequential repository tools(B05), repository pressure(B06), roomy
+repository control(B07), full-CPU-cache document tools(B08), half-CPU-cache
+document tools(B09), shared-team tools(B10), mixed traffic(B11), and repository
+tools with one tool worker(B12). These are fixture definitions; actual observed
+pressure/restore evidence is reported separately. The anchor repository fixtures
+use their frozen8-session limit; secondary repository fixtures retain16 sessions.
+
 | Phase | Executed result |
 | --- | --- |
 | Direct kernel and live Continuum smoke | Exact FP16 CPU/GPU transfer; four serving requests pass |
@@ -71,6 +79,11 @@ attempt states are603 verified,35 failed and three interrupted; raw ledger state
 is distinct from the frozen activity-validity rules. Setup failures and superseded
 partial blocks are preserved, with credit only for valid whole matched blocks.
 
+The four-request one-session Continuum smoke proves warmup, GPU KV stores,
+pinned geometry and clean serving. Its original policy verdict remains
+inconclusive because it produces no scheduler pins, and its timing is excluded.
+The unchanged full Continuum screens separately prove policy activation.
+
 The genuine exclusions are Qwen3-8B B06 repeat0 and Ministral B06 repeats0/3.
 The anchor candidate completed32 requests/24 tools cleanly but restored zero CPU
 bytes and had eight scheduler preemptions, so the zero-preemption GPU-resident
@@ -86,7 +99,7 @@ the actual evidence. No activity retry, forced flag or repeat reduction was used
 
 The [complete42-comparison table](final-results-01/tables.md),
 [machine-readable data](final-results-01/comparisons.json) and
-[interactive chart](final-results-01/comparisons.html) retain all native and
+[interactive chart](final-results-01/chart.html) retain all native and
 external comparisons, pair counts, per-process ratios, output lengths, caps,
 serving times and latency figures. Every comparison row exactly reproduces the
 earlier terminal42-row extraction; all32 anchor rows previously reproduced exactly.
@@ -117,6 +130,7 @@ and41.008 upstream. The following latency values are milliseconds. Each is the
 arithmetic mean of the named per-process statistic; mean process p95 is not a
 pooled request percentile or a population-tail guarantee. Full latency figures
 for all42 comparisons are in the linked table and JSON.
+TTFT is end-user time to first token; completion latency covers the whole request.
 
 | B09 arm | Mean TTFT ms | Mean process p95 TTFT ms | Mean completion ms | Mean process p95 completion ms |
 | --- | ---: | ---: | ---: | ---: |
@@ -248,7 +262,9 @@ Resource cleanup, push and the requested waiting-thread delivery are recorded
 separately in the final closure receipt; the analysis audit by itself does not
 announce GPU release. See [continuation](CONTINUE.md) for closure state.
 '''
-    text = re.sub(r'\b(All|all|Every|every|the|The|with|for|per|its|and|across|after|before|about|above|below|only|has|in|of|to|counts|than|each|totaling|zero|their|pass|verifies)(?=\d)', r'\1 ', text)
+    text = re.sub(r'\b(All|all|Every|every|the|The|with|for|per|its|Its|and|across|after|before|about|above|below|only|has|in|of|to|counts|Counts|than|each|totaling|zero|their|pass|verifies|completed|yielding|are|is|used|unchanged|prior|despite|Declared|grown|original|terminal|complete|repeat|repeats|frozen|retain)(?=\d)', r'\1 ', text)
+    text = re.sub(r'(?<=[;:])(?=\d)', ' ', text)
+    text = re.sub(r'(?<=[A-Za-z]),(?=\d)', ', ', text)
     for before, after in [('2080Ti', '2080 Ti'), ('RTX5080', 'RTX 5080'),
                           ('LMCache0.3.6', 'LMCache 0.3.6'), ('CUDA12.8.93', 'CUDA 12.8.93'),
                           ('torch2.8.0', 'torch 2.8.0'), ('GCC14', 'GCC 14'),
@@ -258,6 +274,11 @@ announce GPU release. See [continuation](CONTINUE.md) for closure state.
                           ('its16-session', 'its 16-session'), ('anchor8-session', 'anchor 8-session'),
                           ('all178', 'all 178'), ('both4,606', 'both 4,606'),
                           ('one44MB', 'one 44MB'), ('second12GB', 'second 12GB')]:
+        text = text.replace(before, after)
+    for before, after in [('November8', 'November 8'), ('Stage7', 'Stage 7'),
+                          ('suite260', 'suite 260'), ('.137 ', '. 137 '),
+                          ('12.0+PTX', '`12.0+PTX`'), ('20→28GiB', '20→28 GiB'),
+                          ('terminal42-row', 'terminal 42-row'), ('repeat0', 'repeat 0')]:
         text = text.replace(before, after)
     (EVIDENCE / 'RESULTS.md').write_text(text)
 

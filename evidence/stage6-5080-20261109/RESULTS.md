@@ -1,604 +1,244 @@
-# RTX 5080 Stage 6 — measurements and audits terminal; portability running
+# RTX 5080 Stage 6: execution complete; full protocol failed
 
-The pinned LMCache rebuild works on the RTX5080. All five Continuum screens,
-all 54 screening configurations / 22 complete blocks, and functional qualification
-pass. [Terminal confirmation inventory](confirmation-attempts-complete.json)
-reconciles **all 524 frozen configurations**, retaining 537 attempts and verifying
-**56,362 sealed files**, inner artifacts and the complete declared request/tool/
-unit/cleanup coverage. There are **521 valid logical measurements and 207/210
-complete matched blocks**. Only the three documented original B06 activity failures
-are excluded: Qwen3-8B repeat0 and Ministral repeats0/3. No activity retry,
-imputation, relabeling or repeat reduction was performed. The frozen full
-throughput-acquisition completion flag remains **false**.
+The sm_120 LMCache rebuild works. Every planned phase and final audit has finished.
+Functional qualification passes, but the full throughput protocol **does not pass**:
+three original B06 candidate processes lack required CPU-restore activity. All 524
+confirmation identities were executed; 521 are valid, yielding 207/210 complete
+matched blocks. The three excluded blocks were never replaced, imputed or relabeled.
+There is no missing execution awaiting a favorable retry. The frozen full-completion
+and throughput flags remain false. [Final audit](completion-audit-01.json) binds
+the actual completion flags, exact missing identities and source/ledger hashes.
 
-All timed acquisition is now terminal: [38 overhead controls](overhead-boundary-01.json)
-and [six operational cases](operational-boundary-01.json) completed exactly once.
-All operational requirements pass; short-QA overhead leaves two declared3% loss
-bounds inconclusive. [Final integrity](post-acquisition-audit-01.json) verifies all
-641 retained attempts /67,120 sealed files and unchanged acquisition source,
-execution bundles and November8 history. Terminal primary source and
-[all-attempt cap audits](caps-all-review-index-final-01.json) are complete.
-All42 conditional comparisons and latencies are retained in
-[full tables](primary-confirmation-results-01/tables.md); all32 anchor rows reproduce exactly.
+The headline candidate gains on Qwen3-8B B11 are unresolved: candidate/ARC is
+**1.0726 [0.9478,1.2139]** and candidate/Continuum is
+**1.0689 [0.9304,1.2280]** (eight matched process blocks; 95% confidence intervals).
+On B09, candidate/ARC is **0.9733 [0.9617,0.9850]**, about 2.7% slower, and
+candidate/Continuum is **0.6826 [0.6558,0.7106]**, about 31.7% slower. These adverse
+intervals exclude parity. Qwen3-4B B08 also favors ARC: 0.9107 [0.8740,0.9489],
+about 8.9% slower. No overall benefit, answer-quality equivalence or production
+qualification is established.
 
-Final portability proof03 is running after declared analysis-only exporter and
-verified-copy repairs ([repair evidence](portability-copy-repair-03.json));245 CPU
-tests in its exact derived source pass. Failed setup proofs and the corrupt
-copy sample are preserved; every original measured artifact remains intact.
-Final portability/report consolidation, chart rendering, push, cleanup and the
-requested GPU-release notification remain. No full pass or GPU release is claimed.
+## What ran and qualified
 
-Confirmation now has a retained [B06 activity failure](confirmation-b06-inactive-restore-01.json):
-the first candidate process served all 32 requests and 24 tools with no caps and
-clean cleanup, but recorded zero CPU restores and eight scheduler preemptions.
-The frozen analysis rejects it; the zero-preemption GPU-resident-control exception
-does not apply. Its four-system block therefore cannot receive comparison credit.
-This is not an LMCache kernel-loading failure. All planned confirmation measurements have now executed without a favorable-activity
-retry, capacity change or analysis-rule change. The three excluded blocks remain
-explicitly missing; a complete required matrix has not passed.
-The [finished B06 attempt inventory](confirmation-b06-attempts-complete.json)
-verifies all 32 scheduled attempts and 2,648 sealed files: 1,024 completed
-responses, zero caps and all coverage/cleanup checks passed. It has 31 valid
-measurements and seven complete matched blocks, short of the required eight.
-All planned repetitions ran once; the excluded block was not replaced.
+The linked new-host campaign follows the 2080 Ti handoff sequence: runtime_setup,
+transfer_setup/import, bench-tests/check-light, preflight, screen, qualify,
+activate-import, confirm, overhead, operational and final audits. Native ARC,
+the native wait-hint candidate, Continuum and configured upstream vLLM PR #59714
+retain their frozen sources, models, workload order, geometry and repeat counts.
+External comparisons cover the configured anchor subset, not every model/cell.
+The models are Qwen3-8B-AWQ, Ministral3-3B and Qwen3-4B-Instruct-2507, with
+TP1/FP16/eager and the original dense full-attention GQA support scope.
 
-The [reporting validation](reporting-validation-03.json) covers 28 focused tests
-and a synthetic CLI check for an explicitly incomplete presentation. The helper
-keeps its default completion guard; its explicit option preserves missing frozen
-blocks, actual pair counts, conditional estimates and failed completion flags.
-This is preparation for reporting the terminal outcome, not final measured
-extraction or a repair of the B06 activity failure.
+Cells cover chat(B01), independent QA(B02), document summaries(B03), hot/scan
+traffic(B04), sequential repository tools(B05), repository pressure(B06), roomy
+repository control(B07), full-CPU-cache document tools(B08), half-CPU-cache
+document tools(B09), shared-team tools(B10), mixed traffic(B11), and repository
+tools with one tool worker(B12). These are fixture definitions; actual observed
+pressure/restore evidence is reported separately. The anchor repository fixtures
+use their frozen 8-session limit; secondary repository fixtures retain 16 sessions.
 
-This is a new campaign. The failed November 8 campaign and all 2080 Ti history
-remain unchanged. The sole declared setup deviation is rebuilding the same
-LMCache 0.3.6 source for `sm_120` plus PTX. Source and algorithm are unchanged;
-the rebuilt Continuum environment retains the same package versions. The study
-keeps native ARC, candidate, Continuum and upstream vLLM PR #59714, with the
-exported models, workloads, resource geometry, order, repeat counts and analysis.
-Cross-host differences cannot be attributed to the GPU alone.
+| Phase | Executed result |
+| --- | --- |
+| Direct kernel and live Continuum smoke | Exact FP16 CPU/GPU transfer; four serving requests pass |
+| Preflight | Four configurations, 223 sealed files; native correctness/fresh/reuse/drain/namespace guards pass |
+| Screen | All 54 planned configurations /22 complete blocks; all five Continuum screens pass |
+| Qualify / activate-import | Functional qualification true; parent order/repeats/precision unchanged |
+| Confirm | All 524 identities; 537 retained attempts, 56,362 sealed files; 521 valid identities /207 complete blocks |
+| Overhead | All 38 controls once; 2,150 sealed files; control checks complete |
+| Operational | All six cases once; 2,448 sealed files; all bounded operational requirements pass |
+| Final integrity and audits | All 641 retained attempts /67,120 sealed files verify, including inner aggregates; source/cap/recovery/portability complete |
 
-The [build receipt](lmcache-build.json) records source/toolchain/architecture and
-wheel/binary identities, setup repairs and exact pinned CPU/GPU round-trip proof:
-three FP16 layers, 256 tokens and 393,216 bytes, equal in both directions. The
-[short serving diagnostic](continuum-smoke.json) completed warmup and four requests
-with GPU KV stores and pinned geometry/cleanup. Its original one-session policy
-verdict remains inconclusive and it is excluded from performance measurements.
-Exported CPU checks passed 240 benchmark tests, 31 lightweight tests and compilation.
+[Preflight](preflight.json), [qualification](qualification.json),
+[activation](activation.json), [confirmation inventory](confirmation-attempts-complete.json),
+[overhead](overhead-boundary-01.json) and [operational](operational-boundary-01.json)
+retain exact identities, request/tool/unit coverage, cleanup and seals. Retained
+attempt states are 603 verified, 35 failed and three interrupted; raw ledger state
+is distinct from the frozen activity-validity rules. Setup failures and superseded
+partial blocks are preserved, with credit only for valid whole matched blocks.
 
-The [five Continuum screen receipts](continuum-all-screen.json) record B06/B08/
-B09/B11/B12 completing 32/64/64/80/32 requests with 24/30/35/42/24 scheduler pins.
-Every seal and cleanup passes. This repairs the original warmup kernel blocker
-across all frozen Continuum screen fixtures; it does not establish a speed gain.
+The four-request one-session Continuum smoke proves warmup, GPU KV stores,
+pinned geometry and clean serving. Its original policy verdict remains
+inconclusive because it produces no scheduler pins, and its timing is excluded.
+The unchanged full Continuum screens separately prove policy activation.
 
-[Native preflight](preflight.json) passed restore/fresh-reference token equality
-and namespace/idempotence/future/stale checks for every model plus the registry
-probe. [Qualification](qualification.json) passes native correctness, external
-activation and pinned geometry, screen completeness, all three ARC pressure
-gates, and the roomy reduction. [Activation](activation.json) preserves the exact
-imported order, supplementary schedules, repeat/precision choices and acquisition
-source, without replanning. This is functional, not production qualification.
+The genuine exclusions are Qwen3-8B B06 repeat 0 and Ministral B06 repeats 0/3.
+The anchor candidate completed 32 requests/24 tools cleanly but restored zero CPU
+bytes and had eight scheduler preemptions, so the zero-preemption GPU-resident
+exception cannot apply. Ministral's two candidate processes each completed 64
+requests/48 tools but restored zero bytes despite 15 eviction-affected returning
+requests. Its 16-session workload is outside the anchor 8-session exception.
+These are workload-purpose failures, not missing kernels or harness errors.
+[Anchor failure](confirmation-b06-inactive-restore-01.json) and
+[Ministral failures](confirmation-ministral-b06-inactive-restore-01.json) retain
+the actual evidence. No activity retry, forced flag or repeat reduction was used.
 
-The [completed-cell checkpoint](confirmation-three-cells.json) retains
-all frozen repetitions for Qwen3-8B chat (B01), independent QA (B02) and document
-summaries (B03). The [earlier two-cell receipt](confirmation-first-cells.json)
-remains unchanged. The
-candidate/ARC throughput ratio is a geometric mean of whole-process paired
-ratios, with log Student-t 95% CIs; serving seconds exclude startup. All three
-intervals include parity, so none resolves a throughput gain or loss. The
-[current interim display](early-three-cells.html) and
-[render receipt](early-three-cells-render.json) cover these three cells only.
-[Extraction validation](early-cells-validation.json) records actual complete-cell
-execution, exact prior-data preservation and guards against overwriting history
-or importing from the wrong source directory.
+## Throughput and latency
 
-| Cell | Process pairs | Candidate mean s | ARC mean s | Candidate/ARC throughput [95% CI] |
-| --- | ---: | ---: | ---: | --- |
-| B01 | 12 | 33.457 | 33.502 | 1.0014 [0.9989, 1.0038] |
-| B02 | 6 | 6.220 | 6.268 | 1.0078 [0.9962, 1.0195] |
-| B03 | 12 | 45.641 | 45.512 | 0.9972 [0.9896, 1.0048] |
+The [complete 42-comparison table](final-results-01/tables.md),
+[machine-readable data](final-results-01/comparisons.json) and
+[interactive chart](final-results-01/chart.html) retain all native and
+external comparisons, pair counts, per-process ratios, output lengths, caps,
+serving times and latency figures. Every comparison row exactly reproduces the
+earlier terminal 42-row extraction; all 32 anchor rows previously reproduced exactly.
 
-Latency figures are milliseconds, averaged over per-process statistics.
-Mean process p95 is not a pooled request p95 or a population-tail guarantee.
-
-| Cell / system | Mean end-user TTFT | Mean process p95 TTFT | Mean completion | Mean process p95 completion |
-| --- | ---: | ---: | ---: | ---: |
-| B01 / candidate | 76.241 | 164.217 | 1068.861 | 1521.612 |
-| B01 / ARC | 81.246 | 187.266 | 1076.579 | 1525.527 |
-| B02 / candidate | 2822.843 | 5447.739 | 3137.215 | 5656.632 |
-| B02 / ARC | 2837.121 | 5463.019 | 3153.108 | 5672.586 |
-| B03 / candidate | 20807.810 | 39655.551 | 25531.067 | 44184.825 |
-| B03 / ARC | 20754.448 | 39535.872 | 25461.058 | 44050.939 |
-
-All 648 matched request texts and finish reasons agree between native arms
-within these three fixed cohorts (1,296 recorded responses total). Each B01 arm
-has 72 responses / 12 caps; each B02 arm has 384 responses / zero caps; each B03
-arm has 192 responses / zero caps and 63,768 output tokens.
-None of these cells records returning CPU restoration or eviction-affected returns;
-these are controls, not evidence of pressured CPU-offload benefit. Output
-identity is conditional on these requests and does not establish answer
-correctness, population quality equivalence or results for other cells/systems.
-The full 524-configuration confirmation and later phases remain incomplete.
-
-Development pressure observations are retained with their scope:
-
-- [Anchor Qwen3-8B](anchor-screen.json): ARC had one CPU-eviction-affected return;
-  roomy ARC had zero, satisfying the prespecified reduction check.
-- [Ministral3-3B](ministral-pressure-screen.json): ARC had 35 affected returns
-  among 48 returning requests; candidate had 29/48.
-- [Qwen3-4B](qwen4b-pressure-screen.json): ARC had 41/48; candidate had 38/48.
-- [B10 candidate control](screen-team-control.json): all 20 requests completed
-  without CPU restores/evictions. Its raw inconclusive status remains. The frozen
-  analysis accepts the complete GPU-resident control, without pressure credit.
-
-[Screen integrity](screen-complete.json) verifies all 6,160 sealed files across
-58 verified, one deliberately interrupted and one raw inconclusive/failed attempt
-in screen plus preflight. The unmatched original B01 ARC receives no comparison
-credit. [Whole-block recovery](recovery-complete.json) passed owned cleanup and
-replacement of both B01 arms. [Transfer seals](transfer-seals.json) and
-[old-history integrity](history-integrity.json) pass; original evidence is retained.
-
-The ongoing [confirmation integrity snapshot](confirmation-integrity-checkpoint-05.json)
-verifies 26,096 sealed files, including 279 verified attempts, one interrupted
-attempt and nine raw failed states (including accepted controls and the excluded
-B06 attempt). All 2,192 frozen acquisition-source files still match the lock.
-The [earlier checkpoint](confirmation-integrity-checkpoint-02.json)
-also verified the 4,606-file execution bundle
-unchanged. Active unsealed work and later attempts are outside each snapshot;
-the ledger was unchanged during the latest check and the exact coordinator
-remained live. All older checkpoints remain; final campaign completion is pending.
-
-The [final screening source audit](screen-quality-complete.json) validates all
-1,248 prescribed selected outputs across 522 distinct full contexts, alongside
-objective checks on all 1,194 screening finals. It retains 401 source-support
-failures, 725 instruction failures and 111 outputs judged not useful, counting
-duplicate contexts separately. These are selected-review counts, not population
-error rates. Failures include malformed/fenced JSON, wrong or incomplete answers,
-unsupported additions/limitations, invented or denied validation, and overlong or
-unfinished intermediates. Correct useful fragments are separately recognized.
-[Explicit judgments](screen-source-judgments-07.json) bind the actual preceding
-dependencies/tools and archived executed system instruction. The frozen audit
-validator passed on an isolated materialized screen snapshot; the active
-confirmation analysis was not changed. All timings and original objective results
-remain, and quality equivalence is not established.
-
-The [partial all-attempt cap review](caps-all-review-index-04.json) covers
-**196 sealed capped responses / 119 extended contexts**: 132 screen, 64
-confirmation; 177 intermediates and nineteen finals. It includes ordinary
-individual arms outside matched blocks. Thirty-three responses are added since
-[cap03](caps-all-review-index-03.json): 29 exactly match prior explicit confirmation
-judgments, and four complete new contexts were explicitly read. One correctly
-copies actual PASS but is not useful; another invents PASS before validation.
-An eleven-word malformed repeated-token response is capped without exceeding
-the whitespace-word limit. All four new contexts are not useful.
-
-Selected duplicate-inclusive counts are **136 source-support failures, 196
-instruction failures and 73 not useful**. Archived instructions in all sixty
-cap-bearing attempts, sealed corpus/node/source/reference/role/tool branches,
-objective fields and raw prompt/workload-source digests were separately checked.
-Tokens were bound, not individually decoded. These are selected cap counts,
-not population error rates. The inventory still has a pending attempt and is
-not finalized; it must be regenerated after every acquisition phase finishes.
-Timings, objective results and frozen exclusions remain unchanged.
-
-The historical [partial cap review](caps-all-review-index-05.json) contains **215
-responses / 135 contexts**: 132 screen and 83 confirmation, 194 intermediate and
-21 final responses. Nineteen occurrences were added; three repeat an earlier
-extended signature and sixteen exactly match full contexts already explicitly
-judged in confirm12. No new answer rating was automatic. Selected counts are
-**152 source-support failures, 214 instruction failures and 79 not useful**.
-Source fidelity, requested format and usefulness are assessed separately.
-[Bindings](caps-instruction-bindings-05.json) check all 68 cap-bearing archived
-instruction sources and sealed corpus/node/prompt identities. Raw tokens were
-bound, not individually decoded. Acquisition remains active and one attempt was
-pending; this is not a final cap inventory or population error rate.
-
-The historical [partial cap review](caps-all-review-index-06.json) contains **217
-responses / 137 contexts**: 132 screen and 85 confirmation, 196 intermediate and
-21 final responses. All earlier judgments exactly reuse cap05; the two additions
-exactly match the explicitly reviewed confirm14 intermediates. They retain useful
-facts but unsupported performance-test claims and intermediate word/command failures.
-Selected counts are **154 source-support failures, 216 instruction failures and
-79 not useful**. [Bindings](caps-instruction-bindings-06.json) check all 69
-cap-bearing archived instruction sources and independently reconstruct actual
-preceding dependencies/tools from sealed requests and tool files. Raw prompts
-were bound, not individually decoded. Failed/interrupted/unmatched arms remain
-included. One attempt was pending; the all-phase final inventory is still required.
-
-The historical [partial all-attempt cap review](caps-all-review-index-07.json) covers
-**418 responses / 175 extended contexts**: 132 screen and 286 confirmation,
-370 intermediates and 48 finals. All 24 novel full contexts (19 intermediates,
-five finals) were explicitly read and judged; 217 occurrences exactly reuse
-cap06 and 59 exactly reuse completed confirm16 contexts. The 24 manual judgments
-apply to 142 repeated occurrences. No unread or automatically rated novel answer
-is included. [Component bindings](caps-review-components-07.json) retain exact
-prior readings and every newly read dependency; [raw bindings](caps-instruction-bindings-07.json)
-independently reconstruct corpus, node, instruction, objective, preceding requests,
-tools and prompt/source identity for all 106 cap-bearing archived attempts.
-
-Duplicate-inclusive findings are **264 source-support failures, 417 instruction
-failures and 91 not useful**. Among the 24 novel contexts the respective counts
-are 16, 24 and three. Incorrect test-result claims and boundary predictions remain
-visible alongside useful source-grounded fragments. The supplied PEP 307 explicitly
-supports its classic-class pickling restriction; that point is not charged as an
-error. Source failure there is the incorrect mapping-population operation.
-Ordinary failed/interrupted/unmatched responses are included, including the invalid
-Ministral B06 arms. [Independent reproduction](cap-review-validation-07.json)
-passes. Tokens were bound, not individually decoded. This is a partial snapshot
-with one pending attempt, not the final all-phase inventory or a population error
-rate; timing, objective results and frozen exclusions remain unchanged.
-
-The latest [partial all-attempt cap review](caps-all-review-index-08.json) contains
-**480 responses / 182 extended contexts**: 132 screen/348 confirmation,
-418 intermediates/62 finals. All 418 prior occurrences are retained. There are 473
-exact prior extended-context occurrences (55 added repetitions) and seven new
-extended contexts exactly matching explicitly reviewed confirm17 quality contexts;
-**no new full quality context or automatic novel rating**. [Raw bindings](caps-instruction-bindings-08.json)
-independently verify all 117 cap-bearing archived instructions, sealed corpus/node/
-role/reference/tool branches, actual dependencies/tools, objective and prompt/source
-identities. A separate [reproduction](cap-review-validation-08.json) regenerates
-all three records exactly. Duplicate-inclusive findings are **315 source failures,
-479 instruction failures and 99 not useful**, not population rates. Ordinary
-failed/interrupted/unmatched arms remain included; tokens were bound, not decoded.
-Acquisition was active with one pending attempt. This remains a partial snapshot;
-final all-phase cap inventory and finish are required. Timing and objective results
-remain unchanged.
-
-The [historical partial confirmation review](confirm-review-index-11.json) adds the
-first B09 four-system block after all twelve B08 blocks: **3,768 objective finals,
-2,190 automatic final failures, 55 capped intermediates and 2,545 selected outputs
-/ 234 complete contexts**. B09 is another PEP-investigation fixture. Fourteen
-contexts absent from confirm10 (twelve finals, two capped intermediates) were
-explicitly reviewed: thirteen new across prior confirmation snapshots and one
-exact older context with the same judgments. Eleven supplied source strings,
-repeated complete fields and individual preceding dependencies exactly match
-prior explicit readings; [bindings](confirm-review-components-11.json) retain
-this, with every new component/answer read separately and no automatic rating.
-The [earlier completed-B08 snapshot](confirm-review-index-10.json) remains.
-
-The added group has four source-support failures, eight instruction failures
-and one output not useful. Findings retain fake tool-output excerpts, unsupported
-modern comparisons, vague package restrictions and repetitive output. Historical
-source scope, actual header validation, literal status formatting and usefulness
-are assessed separately. Correct partial metadata can remain useful while
-omitting the requested specification rule or concrete limitation. Earlier
-wrong-subject, invented-validation, cap, QA, fictional-provenance and summary
-findings remain in their snapshots, including the summary-word-count correction.
-
-Selected duplicate-inclusive counts are **212 source-support failures, 894
-instruction failures and 39 outputs not useful**. The
-[isolated frozen validator](confirm-quality-checkpoint-11.json) accepts all 2,545
-judgments; all 212 included archived instruction sources verify. These are
-selected partial-review counts, not population error rates or quality equivalence.
-The first B06 block remains excluded. Original objectives, timings and live
-quality state are unchanged. Final confirmation audit is still pending.
-
-The [historical partial confirmation review](confirm-review-index-12.json) includes
-all twelve B09 blocks and the first B10 native pair: **4,480 objective finals,
-2,337 automatic final failures, 76 capped intermediates, 2,777 selected outputs
-/ 291 complete contexts**. All 59 new contexts versus the union of completed
-earlier reviews were explicitly read. Fifteen supplied source strings match
-earlier readings; four new team-source/test bodies were read in full.
-[Bindings](confirm-review-components-12.json) retain exact repeated fields and
-individual dependencies. Four contexts also match earlier explicit cap ratings.
-
-The new group has **36 source failures, 47 instruction failures and 14 not
-useful**. Wrong proposals, fabricated tool outcomes, unsupported runtime or
-whole-document absence claims, caps and missing literal status remain visible.
-B10 synthesis sometimes repeats claims that tests are absent despite actual
-passes, or misses a boundary case already tested. Supported facts and legitimate
-coverage limits retain credit independently of formatting failures.
-
-Selected duplicate-inclusive counts are **264 source failures, 1,085 instruction
-failures and 54 not useful**. All 258 archived instruction sources verify; the
-[isolated frozen validator](confirm-quality-checkpoint-12.json) accepts all 2,777
-judgments. These are partial selected-cohort counts, not population error rates
-or quality equivalence. Original objectives, timings, live quality and the first
-B06 exclusion remain unchanged. Final confirmation and all-phase cap audits
-remain pending.
-
-The [historical partial confirmation review](confirm-review-index-13.json) includes
-all twelve B10 native pairs and two B11 four-system blocks: **4,824 objective
-finals, 2,542 automatic final failures, 76 capped intermediates and 3,062 selected
-outputs / 341 complete contexts**. Fifty new contexts—39 investigation finals,
-eight syntheses and three QA finals—were explicitly read. Exact repeated fields
-and preceding dependencies are retained in [bindings](confirm-review-components-13.json).
-
-The new group has **21 source failures, 45 instruction failures and zero not
-useful**. Incorrect restrictions copied from unrelated tests, unsupported custom
-type exclusions, duplicate/empty-input claims contradicted by tests and test
-internals confused with implementation remain visible. Correct behavior and
-narrow coverage/storage limits retain usefulness independently of missing literal
-status. Three supported QA answers obey JSON instructions but differ from the
-short exact references; those automatic failures remain recorded.
-
-Selected duplicate-inclusive counts are **332 source failures, 1,244 instruction
-failures and 65 not useful**. The [isolated validator](confirm-quality-checkpoint-13.json)
-accepts all 3,062 judgments and all 288 archived instruction sources verify.
-This is a partial selected-cohort audit, not a population error rate or quality
-equivalence. Timings, objectives, live quality and first-B06 exclusion are unchanged.
-Final confirmation and all-phase audits remain pending.
-
-The [historical partial confirmation review](confirm-review-index-14.json) includes
-all eight B11 four-system blocks and the first B12 block: **5,624 objective
-finals, 3,191 automatic final failures, 78 capped intermediates and 3,720 selected
-outputs / 398 complete contexts**. All 61 new contexts (58 investigation finals,
-two capped intermediates and one QA final) were explicitly read and judged.
-Fourteen supplied source strings match prior readings; exact full-field and
-individual-dependency [bindings](confirm-review-components-14.json) preserve
-those matches, with every new component and answer separately reviewed.
-
-The new group has **18 source failures, 60 instruction failures and one not
-useful**. Unsupported input exclusions, performance validation, infinite-loop
-predictions and a unique-lock claim remain visible. Source-supported type,
-coverage and memory limits retain credit. Both capped intermediates contain
-useful source facts but exceed the intermediate word limit. A supported JSON
-answer differs from the short exact reference, whose automatic failure remains.
-
-Selected duplicate-inclusive counts are **440 source failures, 1,612 instruction
-failures and 67 not useful**. All 316 archived instruction sources verify; the
-[isolated frozen validator](confirm-quality-checkpoint-14.json) accepts all 3,720
-judgments. These are partial selected-cohort counts, not population rates or
-quality equivalence. Original objectives, timings and live quality are unchanged;
-failed/partial B11 setup attempts and first B06 remain outside comparison credit.
-Final confirmation and all-phase audits remain pending.
-
-A [declared orchestration repair](confirmation-host-interruption-02.json) records
-the tool-host interruption after 298 valid confirmation configurations / 112
-matched blocks. The recorded coordinator and all workers were absent, with no
-GPU compute clients and free reservations. The interrupted B11 arm was sealed
-and verified; its partial comparison has no timing credit. An independent user
-service resumes the complete B11 block and remaining cells through the unchanged
-frozen CLI, in original order. Earlier complete blocks are retained, and the
-activity-invalid B06 block is deliberately not retried. This is setup recovery,
-not a capability failure or study-design change. Acquisition remains in progress.
-
-The first independent service exposed a [tool-PATH setup error](confirmation-tool-path-repair-03.json):
-its default environment could not find the existing ripgrep executable. Eight
-attempts failed and a ninth was deliberately interrupted after partial serving;
-all nine seals and cleanup verify, and none receives timing credit. The corrected
-service inherits the verified tool PATH and checks ripgrep/pinned pytest before
-GPU acquisition. The service environment probe and live coordinator PATH checks
-pass. After repair, upstream and Continuum each completed all 80 requests and 48
-tools with clean cleanup and verified seals; the complete replacement block was
-still pending at that checkpoint. Affected B11 comparisons are replaced as whole
-blocks through the frozen CLI; all earlier evidence and the B06 activity
-exclusion remain unchanged.
-
-The subsequent [whole-block recovery proof](confirmation-b11-replacement-03.json)
-passes: all four systems complete **320 requests and 192 tools** in total, with
-common workload units, valid measurements, cleanup and seals. The frozen selector
-chooses the new block and excludes the original partial and PATH-failed attempts.
-Qwen3-8B B06 remains at its original 32 attempts. At that checkpoint health had **300/524 valid
-configurations and 113/210 matched blocks**, with no new issue beyond the retained
-activity exclusion and setup attempts awaiting valid replacement. This proves
-recovery of that block, not completion of confirmation or the campaign.
-
-All **364 planned Qwen3-8B confirmation configurations have executed**.
-The [terminal model inventory](confirmation-qwen8b-attempts-complete.json)
-verifies every retained seal: **377 attempts / 35,530 files**, including original
-partial and setup-failed arms. There are **363 valid logical configurations and
-129 of 130 required matched blocks**. The first B06 activity failure remains the
-sole missing anchor block; all 32 B06 attempts ran once, without an activity retry.
-Three valid original arms remain unmatched after whole-block setup recovery and
-receive no extra comparison credit. Secondary-model and later phases continue;
-this is model execution completion, not a completed confirmation matrix.
-
-The [latest partial confirmation review](confirm-review-index-15.json) covers all
-twelve B12 blocks: **5,976 objective finals, 3,476 automatic final failures,
-78 capped intermediates and 4,024 selected outputs / 429 complete contexts**.
-All 32 new investigation finals were explicitly reviewed; their five supplied
-source strings exactly match earlier readings, with every new dependency and
-answer separately read. [Bindings](confirm-review-components-15.json) retain
-full-field and individual-dependency matches.
-
-The new group has **five source failures, 31 instruction failures and zero not
-useful**. Wrong test_none evidence, denial of an explicit error message and
-unsupported infinite/custom-iterable restrictions remain visible. Explicitly
-documented deprecation and abort behavior receive credit. Selected
-duplicate-inclusive counts are **459 source failures, 1,908 instruction failures
-and 67 not useful**. All 360 archived instruction sources verify, and the
-[isolated frozen validator](confirm-quality-checkpoint-15.json) accepts all 4,024
-judgments. These selected counts are not population quality rates or equivalence.
-Original objectives, timings, live quality and first-B06 exclusion are unchanged.
-The [inventory validation](anchor-inventory-validation.json) also reverifies the
-original source and execution bundle after audit-generated caches were moved
-outside the frozen source. Final confirmation and all-phase audits remain pending.
-
-Ministral B06 has an additional [activity-validity failure](confirmation-ministral-b06-inactive-restore-01.json):
-candidate repeat 0 completes **64 requests / 48 tools / 16 units** with clean
-cleanup, but zero CPU restores and 15 eviction-affected returning requests. Its
-ARC peer has 14 affected returns and also zero returning restored tokens. Both
-137-file seals verify. The sixteen-session secondary-model case does not satisfy
-the frozen Qwen3-8B GPU-control exception; no rule/capacity change or favorable
-activity retry is made. Remaining original repetitions and phases continue.
-Five candidate length caps remain subject to the final all-attempt source audit.
-This additional missing comparison can further prevent full-matrix completion.
-The [next incremental receipt](confirmation-ministral-b06-inactive-restore-02.json)
-finds the same failure in original repeat 3, with another 137-file seal verified
-and four caps retained. Repeats 1 and 2 have valid complete blocks; no original
-repetition is relabeled or retried. The subsequent
-[terminal cell inventory](confirmation-ministral-b06-attempts-complete.json)
-verifies all **twelve planned attempts / 1,644 sealed files**, with 768 completed
-requests, 576 tools and clean graph/unit coverage and cleanup. Ten measurements
-are valid; **four of six matched pairs** are complete. Repeats 0 and 3 remain
-excluded with their valid unmatched ARC peers. All 62 raw caps await the final
-all-attempt audit. The cell is finished without retrying activity failures.
-
-The [completed partial review 16](confirm-review-index-16.json) covers **6,872
-objective finals, 4,359 automatic final failures, 108 capped intermediates and
-4,942 selected outputs / 561 contexts**. All 132 new contexts were explicitly
-read/judged across nineteen parts: 64 QA finals, 61 investigation finals and seven
-capped intermediates. Exact [component bindings](confirm-review-components-16.json)
-retain 78 previously read source matches and two newly read unmatched source
-strings, with every new dependency and answer reviewed.
-
-The new group has **77 source failures, 131 instruction failures and twelve not
-useful**. Fenced/malformed QA format remains separate from correct supplied facts;
-unsupported elaborations and entity/date mistakes remain visible. Investigation
-errors include denying actual passed tests, importing unrelated broad-search
-tests, false divisibility/type constraints and invented cache/concurrency defects.
-Supported fragments and narrow test-coverage limits retain credit. A final with
-correct required PASS/fact/limitation but an extra false opening retains instruction
-credit while failing source fidelity.
-
-Selected duplicate-inclusive counts are **721 source failures, 2,825 instruction
-failures and 99 not useful**. All 380 archived instruction sources verify, and the
-[isolated frozen validator](confirm-quality-checkpoint-16.json) accepts all 4,942
-judgments. The [initial 64-context progress](confirm-review-progress-16-01.json)
-is preserved as history. No objective, timing, live-quality or exclusion change;
-these are not population rates or quality equivalence. Later acquisition and
-final all-attempt audits remain pending.
-
-The interim Qwen3-8B extraction now retains **all 32 frozen comparisons** for
-the completed anchor model: [data](anchor-results-01/comparisons.json),
-[throughput and latency tables](anchor-results-01/tables.md),
-[interactive display](anchor-results-01/comparisons.html),
-[extraction checks](anchor-results-01/validation.json) and
-[render binding](anchor-results-01/render.json). This is a model subset of the
-42 planned campaign comparisons; secondary models, later phases and final audits
-remain pending. The actual incomplete flags and every globally missing block
-remain preserved. The frozen report writes were isolated; live report files
-were unchanged. The first three published ratios, CIs, serving times and latency
-summaries reproduce unchanged. All 28 focused reporting tests pass.
-
-Candidate throughput divided by each baseline is shown below. Each ratio is a
-geometric mean with a paired whole-process Student-t 95% CI, without multiplicity
-adjustment. Below one means slower. B06 uses only seven valid blocks of eight;
-the failed first block is not imputed, replaced or counted through its other arms.
+Ratios below are candidate divided by baseline: above 1 means faster. Each is a
+geometric mean of paired whole-process throughput ratios with a Student-t 95% CI
+on log ratios, conditional on the frozen cohort/host and without multiplicity
+adjustment. Requests within a process are not independent repetitions. Throughput
+counts completed offered graph units per second and excludes startup; it is not
+correctness-adjusted useful-answer throughput. No across-workload aggregate is introduced.
 
 | Qwen3-8B cell | Valid / required blocks | Candidate / ARC [95% CI] | Candidate / Continuum [95% CI] | Candidate / upstream [95% CI] |
 | --- | ---: | --- | --- | --- |
-| B06 | 7 / 8 | 0.9781 [0.9546, 1.0021] | 0.9477 [0.9246, 0.9714] | 1.0015 [0.9716, 1.0323] |
-| B08 | 12 / 12 | 0.9857 [0.9646, 1.0072] | 0.6851 [0.6397, 0.7336] | 0.9003 [0.8690, 0.9327] |
-| B09 | 12 / 12 | 0.9733 [0.9617, 0.9850] | 0.6826 [0.6558, 0.7106] | 0.9395 [0.9277, 0.9514] |
-| B11 | 8 / 8 | 1.0726 [0.9478, 1.2139] | 1.0689 [0.9304, 1.2280] | 1.0014 [0.8952, 1.1203] |
-| B12 | 12 / 12 | 0.9759 [0.9227, 1.0321] | 0.9248 [0.8867, 0.9645] | 0.9869 [0.9504, 1.0248] |
+| B06 | 7/8 | 0.9781 [0.9546, 1.0021] | 0.9477 [0.9246, 0.9714] | 1.0015 [0.9716, 1.0323] |
+| B08 | 12/12 | 0.9857 [0.9646, 1.0072] | 0.6851 [0.6397, 0.7336] | 0.9003 [0.8690, 0.9327] |
+| B09 | 12/12 | 0.9733 [0.9617, 0.9850] | 0.6826 [0.6558, 0.7106] | 0.9395 [0.9277, 0.9514] |
+| B11 | 8/8 | 1.0726 [0.9478, 1.2139] | 1.0689 [0.9304, 1.2280] | 1.0014 [0.8952, 1.1203] |
+| B12 | 12/12 | 0.9759 [0.9227, 1.0321] | 0.9248 [0.8867, 0.9645] | 0.9869 [0.9504, 1.0248] |
 
-The candidate is slower than ARC on B09: about 2.7%, with its CI below parity.
-Its apparent B11 advantage remains unresolved because the interval includes one.
-Against Continuum, B06/B08/B09/B12 are slower with intervals below one; B11 is
-unresolved. All twelve native-cell results, including the small adverse B07
-roomy-control result, remain in the linked table. No new across-workload aggregate
-is introduced. B06's native CPU-pressure evidence remains inconclusive, while
-both native B09 arms have observed pressure and active CPU restores in all twelve
-blocks. Missing external native counters are unavailable, not zero.
+Against Continuum, B06/B08/B09/B12 are slower with intervals below 1; B11 remains
+unresolved. Native B09 has observed CPU pressure and active CPU restores in all 12
+processes per arm. Anchor B06 pressure is inconclusive; it cannot substantiate a
+CPU-pressure gain. External native counters are unavailable, not zero. The linked
+tables retain every native cell, including adverse and control results.
 
-For B09, serving seconds average 43.643 candidate, 42.484 ARC, 29.840 Continuum
-and 41.008 upstream. Actual latency figures follow in milliseconds; each is an
-arithmetic mean of the named process statistic. A mean of process p95s is not a
-pooled percentile or population-tail guarantee.
+For B09, mean serving seconds are 43.643 candidate, 42.484 ARC, 29.840 Continuum
+and 41.008 upstream. The following latency values are milliseconds. Each is the
+arithmetic mean of the named per-process statistic; mean process p95 is not a
+pooled request percentile or a population-tail guarantee. Full latency figures
+for all 42 comparisons are in the linked table and JSON.
+TTFT is end-user time to first token; completion latency covers the whole request.
 
 | B09 arm | Mean TTFT ms | Mean process p95 TTFT ms | Mean completion ms | Mean process p95 completion ms |
 | --- | ---: | ---: | ---: | ---: |
 | Candidate | 5881.409 | 13087.611 | 8820.174 | 15664.495 |
 | ARC | 5492.068 | 12631.278 | 8321.630 | 15723.632 |
 | Continuum | 2708.248 | 15290.478 | 4770.513 | 18386.012 |
-| Upstream | 5085.238 | 13605.931 | 7797.725 | 16533.650 |
+| Upstream PR #59714 | 5085.238 | 13605.931 | 7797.725 | 16533.650 |
 
-All four B09 arms complete 768 requests. Output tokens are 84,360 candidate,
+Each B09 arm completed 768 requests. Output tokens differ: 84,360 candidate,
 84,384 ARC, 80,055 Continuum and 83,828 upstream; Continuum has 25 length caps,
-the other arms zero. These are completed workload throughput and observed
-latency comparisons, not correctness-adjusted useful-answer throughput. Live
-outputs, runtimes and interfaces differ; source findings and caps remain visible.
-No quality equivalence, universal superiority or GPU-only attribution follows.
+the other arms zero. Live outputs, quality, runtime/backend/chunking and hint
+interfaces differ. This comparison cannot isolate GPU architecture or establish
+answer-quality equivalence.
 
-The [terminal Ministral inventory](confirmation-ministral-attempts-complete.json)
-now verifies all **60 planned configurations exactly once / 7,812 sealed files**,
-including inner artifact/aggregate and full graph/tool/unit/cleanup checks.
-**58 measurements and 28/30 complete pairs** are valid; B06 repeats0 and3 remain
-excluded without activity retries. The immutable schedule assigns 60 Ministral
-and 100 Qwen3-4B configurations, plus364 Qwen3-8B, totaling524. Qwen3-4B continues;
-this is model execution completion, not campaign or final analytical completion.
-
-The latest [source-review index](confirm-review-index-17.json) is complete for
-its static 161-block snapshot: **6,153 selected outputs / 784 contexts**, including
-**all 201 new full contexts explicitly read/judged** (54 QA, 147 investigation finals).
-[Full components](confirm-review-components-17.json) check exact fields and actual
-preceding dependencies. All 424 archived instruction sources/SYSTEM verify; all 83
-supplied source strings bind earlier explicit readings. [Independent checks](confirm-review-validation-17.json)
-verify every current ID/signature, duplicate judgments and complete manual coverage.
-The isolated [frozen validator](confirm-quality-checkpoint-17.json) accepts all 6,153
-ratings. Exact prior reuse includes 21 cap07-only contexts / 169 selected occurrences
-with matching archived instructions. No novel judgment is automatic.
-
-Novel findings are **116 source failures, 150 instruction failures and 17 not
-useful**; selected duplicate-inclusive findings are **1,301, 3,786 and 153**.
-Source fidelity, instruction following and usefulness remain independent: one
-answer supplies correct literal PASS, a supported fact and genuine limitation
-while adding an unsupported send restriction. Other answers have literal PASS but
-only a false behavior/limitation. The earlier [81-context](confirm-review-progress-17-01.json)
-and [132-context](confirm-review-progress-17-02.json) checkpoints remain history;
-the 132 partial component records match the completed bindings. These are selected
-findings, not population rates or quality equivalence. Objective results, timings,
-frozen exclusions and live quality files remain unchanged. Later acquisition,
-fresh terminal review and final all-phase audits remain pending.
-
-See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
-remaining phases and enabled health monitoring.
-
-The latest [partial confirmation source review18](confirm-review-index-18.json)
-is complete for a static **184-block** snapshot: **9,464 objective finals,
-5,746 automatic failures, 291 capped intermediates and 6,667 selected outputs /
-834 full contexts**. All 55 new finals (four QA/51 investigations) were explicitly
-read and judged in 14 parts. All 36 distinct supplied sources in the new contexts bind previous explicit readings;
-all 470 archived instructions/SYSTEM verify. [Independent validation](confirm-review-validation-18.json)
-checks every current ID/signature, duplicate judgment, manual index and exact prior
-reuse, with no dependency-only judgment drift. The isolated frozen validator
-accepts all 6,667 ratings; live quality and serving data remain unchanged.
-
-The 55 new-context findings are **31 source failures, 24 instruction failures and
-zero not useful**. Correct behavior fragments remain useful alongside false test
-reports or invented API limitations; all four new QA answers meet source and JSON
-requirements. Selected duplicate-inclusive counts are **1,411 source failures,
-3,911 instruction failures and 165 not useful**, not population rates or quality
-equivalence. This remains a partial snapshot. Fresh terminal confirmation quality,
-all-phase cap inventory, supplementary measurements and final audits remain required.
-
-The fresh [terminal confirmation source review19](confirm-review-index-19.json)
-is complete for all 207 valid blocks: **10,520 objective finals, 5,983 automatic
-failures, 291 capped intermediates and 7,011 selected outputs / 849 full contexts**.
-All 14 new investigation finals were explicitly read/judged; all12 supplied source
-contexts bind earlier readings and all 516 archived instruction sources/SYSTEM
-verify. [Independent checks](confirm-review-validation-19.json) cover all current
-IDs/signatures, duplicates, manual indices, exact reuse and dependency-only rating
-consistency. [Publication proof](confirm-quality-published-19.json) preserves the
-old unaudited live snapshot and verifies all six new live quality records exactly
-match the isolated audit. Frozen finish accepts all 7,011 ratings in both places.
-The three activity-invalid blocks retain their exclusions; no timing/objective or
-validity change. New-context findings are 7 source failures/3 instruction failures/
-zero not useful. Selected duplicate-inclusive totals are 1,514/4,029/185, not
-population rates or quality equivalence. The selected-block primary source audit
-is done; final ordinary all-attempt cap and campaign/portability audits remain.
-
-All **42 planned comparison rows** now have conditional paired estimates and
-actual latency/serving summaries: [full tables](primary-confirmation-results-01/tables.md),
-[JSON](primary-confirmation-results-01/comparisons.json),
-[validation](primary-confirmation-results-01/validation.json). Every one of the
-32 previously published anchor rows reproduces exactly, including all CIs,
-serving times, latency values and diagnostics. The three missing frozen blocks
-remain excluded and visible; this extraction does not close supplementary phases
-or final audits. Ratios use geometric paired whole-process means and Student-t
-95% CIs; no aggregate across different workloads.
-
-| Secondary model /cell | Candidate/ARC ratio [95% CI] | Pairs |
+| Secondary model / cell | Candidate / ARC [95% CI] | Valid / required pairs |
 | --- | --- | ---: |
-| ministral3_3b /B02 | 0.9613 [0.8980, 1.0290] | 6/6 |
-| ministral3_3b /B06 | 0.9905 [0.8376, 1.1711] | 4/6 |
-| ministral3_3b /B08 | 1.0053 [0.9705, 1.0413] | 6/6 |
-| ministral3_3b /B09 | 1.0043 [0.9926, 1.0161] | 6/6 |
-| ministral3_3b /B11 | 1.0257 [0.9567, 1.0997] | 6/6 |
-| qwen3_4b_2507 /B02 | 1.0005 [0.9782, 1.0233] | 10/10 |
-| qwen3_4b_2507 /B06 | 0.9657 [0.9321, 1.0004] | 10/10 |
-| qwen3_4b_2507 /B08 | 0.9107 [0.8740, 0.9489] | 10/10 |
-| qwen3_4b_2507 /B09 | 0.9919 [0.9773, 1.0068] | 10/10 |
-| qwen3_4b_2507 /B11 | 1.0175 [0.9904, 1.0453] | 10/10 |
+| ministral3_3b / B02 | 0.9613 [0.8980, 1.0290] | 6/6 |
+| ministral3_3b / B06 | 0.9905 [0.8376, 1.1711] | 4/6 |
+| ministral3_3b / B08 | 1.0053 [0.9705, 1.0413] | 6/6 |
+| ministral3_3b / B09 | 1.0043 [0.9926, 1.0161] | 6/6 |
+| ministral3_3b / B11 | 1.0257 [0.9567, 1.0997] | 6/6 |
+| qwen3_4b_2507 / B02 | 1.0005 [0.9782, 1.0233] | 10/10 |
+| qwen3_4b_2507 / B06 | 0.9657 [0.9321, 1.0004] | 10/10 |
+| qwen3_4b_2507 / B08 | 0.9107 [0.8740, 0.9489] | 10/10 |
+| qwen3_4b_2507 / B09 | 0.9919 [0.9773, 1.0068] | 10/10 |
+| qwen3_4b_2507 / B11 | 1.0175 [0.9904, 1.0453] | 10/10 |
 
-Qwen3-4B B08 candidate throughput is **8.9% lower than ARC** with its CI entirely
-below parity. All ten processes per arm have observed CPU pressure and active
-CPU restore, with zero output caps. Mean serving time is 48.050s candidate versus
-43.685s ARC. Mean first-token latency is 6.894s versus 6.366s; mean completion latency
-is 8.609s versus 7.906s. Means of process p95s are 14.079s versus 12.058s for first token
-and 15.739s versus 13.583s for completion; these are not pooled request percentiles.
-Ministral native intervals all include parity. Other Qwen3-4B native intervals
-include parity, including its B06 boundary whose upper CI is 1.0004. No secondary
-model has a resolved benefit in these selected cells.
+Every Ministral interval includes parity. Every Qwen3-4B interval except B08
+includes parity, including B06 whose upper bound is 1.0004. Qwen3-4B B08 has
+observed pressure and active CPU restores in all ten processes per arm, with no
+caps. Mean serving time is 48.050s candidate /43.685s ARC; mean TTFT is 6894.475ms
+/6366.195ms and mean completion is 8608.781ms /7905.869ms. Its adverse result is retained.
+
+## Overhead and bounded operation
+
+Overhead ran six balanced process blocks for each anchor B01/B02 cell with O0
+native ARC/plugin unloaded, O1 plugin loaded but actual off-switch/budget0, and
+O2 enabled candidate connector without hint production. Requests are identical
+and tool-free within each cell. Two secondary O2 smoke cases bring the total to 38.
+O3 is the existing B06 confirmation reference; it is never paired with B01/B02 O0.
+
+| Cell | Ratio | Geometric throughput ratio [95% CI], n=6 | Declared 3% loss bound |
+| --- | --- | --- | --- |
+| B01 | O1/O0 | 1.0010 [0.9941, 1.0079] | bounded |
+| B01 | O2/O0 | 0.9924 [0.9775, 1.0075] | bounded |
+| B01 | O2/O1 | 0.9914 [0.9827, 1.0002] | bounded |
+| B02 | O1/O0 | 0.9313 [0.8650, 1.0026] | inconclusive |
+| B02 | O2/O0 | 0.9906 [0.9405, 1.0434] | inconclusive |
+| B02 | O2/O1 | 1.0637 [0.9844, 1.1494] | bounded |
+
+Chat bounds pass within this scope. Short-QA O1/O0 and O2/O0 remain inconclusive
+for the 3% loss bound; inconclusive is not equivalence. No additional favorable
+repetition was requested or substituted.
+
+Operational used 16 sessions and 64 normal requests per wave: six waves per anchor
+arm and two per secondary arm, totaling 1,280 normal requests /320 graph units
+across ARC/candidate. Persistent cancellation, drain/recovery and actual native
+restore pass. Registry receipts show no outstanding speculative jobs or reserved
+GPU blocks. Duplicate advice is idempotent; unknown sessions, future information,
+oversize identifiers, delayed expiry and abandoned advice all satisfy the frozen
+checks. These are bounded sequences, not production or leak-freedom certification.
+
+## Audit coverage and retained failures
+
+[Final integrity](post-acquisition-audit-01.json) verifies all 67,120 sealed files
+and inner aggregates, the unchanged 2,192-file acquisition source, both 4,606-file
+execution/import bundles, rebuilt wheel/installed extension hashes, and the
+November 8 campaign's41 attempts/3,142 files and original LMCache binary.
+The actual interrupted screen process has sealed cleanup and whole-block recovery
+proof; partial processes were never continued for comparison credit.
+
+The [terminal primary source review](confirm-review-validation-19.json) covers
+10,520 objective finals, 5,983 automatic final failures and 291 selected capped
+intermediates. All 7,011 selected outputs /849 full contexts are judged, with all 516
+archived instruction/source records verified. Exact reviewed records were
+[published](confirm-quality-published-19.json) and frozen finish passes. Selected
+duplicate-inclusive findings are 1,514 source failures, 4,029 instruction failures
+and 185 not useful; these are not population error rates or quality-equivalence tests.
+
+The separate [all-attempt cap audit](caps-all-review-index-final-01.json) covers
+every ordinary cap across valid, failed, interrupted and unmatched attempts:
+516 responses /186 contexts (132 screen, 348 confirm, 18 overhead, 18 operational;
+447 intermediates and 69 finals). All prior 480 occurrences remain. Five new
+occurrences in four novel full contexts were explicitly read/judged; no pending
+response or partial stream fragment remains. 137 archived instructions/raw bindings
+independently verify, and [reproduction](cap-review-validation-final-01.json)
+passes. Counts 348 source failures, 515 instruction failures and 101 not useful
+include repeated contexts. Supported useful fragments receive separate credit
+from false source/instruction claims. Suggested model commands were never executed.
+
+[Final portability proof](portability-final-03.json) physically relocates the
+exported bundle/evidence, hides the original campaign reversibly, verifies all 641
+attempts/67,120 files and reproduces all 42 comparison records offline. Guards
+reject original model weights/blob symlinks, source/assets and GPU/model imports.
+The original is restored. Rebinding/import/dry compilation from exported source
+uses independently prepared runtime02, retains parent schedule/precision/source
+and creates a distinct campaign whose confirmation remains blocked until hardware
+preflight. This proof does not execute imported models or grant another campaign.
+
+## Declared setup deviations and reproducibility
+
+[Build details](BUILD.md), [wheel/kernel receipt](lmcache-build.json) and
+[live smoke](continuum-smoke.json) record the approved same-source LMCache 0.3.6
+revision cad4db10592e8487d1e0bbd02d1a6f92c37d0581 rebuilt for `12.0+PTX`, torch 2.8.0+cu128,
+CUDA 12.8.93, GCC 14 and an isolated compatible header sysroot. Five sm_120 ELF
+images and PTX 8.7 are present. All 178 release Python files and kernel/algorithm
+sources are unchanged. Exact bidirectional FP16 transfer covers three layers,
+256 permuted slots and 393,216 pinned CPU bytes. The separate Continuum environment
+uses the same pinned package versions; the original November 8 environment is intact.
+
+Frozen workers bind the literal pinned serving interpreter. Sealed artifacts are
+materialized on the project ext4 image because DrvFS symlinks are unsuitable.
+After timed acquisition, the existing image was safely grown 20→28 GiB without
+replacement/format/unmount ([proof](volume-growth-01.json)). Export initially
+assumed a native asset-cache layout unavailable to imported campaigns; its
+[repair](portability-repair-02.json) reuses/hash-validates sealed imported assets.
+A later fast filesystem copy silently zeroed ranges in one 44MB archive; its
+failed proof/log and corrupt sample are preserved. [Buffered verified-copy repair](portability-copy-repair-03.json)
+repairs/reuses only a matching disposable tree and avoids a second 12GB allocation.
+The successful derived transfer source changes only campaign_verify.py and
+campaign_portability.py; the exact acquisition closure is retained separately.
+19 focused transfer regressions and 245 CPU tests in that exact derived source pass.
+Earlier maintained-suite 260 tests, original 240 benchmark tests and 31 light checks
+also pass. No model, serving policy, measurement estimator, validity rule, source
+rating, study order or repetition changed for these repairs.
+
+November 8 and all 2080 Ti history remain unchanged. Raw campaign, all failed setup
+attempts, source review packets, reusable runtimes/models/builds and relocation
+proofs remain locally preserved; compact evidence and authored tools are tracked.
+There was no model training, other-machine/project work or Stage 7 writing.
+
+Resource cleanup, push and the requested waiting-thread delivery are recorded
+separately in the final closure receipt; the analysis audit by itself does not
+announce GPU release. See [continuation](CONTINUE.md) for closure state.

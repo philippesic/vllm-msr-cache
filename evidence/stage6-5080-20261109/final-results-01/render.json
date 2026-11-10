@@ -1,0 +1,55 @@
+{
+  "schema": "stage6-5080-final-chart-render-v1",
+  "chart": "chart.html",
+  "source": "comparisons.json",
+  "comparisons": 42,
+  "preview": {
+    "width": 728,
+    "contentHeight": 1649,
+    "consoleMessages": []
+  },
+  "render": {
+    "attachmentId": "mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-50e82d3b-7694-489b-b7e2-6217cdc18c4a-html",
+    "title": "RTX 5080 Stage 6: all 42 conditional comparisons",
+    "height": 1649,
+    "heights": [
+      [
+        320,
+        2285
+      ],
+      [
+        375,
+        2168
+      ],
+      [
+        430,
+        2090
+      ],
+      [
+        520,
+        1997
+      ],
+      [
+        640,
+        1685
+      ],
+      [
+        728,
+        1649
+      ],
+      [
+        860,
+        1373
+      ],
+      [
+        1000,
+        1373
+      ],
+      [
+        1144,
+        1373
+      ]
+    ]
+  },
+  "scope": "Exact compact chart HTML previewed and rendered; all42 comparison estimates and genuine missing-block flags preserved."
+}

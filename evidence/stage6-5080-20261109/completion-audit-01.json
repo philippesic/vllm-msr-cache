@@ -1,0 +1,71 @@
+{
+  "schema": "stage6-5080-final-analysis-closeout-v1",
+  "recorded_unix": 1794313176.4765956,
+  "all_planned_phase_execution_complete": true,
+  "all_audits_complete": true,
+  "full_protocol_passed": false,
+  "reason": "Three genuine B06 activity-invalid blocks, preserved without replacement",
+  "frozen_report_complete": false,
+  "frozen_throughput_complete": false,
+  "completion_flags": {
+    "complete": false,
+    "throughput": false,
+    "quality_audit_complete": true,
+    "overhead": true,
+    "operational": true,
+    "recovery": true,
+    "portability": true
+  },
+  "missing_blocks": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 3
+    }
+  ],
+  "retained_attempts": 641,
+  "verified_files": 67120,
+  "stable_ledger_digest": "c1f87fd4760d54352c72329e7b88bd3f0b52f0eae080487d42f52a51f5f7e0eb",
+  "frozen_source": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "frozen_source_files": 2192,
+  "comparison_count": 42,
+  "all_42_rows_exactly_reproduce_terminal_measurements": true,
+  "all_32_anchor_rows_previously_reproduced_exactly": true,
+  "report": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/linux-volume-01/primary-20261109/analysis/current/results.json",
+  "report_digest": "e7400a407f19701529b4e4ee596cd800eb3eb4f81cbc367b27cefa2d1b00b379",
+  "report_code_sha256": "28bd46855e5743629008ced67a099f368da1fa1b442fd321aac7adcb3bfae831",
+  "presentation_sha256": "a6549db665865e57a7cb219ea382c8e5779dd96b4485bdc14a2625516a115727",
+  "findings_digest": "51ab9ee89ce2aae472f78e724a6dce29da7df7ad633ae42d191239b632d5e342",
+  "findings_files": {
+    "comparisons.html": "9dda7a32238820344e0317d1640c4826a545985839d54f026d763ea4e0ed7930",
+    "comparisons.json": "086ec9eeef6a8bebc8486b955cbf8bab8320df72162706d244436f6e50c518f8",
+    "tables.md": "926521a121fa71f77180b6552c57177ac544ac1c231e22e0cd5ad80c144000c7"
+  },
+  "audits": {
+    "post-acquisition-audit-01.json": "dc38851c04d505c477f634fcde44364dcc5d57e31775376504b9513af7021866",
+    "confirmation-attempts-complete.json": "7583e61a8c966f8453c6605d4892194139f83e20c9733df97b25ee0bc5c3b5ba",
+    "overhead-boundary-01.json": "f0e34960bc9cef7c35755546de37f82aea6f7371b869fcb42931bede36cd3b97",
+    "operational-boundary-01.json": "a4a75950af6aa284c0639f7c26a98cc03db413241d328ac56483545c259288c4",
+    "confirm-quality-published-19.json": "85333d9f5c814cc0e2681f302e6d5dc8dedacebfec84bc6c7386bb1b05225938",
+    "confirm-review-validation-19.json": "6ada31d9f18bbb319e216171670143ba501e961ffd786b9a7528cede0dfe9984",
+    "caps-all-review-index-final-01.json": "e90e4b645f3d4c61ebbeeb70f4085e7f326110e979663a21829596ca8ae528b7",
+    "cap-review-validation-final-01.json": "da5ad67c4db0ec6abd9242937eaaec6b064e9bcb407a495b0773da38e8e82e14",
+    "portability-final-03.json": "df2d118b2fccf2c6e18f66f6498e14d85fd0940068924162083c9b3345682a2d",
+    "portability-copy-repair-03.json": "0c94edc8856cbde6b03e8b465d50f737f25240c52298e1fbd0504079726c4d62",
+    "volume-growth-01.json": "ad87adb4a41ef14e208f6244a5d1df65239bef68b27b690187054bb04aaa2246"
+  },
+  "original_campaign_restored": true,
+  "source_and_attempt_ledger_unchanged": true,
+  "final_render_push_cleanup_and_notification_pending": true,
+  "scope": "Analysis and transfer closure only; no change to measured artifacts, design, estimator, validity, source judgments or exclusions. No quality equivalence or production qualification."
+}

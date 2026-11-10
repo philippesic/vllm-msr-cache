@@ -1,0 +1,36 @@
+{
+  "schema": "stage6-5080-final-chart-projection-v1",
+  "comparisons": 42,
+  "source_json_sha256": "086ec9eeef6a8bebc8486b955cbf8bab8320df72162706d244436f6e50c518f8",
+  "chart_html_sha256": "5f3c3eb76d403e286139756fb243a063d36d3c34f81aebd30cc833d711d1dc3f",
+  "every_displayed_field_exactly_preserved": true,
+  "missing_blocks": [
+    {
+      "model": "qwen3_8b_awq",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 0
+    },
+    {
+      "model": "ministral3_3b",
+      "cell": "B06",
+      "repeat": 3
+    }
+  ],
+  "findings_complete": false,
+  "presentation_fields": [
+    "model",
+    "cell",
+    "numerator",
+    "denominator",
+    "process_pairs",
+    "process_pairs_plus_reported_missing_blocks",
+    "throughput_ratio",
+    "paired_95_interval"
+  ],
+  "scope": "Only unused embedded metadata omitted for a compact visual; full JSON/tables retain all per-process ratios, latencies, diagnostics and completion evidence."
+}

@@ -8,94 +8,58 @@ requires repair and continuation, not a capability-failure closeout.
 
 ## Current state
 
-**All timed acquisition and primary/cap/integrity/recovery audits are done.**
-No measured coordinator/server remains active. Do not rerun any campaign phase.
-[Confirmation](confirmation-attempts-complete.json): all 524 identities / 537 retained
-attempts, 521 valid logical cases and 207/210 matched blocks; exactly the three
-known original activity exclusions, without retry or imputation.
-[Overhead](overhead-boundary-01.json): all 38 identities once, 2,150 files and full
-frozen control checks pass. Chat 3% loss bounds are bounded; short-QA O1/O0 and
-O2/O0 remain inconclusive. [Operational](operational-boundary-01.json): all six
-identities once, 2,448 files and every frozen persistent/cancel/drain/restore/advice
-requirement pass. [Event-driven phase completion](supplementary-driver-complete-02.json)
-is terminal, with no measured process interrupted or retried.
+**All planned campaign execution and final audits/results are finished.** The full
+protocol failed its throughput requirements because exactly three original B06
+activity-invalid blocks remain excluded. Never rerun confirmation or any other
+measured phase. No favorable retry, imputation, repeat reduction or forced flag.
+All524 confirmation identities are terminal:521 valid,207/210 matched blocks,
+537 retained attempts. All38 overhead controls and six operational cases completed
+once; all bounded operational checks pass, with two short-QA3% overhead bounds
+inconclusive. [Final results](RESULTS.md), [final analysis audit](completion-audit-01.json)
+and [all42 ratios/CIs/latencies](final-results-01/tables.md) retain the numbers.
 
-[Final integrity audit](post-acquisition-audit-01.json): all 641 retained attempts /
-67,120 sealed files plus inner aggregates verify. Current frozen source 2,192,
-execution/import bundles 4,606 each and November8's 41 attempts /3,142 files and
-original kernel remain unchanged. Rebuilt wheel/installed kernel hashes match.
-[Terminal primary source audit](confirm-quality-published-19.json) covers 10,520
-objective finals and 7,011 selected outputs / 849 contexts; all 516 archived
-instructions verify and all live records equal the isolated audited packet.
-[Final ordinary-cap audit](caps-all-review-index-final-01.json) is complete for
-516 responses / 186 contexts: 132 screen, 348 confirm, 18 overhead, 18 operational;
-447 intermediates/69 finals. All 480 old occurrences retained; 511 exact prior
-extended-context occurrences plus five occurrences of four explicitly read/judged
-new contexts. [Reproduction](cap-review-validation-final-01.json) and frozen final
-finish pass; 137 archived instructions/raw bindings independently verify. Counts
-348 source failures/515 instruction failures/101 not useful include duplicates,
-not population rates. No source/timing/validity changes.
-All 42 conditional comparisons/latencies exist at
-`primary-confirmation-results-01/`; all 32 anchor rows reproduce exactly. Full
-throughput/readiness stays false because three B06 blocks are genuinely excluded.
+All641 retained attempts /67,120 sealed files and inner aggregates verify.
+Primary source review covers10,520 objective finals /7,011 selected outputs /
+849 contexts; final all-attempt cap review covers516 responses /186 contexts,
+with no pending or partial fragments. Source/history/bundle/build/recovery audits
+pass. Exact2,192-file acquisition source, all measured inputs/order/repeats,
+November8's41 attempts and all2080Ti history remain unchanged.
 
-**Portability setup repair is active; no full closeout or GPU release announced.**
-Existing project image was safely grown 20→28GiB after all timed phases, without
-format/replacement/unmount: [growth proof](volume-growth-01.json). Raw campaign is
-about 12.16GB allocated; models are reused offline, not copied. The first proof
-failed before copying because the native exporter assumed a sources.json cache
-that imported campaigns do not have. [Exporter repair](portability-repair-02.json)
-reuses sealed imported/assets, validates full tool support and input hashes, and
-normalizes both project roots. 17 focused tests/260 maintained-suite/243 derived
-suite pass. Failed proof01 and log remain preserved.
+**Portability proof03 succeeded**, including physical relocation/offline guarded
+verification of all641 attempts/67,120 files, all42 comparison digest equality,
+nine model/blob denial checks, two original-source/assets denial checks, no GPU
+imports, independent-runtime02 import/dry compilation, parent-protocol preservation
+and blocked confirmation until new hardware preflight. Original campaign restored;
+no parked path remains. Failed proofs01/02, corrupt-copy sample and all repair
+history remain preserved. Only the two declared derived transfer modules differ
+from acquisition source;19 focused regressions and245 exact-derived CPU tests pass.
+[Portability](portability-final-03.json), [copy repair](portability-copy-repair-03.json),
+[export repair](portability-repair-02.json), [storage growth](volume-growth-01.json).
 
-Proof02 exported successfully and copied the raw tree, but offline seal checks
-caught **one** 44MB upstream-source gzip copy with zeroed ranges beginning 32MiB;
-the original still matches its seal and decompresses. Original path was restored
-by finally. [Copy repair](portability-copy-repair-03.json) preserves the corrupt
-sample outside the disposable copy and adds userspace buffered/fsynced/hash-verified
-copy plus reuse of an exact same-campaign/spec/protocol/ledger tree.19 focused
-transfer/copy regressions pass. Derived analysis03 changes only allowed
-`campaign_verify.py` and `campaign_portability.py`; original 2,192-file acquisition
-source and every measured input remain unchanged, exported separately as parent-source.
+Independent portability03 and final-analysis01 units are terminal success0/
+MainPID0, with exact original owners gone. Final frozen report retains:
+quality/overhead/operational/recovery/portability=true; throughput/complete=false.
+Every final comparison row exactly reproduces the earlier terminal42; all32 anchor
+rows previously reproduced exactly. The compact42-row chart was actually previewed
+and rendered: [receipt](final-results-01/render.json). Final helper assertions passed.
 
-Fresh **proof03** is running under
-`stage6-5080-portability-20261110-03.service`, owner
-`$BASE/portability-owner-03.private.json`, log `$BASE/portability-final-03.log`,
-analysis root `$VOLUME/portability-analysis-source-03`, destination
-`$VOLUME/portability-20261109-final-03`, reusing/repairing proof02's disposable
-`relocated-evidence` tree to avoid another 12GB allocation. 245 CPU tests in this
-exact derived source passed before launch. At12:07UTC its exact owner/birth/command/cwd
-verified; the original is intentionally parked and its offline verifier child is
-running from the relocated source. Ext4/root/Windows free space was2.7/2.0/3.2GiB;
-no NVML compute client. Reverify exact PID/birth/command/cwd/
-unit and source hash; do not duplicate a live proof. While proof runs, original
-OUT may be intentionally absent and `primary-20261109-portability-parked` present:
-**never recreate or restore it while the exact proof worker is alive.** Its writer
-lock protects reversible park/restore. If it dies, first verify state/ownership,
-then restore a parked original only if needed; preserve failed proof trees/logs.
-Proofs01/02 are failed setup history, not capability failures or measured reruns.
+**Closeout remaining: push results/audits/render; stop/reset only known owned
+units, verify all exact owners/servers/NVML/both GPU locks released, push release
+proof; read and notify the waiting thread with the stable clientRequestId, retain
+its receipt; disable only this hourly schedule, push final closure.** No GPU
+release has been announced and notification has NOT been sent yet. Do not send it
+until every prerequisite is satisfied. The prepared `stage6_5080_release.py` checks
+that final analysis/render are pushed, every owned process has exited, and no GPU
+compute client or lock owner remains before writing `gpu-release-final-01.json`.
+Never kill foreign/new work or unlink locks; no training/other-checkout access.
 
-A fresh independent CPU-only report driver is now waiting on this **exact** proof03:
-`stage6-5080-final-analysis-20261110-01.service`, owner
-`$BASE/final-analysis-owner-01.private.json`, log `$BASE/final-analysis-01.log`.
-It checks the proof's terminal success, then immediately runs the final frozen
-report/extraction and writes the final narrative. Do not duplicate it or run the
-one-shot `stage6_5080_final_findings.py` / `stage6_5080_final_document.py` while
-its exact owner is live. At12:15UTC both owners' PID/birth/command/cwd verified;
-proof03's offline verification finished and the original was restored; its GPU-free
-runtime02 import/compile child is running. No compute client; locks free. Private
-health snapshot: `$BASE/portability-health-03.private.json`. This is not final
-resource release or authorization for another workload.
-
-Remaining: finish actual offline relocation/model/source guards and GPU-free
-runtime02 import/dry compilation, verify original restoration and all42 comparison
-digest equality; regenerate final frozen report and final findings/chart (render
-with html_preview then html_render); consolidate RESULTS.md with ratios/CIs/latencies,
-overhead/operational outcomes and genuine exclusions; push; stop/reset only owned
-units and verify GPU/servers/both locks released; send the requested waiting-thread
-notification with stable clientRequestId; retain receipt, disable only own hourly
-schedule, push final closeout and complete the goal. No routine user updates.
+Owned units to retire after pushed analysis: confirm20261109-03,
+overhead20261110-01, operational20261110-01, supplementary-driver20261110-02,
+portability20261110-01/02/03, final-analysis20261110-01 (all have the stage6-5080-
+prefix and.service suffix). Preserve their logs/owner receipts, failed histories,
+raw ext4 campaign, rebuilt wheel/runtimes/models/source caches. Root/ext4/Windows
+free space at12:19UTC was2.0/2.6/3.2GiB; ext4 loop0 mountedrw,noatime; no NVML
+compute client. This is health evidence, not the final release proof.
 
 ## Earlier phase and review history
 
