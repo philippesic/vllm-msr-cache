@@ -1,7 +1,8 @@
 # Agent first wait hint port plan
 
 Proposed implementation plan, 9 November 2026. Reviewed in two rounds with
-Cursor Opus 5.5 at high effort. This is the new proposed port plan for
+Cursor Opus 5.5 at high effort; amended 10 November after cross-project coverage
+agreement with ShaderLOD and Binary Eagle. This is the proposed port plan for
 `vllm-semantic-cache-ext-next`. It replaces the scope and sequence in
 [remaining stages](remaining-stages.md); that document remains a historical
 inventory. Implementation requires a subsequent task authorization. Approval of
@@ -63,7 +64,7 @@ verified as an original source.
 | Extension policy also bans unrelated stores named registry | [Agent policy](../tools/agent_policy.py) rejects `registry` modules and names ending `_REGISTRY` | Distinguish extension registration from ordinary session/prefix maps. Do not rename correct concepts merely to evade checks. |
 | Strict adapter typing lacks an actual runtime environment | [Development dependencies](../pyproject.toml), [runtime assumptions](runtime.md) | Add a separately locked runtime CPU lane before extracting the adapter; do not compensate with broad missing-import ignores. |
 | Proof execution dominates the recorded check time | [Prior validation](guardrail-validation.md) records 44.66 seconds full and 43.71 seconds proof-only; this audit's full check was 43.13 seconds | Add an honest targeted loop. Preserve full acceptance; do not infer a speed gain from these unrelated invocations. |
-| No automatic acceptance is established | Optional hook; no remote; hosted CI unverified | A passing local command is not enforced branch protection. Explicitly establish local setup and later remote CI. |
+| No automatic acceptance is established | Optional hook; no remote; hosted CI unverified | A passing local command is not enforced branch protection. Establish local acceptance; hosted CI and PRs are not prerequisites while local-only. |
 | Fixed collection catches deletion and skipping | [Pytest gate](../tools/pytest_gate.py) and manifests | Keep this guarantee; add explicit manifest-update and targeted-test workflows without silently rebaselining acceptance. |
 | Identity examples are not the runtime identity | [Contracts](../semantic_offload/contracts.py) | Replace illustrative token/string equality and retention scores with actual namespace, observed-prefix, generation and native block-key contracts. |
 | Planning prose already disagrees with code | `remaining-stages.md` advertises absent `./check` | Link commands to the checked system map and keep one active plan, not duplicated command inventories. |
@@ -127,7 +128,11 @@ per-request `kv_transfer_params` registration fields together with the hint API.
 Specify a client-reproducible observed-prefix digest over exact token IDs and
 namespace, with shared golden vectors. Keep namespace, generation, bounded inputs,
 causal validation and replay behavior. A versioned contract change must list every
-intentional semantic difference.
+intentional semantic difference. Name the supported readers and schema versions
+for hints, registration and verification receipts; refuse unknown versions and
+producer/consumer disagreement. An intentional artifact migration creates a new
+artifact with explicit source lineage and preserves the original. No automatic
+legacy compatibility or schema-registry service is required.
 
 Continuation request priority is a separate client/scheduler mechanism, not an
 intrinsic consequence of wait hints. Historical clients invoke
@@ -241,7 +246,9 @@ Create modules as the corresponding slice is extracted, not as empty scaffolding
 The proposed dependency direction is adapter to application logic to contracts.
 Pure modules cannot import vLLM, benchmarks, tooling, filesystem output writers,
 or host environment configuration. Avoid shared-state mixins and a replacement
-mega-connector. Each adapter override lists its required native seam in the runtime
+mega-connector. Ownership is per authoritative state or result, not all IO:
+read-only diagnostics may inspect state and temporary writers use owned roots.
+Each adapter override lists its required native seam in the runtime
 compatibility manifest and has a focused integration test.
 
 | Responsibility | Owns | Allowed dependencies and boundaries |
@@ -358,6 +365,14 @@ modules. Exhaustively enumerate small relevant state transitions before adopting
 a general property-testing framework. Each removed historical safety override
 needs a test showing its invariant is still enforced.
 
+Derive oracle expectations independently of production implementation: manually
+work small ARC order/refcount cases, retain historical failure counterexamples,
+and use independently computed digest/block-boundary vectors across registration,
+endpoint and scheduler consumers. A second agent or two consumers generated from
+the same schema is not independent derivation. Include a deliberately disagreeing
+producer/consumer pair and unknown schema version; both must refuse. Keep required
+safety checks effective under optimized execution or reject that execution mode.
+
 The supported check interface should offer a documented targeted mode for a test
 path or selector, a portable full mode, and a runtime CPU mode. Targeted results
 must say partial and name omitted groups; their receipt cannot satisfy full
@@ -370,6 +385,11 @@ Diagnostics should name the rule or failed invariant, path, observed condition,
 and the supported repair command. Bound subprocesses and print timing by group.
 Optimize only observed slow steps; do not set an arbitrary tool-count or line-count
 target. Native and hardware absence remain visible outside passed counts.
+If incremental builds or CPU checks reuse cached work, report executed and reused
+checks separately with the identities that justify reuse. A cached CPU result is
+not a fresh hardware observation. Never memoize physical performance measurements
+or substitute historical device qualification for a requested new device run.
+This adds reporting obligations, not a requirement to build a proof cache.
 
 ## Accurate communication and recoverable operation
 
@@ -382,6 +402,13 @@ behavior. A durable finding references the relevant receipt and states scope.
 A schema can prevent missing attribution; it cannot establish the truth of prose.
 Source review remains necessary for consequential interpretations.
 
+Keep authority, readiness, evidence validity, selection and scientific usefulness
+separate. Authorization does not make stale or corrupt evidence valid; valid
+checks do not grant execution permission. An editable approval field or content
+hash authenticates neither authority nor policy approval. A selected result is
+not necessarily the latest attempt, and a healthy process may yield no useful
+scientific observation. Report causes as confirmed, hypothesis or unknown.
+
 A useful completion message says what changed, which mechanism was exercised,
 which checks passed, what remains unavailable, and where evidence lives. Examples:
 “CPU ARC recency-advice cases passed; no GPU transfer was tested” is acceptable.
@@ -390,8 +417,13 @@ is never relabeled as a result for the minimal port. Do not use test counts as a
 proxy for functional coverage or output token counts as a proxy for answer quality.
 
 An authorized task records objective, scope, acceptance conditions, resource
-permission, and stop conditions in the existing harness. Git holds code, tests,
-compact decisions and accepted evidence. At a handoff keep one bounded resume
+permission, and stop conditions in the existing harness. Admission and terminal
+reports, both human-readable and machine-readable, identify the goal, actual
+mechanism activation (or not-yet-observed state), starting code/runtime identity,
+limiting risk, resource budget, stop action and evidence scope. Do not imply a
+functional verification run establishes performance or scientific progress.
+
+Git holds code, tests, compact decisions and accepted evidence. At a handoff keep one bounded resume
 record in the task with current branch/commit, pending checks and known blockers.
 If the harness cannot retain that state, retain one compact tracked task record,
 with outcomes linked rather than copied. Do not create competing STATUS/history
@@ -401,7 +433,21 @@ Proceed autonomously through reversible repairs, tests and authorized milestones
 Ask only for a missing consequential decision, a scope expansion, guardrail
 weakening, or resources not authorized. Continue independent work while waiting.
 A failed attempt is evidence to diagnose, not a stop condition or a reason to
-retry selectively until results look favorable.
+retry selectively until results look favorable. The execution owner enforces
+wall-time/resource bounds, stop action, retry count and cumulative failed-attempt
+cost even when the agent exits or notifications fail. Use supplied task limits;
+choose explicit bounded operational defaults within authorized scope when needed,
+not undeclared scientific stopping rules. Persist budget accounting across a
+restart. Test lost notifications, exhausted retries and timeout cleanup in M4.
+Recovery within these bounds remains autonomous; changed semantics or a reduced
+capability must be reported and resolved through the stated scope process.
+
+Stop/cancel/retry controls bind to the current run, attempt and owner through the
+existing harness or local access boundary. Reject foreign, stale and replayed
+control requests; test delayed cancellation after restart. Authenticate access
+without inventing a new credential service, and do not confuse access with Philip's
+authorization or tenant isolation. CPU fault injection proves process-crash handling,
+not power-loss durability; claim the latter only after separate relevant evidence.
 
 For concurrent implementation, one owner per responsibility and one worktree per
 agent. Integrate serially, regenerate the full test manifest with the explicit update
@@ -410,7 +456,20 @@ separate working files and indexes, but do not isolate GPUs, ports, environments
 shared caches or artifacts; see [Git worktree documentation](https://git-scm.com/docs/git-worktree).
 Use per-invocation output roots and ownership records. Do not mutate an environment
 or delete an artifact another process is using. Remove only clean disposable
-worktrees and owned processes after preserving results.
+worktrees and owned processes after preserving results. Bind running attempts to
+immutable snapshots including dirty tracked content, untracked/generated executable
+inputs, and actual loaded libraries/binaries, not HEAD alone. Refuse or invalidate
+relevant qualification on identity drift; changed inputs start a new attempt.
+Identify owned processes by host/boot, process birth identity and attempt, not PID
+alone; test PID reuse and refusal to kill foreign processes.
+
+Cleanup first classifies the root as disposable task scratch, reusable cache,
+authored input or retained evidence. Recheck ownership, active users, dependency
+references and recoverability immediately before reclaim; record a deletion
+receipt outside the deleted root. Unknown or shared ownership refuses deletion.
+Keep useful failed/negative evidence and dependencies of retained results. Do not
+add an autonomous deletion service, arbitrary shared-cache cleanup or automatic
+scientific evidence expiry. This is a narrow owned-resource cleanup contract.
 
 GPU permission is necessary but not an exclusion mechanism. A CLI flag does not
 prove authorization; an idle-device observation does not prevent a race. Keep
@@ -421,7 +480,12 @@ names host, device and window, plus either an existing external reservation wrap
 device in the window. The idle-device check remains a sanity precondition. If no such
 arrangement exists, the GPU step remains blocked; CPU work continues. Any later
 shared autonomous GPU service requires a separately approved external ownership
-contract, not a home-grown lock disguised as a preflight.
+contract, not a home-grown lock disguised as a preflight. Participating external
+owners must agree on a host/device namespace across projects. An advisory mechanism
+excludes only cooperating users; ambient or uncooperative occupancy remains a
+reason to refuse or report uncertainty. Recheck disk headroom before execution,
+but do not describe that observation as OS-reserved capacity. No scheduler, queue
+or lease service is mandated.
 
 ## Benchmark interface only
 
@@ -458,11 +522,11 @@ human approval pause. The executing task's scope determines how far to proceed.
 | Milestone | Work | Exit evidence |
 | --- | --- | --- |
 | M0 Reconcile foundation | Adopt active scope and reconcile the decision clauses listed below; repair overbroad bans with controls; define targeted/full lanes and review boundary; remove misleading future requirements from active docs | Existing full CPU checks pass; legitimate vLLM identifiers pass; prohibited APIs still fail; documented commands exist or explicitly remain unavailable |
-| M1 Bind runtime | Lock one runtime closure and exact minimal patch; prove portable/runtime environment separation; characterize ARC caveat and native seams | Clean CPU install/import and scheduler-side construction with CUDA hidden; wrong interpreter/wheel/patch rejected; exact loaded identities retained |
+| M1 Bind runtime | Lock one runtime closure and exact minimal patch; prove portable/runtime environment separation; characterize ARC caveat and native seams | Clean CPU install/import and scheduler-side construction with CUDA hidden; wrong interpreter/wheel/patch rejected; loaded and dirty/generated identities retained; drift rejection exercised |
 | M2 Extract pure behavior | Closed config, identities, observed store, advice; rename internal package and schema; record intentional historical differences | Causality, replay, capacity, generation and prefix cases pass without vLLM; no scoring/prefetch configuration accepted |
-| M3 Integrate native behavior | Thin adapter/RPC/authenticated endpoint; advice-disabled ARC control; computed-token and explicit failure-path guards; actual mechanism receipts | Real pinned ARC/adapter CPU cases and per-override disposition pass; no copied giant fixtures or semantic dependency |
-| M4 Qualify minimal source port | Clean reproducible setup, all required CPU lanes, operational fault cases, readable evidence, source/interface docs | Complete CPU functional acceptance; capabilities explicitly say GPU and performance unqualified; benchmark interface reserved only |
-| M5 Qualify hardware when authorized | External ownership, supported model/layout/host, actual store/evict/restore and cleanup | Per-host functional receipt; failure preserved; no implied throughput or quality result |
+| M3 Integrate native behavior | Thin adapter/RPC/authenticated endpoint; advice-disabled ARC control; computed-token and explicit failure-path guards; actual mechanism receipts | Real pinned ARC/adapter CPU cases and per-override disposition pass; independent small oracles and schema/conformance refusal pass; no copied giant fixtures or semantic dependency |
+| M4 Qualify minimal source port | Clean reproducible setup, all required CPU lanes, operational fault cases, readable evidence, source/interface docs | Complete CPU functional acceptance including lost notification, retry budget, stale control, PID reuse and safe-cleanup refusal cases; capabilities explicitly say GPU and performance unqualified; benchmark interface reserved only |
+| M5 Qualify hardware when authorized | External ownership, supported model/layout/host, actual store/evict/restore and cleanup | External ownership and occupancy/headroom sanity recorded; per-host functional receipt; failure preserved; no implied throughput or quality result |
 | M6 Later research and preferences | Separate benchmark redesign; optional skills/interface work only on request | Acceptance criteria defined in those later tasks, not invented here |
 
 M0 must reconcile authoritative documents in the same implementation change,
@@ -473,7 +537,12 @@ writers), G005-IDENTITY (illustrative contracts), and G005 review policy. Rewrit
 AGENTS.md within its existing size cap around the wait-hint question, exact reuse,
 canonical check navigation, substantive-review boundary, GPU authorization and
 worktrees. Move detailed benchmark guidance into its domain document. Keep
-historical decisions/evidence clearly labeled; do not erase provenance.
+historical decisions/evidence clearly labeled; do not erase provenance. Assign one
+current owner/location for each design or workflow rule, with supersession links
+from retired guidance. Keep immutable scoped findings and adverse outcomes in the
+existing FINDINGS index; any additional view derives from those records rather
+than duplicating conclusions. A historical record must not remain an active
+instruction merely because it is retained.
 
 Seed the per-override disposition during M1: reimplement computed-token bounds,
 completed-transcript registration, hint publication and reset state clearing;
@@ -510,3 +579,10 @@ it. Both sides accepted either choice if its capability consequences are stated.
 Fail-stop is a safe emergency behavior, not advertised recovery. No further debate
 is needed to execute the plan; implementation evidence may justify revisiting the
 choice through the stated scope process.
+
+The 10 November cross-project agreement adds focused identity, authority, budget,
+oracle, schema-evolution, control-channel and cleanup acceptance cases to M1–M5.
+It does not adopt a common framework, change local full-check/manifest or discovery
+preferences, add skills, import GPU reservation machinery, require hosted CI, or
+specify benchmark methodology. Architecture and typed APIs remain the first line
+of enforcement, followed by behavior checks and concise guidance.
