@@ -537,7 +537,7 @@ has `complete_inventory=false` and one pending attempt; do not call frozen finis
 Regenerate after all phases are terminal, retaining every earlier snapshot. Use
 cap04 for future exact expanded-context reuse, with novel contexts explicitly read.
 
-The latest **partial all-attempt cap review 05** covers **215 responses / 135
+The historical **partial all-attempt cap review 05** covers **215 responses / 135
 extended contexts**: 132 screen and 83 confirmation, 194 intermediates and 21
 finals. [Index](caps-all-review-index-05.json),
 [ratings](caps-all-source-judgments-05.json),
@@ -556,6 +556,28 @@ were independently rechecked. Tokens were bound, not individually decoded.
 Includes failed/interrupted/unmatched ordinary arms. One attempt was pending,
 so `complete_inventory=false`; no final finish was called. Regenerate after all
 phases are terminal. Use cap05 for exact expanded-context reuse, retaining history.
+
+The latest **partial all-attempt cap review 06** covers **217 responses / 137
+extended contexts**: 132 screen and 85 confirmation, 196 intermediates and 21
+finals. [Index](caps-all-review-index-06.json),
+[ratings](caps-all-source-judgments-06.json),
+[bindings](caps-instruction-bindings-06.json), raw `$BASE/caps-all-checkpoint-06/`.
+All 215 prior occurrences exactly reuse cap05 extended-context judgments; both
+new occurrences exactly match the explicitly read confirm14 capped intermediates
+(indices 8 and 51). No new full quality context or automatic novel judgment.
+Both contain useful rank/validation facts but unsupported performance-test claims,
+exceed the intermediate word limit and omit the required next tool declaration.
+
+Selected duplicate-inclusive counts are **154 source failures, 216 instruction
+failures and 79 not useful**. All 69 cap-bearing archived instruction sources
+verify. In addition to complete sealed source/reference/instruction/node/role/tool
+branches and objective/prompt bindings, every actual preceding dependency and
+tool excerpt was independently recomputed from sealed requests and ancestor tool
+files. Each quality context has one prompt-binding digest; tokens were bound,
+not individually decoded. All ordinary failed/interrupted/unmatched arms were
+included. One attempt was pending, so `complete_inventory=false`; no frozen final
+finish was called. Regenerate after all phases are terminal. Use cap06 for future
+exact expanded-context reuse and preserve earlier snapshots.
 
 The earlier **partial confirmation** review 01 is also retained:
 [index 01](confirm-review-index-01.json), [ratings 01](confirm-source-judgments-01.json)
