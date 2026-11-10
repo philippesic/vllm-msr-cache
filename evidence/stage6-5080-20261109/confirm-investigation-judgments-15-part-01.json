@@ -1,0 +1,112 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "51e536843bc28d92cb390bb974e181b6555c15f1cc6252efaa8949d7a213d66b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-15/blind-packet.json",
+  "ratings": [
+    {
+      "index": 0,
+      "review_id": "ea5c2eee88f9d997350e0172",
+      "signature": "6c559bd948700dfc49af0eb5aac27dd2d7cfdfdb0eefe1d3308921a247b4eaf0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Circular shifts and PASS are supported. Invalid noninteger steps/noniterable input raise type errors through deque/rotate/gcd; narrowly phrased lack of graceful type handling is supported, not a claim of an executed invalid-type test. Missing literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 1,
+      "review_id": "97d0fbc8530f93e44a08d5ed",
+      "signature": "dc999e479c3765e4180011b145f7b42c7618e977c1d9735133d1c8ddbc7e726a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 42,
+      "notes": "Actual key test and five passing tests support key-based uniqueness. Docstring explicitly warns that unhashable elements use slower list membership. Colon-form Test status omits the required literal; echoed bash is not new execution. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 2,
+      "review_id": "f24327c68302af1d1d1c8afb",
+      "signature": "0900898e28c17ec8b9f2808ff97ddf02bffd8dc6833034fda3348f5c56b62db2",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The function explicitly supplies the ValueError message Steps should be a non-zero integer; the claim that it does not specify the error message is contradicted by source."
+      ],
+      "whitespace_words": 36,
+      "notes": "Six passing tests and circular behavior are supported, but the concrete limitation is false and required literal status is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 3,
+      "review_id": "a95a903f94dcdea940713110",
+      "signature": "f081e19f65ed5d8064f937952fb93e48e9a44528c3d5866c02e0895fbc22c129",
+      "source_supported": true,
+      "instruction_followed": true,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "test_single demonstrates ordinary singleton wrapping; actual six tests pass and literal test_status=PASS is present. Default str/bytes atomic treatment is documented, with configurable base_type retained; does not claim configuration is impossible. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 4,
+      "review_id": "5fa4d828fe78f50ec7fcbe69",
+      "signature": "1045eb216c028e6a50f01fe98860803c667da16ce244576ade4da03cfb432ef7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_none expects an empty iterable, not one-item wrapping; explicitly citing it as confirmation of singleton wrapping is incorrect."
+      ],
+      "whitespace_words": 37,
+      "notes": "Ordinary noniterable wrapping is supported by test_single, and default str/bytes atomic behavior is documented. This sentence attaches test_none to wrapping itself, unlike earlier contexts that merely list it among passing tests. Missing literal status; useful partial facts remain. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 5,
+      "review_id": "0791d5b86543350c846068bd",
+      "signature": "070a6e5ae637669cb85c5a2bd7d3d10adff327d93607c4a5dd68db49d62915a4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "test_none does not confirm one-item wrapping: None returns an empty iterable."
+      ],
+      "whitespace_words": 41,
+      "notes": "Same explicit test_none evidentiary error, with supported ordinary wrapping and default atomic strings retained. The configurable default may differ from character-iteration expectations; no blanket denial of customization. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 6,
+      "review_id": "8dbbfbb1b39a5296b2756fd6",
+      "signature": "403220bf6301060cc0b4a8c72afa2c704a6b1ad1717c60b42d1175fbfd207f23",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 32,
+      "notes": "Integer-compatible steps are required by deque.rotate and gcd; noninteger input may raise a type error. Read the hedged unexpected-results phrase narrowly as that invalid-input failure, not as a specific wrong rotation or infinite loop. Actual tests pass; missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 7,
+      "review_id": "8aeff37c4dbd28c335125f2e",
+      "signature": "8b1c9a802d6e5151a8783341e9556ef7abb4d0c8cd8e7b4b353cd7d63a06161a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 43,
+      "notes": "Source/doctests support key-based case-insensitive uniqueness and document slower unhashable list fallback. Actual tool output reports five tests and five subtests passed. Missing literal status; repeated search is only text. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "stage6-5080-partial-quality-validator-v1",
+  "phase": "confirm",
+  "acquisition_complete": false,
+  "status": "audited",
+  "reviewed": 4024,
+  "packet_digest": "51e536843bc28d92cb390bb974e181b6555c15f1cc6252efaa8949d7a213d66b",
+  "ratings_digest": "174a813d6ad052b48721d74a625a98761b5852293d9378a1c4fd2e065efa03c0",
+  "isolated_workspace": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-audit-checkpoint-15",
+  "quality_module_sha256": "80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d",
+  "archived_instruction_sources_verified": 360,
+  "scope": "Frozen finish validator on isolated materialized partial snapshot; original acquisition/live analysis-quality unchanged. Not a final confirmation audit.",
+  "review_findings": {
+    "source_unsupported": 459,
+    "instruction_failures": 1908,
+    "not_useful": 67
+  }
+}

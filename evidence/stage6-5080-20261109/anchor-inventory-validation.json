@@ -1,0 +1,24 @@
+{
+  "schema": "stage6-5080-anchor-inventory-validation-v1",
+  "recorded_unix": 1794284822.4134154,
+  "helper": "benchmarks/research_checks/stage6_5080_qwen8b_complete.py",
+  "helper_sha256": "738dd8d2a29a802898695ed4289321d30732556cc060771cee050d4cb74ab1d3",
+  "full_inventory_assertions_passed": true,
+  "inventory_receipt_digest": "dab2b8320da11788fb30dcf884690ca11d2a4b3394ab5ce202107fa039e7628e",
+  "guards": [
+    {
+      "check": "bytecode must be disabled",
+      "passed": true
+    },
+    {
+      "check": "existing receipt cannot be overwritten",
+      "passed": true
+    }
+  ],
+  "source_pycache_absent": true,
+  "generated_bytecode_files_moved": 16,
+  "execution_bundle_verified_files": 4606,
+  "source_files": 2192,
+  "source_digest": "dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b",
+  "scope": "Actual complete anchor inventory and focused bytecode/no-overwrite guard checks. Audit-only generated caches moved outside frozen source; original 4606-file bundle and 2192-file source identity reverified. No acquisition or study-design change."
+}

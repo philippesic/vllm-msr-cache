@@ -1,0 +1,108 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "51e536843bc28d92cb390bb974e181b6555c15f1cc6252efaa8949d7a213d66b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-15/blind-packet.json",
+  "ratings": [
+    {
+      "index": 24,
+      "review_id": "48f6ab7970182360a0b0ac8f",
+      "signature": "a80b76a26caf3e4c7c5deb1134c97bc4f16d1facff034ad863686768b1abf40b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Supported circular-shift and invalid-type boundary final; dependencies separately bound/read. Actual six tests pass. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 25,
+      "review_id": "9910e9153aa7dea45225c4a1",
+      "signature": "54ee35f00600b2896a83c3a35ed580d1d54945e1d8535ac743581958b776daab",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 41,
+      "notes": "test_key, actual five tests/five subtests and explicit docstring unhashable slowdown support the facts. Missing literal status; echoed search is not a new tool event. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 26,
+      "review_id": "dda21412d383faaec4f72960",
+      "signature": "ac54c1fc1c77ac2a1faf28270268a153d55ea78f1dcc5f9986c0cf60c80d53ae",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 33,
+      "notes": "Supported key-based uniqueness, actual five passes and documented list fallback. Missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 27,
+      "review_id": "2a6e761d4f0116fba2da686e",
+      "signature": "0edb1aedd05c89a8c44d557b6e4ff985578386d83249fddbf934bac806068ee7",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 31,
+      "notes": "Supported circular shifts and narrow noninteger/noniterable failure boundary. Actual test class passes. Missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 28,
+      "review_id": "86fa76ed5d54fd9c3bf7a6b8",
+      "signature": "9d229aa5f2c2a1eeed41dfd44ab8adb526e5148b94da9fc6bacbf910ad175bb2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Actual six tests plus source support valid circular shifts and invalid-type boundaries. New third dependency read, but only the final is rated here. Missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 29,
+      "review_id": "d50c284f3bf4d0dea797b8e2",
+      "signature": "5ee49b9180e178c7d77ae0ef7aa1bf959a681edca69f953604c9368747c188e2",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 43,
+      "notes": "Source and actual test output support uniqueness and slower unhashable list comparisons. Final does not repeat preceding unsupported infinite-input test-absence claim. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 30,
+      "review_id": "9db5d057083425f1e595a00f",
+      "signature": "ce0fcc89875f49ef75a0ec0f70daefdad6da8f775f0d5f211a62ac9bc7ab82d0",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 28,
+      "notes": "test_steps_zero actually checks ValueError; all six tests pass. Noninteger steps and noniterable inputs fail type requirements in deque/rotate/gcd. Missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 31,
+      "review_id": "206693f93a90864cf2d2d36a",
+      "signature": "b71aedc11b0336d7857cdecdbfd0898b945a909d66e33709251119237086706d",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "No supplied restriction or failing case supports a blanket caveat about custom iterable types; the implementation uses the generic iteration protocol and explicitly tests iterators."
+      ],
+      "whitespace_words": 31,
+      "notes": "Zero returns no chunks without consuming input; negative raises tested ValueError. Ordinary chunk balance and noninteger boundary are supported. The added vague custom-type restriction is unsupported and required literal status is missing; useful correct fragments remain. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

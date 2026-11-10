@@ -1,0 +1,62 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "51e536843bc28d92cb390bb974e181b6555c15f1cc6252efaa8949d7a213d66b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-15/blind-packet.json",
+  "ratings": [
+    {
+      "index": 8,
+      "review_id": "5bbcd61dc44045f6670aabae",
+      "signature": "f56e5c0c7cfcff3cb94abb86a011cd2f3afd93a687861eb5dc857e6f7403dcf6",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 47,
+      "notes": "Five actual passing tests and the documented key/unhashable behavior support the answer; slower list fallback is explicit. Missing literal status; echoed search is not additional execution. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 9,
+      "review_id": "5200e57b36a54c1aa116482a",
+      "signature": "43d0d112b4a0bf812b58506163d41d34d54fd85c4cfed2975578c7577876293e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 46,
+      "notes": "Actual five tests/five subtests pass, and key/nonhashable facts match source. Final does not repeat preceding unsupported absence of infinite-iterable coverage; an eventually duplicating infinite iterable is actually tested. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 10,
+      "review_id": "34152ba2913324cd7a80e1a3",
+      "signature": "70a2316f779cea90a67d1e69417dd871cffeb336de4f156e4b819bc935f4e79d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 47,
+      "notes": "Full callback_iter supplied source reread: its docstring explicitly declares deprecated:: 11.0.0 and future-major-release removal. Background execution/callback argument iteration and passing test_basic are also supported. Corrected the initial uncommitted draft before consolidation after checking the actual source, rather than relying on remembered documentation. Required literal test_status=PASS remains absent. Full repeated components bound to prior explicit reading; this answer and all unmatched context explicitly read. No objective/timing change."
+    },
+    {
+      "index": 11,
+      "review_id": "6c193aa5f5f61c0d72b821bf",
+      "signature": "71a01f91069d95a1f4df0a26e9c67efc4883c25835d552963b348c2a8883f29e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 34,
+      "notes": "Chunk-length balance and ten passing tests match supplied implementation/tests. Integer-compatible n is required by the islice-based implementation; read unexpected behavior narrowly as invalid-type failure, without attributing an unexecuted invalid-type test or a particular incorrect result. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

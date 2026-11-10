@@ -16,10 +16,16 @@ with driver log `$BASE/confirm-driver-03.log`. Individual cell coordinators have
 `$BASE/confirm-03-MODEL-CELL.log`. Revalidate both service/driver and the current
 frozen coordinator before any action; never launch a duplicate. The initial
 cell was Qwen3-8B B11; all eight B11 blocks now have valid complete comparisons.
-The latest post-repair health check has **327/524 valid configurations,
-120/210 complete matched blocks**, with B12 upstream repeat 3 (the fourth
-scheduled block) active. Review 14 captures all B11 blocks and the first B12
-block; later acquisition is outside that static snapshot.
+The latest post-repair health check has **370/524 valid configurations,
+132/210 complete matched blocks**, with Ministral B02 ARC repeat 3 active.
+All twelve Qwen3-8B B12 blocks are complete. Review 15 captures all completed
+Qwen3-8B blocks; secondary-model acquisition is outside that static snapshot.
+The [terminal anchor inventory](confirmation-qwen8b-attempts-complete.json)
+reconciles all 364 planned Qwen3-8B configurations: 363 valid logical cases,
+377 retained attempts / 35,530 verified files and 129/130 matched blocks.
+The sole missing block is the known first B06 activity failure; its 32 attempts
+remain unchanged. Execution is complete for that model, not analytical
+completion or a complete campaign. Continue the remaining model cells.
 B10 completed all twelve native pairs; B08 and B09 completed all twelve frozen four-system blocks;
 B05 and B07 completed all twelve frozen pairs.
 Health reports attention for the known first-block B06 candidate activity failure
@@ -171,7 +177,7 @@ export HF_HOME=/mnt/c/vllm-semantic-cache-ext-stage6-5080/huggingface
 `$BASE/primary-01` is an alias; use canonical OUT for process matching. Verify
 VOLUME is mounted before writes/resume. Never format its existing image. The
 old FILESYSTEM_REPAIR.md contains the image/remount recipe. Latest free space:
-about 10.0 GiB ext4, 3.56 GiB WSL root and 11.20 GiB Windows at the last bounded
+about 9.0 GiB ext4, 3.26 GiB WSL root and 11.19 GiB Windows at the last bounded
 health check; monitor all three. Root includes the latest derived review snapshot.
 Private disk observation 03 retains recent host-owned app-server
 binary/catalog sizes: these account for part of the recent root growth, but the
@@ -179,6 +185,11 @@ full cause is not established. Runtime/tmp had no large recent writes. Shared
 application files, configuration and all raw/derived evidence were preserved.
 Keep useful caches/raw evidence. Reconsider storage for later relocation copies
 using actual sizes, not an assumption that a second raw tree will fit.
+Private storage projection 02 models about 2.86 GB for the then-remaining
+174 confirmation configurations using the largest observed same-arm attempt;
+38 overhead and six operational cases remain unmodeled. This supports continued
+acquisition, not a guarantee that the final materialized relocation copy fits.
+Size that copy after acquisition and expand existing storage if necessary.
 
 After the entire confirmation driver is terminal and the frozen identity inventory
 is reconciled, launch another phase from an independent user service with fresh
@@ -917,7 +928,7 @@ live quality change, no first-B06 comparison credit, no final acquisition or
 population accuracy/equivalence claim. Reuse only exact complete contexts and
 archived instructions from the union of completed indices, retaining all history.
 
-The latest **partial confirmation review 14** includes all eight B11 four-system
+The historical **partial confirmation review 14** includes all eight B11 four-system
 blocks and the first B12 block (118 selected blocks):
 [index](confirm-review-index-14.json), [ratings](confirm-source-judgments-14.json),
 [component bindings](confirm-review-components-14.json),
@@ -949,6 +960,39 @@ attempts remain without comparison credit. First B06 remains excluded. No origin
 objective, timing or live quality change; no population accuracy/equivalence or
 final-acquisition claim. Continue exact full-context/instruction reuse from the
 union of all completed indices, retaining every historical snapshot.
+
+The latest **partial confirmation review 15** includes all twelve B12 blocks
+(129 selected Qwen3-8B blocks): [index](confirm-review-index-15.json),
+[ratings](confirm-source-judgments-15.json),
+[component bindings](confirm-review-components-15.json),
+[isolated validator](confirm-quality-checkpoint-15.json), raw
+`$BASE/quality-confirm-checkpoint-15/`. It covers **5,976 objective finals,
+3,476 automatic final failures, 78 capped intermediates and 4,024 selected
+outputs / 429 complete contexts**. All 32 new investigation finals were read
+and judged across five manual parts. Their five complete supplied sources exactly
+bind prior explicit readings; every new dependency and answer was separately read.
+Bindings include confirm05 through confirm14 and earlier confirm15 contexts.
+
+The new group has **five source failures, 31 instruction failures and zero not
+useful**. Two answers wrongly cite test_none as proof of singleton wrapping;
+another denies an explicit error message. Unsupported infinite-input failure and
+custom-iterable restrictions remain visible. Documented callback_iter deprecation
+and abort behavior receive source credit. Thirty finals omit literal status; one
+has it but supplies an unsupported limitation. Useful partial facts remain distinct.
+Selected duplicate-inclusive counts are **459 source failures, 1,908 instruction
+failures and 67 not useful**. All 360 included archived instruction sources verify;
+the frozen validator accepts all 4,024 judgments in isolation. Objectives,
+timings, live quality and first-B06 exclusion remain unchanged. No population
+quality/equivalence or final-acquisition claim. Reuse the union of screen07 and
+confirm01 through confirm15, with exact complete-context/instruction binding.
+
+The [anchor inventory helper](../../benchmarks/research_checks/stage6_5080_qwen8b_complete.py)
+was run from SOURCE with literal PY; its receipt already exists, so do not rerun
+to overwrite it. [Validation](anchor-inventory-validation.json) records complete
+inventory assertions and bytecode/no-overwrite guards. A misspelled audit-only
+bytecode flag generated 16 disposable caches; they were moved to
+`$BASE/generated-validation-cache-02`. The original 4,606-file bundle and
+2,192-file frozen source identity reverify unchanged; no acquisition change.
 
 [Repository reference preparation](confirmation-repository-reference-review.json)
 checks all eight B05 source/test reference snippets against their pinned files

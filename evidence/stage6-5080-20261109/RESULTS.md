@@ -264,7 +264,7 @@ This is a partial selected-cohort audit, not a population error rate or quality
 equivalence. Timings, objectives, live quality and first-B06 exclusion are unchanged.
 Final confirmation and all-phase audits remain pending.
 
-The [latest partial confirmation review](confirm-review-index-14.json) includes
+The [historical partial confirmation review](confirm-review-index-14.json) includes
 all eight B11 four-system blocks and the first B12 block: **5,624 objective
 finals, 3,191 automatic final failures, 78 capped intermediates and 3,720 selected
 outputs / 398 complete contexts**. All 61 new contexts (58 investigation finals,
@@ -318,6 +318,37 @@ Qwen3-8B B06 remains at its original 32 attempts. At that checkpoint health had 
 configurations and 113/210 matched blocks**, with no new issue beyond the retained
 activity exclusion and setup attempts awaiting valid replacement. This proves
 recovery of that block, not completion of confirmation or the campaign.
+
+All **364 planned Qwen3-8B confirmation configurations have executed**.
+The [terminal model inventory](confirmation-qwen8b-attempts-complete.json)
+verifies every retained seal: **377 attempts / 35,530 files**, including original
+partial and setup-failed arms. There are **363 valid logical configurations and
+129 of 130 required matched blocks**. The first B06 activity failure remains the
+sole missing anchor block; all 32 B06 attempts ran once, without an activity retry.
+Three valid original arms remain unmatched after whole-block setup recovery and
+receive no extra comparison credit. Secondary-model and later phases continue;
+this is model execution completion, not a completed confirmation matrix.
+
+The [latest partial confirmation review](confirm-review-index-15.json) covers all
+twelve B12 blocks: **5,976 objective finals, 3,476 automatic final failures,
+78 capped intermediates and 4,024 selected outputs / 429 complete contexts**.
+All 32 new investigation finals were explicitly reviewed; their five supplied
+source strings exactly match earlier readings, with every new dependency and
+answer separately read. [Bindings](confirm-review-components-15.json) retain
+full-field and individual-dependency matches.
+
+The new group has **five source failures, 31 instruction failures and zero not
+useful**. Wrong test_none evidence, denial of an explicit error message and
+unsupported infinite/custom-iterable restrictions remain visible. Explicitly
+documented deprecation and abort behavior receive credit. Selected
+duplicate-inclusive counts are **459 source failures, 1,908 instruction failures
+and 67 not useful**. All 360 archived instruction sources verify, and the
+[isolated frozen validator](confirm-quality-checkpoint-15.json) accepts all 4,024
+judgments. These selected counts are not population quality rates or equivalence.
+Original objectives, timings, live quality and first-B06 exclusion are unchanged.
+The [inventory validation](anchor-inventory-validation.json) also reverifies the
+original source and execution bundle after audit-generated caches were moved
+outside the frozen source. Final confirmation and all-phase audits remain pending.
 
 See [continuation instructions](CONTINUE.md) for the active owner, exact paths,
 remaining phases and enabled health monitoring.

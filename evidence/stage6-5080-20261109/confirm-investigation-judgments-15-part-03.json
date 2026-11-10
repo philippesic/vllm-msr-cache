@@ -1,0 +1,84 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "51e536843bc28d92cb390bb974e181b6555c15f1cc6252efaa8949d7a213d66b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-15/blind-packet.json",
+  "ratings": [
+    {
+      "index": 12,
+      "review_id": "2f6b45733b17d8d3c6c5c7e7",
+      "signature": "37f5b61d1172ca32424c08ba5a4f236bf243f6bee80f53ad891cb2e8f2a7e9e9",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 30,
+      "notes": "Six tests pass; zero steps explicitly raises ValueError and noninteger steps cannot be rotated/gcd-counted normally. No claim that invalid-type tests were executed. Missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 13,
+      "review_id": "4ed6c79d4ea11d722dba03d4",
+      "signature": "eb7e8893b876a5bc941543a4c9be1d5c5cf65a447a9671ba73541f19a3af005a",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 30,
+      "notes": "Same supported final under a different fully read dependency context. Concrete zero/noninteger boundaries supported by source; actual six tests pass. Missing required literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 14,
+      "review_id": "473b482b776fad42a229700a",
+      "signature": "acf8b800a6f7cc8faa7a094cd9a7aaddb18bda7e37171b94f9df55c0e2c1d170",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 42,
+      "notes": "Key-based uniqueness, actual five passing tests and documented slower unhashable membership checks are supported. Missing literal status; echoed rg is not a new execution. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 15,
+      "review_id": "0735fe73dcac42e9c8455df9",
+      "signature": "29d10329224bfac32d1e7b53c8f069b2db3b42b6826160456d9a76620376e0b8",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 24,
+      "notes": "Same supported circular-shift/type-boundary final as index0, with a different exact prior dependency context. Does not attribute copied upstream errors to the final. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 16,
+      "review_id": "9e3b8a4a35c2070633dfadf8",
+      "signature": "ce37b79c0ae63362103a5aa2f93769ed24141e5e487a1104ec9b65af98a7572e",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 40,
+      "notes": "Background threads/callback arguments/result retrieval and actual seven passing tests are supported. AbortThread after premature exit is documented and test_abort checks it; the hedged integration/graceful-handling caveat is read as this actual abort behavior, not as evidence of a tested arbitrary-context defect. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 17,
+      "review_id": "14d8aee3e509c67fe856645c",
+      "signature": "fe65c49d5f406645f33aad259d228a8cad5154a361fab56143e6aeb87b808aac",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 45,
+      "notes": "Source explicitly documents slower unhashable fallback, key behavior and actual five passing tests. Missing literal status; echoed search is only text. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

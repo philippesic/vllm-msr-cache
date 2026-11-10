@@ -1,0 +1,86 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "51e536843bc28d92cb390bb974e181b6555c15f1cc6252efaa8949d7a213d66b",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-15/blind-packet.json",
+  "ratings": [
+    {
+      "index": 18,
+      "review_id": "b0e6544d636e6e5472d851c8",
+      "signature": "f394971280a18bf2e285f0c8effeedecebc07ab0572dce491f90f0d42a88be2c",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 23,
+      "notes": "Chunk size balance, ten actual passing tests, and invalid noninteger/noniterable type boundaries are supported. Test status=PASS still has a space instead of the required underscore; no invalid-input execution invented. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 19,
+      "review_id": "754c699614680a8b535e7a88",
+      "signature": "8b84215f27d4de9681668b352ebb12428d2cc0a979a1de5a5d00b7f77a97818d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 34,
+      "notes": "Integer-compatible n and iterable input are required by comparisons/iter/islice; type/value errors are reasonable code-supported boundaries, not claimed additional executed tests. Actual tests pass. Final does not repeat its preceding incorrect assertion that infinite-iterable behavior is untested. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 20,
+      "review_id": "2f20ff77739ec1063f569860",
+      "signature": "1a0ad2e718b30af3f3edf6edbddea485b427bc590e0a7bde336b2cf76d2e198b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 40,
+      "notes": "Full source explicitly declares callback_iter deprecated since 11.0.0 and future-major removal. Background callbacks and seven actual passing tests support the rest. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 21,
+      "review_id": "813bb01f764d04852902c9bc",
+      "signature": "5319601afa0c38b108f77fe0e2d91f51b93b7166cd747d6da01da357cbdeac86",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 36,
+      "notes": "Callback iteration, exception propagation and background thread are explicit source/test behavior. Hedged synchronous-integration complexity is tied to documented thread coordination, not a claimed observed bug. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 22,
+      "review_id": "856f13dbcb934f5d2691fba5",
+      "signature": "b61801201207fbd9114d25021b4dd583451d757140587eb2a588a1f0bf60a9c9",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 27,
+      "notes": "Circular shifts, six actual passes, and invalid noninteger/noniterable type boundaries are supported. Narrow gracefully caveat does not claim specific unobserved corruption. Missing literal status. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 23,
+      "review_id": "ac37468bd016f030c958d691",
+      "signature": "ee1b42a63a4824e153c4d5fc2e1d038259e831bd03ca85fd2243a1563add9c27",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "The claimed failure on infinite iterables with varying chunk sizes has no supplied failing case; test_infinite explicitly verifies n from 1 through 4 with bounded look-ahead and correct chunks."
+      ],
+      "whitespace_words": 39,
+      "notes": "Balance and actual PASS are supported. Case-insensitive Test_status=PASS supplies the requested literal, but the claimed concrete infinite-input limitation is unsupported. Useful correct core content retained. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}
