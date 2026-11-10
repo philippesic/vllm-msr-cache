@@ -42,7 +42,8 @@ this hook includes the proofs rather than maintaining a weaker check path.
 ## Navigation
 
 - [System map](docs/system-map.md): commands, targets and availability.
-- [Remaining port stages](docs/remaining-stages.md): source, benchmark, GPU qualification, and skills.
+- [Proposed wait-hint port plan](docs/porting-overhaul.md): audit, architecture, checks, and staged acceptance.
+- [Historical remaining stages](docs/remaining-stages.md): the previous broader port inventory.
 - [Issue and failure analysis](docs/issue-analysis.md): old-repo failures and what now addresses them.
 - [Research instructions](AGENTS.md) and [durable findings](FINDINGS.md).
 - [Runtime assumptions](docs/runtime.md): distinct historical environments and GPUs.
