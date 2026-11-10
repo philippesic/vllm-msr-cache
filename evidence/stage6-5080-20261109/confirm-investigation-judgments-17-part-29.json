@@ -1,0 +1,56 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 101,
+      "review_id": "b24916cc18c161feaf96c349",
+      "signature": "d50173ee2eeb7500f2474155fa1cf8652b323b2a3e62adf97003c1d5a2334cef",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Says multiple-argument support was retracted; the supplied Retracted Ideas section retracts the proposed removal of args/multiple-argument support, preserving that support instead."
+      ],
+      "whitespace_words": 53,
+      "notes": "BaseException root and3.0 requirement, C-extension transition pain and message-attribute deprecation remain useful supplied facts. Cross-version compatibility is not a tested guarantee here. The answer gives PASS only as a generic Status label, omitting required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 104,
+      "review_id": "0ffeabbb4f1130b1693d4ea6",
+      "signature": "62485ba28c61691e7cfc53d45038dee541842193bcdaf37ce4996f0c230f7156",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies direct target tests despite actual ten tests/84 subtests passing, then contradicts that denial.",
+        "Invents strict divisibility checks absent from this replacement-combination index API and target class."
+      ],
+      "whitespace_words": 111,
+      "notes": "The valid lexicographical-index behavior, real invalid-order/match tests and actual10/84 pass count are useful supported fragments. The hedged large-r indexing cost is a source-based concern, not a measured performance result. Required literal test_status=PASS is absent despite the correct PASS words. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 105,
+      "review_id": "0caad7017c076109d99f9907",
+      "signature": "240bed307c2330ce27af6ca497bfdc9b7cb6c5a19fd1352a8149e8010e1bdf68",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 104,
+      "notes": "The supplied full PEP315 supports the historical rejected2.5 proposal, unsuccessful/poorly supported syntax alternatives, setup-before-condition and recommended while-True/inner-if-break. Lack-of-consensus/error-prone wording is read in that historical motivation/clarity scope, not as new runtime proof. Actual metadata PASS is correct. The proposed command is unexecuted; colon-style test_status omits required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

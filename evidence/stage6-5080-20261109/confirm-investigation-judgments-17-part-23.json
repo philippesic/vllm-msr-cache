@@ -1,0 +1,56 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 79,
+      "review_id": "b9c37c53868ff5e1b03502eb",
+      "signature": "a3c1cbf37e2fe41e9be38bbeb9577c85f4d361d156457459c54bf3e3de8365e7",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies the actual five passing AllUniqueTests and claims the supplied file lacks target tests."
+      ],
+      "whitespace_words": 112,
+      "notes": "The source-supported early False return on duplicates and recognition of real test_basic remain useful fragments. The broad search listing cannot erase direct target execution and full supplied class. No required literal actual test_status=PASS or genuine evidence-based limitation is given. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 80,
+      "review_id": "bc7caf5c7293c20bb1cbfa34",
+      "signature": "e7e36991b3cc60fda3465f7e23a7c89cfcc1fd443c8e125fa402058f1161f32c",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Calls (x for x in [1,2,3]) invalid even though that parenthesized generator over a list is permitted by the supplied syntax; commas inside the list are not the prohibited unparenthesized iterable tuple.",
+        "Adds an unsupported PEP284 attribution absent from the supplied document."
+      ],
+      "whitespace_words": 89,
+      "notes": "Final/Standards Track, actual metadata PASS and historical loop-variable isolation remain useful supported facts. PETP is read as a typo, not a new document identity. Colon-style Test Status omits required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 81,
+      "review_id": "27466a92bdd1763ff2ac544a",
+      "signature": "e3133e4c6525e6fdd5de2aabb63bac8e953ec7174e46b02f9525f90bbe5eb27d",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 71,
+      "notes": "Final/Standards Track, any-iterable generator-based index/value behavior and the historical proposal's dropped optional start/stop parameters are explicitly supported. Actual metadata PASS is correct, without inferring a new runtime test from the proposed command. The colon-style test_status label still omits required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

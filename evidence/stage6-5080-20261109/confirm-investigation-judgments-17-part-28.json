@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 98,
+      "review_id": "41d5e5c6c549fd5b393cec60",
+      "signature": "5b263b6347a41f3cfd32373c7ae5af4d3633bbe5d6de9f0996ad2cebf920319a",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": false,
+      "unsupported_claims": [
+        "Contradicts itself about target execution, misattributes tests and claims ten passed rather than actual eight.",
+        "Claims an overlong element will not raise, despite explicit test_invalid_large requiring ValueError and the supplied matching algorithm."
+      ],
+      "whitespace_words": 118,
+      "notes": "The complete class was already reread at novel32. The vague recognition of passed tests, contradicted by its opening and wrong count, supplies no reliable target behavior or limitation here. Required literal actual test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 99,
+      "review_id": "12be5ec2955954b6da5f7cf2",
+      "signature": "8dc0a560eb9284fa608ebe4699daec0891af0549241ef7cfb6381e3dc20eb1bd",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 81,
+      "notes": "The supplied PEP318 explicitly supports bottom-to-top application,2.4 function/method syntax and the class-decorator scope/future PEP3129 distinction. Actual metadata PASS is correct; the changed malformed proposed file suffix is not claimed as executed validation. The bold Test Status colon label omits required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 100,
+      "review_id": "1576645e7747143c9ab9161c",
+      "signature": "dc7aba0d38edaccec728e340a1f0db5336df94c0b2b58e3141695c094d5c1ac0",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Denies actual five passing AllUniqueTests and the presence of the supplied full target class.",
+        "Claims empty iterables/key=None behavior lacks tests/source handling despite explicit empty-case coverage and the normal no-elements path."
+      ],
+      "whitespace_words": 102,
+      "notes": "The source-supported key-function comparison behavior remains useful. The broad search listing cannot replace direct target test results. No required literal actual test_status=PASS or genuine evidence-based limitation. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

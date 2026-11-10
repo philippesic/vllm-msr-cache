@@ -479,11 +479,14 @@ excluded without activity retries. The immutable schedule assigns 60 Ministral
 and 100 Qwen3-4B configurations, plus364 Qwen3-8B, totaling524. Qwen3-4B continues;
 this is model execution completion, not campaign or final analytical completion.
 
-The next [source-review snapshot](confirm-review-progress-17-01.json) is explicitly
+The next [source-review snapshot](confirm-review-progress-17-02.json) is explicitly
 partial: **6,153 selected outputs / 784 contexts**, with201 new full contexts.
-All54 new QA and27 investigation contexts are read/judged; **120 investigation
-contexts remain unread and unjudged**. The subset has22 source failures,
-31 instruction failures and three not useful. No final index/ratings/finish was
+All54 new QA and78 investigation contexts are read/judged; **69 investigation
+contexts remain unread and unjudged**. The subset has56 source failures,
+82 instruction failures and six not useful. Exact [partial component bindings](confirm-review-components-17-progress-02.json)
+verify only these132 readings; no unread item receives a judgment. The initial
+[81-context checkpoint](confirm-review-progress-17-01.json) is preserved.
+No final index/ratings/finish was
 created for this incomplete snapshot; completed review16 remains authoritative.
 Exact prior reuse includes completed cap07 with matching archived instructions.
 These counts are selected findings, not population rates. Objective results,

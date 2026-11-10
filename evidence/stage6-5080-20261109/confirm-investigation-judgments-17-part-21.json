@@ -1,0 +1,57 @@
+{
+  "schema": "stage6-5080-explicit-novel-context-judgments-v1",
+  "packet_digest": "ab0e294ca671d490de0afde4bb230d190c340df07396c6c9aae36dfc2495bd93",
+  "signature_fields": [
+    "answer",
+    "source_context",
+    "reference",
+    "instructions",
+    "actual_dependencies",
+    "tools",
+    "response_role",
+    "current_instruction"
+  ],
+  "reviewer": "Codex explicit blinded source/test/instruction/dependency/tool/answer review",
+  "raw_packet": "/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-17/blind-packet.json",
+  "ratings": [
+    {
+      "index": 68,
+      "review_id": "841867965418a06540c19099",
+      "signature": "0d2cee834965fe022c4a36f403965059523d87c8792844bf1344d341a340598b",
+      "source_supported": true,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [],
+      "whitespace_words": 74,
+      "notes": "The supplied opening PEP327 excerpt was reread in full. User-settable precision and round-half-up are explicit; the metadata tool does not execute arithmetic/compliance tests. The narrow lack of trailing-zero implementation/validation detail is read as a limit of this opening excerpt/tool, not a denial of its explicit reference-implementation and test-suite availability. Status PASS is parenthetically clarified as Final; the malformed standard-name phrase is not a new standard claim. Useful supplied facts remain, but required literal test_status=PASS is absent. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 71,
+      "review_id": "b910b0efeedee6e7baec6952",
+      "signature": "b971bfa7014a7801dad64bcaad98a4bee90f254106c6c6e0bc5817823589b6ad",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Reports FAIL despite actual metadata validator PASS.",
+        "Describes versioning as unstandardized while simultaneously requiring the supplied StrictVersion-compatible syntax; that is not evidence of the claimed absence of a specified format."
+      ],
+      "whitespace_words": 64,
+      "notes": "Superseded/Standards Track, automatic sdist PKG-INFO and Requires/Provides are useful supplied facts. The wrong actual status and colon label fail required literal test_status=PASS; no modern packaging facts are inferred. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    },
+    {
+      "index": 73,
+      "review_id": "e7f098f2894acce352a60dfe",
+      "signature": "808f119918017eec5f9ac6ccd2f73b2cd90a5bcc1d0a6c1b2bf0018f59aaadd4",
+      "source_supported": false,
+      "instruction_followed": false,
+      "useful": true,
+      "unsupported_claims": [
+        "Claims the actual validator confirms document length; its real output validates only PEP/Title/Status/Type/Created.",
+        "Its proposed Python2.4 comment says the list-comprehension comma form should fail despite the supplied historical PEP distinguishing that permitted form from generator expressions."
+      ],
+      "whitespace_words": 108,
+      "notes": "Final/Standards Track, generator-expression syntax and the metadata-only/runtime-validation boundary are useful correct fragments. Proposed comments receive no execution credit. Correct PASS is present only as a colon label, not required literal test_status=PASS. Supplied source explicitly read earlier or in full at its first unmatched component in this snapshot; exact bindings checked separately. All new reference/instruction/dependency/tool/answer components explicitly read and judged. No automatic novel judgment; objective/timing unchanged."
+    }
+  ]
+}

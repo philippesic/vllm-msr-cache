@@ -43,7 +43,8 @@ Ministral is now terminal: all60 configurations /7,812 sealed files verify,
 with58 valid measurements and28/30 complete pairs; only the two known B06
 failures are excluded. The frozen model subtotals are364/60/100 configurations.
 Qwen3-4B continues. Review17 is prepared for6,153 selected outputs/784 contexts;
-81 of201 new contexts are explicitly judged, with120 investigations unread.
+132 of201 new contexts are explicitly judged, with69 investigations unread.
+Partial field/dependency bindings verify only the reviewed subset.
 No final review17 ratings or validator finish exists; completed review16 remains
 the latest canonical review. The all524 terminal-inventory helper is prepared,
 and its pending-acquisition guard passes; its terminal audit still awaits the job.
