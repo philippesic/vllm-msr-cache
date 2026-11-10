@@ -1,6 +1,6 @@
 {
   "schema": "stage6-5080-completion-v1",
-  "updated_unix": 1794313606.0798957,
+  "updated_unix": 1794313738.7403438,
   "execution_and_all_audits_complete": true,
   "full_protocol_passed": false,
   "reason": "Three genuine B06 activity-invalid blocks retained; no replacement or imputation",
@@ -32,10 +32,19 @@
     "both_locks_free": true
   },
   "notification": {
-    "delivered": false,
-    "pending": true,
+    "delivered": true,
+    "pending": false,
     "thread_id": "6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6",
-    "clientRequestId": "stage6-5080-20261109-final-gpu-release"
+    "clientRequestId": "stage6-5080-20261109-final-gpu-release",
+    "receipt": "completion-notification-01.json",
+    "delivery": {
+      "threadId": "6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6",
+      "link": "<t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6>",
+      "messageId": "message:mcp:1f194fbb-2b92-4760-bbe3-db541697c080:thread-send:stage6-5080-20261109-final-gpu-release",
+      "runId": "run:thread:6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6:ordinal:5",
+      "status": "running",
+      "delivery": "steered"
+    }
   },
   "monitoring": {
     "scheduled_task_id": "scheduled-task:d1de183b-4ef5-498a-aafe-ba015a2805ae",
@@ -43,5 +52,6 @@
     "disabled": false
   },
   "closeout_complete": false,
-  "scope": "All authorized campaign measurements, audits, final comparisons and cleanup complete. Full protocol did not pass; release proof must be pushed before requested completion delivery. No training or unrelated checkout access."
+  "scope": "All campaign execution, audits, results and GPU release complete/pushed; requested completion notification delivered with stable idempotency key. Only own hourly shutdown and final bookkeeping push remain. No training or unrelated checkout access.",
+  "pushed_release_checkpoint": "04dba8f7f0a9b67b84430221adbdfc8d64d55446"
 }

@@ -15,7 +15,7 @@ user authorized staged execution and routine repairs; the retained protocol
 declares owner-selected cases, thresholds and bounded budgets. Completion of
 these selected runs does not establish a universal performance or quality claim.
 
-## Stage 6 RTX 5080 rebuild — results pushed; GPU released; notification pending
+## Stage 6 RTX 5080 rebuild — results pushed; GPU released and recipient notified
 
 All planned phases and final audits/results are finished:54 screens,524
 confirmation identities,38 overhead controls and six operational cases. Functional
@@ -35,8 +35,8 @@ all bounded operational requirements pass. No quality-equivalence/production cla
 Final results/audits are pushed. All exact owned processes are gone, all eight
 known units stopped, NVML compute clients were empty and both GPU locks verified
 free. [Release proof](../evidence/stage6-5080-20261109/gpu-release-final-01.json)
-retains the timestamp/checkpoint. Requested waiting-thread notification and own
-hourly schedule shutdown remain; [completion](../evidence/stage6-5080-20261109/completion.json)
+retains the timestamp/checkpoint. Requested waiting-thread notification is delivered; only own
+hourly schedule shutdown/final bookkeeping push remain; [completion](../evidence/stage6-5080-20261109/completion.json)
 tracks these final steps. [Results](../evidence/stage6-5080-20261109/RESULTS.md),
 [audit](../evidence/stage6-5080-20261109/completion-audit-01.json),
 [portability](../evidence/stage6-5080-20261109/portability-final-03.json) and

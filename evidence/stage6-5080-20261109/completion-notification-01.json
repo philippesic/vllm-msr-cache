@@ -1,0 +1,18 @@
+{
+  "schema": "stage6-5080-final-completion-notification-v1",
+  "threadId": "6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6",
+  "clientRequestId": "stage6-5080-20261109-final-gpu-release",
+  "mode": "auto",
+  "message": "Stage 6 RTX 5080 is finished and the GPU is released. All planned phases (54 screens, all524 confirmation identities, overhead38, operational6), final objective/source/all-attempt-cap/source/seal/campaign/recovery/portability audits, all42 paired geometric throughput ratios/95% CIs and latency results are complete and pushed to philippesic/vllm-msr-cache branch stage6-5080-20261109. Pushed release checkpoint:04dba8f7f0a9b67b84430221adbdfc8d64d55446 (analysis/results checkpoint1a381f8a2fd3830ed9ff43f3ac507fb0fdc1ee00).\n\nOutcome: LMCache same-source sm_120+PTX rebuild and all five Continuum screens succeed; functional qualification passes. Full throughput protocol failed because exactly three original B06 activity-invalid blocks remain excluded, with no retry/imputation:521 valid identities and207/210 complete matched blocks. All641 retained attempts/67,120 sealed files verify. B11 candidate/ARC1.0726 [0.9478,1.2139], candidate/Continuum1.0689 [0.9304,1.2280] are unresolved; B09 ratios0.9733 [0.9617,0.9850] and0.6826 [0.6558,0.7106] are adverse. No Stage6 acquisition remains.\n\nEvidence on this machine:/home/philip/vllm-semantic-cache-ext/evidence/stage6-5080-20261109/{RESULTS.md,completion-audit-01.json,portability-final-03.json,final-results-01/,gpu-release-final-01.json}. Pushed results:https://github.com/philippesic/vllm-msr-cache/blob/04dba8f7f0a9b67b84430221adbdfc8d64d55446/evidence/stage6-5080-20261109/RESULTS.md ; release proof:https://github.com/philippesic/vllm-msr-cache/blob/04dba8f7f0a9b67b84430221adbdfc8d64d55446/evidence/stage6-5080-20261109/gpu-release-final-01.json .\n\nExplicit GPU-release proof: all28 recorded exact PID/birth owners have exited; all eight known owned units are stopped; no owned coordinator/server remains; NVML compute clients were empty; both common and legacy GPU locks were acquired/released and verified free. Original ext4 campaign is restored and useful evidence/caches retained. Stage6 has relinquished RTX5080 ownership. You may proceed with your separately authorized work. I have not started training or touched its checkout. My remaining bookkeeping is recording this delivery and disabling only the Stage6 hourly schedule; it does not use the GPU.",
+  "delivery": {
+    "threadId": "6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6",
+    "link": "<t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6>",
+    "messageId": "message:mcp:1f194fbb-2b92-4760-bbe3-db541697c080:thread-send:stage6-5080-20261109-final-gpu-release",
+    "runId": "run:thread:6a9bee6a-3f4d-4d2f-87c5-73a5e841c6c6:ordinal:5",
+    "status": "running",
+    "delivery": "steered"
+  },
+  "pushed_release_checkpoint": "04dba8f7f0a9b67b84430221adbdfc8d64d55446",
+  "gpu_release_proof": "gpu-release-final-01.json",
+  "all_prerequisites_completed_before_send": true
+}

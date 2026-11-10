@@ -51,14 +51,18 @@ The original ext4 campaign is restored. Useful results/models/runtimes/builds an
 all failed histories are preserved. Root/ext4/Windows remain healthy within their
 available2.0/2.6/3.2GiB. No process was killed, lock unlinked or GPU reset.
 
-**Closeout remaining:** push the release proof/current completion record, read the
-waiting thread, then send the authorized final notification with stable
-`clientRequestId=stage6-5080-20261109-final-gpu-release`; retain delivery receipt.
-Disable only own hourly schedule, push final closure. Notification has NOT been
-sent yet. [Completion record](completion.json) is the authoritative state; never
-send twice if interrupted—check its receipt and use the same clientRequestId.
-After delivery the recipient may immediately use the GPU; do not stop or inspect
-its work as an owned Stage6 server. Do not touch its checkout or start training.
+**Requested completion notification delivered** to the waiting thread after all
+results/audits and the verified GPU-release proof were pushed (release checkpoint
+04dba8f). [Delivery receipt](completion-notification-01.json) retains the stable
+`clientRequestId=stage6-5080-20261109-final-gpu-release` and message/run identifiers.
+DO NOT send again. GPU ownership is relinquished; recipient work may start now.
+Do not inspect/stop its processes or touch its checkout. No training launched here.
+
+**Closeout remaining:** push the delivery receipt/current completion state,
+disable only own hourly schedule, retain its disabled/nextRunAt=null receipt and
+push final closure. [Completion](completion.json) is authoritative. All campaign
+work and requested GPU-release notification are handled; no new measurement,
+repair, chart rendering or GPU action is required.
 
 ## Earlier phase and review history
 
