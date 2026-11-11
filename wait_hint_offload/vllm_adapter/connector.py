@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import time
 import uuid
-from dataclasses import replace
 from typing import Any
 
 from vllm.distributed.kv_transfer.kv_connector.v1.base import (
@@ -37,6 +36,8 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
     def __init__(self, spec: Any, vllm_config: Any, kv_cache_config: Any) -> None:
         require_runtime()
         engine_rpc.install()
+        if spec.eviction_policy != "arc":
+            raise ValueError("native ARC required")
         super().__init__(spec, vllm_config, kv_cache_config)
         self.settings = Settings.parse(spec.extra_config)
         if (
@@ -52,7 +53,9 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             raise ValueError("native ARC required")
         self.recency = ARCRecency(self.manager._policy)
         self.observed = ObservedStore(
-            self.settings.max_sessions, self.settings.max_events
+            self.settings.max_sessions,
+            self.settings.max_events,
+            self.settings.metadata_bytes,
         )
         self.clock_domain = "engine-" + uuid.uuid4().hex
 
@@ -114,7 +117,8 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
         )
         return result[0], {
             "wait_hint": {
-                "registered": accepted,
+                "registered": accepted.accepted,
+                "reason": accepted.decision.value,
                 "session_retired_total": self.observed.retired,
                 "prefix": digest,
                 "boundary": boundary,
@@ -125,9 +129,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
 
     def publish_wait_hint(self, raw: dict[str, Any]) -> dict[str, Any]:
         hint = Hint.parse(raw)
-        session = self.observed.sessions.get((hint.scope, hint.session))
-        previous = session.events.get(hint.event) if session is not None else None
-        decision, count = advise(
+        result = advise(
             self.observed,
             self.recency,
             hint,
@@ -135,25 +137,14 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             self.clock_domain,
             self.settings.advice_enabled,
         )
-        session = self.observed.sessions.get((hint.scope, hint.session))
-        replayed = previous is not None and previous == (hint, decision, count)
-        ready = None
-        if session is not None and decision in {
-            "disabled",
-            "refreshed",
-            "no_ready_prefix",
-            "event_capacity",
-            "event_conflict",
-        }:
-            ready = len(self.recency.ready_prefix(session.observation.keys))
         return {
             "schema": "wait-hint-ack-v2",
-            "ready_cpu_prefix_keys": ready,
+            "ready_cpu_prefix_keys": result.ready_cpu_prefix_keys,
             "event": hint.event,
-            "replayed": replayed,
-            "newly_refreshed_keys": 0 if replayed else count,
-            "decision": decision,
-            "refreshed_keys": count,
+            "replayed": result.replayed,
+            "newly_refreshed_keys": 0 if result.replayed else result.refreshed_keys,
+            "decision": result.decision.value,
+            "refreshed_keys": result.refreshed_keys,
             "mechanisms": self.settings.mechanisms(),
         }
 
@@ -224,11 +215,8 @@ class WaitHintConnector(OffloadingConnector):
         KVConnectorBase_V1.__init__(self, vllm_config, role, kv_cache_config)
         configuration = build_offloading_config(vllm_config, kv_cache_config)
         Settings.parse(configuration.extra_config)
-        configuration = replace(
-            configuration,
-            extra_config={**configuration.extra_config, "eviction_policy": "arc"},
-        )
         spec = CPUOffloadingSpec(configuration)
+        spec.eviction_policy = "arc"
         spec.offload_prompt_only = False
         self.connector_scheduler = None
         self.connector_worker = None

@@ -1,6 +1,9 @@
 [
   "tests/test_advice.py::test_advice_replay_conflict_and_disabled",
   "tests/test_advice.py::test_clock_and_reset",
+  "tests/test_advice.py::test_direct_construction_rejects_invalid_state",
+  "tests/test_advice.py::test_memory_refusal_preserves_state_and_does_not_refresh",
+  "tests/test_advice.py::test_new_generation_discards_replay_and_reclaims_memory",
   "tests/test_advice.py::test_retirement_and_reregistration_cannot_revalidate_old_hint",
   "tests/test_advice.py::test_schema_refusal_and_config",
   "tests/test_advice.py::test_session_capacity_and_generation",

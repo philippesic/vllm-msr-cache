@@ -4,4 +4,4 @@ COPY tools/bootstrap-uv.txt tools/bootstrap-uv.txt
 RUN python -m pip install --no-cache-dir --require-hashes -r tools/bootstrap-uv.txt
 COPY . .
 RUN uv sync --locked
-CMD ["uv", "run", "--locked", "python", "tools/check.py"]
+CMD ["uv", "run", "--locked", "python", "tools/check.py", "--full"]

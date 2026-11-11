@@ -8,7 +8,7 @@ reason = "The documented script entry must put the repository root on sys.path b
 rule = "script"
 path = "tools/check.py"
 match = "entry"
-reason = "Established single local and CI validator; also supports module invocation."
+reason = "Established single local validator; also supports module invocation."
 
 [[exception]]
 rule = "script"

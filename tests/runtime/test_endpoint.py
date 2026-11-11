@@ -75,7 +75,7 @@ def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
             time.monotonic_ns(),
             (b"missing",),
         )
-        assert scheduler.observed.register("client", "session", observation)
+        assert scheduler.observed.register("client", "session", observation).accepted
         now = time.monotonic_ns()
         hint = Hint(
             "client",
@@ -110,7 +110,10 @@ def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
             assert okay.status_code == 200
             assert okay.json()["decision"] == "no_ready_prefix"
             assert utility.calls == 1
-            assert okay.json()["mechanisms"]["semantic_scoring"] == "absent"
+            assert set(okay.json()["mechanisms"]) == {
+                "schema",
+                "cpu_arc_recency_advice",
+            }
             foreign = await client.post(
                 "/v1/wait-hints",
                 json={**hint.mapping(), "scope": "foreign"},
