@@ -19,7 +19,7 @@ from vllm.v1.outputs import KVConnectorOutput
 from vllm.v1.request import Request, RequestStatus
 
 from tests.runtime.support import scheduler_fixture
-from wait_hint_offload.contracts import Hint
+from wait_hint_offload.contracts import MAX_BOUNDARY, Hint
 from wait_hint_offload.vllm_adapter.connector import WaitHintScheduler
 from wait_hint_offload.vllm_adapter.transfers import TransferMetadata
 
@@ -305,3 +305,43 @@ def test_wrong_vllm_version_refuses(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(importlib.metadata, "version", lambda _name: "0.0.0")
     with pytest.raises(RuntimeError, match="required, found 0.0.0"):
         require_runtime()
+
+
+@pytest.mark.parametrize(
+    ("case", "reason"),
+    [
+        ("untracked", "untracked_request"),
+        ("short", "no_complete_prefix"),
+        ("keys", "incomplete_prefix_keys"),
+        ("oversized", "boundary_out_of_range"),
+    ],
+)
+def test_registration_refusals_preserve_native_completion(
+    case: str, reason: str
+) -> None:
+    scheduler = scheduler_fixture()
+    state = finished_request(scheduler)
+    if case == "untracked":
+        del scheduler._req_status[state.req.request_id]
+    elif case == "short":
+        state.req.num_computed_tokens = 3
+    elif case == "keys":
+        state.req.block_hashes = []
+        state.group_states[0].offload_keys.clear()
+    else:
+        request = Request(
+            "request", [1] * (MAX_BOUNDARY + 4), SamplingParams(max_tokens=1), None
+        )
+        request.num_computed_tokens = MAX_BOUNDARY + 4
+        request.status = RequestStatus.FINISHED_LENGTH_CAPPED
+        request.block_hashes = [BlockHash(b"large")] * ((MAX_BOUNDARY + 4) // 4)
+        request.kv_transfer_params = state.req.kv_transfer_params
+        state = RequestOffloadState(
+            scheduler.config, request, ReqContext("request"), RequestOffloadingContext()
+        )
+        scheduler._req_status["request"] = state
+    done, extra = scheduler.request_finished(state.req)
+    assert done is False
+    assert extra == {"wait_hint": {"registered": False, "reason": reason}}
+    assert scheduler.observed.observation("client", "conversation") is None
+    assert scheduler.observed.charged_bytes == 0

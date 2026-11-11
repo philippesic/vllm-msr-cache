@@ -24,7 +24,7 @@ from vllm.v1.kv_offload.cpu.spec import CPUOffloadingSpec
 
 from wait_hint_offload.advice import advise
 from wait_hint_offload.config import Settings
-from wait_hint_offload.contracts import Hint, Registration, prefix_digest
+from wait_hint_offload.contracts import MAX_BOUNDARY, Hint, Registration, prefix_digest
 from wait_hint_offload.observed import Observation, ObservedStore
 from wait_hint_offload.vllm_adapter import engine_rpc
 from wait_hint_offload.vllm_adapter.arc import ARCRecency
@@ -82,8 +82,12 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
         parameters = request.kv_transfer_params or {}
         registration = parameters.get("wait_hint")
         result = super().request_finished(request)
-        if registration is None or status is None:
+        if registration is None:
             return result
+        if status is None:
+            return result[0], {
+                "wait_hint": {"registered": False, "reason": "untracked_request"}
+            }
         try:
             registration = Registration.parse(registration)
         except ValueError as error:
@@ -92,14 +96,22 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
         chunk = self.config.kv_group_configs[0].tokens_per_chunk
         boundary = count // chunk * chunk
         if not boundary:
-            return result
+            return result[0], {
+                "wait_hint": {"registered": False, "reason": "no_complete_prefix"}
+            }
+        if boundary > MAX_BOUNDARY:
+            return result[0], {
+                "wait_hint": {"registered": False, "reason": "boundary_out_of_range"}
+            }
         status.update_offload_keys()
         keys = tuple(
             bytes(key)
             for key in status.group_states[0].offload_keys[: boundary // chunk]
         )
         if len(keys) != boundary // chunk:
-            return result
+            return result[0], {
+                "wait_hint": {"registered": False, "reason": "incomplete_prefix_keys"}
+            }
         digest = prefix_digest(
             list(request.all_token_ids[:boundary]), self.settings.namespace
         )
