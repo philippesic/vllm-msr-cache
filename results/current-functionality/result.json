@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "title": "Exact offload and hint delivery pass the current functional checks",
+  "date": "2026-11-10",
+  "origin": "current",
+  "verdict": "functional",
+  "summary": "The current engine-method integration passed 13 pinned-runtime CPU tests and three RTX 2080 Ti hardware tests. Restored and freshly computed continuations matched in both advice modes; authenticated HTTP hints reached the engine.",
+  "scope": "Qwen2.5-0.5B-Instruct; RTX 2080 Ti, WSL2, dense FP16 TP1, eager TRITON_ATTN. Hardware execution was fresh; retained receipts were verified.",
+  "limitations": "These small functional cases do not establish performance, general answer quality, hardware fault recovery or other models/devices. CPU transfer-failure tests use fake handlers.",
+  "decision": "Retain the core and its regression coverage. Expand qualification when implementation changes warrant it.",
+  "sources": [
+    {
+      "repository": "current",
+      "revision": "f7ef1e39beaa550d604c5f32a1167c4489b5c8bd",
+      "path": "evidence/core-qualification-20261110.md",
+      "sha256": "5de064e7ed71e9ca3ac9b3b6fc4e4c4b7b1b60e666a81d5eaec2a15eb4c84a3b"
+    }
+  ],
+  "chart": null,
+  "correction": ""
+}

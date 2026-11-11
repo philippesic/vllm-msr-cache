@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "title": "Wait-hint gains and losses depended on model and workload",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "The primary matrix found a strong mixed-traffic gain on Qwen3-8B, smaller or unresolved changes in many cells, and document losses on Qwen3-4B. Continuum was faster on the anchor document workloads.",
+  "scope": "524 configurations and 210 matched blocks on RTX 2080 Ti/WSL2. Twelve anchor workloads and five each on two secondary models; external systems cover selected anchor workloads.",
+  "limitations": "Whole-process conditional intervals are not multiple-comparison-adjusted winner tests. External runtime/chunking/output differences prevent pure policy attribution. The anchor B06 had zero returning CPU restores and is a GPU-reuse control.",
+  "decision": "Preserve the entire native comparison panel, including losses and neutral cells. Benefit is an observed result of a configuration, not an assumed universal property.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage6-2080ti-20261106/RESULTS.md",
+      "sha256": "7b7a1cbb180f74f6538129a643664bbe4f455956cf94559ec135bec228ccd972"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage6-2080ti-20261106/quality-final-summary.json",
+      "sha256": "3abbca1d7a687bd7394a73ad0e2142b74914d562a8c6ba87ffcffc84e1573bcb"
+    }
+  ],
+  "chart": {
+    "metric": "Candidate / ARC workflow-throughput ratio",
+    "caption": "All 22 native cells; original whole-process log Student-t 95% intervals. Above 1 is faster; B06 anchor is a no-CPU-pressure control.",
+    "baseline": 1,
+    "points": [
+      {
+        "label": "Qwen3 8B AWQ / B01 chat (n=12)",
+        "estimate": 0.995,
+        "lower": 0.9823,
+        "upper": 1.0079
+      },
+      {
+        "label": "Qwen3 8B AWQ / B02 independent QA (n=6)",
+        "estimate": 0.9861,
+        "lower": 0.9198,
+        "upper": 1.0571
+      },
+      {
+        "label": "Qwen3 8B AWQ / B03 long-document summary (n=12)",
+        "estimate": 1.0007,
+        "lower": 0.9977,
+        "upper": 1.0038
+      },
+      {
+        "label": "Qwen3 8B AWQ / B04 hot/cold scan (n=12)",
+        "estimate": 0.9904,
+        "lower": 0.9756,
+        "upper": 1.0055
+      },
+      {
+        "label": "Qwen3 8B AWQ / B05 sequential repository (n=12)",
+        "estimate": 0.9986,
+        "lower": 0.9905,
+        "upper": 1.0069
+      },
+      {
+        "label": "Qwen3 8B AWQ / B06 repository GPU-reuse control (n=8)",
+        "estimate": 1.0012,
+        "lower": 0.9824,
+        "upper": 1.0203
+      },
+      {
+        "label": "Qwen3 8B AWQ / B07 roomy repository control (n=12)",
+        "estimate": 0.9924,
+        "lower": 0.9745,
+        "upper": 1.0107
+      },
+      {
+        "label": "Qwen3 8B AWQ / B08 tight documents (n=12)",
+        "estimate": 1.0196,
+        "lower": 1.0105,
+        "upper": 1.0288
+      },
+      {
+        "label": "Qwen3 8B AWQ / B09 standard documents (n=12)",
+        "estimate": 1.0071,
+        "lower": 1.0043,
+        "upper": 1.0098
+      },
+      {
+        "label": "Qwen3 8B AWQ / B10 team control (n=12)",
+        "estimate": 1.0243,
+        "lower": 0.9788,
+        "upper": 1.0718
+      },
+      {
+        "label": "Qwen3 8B AWQ / B11 mixed repository + QA (n=8)",
+        "estimate": 1.1244,
+        "lower": 1.109,
+        "upper": 1.1401
+      },
+      {
+        "label": "Qwen3 8B AWQ / B12 external-priority repository control (n=12)",
+        "estimate": 0.9914,
+        "lower": 0.9788,
+        "upper": 1.0042
+      },
+      {
+        "label": "Ministral 3B / B02 independent QA (n=6)",
+        "estimate": 0.985,
+        "lower": 0.952,
+        "upper": 1.0192
+      },
+      {
+        "label": "Ministral 3B / B06 repository pressure (n=6)",
+        "estimate": 1.0355,
+        "lower": 1.0206,
+        "upper": 1.0507
+      },
+      {
+        "label": "Ministral 3B / B08 tight documents (n=6)",
+        "estimate": 1.0117,
+        "lower": 0.998,
+        "upper": 1.0256
+      },
+      {
+        "label": "Ministral 3B / B09 standard documents (n=6)",
+        "estimate": 1.0001,
+        "lower": 0.9986,
+        "upper": 1.0015
+      },
+      {
+        "label": "Ministral 3B / B11 mixed repository + QA (n=6)",
+        "estimate": 1.0438,
+        "lower": 1.0143,
+        "upper": 1.074
+      },
+      {
+        "label": "Qwen3 4B / B02 independent QA (n=10)",
+        "estimate": 0.9966,
+        "lower": 0.9775,
+        "upper": 1.016
+      },
+      {
+        "label": "Qwen3 4B / B06 repository pressure (n=10)",
+        "estimate": 1.0067,
+        "lower": 0.9899,
+        "upper": 1.0238
+      },
+      {
+        "label": "Qwen3 4B / B08 tight documents (n=10)",
+        "estimate": 0.9786,
+        "lower": 0.9657,
+        "upper": 0.9917
+      },
+      {
+        "label": "Qwen3 4B / B09 standard documents (n=10)",
+        "estimate": 0.9766,
+        "lower": 0.9685,
+        "upper": 0.9848
+      },
+      {
+        "label": "Qwen3 4B / B11 mixed repository + QA (n=10)",
+        "estimate": 1.0322,
+        "lower": 1.0193,
+        "upper": 1.0453
+      }
+    ]
+  },
+  "correction": ""
+}

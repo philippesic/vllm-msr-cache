@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "title": "Useful speculative transfers did not establish downstream benefit",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "negative",
+  "summary": "The three-seed reference experiment selected a nonreturning source and wasted speculative traffic. A disjoint trace consumed every staged byte but only tied demand controls in executed prompt work and took more model-runner time.",
+  "scope": "40 accepted cells and 1,944 exact requests overall. The reference supplement has three seeds on one input cohort; the disjoint supplement has one independent trace.",
+  "limitations": "Current-stream instrumented GPU timings are not uninstrumented production cost. The disjoint trace has no uncertainty interval. This rejects the tested release claim, not every possible semantic predictor.",
+  "decision": "Keep the negative result and require evidence of saved work or useful latency before interpreting transfer activation as benefit.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/a27/FINAL-REPORT.md",
+      "sha256": "8e961ef3fe05ba8261f8e44c15e919ee5cd38280e7b42d57c556a3bbd3309ba3"
+    }
+  ],
+  "chart": {
+    "metric": "Model-runner time change versus ARC (%)",
+    "caption": "Higher is slower. Reference interval is the original small-sample normal approximation; the disjoint point has no interval.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Reference cohort, three seeds",
+        "estimate": 3.5626,
+        "lower": 3.3838,
+        "upper": 3.7414
+      },
+      {
+        "label": "Disjoint trace, one seed",
+        "estimate": 4.937,
+        "lower": null,
+        "upper": null
+      }
+    ]
+  },
+  "correction": ""
+}

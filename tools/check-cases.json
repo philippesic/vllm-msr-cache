@@ -964,5 +964,14 @@
       "tasks/example.md": "# Example\n\n## Goal\nG\n\n## Log\n- did a thing\n"
     },
     "diagnostic": "docs.task"
+  },
+  {
+    "id": "results.schema",
+    "component": "results",
+    "good": {},
+    "bad": {
+      "results/bad/result.json": "{\"schema\":999}\n"
+    },
+    "diagnostic": "results.invalid:"
   }
 ]

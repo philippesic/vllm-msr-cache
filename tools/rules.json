@@ -97,5 +97,6 @@
   "exceptions.missing-target",
   "boundary.runtime-library",
   "types.broad-exclude",
-  "docs.task"
+  "docs.task",
+  "results.schema"
 ]

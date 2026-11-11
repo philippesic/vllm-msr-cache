@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "title": "Staged qualification found scoped gains and unresolved operating boundaries",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "The selected four-stage study supported continuing CPU wait retention, including causal diagnostics and fresh repository/document reserves. Several tighter or alternative regimes remained unresolved.",
+  "scope": "Earlier pinned RTX 2080 Ti runtime, FP16 TP1. Eight functional cells included 7B AWQ, 1.5B and OPT125M, short/long contexts and selected graphs; separate cells do not qualify their cross-product.",
+  "limitations": "Live output and runtime differences limit attribution. Answer-quality and production reliability gates were unmet. Earlier model support does not qualify current code.",
+  "decision": "Keep causal controls, adverse cases and exact support boundaries as design knowledge. Do not carry old production or compatibility claims forward.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/wait-qualification-20261105/README.md",
+      "sha256": "9d586b062630410b28e9dd6599277a7cd39f8733b789c28aeae809b179b211ab"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/wait-qualification-20261105/SUPPORT_MATRIX.md",
+      "sha256": "8e8df31122b9fb3d2d2c04a26b590bb7ffc7fe079069c76d1c9a52832f03b89e"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/wait-qualification-20261105/REGRESSIONS.md",
+      "sha256": "d82d1bf0571a4d7e6013d386631061da100445f40a779679fd87965aea802d94"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/wait-qualification-20261105/QUALITY.md",
+      "sha256": "a6731795aa9ec410f1f3570c10b6104b79a1138dd47c322e2b540b02020f7f01"
+    }
+  ],
+  "chart": {
+    "metric": "Workflow batch time saved versus ARC (%)",
+    "caption": "Distinct fixed-input studies, not pooled. Original conditional paired 95% intervals; higher is faster.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Original four-system workload",
+        "estimate": 7.51,
+        "lower": 4.87,
+        "upper": 10.08
+      },
+      {
+        "label": "Fresh repository reserve",
+        "estimate": 8.27,
+        "lower": 4.49,
+        "upper": 11.89
+      },
+      {
+        "label": "Full-budget document reserve",
+        "estimate": 18.12,
+        "lower": 16.55,
+        "upper": 19.65
+      },
+      {
+        "label": "Tight document reserve",
+        "estimate": 0.98,
+        "lower": -2.0,
+        "upper": 3.87
+      },
+      {
+        "label": "Timed graph execution",
+        "estimate": 8.87,
+        "lower": 8.08,
+        "upper": 9.65
+      }
+    ]
+  },
+  "correction": ""
+}

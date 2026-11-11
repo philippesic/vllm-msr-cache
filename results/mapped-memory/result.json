@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "title": "The upstream mmap transfer failure required the CUDA device alias",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "functional",
+  "summary": "A controlled reproducer isolated illegal CUDA access to using a CPU mmap address where the batch-transfer path needed its CUDA device alias. Mapped-address stores and restores passed byte equality.",
+  "scope": "RTX 2080 Ti/WSL2; 7,168 descriptors of 16 KiB. A separate three-request Qwen2.5-7B-AWQ serving probe restored pinned CPU KV and matched outputs.",
+  "limitations": "This is a specific compatibility result, not a blanket WSL limitation or a performance win. The external comparison used an explicitly patched upstream runtime.",
+  "decision": "Preserve the cause and patch identity for future runtime comparisons; do not apply the old patch automatically to this project.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/upstream-pin-fix-20261104/README.md",
+      "sha256": "f9689985e97c8fa24f588d42904950e29a822c9b7ac23311bc028520c71aa131"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch",
+      "sha256": "398329ef70a547a81cb2c4a1e6423ead30cbecd5f72dcfe83f8554a674e3d29f"
+    }
+  ],
+  "chart": null,
+  "correction": ""
+}

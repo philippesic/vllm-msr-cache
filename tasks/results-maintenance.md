@@ -5,12 +5,13 @@ Agree on a reusable closeout procedure that turns investigations into concise,
 project-specific results and leaves the active codebase maintainable.
 
 ## Authorized
-Design only. Philip requested a proposal for a shared skill with project-specific
-result formats. Historical evidence migration, storage/backup changes and skill
-implementation wait for this decision. Agent operations and benchmarks come last.
+Philip approved implementation of the results system, historical curation and
+remaining supporting cleanup/recovery work. CPU only. Agent operations and
+benchmark design remain deferred.
 
 ## Done when
-Philip has chosen the result format, closeout procedure and pruning boundaries.
+The shared skill, project profile, curated results, charts, validation and
+verified recovery are implemented; any external blocker is reported.
 
 ## State
 Proposed structure:

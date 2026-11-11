@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "title": "Faster eviction did not translate into a qualified serving optimization",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "unresolved",
+  "summary": "No new optimization qualified beyond existing wait hints. Large eviction calls sped up substantially, but eviction occupied less than 0.05% of primary/tight workflow time and only 0.09% in the larger-document diagnostic.",
+  "scope": "144 valid development cases plus two invalid configurations. Selected timing and pressure panels used three repetitions; exact-state CPU replay examined native decisions.",
+  "limitations": "Development-selected inputs are not independent confirmation. Some mechanisms never activated, so their value remains unresolved rather than disproved.",
+  "decision": "Keep the simple candidate. Preserve microbenchmark gains as diagnostics and require end-to-end value before importing faster eviction or inactive bridges.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage5-optimization-20261105/README.md",
+      "sha256": "de155d9906f4d65afa27e5f53d86d3f580b85504accc2aa1ce086a5d0020a801"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage5-optimization-20261105/EVICTION.md",
+      "sha256": "0066306277320122470ad5897e12acdac14db95a79294def4b3911ad3fcd35e1"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage5-optimization-20261105/EXHAUSTION.md",
+      "sha256": "95bedbcb51694b53c5730549e1412f9f6633100a27324b34fae540b2adf72fc6"
+    }
+  ],
+  "chart": {
+    "metric": "Workflow throughput change (%)",
+    "caption": "Three-repetition development panels. Different candidate comparisons are shown separately; higher is faster.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Existing wait vs ARC",
+        "estimate": 6.15,
+        "lower": 4.99,
+        "upper": 7.32
+      },
+      {
+        "label": "Pressure gate vs existing wait",
+        "estimate": -0.01,
+        "lower": -2.15,
+        "upper": 2.17
+      },
+      {
+        "label": "Tool-only publication vs existing wait",
+        "estimate": 1.21,
+        "lower": -3.87,
+        "upper": 6.55
+      },
+      {
+        "label": "Timing/grace/eviction vs existing wait",
+        "estimate": 1.54,
+        "lower": -3.64,
+        "upper": 6.99
+      }
+    ]
+  },
+  "correction": ""
+}

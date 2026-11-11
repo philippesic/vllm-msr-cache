@@ -96,6 +96,7 @@
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.symlink]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.tracked-output]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.vendor]",
+  "tests/test_check_cases.py::test_rule_rejects_specimen[results.schema]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[runtime.fake-pass]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[runtime.fake-skip]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[types.broad-exclude]",

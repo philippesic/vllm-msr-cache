@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "title": "Admission thresholds helped; semantic admission did not beat matched caches",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "negative",
+  "summary": "The policy-agnostic store threshold sharply reduced writes. Adding semantic/cost-aware admission did not establish an incremental serving benefit over matched ARC or LRU.",
+  "scope": "420 valid cells, 10,500 requests, five seeds and four workload profiles on RTX 5080. Matched output-token digests and block identities agreed.",
+  "limitations": "No loads, restores or prefetches occurred. Threshold effects cannot be interpreted as a retention or prefetch win; results belong to the earlier implementation.",
+  "decision": "Preserve threshold admission as a separate hypothesis. Do not revive semantic admission solely from its improvement over an unguarded baseline.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/e04/E04-FINAL-RESULT.md",
+      "sha256": "ef2be4894e8e03aa1628a9b6c2026308c334e60b240bb5a4a1b4789f6bb2dcd6"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/september-2026.md",
+      "sha256": "0a832a8589b351d8203936f1abc453be2f35b6f043716039caedad3c5be1b982"
+    }
+  ],
+  "chart": {
+    "metric": "Throughput change (%)",
+    "caption": "Reported paired seed-level 95% intervals. Different comparisons answer different questions; higher is faster.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Threshold 2 vs neutral (semantic family)",
+        "estimate": 14.93,
+        "lower": 14.57,
+        "upper": 15.3
+      },
+      {
+        "label": "Semantic vs matched ARC",
+        "estimate": -2.7,
+        "lower": -7.39,
+        "upper": 2.0
+      },
+      {
+        "label": "Semantic vs matched LRU",
+        "estimate": -2.83,
+        "lower": -7.7,
+        "upper": 2.05
+      }
+    ]
+  },
+  "correction": ""
+}

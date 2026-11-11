@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "title": "The separate repository-pressure recovery left the candidate gain unresolved",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "unresolved",
+  "summary": "The original addendum failed before serving. A separately authorized recovery completed eighteen configurations, including four complete four-system pressure blocks. Candidate versus ARC remained inconclusive.",
+  "scope": "Every ARC pressure block had 25 eviction-affected returns. All 288 finals and selected 272 source-review items were audited.",
+  "limitations": "The recovery is a separate experiment and does not erase the failed attempt. Four blocks do not establish a general winner; quality equivalence remains unproved.",
+  "decision": "Keep the failed original and completed recovery distinct. Do not call an unresolved gain either a win or proof of equivalence.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/README.md",
+      "sha256": "733ffd69ebd1717244c156c06173f385559abe6bf797f08c73abc66a37eb5796"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json",
+      "sha256": "3f046c3d1c4d1d1c4724bca4bcbadc237dbef32d990abc2c462c450863350628"
+    }
+  ],
+  "chart": {
+    "metric": "System / ARC workflow-throughput ratio",
+    "caption": "Four complete pressure blocks; original paired 95% intervals. Above 1 is faster. External systems differ in runtime and outputs.",
+    "baseline": 1,
+    "points": [
+      {
+        "label": "Candidate",
+        "estimate": 1.021,
+        "lower": 0.9885,
+        "upper": 1.0546
+      },
+      {
+        "label": "Continuum",
+        "estimate": 0.8627,
+        "lower": 0.8311,
+        "upper": 0.8954
+      },
+      {
+        "label": "Upstream",
+        "estimate": 0.9526,
+        "lower": 0.9096,
+        "upper": 0.9976
+      }
+    ]
+  },
+  "correction": ""
+}

@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "title": "Single-pass external comparisons did not establish a winner",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "unresolved",
+  "summary": "The five-system exploration and corrected four-system comparison exposed configuration differences and similar wait/upstream batch times. Neither establishes a repeatable system ranking.",
+  "scope": "Corrected four-system study: one run per system, sixteen workflows, 64 responses and 48 tools each, Qwen2.5-7B-AWQ on RTX 2080 Ti.",
+  "limitations": "Runtimes, chunking, paging, output lengths and instrumentation differ. Continuum decode-publication correction was predeclared; the original false row remains diagnostic. Strict output-format compliance mostly failed.",
+  "decision": "Keep published-system comparisons and their configuration corrections; do not treat token rate as equal-work throughput or label parity as quality equivalence.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/fair-four-20261104/README.md",
+      "sha256": "ad2c579a666970958e932f2d4f4e9a487cae8b0ac25853abef3c8596f05daf74"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/fair-four-20261104/FAIRNESS.md",
+      "sha256": "166ab5af84086633b621be3721f099d762cad2a1dc9cced48099ef252b6eda51"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/five-way-20261104/README.md",
+      "sha256": "0b4becee3ce003905b0465a76f065d3d8b61e8e28e76602a34db9df0aeea85fe"
+    }
+  ],
+  "chart": {
+    "metric": "Workflow batch time (seconds)",
+    "caption": "Corrected four-system comparison only. Lower is faster; one run per system, no uncertainty intervals.",
+    "baseline": null,
+    "points": [
+      {
+        "label": "ARC",
+        "estimate": 108.153,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Wait ARC",
+        "estimate": 101.628,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Continuum, decode publication on",
+        "estimate": 109.108,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Upstream, compatibility patched",
+        "estimate": 102.711,
+        "lower": null,
+        "upper": null
+      }
+    ]
+  },
+  "correction": ""
+}
