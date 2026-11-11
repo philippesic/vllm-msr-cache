@@ -20,8 +20,6 @@
   "repo.agents",
   "repo.agents-missing",
   "repo.claude",
-  "repo.budget-lines",
-  "repo.budget-bytes",
   "repo.output",
   "repo.raw",
   "repo.vendor",

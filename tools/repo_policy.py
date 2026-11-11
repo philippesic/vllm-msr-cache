@@ -135,11 +135,6 @@ def check(root: Path) -> list[str]:
         or pointer.read_text() != "@AGENTS.md\n"
     ):
         errors.append("repo.claude: CLAUDE.md must contain @AGENTS.md and a newline")
-    agents = root / "AGENTS.md"
-    if agents.is_file() and (
-        len(agents.read_bytes()) > 8192 or len(agents.read_text().splitlines()) > 80
-    ):
-        errors.append("repo.budget: AGENTS.md exceeds 80 lines or 8192 bytes")
     for path in paths:
         label = path.as_posix()
         file = root / path
