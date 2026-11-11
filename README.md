@@ -35,6 +35,6 @@ uses a GPU unless explicitly requested.
 - [Findings](FINDINGS.md), [result format](docs/results.md) and [recovery](docs/recovery.md)
 - [Agent working rules](AGENTS.md)
 
-Raw runs and execution snapshots live outside Git. The private user-owned origin
-backs up source, result pages, chart inputs and archived reports. See recovery for
-the separate raw-artifact limitations.
+Raw runs and execution snapshots live outside Git. This checkout has no configured
+remote. Source, result pages, chart inputs and archived reports are retained locally;
+see [recovery](docs/recovery.md) for the local recovery bundle.
