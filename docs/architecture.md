@@ -59,12 +59,16 @@ Pass this in an ordinary generation request's `kv_transfer_params.wait_hint`:
 {"schema":"wait-registration-v2","scope":"opaque-client-scope","session":"conversation","incarnation":"unique-instance","generation":1}
 ```
 
-Completion returns `kv_transfer_params.wait_hint` with registration acceptance,
+A completion with registration returns `kv_transfer_params.wait_hint`. Successful
+observation construction includes registration acceptance,
 complete-token boundary, prefix digest, observed monotonic timestamp and engine
 clock domain. Registration happens in both advice modes. Invalid registration
 returns a refusal without crashing the engine. Within an incarnation, each turn
 must register a strictly greater generation. A new incarnation replaces the old session and its replay state. Registration refusals
-include a reason.
+include a reason. Untracked requests, no complete computed chunk, missing exact
+keys, and boundaries above 1,000,000 tokens return `registered: false` with a reason
+without observation fields. Native request completion and offload are unchanged;
+requests without registration keep the native response.
 
 A hint has schema `wait-hint-v2`, the same scope/session/incarnation/generation,
 an event ID, exact prefix/boundary/namespace, the returned `observed_ns`, and

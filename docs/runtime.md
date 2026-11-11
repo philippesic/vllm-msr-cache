@@ -42,6 +42,13 @@ pinned version. If a vLLM upgrade is wanted, it is a separate task Philip approv
 change the lock and the pin together, run the runtime lane, fix what breaks, and
 requalify both advice modes on hardware.
 
+The pinned ARC policy has a characterized fallback limitation: it can refuse
+eviction from an empty preferred queue even when the other queue has an evictable
+block. This can reduce store opportunities in both advice modes.
+`tests/runtime/test_arc.py` retains the case; the adapter does not patch the native
+policy. Account for it when interpreting results, and treat any repair or repin as
+a separate runtime change requiring qualification.
+
 Hints reach the scheduler through vLLM's existing utility RPC, which looks up engine
 methods by name. When the scheduler-side connector starts inside the engine process,
 it adds one method, `EngineCore.publish_kv_connector_wait_hint`, which forwards to the

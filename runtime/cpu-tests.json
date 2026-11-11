@@ -9,6 +9,10 @@
   "tests/runtime/test_scheduler.py::test_failed_native_store_releases_slot_without_readiness",
   "tests/runtime/test_scheduler.py::test_finished_sample_guard_registration_and_actual_store_lifecycle",
   "tests/runtime/test_scheduler.py::test_pinned_scheduler_truncates_failed_async_load_for_recomputation",
+  "tests/runtime/test_scheduler.py::test_registration_refusals_preserve_native_completion[keys-incomplete_prefix_keys]",
+  "tests/runtime/test_scheduler.py::test_registration_refusals_preserve_native_completion[oversized-boundary_out_of_range]",
+  "tests/runtime/test_scheduler.py::test_registration_refusals_preserve_native_completion[short-no_complete_prefix]",
+  "tests/runtime/test_scheduler.py::test_registration_refusals_preserve_native_completion[untracked-untracked_request]",
   "tests/runtime/test_scheduler.py::test_wrong_vllm_version_refuses",
   "tests/runtime/test_transfers.py::test_failure_metadata_aggregation_rejects_destination_disagreement",
   "tests/runtime/test_transfers.py::test_submission_and_completion_failure_never_publish_success"

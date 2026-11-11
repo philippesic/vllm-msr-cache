@@ -10,11 +10,15 @@ Qwen2.5-0.5B-Instruct; RTX 2080 Ti, WSL2, dense FP16 TP1, eager TRITON_ATTN. Har
 
 ## Limits
 
-These small functional cases do not establish performance, general answer quality, hardware fault recovery or other models/devices. CPU transfer-failure tests use fake handlers.
+These small functional cases do not establish performance, general answer quality, hardware fault recovery or other models/devices. CPU transfer-failure tests use fake handlers. The pinned native ARC fallback limitation applies in both modes (see runtime docs). The later registration-refusal guards have CPU regression coverage; hardware tests were not rerun after that change.
 
 ## Decision
 
 Retain the core and its regression coverage. Expand qualification when implementation changes warrant it.
+
+## Correction
+
+2026-11-10: clarified the existing upstream ARC limitation and the CPU-only validation boundary of subsequent registration refusal hardening; original measurements unchanged.
 
 ## Sources
 
