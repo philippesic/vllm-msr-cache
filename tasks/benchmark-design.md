@@ -34,7 +34,8 @@ comparison, workload and model refinements have not received another Sol review.
 Philip has fixed performance repetitions at one validation and two release blocks;
 model pair and concrete workload counts below remain proposals for review. Philip
 requires an 11 GiB 2080 Ti primary target, optional 16 GiB 5080 runs, current model
-architectures and coding-first coverage. Previous small full-attention pair rejected.
+architectures and coding-first coverage. Previous small full-attention pair rejected. Philip selected Qwen3.5-4B and
+requested approximately fourfold smaller acquisition; the bounded revision is below.
 
 ### 1. What a release verdict means
 
@@ -192,7 +193,7 @@ an RTX 5080 with 16 GiB. Larger GPUs are not assumed. The previous two small 202
 full-attention models were rejected: selection must represent current local coding
 and materially different cache architectures, not merely convenient existing support.
 
-Recommend Qwen/Qwen3.5-9B and google/gemma-4-12B-it, text-only, with qualified 4-bit
+Recommend Qwen/Qwen3.5-4B and google/gemma-4-12B-it, text-only, with qualified 4-bit
 weight-only quantization and FP16 activations/cache on the 2080 Ti. These are 2026
 models from widely used families. Exact quantized artifacts remain admission candidates,
 not approved runtime inputs. Qwen's hybrid DeltaNet state and Gemma's local/global
@@ -201,7 +202,7 @@ connector. Model size alone must not substitute for architecture coverage.
 
 | Model | Architectural distinction | Benchmark implication |
 | --- | --- | --- |
-| Qwen3.5-9B, W4A16 | 24 linear-attention layers and eight full-attention layers | Resume requires compatible recurrent state/checkpoints plus full-attention KV; preserving ordinary KV alone may be insufficient |
+| Qwen3.5-4B, W4A16 | 24 linear-attention layers and eight full-attention layers | Resume requires compatible recurrent state/checkpoints plus full-attention KV; preserving ordinary KV alone may be insufficient |
 | Gemma 4 12B IT, W4A16 | 40 sliding-window layers and eight full-attention layers, 1,024-token window; different local/global head geometry and shared K/V in global attention | Restore must respect window lifetime and cache-group alignment; global-prefix retention can matter even when local state is bounded |
 
 These test two genuinely distinct cache-lifecycle problems. Keep the existing tiny
@@ -209,14 +210,15 @@ full-attention fixture for functional regression only, not a third performance m
 Two architectures are a useful first supported scope, not proof of universal support;
 MoE, MLA, distributed and multimodal claims would require corresponding evidence.
 
-Artifact shortlist: cyankiwi/Qwen3.5-9B-AWQ-4bit and
+Artifact shortlist: cyankiwi/Qwen3.5-4B-AWQ-4bit and
 axteam/gemma-4-12B-it-AWQ-4bit. Inspect actual quantization config, ignored tensors,
 calibration provenance, tensor bytes and loader/kernel support before selecting pins.
-Hugging Face file metadata inspected 2026-11-11 gives 9,068,588,904 tensor bytes
-(8.45 GiB) for Qwen revision e4d2d39cede8c5d1716d824cd843e2889c648083 and
+Hugging Face file metadata inspected 2026-11-11 gives 4,040,461,440 tensor bytes
+(3.76 GiB) for Qwen revision d3e78b50c727b1f34802f440ca84b25781625352 and
 8,421,320,792 bytes (7.84 GiB) for Gemma revision
 7c781be42ce8d29d0975b857f6d0c0b2558d9b63. These are file payloads, not measured
-loaded peaks; both leave tight headroom on 11 GiB. The Gemma publisher reports only B200 execution,
+loaded peaks. Qwen now deliberately exercises greater cache/concurrency headroom;
+Gemma remains the tighter-memory contrast on 11 GiB. The Gemma publisher reports only B200 execution,
 so its Turing compatibility statement is not a measured 2080 Ti result. FP16 casting
 must include the execution path, not just changing a metadata field. Neither an AWQ
 label nor total parameter count establishes peak memory. Some other Gemma INT4 builds
@@ -231,7 +233,7 @@ publication/failure handling and end-to-end reuse eligibility. Start with a CPU/
 feasibility audit and explicit implementation proposal; this planning task does not
 authorize the architecture expansion or a runtime repin.
 
-For 5080, propose a small same-model W4A16 versus W8A16 Qwen sensitivity panel (eight
+For 5080, propose a small same-model W4A16 versus W8A16 Qwen sensitivity panel (two
 coding tasks, core three systems, two repetitions per precision). First qualify the
 INT8 format/kernel and 16 GiB fit. Run BOTH precisions on the same 5080; never attribute
 2080-vs-5080 differences to quantization. FP8/NVFP4 are alternative hardware-specific
@@ -247,119 +249,119 @@ fit a useful workload on 11 GiB, return the limitation; do not silently make the
 mandatory or substitute an older model. This is a recommended pair pending feasibility,
 not a promise that both already run on this hardware.
 
-### 5. Exact coding-first workload proposal
+### 5. Bounded coding-first workloads
 
-Approximately 80–85% of task identities are coding/coding-adjacent. This is Philip's
-product-priority weighting, not a measured claim about all local-model users. Keep
-non-coding breadth and harmful/no-opportunity cases, but drop mandatory retail/airline
-and generic chat campaigns from the first release. Six workload types share a runner;
-real harnesses execute tools and feed actual outputs into later turns.
+Philip requests approximately a fourfold reduction in campaign size and switches the
+primary model to Qwen3.5-4B for memory headroom. Keep one validation repetition and
+two release repetitions. Scope reduction must remove actual execution, not merely
+rename time estimates or silently stop long tasks early.
 
-| ID | Workload, source and check | Validation tasks | Release tasks per repetition |
-| --- | --- | ---: | ---: |
-| C1 | Bug repair: mini-swe-agent, SWE-bench Verified, real read/edit/test loop, official hidden grading; split by repository and task ancestry | 2 | 16 |
-| C2 | Regression-test authoring: real issue/fixed-version pairs from separate SWE-bench source groups; agent writes tests, evaluator checks original fails and fixed version passes; reference patch hidden | 2 | 8 |
-| C3 | Repository navigation/change-impact: locate implementation, trace callers, identify affected tests in pinned more-itertools, Click, Requests and pytest repositories; retained symbol/file evidence and runnable targeted tests | 2 | 8 |
-| C4 | Terminal development/debugging: pinned Terminal-Bench 2.0 via Harbor; CPU-only programming, build and environment-repair tasks with original validators; no network-dependent or extra-GPU tasks | 1 | 8 |
-| C5 | Multi-turn coding revision and branches: four-step investigate/edit/test/revise tasks over real repositories, actual generated patches/test output, two competing branches on half the tasks; executable acceptance checks | 1 | 4 |
-| B1 | Non-coding grounded document work: half independent QA/summaries, half shared-source search/read/compare over frozen PEPs/RFCs and admitted LongBench sources; source-supported answers | 2 | 8 |
-| Total | Coding/coding-adjacent identities: 8/10 validation, 44/52 release | 10 | 52 |
+Validation runs THREE short complete workflows on Qwen, each once on all five admitted
+systems (GPU-only, native ARC, wait-hint, LMCache, Continuum or a reviewed compatible
+replacement): 15 task executions. A model-specific change uses Gemma instead, not both
+by default. The workflows are (1) a small real bug investigation/edit/regression-test/
+revision loop, (2) repository navigation with actual search/read/test tools, and (3)
+grounded document questions. Select bounded development tasks that can complete naturally;
+no tiny slice of an unfinished SWE-bench issue is called a successful workflow.
 
-Counts are per included model/system/repetition, not per arbitrary environment grid.
-C2/C3/C5 are explicitly project-authored tasks on real repositories, not official
-published benchmark scores. C1/C4 retain actual application harnesses. Natural tools
-have natural waits, not inserted sleeps. Select by source, task type, context size and
-baseline usability before confirmation; never choose based on wait-hint speedup.
-Validation and release groups remain disjoint; exact task IDs, revisions, references,
-context policies and grading fixtures must be frozen before acquisition. Counts are
-proposed coverage budgets, not proof of the 2pp quality margin.
+Interleave these same workflows in a fixed schedule with unhinted independent requests,
+returning tool sessions and an abandoned-hint cohort. The small request fixtures add
+load/activation evidence, not independent task-quality samples. One run per system has
+explicit no-benefit, competition and interference phases, rather than launching nine
+separate diagnostic cases. If insufficient state accumulates to exercise a phase,
+report it unexercised and repair the profile; never assume three task labels suffice.
+Validation is advisory, not a complete per-family/model qualification.
 
-Validation uses the complete ten-task panel on the current primary model (default
-Qwen) for GPU-only/native ARC/wait-hint: 30 task executions. LMCache and Continuum each
-run four sentinels: one C1, C3, C5 and B1 task, adding eight executions. The second
-model runs one C1 and one C3 sentinel on the core three systems, adding six executions.
-Total: 44 task executions, each ONCE, plus three short mechanism cases on the core
-three systems (nine case-runs). Those are (a) no-return/unhinted traffic, (b) actual
-CPU competition with returning tool sessions and (c) returning sessions competing with
-abandoned hints. Case sizes are set to reach real pressure, not merely a fixed tiny
-request count. A model-specific change makes that model primary; changing both models'
-common cache machinery requires the full validation panel on both, explicitly a larger
-run. Missing/incompatible external arms remain listed, not silently dropped as passes.
+Release retains six workload types but only THIRTEEN independent tasks per model and
+repetition. Both models get the same source tasks using their own native templates.
 
-Release: both models run the 52-task full panel on the core three systems twice:
-624 task executions. Each external system runs a frozen 20-task subset per model per
-repetition: six C1, three C2, three C3, three C4, two C5 and three B1, adding 160 tasks.
-Total: 784 main-panel task executions. External claims cover that subset only. Repeated
-source identities are not independent quality examples. Native/guarded ARC identities
-must be re-established for hybrid support; existing ARC assumptions cannot be carried
-over unexamined. Continuum may not support these architectures on its preview runtime:
-if it does not, label it incompatible and reassess the closest functioning competitor,
-rather than porting an entire engine just to preserve its historical name.
+| ID | Actual work and evaluation | Release tasks per repetition |
+| --- | --- | ---: |
+| C1 | mini-swe-agent on SWE-bench Verified issues; actual read/edit/test loops and official hidden grading, spread across source projects | 4 |
+| C2 | Regression-test authoring on real issue/fixed-version pairs; generated test must fail before fix and pass after, reference patch hidden | 2 |
+| C3 | Repository navigation/change-impact over pinned real projects; trace implementation/callers and verify affected tests | 2 |
+| C4 | Harbor with a pinned CPU-only Terminal-Bench 2.0 programming/build/debugging subset and original validators | 2 |
+| C5 | Multi-turn coding revision with competing branches, real patches and test results, executable final acceptance | 1 |
+| B1 | One independent grounded QA/summary task and one shared-source search/read/compare task | 2 |
+| Total | Eleven coding/coding-adjacent tasks and two breadth tasks | 13 |
 
-### 6. Conditions and runtime budget
+C2/C3/C5 and the short validation workflows are project-authored definitions on real
+repositories, not official benchmark scores. Natural tools have natural waits. Choose
+source, task type and baseline usability before confirmation; do not select on candidate
+wins. Development and confirmation source groups remain disjoint. Freeze actual task
+IDs, source revisions, context policy, validators and limits before acquisition.
 
-Run the main live panel at one frozen realistic deployment configuration per model,
-with interleaved sessions and admitted concurrency. Do not repeat every long agent
-task under every possible load/pressure setting. A targeted six-case mechanism panel
-covers: no reuse; GPU-resident reuse; GPU spill/CPU fits; CPU competition; long decode
-plus returning tools; and misleading/abandoned hints harming unhinted traffic. These
-cases include mixed coding and document traffic. Fixed-input controlled wait sweeps
-are diagnostic and separate from actual application timings. Baseline-only fit/load
-pilots set working sets, arrivals and exposure to activate each case.
+Core release: 13 tasks x three systems x two models x two repetitions = 156 task
+executions. Each external system gets six tasks (one from each row) per model per
+repetition: 6 x two external systems x two models x two repetitions = 48 executions.
+Total: 204 application executions. Competitive claims cover those six shared tasks,
+not all 13. Missing external/model compatibility is visible; preserving an old preview's
+name does not justify porting its entire engine. Native/guarded ARC semantics must be
+re-established for hybrid support. The four-task C1 subset is workload coverage, not
+an accurate estimate of general SWE-bench success rate.
 
-Core release mechanism panel: six cases x three systems x two models x two repetitions
-= 72 case-runs. External pressure/no-benefit subset: two cases x two systems x two
-models x two repetitions = 16 case-runs. GPU-retention combination study, if separately
-qualified: three cases (GPU-resident, spill, CPU competition) x four settings x two
-models x two repetitions = 48 case-runs. Capacity/load curves use the mixed coding
-case; counts/costs for boundary-search probes must be explicit in the acquisition
-manifest, with a planning reserve of four hours and no unlimited search.
+### 6. Conditions and time budgets
 
-One validation block cannot estimate between-run variance. Two release blocks give
-repeatability evidence, not precise run-variance or tail guarantees. Report both runs,
-within-run task distributions and inconsistencies. Underpowered gates remain unresolved;
-no automatic extra repetitions. Repeat the same frozen release task set with independent
-starts and changed arm order. Keep cold/warm state, actual arrivals/backlog, complete
-failure accounting, output quality, thermal state, tool filesystem resets and driver
-headroom visible. Streaming chunks are not individual token timestamps.
+The main live panel uses one frozen realistic deployment per model. Three compact
+controlled traces cover six conditions through separately accounted phases:
 
-Planning ETAs BELOW ARE NOT MEASURED and are conditional on successful architecture,
-kernel and model-fit qualification. They assume one GPU used serially, cached weights/
-containers, two to four interleaved live sessions where fit allows, aggregate generated
-throughput roughly 15–40 tokens/s on the 2080 Ti, ordinary bounded CPU tools and no
-repeated model downloads. Reasoning tokens count. No 5080 speedup is assumed.
+1. No reuse and GPU-resident reuse: overhead without a CPU retention advantage.
+2. GPU spill with CPU fit, followed by CPU competition: actual restoration and eviction.
+3. Long decode with returning tools, then abandoned hints plus unhinted traffic: interference.
 
-| Acquisition component | Planning arithmetic / assumption | Wall-clock estimate |
+Controlled traces reset or explicitly account for phase carryover. They supplement
+natural application runs and do not establish natural wait-time prevalence. Baseline-only
+fit/load pilots set working sets and arrivals; count actual activation rather than
+assuming a short trace reached pressure. Core release: three traces x three systems x
+two models x two repetitions = 36 trace-runs. External activation/pressure evidence is
+collected during its six-task subset rather than another independent matrix. A qualified
+GPU-retention four-way comparison uses one mixed trace with resident/spill/competition
+phases: four settings x two models x two repetitions = 16 trace-runs. No broader
+combination campaign is part of the default release.
+
+User-set counts remain ONE validation and TWO release repetitions. No automatic
+additional runs, exhaustive model/precision grid, or full-suite runs on both GPUs.
+Validation cannot estimate between-run variance. Release reports both effects and
+disagreement; two starts cannot support narrow variance/tail guarantees. Task and run
+uncertainty stay distinct. All failures and incomplete attempts remain visible.
+
+Time targets are planning envelopes, not measured forecasts: validation 20–40 minutes,
+release 18–28 hours on one 2080 Ti after compatibility qualification. A proposed hard
+acquisition ceiling is 45 minutes for validation and 30 hours for release; freeze the
+actual limit with the run manifest. Hitting it means incomplete evidence, never a pass.
+Do not hide inability to fit required work by changing quality gates after results.
+
+| Component | Assumed execution cost, to replace with pilot measurements | Planning time |
 | --- | --- | --- |
-| Validation main core | Three ten-task panels, 12–25 min each for deliberately short development tasks | 36–75 min |
-| Validation external sentinels | Two four-task panels, 4–10 min each | 8–20 min |
-| Validation second-model sentinels | Three two-task panels, 2–5 min each | 6–15 min |
-| Validation mechanism + startup/report | Nine short cases plus model loads and checking | 25–50 min |
-| Validation total | 44 task executions + nine cases, one repetition | Approximately 1.5–3 hours |
-| Release main core | Twelve 52-task panels (3 systems x 2 models x 2 reps), 2–4 hours each | 24–48 hours |
-| Release external subset | Eight 20-task panels, 45–90 min each | 6–12 hours |
-| Release mechanism cases | 88 cases at an assumed 3–6 min each | 4.4–8.8 hours |
-| Release combination study | 48 cases at an assumed 3–6 min each | 2.4–4.8 hours |
-| Release sustained exposure | Existing primary-model candidate/control 8+2+2h each, secondary candidate/control 2h each | 28 hours |
-| Release fault checks, startup/report, capacity-search reserve | 3–6h fault work + 3–6h loading/report + up to 4h search | 10–16 hours |
-| Release total including combination | All rows above, two performance repetitions | Approximately 75–120 hours, or 3–5 days |
-| Optional 5080 weight-precision panel | Eight coding tasks x three core systems x two precisions x two repetitions = 96 task executions | Reserve another 4–8 hours, replace with measured estimate |
+| Validation | Five system runs, 3–6 minutes of short interleaved workflows each, plus 5–10 minutes total startup/report | 20–40 minutes |
+| Release core applications | Twelve 13-task panels, 30–60 minutes each | 6–12 hours |
+| Release external subset | Eight six-task panels, 15–30 minutes each | 2–4 hours |
+| Release controlled traces | 36 runs at 2–3 minutes each | 1.2–1.8 hours |
+| Release GPU-retention combination | 16 runs at 2–3 minutes each | 0.5–0.8 hours |
+| Release sustained exposure | Primary candidate/control two hours each; secondary candidate/control one hour each | 6 hours |
+| Fault checks, startup/report, bounded load probes | Combined planning allowance including at most 30 minutes of load search | 2–3.5 hours |
+| Release total | 204 application executions, 52 trace-runs, sustained/fault checks | Approximately 18–28 hours |
+| Optional 5080 precision check | Two coding tasks x three systems x two precisions x two repetitions = 24 task executions | Separately budgeted 1–2 hours |
 
-Panel assumptions correspond to roughly 8–15k generated tokens for the short validation
-panel and 70–120k for the full release panel, plus prefill and tool time. They are
-forecast inputs, not caps to force favorable timing; actual reasoning/tool loops can
-exceed them. Before a campaign, pilot representative short/edit/terminal/long-context
-cases and replace estimates with measured token volume, prefill/decode and tool costs.
-If estimates exceed budget, return a concrete scope/cost choice; do not truncate tasks
-and present the shortened run as complete. Suggested per-session emergency ceilings
-are 30 model calls/20min for coding and terminal work, 12 calls/10min for navigation
-and document work; reaching a ceiling is an incomplete outcome, not success. Ceilings
-must accommodate official harness validity requirements or the claim is a subset/adaptation.
+These forecasts assume cached assets, serial use of one GPU, short validation tasks,
+and bounded actual tool execution. The application panels should generate approximately
+2–4k tokens per validation system run and 20–35k per core release panel; at an assumed
+15–40 aggregate tokens/s, decoding alone can take roughly 1–4.5 minutes and 8–39 minutes,
+respectively. Prefill, tool waits and startup add time; model reasoning may exceed the
+forecast. No performance claim or measured speedup is implied. Qualification pilots
+must establish those costs and actual cache activity before scheduling the full suite.
+If whole valid workflows do not fit, return a scope/cost decision rather than secretly
+multiplying runs or declaring timed-out tasks completed. The 5080 is optional and
+has no assumed speed multiplier. Compare precisions on the same GPU and model.
 
-The 5080 is a separately qualified lane. Compare quantization only within that lane,
-with the same model and cache settings; compare hardware only with matched precision.
-The primary 2080 Ti release must not depend on optional 5080 availability. No paid
-services, machine changes, downloads or GPU execution are authorized by this proposal.
+The reduced budget deliberately buys less statistical precision and shorter stability
+exposure. It does not support a 2pp quality-equivalence claim from 13 tasks, reliable
+p99 guarantees, general coding-benchmark scores or indefinite reliability. Keep the
+correctness/failure gates; qualify performance and quality statements to the actual
+observations and samples. Large quality/soak studies are targeted follow-ups only when
+needed for a stronger claim, not hidden prerequisites to every default release run.
+No GPU use, runtime repin, architecture implementation or paid resources are authorized
+by this design revision.
 
 ### 7. Correctness is a mandatory release gate
 
@@ -435,9 +437,10 @@ latency, memory, metadata, queues, errors and completion. Distinguish allocator/
 warmup from continued unreclaimed growth. Verify logical counts directly and retain
 RSS/GPU allocation as complementary measurements.
 
-Proposed first-release exposure: an eight-hour mixed-load run plus two independently
-started two-hour runs for candidate and matched native control on the primary practical
-model, and at least a two-hour mixed/churn run on the second. Also require three full
+Proposed first-release exposure: one two-hour mixed-load run for each of candidate
+and matched control on the primary model, plus one hour for each on the second model
+(six hours total). These are sustained checks, not extra performance repetitions.
+Also require three full
 configured session/event-capacity churn/reclamation cycles; shorten configured limits
 in a separate stress case when normal limits make turnover impractical. These are
 engineering exposure targets for review, not proof of a universal failure rate or
@@ -824,10 +827,10 @@ No agent may silently choose favorable tolerances or waive an unresolved require
 
 Current-model/coding-first research (2026-11-11):
 
-- [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) and [configuration](https://huggingface.co/Qwen/Qwen3.5-9B/blob/main/config.json): recurrent/full-attention architecture.
+- [Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) and [configuration](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/config.json): recurrent/full-attention architecture.
 - [Gemma 4 12B IT](https://huggingface.co/google/gemma-4-12B-it) and [configuration](https://huggingface.co/google/gemma-4-12B-it/blob/main/config.json): sliding/global attention and distinct group geometry.
 - [Gemma releases](https://ai.google.dev/gemma/docs/releases): June 2026 12B release.
-- [Qwen quantized candidate](https://huggingface.co/cyankiwi/Qwen3.5-9B-AWQ-4bit) and [Gemma quantized candidate](https://huggingface.co/axteam/gemma-4-12B-it-AWQ-4bit): inspectable artifact candidates, not hardware qualification.
+- [Qwen quantized candidate](https://huggingface.co/cyankiwi/Qwen3.5-4B-AWQ-4bit) and [Gemma quantized candidate](https://huggingface.co/axteam/gemma-4-12B-it-AWQ-4bit): inspectable artifact candidates, not hardware qualification.
 - [vLLM quantization](https://docs.vllm.ai/en/stable/features/quantization/) and [hybrid caching](https://docs.vllm.ai/en/v0.30.0/features/automatic_prefix_caching/): kernel and state compatibility need explicit verification against the selected runtime.
 - [Terminal-Bench 2.0 and Harbor](https://www.tbench.ai/news/announcement-2-0): real terminal harness; use a pinned CPU-only development-task subset, not the moving latest suite.
 - [SWE-bench Verified](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified): real repair tasks with test-based grading; selected subsets are not official full-suite scores.
