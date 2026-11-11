@@ -22,7 +22,7 @@ Retain actual tool waits and demonstrated cache competition as useful experiment
 
 ## Sources
 
-- [evidence/real-agent-eval-20261104/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/real-agent-eval-20261104/README.md)
-- [evidence/wait-opportunity-20261104/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/wait-opportunity-20261104/README.md)
+- [evidence/real-agent-eval-20261104/README.md](../sources/0edefabd69d0ba106ad7841a1e9be40f1e45a19995863458f84527f917f2339f.json)
+- [evidence/wait-opportunity-20261104/README.md](../sources/7489a9997ed06bc35272c18529b1915b56396975dccb9328c2f0370839e90b4a.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

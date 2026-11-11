@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-efficiency/results/evidence/final-handback.json",
+    "sha256": "aff094a916a5487b1f9b2d2d5e323dcf1128bc0c19c16c52ffa0158b2797937e"
+  },
+  "content": "{\n  \"completed\": true,\n  \"requests_exact\": 405,\n  \"cpu_passes\": [\n    263,\n    266\n  ],\n  \"no_further_gpu_work\": true,\n  \"live_ownership\": \"NONE\",\n  \"custody_release\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/score_components/evidence/final-handback-release.json\",\n  \"status\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/score_components/evidence/final-handback-status.json\",\n  \"restoration\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/score_components/evidence/final-handback-restoration.activity.json\",\n  \"archive_manifest\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/score_components/diagnostic/evidence/diagnostic-export-manifest.json\",\n  \"combined_audit\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/score_components/evidence/final-combined-audit.json\",\n  \"storage\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/score_components/diagnostic/evidence/storage-handback.json\",\n  \"stale_queued_device_offers_cancelled\": [\n    15,\n    16,\n    17,\n    18\n  ],\n  \"recorded_device_wait\": \"cancelled\",\n  \"checkpoint\": \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/CURRENT.md\"\n}\n"
+}

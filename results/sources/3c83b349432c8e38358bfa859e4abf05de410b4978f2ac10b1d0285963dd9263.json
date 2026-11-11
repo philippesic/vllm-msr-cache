@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/capture-optimization/admission-budget-arithmetic.json",
+    "sha256": "3c83b349432c8e38358bfa859e4abf05de410b4978f2ac10b1d0285963dd9263"
+  },
+  "content": "{\n  \"source\": \"output/admission-trial/results/admission_trial/funnel-per-request.csv\",\n  \"eligible_blocks_per_request\": {\n    \"min\": 48,\n    \"median\": 157,\n    \"max\": 206,\n    \"requests\": 45\n  },\n  \"fair_share_arithmetic\": [\n    {\n      \"paused_sessions\": 1,\n      \"blocks_per_session_no_reserve\": 199,\n      \"MiB_per_session_no_reserve\": 447.75,\n      \"tokens_per_session\": 3184\n    },\n    {\n      \"paused_sessions\": 2,\n      \"blocks_per_session_no_reserve\": 99,\n      \"MiB_per_session_no_reserve\": 222.75,\n      \"tokens_per_session\": 1584\n    },\n    {\n      \"paused_sessions\": 3,\n      \"blocks_per_session_no_reserve\": 66,\n      \"MiB_per_session_no_reserve\": 148.5,\n      \"tokens_per_session\": 1056\n    },\n    {\n      \"paused_sessions\": 6,\n      \"blocks_per_session_no_reserve\": 33,\n      \"MiB_per_session_no_reserve\": 74.25,\n      \"tokens_per_session\": 528\n    }\n  ],\n  \"scope\": \"Arithmetic illustration only, no policy simulation, no claim all sessions pause simultaneously or prefixes are disjoint; no reserve subtracted. Write bandwidth/latency crossover remains unmeasured.\"\n}\n"
+}

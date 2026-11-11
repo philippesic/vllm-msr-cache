@@ -27,7 +27,10 @@
   "tests/test_operation.py::test_snapshot_includes_dirty_and_untracked_inputs",
   "tests/test_operation.py::test_stale_control_does_not_signal_current_process",
   "tests/test_operation.py::test_type_caches_separate_portable_and_runtime_environments",
+  "tests/test_results.py::test_local_artifact_identity_and_local_links",
+  "tests/test_results.py::test_partitioned_source_retains_exact_content_and_detects_damage",
   "tests/test_results.py::test_render_is_reproducible_and_tampering_refuses",
   "tests/test_results.py::test_source_recovery_checks_committed_bytes",
+  "tests/test_results.py::test_supporting_catalog_refuses_missing_result_and_unindexed_source",
   "tests/test_results.py::test_unknown_schema_and_invalid_intervals_refuse"
 ]

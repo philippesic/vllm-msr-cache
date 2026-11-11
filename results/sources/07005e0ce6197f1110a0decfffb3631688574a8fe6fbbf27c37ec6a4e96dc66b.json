@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/transfer.json",
+    "sha256": "07005e0ce6197f1110a0decfffb3631688574a8fe6fbbf27c37ec6a4e96dc66b"
+  },
+  "content": "{\n  \"seal\": \"bd8d128c1effb0c89e6d6509b5a315a178a9468d105027742ae5be5423afb476\",\n  \"files\": 4772,\n  \"bundle\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-2080ti-20261106/repository-recovery-transfer-03\",\n  \"scope\": \"Sealed frozen source, inputs, measurements and audits; no 5080 execution or import qualification\"\n}\n"
+}

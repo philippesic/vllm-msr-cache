@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-01.json",
+    "sha256": "f0beaf17e31591ddcc500bbae38d2cfc7f1e63b69ea14771f69b4a9563f28cda"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-integrity-checkpoint-v1\",\n  \"acquisition_complete\": false,\n  \"phase\": \"confirm\",\n  \"verification\": {\n    \"schema\": \"serving-campaign-verification-v1\",\n    \"attempts\": {\n      \"verified\": 75,\n      \"interrupted\": 1,\n      \"failed\": 1,\n      \"running\": 1\n    },\n    \"verified_files\": 6653,\n    \"protocol_frozen\": true,\n    \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n  },\n  \"ledger_before_digest\": \"09572c87024f007a2696dcb304833ddaf92791d591b3d4ee00c771e44b05ee3e\",\n  \"ledger_after_digest\": \"d4d746dfe029af3931ced69e3a8d25fe9902fccae86b49ed4bc7ac66885afe33\",\n  \"ledger_changed_during_check\": true,\n  \"scope\": \"Read-only verification of every sealed attempt in the campaign snapshot, including native preflight, screening, whole-block recovery and completed confirmation arms; active unsealed work is not certified. Campaign input identities, sealed attempt identities/artifacts and frozen protocol bindings pass. This does not establish final acquisition, source-audit, performance, portability or completion status.\"\n}\n"
+}

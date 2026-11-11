@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/demand-prefetch-stall-20261102/FINAL_VALIDATION.json",
+    "sha256": "08ebe8e64c2b7710a6a72e7354205d469eb5823969973e6e684996686e6fe28c"
+  },
+  "content": "{\n  \"strict_requests\": 144,\n  \"strict_all_passed\": true,\n  \"direct_guard_returns\": 0,\n  \"observer_calls_including_warmup\": 975,\n  \"rejected_observations\": 0,\n  \"unfinished_episodes\": 0,\n  \"CPUtests\": \"33passed0.41s;qualification/cpu-tests-final.log\",\n  \"entrypoint\": \"actual hook/source PASS, CUDA uninitialized\",\n  \"frozen_plan_pins_match\": 44,\n  \"port19372_open\": false,\n  \"GPU_flock_available\": true,\n  \"compute_apps\": \"\",\n  \"all_owned_model_processes_stopped\": true,\n  \"scope_limit\": \"two direct measured cases only; old inflightbind exposure unconfirmed; no causalablation\",\n  \"no_commit_push\": true\n}\n"
+}

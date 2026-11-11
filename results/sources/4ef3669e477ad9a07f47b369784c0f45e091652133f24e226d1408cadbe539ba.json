@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/history-integrity.json",
+    "sha256": "4ef3669e477ad9a07f47b369784c0f45e091652133f24e226d1408cadbe539ba"
+  },
+  "content": "{\n  \"closed_campaign\": {\n    \"schema\": \"serving-campaign-verification-v1\",\n    \"attempts\": {\n      \"verified\": 33,\n      \"interrupted\": 2,\n      \"failed\": 6\n    },\n    \"verified_files\": 3142,\n    \"protocol_frozen\": false,\n    \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n  },\n  \"execution_bundle_files\": 4606,\n  \"original_lmcache_binary_sha256\": \"2d7a83345a34035be67e94609661db712265d479df447b317aa0aa86535a04ce\"\n}\n"
+}

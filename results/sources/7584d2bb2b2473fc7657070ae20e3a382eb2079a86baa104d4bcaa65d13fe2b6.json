@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/wait-opportunity-20261104/activation.json",
+    "sha256": "7584d2bb2b2473fc7657070ae20e3a382eb2079a86baa104d4bcaa65d13fe2b6"
+  },
+  "content": "{\n  \"cases\": {\n    \"00-arc\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"00-wait\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"00-semantic\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"01-wait\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"01-semantic\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"01-arc\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"02-semantic\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"02-arc\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    },\n    \"02-wait\": {\n      \"consistency\": true,\n      \"quality\": 16,\n      \"prefetch_jobs\": 0\n    }\n  },\n  \"matched_initial_prompts\": {\n    \"0\": true,\n    \"1\": true,\n    \"2\": true\n  },\n  \"semantic_activation_scope\": \"Explicit SemanticPolicy, positive applied-relevance batches and real CPU eviction/restore activity; per-victim score counterfactuals were not traced in the timed campaign.\"\n}\n"
+}

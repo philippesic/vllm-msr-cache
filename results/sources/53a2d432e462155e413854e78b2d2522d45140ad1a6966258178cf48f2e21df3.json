@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/early-controls-render.json",
+    "sha256": "53a2d432e462155e413854e78b2d2522d45140ad1a6966258178cf48f2e21df3"
+  },
+  "content": "{\n  \"schema\": \"stage6-partial-measurement-chart-v1\",\n  \"campaign_complete\": false,\n  \"cells\": [\n    \"qwen3_8b_awq:B01\",\n    \"qwen3_8b_awq:B02\"\n  ],\n  \"data\": \"confirmation-first-cells.json\",\n  \"data_sha256\": \"c59afd3cd555dbc01fb103a62b52047e4929d17aa497a91376bcfa3c8107a0c1\",\n  \"html\": \"early-controls.html\",\n  \"html_sha256\": \"1b7707d5b45d935e57e1b2541d15d51fa78ccdb1782a7436325017060947eaac\",\n  \"preview\": {\n    \"tool\": \"T3 html_preview\",\n    \"width\": 728,\n    \"content_height\": 703,\n    \"console_messages\": []\n  },\n  \"render\": {\n    \"tool\": \"T3 html_render\",\n    \"height\": 703,\n    \"title\": \"RTX 5080: partial native control measurements\",\n    \"attachment_id\": \"mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-1874d0e4-516c-4aab-ba31-dcf77b08c31f-html\"\n  },\n  \"scope\": \"Only two completed native control cells, with all frozen repetitions. Actual paired CIs and process-level latency statistics; no server started. This is an interim display, not the final full-matrix chart or campaign completion.\"\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-03.json",
+    "sha256": "7120fe773d53b3c17168c15569a263b96ebd204d4582421de04be468547065d4"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-integrity-checkpoint-v1\",\n  \"acquisition_complete\": false,\n  \"phase\": \"confirm\",\n  \"recorded_utc\": \"2026-11-09T20:30:52.830956+00:00\",\n  \"verification\": {\n    \"schema\": \"serving-campaign-verification-v1\",\n    \"attempts\": {\n      \"verified\": 154,\n      \"interrupted\": 1,\n      \"failed\": 1,\n      \"running\": 1\n    },\n    \"verified_files\": 11512,\n    \"protocol_frozen\": true,\n    \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n  },\n  \"ledger_before_digest\": \"520bf57e755c598ec5babd7c441c8d4de946b7ae2a0ab675acde123ca8e1d317\",\n  \"ledger_after_digest\": \"520bf57e755c598ec5babd7c441c8d4de946b7ae2a0ab675acde123ca8e1d317\",\n  \"ledger_changed_during_check\": false,\n  \"coordinator_identity_checked_live\": true,\n  \"verifier_source\": \"frozen exported campaign_verify.verify_campaign\",\n  \"scope\": \"Read-only integrity and aggregate verification of every sealed attempt in this campaign snapshot, including retained interrupted/raw failed history and newly completed confirmation. Active unsealed work is outside verification. Original raw state and timing remain unchanged. This is not final acquisition, source-audit, portability, performance or completion proof.\"\n}\n"
+}

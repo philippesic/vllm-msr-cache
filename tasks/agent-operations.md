@@ -1,8 +1,8 @@
 # Agent operations
 
 ## Goal
-Add repository-specific agent operations after results maintenance is settled:
-skills for repeated procedures and support for long-running work.
+Choose repository-specific skills for repeated procedures and support for
+long-running work.
 
 ## Authorized
 Nothing yet. Philip will revisit this; do not implement any item below until then.

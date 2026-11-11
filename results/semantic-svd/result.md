@@ -18,7 +18,7 @@ Keep exact KV as the current behavior and retain the failed/inconclusive alterna
 
 ## Sources
 
-- [evidence/semantic-svd-serving-20261104/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/semantic-svd-serving-20261104/README.md)
-- [evidence/semantic-svd-serving-20261104/results.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/semantic-svd-serving-20261104/results.json)
+- [evidence/semantic-svd-serving-20261104/README.md](../sources/0fa7deadbd1964345364cb99e4435497dc4aacaf48eed825319fe11b0ae1736d.json)
+- [evidence/semantic-svd-serving-20261104/results.json](../sources/8c7a76ce273ef3bbd70a042cc45ebdb8a07dad38f2fbae010c59b1048a129319.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/msr-hybrid-qualification-20261103/source-audit.json",
+    "sha256": "f5b22ef405c586fc4b8f6ca733c03765f1e2f4d7a931b42b7c4bad236111eb36"
+  },
+  "content": "{\n  \"schema\": \"hybrid-source-observability-v1\",\n  \"sessions\": 800,\n  \"user_messages\": 2142,\n  \"user_timestamp_count\": 0,\n  \"assistant_messages\": 2142,\n  \"assistant_timestamp_count\": 2142,\n  \"observed_session_end_count\": 0,\n  \"reusable_timing_labels\": false,\n  \"reason\": \"Timestamp presence alone does not establish request arrivals or observation horizons. Verify source semantics; do not label final records as abandonment.\",\n  \"source_path\": \"output/quantized-realworld-20261101/data/wildchat-normalized.json\",\n  \"source_sha256\": \"de100692a3ce941698f532fde6946965faeafd433f97ab9d147dff62c7f291de\",\n  \"timestamp_semantics\": \"WildChat dataset card: assistant timestamp is backend receipt of the full ChatGPT response; not user request arrival.\",\n  \"source_url\": \"https://huggingface.co/datasets/allenai/WildChat-1M/blob/main/README.md#data-fields\"\n}\n"
+}

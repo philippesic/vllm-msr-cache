@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/preacquisition-checkpoint-15.json",
+    "sha256": "f0502fd860a15a1af2e5c6575ebc159105f9e4372997f544db6a4147eaeb143d"
+  },
+  "content": "{\n  \"schema\": \"stage6-preacquisition-checkpoint-v1\",\n  \"source_digest\": \"7066c04c3e1e4589176cb8ea2d63d39f4c182f1130b677980d5c55bb43972b7d\",\n  \"native_all_models\": true,\n  \"native_receipt\": \"output/stage6-2080ti-20261106/development-15/analysis/native-checkpoint-15.json\",\n  \"registry_receipt\": \"output/stage6-2080ti-20261106/development-15/ledger.jsonl\",\n  \"benchmark_checks\": {\n    \"passed\": 201,\n    \"log\": \"output/stage6-2080ti-20261106/benchmark-tests-15.log\"\n  },\n  \"portable_checks\": {\n    \"passed\": 31,\n    \"log\": \"output/stage6-2080ti-20261106/check-light-15.log\"\n  },\n  \"standalone_wheel\": {\n    \"passed\": true,\n    \"receipt\": \"output/stage6-2080ti-20261106/snapshot-package-proof-15/proof.json\"\n  },\n  \"scope\": \"Native/CPU/package checkpoint only; full screen, pilot, frozen acquisition, quality audit and final relocation are still due\"\n}\n"
+}

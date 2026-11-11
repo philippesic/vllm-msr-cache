@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/operational-v2-launch-root-authorization.json",
+    "sha256": "21f01ae8af2d350e528602fd1a7314f6e49e34c592ec6a78eea7f379426f29c6"
+  },
+  "content": "{\n  \"schema\": \"root-operational-v2-launch-authorization-v1\",\n  \"at_ns\": 1793740486340289464,\n  \"launch_authorized\": true,\n  \"gpu_custody\": \"ASTRA\",\n  \"manifest_sha256\": \"3f37a1491c645a8defdcef92a8e95720911db6990999a9b33399340bdc131ffe\",\n  \"supervisor_sha256\": \"9b5c848161fbd0ba0ee87cfe0c7edbe854de056a2356d5db89c036a553360c62\",\n  \"authority\": \"Existing user sustained optimization request; ROOT verified routine harness repair and remaining scope\",\n  \"scope\": \"Exactly these seven new-name B-E cases. No A replacement, retries or unreviewed GPU follow-ons.\",\n  \"original_failed_A_cases_preserved\": true,\n  \"production_endorsement\": false\n}\n"
+}

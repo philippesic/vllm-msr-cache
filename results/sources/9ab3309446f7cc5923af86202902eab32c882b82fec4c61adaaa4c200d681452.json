@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/transfer-seals.json",
+    "sha256": "9ab3309446f7cc5923af86202902eab32c882b82fec4c61adaaa4c200d681452"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-rebuilt-transfer-seal-audit-v1\",\n  \"checked_unix\": 1794241953.955286,\n  \"passed\": true,\n  \"checks\": {\n    \"primary-relocated-bundle\": {\n      \"seal_file_sha256\": \"03dcfbe668440490150995554c35b65a5de7f247dc1e4906ec866c46699ab01e\",\n      \"verified_files\": 4606,\n      \"original_receipt_matched\": true\n    },\n    \"addendum-relocated-bundle\": {\n      \"seal_file_sha256\": \"993cdfbee9672131a929a26baeb1dee168f36faf8372ee337c6ae1a6cba6c720\",\n      \"verified_files\": 8362,\n      \"original_receipt_matched\": true\n    },\n    \"completion-audit-packet-02\": {\n      \"seal_file_sha256\": \"9de8697b431eb10ff7d0e0c486234314245da1247fcbe7d3c4c8004e8d654698\",\n      \"verified_files\": 17,\n      \"original_receipt_matched\": true\n    },\n    \"execution_bundle\": {\n      \"seal\": \"75abd6fbcdca6f210c1991e8f4160a7cad08593f7b5b05c8fe50fae8f374c8f2\",\n      \"verified_files\": 4606,\n      \"parent_source_identity_matched\": true\n    },\n    \"new_imported_bundle\": {\n      \"seal\": \"75abd6fbcdca6f210c1991e8f4160a7cad08593f7b5b05c8fe50fae8f374c8f2\",\n      \"verified_files\": 4606,\n      \"parent_source_identity_matched\": true\n    }\n  },\n  \"scope\": \"All copied original transfer, audit-packet, execution and newly imported bundle seals match their original receipts and all materialized contents. Does not establish acquisition, performance, quality or campaign completion.\"\n}\n"
+}

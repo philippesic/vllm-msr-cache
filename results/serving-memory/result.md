@@ -14,15 +14,19 @@ Thirty-six invocations: twelve matched triples across three previously used publ
 
 ## Limits
 
-Positive-wait return-tail improvement was unresolved. No host-RAM or universal tail claim follows. Separate startup-loading prototypes were rejected or interrupted; their partial work remains paused in the old repository.
+Positive-wait return-tail improvement was unresolved. No host-RAM or universal tail claim follows. Separate startup-loading prototypes were rejected or interrupted; their partial findings are retained in [paused loading](../paused-loading/result.md).
 
 ## Decision
 
 Retain serving-memory savings as a scoped result. Do not import the paused loading prototype or claim reduced startup memory.
 
+## Correction
+
+2026-11-10: linked the separately retained partial loading evidence; measurements unchanged.
+
 ## Sources
 
-- [evidence/vram-frontier-2080ti-20261103/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/vram-frontier-2080ti-20261103/README.md)
-- [evidence/vram-frontier-2080ti-20261103/confirmation.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/vram-frontier-2080ti-20261103/confirmation.json)
+- [evidence/vram-frontier-2080ti-20261103/README.md](../sources/5862100cb703430d1ba5995f0717ccb97d4b20b8fa58d451f027b0cba74b6e1f.json)
+- [evidence/vram-frontier-2080ti-20261103/confirmation.json](../sources/ed768c25ed631c8e3ca1d1e83222fc585b7009eb9f50450b00af9a59a597a7f3.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

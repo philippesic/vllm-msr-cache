@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/quantized-realworld-20261101/runs/qualify-frozen-hooks-native-bytes/qualification-summary.json",
+    "sha256": "57b28cf3e0ca817c3bece35921018a73f758c92094d820e615e2189f6a774fbe"
+  },
+  "content": "{\n  \"status\": \"complete\",\n  \"strict_native_proofs\": 6,\n  \"native_adoptions\": 2,\n  \"all_transferred_component_bytes_equal\": true,\n  \"audited_total_transfer_bytes\": 710148096,\n  \"actual_H2D_audited_bytes\": 174325760,\n  \"passive_completion_records\": 2,\n  \"passive_completed_H2D_bytes\": 174325760,\n  \"completion_observation_matches_actual_audit\": true,\n  \"completion_job_ids_unique\": true,\n  \"local_prefix_adoption_checks\": 2,\n  \"local_prefix_all_component_bytes_equal\": true,\n  \"local_prefix_adoption_bytes\": 3670016,\n  \"performance_eligible\": false,\n  \"owned_descendants_remaining\": []\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/admission-trial/VERIFICATION.json",
+    "sha256": "f8fdc37ab4a5d1d8db74f5c56f82d8ddf702ef19595f99a33fd314d306a502f9"
+  },
+  "content": "{\n  \"archive_verified\": true,\n  \"members_verified\": 149,\n  \"compressed_results_readable\": true,\n  \"handback_assertions\": {\n    \"requests_exact\": 180,\n    \"cpu_passed\": 270,\n    \"model_lifecycles\": 4,\n    \"custody\": \"RELEASED\",\n    \"baseline_unchanged\": true\n  }\n}\n"
+}

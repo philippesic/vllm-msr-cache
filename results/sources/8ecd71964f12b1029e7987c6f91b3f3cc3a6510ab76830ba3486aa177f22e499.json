@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/operational-v3-launch-root-authorization.json",
+    "sha256": "8ecd71964f12b1029e7987c6f91b3f3cc3a6510ab76830ba3486aa177f22e499"
+  },
+  "content": "{\n  \"schema\": \"root-operational-v3-launch-authorization-v1\",\n  \"at_ns\": 1793742391767625528,\n  \"launch_authorized\": true,\n  \"gpu_custody\": \"ASTRA\",\n  \"manifest_sha256\": \"3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04\",\n  \"supervisor_sha256\": \"f7d55f1ff1590ed84dbf2a5acdf7e4c1d146454e57106d74a00cb6f5c2124931\",\n  \"authority\": \"Existing user sustained optimization request; remaining coverage and routine documentation guard repair\",\n  \"scope\": \"Exactly never-attempted D/E cases, no retries/replacements or extra GPU work\",\n  \"all_executed_input_guards_preserved\": true,\n  \"production_endorsement\": false\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-04.json",
+    "sha256": "62dc0364ae3529381fc1fc856e541f00cdda39ba1e231c3c87ddd243b4b66995"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-integrity-checkpoint-v1\",\n  \"acquisition_complete\": false,\n  \"phase\": \"confirm\",\n  \"recorded_utc\": \"2026-11-09T21:43:27.307524+00:00\",\n  \"verification\": {\n    \"schema\": \"serving-campaign-verification-v1\",\n    \"attempts\": {\n      \"verified\": 194,\n      \"interrupted\": 1,\n      \"failed\": 9,\n      \"running\": 1\n    },\n    \"verified_files\": 15456,\n    \"protocol_frozen\": true,\n    \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n  },\n  \"ledger_before_digest\": \"cc250cdbe66df3b4e72aedac5e99998a92f588a002696ac04269c08f510a9952\",\n  \"ledger_after_digest\": \"cc250cdbe66df3b4e72aedac5e99998a92f588a002696ac04269c08f510a9952\",\n  \"ledger_changed_during_check\": false,\n  \"coordinator_identity_checked_live\": true,\n  \"verifier_source\": \"frozen exported campaign_verify.verify_campaign\",\n  \"frozen_acquisition_source_matches_locked_manifest\": true,\n  \"frozen_acquisition_source_files_verified\": 2192,\n  \"scope\": \"Read-only integrity and aggregate verification of every sealed attempt in this campaign snapshot, including retained interrupted/raw failed history, the B06 activity-invalid attempt and valid controls. Exact frozen acquisition source matches its lock. Active unsealed work and later attempts are outside this inventory. No original measurements, protocol or analysis rules changed; this is not final acquisition/quality/portability/performance completion proof. Prior whole-bundle verification remains separately recorded in checkpoint 02.\"\n}\n"
+}

@@ -18,7 +18,7 @@ Carry forward the lessons: prove activity, preserve failed attempts, distinguish
 
 ## Sources
 
-- [evidence/benchmark-suite-20261103/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/benchmark-suite-20261103/README.md)
-- [evidence/workflow-finalization-20261103/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/workflow-finalization-20261103/README.md)
+- [evidence/benchmark-suite-20261103/README.md](../sources/b4e2648b24d0535ad3e15c7e0c2b8d90313f18f4897558a13e6f6d6c6c086cff.json)
+- [evidence/workflow-finalization-20261103/README.md](../sources/efb9ef9d72e36960b668716d51e610e3052a3c5586c2a866d5d15fcab82c2ef2.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

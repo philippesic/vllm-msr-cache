@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "title": "Continuous semantic machinery imposed overhead even without useful cache activity",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "negative",
+  "summary": "The October 2080 Ti matrix measured 27.36% lower single-agent and 19.17% lower multi-agent throughput than ARC. Later capture/batching changes substantially improved the original configuration but still missed the general within-1% target.",
+  "scope": "Qwen2.5-1.5B FP16 eager on RTX 2080 Ti/WSL, matched small KV budgets. The initial normal matrix used three fresh-server seeds; later stress and ordinary confirmations also used three paired seeds.",
+  "limitations": "The initial normal matrix had no CPU eviction or consumed prefetch; single-agent scoring was inactive. Stress activated eviction but not prefetch. One ARC-only repeat confirmed baseline output instability. Later stress gaps include different cache work; skipping single-token observations changes score trajectories.",
+  "decision": "Keep the inactive path cheap and measure end-to-end cost. Do not mistake feature enablement for opportunity, or the later ordinary -0.64% pooled result for universal equivalence.",
+  "sources": [
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/matrix-2080ti-20261031/REPORT.md",
+      "sha256": "d8498f9d1a5accaa68ba8e53d8287ddf0ded7d4095a59f6cd38498402a7236b8"
+    },
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/matrix-2080ti-20261031/VALIDATION-ADDENDUM.md",
+      "sha256": "1efd1b2e7cf0840acb1440a1ca84319c9b6e94f66cb0298fa0f66b2015875e75"
+    },
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/scoring-overhead-20261101/REPORT.md",
+      "sha256": "e7a63c26bbb7a66602b269fec91ed1162994688875ded59679381ca0af6193ce"
+    }
+  ],
+  "chart": {
+    "metric": "Throughput change versus matched ARC (%)",
+    "caption": "Separate studies/configurations, not one pooled experiment; negative is slower.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Initial single-agent",
+        "estimate": -27.36,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Initial multi-agent",
+        "estimate": -19.17,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Optimized single stress",
+        "estimate": -1.42,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Optimized multi stress",
+        "estimate": -2.24,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Optimized ordinary multi",
+        "estimate": -0.64,
+        "lower": null,
+        "upper": null
+      }
+    ]
+  },
+  "correction": ""
+}

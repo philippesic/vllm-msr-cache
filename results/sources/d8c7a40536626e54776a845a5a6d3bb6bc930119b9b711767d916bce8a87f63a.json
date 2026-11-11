@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-confirmation-root-prelaunch.json",
+    "sha256": "d8c7a40536626e54776a845a5a6d3bb6bc930119b9b711767d916bce8a87f63a"
+  },
+  "content": "{\n  \"schema\": \"root-gpu-gate-confirmation-prelaunch-v1\",\n  \"created_utc\": \"2026-11-03T15:53:41.235271+00:00\",\n  \"manifest_sha256\": \"517f08416d2fef340becbed384ff371d90ed01f22ca001c6a22b1ecd0726058a\",\n  \"byte_receipt_sha256\": \"84cebca7da67aedb420f9524ebe99e127a88c52922b875393521fcee9135264b\",\n  \"pins_verified\": 391,\n  \"planned_names_absent\": 24,\n  \"prior_raw_records_scanned\": 163,\n  \"new_corpus_never_used_by_prior_campaign_runs\": true,\n  \"fresh_acquisition_no_generation_receipts_verified\": true,\n  \"candidate_bounded_mode_and_only_gate_enabled\": true,\n  \"performance_intrusive_audit_disabled_both_arms\": true,\n  \"gpu_idle\": true,\n  \"gpu_custody_transfer\": \"ROOT to Astra after this receipt; exact frozen24 invocations only\"\n}\n"
+}

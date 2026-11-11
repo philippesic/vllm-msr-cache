@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261108/storage.json",
+    "sha256": "db933394289142675559eba13d5ea8afa7c827d54c64150e1e3401bce3cbb17a"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-storage-placement-v1\",\n  \"original_path\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-01\",\n  \"canonical_path\": \"/mnt/c/Users/philip/AppData/Local/vllm-semantic-cache-ext-stage6-5080/campaigns/primary-01\",\n  \"private_bindings\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/private-bindings/primary-01\",\n  \"private_files\": [\n    \"hardware.private.json\",\n    \"host.private.json\"\n  ],\n  \"files_preserved\": 4934,\n  \"content_hashes_preserved\": true,\n  \"campaign_id\": \"664568b8c5a64da0aaa711d43c3a26fc1195a9db5c037b154a6963c6a70e4c2f\",\n  \"frozen_input_strings_identity_order_repeats_preserved\": true,\n  \"windows_writer_lock_contention_passed\": true,\n  \"verification\": {\n    \"schema\": \"serving-campaign-verification-v1\",\n    \"attempts\": {\n      \"verified\": 4\n    },\n    \"verified_files\": 223,\n    \"protocol_frozen\": false,\n    \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n  },\n  \"old_tree_removed_after_copy_and_alias_verification\": true,\n  \"verification_after_placement\": {\n    \"schema\": \"serving-campaign-verification-v1\",\n    \"attempts\": {\n      \"verified\": 4\n    },\n    \"verified_files\": 223,\n    \"protocol_frozen\": false,\n    \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n  },\n  \"original_execution_bundle_verified_files\": 4606\n}\n"
+}

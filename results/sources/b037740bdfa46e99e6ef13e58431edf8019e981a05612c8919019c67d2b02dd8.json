@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage5-optimization-20261105/hint-cpu-cost.json",
+    "sha256": "b037740bdfa46e99e6ef13e58431edf8019e981a05612c8919019c67d2b02dd8"
+  },
+  "content": "{\n  \"scope\": \"CPU-only hot path, audit disabled; network and scheduler queue excluded\",\n  \"rows\": [\n    {\n      \"kind\": \"scheduler_hint\",\n      \"keys\": 64,\n      \"median_ns\": 38319,\n      \"p95_ns\": 49660\n    },\n    {\n      \"kind\": \"scheduler_hint\",\n      \"keys\": 256,\n      \"median_ns\": 103168,\n      \"p95_ns\": 126088\n    },\n    {\n      \"kind\": \"scheduler_hint\",\n      \"keys\": 512,\n      \"median_ns\": 194392,\n      \"p95_ns\": 229769\n    },\n    {\n      \"kind\": \"client_prefix_digest\",\n      \"tokens\": 1024,\n      \"median_ns\": 68570\n    },\n    {\n      \"kind\": \"client_prefix_digest\",\n      \"tokens\": 4096,\n      \"median_ns\": 277985\n    },\n    {\n      \"kind\": \"client_prefix_digest\",\n      \"tokens\": 8192,\n      \"median_ns\": 579355\n    }\n  ]\n}"
+}

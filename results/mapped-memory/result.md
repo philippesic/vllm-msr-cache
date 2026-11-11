@@ -18,7 +18,7 @@ Preserve the cause and patch identity for future runtime comparisons; do not app
 
 ## Sources
 
-- [evidence/upstream-pin-fix-20261104/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/upstream-pin-fix-20261104/README.md)
-- [evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch)
+- [evidence/upstream-pin-fix-20261104/README.md](../sources/f9689985e97c8fa24f588d42904950e29a822c9b7ac23311bc028520c71aa131.json)
+- [evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch](../sources/398329ef70a547a81cb2c4a1e6423ead30cbecd5f72dcfe83f8554a674e3d29f.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

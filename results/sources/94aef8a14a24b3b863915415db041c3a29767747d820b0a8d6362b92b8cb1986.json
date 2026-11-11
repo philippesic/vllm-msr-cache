@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-04.json",
+    "sha256": "94aef8a14a24b3b863915415db041c3a29767747d820b0a8d6362b92b8cb1986"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-explicit-novel-context-judgments-v1\",\n  \"packet_digest\": \"7ef37a8f8b38ff8abc88acd609210dc02f93b60fb36425ee40443ba443dbb4f2\",\n  \"signature_fields\": [\n    \"answer\",\n    \"source_context\",\n    \"reference\",\n    \"instructions\",\n    \"actual_dependencies\",\n    \"tools\",\n    \"response_role\",\n    \"current_instruction\"\n  ],\n  \"reviewer\": \"Codex explicit blinded pinned source/test/instruction/dependency/tool/answer review\",\n  \"raw_packet\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-06/blind-packet.json\",\n  \"ratings\": [\n    {\n      \"index\": 6,\n      \"review_id\": \"c0938e54aa6fcfa654324e2b\",\n      \"signature\": \"af80d96881f02e2f2541dcb97a0ce6aa2823e3c9c3aa002a94616e26245367c9\",\n      \"source_supported\": true,\n      \"instruction_followed\": false,\n      \"useful\": true,\n      \"unsupported_claims\": [],\n      \"whitespace_words\": 45,\n      \"notes\": \"callback_iter callback-argument iteration and exception propagation match the supplied code/tests; seven actual tests pass, including basic/abort/exception and the running-future result guard. Background-thread reliance is documented and the complexity limitation is explicitly hedged, not a claim of an observed defect. Test status: PASS lacks the literal underscore. Quoted earlier ACTUAL DEPENDENCY outputs agree with the actual supplied tools. Full supplied source and reference/test body, task instructions, all actual preceding dependencies/tools and answer explicitly read. Original objective/timing unchanged.\"\n    }\n  ]\n}\n"
+}

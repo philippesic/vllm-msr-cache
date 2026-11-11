@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/operational-launch-root-authorization.json",
+    "sha256": "0df27320226b3f7c6ccaa63952162e34c68e0940a5c4f503f6862c5ca92596dc"
+  },
+  "content": "{\n  \"schema\": \"root-operational-launch-authorization-v1\",\n  \"at_ns\": 1793736852639197483,\n  \"launch_authorized\": true,\n  \"gpu_custody\": \"ASTRA\",\n  \"manifest_sha256\": \"cf885d1117683040ae6e65b15b2752cfe413c2dd74e52f289365180041c438a0\",\n  \"supervisor_sha256\": \"d2d44579dc0b0be6bbed26603ebddc3c1181af3ade9db4fe88563cf70e3efeb3\",\n  \"authority\": \"Existing user sustained optimization request; ROOT reviewed exact finite operational block\",\n  \"scope\": \"Only these nine frozen cases, no retries or replacements; return custody and retain failures\",\n  \"performance_confirmation_replaced\": false,\n  \"production_endorsement\": false\n}\n"
+}

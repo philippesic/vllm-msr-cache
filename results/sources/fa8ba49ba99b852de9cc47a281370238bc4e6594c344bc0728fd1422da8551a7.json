@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/admission-trial/results/admission_trial/evidence/cpu-validation.json",
+    "sha256": "fa8ba49ba99b852de9cc47a281370238bc4e6594c344bc0728fd1422da8551a7"
+  },
+  "content": "{\n  \"exit_code\": 0,\n  \"elapsed_s\": 6.253896730020642,\n  \"cuda_initialized\": false,\n  \"cuda_init_guard\": true,\n  \"max_rss_kib\": 992176,\n  \"tests\": [\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/test_funnel.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_step_1_3_scoring.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_query_capture.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_step_1_5_prefetch.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_wait_hint.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_wait_hint_endpoint.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_scoring_schedule.py\",\n    \"/home/philip/.t3/scratch/2026-10-30-the-user-explicitly-authorized-creation-1c98a529/admission_trial/candidate-v3/tests/test_scoring_search.py\"\n  ],\n  \"all_v3_member_pins_verified\": true\n}"
+}

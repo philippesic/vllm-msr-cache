@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/prefetch-vram-20261101/quality-setup-receipt.json",
+    "sha256": "bc5490dadda03565120087c2a33c2016e73618c923ad1a077922724644307c4b"
+  },
+  "content": "{\n  \"first_plan\": \"quality-prefix-plan.json\",\n  \"issue\": \"Observer launch flag was set, but SEMANTIC_PREFIX_POLICY_QUALITY missing; no quality observations produced. Exclude from performance and quality.\",\n  \"repair_plan\": \"quality-prefix-enabled-plan.json\"\n}\n"
+}

@@ -18,6 +18,6 @@ Retain the core and its regression coverage. Expand qualification when implement
 
 ## Sources
 
-- `current:f7ef1e39beaa550d604c5f32a1167c4489b5c8bd:evidence/core-qualification-20261110.md`
+- [evidence/core-qualification-20261110.md](../sources/5de064e7ed71e9ca3ac9b3b6fc4e4c4b7b1b60e666a81d5eaec2a15eb4c84a3b.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "title": "More aggressive recency and cadence variants did not consistently improve live workflows",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "Before the selected continuation profile, GPU free-queue recency, T1-to-T2 promotion, one-touch cadence and a GPU/CPU bridge failed to establish a robust incremental winner. Earlier speculative and minimal-CPU confirmations also retained inconclusive or adverse latency results.",
+  "scope": "Separate 7B AWQ/2080 Ti discovery and confirmation phases. These span recorded-output replay and fresh natural generation; they are not pooled as one population.",
+  "limitations": "GPU recency changed native free-queue order and had mixed throughput with worse p95 than CPU advice. One-touch was slower than periodic in five of six comparisons. The first gated confirmation had an interval including no workflow gain; later return-priority findings use a different matched baseline.",
+  "decision": "Keep the rejected alternatives discoverable so they are not rediscovered as new ideas. Their boundaries do not disprove all future mechanisms, and the later constrained live profile does not erase the earlier losses.",
+  "sources": [
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/prefetch-native-20261102/optimization-owner-checkpoint.json",
+      "sha256": "cffdc0be8352231dcef36e502f0e171cafe4c66b73c5dcebb6364c8dcb7a9f21"
+    },
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/prefetch-native-20261102/CURRENT-before-completion.json",
+      "sha256": "073be6c86d2452712f07c697a1a71600ce3cfda773aada1ff42350a81623318e"
+    }
+  ],
+  "chart": null,
+  "correction": ""
+}

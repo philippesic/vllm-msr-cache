@@ -22,7 +22,7 @@ Preserve threshold admission as a separate hypothesis. Do not revive semantic ad
 
 ## Sources
 
-- [evidence/e04/E04-FINAL-RESULT.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/e04/E04-FINAL-RESULT.md)
-- [evidence/september-2026.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/september-2026.md)
+- [evidence/e04/E04-FINAL-RESULT.md](../sources/ef2be4894e8e03aa1628a9b6c2026308c334e60b240bb5a4a1b4789f6bb2dcd6.json)
+- [evidence/september-2026.md](../sources/0a832a8589b351d8203936f1abc453be2f35b6f043716039caedad3c5be1b982.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

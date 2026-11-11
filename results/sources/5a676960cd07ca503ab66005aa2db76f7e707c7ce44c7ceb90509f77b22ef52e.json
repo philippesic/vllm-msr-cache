@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/real-agent-eval-20261104/plan.json",
+    "sha256": "5a676960cd07ca503ab66005aa2db76f7e707c7ce44c7ceb90509f77b22ef52e"
+  },
+  "content": "{\n  \"repeats\": 2,\n  \"sessions\": 8,\n  \"turns\": 4,\n  \"concurrency\": 4,\n  \"waves\": 1,\n  \"max_tokens\": 256,\n  \"tier\": \"agent\",\n  \"model\": \"/home/philip/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct-AWQ/snapshots/b25037543e9394b818fdfca67ab2a00ecc7dd641\",\n  \"output\": \"/home/philip/vllm-semantic-cache-ext/output/real-agent-eval-20261104/acceptance-v3\",\n  \"repo_root\": \"/home/philip/vllm-semantic-cache-ext\",\n  \"context_chars\": 12000,\n  \"hint_refresh_s\": 1.0,\n  \"tool_timeout_s\": 90,\n  \"tool_output_chars\": 8000,\n  \"plan\": false,\n  \"allow_synthetic\": false,\n  \"gpu_memory_utilization\": 0.75,\n  \"seed\": 17011,\n  \"startup_timeout_s\": 180,\n  \"request_timeout_s\": 90,\n  \"case_timeout_s\": 900,\n  \"sample_interval_s\": 0.25,\n  \"qualification_trace\": true,\n  \"publish_hints\": true,\n  \"arrival_interval_s\": 0,\n  \"wave_interval_s\": 0,\n  \"execution\": \"graphs\",\n  \"batch_tokens\": 1024,\n  \"gpu_blocks\": 1024,\n  \"cpu_bytes\": 939524096,\n  \"max_model_len\": 8192,\n  \"task_file\": null,\n  \"schema\": \"semantic-serving-suite-v1\",\n  \"candidate_config\": null,\n  \"required_activity\": [\n    \"store\",\n    \"restore\",\n    \"cpu_recency\"\n  ],\n  \"natural_eos\": true,\n  \"corpus_sha256\": \"16a8fa05b0af11f404d7921d61b6389755d8f8bec886e80bd8ec534cbde8c969\",\n  \"corpus_provenance\": \"Authored maintenance questions about this working repository; source and tests are read from disk and tools execute live. Not production traffic or a public issue benchmark.\",\n  \"synthetic\": false,\n  \"generation_mode\": \"live_autoregressive; EOS/context limit\",\n  \"output_cap\": \"remaining_context\"\n}\n"
+}

@@ -2,8 +2,11 @@
 
 Git tracks the code, skill, result profile, summaries, compact chart data and
 archived source reports. `results/sources/` stores report content as inert JSON,
-keyed by its SHA-256; result validation checks content and source metadata. These
-copies let a fresh checkout inspect every curated source without the old checkout.
+keyed by its SHA-256, with ordered parts for larger texts. Result validation checks
+reassembled content and source metadata. These
+copies let a fresh checkout inspect historical conclusions and their cited sources
+without the old checkout or GitHub. The source catalog also retains supporting
+records by original path; coverage lists excluded bulky/generated artifacts.
 They do not turn old reports into active project instructions.
 
 Raw attempts, model files, large datasets and frozen execution trees stay outside
@@ -27,13 +30,14 @@ have an independent off-machine backup.
 
 A verified local Git bundle is retained at
 `/home/philip/.local/share/vllm-semantic-cache-ext-next/backups/local-results.bundle`.
-It contains complete history through the documentation-convention checkpoint. Clone the
+Refresh it after local checkpoints and verify it with `git bundle verify`. Clone the
 bundle into a new directory, install the locked development environment, and enable
 the local hook with `git config core.hooksPath .githooks`. Later commits remain in
 this working repository; refresh a bundle deliberately when a new checkpoint is needed.
 There is no configured remote. The previously created hosted copy awaits deletion
-because the available GitHub credential lacks deletion permission; see the open
-[hosted-repository deletion task](../tasks/results-review.md).
+because the available GitHub credential lacks deletion permission. Its identity is
+`philippesic/vllm-semantic-cache-ext-next`; deleting that hosted copy must not remove
+the local repository or bundles.
 Run `uv run --locked python tools/check.py --full` to validate the restored project.
 Run `uv run --locked python tools/check.py --render-results` and confirm
 `git diff --exit-code -- FINDINGS.md results` succeeds. This checks reproducible

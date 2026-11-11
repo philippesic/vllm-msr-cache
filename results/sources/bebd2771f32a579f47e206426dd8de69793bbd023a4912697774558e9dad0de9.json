@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/capture-optimization/results/capture_optimization/REPRODUCE.md",
+    "sha256": "bebd2771f32a579f47e206426dd8de69793bbd023a4912697774558e9dad0de9"
+  },
+  "content": "Read PROTOCOL.md and evidence/frozen.json first. Requires fresh valid native quiet custody, sealed restore, cached env/model/runtime; never invoke unmediated GPU commands. Do not replay under released credentials. No installs/builds required.\nCPU: .venv/bin/python -B capture_optimization/broker.py --key UNIQUE -- .venv/bin/python -B capture_optimization/CPU.py\nCUDA fixture: same broker with timeout60 .venv/bin/python -B capture_optimization/tiny_cuda.py\nFreeze: .venv/bin/python -B capture_optimization/run.py freeze (existing freeze evidence must be preserved)\nEach arm, serial: broker.py --key UNIQUE -- timeout -s INT -k15 180 .venv/bin/python -B capture_optimization/run.py ARM\nOrder baseline,candidate,candidate_profile,baseline_profile. Existing output paths reject overwrites. Reproduction needs copied task paths/new outputs and a new pinned freeze, not silent overwrites.\nAnalysis: sys.path.insert(0,'capture_optimization'); runpy.run_path on analyze.py,validate.py,profile_analysis.py with run_name='__main__'.\nInput/model/runtime pins and full trace are retained in evidence/prepared.json; source bytes and hooks in archive. External prior ARC raw anchor used by validate.py remains score_components/results/arc/raw.json.gz. Whole prior frozen V3 source backup remains score_components/candidate-v3. Profile scopes inclusive startup+load, no additive interpretation.\n"
+}

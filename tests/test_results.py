@@ -115,3 +115,65 @@ def test_source_recovery_checks_committed_bytes(tmp_path: Path) -> None:
     path.write_text(json.dumps(data))
     with pytest.raises(ValueError, match="hash mismatch"):
         results.verify_sources(tmp_path, repository)
+
+
+def test_local_artifact_identity_and_local_links(tmp_path: Path) -> None:
+    path = specimen(tmp_path)
+    data = json.loads(path.read_text())
+    source = data["sources"][0]
+    source.update(repository="legacy-local", revision=None)
+    path.write_text(json.dumps(data))
+    archive = tmp_path / "results/sources" / (source["sha256"] + ".json")
+    archive.write_text(json.dumps({"source": source, "content": "measured result"}))
+    results.render(tmp_path)
+    assert results.check(tmp_path) == []
+    page = (path.parent / "result.md").read_text()
+    assert f"../sources/{source['sha256']}.json" in page
+    assert "https://github.com" not in page
+    source["revision"] = "a" * 40
+    path.write_text(json.dumps(data))
+    with pytest.raises(ValueError, match="revision"):
+        results.read_result(path)
+
+
+def test_supporting_catalog_refuses_missing_result_and_unindexed_source(
+    tmp_path: Path,
+) -> None:
+    path = specimen(tmp_path)
+    source = json.loads(path.read_text())["sources"][0]
+    catalog = tmp_path / "results/sources/catalog.json"
+    data: dict[str, Any] = {
+        "schema": 1,
+        "sources": [
+            {"sha256": source["sha256"], "path": source["path"], "results": ["case"]}
+        ],
+    }
+    catalog.write_text(json.dumps(data))
+    results.render(tmp_path)
+    assert results.check(tmp_path) == []
+    data["sources"][0]["results"] = ["absent"]
+    catalog.write_text(json.dumps(data))
+    assert "missing result" in results.check(tmp_path)[0]
+    data["sources"] = []
+    catalog.write_text(json.dumps(data))
+    assert "membership mismatch" in results.check(tmp_path)[0]
+
+
+def test_partitioned_source_retains_exact_content_and_detects_damage(
+    tmp_path: Path,
+) -> None:
+    path = specimen(tmp_path)
+    source = json.loads(path.read_text())["sources"][0]
+    directory = tmp_path / "results/sources"
+    parts = [f"parts/{source['sha256']}/{n:04}.json" for n in range(2)]
+    for part, content in zip(parts, ["measured ", "result"], strict=True):
+        target = directory / part
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps({"content": content}))
+    (directory / (source["sha256"] + ".json")).write_text(
+        json.dumps({"source": source, "parts": parts})
+    )
+    results.render(tmp_path)
+    assert results.check(tmp_path) == []
+    (directory / parts[1]).write_text(json.dumps({"content": "fabrication"}))
+    assert "source archive mismatch" in results.check(tmp_path)[0]

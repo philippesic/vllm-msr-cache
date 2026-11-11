@@ -22,7 +22,7 @@ Require separate overhead, unhinted-traffic and output-validity accounting when 
 
 ## Sources
 
-- [evidence/stage6-2080ti-20261106/RESULTS.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/RESULTS.md)
-- [evidence/stage6-2080ti-20261106/quality-final-summary.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/quality-final-summary.json)
+- [evidence/stage6-2080ti-20261106/RESULTS.md](../sources/7b7a1cbb180f74f6538129a643664bbe4f455956cf94559ec135bec228ccd972.json)
+- [evidence/stage6-2080ti-20261106/quality-final-summary.json](../sources/3abbca1d7a687bd7394a73ad0e2142b74914d562a8c6ba87ffcffc84e1573bcb.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

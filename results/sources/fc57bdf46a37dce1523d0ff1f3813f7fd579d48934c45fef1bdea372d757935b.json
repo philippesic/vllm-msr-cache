@@ -1,0 +1,22 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirm-source-judgments-03.json",
+    "sha256": "fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b"
+  },
+  "parts": [
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0000.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0001.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0002.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0003.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0004.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0005.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0006.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0007.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0008.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0009.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0010.json",
+    "parts/fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b/0011.json"
+  ]
+}

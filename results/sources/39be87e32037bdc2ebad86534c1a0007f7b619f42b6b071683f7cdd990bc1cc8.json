@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/demand-prefetch-stall-20261102/STORAGE.json",
+    "sha256": "39be87e32037bdc2ebad86534c1a0007f7b619f42b6b071683f7cdd990bc1cc8"
+  },
+  "content": "{\n  \"scope\": \"/home/philip/vllm-semantic-cache-ext/output/demand-prefetch-stall-20261102\",\n  \"owner\": \"quant_runtime\",\n  \"removed\": [],\n  \"removed_logical_bytes\": 0,\n  \"free_bytes_before\": 923856666624,\n  \"free_bytes_after\": 923856666624,\n  \"observed_WSL_free_delta_bytes\": 0,\n  \"Windows_reclaim_claim\": false,\n  \"retained_task_logical_bytes_before_receipt\": 222748352,\n  \"retained\": \"two compressed raw/server logs + source/hook overlay, all negative controls/results/reproduction\",\n  \"shared_model_cache\": \"unchanged reusable5.58GB; no downloads or modelcache cleanup\",\n  \"prior_campaigns\": \"protected unchanged\",\n  \"live_processes\": \"none; FINAL_VALIDATION.json\",\n  \"next_review\": \"retain evidence for owner interpretation; no further GPU work planned\"\n}\n"
+}

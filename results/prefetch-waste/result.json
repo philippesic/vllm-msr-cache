@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "title": "Less speculative waste did not establish a better serving frontier",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "negative",
+  "summary": "At the smallest pool, a reclaim backoff cut unused speculative traffic by 56.4% but remained 6.80% slower than ARC. A 15% reservation cap initially helped near the memory knee, then failed to repeat that speed advantage on two additional partitions.",
+  "scope": "Fourteen accepted 72-request runs on 2080 Ti/WSL with 7B AWQ, 672 or 1,792 MiB GPU KV and 3.5 GiB CPU KV. Real public-content sessions with simulated waits; backoff and cap are different controls.",
+  "limitations": "All ten cross-arm comparisons had output differences; nine had later prompt/key differences. Three failed/incomplete attempts remain excluded, including a physical-proof hole at the intermediate memory budget. Lower concurrent reservation does not necessarily mean less cumulative traffic.",
+  "decision": "Keep reclaim churn and reservation coverage as costs to measure. Neither backoff nor a smaller cap was qualified to replace defaults or extend the low-memory range.",
+  "sources": [
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/prefetch-efficiency-20261101/REPORT.md",
+      "sha256": "59e94c47dca7eac5ba2d56f3fdcf1a77f5537dc471e53b0683805d50bbd31739"
+    }
+  ],
+  "chart": {
+    "metric": "Throughput change (%)",
+    "caption": "Descriptive comparisons with unequal generated histories, not identical-work repetitions.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Cap15/ARC partition 1103",
+        "estimate": 1.37,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Cap15/ARC partition 2207",
+        "estimate": -0.48,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Cap15/ARC partition 3301",
+        "estimate": -0.43,
+        "lower": null,
+        "upper": null
+      }
+    ]
+  },
+  "correction": ""
+}

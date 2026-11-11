@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/demand-prefetch-stall-20261102/RESULTS.csv",
+    "sha256": "0e75470220fc5755bdc43fbf10759c8f1b171e5efffd4e55c5fc6fbb1be39ae9"
+  },
+  "content": "GPU_blocks,historical_strict_valid,historical_pending_binds,historical_inflight_binds,historical_ready_binds,historical_potential_total_ms,historical_potential_max_ms,direct_measured,direct_guard_calls,direct_affected_requests,direct_pending_binds,direct_inflight_binds,direct_ready_binds\r\n768,True,4,0,1,1434.083883,647.295409,False,,,,,\r\n1024,True,5,1,1,1473.124296,912.275563,True,0,0,4,0,1\r\n1280,False,5,0,5,1173.688595,662.847755,False,,,,,\r\n1536,True,2,0,4,420.006022,411.060865,False,,,,,\r\n2048,True,0,0,5,0,,True,0,0,0,0,5\r\n2560,True,0,0,0,0,,False,,,,,\r\n3072,True,0,0,0,0,,False,,,,,\r\n4096,True,0,0,0,0,,False,,,,,\r\n"
+}

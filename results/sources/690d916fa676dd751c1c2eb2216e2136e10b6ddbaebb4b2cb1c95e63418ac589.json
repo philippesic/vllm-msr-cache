@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/upstream-pin-fix-20261104/result.json",
+    "sha256": "690d916fa676dd751c1c2eb2216e2136e10b6ddbaebb4b2cb1c95e63418ac589"
+  },
+  "content": "{\n  \"status\": \"passed\",\n  \"runtime_label\": \"experimental mapped-host-pointer patch\",\n  \"pinned_worker\": [\n    {\n      \"event\": \"worker\",\n      \"pinned\": true,\n      \"aliases\": 28,\n      \"load_backend\": \"<function swap_blocks_batch at 0x7152fa0d2200>\"\n    }\n  ],\n  \"transfers\": {\n    \"store\": {\n      \"completed\": 3,\n      \"bytes\": 170655744\n    },\n    \"restore\": {\n      \"completed\": 2,\n      \"bytes\": 341311488\n    }\n  },\n  \"requests\": 3,\n  \"prompt_tokens_each\": 2989,\n  \"output_tokens_each\": 32,\n  \"identical_output_tokens\": true,\n  \"runner\": \"older model runner (VLLM_USE_V2_MODEL_RUNNER=0)\",\n  \"original_checkout_clean\": true,\n  \"cleanup\": {\n    \"gpu_compute_processes\": \"\",\n    \"both_locks_available\": true,\n    \"explicit_engine_shutdown_complete\": true\n  },\n  \"storage\": {\n    \"retained_path\": \"output/upstream-pin-fix-20261104\",\n    \"reason\": \"diagnostic evidence, isolated experimental source and exact reproducer; original binaries reused through symlinks\",\n    \"logical_regular_file_bytes\": 61087255,\n    \"removed\": [],\n    \"free_bytes_before\": 891829092352,\n    \"free_bytes_after\": 891829088256\n  }\n}\n"
+}

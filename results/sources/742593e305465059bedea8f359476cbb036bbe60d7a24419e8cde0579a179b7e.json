@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-audit/MAC-VALIDATION.json",
+    "sha256": "742593e305465059bedea8f359476cbb036bbe60d7a24419e8cde0579a179b7e"
+  },
+  "content": "{\n  \"scope\": \"Mac CPU smoke, syntax and integration identity; native 367-test/CUDA/model evidence remains authoritative for vLLM\",\n  \"checks\": [\n    \"cooperative pending/ready order\",\n    \"ready/generic no sleep\",\n    \"bounded ordered publication and budget recovery\",\n    \"query failure fences remaining owned inputs\",\n    \"profiler CPU endpoints\"\n  ],\n  \"compiled_integrated_files\": [\n    \"semantic_offload/async_scoring.py\",\n    \"semantic_offload/connector.py\",\n    \"semantic_offload/manager.py\",\n    \"semantic_offload/profiling.py\",\n    \"semantic_offload/query_capture.py\",\n    \"semantic_offload/worker.py\",\n    \"tests/test_query_capture.py\",\n    \"tests/test_async_scoring.py\",\n    \"tests/test_audit.py\",\n    \"tests/test_round2.py\",\n    \"tests/test_round4.py\"\n  ],\n  \"production_matches_reviewed_pins\": true,\n  \"pytest_installed_on_mac\": false,\n  \"no_gpu_used\": true\n}\n"
+}

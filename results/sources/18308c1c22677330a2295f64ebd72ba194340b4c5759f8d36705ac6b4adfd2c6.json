@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/prefetch-vram-20261101/canonical-final-pins.json",
+    "sha256": "18308c1c22677330a2295f64ebd72ba194340b4c5759f8d36705ac6b4adfd2c6"
+  },
+  "content": "{\n  \"README.md\": \"73f6f38ceefe759a80819246b277257b64deb09bb299beff424cdbdbd33be715\",\n  \"semantic_offload/connector.py\": \"d1c0bdb8d34a7c15c81c90ae03512ee9793bfe9d394c8d3da369d243c70053e2\",\n  \"semantic_offload/worker.py\": \"2e8990c702949ec36a00963a8a0820a393c158b646f6b2a5c6702199767dce3f\",\n  \"tests/test_completed_transcript.py\": \"de0b1f3ddf90f80430969b7486f0a7cc4b98e1bf6d9cbbed2407f6695652dbc1\",\n  \"tests/test_full_prefix_nomination.py\": \"c7a4060e69dd0a0d34be27b4664cb6705e91bbf7b15d26697f1a46e2862fbe62\",\n  \"tests/test_mean_only_summaries.py\": \"860156f558401ebfb6679320f98146c71447a962a9dba6545a5f6a190b254e27\",\n  \"tests/test_opportunity_metadata.py\": \"500985e9e6fc6b59221745b7434b9f9b83ccc7ae3e8a9d3f70708d484fdfe370\",\n  \"tests/test_prefix_mean_scoring.py\": \"2df220c3408a10276e9737e40018f07b0bf8db262d5a4c1b28fc0c9c9825aedb\",\n  \"tests/test_step_1_5_prefetch.py\": \"a36cca548633d3aac331e370ef0a10384cd3b0de90426e25cd93c63d6e0bdbad\"\n}\n"
+}

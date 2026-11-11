@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/quantized-realworld-20261101/ROOT_REVIEW.json",
+    "sha256": "a10a382579e88afba715389087b32dc887181e44d197af68606a7d473f3ef7e4"
+  },
+  "content": "{\n  \"scope\": \"Root independent final derived-result consistency review; not a second KV-byte or performance run\",\n  \"primary_runs\": 24,\n  \"primary_strict_requests\": 1296,\n  \"per_run_summary_proofs_all_passed_reread\": 24,\n  \"matched_small_ARC_chat_pairs\": 3,\n  \"matched_chat_pairs_below_99pct\": 3,\n  \"agent_candidate_cross_arm_exact_work_eligible\": 0,\n  \"old_failed_matrix_retained\": true,\n  \"source\": \"final-results.json plus each primary runs/name/summary.json\",\n  \"remaining\": [],\n  \"report_relative_links_checked\": 19,\n  \"canonical_package_files_unchanged_independently_checked\": 22,\n  \"operational_final_validation_reviewed\": true,\n  \"report_sha256\": \"c240d62b38154ddd0ba5e81e388f80e58ba4562c897de0889c8b07036fe5b9b3\",\n  \"report\": \"REPORT.md\",\n  \"no_new_performance_or_byte_runs_in_root_review\": true\n}\n"
+}

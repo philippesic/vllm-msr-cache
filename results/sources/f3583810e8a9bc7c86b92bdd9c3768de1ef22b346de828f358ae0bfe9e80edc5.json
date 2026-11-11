@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/durability-checkpoint.json",
+    "sha256": "f3583810e8a9bc7c86b92bdd9c3768de1ef22b346de828f358ae0bfe9e80edc5"
+  },
+  "content": "{\n  \"schema\": \"stage6-durability-checkpoint-v1\",\n  \"recorded\": \"2026-11-06\",\n  \"scope\": \"Development durability/reconstruction evidence; full campaign acquisition and 5080 native execution pending\",\n  \"independent_public_recipe_rebuild\": {\n    \"all_three_environment_identities_equal\": true,\n    \"external_executed_sources_equal\": true,\n    \"raw\": \"../../output/stage6-2080ti-20261106/rebuild-recipe-verification-02.json\",\n    \"sha256\": \"e01fa44bfba38a3971907aac428dd031b17036a67271bd2831569c44fe2cd545\"\n  },\n  \"actual_interruption_and_resume\": {\n    \"complete\": true,\n    \"proofs\": 1,\n    \"raw\": \"../../output/stage6-2080ti-20261106/development-06/analysis/recovery-proof.json\",\n    \"sha256\": \"165aea2092963304c03218acfe701406dad8406d2107128600e85b13666ffce2\"\n  },\n  \"source_package\": {\n    \"complete\": true,\n    \"raw\": \"../../output/stage6-2080ti-20261106/snapshot-package-proof/receipt.json\",\n    \"sha256\": \"ba648bde742ad28f1f4a0c0fc46d305059f41310907571d36942fc0f3dbdacee\"\n  },\n  \"compiled_torch_architectures\": {\n    \"raw\": \"../../output/stage6-2080ti-20261106/rebuilt-torch-architectures-02.txt\",\n    \"scope\": \"Contains sm_120; not a 5080 serving/correctness result\"\n  }\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/reporting-validation-03.json",
+    "sha256": "f31442e07b26a1627e29fc1aed02fd12fc2549537517920c5fdf8478c6d78e4b"
+  },
+  "content": "{\n  \"schema\": \"stage6-primary-reporting-validation-v1\",\n  \"recorded_utc\": \"2026-11-09T22:41:37.121355+00:00\",\n  \"acquisition_complete\": false,\n  \"helper\": \"benchmarks/research_checks/stage6_primary_findings.py\",\n  \"source_sha256\": \"0a0d0cf5910472da2ef4c6bb558d06cae0ccc7820a25b087e7c2b86b5907249a\",\n  \"prior_validation\": \"reporting-validation-02.json\",\n  \"checks\": {\n    \"focused_reporting_and_estimator_tests\": {\n      \"passed\": 28,\n      \"command\": \"PYTHONDONTWRITEBYTECODE=1 pinned-PY -m pytest -q -p no:cacheprovider tests/test_stage6_primary_findings.py tests/test_campaign_reporting.py\"\n    },\n    \"synthetic_cli\": {\n      \"default_rejects_incomplete\": true,\n      \"explicit_option_retains_incomplete\": true,\n      \"preserves_existing_destination\": true,\n      \"owned_temporary_fixture_cleaned\": true\n    },\n    \"standalone_javascript\": {\n      \"syntax\": \"passed current V8 Function construction without execution\",\n      \"full_report_browser_render\": \"pending final measured data\"\n    }\n  },\n  \"change\": \"Explicit --retain-incomplete derived presentation preserves all frozen missing identities, complete/acquisition flags and completion evidence. Default guard, estimator, work and no-overwrite checks remain. Tables/chart label incomplete scope and actual pair counts; no missing repetition is inserted or requirement reduced.\",\n  \"scope\": \"Synthetic reporting preparation only. Actual terminal report extraction/render remain pending. Frozen acquisition, workload, measurement validity and study design unchanged. Earlier portable checks are retained separately, not claimed rerun.\"\n}\n"
+}

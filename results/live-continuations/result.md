@@ -22,7 +22,7 @@ Preserve the operating limits alongside the gain; do not transfer qualification 
 
 ## Sources
 
-- [evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json)
-- [evidence/live-optimization-2080ti-20261103/qualified-live-profile.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/live-optimization-2080ti-20261103/qualified-live-profile.json)
+- [evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json](../sources/61893b7485e3e193f3086336615329f0855c521d5ae719121d48cd4f2dac8f77.json)
+- [evidence/live-optimization-2080ti-20261103/qualified-live-profile.json](../sources/653020d8a8ce79bf1a786723df4328fb6dd8855cd05b4ea5e1967f941033d1f4.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

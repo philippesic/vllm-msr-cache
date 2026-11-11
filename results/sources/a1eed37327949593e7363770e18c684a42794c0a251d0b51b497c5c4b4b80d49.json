@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/recovery-complete.json",
+    "sha256": "a1eed37327949593e7363770e18c684a42794c0a251d0b51b497c5c4b4b80d49"
+  },
+  "content": "{\n  \"complete\": true,\n  \"proofs\": [\n    {\n      \"interrupted_attempt\": \"5be8d36b8c4e42fa8e70bd00d9727d2c\",\n      \"interrupted_artifacts\": \"attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/5be8d36b8c4e42fa8e70bd00d9727d2c\",\n      \"prior_partial_block_attempts\": [\n        \"e0232f840c9d4e39989c92ead12323f1\"\n      ],\n      \"replacement_attempts\": [\n        {\n          \"attempt\": \"a17aefecbce041ea9daa161e848d72db\",\n          \"path\": \"attempts/d498eb870443c61f5f432b957972dede3458b3ac7238a128122e34b69ddd64f3/a17aefecbce041ea9daa161e848d72db\",\n          \"seal\": \"7fc3d5ddea6723ef5b70af0f5f7cf7891f0496eaa5ba59efbf51440e421dac75\"\n        },\n        {\n          \"attempt\": \"7cd6cbcaa6b84436ab9af12eafa5185b\",\n          \"path\": \"attempts/ee350a34e6b812b239a82d7397b8e5617dd5166e063795dccea367654e7ddc4d/7cd6cbcaa6b84436ab9af12eafa5185b\",\n          \"seal\": \"5767b028af1aad12cf6120a6a6138703eb188ef23559e8846df42e3bb7bf4667\"\n        }\n      ],\n      \"owned_cleanup_verified\": true,\n      \"whole_block_replaced\": true\n    }\n  ],\n  \"scope\": \"Real interrupted measured process and sealed whole-block replacement; no partial-process continuation\"\n}\n"
+}

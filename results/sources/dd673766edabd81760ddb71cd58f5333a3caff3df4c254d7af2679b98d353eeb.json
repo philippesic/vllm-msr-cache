@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261108/import.json",
+    "sha256": "dd673766edabd81760ddb71cd58f5333a3caff3df4c254d7af2679b98d353eeb"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-import-proof-v1\",\n  \"campaign_id\": \"664568b8c5a64da0aaa711d43c3a26fc1195a9db5c037b154a6963c6a70e4c2f\",\n  \"parent_campaign_id\": \"fb4036f77c0761d08d66b32f0710abdd34a6cffe30c2144b22c8c1461a4c9baa\",\n  \"source\": \"dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b\",\n  \"host_id\": \"rtx5080\",\n  \"runtime_python\": \"/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python\",\n  \"all_cell_interpreters_explicit\": true,\n  \"source_root\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/primary-execution-bundle-01/source\",\n  \"models_verified\": [\n    \"ministral3_3b\",\n    \"qwen3_4b_2507\",\n    \"qwen3_8b_awq\"\n  ],\n  \"configurations_per_repeat\": 54,\n  \"confirmation_configurations\": 524,\n  \"confirmation_blocks\": 210,\n  \"supplementary_configurations\": {\n    \"overhead\": 38,\n    \"operational\": 6\n  },\n  \"hardware_preflight_required\": true,\n  \"confirmation_ready\": false,\n  \"seals_verified\": {\n    \"transfers/primary-relocated-bundle\": 4606,\n    \"transfers/addendum-relocated-bundle\": 8362,\n    \"transfers/completion-audit-packet-02\": 17,\n    \"primary-execution-bundle-01\": 4606\n  }\n}\n"
+}

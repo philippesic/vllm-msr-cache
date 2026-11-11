@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/fresh-priority-inputs-root-verification.json",
+    "sha256": "f53bfb7dc1097bbc5d138bdac3dbb369c0e3d47f289ecac08218c21fe3a25baa"
+  },
+  "content": "{\n  \"schema\": \"root-independent-fresh-priority-input-verification-v1\",\n  \"created_utc\": \"2026-11-03T18:45:56.931355+00:00\",\n  \"corpus_sha256\": \"6355a9570a82b89dd1dc45a454d2d2ef03d0484c6f70a79af774ae80aeaec98b\",\n  \"input_plan_sha256\": \"c83aa7a9b82e98c89296185304c02005e4ac129a9d47c7155a8ef919f2398fca\",\n  \"input_plan_pins_checked\": 305,\n  \"validation_pins_checked\": 104,\n  \"prior_campaign_raw_records_scanned\": 243,\n  \"exact_next96_order_independently_reconstructed\": true,\n  \"all96priorIDs_and_normalized_issues_disjoint\": true,\n  \"first72_selected_with_exact_partitions\": true,\n  \"retained_integer_token_windows_and_budgets_verified\": true,\n  \"independent_fast_tokenizer_receipt_bound\": true,\n  \"selected_IDs_disjoint_from_all_prior_campaign_actual_runs\": true,\n  \"new_corpus_not_used_by_prior_actual_runs\": true,\n  \"no_generation_or_tools_receipts_bound\": true,\n  \"limits\": [\n    \"ROOT rechecked retained token windows/budgets, but did not invoke tokenizer; two separately implemented upstream tokenizer validations are hash-bound.\",\n    \"Public repository overlap and semantic near-duplicates remain possible.\",\n    \"No model output or service quality qualification has occurred on fresh inputs.\"\n  ]\n}\n"
+}

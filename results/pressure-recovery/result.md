@@ -22,7 +22,7 @@ Keep the failed original and completed recovery distinct. Do not call an unresol
 
 ## Sources
 
-- [evidence/stage6-2080ti-20261106/repository-recovery-03/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/repository-recovery-03/README.md)
-- [evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json)
+- [evidence/stage6-2080ti-20261106/repository-recovery-03/README.md](../sources/733ffd69ebd1717244c156c06173f385559abe6bf797f08c73abc66a37eb5796.json)
+- [evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json](../sources/3f046c3d1c4d1d1c4724bca4bcbadc237dbef32d990abc2c462c450863350628.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

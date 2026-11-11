@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/operational-v3-harness-root-review.json",
+    "sha256": "250354f6c5c2892370210f454d3bef0280b6faab37a732328017a17a5a564a1f"
+  },
+  "content": "{\n  \"schema\": \"root-operational-v3-review-v1\",\n  \"at_ns\": 1793742391574464522,\n  \"review\": \"passed\",\n  \"CPU_controls_passed\": 15,\n  \"root_rerun\": true,\n  \"exact_original_D_E_argv_names_only_changed\": true,\n  \"no_A_B_C_replacements\": true,\n  \"previous812_nonREADME_pins_all_held\": true,\n  \"documentation_policy\": \"Assistant chosen correction: README is not executed; retain its initial/final identities without stopping. Catch concurrent documentation read failures as unavailable provenance. Every other frozen input remains guarded.\",\n  \"current_README_sha256\": \"ec7920d3e3a376e19a37dd1aa2e57c4bcddd9539baab679670a4912347a717bb\",\n  \"scope\": \"3 launches,14 waves,1008 normal natural-EOS responses planned. Existing v2 serving harness byte-identical.\",\n  \"GPU_idle\": true,\n  \"lock_available\": true,\n  \"port_closed\": true,\n  \"production_endorsement\": false\n}\n"
+}

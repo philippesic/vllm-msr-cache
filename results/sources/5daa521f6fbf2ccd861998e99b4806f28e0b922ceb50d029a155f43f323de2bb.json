@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/capture-optimization/VERIFICATION.json",
+    "sha256": "5daa521f6fbf2ccd861998e99b4806f28e0b922ceb50d029a155f43f323de2bb"
+  },
+  "content": "{\n  \"archive_verified\": true,\n  \"members_verified\": 310,\n  \"raw_logs_readable\": true,\n  \"source_selection\": \"Original measured v3 query_capture.py and tests restored after no demonstrated speedup\",\n  \"candidate_pins\": \"candidate-pins.json\",\n  \"production_pins\": \"../scoring-efficiency/candidate-pins.json\",\n  \"native_cpu_passed\": 284,\n  \"tiny_cuda_cases_passed\": 6,\n  \"requests_exact\": 180\n}\n"
+}

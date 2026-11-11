@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/demand-prefetch-stall-20261102/observer-only.patch",
+    "sha256": "bbc7ac3e400f91201e082ad04a51a4e9fe6078641f8c031953ec338e7b3ee44a"
+  },
+  "content": "--- frozen/connector.py\n+++ probe/connector.py\n@@ -25,6 +25,7 @@\n from __future__ import annotations\n \n import hashlib\n+from demand_guard_observer import observe as _demand_guard_probe\n import json\n import math\n import re\n@@ -7069,7 +7070,9 @@\n             \"pending\",\n             \"in_flight\",\n         }:\n+            _demand_guard_probe(self, request, hint_event_id, hint_state, True)\n             return None, False\n+        _demand_guard_probe(self, request, hint_event_id, hint_state, False)\n         if getattr(self, \"_preservation_events_enabled\", False):\n             self._begin_lookup_episode(request)\n         try:\n"
+}

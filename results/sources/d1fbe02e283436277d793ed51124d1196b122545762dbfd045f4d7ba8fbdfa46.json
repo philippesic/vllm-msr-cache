@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/relocated-import-source-checkpoint.json",
+    "sha256": "d1fbe02e283436277d793ed51124d1196b122545762dbfd045f4d7ba8fbdfa46"
+  },
+  "content": "{\n  \"schema\": \"stage6-relocated-import-source-check-v1\",\n  \"source_digest\": \"04850ae7132536701180f53be64c42c457b290b48d210db4c7b804345331ab27\",\n  \"serving_identity_unchanged_from_native_screen_15\": true,\n  \"focused_tests\": {\n    \"passed\": 26,\n    \"log\": \"../../output/stage6-2080ti-20261106/relocated-import-source-check-17.log\"\n  },\n  \"benchmark_tests\": {\n    \"passed\": 216,\n    \"log\": \"../../output/stage6-2080ti-20261106/benchmark-tests-17.log\"\n  },\n  \"repair\": \"Portability proof now runs host binding, import and dry compilation in a fresh subprocess from relocated exported source; original checkout is not the import executor.\",\n  \"source_binding_asserted\": true,\n  \"hardware_confirmation_guard_asserted\": true,\n  \"scope\": \"Pre-freeze proof repair and regression checks; final real relocation still due after frozen acquisition\"\n}\n"
+}

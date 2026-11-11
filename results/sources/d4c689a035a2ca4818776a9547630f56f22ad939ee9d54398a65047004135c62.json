@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-audit/round4-cleanup/round4/cleanup_receipts/HANDOFF.md",
+    "sha256": "d4c689a035a2ca4818776a9547630f56f22ad939ee9d54398a65047004135c62"
+  },
+  "content": "Round4 named gate complete. Cooperative .5ms event query/sleep reduces real continuous executor CPU: readiness11.332->.583s and readback5.806->3.732s; normalized disjoint readiness+executor CPU/job ~70.8%lower. Readback remains material.\n\nFinal ARCscreen FAILED both pairs: throughput -2.709%/-2.272%, median intendedTTFT +12.814%/+12.217%. No productasyncjobs; do not attribute negative screen to unexecuted waitcode or substitute historicalround2pass. 367CPUtests, realtinyexact3methods/ownership/pendingfailure/recovery,225exactrequests/16320tokens/30345nativekeyrecurrences. Exactly5model lifecycles296.135s wall; no moreGPU. Candidate awaits root NEW independent Astra review; acceptedround2/defaults remain unchanged.\n\nMainarchive immutable/hashverified; fullbaselinepatch+round2delta reconstruct all56Pythonfiles. Cleanupreceipts separate. Fresh quiet released immediatelyafterfinalmodel beforeCPUanalysis; allsessions/descendants/lock/waits cleaned; sharedmodels/caches/runtime/notificationworker/settings/prior experiments preserved.\n"
+}

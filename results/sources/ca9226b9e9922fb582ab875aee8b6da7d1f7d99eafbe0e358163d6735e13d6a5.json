@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-04.json",
+    "sha256": "ca9226b9e9922fb582ab875aee8b6da7d1f7d99eafbe0e358163d6735e13d6a5"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-explicit-novel-context-judgments-v1\",\n  \"packet_digest\": \"6a3aae635a278734a8e7c4f240041c5d45b7746c26ea11a7a7cc28f62679e2c2\",\n  \"signature_fields\": [\n    \"answer\",\n    \"source_context\",\n    \"reference\",\n    \"instructions\",\n    \"actual_dependencies\",\n    \"tools\",\n    \"response_role\",\n    \"current_instruction\"\n  ],\n  \"reviewer\": \"Codex explicit blinded full-passage/question/reference/answer review\",\n  \"raw_packet\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-checkpoint-04/blind-packet.json\",\n  \"ratings\": [\n    {\n      \"index\": 0,\n      \"review_id\": \"d3164b79caccfbbe655f71e9\",\n      \"signature\": \"088e6539a718710863a5109c3a7e666d723fe5751196874bba76b0a73767b29d\",\n      \"source_supported\": true,\n      \"instruction_followed\": true,\n      \"useful\": true,\n      \"unsupported_claims\": [],\n      \"notes\": \"Full supplied Burke passage, question, reference and answer explicitly read. Dublin, Ireland is stated directly in the opening sentence and matches the reference. Bare one-field JSON with whitespace is valid. No tools or dependencies; no extra historical claims. Original objective result and timing unchanged.\"\n    }\n  ]\n}\n"
+}
