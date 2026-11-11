@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/screen-integrity-checkpoint.json",
+    "sha256": "ae4885daaeb45ce42311978a1d9a35c78aeaa77dd7e829a26f7e119a3eeb5d86"
+  },
+  "content": "{\n  \"schema\": \"serving-campaign-verification-v1\",\n  \"attempts\": {\n    \"verified\": 31,\n    \"interrupted\": 1,\n    \"failed\": 1,\n    \"running\": 1\n  },\n  \"verified_files\": 2762,\n  \"protocol_frozen\": false,\n  \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n}\n"
+}

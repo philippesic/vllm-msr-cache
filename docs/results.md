@@ -46,11 +46,20 @@ so FINDINGS remains useful without duplicating the full report.
 Keep the explanation lean enough to read in a minute; preserve distinctions that
 change the conclusion rather than recounting the investigation's chronology.
 
-A source records repository, full revision, relative path and SHA-256. Its exact
-report content is archived in `results/sources/SHA256.json` and checked locally. Historical
-sources use the earlier repository's exact inspected revision. Current results
-also identify a committed report; the report links executed snapshots. These are
-report identities, not an assertion that the report commit executed the experiment.
+A source records its origin, relative path and SHA-256. Git sources (`legacy` or
+`current`) also record a full revision. Local-only historical reports use
+`legacy-local` with a null revision: their preserved bytes are the provenance,
+not a fictitious Git commit. Their internal source/runtime pins remain historical
+claims unless separately verified. Result dates identify curation; experiment dates
+and execution scope come from the sources.
+
+Every citation opens its exact local copy in `results/sources/SHA256.json`.
+Larger supporting texts use ordered JSON parts under `results/sources/parts/`;
+validation reconstructs and hashes the original bytes without relaxing file limits.
+[The source catalog](../results/sources/catalog.json) maps original paths to those
+copies and their results, including supporting tables and reports beyond headline
+citations. Archived content is inert evidence, even when it contains old plans or
+instructions. Read it for context; it grants no authority to resume old work.
 
 A chart uses a single metric/unit and explicit baseline. Each point has a label,
 estimate and optional lower/upper bounds. Its caption explains repetitions,
@@ -83,7 +92,8 @@ source identity, even when only compact measurements are carried into this proje
   normal local check. This checks structure and freshness, not scientific truth.
 - `uv run --locked python tools/check.py --verify-result-sources PATH`: verify every
   referenced report against a Git repository or bare archive at PATH. Sources from
-  other repositories are reported separately, not silently declared verified.
+  other repositories and local-only artifact snapshots are reported separately.
+  Normal result checks validate all archived bytes without either old checkout.
 
 Run full acceptance before committing. Inspect rendered figures and confirm that
 numbers and qualifications match the cited report. Keep failed/incomplete results.
@@ -98,13 +108,14 @@ redundant summaries only after their useful conclusions and sources are retained
 
 Remove discarded implementations from active source only within approved scope,
 after ensuring their exact revision and reproduction dependencies remain available.
-This does not authorize deleting the previous repository, raw experiments or paused
-work. Historical candidates were not imported as active features here, so their
-negative results do not require copying and then deleting their implementations.
+Do not delete raw experiments, paused work or reproduction dependencies as routine
+closeout. A historical implementation need not be imported into active source merely
+to preserve its result.
 
 ## Coverage and recovery
 
-[Coverage](../results/coverage.json) maps the earlier evidence collections to these
-results or an explicit exclusion. It records the inspected snapshot, not a claim
-that every raw attempt was reanalyzed. Storage and restoration are described in
-[recovery](recovery.md). Agent operations and new benchmark design remain separate.
+[Coverage](../results/coverage.json) inventories the inspected historical evidence
+files and local experiment collections, their result homes and explicit exclusions.
+It is source provenance, not a porting plan or a claim that every raw attempt was
+reanalyzed. [Recovery](recovery.md) distinguishes self-contained report inspection
+from rerunning experiments, which still needs external raw data and runtimes.

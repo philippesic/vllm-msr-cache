@@ -1,8 +1,3767 @@
 {
-  "schema": 1,
-  "legacy_revision": "1319f09bafac46bab89df465dd433c67441f4b26",
-  "additional_5080_revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
-  "scope": "All evidence collections in the inspected local snapshot, plus the pinned remote 5080 reports. Report-level curation; raw attempts were not rerun or universally reverified.",
+  "schema": 2,
+  "scope": "Report-level historical knowledge and compact supporting evidence. No new performance measurements. Raw runs, frozen executables and environments are separate reproduction dependencies, not required to read these results.",
+  "snapshots": {
+    "local_legacy": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "retained_5080": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f"
+  },
+  "tracked_evidence_inventory": [
+    {
+      "path": "evidence/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "001a70d654b7795ae124eedb7f68aa29247fac2aa42bf73218456c59dc827a8c",
+      "retained": true,
+      "results": [
+        "measurement-reliability"
+      ]
+    },
+    {
+      "path": "evidence/a27/FINAL-REPORT.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8e961ef3fe05ba8261f8e44c15e919ee5cd38280e7b42d57c556a3bbd3309ba3",
+      "retained": true,
+      "results": [
+        "semantic-prefetch"
+      ]
+    },
+    {
+      "path": "evidence/a27/audit.txt",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a23676d585022e32f3b4586a64b8457e5204fa8fee46704de4b9655f1a175e6c",
+      "retained": true,
+      "results": [
+        "semantic-prefetch"
+      ]
+    },
+    {
+      "path": "evidence/benchmark-suite-20261103/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b4e2648b24d0535ad3e15c7e0c2b8d90313f18f4897558a13e6f6d6c6c086cff",
+      "retained": true,
+      "results": [
+        "measurement-reliability"
+      ]
+    },
+    {
+      "path": "evidence/benchmark-suite-20261103/qualification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b8fbe105d32c651148f7b6dd7b30fc2d51ec2af7b304fd8c0b3d4da0d04b2c3e",
+      "retained": true,
+      "results": [
+        "measurement-reliability"
+      ]
+    },
+    {
+      "path": "evidence/benchmark-suite-20261103/validation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "7413b5ccf18e2d9027d9582dc9e6f97e75c7b9f0fe97451f36ede3dfd1fcedff",
+      "retained": true,
+      "results": [
+        "measurement-reliability"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/confirmation-pairs.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "25f693e4953c43edaa4c37c7b72242bec4f47a81577dcef0820a84445cc683fd",
+      "retained": true,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/curves.png",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "4578161d494d79fa7410effdd2da5919dac3fea8569b5b8bc8de51cea7f50fc0",
+      "retained": false,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/curves.svg",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "1d0600aaf50ff566fd2754a485cd995ecb8ed4251f098bffe99c9ca49718683a",
+      "retained": true,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/discovery-curves.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "330f92a8e5afbfcfe9d7ee38c2844c5c0fabf6c8dcd5260d2b810644fa094471",
+      "retained": true,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/result.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "13a24c4887c41a9edab31ff860979a3c72ceaaf59fead5a838d1bce3d4766237",
+      "retained": true,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/tested-connector-config.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "45f7475972c578b705af0f378e5c2666f2e07a3ee306bc8a320d8f54761dcbf6",
+      "retained": true,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/verify_aggregates.py",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "aeb9d094a660b5d8e1eb77e4e9fa38a0664b0cbb73a57d97cd276daf63c5ddaf",
+      "retained": true,
+      "results": [
+        "wait-recency-replay"
+      ]
+    },
+    {
+      "path": "evidence/e04/E04-FINAL-RESULT.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ef2be4894e8e03aa1628a9b6c2026308c334e60b240bb5a4a1b4789f6bb2dcd6",
+      "retained": true,
+      "results": [
+        "semantic-admission"
+      ]
+    },
+    {
+      "path": "evidence/fair-four-20261104/FAIRNESS.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "166ab5af84086633b621be3721f099d762cad2a1dc9cced48099ef252b6eda51",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/fair-four-20261104/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ad2c579a666970958e932f2d4f4e9a487cae8b0ac25853abef3c8596f05daf74",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/fair-four-20261104/REPLACEMENT.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5ede7076e707b37b244fea03a9206e54127fc554a13705456a120ffec9bf42bf",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/fair-four-20261104/comparison-initial-four.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a19c6a1fe1bd737acd97d061d3e26c888f3136dbbc7c8bae446489aa0e1974ce",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/fair-four-20261104/comparison.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ef36ac91b3c9b5c5c92b406b797c1c8ad600e0c5989f49f989246bbdbbdbc16c",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/fair-four-20261104/post-run-coordinator-fix.patch",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "11cbe17676cdd3d10e7cfe75285d05095f8715f57c7b576f7eb942c8ea20e8dd",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/five-way-20261104/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0b4becee3ce003905b0465a76f065d3d8b61e8e28e76602a34db9df0aeea85fe",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/five-way-20261104/comparison.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5df0e17b7104d3aa84488b224b8361ae27a66607c9871fcfe638421e1624d0a0",
+      "retained": true,
+      "results": [
+        "external-comparisons"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/bridge-discovery-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "54618ed84f62bd6110ca6765e46be8d4a6f1e574450d76845a96c88941ed0fdd",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/cadence-discovery-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "e42728d2b78743df060cef937b88a576b1c8c96e1c65420302988953d07ec966",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/confirmation-design.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "e22cf5c5297bf11b751d3410b5777dae5a7da2696c8d4e16767c235764f74484",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/confirmation-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f1bc5dddf5d942de8a065a69e8f523ecb558ee4a46c567b0078e0ae42156308d",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/confirmation-pairs.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "68dd44b5f04e2899cce7bf31c5511610aea9e673cf1041100384a0bab3f810cf",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/confirmation-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "2c3ce45745009c7202436ecd83947fccb5e0e2de0ba183cd7d4c83a5990bf804",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/final-cleanup-summary.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "72bbe782fcb36b6eddc861ecfbe7c55662b0df0fb6972314b231d1e4bfeb3600",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/final-deliverable-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "16477e50e15bd097a7eba9799db420c689720137940631eb7a7441f6ddd28c5d",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/final-results.html",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "65e5cabc3f6d9362665f0442a3db8a011e299ba06b376655448f53d2a0b77027",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/fresh-priority-inputs-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f53bfb7dc1097bbc5d138bdac3dbb369c0e3d47f289ecac08218c21fe3a25baa",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-coverage-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "cba97861ceeb8f797c22afe9f9e679df44dc9627041c4c70dc6a53a475c93027",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-confirmation-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "517f08416d2fef340becbed384ff371d90ed01f22ca001c6a22b1ecd0726058a",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-confirmation-pairs.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "51ddf1c11ac24349ea35e2d48eabef8dc543735198d2fb063f033bfbb9a472d1",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-confirmation-root-mechanism.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "2d908f1cc7ccd046ca55125abbfa132af652ad30afb9f26706dedc6a2662071a",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-confirmation-root-prelaunch.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d8c7a40536626e54776a845a5a6d3bb6bc930119b9b711767d916bce8a87f63a",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-confirmation-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8a0dc361cfbf06cf48669d9664546d7230114dd9e02400b3e681c71b85da0db3",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-once-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "52c87a17fe575a33478cfbc7662a43f2307f06bdee7b766bf844037f0a2b0d67",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-gate-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b51c9aec6be4007a7f73464a19489664140e5c57299995fc67e2a63c3f664a77",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/gpu-recency-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a579019a74b4172f3b03d8370da11b08919f5823a72ccfdd5a0f176381b48671",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/integrated-gate-bytes-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "84cebca7da67aedb420f9524ebe99e127a88c52922b875393521fcee9135264b",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-a-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0aeb2c2de0dbd2ef70bf06bcb0e93f43c7da60d99e244e35b8ceb1e595586025",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-a-waves.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "e863ed5fccfc00b790fe259ad95df6a9a1afa4b107d0368ce6f537b2e8198df5",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-bc-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "21741a5ab705496327fe5214f4d0b51ac6f4718da95e495f63c879454de159e1",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-de-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b6ffb88bb9826b54f70f90239295270521318f96bd025e1d9cfa16124c2b4283",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-final-astra-assessment.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8590ee5c2499e2bc7df2c371115a36c53130237eea9d542bd31f73dc4ba0426a",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "61893b7485e3e193f3086336615329f0855c521d5ae719121d48cd4f2dac8f77",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "cf885d1117683040ae6e65b15b2752cfe413c2dd74e52f289365180041c438a0",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-harness-root-review.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3613cd20f75764375b769bcf2758b593f6bde2ab482b29d8f3b5467a0ec9fb14",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-launch-root-authorization.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0df27320226b3f7c6ccaa63952162e34c68e0940a5c4f503f6862c5ca92596dc",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-readme-concurrent-change.patch",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a8d0944f9e9e652765429d4cec9cb4eb0ef6055094ee9a246dcd1de1a2e44e01",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-readme-drift-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "29118c9711a4612e0c11251e35d4ab0c69f61084a856f09aed7e0f6cc1fdc197",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v2-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3f37a1491c645a8defdcef92a8e95720911db6990999a9b33399340bdc131ffe",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v2-harness-root-review.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8afa7631efa7ca7e5d6c7676c5cf08f2c3977f05bfd09070234bc660efc333b5",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v2-launch-root-authorization.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "21f01ae8af2d350e528602fd1a7314f6e49e34c592ec6a78eea7f379426f29c6",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v2-readme-drift-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a59828604a6e65b3a57bbc152911c6b767ed07ed55916b1fa952879f5e11cd30",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v3-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v3-harness-root-review.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "250354f6c5c2892370210f454d3bef0280b6faab37a732328017a17a5a564a1f",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/operational-v3-launch-root-authorization.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8ecd71964f12b1029e7987c6f91b3f3cc3a6510ab76830ba3486aa177f22e499",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/postqualification-source-boundary.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b479095d5e9ea880fa80c4c651a35ed3a56c519d1296f309a499cc44592b1d2a",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/priority-confirmation-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "85bc8dd1105ba7cb05ab025767bee6169cccd4543f8fd5c7f8f82f9ac9054429",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/priority-confirmation-pairs.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "28866b86a67ca8100e7287c6309420a87494e3cc5dbf2e358a5b278592cbe75e",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/priority-confirmation-root-prelaunch.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "796fefa6b60dbe7f55f4d91c639d764786cfcb3c0dd0070f50c984b7f5fde090",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/priority-confirmation-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "7b742e1e8b38fa289860e2d7504842b85817c31f995b7e8e4b66d2c5947322c7",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/promotion-discovery-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "df412e2c53e10dd172abf25d49e3537798773744cc39b55d92b8e65767a32547",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/protocol.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "9042346a59a7e1838cee443433d6c95dc69d137b7fbbe4c7cc45a4262a83f033",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/qualified-live-profile.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "653020d8a8ce79bf1a786723df4328fb6dd8855cd05b4ea5e1967f941033d1f4",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/return-priority-bytes-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "703b354a51631c023c174ddbda2fa2ce2814de639f2e054379c3325e89c01b79",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/return-priority-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d55eaf8264196057f715df04d12ea221102f840cc498aca2bf4699577c15a471",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-frozen-draft1.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "03aee933618d2160d15c8a48c3daca1c1415daa3971667804d96094d2872456f",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-frozen-draft2.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3cfc6a798a7c98233357f8a49df0862bf6a9023931fa0b6fe438e768d74a4ebc",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-frozen.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "4b39106129085d112d1cb5583030c67609aeb6382ce8f7dda13c6ce6c945648b",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-launch-gate-draft1.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "522341772e35b2e271ef56c2f040fad95eb96dc867f02c10a40c2f32cbbebf11",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-launch-gate.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "34e031412b2472799bc6b538d44e54aa7a568b4f55720fb319e2130acbcb3fa6",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-pairs.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "21cc2f455f12515235f1432355d10527be8b020c7b402bac214704293f1e0d0e",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/triage-confirmation-root-verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ce0f1de1dad1b5fa3795c79e556766b28aef3373004b3a79a1acadd1a4e22bbb",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/live-optimization-2080ti-20261103/vendored-source-root-comparison.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "93c0c03e67fcad4eb99af0cadfaca27509b389eb80196c5061fae9df5dc26a34",
+      "retained": true,
+      "results": [
+        "live-continuations"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/PROTOCOL.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "9776c2c036027d91fa120582270f197434fc6068e86ae2714a20c40b2aad6a32",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "9b03fe3acf32fbc48b5827fa2258c9aed7a71c9521065a03b18bb895e2cfe2da",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/deadline-sensitivity.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "968987e85bd7c8264b7b4395dc2e733a11587be925f944c74e75b389ab89dac7",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/feature-pilot-protocol.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "67649f803ba020deb6b6f39b68b7771f437247ed2f3db8fb59d749698b8350bb",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/feature-pilot-result.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "44df1a72d2ca2ea50152acab647ca27ee4dd0bcd65338394c14eb32b348220a0",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/long-history-opportunity.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5d4641a96d6e378b840ea7e9f8d99a5b0ccbd4faf09651b3a05c4cc64181e55d",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/qualification-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f4b6fb3f5ec798cde968f5cef73fd8dbf644730445567ed81bf447cec6b2e223",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/source-audit.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f5b22ef405c586fc4b8f6ca733c03765f1e2f4d7a931b42b7c4bad236111eb36",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/msr-hybrid-qualification-20261103/source-followup.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "532af0556f219881c9d2ab68899caa18c8db4927f886f0217431d45644fdccf7",
+      "retained": true,
+      "results": [
+        "semantic-opportunity"
+      ]
+    },
+    {
+      "path": "evidence/real-agent-eval-20261104/PROTOCOL.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "156a8c78b33b761140fec52e77e7e9af2e0df623d4bb8dd5ce5e5475ab6c3f43",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/real-agent-eval-20261104/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0edefabd69d0ba106ad7841a1e9be40f1e45a19995863458f84527f917f2339f",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/real-agent-eval-20261104/plan.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5a676960cd07ca503ab66005aa2db76f7e707c7ce44c7ceb90509f77b22ef52e",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/real-agent-eval-20261104/results.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "486891be94d0dd2df87bcf8dd52bf829c670c5d30670b0f5e31f0945792799e1",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/real-agent-eval-20261104/verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d7dae5354044611386a1c3a165ff195733cfc4f4e62cbd2db4c1bb385cee349b",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/semantic-svd-serving-20261104/PROTOCOL.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d49613a7500d67c102012950b05e5bc96cbf3b0217a0d7c22786e552a5f66981",
+      "retained": true,
+      "results": [
+        "semantic-svd"
+      ]
+    },
+    {
+      "path": "evidence/semantic-svd-serving-20261104/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0fa7deadbd1964345364cb99e4435497dc4aacaf48eed825319fe11b0ae1736d",
+      "retained": true,
+      "results": [
+        "semantic-svd"
+      ]
+    },
+    {
+      "path": "evidence/semantic-svd-serving-20261104/results.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8c7a76ce273ef3bbd70a042cc45ebdb8a07dad38f2fbae010c59b1048a129319",
+      "retained": true,
+      "results": [
+        "semantic-svd"
+      ]
+    },
+    {
+      "path": "evidence/semantic-svd-serving-20261104/verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d095b951ea54e14a7cbd311abcccce011a987debbff171d48174edcb14443db0",
+      "retained": true,
+      "results": [
+        "semantic-svd"
+      ]
+    },
+    {
+      "path": "evidence/september-2026.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0a832a8589b351d8203936f1abc453be2f35b6f043716039caedad3c5be1b982",
+      "retained": true,
+      "results": [
+        "semantic-admission"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/EVICTION.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0066306277320122470ad5897e12acdac14db95a79294def4b3911ad3fcd35e1",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/EXHAUSTION.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "95bedbcb51694b53c5730549e1412f9f6633100a27324b34fae540b2adf72fc6",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/PROTOCOL.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0d4b6af4428b1f7bf10b81337ab47509153af3c44a232bf2809403dd84076d91",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "de155d9906f4d65afa27e5f53d86d3f580b85504accc2aa1ce086a5d0020a801",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/actual-allocation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ed8aba3fffa62b45b7b91eba70cbbccb2271ec5cd37e4d48acd33b98d8d3fb5f",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/checkpoint-results.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f38a7a24600a1eee0950c793c4ca761a132728a408395d34eae523264eb8bb34",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/cpu-profile-protected.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "99609f04885dd844caf456329ccb05acf2d4f8fb46974080dc17ce12a3cf2018",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/cpu-profile.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "586a1dc9fe0c4875a767b2fa212bf4f4c32b8f29cff6da73159c8356a6a0c9a1",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/eviction-serving-profile.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8ade6de02be6a2ad38aa28e4f04327e09ab72825848c57eb68cb85e9afb42935",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/hint-cpu-cost.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b037740bdfa46e99e6ef13e58431edf8019e981a05612c8919019c67d2b02dd8",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/overview.html",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "93b42d2b81fb0ed279c46bf507769a1f89c5d2983b9fa9035268933a471cd7f7",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/results.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/selected-candidate.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5a6e5a11f16a75f188c0aae46eff23509a8820b16077207dd70a2e782314b195",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/selection-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8577125fbac89e76a6ab66e58a21ef8e7f877d29a9286e58d96f993a90ba38f5",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage5-optimization-20261105/validation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "848afc969a252103b18126f26776ee2ccc1991d6b2774baa51bff38c00ff1fc9",
+      "retained": true,
+      "results": [
+        "optimization-limits"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/HANDOFF_5080.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "88cc09e9916693303dda8f581601c58c60c178f5b07a815b987d02f52f8fafa2",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "e3efdf44f26360a87e53e2c73916a815e21f12313a5bb78eeee9b3409353f9c5",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/RESULTS.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "7b7a1cbb180f74f6538129a643664bbe4f455956cf94559ec135bec228ccd972",
+      "retained": true,
+      "results": [
+        "workload-dependence",
+        "interference-quality"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/addendum-portability-proof.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "c60af094f41665224237196c66ed0a499ba573fdfd78cd49c490a3dfc037d04b",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/addendum-preparation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3c61837a57660ab25928d7f2d4bccb6fc0deec3437f60b3d5c924d793bfdcf80",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/addendum-source-judgments.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "4be53f05afa2c3c277159b341d22e563731809daff65a739c7122ed7f7c0e97c",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/all-attempt-cap-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "01f1ae30f429f4163032514e9a78825d14b972522db2f9fd79276444e951d23f",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/all-capped-response-review.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d877d3024013a755bfe7558c076db9b59bafd16041e4097d7e787bab84a25590",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/before-confirm-capped-source-ratings.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "dcb6b4e6e5eca21dd30618c77ba29e393798e8857d41c22229bf6ac52058e563",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/completion.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "2c9113e98c5e8fc537506906499db304a00b08f55c07780e8651d27cf4a0f9c2",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/confirmation-progress-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "2639b6e1ca4f67a80c67292bafdb63ed3caba039e04dab598f70691aae6a47bc",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/deadline-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "413e88f68725f2751fd5dd735f73c73428c72c4dfbeeee9861e55c17335147c6",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/development-capped-source-ratings.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "cf19f3dfcf9f419d7060063af77924cb3c9827d64e64321c1297934150adc698",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/development-complete-15.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "6593b04298f2f46a5de2fd7b07516e6d416a6d3ffcb488d4a59ae5e45e296bd0",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/durability-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f3583810e8a9bc7c86b92bdd9c3768de1ef22b346de828f358ae0bfe9e80edc5",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/export-validation-closure-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "00f290373ee449e8a63590860cfeb3de334aef8011e7dcc749256514f6b522b9",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/final-capped-new-context-ratings.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "1df9abdea75ec54bbd228776c1a790dcfd384d54aa91f5b954480bccf96dac3d",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/frozen-pilot-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b5b7a736f95f6e9a2e732a76932b4fa4bb5af27af63f1337b915ccbf05ff89f4",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/full-cohort-operation-15.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "47a9bbd6478d0a793714fcef2213b5c832ac6e439044af8fc1b1f90daaee8f28",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/matched-development-15.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "16a4be982363782e5f1bdd75dbaff28f2968c30c17f7a82e56e7fdae2e5b85e5",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/model-functional-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "c11d70caedaec821a09e43255044fb8e27606bb1404aa47b63b2829c3187374f",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/operational-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d57e399baaad6cafce0dde8f379b4f504cdc5e3962f86638aee8e2098105392e",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/overhead-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f11532512e6541d52ab361492c7abb4255a9f006678c1d38937ad9b55fc94b03",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/post-acquisition-audit-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "cdb891868dc405045ffd872880aba2a7695cd3b77be4180af76573d84f6ef2d0",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/preacquisition-checkpoint-15.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f0502fd860a15a1af2e5c6575ebc159105f9e4372997f544db6a4147eaeb143d",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/preemption-dispatch-repair.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "c9dd0abf8106c53c38d0fe128868644bd7cb32334a336320eba0b523869c46b8",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/primary-acquired-addendum-launch.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "1cdd75119a80b32cfe1b687417c3e63a070bbb1d1daf0e3b3c8243d60a76dfd8",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/primary-final-report.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "41bddd3b5f22310387ed9510d602fc000bb7a1ae8a5fa5c88e4fc32bd5fb3d43",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/primary-investigation-explicit-review.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "4fee48cc08465aaff10b5ff26514197f8960d0d167f29e7074e47e56829588ca",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/primary-portability-proof.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "88ada4678cb09dafbc9b4cb60793b86a61da97f3118002ae758f8bb64d128f01",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/primary-qa-explicit-review.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "007729530c980db7388d59211c8c022a5d5cb25d7c51cc919c8e0e0eb0f96000",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/protocol-audit.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "cfe6f23005ce41b9f785522cf50090582973a8f05870778d9664e3c342f33ab4",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/quality-final-summary.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3abbca1d7a687bd7394a73ad0e2142b74914d562a8c6ba87ffcffc84e1573bcb",
+      "retained": true,
+      "results": [
+        "workload-dependence",
+        "interference-quality"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/relocated-import-source-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d1fbe02e283436277d793ed51124d1196b122545762dbfd045f4d7ba8fbdfa46",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "733ffd69ebd1717244c156c06173f385559abe6bf797f08c73abc66a37eb5796",
+      "retained": true,
+      "results": [
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/cleanup-and-caps.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "e4a42a1c7f71e65a19afacc06ab936eb668d7e0131a913109490d323ffd596c7",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.html",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "075ea766ed42c314a1241d212de5d1d2f150c93a10f906e8e11191d3261407ec",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3f046c3d1c4d1d1c4724bca4bcbadc237dbef32d990abc2c462c450863350628",
+      "retained": true,
+      "results": [
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/completion.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5cbabfe4dc9b442f8003373d1a29b99c69b16fc8447b77cfed314589a9ed5c19",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/launch.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "1407183d8e92f89104762174bfac3dfe39fa553b808c5941dfccdece0e2ee835",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/prelaunch.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "81d6a15511d1668e0fda52d360600367a18628e97b3c9752d7c7d9534fc47312",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/quality-final.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "6bbdaff197c4cef30cc94bd10c0ab19b7ab5de25836109b0b82bca7d25bde151",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/quality-preparation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "bed519e7e4fa055b6241f09616b74cb8273c64f7833311e578b9fd830daadfb3",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/review-context-index.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "121bbd1c31cd2de480ed3454cf0642b00bced311acb9de4cd5ea516f85bfc20f",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/source-judgments.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "90091ec56d7501c6cce78e5b236fcdf6211bad03bd271b36bc5ba0997d0bdf23",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/transfer.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "07005e0ce6197f1110a0decfffb3631688574a8fe6fbbf27c37ec6a4e96dc66b",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "eafbe14a352435365414c040d186c8abfd106634d752a682dc355801a96379dd",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/repository-resident-validity-v3.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "033a24ea4161f8199849f787ef5dcc570273122ce35524655f661cc8b7eb0d7b",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/results/comparisons.html",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "50f3dd993fca24d3a957b8385d53acb043dcb1ebc95456852a20cd36594a6189",
+      "retained": true,
+      "results": [
+        "workload-dependence"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/results/comparisons.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b7c0f43f195d17bf9083b3a531cbe0c4f3bc09c1b74ac82f56f4dbf7ca7e57a6",
+      "retained": true,
+      "results": [
+        "workload-dependence"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/roomy-resource-repair.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ca2da635f227e5816ded5c97abe329efe1a7d2f4ddbea0524c3b54b76944a649",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/runtime-reconstruction-checkpoint.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f1ee9dd773076540814423ebf8f393202f0f5a74eadf3cf364bca758f37823c5",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/team-resident-validity-v2.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "55ba863582c04e3fc9b3f10ee5b55969066234368b02a90744878158f4cbc643",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/stage6-2080ti-20261106/unattended-operation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8f857fa699d7840fbd34578039ba4626397c9af15acbc4f78cbe1aba6fd29553",
+      "retained": true,
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ]
+    },
+    {
+      "path": "evidence/upstream-pin-fix-20261104/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f9689985e97c8fa24f588d42904950e29a822c9b7ac23311bc028520c71aa131",
+      "retained": true,
+      "results": [
+        "mapped-memory"
+      ]
+    },
+    {
+      "path": "evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "398329ef70a547a81cb2c4a1e6423ead30cbecd5f72dcfe83f8554a674e3d29f",
+      "retained": true,
+      "results": [
+        "mapped-memory"
+      ]
+    },
+    {
+      "path": "evidence/upstream-pin-fix-20261104/result.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "690d916fa676dd751c1c2eb2216e2136e10b6ddbaebb4b2cb1c95e63418ac589",
+      "retained": true,
+      "results": [
+        "mapped-memory"
+      ]
+    },
+    {
+      "path": "evidence/vram-frontier-2080ti-20261103/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "5862100cb703430d1ba5995f0717ccb97d4b20b8fa58d451f027b0cba74b6e1f",
+      "retained": true,
+      "results": [
+        "paused-loading",
+        "serving-memory"
+      ]
+    },
+    {
+      "path": "evidence/vram-frontier-2080ti-20261103/confirmation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "ed768c25ed631c8e3ca1d1e83222fc585b7009eb9f50450b00af9a59a597a7f3",
+      "retained": true,
+      "results": [
+        "serving-memory"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/PROTOCOL.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "29ad5615aee54a1194d512484a6098477369d5231dc0e5fd3baf576f3b6563a0",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "7489a9997ed06bc35272c18529b1915b56396975dccb9328c2f0370839e90b4a",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/activation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "7584d2bb2b2473fc7657070ae20e3a382eb2079a86baa104d4bcaa65d13fe2b6",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/cleanup.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "41b3edc2a9f70323fc4a898585535b4b8d600db1c219c7f899615af9cc294b38",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/comparison.html",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "812e789f5733b827ccea457368dcd5ff641ddba09f49132a77688cda74b681ab",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/comparison.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d9dfe2ea11de19b1c60ebf2294336e2a5d35400e18815acf1c485aa6659dd33e",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/handoff.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "333dc585ae5afdd1400f33945bf42b1749adc1facbae123624a8821c9129e1e3",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/preservation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "50fc747a656bbb6790edc4950985b835bcae1d57bf3ffcb57cc8d18aa935b902",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/results.csv",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b85b867d94d86b83ff9e10c72b7e23794cef2908b5ccdcd099a28379050123dd",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/results.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a7934469bbbd96c74a8c87e71d5bf40fd960692ccb3e5d9bc22572dd2b178917",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-opportunity-20261104/verification.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "1099e7a635def27a85bc0cba24e12763d3d9f9feb610032049bbe8ae0f8f55ba",
+      "retained": true,
+      "results": [
+        "real-tool-workflows"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/INDEPENDENT_QUALITY_RUBRIC.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "f5d7e6c429521b86cfa9a045f92792be7690b41342d348c15b22521f6bead583",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/OPERATING_SCOPE.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "1a7c5c1f7cd9933499eb1f4c15243f31c2822d737396c98dbb1eef4412b5d010",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/PROTOCOL.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "24b88b77ba86fb815d02cce6b1a08e38abffa734f91e14a220976ad5f194ffd8",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/QUALITY.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "a6731795aa9ec410f1f3570c10b6104b79a1138dd47c322e2b540b02020f7f01",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "9d586b062630410b28e9dd6599277a7cd39f8733b789c28aeae809b179b211ab",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/REGRESSIONS.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d82d1bf0571a4d7e6013d386631061da100445f40a779679fd87965aea802d94",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/REPLAY_REPAIR.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3696ecbc7fd9b0498b1afc5ba9af02b489b527a3e94a00eafce09fce894930aa",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/REPRODUCING.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "0e247d3c1e5044ee2e0ba0edf0cbb65f9db71898fffd77d568656b552f0313b5",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/STAGE1.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "d20163801ed08a3b66c1c1f13a7c83c3721b5bca54b3aeb56bd28f46d44121be",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/STAGE2.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "b0602c6d47b232d764413c794ebf0fa9802737c8fc15fcb42a9d327fb0e8e970",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/STAGE3.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "3d407841665abd252f95ef6d6d0201d701a3e11ef1446c4753ac80478179cb6e",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/STAGE4.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "7b07008f9a397480eae5c9619bda3154afaa24b9fa1eb96bc5ca5337a60ef34d",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/wait-qualification-20261105/SUPPORT_MATRIX.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "8e8df31122b9fb3d2d2c04a26b590bb7ffc7fe079069c76d1c9a52832f03b89e",
+      "retained": true,
+      "results": [
+        "wait-qualification"
+      ]
+    },
+    {
+      "path": "evidence/workflow-finalization-20261103/README.md",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "efb9ef9d72e36960b668716d51e610e3052a3c5586c2a866d5d15fcab82c2ef2",
+      "retained": true,
+      "results": [
+        "measurement-reliability"
+      ]
+    },
+    {
+      "path": "evidence/workflow-finalization-20261103/validation.json",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "sha256": "516155db4f00032e883156b0d5bd582a13432792e1044d7ce47cdc555ac48f38",
+      "retained": true,
+      "results": [
+        "measurement-reliability"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/CONTINUE.md",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "581127c5bcab49f9d3095974f3cd8cf2c3d94991a7519d8f8fea1483a7c9c4ba",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/FILESYSTEM_REPAIR.md",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "fda050d0a3c1dc2507668409c349826d44c27d9cee20ab91b2ec9e17bd13fd00",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/RESULTS.md",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ddac83d85705be6435c128eec946fab974c29b51965bf0cf03363bd890be613a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/capability-failure.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "a51095d9e732f0372eccad38ab19033ea3af5e05650c85348c3808da0855e33f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/completion.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "07accec5b9823df3b6eb62b80e5d5616b51c59170997f66287ee44a9459a6d55",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/filesystem-repair.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0b231e22a5e9bc668e7a3fad9f94dbfb613c04b7312a9869708a17ccfa8e76d0",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/import.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "dd673766edabd81760ddb71cd58f5333a3caff3df4c254d7af2679b98d353eeb",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/preflight.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "22c927a87abbd538a4b7527e4d8eaf182cb356d9ef8587a34ce71a244ec1cf4a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/repair-runtime-validation.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0c7698fbdd1b7358e36da2a3432083e3aae65b41c2e52398eca101ab2d44241b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/source-revision.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7e7b00d36277158d0e96a8f84f269c48f775552747fecc971c0a730dad334c89",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/storage.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "db933394289142675559eba13d5ea8afa7c827d54c64150e1e3401bce3cbb17a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/supervision-takeover.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e616d54ccd905753ff53fb4a359b2cc62c1c43e6792a7c7f942bbb4770beb3f6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261108/transfer.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "4b393ca88c5497af16228a65471f986443b450824f5e94ce0dbc27a0d6517f3d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/BUILD.md",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "07323cffefa7eb418ea79e785523c15d8776bcf0cc40290ee0b3a18c91ae9cb2",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/CONTINUE.md",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d5c6180e712f127bebaee8975204c2904f6ee0797b64e8c1fc62888352e0efe5",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/RESULTS.md",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9b320da8cf8ec55cb6725c3a44fc3958d7b51854dd84b21bc6322428292d6a42",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/activation.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2c96c4831b8d8e7946e59c48e3d8c89112740ef9a66841660ddf27e999f56d0b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/anchor-screen.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2f7946cd7bcbd01e029f1e81cb5a9bbaef76b4f2f13fd4e98a86db72b570cd11",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-all-explicit-judgments-03-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9ef606b466ed6fa743e30e23c8e544470f899db992b9f0f8b864d8b163c3edf7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-all-review-index-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "178ac49f736595f7f1ad160e85125cd5074163eb5e564e690a49f2d2ec08367c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-all-review-index-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c0cc0eefa27a3cf8fcf488b9761e45136ac32e1bce93b674a7524b57a622d251",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-all-source-judgments-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "19e68d24976d897c1e33d9c8cc7f2232c55c6290fe3115aa6941e2077264b789",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-all-source-judgments-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d1eb559d0680d150d9be5456f0d6ba4846ab339422b697db702e99066d5b05fa",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-instruction-bindings-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "cc6adfb7537f92ce43dd52fd89a75d940b1cd092ae4e9b52ca560e67e080bb3b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-instruction-bindings-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2ce4ffa5ba347f78f59726a2d1afb3cc9dc93c0836913122fd71019da69eaca7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-screen-review-index-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "08847ce123ba66ed2b68a95a2a4be5f61cab4f563b379293d2616809dc1b29ab",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/caps-screen-source-judgments-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ba6a94e93429ff8d47cbd9896f7899884325083418a106c7597a13a155ec3fa0",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-explicit-judgments-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "17616b826573b93035a124e6daca875bfd110e3b15930fbe633c556aca4c707c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c767f16626066f57f17345710343978cad57cccea768d6f2197e886076793f47",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "352e5b8a592881cf1bdf90adb3be55aff3fd52612c17de9d3cdf8c27ce08be1a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7304dd05bcd2617c8998731dda7d8fab4a36c13f267313abf2d485d1e3e9ee8c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9293b7be4c228701ee683dc8746c6120dc75bb64274e5a1cea602ae43581e4b5",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "32d234ff8f8f211104316154d2777bb48a1218c2e30270e033f020c5e1c5f35a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3c4296264b6c4eefa0acdbd748d432b22a8ba3ac7579041cd99175a38dec1ac2",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2357e8abea11d9cd4fedfa91afa3feb1408e966c2d59f460b6ec7f04bb085ed9",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "216010a03ec38e98eaaed8a82e56f542b300b1719092515f4bd909fc7403435a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "17ee5dd601ddc0c60520fea9ecef9c33cee728903107a6f104ac7b4c880a4899",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-10.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "fef6e8e66bf719438075ac3369dba19a234fdef8dcb67b295467454593429b4d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-11.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "a3eaa8d20a66133c248d88f26c8cac0692909e37bd19142fa4bdaed3a0653a13",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-12.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c9280e61c76dd725fc5fae9bfad13c1fa9b78d1712e8baca71bf00d19940d207",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-13.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "abbc94963a644575706654b06b981c25f33ada228a51ba78611ed550987edbc5",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-08-part-14.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "02ee6a050d3c93f044dfa5667d6d06890da4e955eb79b2390843bc878b34acc1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-09-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "56ecae5106b51293746fbe2977877b770b7ef2b21d9d5716c601b40f650ceb40",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-09-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "15f650882495cc7d62db7ddc783a32bf06a7d88114bd2c3b35d658e54a409968",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-09-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "1d28715b2d8bed7d595062cb3275abe09893b0522e142f5a7115dd6db874733c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-09-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9d4425c3972233a43e24595a6f06493b4103fda59b47e375099c2a9b6cc1eeb6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-09-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d0804edb03722915aa05408a9f967b4fc4e2953772fabd2a51f8e89fe6ac4175",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-investigation-judgments-09-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c7e9788b63520cc7543b99afec2f2115ce3c04849230726089386e640aa2e0a4",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-02-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "20158302f301637230b24240ef8f440e2beec0bf3145fdc9878521865ee373d6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-02-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e146ce2d63081644d90f54ad5330e06d41d13e3542f2e6ff39b8c601b3d3e000",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-02-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0abf7f6b8a859e5d42522792cd3e3b39b5ea157b4f2df2411fe8968bd459ad09",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-02-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "6975be771037549b19261a6f754088fab71a1e60d04bdf9ab225409fc0833f3d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "25dcf15621f750c21f5d942a69678252d0d1ca4667e6c726f7d53392442a86a7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-qa-judgments-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ca9226b9e9922fb582ab875aee8b6da7d1f7d99eafbe0e358163d6735e13d6a5",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8ddb3fa59a5a51b4a9eaca11fed86dcb2ee2e6b9833b8de3311978f4e02fe66a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d269553fbc33806e33da7ca86acfbd011e502b753baa9e587235679c8fe82774",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "a06f99dc6b19eaa24d2cafebe24d9a48d2e6393f2535ffb88e7eae5c90a2af60",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e38d89321413b5dea6e8ce96dac096afde8dd0fb4f9c3409582d87024ef879b8",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0965e852a150b0a797d3d21d9f1d17859ec736f0b0a78570565d56e3896d614a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3ae91bef18de7281be815e3ec9f6aaa13fb5c852bfd6f66ef4222a6b1cda9728",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "f2807e23b915769603d905c4077de9165b8afad38aa21b3393e2b740200d3942",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-05-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7c5f222a0e4b80e70b3e052536f0270166d44343061aebdab9cc6ce4b3bd99c8",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-05-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "644a8d68999c1083c81e574d3321a54eafd91be08a22f6e699630c480704110d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-05-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "dbe51ea89b5c74eb88e8d972d27aea92f8b671c472336ce69f6cf67e3a5e2dea",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-05-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "19057864fe23d7235b6d857a0efc5c76e3878f40923d6c0f8659eb36991ecc11",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ef08c298e1a5d4ca388e9b7f32aa5cbeee5dbd3ebd51a58c669270e4e272de8a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "321ed6ee10cd4060dd6800d909d0520ec4019b55ac5c70fe9accc9a5eb6e93e1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "49c27357b08d445aa5ae7d696b05573fc8988678415221ab2757b68639c68345",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "94aef8a14a24b3b863915415db041c3a29767747d820b0a8d6362b92b8cb1986",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8a89eb5b7effdcff0f9331c9b549875da40b2acf03b515b1a8df427aa226b5c0",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-06-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "22afe6b6e2150aed70754b8aa8273ce6470dd4546f5c73a881bc24cc3de4a40e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-07-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "a83070b3a03dd90141d4c8c052201991f6b3400db9b788d6428a5e63d2cdf437",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-07-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "55118d1ec6ab997456444b95432e3d4fba6d952569e49dc466ff0a30da3ebb80",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-07-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "059d766bf891671eb679fc3e3121573aebc433d430f93f9ddb26bf899f46da6c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-07-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "81557864e8ad4173e12ba8b5daf3bb4f6b54c99b18d9aa165d34867c512502bf",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-07-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d17d078e1fb09e8c7592e51b32ac161753c90c0e23ee3d79ef333b6b580f184a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-repository-judgments-07-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "df2c977f8357358aeb15ac9f42ca91df7fc3173adb7493271b3fc7e1ded98de8",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-components-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "95b294bfb9dbea5d1d0eff2f8c98234c9af86498dd4e9e7f6716873ba2cdb4f1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "fabd1b77be45a62839aa5a780ba1f0a8673df7e385a48822611b418303e71940",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7e9ee8a93128ff7477a92ad0f83a0f1b29582b46af232cb53b253e29b0aee049",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2597f9439fdb418a705d84b270c3b80d234fd59530fce9c66f1c7ee1a7514dc7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c7123a9029df3bfe403ffadef5e673e12447d25e07651e10e281320e65e3fc8b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b5a566a2dc30b2a1f4ffae49b2588615ef9bf1b7e912fdcb99621544befbe63f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "1306f56de9613c78eb3de895e6b879a3734ae350bceb858f6c80703f21c2ba97",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2666373c62b3174897373ced3b51bc95d3b2597516795d6906603bf3cec56d95",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "600f8b4b05061e4b4b5b6dbe23d9be793f9f046d07f9fd0efc68071dfa752d2b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-review-index-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "75636e655b7d1720238b2e8c611db4ac10b2a282e9222556e0d038961e28f4df",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-components-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "1d13e54750dcb9858023134a50bdd315a923940794e8653cf4362c4192270f75",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-components-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b7f781902127fd101b180f35c9cd072c93b5696ccb9cb47a0d9ce751ae384698",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ec2c1175e6bf1819f7812647885a4b73ddc383a14218afbce4f4db4290c69e32",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "06d77f659f9a9f458c48fea5b1b9c6cba9845b86942e82f023850b838e312a77",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "fc57bdf46a37dce1523d0ff1f3813f7fd579d48934c45fef1bdea372d757935b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e3348b95c75a2ee0e9ae56d4a88438da536b95acd26e9b22f76c16027193eea4",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d0d3ed1a5594faabaa08345519effbe8c1a67ebfd04859d04412b5e2206c289d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "5a6700707a3f7cc2b60ab83e38a3716f23c4b956479dbccab1c4038de02190d3",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8ab97d4f3ced7ae81abcae7968dc4fd73044ee5af466a0fdad27ca84c742f5ea",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e8d587a95fe5fb6a45499d0e3b7dad635f9b3429dda63327d4f14c3b81ee0d46",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-source-judgments-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d69e7ee9f2477014cafa26d7b570ff3ba746d2f2e66d74e78565414d407c1a3c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0bd0b1ec670227923ab2cbaa305ad9e16145968f5e74b54726a2fb3ade7231ae",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b450686577b51eca5da3ab17a43f7a9ccca80333e23204946bc530c7fa06cf2e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "76482b649b1ecf3189d1f470592a5255511fb92813236b76771248e05c028b65",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "680d45e5efd28865795b560b39a76a9291307ac2a0794f9eb01baa3535497b3e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e7cd5a7f5978cff702b7f9f4e6713ecd2e1957ac350378f112cdc8ad39f4643a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8855da29cbdf0c3226e4bb20bd9e4fb5be8d74c9787fc1c144c43e411a418335",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "38bf17e97697d7b3fbdbb21ef6ac69ed18d7ec6b820209fef9046b06bc417f0e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirm-summary-judgments-03-part-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "97e7a7c40cd3f1b03650c16b56e8e0fec7e75e1c79f4c66031a5060b875db5f1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-b06-attempts-complete.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8c84240bff68ad7707a83b873c5f0e8f656df0fde2d73b3c3dc04305500bcf9f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-b06-inactive-restore-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "bf56dba180832bcebde10e8c75b6b20374e429a76770db21705e976e2d1b67de",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-first-cells.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c59afd3cd555dbc01fb103a62b52047e4929d17aa497a91376bcfa3c8107a0c1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "f0beaf17e31591ddcc500bbae38d2cfc7f1e63b69ea14771f69b4a9563f28cda",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "032e8b7b3067f50be17f30a23e4695d8a187996037b5d0ce8d0ce95e7a24a21e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7120fe773d53b3c17168c15569a263b96ebd204d4582421de04be468547065d4",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-integrity-checkpoint-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "62dc0364ae3529381fc1fc856e541f00cdda39ba1e231c3c87ddd243b4b66995",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-pep-reference-review.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "76177a37cdbba7d2609ac07248f5f79691f3b3495545b6fa1290c15cbdb756d2",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-repository-reference-review.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "60cd8e0dd34b3f61cf7ced7ef0f97f0fd8feb3e5b88a623ef1a9f41987c78d36",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/confirmation-three-cells.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "38a108375ce6f83d0959750d6b12f1dc48a889f764aa68d99eac86a44040b021",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/continuum-all-screen.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7209375ef801ef8bc741a13561b4a3847fa35001926f3b7db458f13089e29190",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/continuum-full-screen.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b3b74206f81755696f9fb27d77be878a104eab55c5919a747540949376b29890",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/continuum-smoke.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b7b82e268afe456fe68405738271b5c8c2d73d86c68054b7d708983e2ccf27b2",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/early-cells-validation.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d173c90476434c41a7ed269a65aef53af51a180ea0d8b361512b5ced9aaa9f0d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/early-controls-render.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "53a2d432e462155e413854e78b2d2522d45140ad1a6966258178cf48f2e21df3",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/early-controls.html",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "1b7707d5b45d935e57e1b2541d15d51fa78ccdb1782a7436325017060947eaac",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/early-three-cells-render.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e3171fa972d8656334d0b456be1b6be8b0486539868cd27bc517d450114adbd4",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/early-three-cells.html",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "c4a74447955f3439d8bc25aa90b94efde191a52bb5ca461052e16f1deba8e76f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/history-integrity.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "4ef3669e477ad9a07f47b369784c0f45e091652133f24e226d1408cadbe539ba",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/import.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "772719abf4efe3647be973dadfdf7a7f45fc6748bc25feb7d59e26da60e38cc3",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/lmcache-build.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3ae829d44ab34eb1427b576fdfb76489826d9d598f88e0e5c9c7bc412a6368bd",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/ministral-pressure-screen.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8b0d50135d17b38742d7e9bc1ad2d5da27cdf8682506f83e37f58e3d29302810",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/preflight.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "defdc467289d52387f0bdb2d993c1700bb925a3cf876c12416a67c9c40f812a9",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/qualification.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2e61535eacb6294258f4fd81178077b0ca1ca932becf8a11ddceaec15ccb1f42",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/qwen4b-pressure-screen.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "1822c5b40290f230ffc1d6b83cd0df52cdeeb3d93ba696b985e143217762cff7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/recovery-complete.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "a1eed37327949593e7363770e18c684a42794c0a251d0b51b497c5c4b4b80d49",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/recovery-interruption.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "01c95cf643e35716f01f0aed0cd046b33afb7fbc76ce56d5f53184bf83298501",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/reporting-validation-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2ad3153910baa4fa02f5935f86aaab7192736884aff011c9736570efa6dc95d8",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/reporting-validation-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "f31442e07b26a1627e29fc1aed02fd12fc2549537517920c5fdf8478c6d78e4b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/reporting-validation.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "095d39334afb62ba43004c93745d42618136fefeb9c1348c85e4432f88f3497f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-cap-reused-judgments-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "275b37fb922a5ea18c5099716566aa285fc2d9263af66a70b8b33547761968bd",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-complete.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b7d166a5af1fc4c410845637efdc4145698178476a5cd5b2377509acc97d4586",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-explicit-judgments-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2cc6c35643c9789ca857e23e4dc9b57987bbb633d030bb3bef1b3c84853e3d38",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "16855f3dcceaca9730de2d85d0576fcfe145564b9f8e1e5f106e87b44bbc7ace",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7ce88154902170729255328efcc2d8170b1e349644ce5cd05d138bb24264b022",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "10f4a7c3ddf3c1f633b45ffdda2ea51c19231175d89780932e4baa416b81c2e6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "65a468467306da88c9b92804ba19e95243563569319dff6f33a56e8d997435b2",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "063898b22aa1ccb6938c0425013228ad621d8a49211eb9aa80c935da76bbd2d8",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3b1ef653cd057edb9a2fc41b6af509da82cba7c552ceee2141f0629c65c3a2ff",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "cda5730219eda967c55a8696a7eae01091740006e0e572a00b5a8dabbc77b20f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "6a395f1827449628cdbcbd3910379c214ef3b0808c4ad6e40f00a4dcc01dd3b7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "f7a91410e7111d23bcb645aa5089217543cc430ac221b24f8fd0abebf17b092e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-10.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d616762d1c9c86e45f10d6e5ffaee4061cb787a499c3283c7230c86225071e6e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-11.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0c214ccfdeaeb64230e5ff9e74df68d5841a90b78a95b2c1ec1a0c12f16a4586",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-12.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7a7b5ff7d0c509f4a04c603a93d8f37677635b6104463e8b74c1c3489ebc35ee",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-13.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "89df74ad117bcb9713e0395ab5f452a33d37177b9f2aaf4630fe1f26809bc4ea",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-14.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9955924ec2bbf7bc1a4c9baa193ab7c17820ba7370ed7df162833502bdd739aa",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-15.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "759625970163427404adab8742eb782eef98fc75d8d4a7c6cc5841ab655426f8",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-16.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d350c10dc4a729fe51443657c493d943c376a09bfb0f4c3d13f658447902afb0",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-17.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "10923fc3146b6bbbb347bb7b3e2e6c27577c2722c028db3e2d4e1baae52509f1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-18.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "6789de041080a375747a7eb883ca5be910b9dfe1b2c6b52c676687d0ddc44545",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-19.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7d8c3d349a451cd75a6f428f6190e71f784b3975e3031152e4a491f430ef84e5",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-20.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3b7493c38e2b8be3ee8cfa11ba4bfdb63c582ba91fdf21ea6884b5489838bec6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-21.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "bffa70258856285effb26a2e62b1726a8684f982959eab2e7d5ffb50dda06ed1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-22.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3852e419389bef9ab4135926fc49b916e677520620ab8e3089deff1de6ecfb2c",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-23.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "52c677eb422747dc85257d6c1a858aa7253f78d2689125e157cea0ea44247bc7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-24.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "a5cf54d28052840a884f16c16bf5f865655fc706ce29326a18656eeef0301217",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-investigation-judgments-07-part-25.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d85b9a57e673be99b87e5920c4830ecd56d38aceb2982789f735cd3ddece29fc",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-qa-judgments-07-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "fa2bf03d49b4ea2e8f31c2be996640f6450d84cf560e41cba9ff643d83e45d6e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-qa-judgments-07-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0aa19d9c9f4685196e815345f805ec134f6825ed510d17f87be00f3d89909088",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-qa-judgments-07-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "640536d2fa4775ae0b0393f62cee63752eb124579fbd6fbe63fc5b9a56ff8e68",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-final-qa-judgments-07-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "28a791acd7840d920a4bc62e5559346785c858332d877df2bb3d484fa438933e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-integrity-checkpoint-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "1446f94073b76dddb1da9085ff8d4af6a5f01c2b8c591b10cdd537a617e974f9",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-integrity-checkpoint.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ae4885daaeb45ce42311978a1d9a35c78aeaa77dd7e829a26f7e119a3eeb5d86",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-investigation-judgments-04-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d2122a55517b1d008336d361ef1a9877a049937fbeb5b9186985b10a322c2292",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-investigation-judgments-04-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d76e78cd3274ef074012485a9712fbffb9b19628d238e3a399ae165c6f19e983",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-investigation-judgments-04-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8f7bb66cd25666b400f4fefe882bec8ef30780c108bd55efcd0e41b7e17438bb",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-investigation-judgments-04-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "d8d56c57b45ae1a1c240c505493791ec5c71746035db13f48c20950836dbb034",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-investigation-judgments-04-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "25ebb41846dd8fd1c01a977793c4339c2e52081e5686c51f64e33f71ff6231c2",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-qa-judgments-06-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "5255fefa25b41c0f3df90a546ba64a9c74bd20c11657a965231afd5d0f90a8bc",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-qa-judgments-06-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "989e06546d964e3779d3a9b9fd70ac3cee21588bd8424409730cee786337c06e",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-qa-judgments-06-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "4777aa24ef74b5bf95a2871ec1944aa58fe61abdd23f38ce3a64d6af4d6e63d3",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-qa-judgments-06-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "40bd9c5a07bbf3c74a75f65fb85a7c2d348ddbd2fada52b979991b4f3d590a10",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-quality-complete.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b53e7d17119de2c5653b82b3ecf4944969e96a51774649ddd4a5393b6a418f48",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "f6aa8daa56289e46b5cf65e99e1181b8c9ef185b9238aea860c5e795672dc6da",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "de21bbca05f5316cb8bf673739af4ba81cc3a69aeffe0481957fa64f1f766b13",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "291e64171c96a11d0521e0c1c0be52f5699f509640fcb7c6cd176bd56e6c5531",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2fd66983c194c420aacf2d47b76d7dedbec17fecbcbf7efc46bc019aa7fb89ff",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ae4e96b58a64f242156026e514fd527fdc06d3dad7bf20f8d9a33981d57d1422",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "873b09acdc76eee3fddccd934bdc79b45705086685d9f91049140a759bfd9771",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "86d282f5217d478eb3e6edec490dc66010d932d45d6bbbfd50ef525fc0eed9a9",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-08.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "3217b7cde3b1c0a769ff72611a145591982cbd038f6e2d0e3fad9f5bc8e3058f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-09.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7541ee3f52c6852813c56545e7001b6d1fe85bf29c8130b1276fc017a39430c1",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-repository-judgments-06-part-10.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "bd1d45a66ed34236d4e01638b96c512a02ca373cd5c426607d8d477ad7bfab06",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2c1e95f37b58954a91478a11735b7229e130ca39bdd0886ff1e3e974b712689f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "e507d4ca54b298d5e424f6d47f0ba7873cfdaa1b54e19a3bef5a1a4ca1c5de2b",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "07dee8bcea6e7ad0eed5aab0990be69f220d5fc1c80425f63ba6738067f388d0",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "61ed707b157c174f6028b9c3e01c92d484faccca15dce15c68e77f9cdb97f718",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "8f0950966603e89beca9e8c1c114074c9bd2fd1628d8b33c348222fb92dfa306",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "2f285886c8c3cd309f83265a465641fb260488956cac34c5c71d678a66ef4c9f",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-review-index-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "b3a33b317e7ebdde26fee292bc27eaae6214fa794ddf36a25299b9162bd91845",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "0bbf10901159a79da210d08efc9d8fa023c4973e4120bb30e4351e75e22a41b6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "36f4586f203326e32f24af560a5715fa824e83f351b6e2eb534a36c7f1b95cf6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "fc2cce2b27bcc8c5cbc11f4602b6fcdb4ddded24a6482fd05e2119a8d86a3446",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "4a13c72d59aad80e015d99918e5a98ec1add82a7b7c1429679516d014ee71671",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-05.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-06.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-source-judgments-07.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "ce9e883c3c5034cf2db613b72a8de27bfe6afd8923ba3287be8558cad8939da3",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-summary-judgments-03-part-01.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "605f7c1272e311e87201cf67b90463e6c96d6b4409401bd723d22f38b83fec51",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-summary-judgments-03-part-02.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9987763172e4ff2b544866023cb585a4435e30652290af54fb91d5e351c17f1d",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-summary-judgments-03-part-03.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "7a53678998c14f96524a0567656b2c5fc8bddb5acd47069301c206cf56384dee",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-summary-judgments-03-part-04.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "6aebfe51ef09eeb4457237c08ad94adea00e0b52731079b56f16999e1f524cf7",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/screen-team-control.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "67dfab5f61a06b6f7027660f69bcd9c64245af976bdfb2847e83d9d46caceaa6",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    },
+    {
+      "path": "evidence/stage6-5080-20261109/transfer-seals.json",
+      "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+      "sha256": "9ab3309446f7cc5923af86202902eab32c882b82fec4c61adaaa4c200d681452",
+      "retained": true,
+      "results": [
+        "hardware-5080"
+      ]
+    }
+  ],
+  "not_copied": [
+    {
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/curves.png",
+      "reason": "Generated binary figure; curated figure and numeric inputs retained."
+    },
+    {
+      "path": "output/quantized-realworld-20261101/final-results.json",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335"
+    },
+    {
+      "path": "output/quantized-realworld-20261101/qualification/strict-proof-gap-terminal.json",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "25d32e4ed9956bfeb8141cff1cf4451074cafca9cb48e8b53270cd33fb478a5f"
+    },
+    {
+      "path": "output/prefetch-vram-20261101/confirmation-long-results.json",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad"
+    },
+    {
+      "path": "output/prefetch-vram-20261101/confirmation-short-combined-results.json",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "4ed5d670907ffb29cf9c701ca563030a0bf634420d573adc4eb99656d0f21989"
+    },
+    {
+      "path": "output/prefetch-vram-20261101/gather-screen-output-crossreference.json",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "548ccb2ae32db0b3a2d1e634462641792634be50be192a99b1201e6c42f25722"
+    },
+    {
+      "path": "output/admission-trial/results/admission_trial/capacity-samples.csv",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0"
+    },
+    {
+      "path": "output/matrix-2080ti-20261031/measurements.json",
+      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
+      "sha256": "ec742ac3183e764f84e84dd688546099b5c93958113320c9d9b094322fdf14aa"
+    }
+  ],
   "collections": {
     "a27": {
       "results": [
@@ -108,47 +3867,121 @@
       "disposition": "curated"
     }
   },
-  "root_documents": {
-    "evidence/README.md": "navigation replaced by result index",
-    "evidence/september-2026.md": "semantic-admission and semantic-prefetch"
+  "local_output_collections": {
+    "admission-trial": [
+      "admission-pressure"
+    ],
+    "agent-load-trial": [
+      "early-agent-load"
+    ],
+    "capture-optimization": [
+      "capture-cost",
+      "admission-pressure"
+    ],
+    "demand-prefetch-stall-20261102": [
+      "demand-guard"
+    ],
+    "direct-block-adoption": [
+      "direct-adoption"
+    ],
+    "gpu-cache-frontier-20261103": [
+      "serving-memory",
+      "paused-loading"
+    ],
+    "matrix-2080ti-20261031": [
+      "continuous-semantic-overhead"
+    ],
+    "msr-hybrid-qualification-20261104-resume": [
+      "semantic-opportunity"
+    ],
+    "opportunity-runtime-recovery": [
+      "direct-adoption"
+    ],
+    "optimization-astra": [
+      "early-agent-load"
+    ],
+    "prefetch-efficiency-20261101": [
+      "prefetch-waste"
+    ],
+    "prefetch-native-20261102": [
+      "wait-recency-replay",
+      "live-continuations",
+      "retention-alternatives"
+    ],
+    "prefetch-vram-20261101": [
+      "prefetch-capacity"
+    ],
+    "quantized-realworld-20261101": [
+      "public-prefetch"
+    ],
+    "scoring-audit": [
+      "scoring-synchronization"
+    ],
+    "scoring-efficiency": [
+      "capture-cost"
+    ],
+    "scoring-overhead-20261101": [
+      "continuous-semantic-overhead"
+    ],
+    "suite-qualification": [
+      "measurement-reliability"
+    ],
+    "throughput-parity": [
+      "safe-staging"
+    ],
+    "vram-frontier-20261102": [
+      "public-prefetch"
+    ],
+    "workflow-finalization": [
+      "measurement-reliability"
+    ],
+    "fair-four-20261104": [
+      "external-comparisons"
+    ],
+    "stage6-2080ti-20261106": [
+      "interference-quality",
+      "pressure-recovery"
+    ],
+    "wait-qualification-20261105": [
+      "wait-qualification"
+    ],
+    "msr-hybrid-qualification-20261103": [
+      "semantic-opportunity"
+    ],
+    "real-agent-eval-20261104": [
+      "real-tool-workflows"
+    ],
+    "five-way-20261104": [
+      "external-comparisons"
+    ],
+    "upstream-pin-fix-20261104": [
+      "mapped-memory"
+    ],
+    "wait-opportunity-20261104": [
+      "real-tool-workflows"
+    ],
+    "stage5-optimization-20261105": [
+      "optimization-limits"
+    ],
+    "semantic-svd-serving-20261104": [
+      "semantic-svd"
+    ]
   },
-  "sources": {
-    "evidence/core-qualification-20261110.md": "current-functionality",
-    "evidence/e04/E04-FINAL-RESULT.md": "semantic-admission",
-    "evidence/september-2026.md": "semantic-admission",
-    "evidence/a27/FINAL-REPORT.md": "semantic-prefetch",
-    "evidence/cpu-wait-recency-2080ti-20261102/result.json": "wait-recency-replay",
-    "evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json": "live-continuations",
-    "evidence/live-optimization-2080ti-20261103/qualified-live-profile.json": "live-continuations",
-    "evidence/vram-frontier-2080ti-20261103/README.md": "serving-memory",
-    "evidence/vram-frontier-2080ti-20261103/confirmation.json": "serving-memory",
-    "evidence/msr-hybrid-qualification-20261103/README.md": "semantic-opportunity",
-    "evidence/msr-hybrid-qualification-20261103/source-followup.json": "semantic-opportunity",
-    "evidence/msr-hybrid-qualification-20261103/deadline-sensitivity.json": "semantic-opportunity",
-    "evidence/real-agent-eval-20261104/README.md": "real-tool-workflows",
-    "evidence/wait-opportunity-20261104/README.md": "real-tool-workflows",
-    "evidence/fair-four-20261104/README.md": "external-comparisons",
-    "evidence/fair-four-20261104/FAIRNESS.md": "external-comparisons",
-    "evidence/five-way-20261104/README.md": "external-comparisons",
-    "evidence/upstream-pin-fix-20261104/README.md": "mapped-memory",
-    "evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch": "mapped-memory",
-    "evidence/semantic-svd-serving-20261104/README.md": "semantic-svd",
-    "evidence/semantic-svd-serving-20261104/results.json": "semantic-svd",
-    "evidence/wait-qualification-20261105/README.md": "wait-qualification",
-    "evidence/wait-qualification-20261105/SUPPORT_MATRIX.md": "wait-qualification",
-    "evidence/wait-qualification-20261105/REGRESSIONS.md": "wait-qualification",
-    "evidence/wait-qualification-20261105/QUALITY.md": "wait-qualification",
-    "evidence/stage5-optimization-20261105/README.md": "optimization-limits",
-    "evidence/stage5-optimization-20261105/EVICTION.md": "optimization-limits",
-    "evidence/stage5-optimization-20261105/EXHAUSTION.md": "optimization-limits",
-    "evidence/stage6-2080ti-20261106/RESULTS.md": "interference-quality",
-    "evidence/stage6-2080ti-20261106/quality-final-summary.json": "interference-quality",
-    "evidence/stage6-2080ti-20261106/repository-recovery-03/README.md": "pressure-recovery",
-    "evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json": "pressure-recovery",
-    "evidence/stage6-5080-20261108/RESULTS.md": "hardware-5080",
-    "evidence/stage6-5080-20261109/RESULTS.md": "hardware-5080",
-    "evidence/stage6-5080-20261109/lmcache-build.json": "hardware-5080",
-    "evidence/benchmark-suite-20261103/README.md": "measurement-reliability",
-    "evidence/workflow-finalization-20261103/README.md": "measurement-reliability"
+  "document_dispositions": {
+    "docs/PROJECT_HISTORY.md": "Research outcomes mapped to results; completed setup/workflow chronology belongs in original Git history.",
+    "docs/STATUS.md": "Completed findings and partial loader evidence retained; stale ownership and instructions are not active work.",
+    "docs/FUTURE_WORK.md (deleted in original Git history)": "Unscheduled proposed work, not measured evidence; not imported.",
+    "original README, AGENTS, configuration and execution plans": "Historical operating instructions, not instructions for this implementation. Tested scopes and source identities remain in retained reports."
+  },
+  "verification": {
+    "source_bytes_verified_against_originals": {
+      "legacy": 406,
+      "legacy-local": 187,
+      "current": 1
+    },
+    "historical_evidence_files_inventoried": 407,
+    "local_experiment_collections": 31,
+    "curated_results": 31,
+    "scope": "Read-only report/source audit; no benchmark reruns; all result links resolve locally."
   }
 }

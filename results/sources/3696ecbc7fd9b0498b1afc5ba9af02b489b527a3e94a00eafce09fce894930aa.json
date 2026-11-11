@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/wait-qualification-20261105/REPLAY_REPAIR.md",
+    "sha256": "3696ecbc7fd9b0498b1afc5ba9af02b489b527a3e94a00eafce09fce894930aa"
+  },
+  "content": "# Replay transport repair\n\nThe first repeated replay campaign stopped after six complete 64-response cases.\nThe sixth, GPU-gated removal case, had one failed hint POST with\n`ServerDisconnectedError`. All 384 generated responses matched the frozen token\ntrace; the RPC failure remains a real measurement failure. Source/outputs/logs and\nthe failed status are preserved in `output/wait-qualification-20261105/stage1-replay/`.\n\nThe failed POST began immediately after the preceding model response ended,\nbefore the next model request. The server continued generating and had no matching\nengine failure. The replay adapter used aiohttp's default persistent connection\npool; the maintained live adapters deliberately use `TCPConnector(force_close=True)`\nto avoid stale keep-alive reuse. The observed disconnect is consistent with that\nrace, although no packet trace proves its exact transport cause.\n\nRepair: use the same fresh-socket policy as the maintained live adapters. No\nrequest retries, increased deadlines, ignored errors, policy tuning or change to\nthe frozen prompt/output/delay trace. The accompanying trace-sampling change only\nselects diagnostic log keys and remains disabled in primary timing runs.\n\nRun a complete fresh set of three rotated repetitions for all four replay\nconditions with this corrected adapter. The incomplete old set remains exploratory\nand is not pooled into the fresh set's interval. This replacement is justified by\na transport defect, not by an unfavorable performance outcome. It adds no open-\nended stopping rule. A further failure gets diagnosis and retained evidence.\n"
+}

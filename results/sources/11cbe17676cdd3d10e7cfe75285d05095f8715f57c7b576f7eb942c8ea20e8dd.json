@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/fair-four-20261104/post-run-coordinator-fix.patch",
+    "sha256": "11cbe17676cdd3d10e7cfe75285d05095f8715f57c7b576f7eb942c8ea20e8dd"
+  },
+  "content": "--- a/benchmarks/serving_suite/runner.py\n+++ b/benchmarks/serving_suite/runner.py\n@@ -954,6 +954,7 @@\n                                     variant=variant if plan.get('semantic_config') or plan.get('published_runtimes') else None)\n                     result[\"cases\"].append(case)\n                     if variant in ('continuum', 'upstream'):\n+                        from .published import check_source\n                         check_source(variant, plan['published_runtimes'][variant])\n                     write_json(a.output / \"result.json\", result)\n                     if case.get(\"interrupted\"):\n"
+}

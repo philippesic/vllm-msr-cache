@@ -1,0 +1,21 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/operational-v3-frozen.json",
+    "sha256": "3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04"
+  },
+  "parts": [
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0000.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0001.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0002.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0003.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0004.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0005.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0006.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0007.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0008.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0009.json",
+    "parts/3c9a64f7b22f2a994b97770af540aa121e047f2fa1b0fa58c3c033d1e4b5ce04/0010.json"
+  ]
+}

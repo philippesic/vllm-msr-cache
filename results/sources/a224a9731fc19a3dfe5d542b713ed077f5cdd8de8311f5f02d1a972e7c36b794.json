@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-audit/round4-results/round4/evidence/tiny-ownership.json",
+    "sha256": "a224a9731fc19a3dfe5d542b713ed077f5cdd8de8311f5f02d1a972e7c36b794"
+  },
+  "content": "{\n  \"cases\": [\n    {\n      \"name\": \"exact_scores_ties_mean\",\n      \"exact\": true,\n      \"bfloat16_source_float32_snapshot\": true\n    },\n    {\n      \"name\": \"exact_scores_ties_minmax\",\n      \"exact\": true,\n      \"bfloat16_source_float32_snapshot\": true\n    },\n    {\n      \"name\": \"exact_scores_ties_cuboid_mean\",\n      \"exact\": true,\n      \"bfloat16_source_float32_snapshot\": true\n    },\n    {\n      \"name\": \"delayed_producer_reader_owned_snapshot\",\n      \"original_query_reference_deleted\": true,\n      \"exact\": true,\n      \"charged_before_reader\": 3352,\n      \"ledger_unchanged_before_completion\": true,\n      \"no_address_reuse_claim\": true\n    },\n    {\n      \"name\": \"cancel_retains_then_rejects\",\n      \"charged_until_complete\": true,\n      \"no_observation\": true\n    },\n    {\n      \"name\": \"pending_enqueue_failure_and_exact_recovery\",\n      \"pending_immediately_before_exception\": true,\n      \"charged_at_exception\": 3360,\n      \"refs_alive_at_fence_entry\": true,\n      \"budget_recovered\": true,\n      \"exact_recovery\": true\n    }\n  ],\n  \"scope\": \"real CUDA scoring/native scheduler constructors; transfer backend stubbed; eager only; no model/capacity claim\",\n  \"elapsed_s\": 0.6704115020111203,\n  \"peak_allocated_bytes\": 263168,\n  \"fixture_increment_peak_bytes\": 263168\n}"
+}

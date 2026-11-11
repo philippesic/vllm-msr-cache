@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/vram-frontier-20261102/FINAL_DISPOSITION.json",
+    "sha256": "20e2487a42d4f48f4bdfaac96b625d7948df9b76032ec3531b51568a2ff1d272"
+  },
+  "content": "{\n  \"status\": \"frozen final disposition before plotting\",\n  \"new_GPU_confirmation\": false,\n  \"reason\": \"No candidate advantage; parent accepted no repeated null GPU runs to respect soft runtime preference. Prior3paired2048 external replication retained separately, never pooled.\",\n  \"screen\": {\n    \"attempted_intended_points\": 16,\n    \"valid_points\": 14,\n    \"accepted_strict_proofs\": 1008,\n    \"invalid_points\": [\n      \"candidate1280\",\n      \"ARC1536\"\n    ],\n    \"prior_failed_attempts_retained\": [\n      \"candidate1024 original observer\"\n    ]\n  },\n  \"selection\": {\n    \"predeclared_fallback_blocks\": 1536,\n    \"bracket_upper_blocks\": 2048,\n    \"partly_invalid\": true,\n    \"established_optimum\": false\n  },\n  \"normalization\": {\n    \"primary\": \"predeclared largest-budget ARC4096\",\n    \"secondary\": \"posthoc highest-observed ARC3072 sensitivity; single-point variability, not capacity proof\"\n  },\n  \"future_target_not_achieved\": {\n    \"GPU_blocks\": 1536,\n    \"GPU_KV_MiB\": 1344,\n    \"additional_pool_savings_MiB_vs2048\": 448,\n    \"TPS_target\": \"atleast99%ofARC2048 (~79TPS)\",\n    \"TTFT_target\": \"atmost105%ofARC2048\",\n    \"strict_proofs_and_actual_scoring_required\": true\n  }\n}\n"
+}

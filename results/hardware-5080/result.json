@@ -4,7 +4,7 @@
   "date": "2026-11-10",
   "origin": "historical",
   "verdict": "unresolved",
-  "summary": "The November 8 Continuum warmups failed because its binary lacked sm_120 or PTX. Rebuilding the same LMCache source repaired exact transfers and all required screens. The November 9 report remains a running-campaign snapshot.",
+  "summary": "The November 8 Continuum warmups failed because its binary lacked sm_120 or PTX. Rebuilding the same LMCache source repaired exact transfers and all required screens. The November 9 report remains a running-campaign snapshot. Three completed native control cells had throughput intervals spanning parity and no CPU restoration activity.",
   "scope": "Same-source LMCache 0.3.6 rebuild; 393,216-byte bidirectional equality; 54 screening configurations and 22 matched blocks. B06 had 31 valid measurements out of 32 attempts and seven of eight complete blocks.",
   "limitations": "One candidate attempt had zero restores and preemptions and remains excluded. Confirmation, overhead, operational and final audits were not complete at this revision. No final campaign result or GPU-only cross-host attribution is claimed.",
   "decision": "Retain the binary capability finding and incomplete-study boundary. New-code 5080 qualification remains deferred, not silently inherited.",
@@ -28,6 +28,30 @@
       "sha256": "3ae829d44ab34eb1427b576fdfb76489826d9d598f88e0e5c9c7bc412a6368bd"
     }
   ],
-  "chart": null,
-  "correction": ""
+  "chart": {
+    "metric": "Candidate / ARC throughput ratio",
+    "caption": "Retained interim 5080 control cells, whole-process paired log Student-t 95% intervals: 12 chat, 6 QA and 12 document pairs. No returning CPU restoration or eviction-affected returns; not a pressured-offload benefit or final campaign estimate.",
+    "baseline": 1,
+    "points": [
+      {
+        "label": "Chat (B01)",
+        "estimate": 1.0014,
+        "lower": 0.9989,
+        "upper": 1.0038
+      },
+      {
+        "label": "Independent QA (B02)",
+        "estimate": 1.0078,
+        "lower": 0.9962,
+        "upper": 1.0195
+      },
+      {
+        "label": "Documents (B03)",
+        "estimate": 0.9972,
+        "lower": 0.9896,
+        "upper": 1.0048
+      }
+    ]
+  },
+  "correction": "2026-11-10: made the already reported interim control-cell estimates visible; no additional acquisition or completion claim."
 }

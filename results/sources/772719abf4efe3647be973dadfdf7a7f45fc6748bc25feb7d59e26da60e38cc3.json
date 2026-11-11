@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/import.json",
+    "sha256": "772719abf4efe3647be973dadfdf7a7f45fc6748bc25feb7d59e26da60e38cc3"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-rebuilt-import-v1\",\n  \"campaign_id\": \"37f88e1990a0b44fd187cbef4caeaff8b508fcb92acd437e514ff42b799cd7ba\",\n  \"parent_campaign_id\": \"fb4036f77c0761d08d66b32f0710abdd34a6cffe30c2144b22c8c1461a4c9baa\",\n  \"source\": \"dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b\",\n  \"host_id\": \"rtx5080\",\n  \"runtime_python\": \"/home/philip/.cache/semantic-offload/stage6-5080-runtimes-01/local-env/bin/python\",\n  \"all_cell_interpreters_explicit\": true,\n  \"cells\": 22,\n  \"configurations_per_repeat\": 54,\n  \"confirmation_blocks\": 210,\n  \"confirmation_configurations\": 524,\n  \"supplementary_configurations\": {\n    \"overhead\": 38,\n    \"operational\": 6\n  },\n  \"frozen_protocol_identical_to_previous_transfer\": true,\n  \"all_profiles_identical\": true,\n  \"all_normalized_corpora_identical\": true,\n  \"plan_differences\": [\n    \"/published_runtimes/continuum/packages/61\",\n    \"/published_runtimes/continuum/python\"\n  ],\n  \"models_verified\": [\n    \"ministral3_3b\",\n    \"qwen3_4b_2507\",\n    \"qwen3_8b_awq\"\n  ],\n  \"hardware_preflight_required\": true,\n  \"confirmation_ready\": false,\n  \"diagnostic_smoke_excluded\": true,\n  \"setup_repair\": \"Stopped initial incomplete import before acquisition to explicitly bind original pinned runtime path; retained raw log/tree\"\n}\n"
+}

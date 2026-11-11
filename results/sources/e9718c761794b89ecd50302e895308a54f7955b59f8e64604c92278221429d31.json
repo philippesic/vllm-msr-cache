@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/matrix-2080ti-20261031/cpu-validation-final.json",
+    "sha256": "e9718c761794b89ecd50302e895308a54f7955b59f8e64604c92278221429d31"
+  },
+  "content": "{\n  \"exit_code\": 0,\n  \"elapsed_s\": 10.792605433000062,\n  \"cuda_initialized\": false,\n  \"cuda_forbidden\": true,\n  \"task_runtime_overlay\": true,\n  \"passive_matrix_wrappers\": true,\n  \"paths\": [\n    \"tests/test_config.py\",\n    \"tests/test_step_1_3_scoring.py\",\n    \"tests/test_step_1_4_eviction.py\",\n    \"tests/test_query_capture.py\",\n    \"tests/test_step_1_5_prefetch.py\",\n    \"tests/test_wait_hint.py\",\n    \"tests/test_wait_hint_endpoint.py\",\n    \"tests/test_scoring_schedule.py\",\n    \"tests/test_scoring_search.py\",\n    \"tests/test_async_scoring.py\",\n    \"tests/test_summary_offload_overlap.py\",\n    \"tests/test_audit.py\",\n    \"tests/test_round2.py\",\n    \"tests/test_round4.py\",\n    \"tests/test_throughput.py\",\n    \"tests/test_agent_load_trace.py\"\n  ]\n}"
+}

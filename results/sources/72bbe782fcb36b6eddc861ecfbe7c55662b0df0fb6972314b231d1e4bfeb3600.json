@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/final-cleanup-summary.json",
+    "sha256": "72bbe782fcb36b6eddc861ecfbe7c55662b0df0fb6972314b231d1e4bfeb3600"
+  },
+  "content": "{\n  \"schema\": \"root-final-storage-and-process-inventory-v1\",\n  \"at_ns\": 1793743861489641615,\n  \"filesystem\": \"/home/philip/vllm-semantic-cache-ext\",\n  \"logical_task_bytes_before\": 8002427827,\n  \"removed_logical_bytes\": 134386,\n  \"free_before_bytes\": 912302067712,\n  \"free_after_bytes\": 912302170112,\n  \"observed_free_delta_bytes\": 102400,\n  \"active_campaign_consumers\": [],\n  \"owned_GPU_work_remaining\": false,\n  \"GPU_compute_apps\": \"\",\n  \"GPU_lock_available\": true,\n  \"serving_port_closed\": true,\n  \"compressed_evidence_check\": {\n    \"all_run_raws_compressed\": true,\n    \"uncompressed_raw_json\": 0,\n    \"duplicate_plain_and_gzip_raw_pairs\": 0,\n    \"largest_raw_gzip_bytes\": 104664865,\n    \"reason_retained\": \"Unique frozen historical evidence and negative results, not disposable build outputs.\"\n  },\n  \"full_inventory\": \"output/prefetch-native-20261102/live-nov3-root-final-storage-inventory.json\"\n}\n"
+}

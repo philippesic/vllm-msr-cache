@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/screen-review-index-01.json",
+    "sha256": "2c1e95f37b58954a91478a11735b7229e130ca39bdd0886ff1e3e974b712689f"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-partial-screen-source-review-v1\",\n  \"phase\": \"screen\",\n  \"acquisition_complete\": false,\n  \"packet_digest\": \"3a81fcf06931b84e9de7cf08dc6d8cfbfca434684ecb29836f92a7ad49dd85d3\",\n  \"packet_file_sha256\": \"4ff56fbd2d151664ebd33d675576d5a875270dd0fd478cb08ac166b93d3579d1\",\n  \"signature_fields\": [\n    \"answer\",\n    \"source_context\",\n    \"reference\",\n    \"instructions\",\n    \"actual_dependencies\",\n    \"tools\",\n    \"response_role\",\n    \"current_instruction\"\n  ],\n  \"contexts\": [\n    {\n      \"signature\": \"358476b11700544f73f5520b2816817581443dbdf24120ad9b2ba09938ab9e6b\",\n      \"canonical_review_id\": \"c5ca5ac324ab0c39c6fac20a\",\n      \"review_ids\": [\n        \"c5ca5ac324ab0c39c6fac20a\",\n        \"8d3a4affc8dd881038fe4a5f\"\n      ]\n    }\n  ],\n  \"reviewed_outputs\": 2,\n  \"distinct_full_contexts\": 1,\n  \"ratings\": \"screen-source-judgments-01.json\",\n  \"raw_packet\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-screen-checkpoint-01/blind-packet.json\",\n  \"scope\": \"Only the two uncapped B01 finals in the completed replacement block. Full screen/confirmation and all-capped inventories remain pending. Reuse a judgment only on exact equality of every listed full-context signature field; review all novel contexts explicitly.\"\n}\n"
+}

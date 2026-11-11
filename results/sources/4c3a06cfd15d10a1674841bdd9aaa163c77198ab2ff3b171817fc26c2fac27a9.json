@@ -1,0 +1,19 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/screen-source-judgments-05.json",
+    "sha256": "4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9"
+  },
+  "parts": [
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0000.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0001.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0002.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0003.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0004.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0005.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0006.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0007.json",
+    "parts/4c3a06cfd15d10a1674841bdd9aaa163c77198ab2ff3b171817fc26c2fac27a9/0008.json"
+  ]
+}

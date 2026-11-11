@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-overhead-20261101/baseline-provenance.json",
+    "sha256": "f2c6a444c9811ff66c7c1ada4ff02c9176e7ad8f7acda9a37ccd2fdacd65bc71"
+  },
+  "content": "{\n  \"note\": \"First dispatch configuration screen used snapshot overlapping initial capture-agent edits. No attention backend enabled. Recovered exact pre-edit query capture for all subsequent original arm runs from worker backup. First screen is screening evidence, not confirmation.\",\n  \"prior_snapshot_sha256\": \"1385ca8eb97b0b5ff736d54cf7374d091eb9f3a7e8177a6391e3730d4097a280\",\n  \"recovered_sha256\": \"21d8ccce3064c2c22d06068510f64524b813146a6de63d70c0c71de3398411f9\"\n}"
+}

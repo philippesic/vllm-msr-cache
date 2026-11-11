@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/capture-optimization/results/capture_optimization/evidence/release.json",
+    "sha256": "45b5e3a5b09f8b023147bbf185376df6a35aa053af3806071933983688a4ad2f"
+  },
+  "content": "{\n  \"state\": \"RELEASED\"\n}"
+}

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/prefetch-vram-20261101/reproduction-validation.json",
+    "sha256": "eb9f13d0d75ef41c533b8095308c9be5011b4e5cbcf6187f66c0471a18e50744"
+  },
+  "content": "{\n  \"passed\": true,\n  \"clone\": \"/home/philip/vllm-semantic-cache-ext/output/prefetch-reproduction-validation-20261101\",\n  \"verified_files\": 126,\n  \"parsed_python_files\": 111,\n  \"plan_names\": [\n    \"confirmation-long.json\",\n    \"confirmation-short-combined.json\",\n    \"quality-prefix-enabled-plan.json\",\n    \"quality-prefix-more-plan.json\"\n  ],\n  \"planned_cases\": 45,\n  \"all_cloned_file_pins_match\": true,\n  \"all_prepared_case_inputs_present\": true,\n  \"source_model_package_and_external_dependency_checks\": \"passed in reproduce.py\",\n  \"no_gpu_runs_or_fake_run_receipts_created\": true,\n  \"scope\": \"Offline fresh-directory reproduction bundle validation, not a second performance campaign.\"\n}\n"
+}

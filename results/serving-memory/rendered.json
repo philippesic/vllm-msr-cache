@@ -1,7 +1,7 @@
 {
-  "input_sha256": "886adcad86baf076c3f29f8c904523d9636e1a75844968ff50e9c85e5161e1cc",
+  "input_sha256": "e1d9c0fedcd14550babec4edb7e7b7166bf4dc6d894d7d0dd8679084e48d83a8",
   "outputs": {
-    "chart.svg": "4ef37ad0d6834cad020d851edca5945481984c2a3070fcaa457076116b1f5c7a",
-    "result.md": "bbc98b6809ee9e08b5444e89bae8706f87ffff4805f38cf83eb00f281fe9464c"
+    "chart.svg": "bcec129f6112c5c66cad31b40c55df1444b33509b7ffba0df76e9efac38dd590",
+    "result.md": "b5b99b1d1fbe30ee413b30ed07f7624721a5d5b4d4038a54754e159e99f6946a"
   }
 }

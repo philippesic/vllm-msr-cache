@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/prefetch-vram-20261101/host.json",
+    "sha256": "224137487fa51ebafd748f579a0cb73db21e999b6a064a6b1927557127e8f463"
+  },
+  "content": "{\n  \"host\": \"DESKTOP-T4JKGJB\",\n  \"platform\": \"Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39\",\n  \"python\": \"3.12.3\",\n  \"cpu\": \"Intel(R) Core(TM) i9-7980XE CPU @ 2.60GHz\",\n  \"logical_cpus\": 36,\n  \"packages\": {\n    \"torch\": \"2.13.0\",\n    \"vllm\": \"0.26.1rc1.dev75+gdc1be7903\",\n    \"triton\": \"3.7.1\",\n    \"transformers\": \"5.22.1\",\n    \"numpy\": \"2.3.5\"\n  },\n  \"gpu\": \"NVIDIA GeForce RTX 2080 Ti, 610.88, 11264 MiB, 300.00 W\",\n  \"measured_at_utc\": \"2026-11-01T12:43:08Z\",\n  \"scope\": \"This WSL host only. Offline cached Qwen2.5-1.5B FP16 eager Triton; task runtime overlay unchanged; CPU thread env1. No claims transferred from historical other-host evidence.\"\n}\n"
+}

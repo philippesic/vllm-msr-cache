@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-overhead-20261101/asynccpu-numerical-quality.json",
+    "sha256": "453c9920de2de77ec44c9adb4df4948198eca4f7e19619be22ace280ad5e1ec0"
+  },
+  "content": "{\n  \"device\": \"NVIDIA GeForce RTX 2080 Ti\",\n  \"seed\": 9061,\n  \"torch_version\": \"2.13.0+cu130\",\n  \"results\": [\n    {\n      \"case\": \"host\",\n      \"shape\": [\n        3,\n        199,\n        2,\n        128\n      ],\n      \"max_absolute_error\": 3.814697265625e-06,\n      \"mean_absolute_error\": 6.233028670976637e-07,\n      \"top1_agreement\": 1.0,\n      \"top10_set_overlap\": 1.0,\n      \"full_rank_equal\": true,\n      \"score_tolerance_passed\": true,\n      \"wrong_head_pooling_control_rejected\": true\n    },\n    {\n      \"case\": \"larger\",\n      \"shape\": [\n        8,\n        1024,\n        8,\n        128\n      ],\n      \"max_absolute_error\": 2.384185791015625e-06,\n      \"mean_absolute_error\": 3.8670441426802427e-07,\n      \"top1_agreement\": 1.0,\n      \"top10_set_overlap\": 1.0,\n      \"full_rank_equal\": true,\n      \"score_tolerance_passed\": true,\n      \"wrong_head_pooling_control_rejected\": true\n    },\n    {\n      \"case\": \"near_ties\",\n      \"shape\": [\n        3,\n        199,\n        2,\n        128\n      ],\n      \"max_absolute_error\": 3.814697265625e-06,\n      \"mean_absolute_error\": 7.122605438780738e-07,\n      \"top1_agreement\": 1.0,\n      \"top10_set_overlap\": 0.9666666666666667,\n      \"full_rank_equal\": false,\n      \"score_tolerance_passed\": true,\n      \"wrong_head_pooling_control_rejected\": true\n    }\n  ],\n  \"scope\": \"Synthetic numerical audit only; near-tie ranking differences can occur. No task-level retention or KV-correctness claim.\"\n}\n"
+}

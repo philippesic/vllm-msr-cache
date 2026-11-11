@@ -22,6 +22,6 @@ Keep the negative result and require evidence of saved work or useful latency be
 
 ## Sources
 
-- [evidence/a27/FINAL-REPORT.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/a27/FINAL-REPORT.md)
+- [evidence/a27/FINAL-REPORT.md](../sources/8e961ef3fe05ba8261f8e44c15e919ee5cd38280e7b42d57c556a3bbd3309ba3.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

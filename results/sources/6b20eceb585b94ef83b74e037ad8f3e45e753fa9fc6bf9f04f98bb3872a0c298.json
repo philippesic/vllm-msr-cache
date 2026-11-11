@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/quantized-realworld-20261101/PRIVATE_PATCH_MANIFEST.json",
+    "sha256": "6b20eceb585b94ef83b74e037ad8f3e45e753fa9fc6bf9f04f98bb3872a0c298"
+  },
+  "content": "{\n  \"scope\": \"diagnostic private branch only, no canonical integration\",\n  \"source_policy_baseline\": \"sources/candidate\",\n  \"runtime_baseline\": \"runtime\",\n  \"changed_files\": [\n    {\n      \"scope\": \"private connector/worker source\",\n      \"baseline\": \"sources/candidate/semantic_offload/connector.py\",\n      \"candidate\": \"sources/shared-lookup/semantic_offload/connector.py\",\n      \"baseline_sha256\": \"d1c0bdb8d34a7c15c81c90ae03512ee9793bfe9d394c8d3da369d243c70053e2\",\n      \"candidate_sha256\": \"f10ec21c8379b4585931c757608e2ef993aa30c57284e5f50da8c4779a0c103b\"\n    },\n    {\n      \"scope\": \"private pinned vLLM overlay\",\n      \"baseline\": \"runtime/vllm/v1/core/block_pool.py\",\n      \"candidate\": \"runtime-shared-lookup/vllm/v1/core/block_pool.py\",\n      \"baseline_sha256\": \"c90eb910f7abe90dfd4df9992f6eb3506759f9c2efe71a53d876c61047041c9a\",\n      \"candidate_sha256\": \"07940bdc02c6eccf32fdeb17e9371229cc8d235a7dd19c62d9797976043ac42c\"\n    },\n    {\n      \"scope\": \"private pinned vLLM overlay\",\n      \"baseline\": \"runtime/vllm/v1/core/sched/scheduler.py\",\n      \"candidate\": \"runtime-shared-lookup/vllm/v1/core/sched/scheduler.py\",\n      \"baseline_sha256\": \"41064922d6ed20b3010befa3f90977912068dfcebdaa671d1cf557cacf091783\",\n      \"candidate_sha256\": \"78fecf3b89d4d44e187f641c8dc2e596d7345c97c2332e5c8985c24f8fa67b7b\"\n    }\n  ],\n  \"patch_file\": \"PRIVATE_PATCH.diff\"\n}\n"
+}

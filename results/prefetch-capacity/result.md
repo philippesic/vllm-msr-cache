@@ -1,0 +1,29 @@
+# Exact prefetch helped a narrow long-context case but did not generalize
+
+2026-11-10 · historical · mixed
+
+The 1.5B long-context study saved 426.5 MiB of peak CUDA allocation relative to large-cache ARC while remaining within 1% throughput in all six pairs. At equal smaller budgets it was 1.36% faster with much shorter return latency; the short-context case missed the large-ARC throughput target.
+
+![Throughput change (%)](chart.svg)
+
+Six paired observations per workload; point estimates only. Baselines differ as labeled.
+
+## Scope
+
+RTX 2080 Ti/WSL, FP16 Qwen2.5-1.5B, three content seeds with two balanced repetitions, long and short tool-return workloads. Forty-two confirmation runs passed exact prompt/output/native-key/physical checks.
+
+## Limits
+
+Return latency still rose 25.1 ms against large-cache ARC. Performance runs had zero constrained semantic choices. Separate intrusive diagnostics found only 2/5 top-choice agreement with the old EMA policy. A later non-restoring ARC control diverged in output, with no established cause.
+
+## Decision
+
+Preserve this scoped positive alongside later public-workload negatives. Configured KV-pool reduction is not a general memory efficiency claim; ranking and output-repeatability questions remain open.
+
+## Sources
+
+- [output/prefetch-vram-20261101/REPORT.md](../sources/8668cb2306aae576c4cbcb8d2277a459735ce2b6eec6b71b1c1d1ed9d07c12d8.json)
+- [output/prefetch-vram-20261101/NEGATIVE_RESULTS.md](../sources/988ef1a34ba36f560e6eeb5c07220b7f349fd775f2f996870ad6ef4810503bda.json)
+- [output/prefetch-vram-20261101/output-divergence-review.md](../sources/3d0d95ec590909d5f36c3146b8755f324e449c0cc432e4e5b5bcc741e393353d.json)
+
+Exact source hashes and figure inputs: [result.json](result.json).

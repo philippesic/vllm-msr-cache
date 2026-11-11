@@ -22,8 +22,8 @@ Keep the simple candidate. Preserve microbenchmark gains as diagnostics and requ
 
 ## Sources
 
-- [evidence/stage5-optimization-20261105/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage5-optimization-20261105/README.md)
-- [evidence/stage5-optimization-20261105/EVICTION.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage5-optimization-20261105/EVICTION.md)
-- [evidence/stage5-optimization-20261105/EXHAUSTION.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/stage5-optimization-20261105/EXHAUSTION.md)
+- [evidence/stage5-optimization-20261105/README.md](../sources/de155d9906f4d65afa27e5f53d86d3f580b85504accc2aa1ce086a5d0020a801.json)
+- [evidence/stage5-optimization-20261105/EVICTION.md](../sources/0066306277320122470ad5897e12acdac14db95a79294def4b3911ad3fcd35e1.json)
+- [evidence/stage5-optimization-20261105/EXHAUSTION.md](../sources/95bedbcb51694b53c5730549e1412f9f6633100a27324b34fae540b2adf72fc6.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

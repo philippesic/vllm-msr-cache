@@ -1,0 +1,18 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage5-optimization-20261105/results.json",
+    "sha256": "2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb"
+  },
+  "parts": [
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0000.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0001.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0002.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0003.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0004.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0005.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0006.json",
+    "parts/2860e9df92b1ce5a393e48322445b8fe1046fcdb4874800a1ee6e8ff3acb47fb/0007.json"
+  ]
+}

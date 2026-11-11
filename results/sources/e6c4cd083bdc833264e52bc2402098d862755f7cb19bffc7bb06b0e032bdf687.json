@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/vram-frontier-20261102/ROOT_REVIEW.json",
+    "sha256": "e6c4cd083bdc833264e52bc2402098d862755f7cb19bffc7bb06b0e032bdf687"
+  },
+  "content": "{\n  \"scope\": \"Root scientific/derived consistency and final artifact review; not another model or byte-performance test\",\n  \"accepted_points\": 14,\n  \"accepted_request_proofs\": 1008,\n  \"per_run_summary_proofs_all_passed_reread\": 14,\n  \"invalid_holes_retained\": [\n    {\n      \"blocks\": 1280,\n      \"arm\": \"candidate\"\n    },\n    {\n      \"blocks\": 1536,\n      \"arm\": \"arc\"\n    }\n  ],\n  \"threshold_99_97_95_min_blocks_independently_recomputed\": {\n    \"primary_largestARC\": {\n      \"arc\": [\n        2048,\n        2048,\n        2048\n      ],\n      \"candidate\": [\n        2560,\n        2048,\n        2048\n      ]\n    },\n    \"posthoc_highestARC\": {\n      \"arc\": [\n        2560,\n        2048,\n        2048\n      ],\n      \"candidate\": [\n        3072,\n        2560,\n        2048\n      ]\n    }\n  },\n  \"final_evidence_file_hashes_checked\": 312,\n  \"corpus_symlink_hashes_checked\": 1,\n  \"canonical_package_files_unchanged_independently_checked\": 22,\n  \"report_links_checked\": 15,\n  \"plots_visually_inspected\": [\n    \"vram-frontier.png\",\n    \"vram-operational-costs.png\"\n  ],\n  \"external_replication_separate_not_pooled\": true,\n  \"no_new_GPU_confirmation_reason\": \"No new low-memory advantage; prior replicated knee retained separately, user soft runtime preference.\",\n  \"scientific_disposition\": \"Broad curve assessment complete; no established semantic frontier extension or production optimum.\",\n  \"remaining_work\": [],\n  \"report\": \"REPORT.md\",\n  \"report_sha256\": \"88144b3fcd8de93c0980843edbaaf13cf3afe57ecd6150827dff575b23fe6a2f\"\n}\n"
+}

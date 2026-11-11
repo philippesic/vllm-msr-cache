@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/live-optimization-2080ti-20261103/priority-confirmation-root-prelaunch.json",
+    "sha256": "796fefa6b60dbe7f55f4d91c639d764786cfcb3c0dd0070f50c984b7f5fde090"
+  },
+  "content": "{\n  \"schema\": \"root-three-arm-priority-confirmation-prelaunch-v1\",\n  \"created_utc\": \"2026-11-03T18:47:37.315654+00:00\",\n  \"manifest_sha256\": \"85bc8dd1105ba7cb05ab025767bee6169cccd4543f8fd5c7f8f82f9ac9054429\",\n  \"all_pins_verified\": 733,\n  \"names_absent\": 36,\n  \"six_orders_each_twice_verified\": true,\n  \"two_each_matched_primary_pair_orders_per_partition\": true,\n  \"candidate_bounded_mode_and_gate_explicit\": true,\n  \"intrusive_audit_disabled_all36\": true,\n  \"prior_raw_records_scanned\": 243,\n  \"fresh_corpus_never_used_by_prior_actual_runs\": true,\n  \"GPU_idle_and_lock_available\": true,\n  \"custody_transfer\": \"ROOT to ASTRA for exact36frozeninvocations only\"\n}\n"
+}

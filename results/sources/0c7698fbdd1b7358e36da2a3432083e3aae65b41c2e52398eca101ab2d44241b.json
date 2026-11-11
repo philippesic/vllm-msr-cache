@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261108/repair-runtime-validation.json",
+    "sha256": "0c7698fbdd1b7358e36da2a3432083e3aae65b41c2e52398eca101ab2d44241b"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-filesystem-repair-runtime-validation-v1\",\n  \"verified_unix\": 1794205363.7964475,\n  \"whole_replacement_block_passed\": true,\n  \"cell\": \"B01\",\n  \"source\": \"dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b\",\n  \"attempts\": [\n    {\n      \"system\": \"arc\",\n      \"attempt\": \"59aa72e97a49460f8345a862e74638e2\",\n      \"seal\": \"b83372cbd445d1718a41d8231039a412170f50c33eb95a1b58d9422b27b5ef5a\",\n      \"verified_files\": 29,\n      \"completed\": 6,\n      \"finish_reasons\": {\n        \"stop\": 6\n      },\n      \"runtime_staging_residual_entries\": 0,\n      \"cleanup\": {\n        \"verified\": true,\n        \"survivors\": [],\n        \"exit_code\": 0\n      }\n    },\n    {\n      \"system\": \"wait\",\n      \"attempt\": \"8b2b5a8f1c21490cbf746ad668cfde99\",\n      \"seal\": \"47c5ff8a65a883ea248346f2867e513442432e64afa4abbba909cffad29ad01e\",\n      \"verified_files\": 29,\n      \"completed\": 6,\n      \"finish_reasons\": {\n        \"stop\": 6\n      },\n      \"runtime_staging_residual_entries\": 0,\n      \"cleanup\": {\n        \"verified\": true,\n        \"survivors\": [],\n        \"exit_code\": 0\n      }\n    }\n  ],\n  \"original_attempt_preserved_interrupted\": [\n    \"abf845871bda48c8849e6340010e75a3\"\n  ],\n  \"scope\": \"Actual native ARC/candidate staging, serving, cleanup and strict outer seals pass on repaired Linux storage. This development block is not a performance/quality qualification.\"\n}\n"
+}

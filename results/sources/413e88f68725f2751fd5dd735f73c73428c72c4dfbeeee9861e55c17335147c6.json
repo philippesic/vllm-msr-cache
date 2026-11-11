@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/deadline-checkpoint.json",
+    "sha256": "413e88f68725f2751fd5dd735f73c73428c72c4dfbeeee9861e55c17335147c6"
+  },
+  "content": "{\n  \"schema\": \"stage6-deadline-checkpoint-v1\",\n  \"development_only\": true,\n  \"original\": {\n    \"request_timeout_s\": 180,\n    \"case_timeout_s\": 1800\n  },\n  \"replacement\": {\n    \"request_timeout_s\": 900,\n    \"case_timeout_s\": 3600\n  },\n  \"completed\": 12,\n  \"queued_timeouts\": 4,\n  \"first_token_received_by_timed_out_requests\": false,\n  \"policy_prompts_tasks_output_caps_cache_budgets_unchanged\": true,\n  \"new_campaign\": \"development-09\",\n  \"confirmation_observed\": false,\n  \"raw\": \"../../output/stage6-2080ti-20261106/deadline-repair-09.json\",\n  \"raw_sha256\": \"d3056c24e96dc065a4b92db5c96b28647577235a6a32a1d5a169a8528d507f71\",\n  \"qualification\": \"New native checks and registry probe passed; full corrected screen remains in progress\"\n}\n"
+}

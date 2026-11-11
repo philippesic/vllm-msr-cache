@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261108/source-revision.json",
+    "sha256": "7e7b00d36277158d0e96a8f84f269c48f775552747fecc971c0a730dad334c89"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-primary-source-revision-v1\",\n  \"parent_bundle_seal\": \"69d0126fc1a5003ef0184f0032d88df162c67fe621d9d42e00c6772ce45256bc\",\n  \"coordinator_checkpoint\": \"1319f09bafac46bab89df465dd433c67441f4b26\",\n  \"changed_files\": [\n    \"benchmarks/research_checks/stage6_healthcheck.py\",\n    \"benchmarks/serving_suite/campaign.py\"\n  ],\n  \"authority\": \"2026-11-08 authorized 5080 primary replication with repaired coordinator and new source identity\",\n  \"worker_interpreter\": \"cell.profile.runtime_python or host.runtime_python explicitly\",\n  \"frozen_order_repeats_policy_models_workloads_preserved\": true,\n  \"parent_transfer_unchanged\": true,\n  \"execution_bundle_seal\": \"75abd6fbcdca6f210c1991e8f4160a7cad08593f7b5b05c8fe50fae8f374c8f2\",\n  \"execution_bundle_files\": 4606,\n  \"parent_source_digest\": \"8a986df6e8e261976baa9a9e09e2e1d8d0d11ed911556dafdae3244fcdc593d1\",\n  \"source_digest\": \"dfd3f78ec465968fe89917a6b8ff6c2b9e47a2339759465fe15059c5a3e5fa7b\",\n  \"parent_source_files\": 2191,\n  \"source_files\": 2192,\n  \"source_receipt_path\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261108/source-revision-01.json\",\n  \"original_primary_verified_files\": 4606,\n  \"execution_bundle_verified_files\": 4606,\n  \"validation\": {\n    \"bench_tests_passed\": 240,\n    \"check_light_passed\": 31,\n    \"compileall_passed\": true,\n    \"source\": \"primary-execution-bundle-01/source\"\n  }\n}\n"
+}

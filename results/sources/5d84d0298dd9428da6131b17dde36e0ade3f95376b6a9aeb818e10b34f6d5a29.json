@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/prefetch-efficiency-20261101/backoff.patch",
+    "sha256": "5d84d0298dd9428da6131b17dde36e0ade3f95376b6a9aeb818e10b34f6d5a29"
+  },
+  "content": "--- shared-lookup/connector.py\n+++ reclaim-backoff/connector.py\n@@ -2437,6 +2437,13 @@\n             self._prefetch_reserved_blocks -= len(state.gpu_block_ids)\n             state.destination_released = True\n             released_blocks = len(state.gpu_block_ids)\n+        if reason == \"demand_reclaim\" and released_blocks > 0:\n+            failures = self.__dict__.setdefault(\"_reclaimed_source_backoff\", {})\n+            fingerprint = hashlib.sha256(repr(tuple(state.source.keys)).encode()).digest()\n+            failures.pop(fingerprint, None)\n+            failures[fingerprint] = time.monotonic_ns() + 5_000_000_000\n+            while len(failures) > 256:\n+                del failures[next(iter(failures))]\n         state.status = \"retired\"\n         state.lease.expire()\n         self._wait_prefetch.pop(event_id, None)\n@@ -2575,6 +2582,13 @@\n \n     def _wait_complete_staging_available(self, source_keys, candidate_keys,\n                                          resident_keys, local_count, local_ids):\n+        failures = getattr(self, \"_reclaimed_source_backoff\", {})\n+        if failures:\n+            fingerprint = hashlib.sha256(repr(tuple(source_keys)).encode()).digest()\n+            until = failures.get(fingerprint, 0)\n+            if time.monotonic_ns() < until:\n+                return False\n+            failures.pop(fingerprint, None)\n         if not getattr(self, \"_wait_hint_shared_local_prefix\", False):\n             return (bool(source_keys) and tuple(candidate_keys) == source_keys\n                     and tuple(resident_keys) == source_keys\n"
+}

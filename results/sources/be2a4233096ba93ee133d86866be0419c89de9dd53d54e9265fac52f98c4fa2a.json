@@ -1,0 +1,26 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/screen-source-judgments-06.json",
+    "sha256": "be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a"
+  },
+  "parts": [
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0000.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0001.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0002.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0003.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0004.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0005.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0006.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0007.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0008.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0009.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0010.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0011.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0012.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0013.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0014.json",
+    "parts/be2a4233096ba93ee133d86866be0419c89de9dd53d54e9265fac52f98c4fa2a/0015.json"
+  ]
+}

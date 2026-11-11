@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-04.json",
+    "sha256": "d269553fbc33806e33da7ca86acfbd011e502b753baa9e587235679c8fe82774"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-partial-quality-validator-v1\",\n  \"phase\": \"confirm\",\n  \"acquisition_complete\": false,\n  \"status\": \"audited\",\n  \"reviewed\": 892,\n  \"packet_digest\": \"6a3aae635a278734a8e7c4f240041c5d45b7746c26ea11a7a7cc28f62679e2c2\",\n  \"ratings_digest\": \"05dbf75277241c2a3c336c2dde4f6afc3d7ed2ed40828e427b0d6feb332a245a\",\n  \"isolated_workspace\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-audit-checkpoint-04\",\n  \"quality_module_sha256\": \"80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d\",\n  \"archived_instruction_sources_verified\": 66,\n  \"scope\": \"Exact frozen finish validator on a materialized isolated copy of the partial snapshot; original live analysis/quality and acquisition unchanged. Not final confirmation audit.\",\n  \"review_findings\": {\n    \"source_unsupported\": 77,\n    \"instruction_failures\": 85,\n    \"not_useful\": 0\n  }\n}\n"
+}

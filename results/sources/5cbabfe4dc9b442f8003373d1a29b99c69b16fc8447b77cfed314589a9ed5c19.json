@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/completion.json",
+    "sha256": "5cbabfe4dc9b442f8003373d1a29b99c69b16fc8447b77cfed314589a9ed5c19"
+  },
+  "content": "{\n  \"status\": \"complete\",\n  \"scheduled\": 18,\n  \"verified\": 18,\n  \"failed\": 0,\n  \"repairs\": 0,\n  \"quality_audit\": \"quality-final.json\",\n  \"integrity\": \"verification.json\",\n  \"cleanup\": \"cleanup-and-caps.json\",\n  \"transfer\": \"transfer.json\",\n  \"historical_gate\": {\n    \"preserved\": true,\n    \"verified_files\": 9,\n    \"protocol_unchanged\": true\n  },\n  \"primary_comparisons\": \"unchanged from pre-recovery Git checkpoint\",\n  \"health_schedule\": {\n    \"enabled\": false,\n    \"nextRunAt\": null,\n    \"receipt\": \"output/stage6-2080ti-20261106/repository-recovery-health/schedule-disabled.json\"\n  },\n  \"scope\": \"Only authorized 2080 Ti repository recovery; no other acquisition\"\n}\n"
+}

@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "title": "Reducing capture work moved synchronization costs and did not establish a speedup",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "Opportunity-only sampled scoring modestly improved the early semantic configuration, but ARC remained faster. Replacing query-index construction with slices moved much of its host wait to score readback rather than removing the cost.",
+  "scope": "Dense Qwen3-4B BF16 eager simulated-agent experiments. The scoring-efficiency study covered nine lifecycles/405 exact requests; the separate slice/concatenate test covered four lifecycles/180 exact requests.",
+  "limitations": "Single-run product comparisons and different closed-loop histories. Indexed search used its tiny-bank fallback in serving; forced replay had routing/build costs and only 88.02% mean top-8 recall. Inclusive host timers overlap and cannot be added as GPU compute savings.",
+  "decision": "Retain the synchronization lesson. The slice/concatenate candidate was restored after no measured product gain; indexing and lower capture cadence were not qualified as general improvements.",
+  "sources": [
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/scoring-efficiency/REPORT.md",
+      "sha256": "6e290d10e5ce3c5ca26f7b3f7494100e5e60af3d98a58f2e01c0d6f09f51a6ab"
+    },
+    {
+      "repository": "legacy-local",
+      "revision": null,
+      "path": "output/capture-optimization/REPORT.md",
+      "sha256": "569ffca1385003bd4f37bfaf958dd994ae0b079a929b7699d2fb3770afa98289"
+    }
+  ],
+  "chart": {
+    "metric": "Throughput change (%)",
+    "caption": "Separate single-run studies and comparators; no pooled estimate or confidence interval.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Work reduction versus semantic",
+        "estimate": 0.78,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Work reduction versus ARC",
+        "estimate": -0.55,
+        "lower": null,
+        "upper": null
+      },
+      {
+        "label": "Slice capture versus baseline",
+        "estimate": -1.95,
+        "lower": null,
+        "upper": null
+      }
+    ]
+  },
+  "correction": ""
+}

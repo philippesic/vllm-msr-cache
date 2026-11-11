@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/capture-optimization/results/capture_optimization/evidence/final-audit.json",
+    "sha256": "b7cea5ed08f29a157f5e7691972ead8ba8f3fd9e7aa0493baccc92c3ea85db45"
+  },
+  "content": "{\n  \"four_models_only\": true,\n  \"all_server_exits_and_descendants_verified\": true,\n  \"frozen_source_runtime_and_prior_V3_verified\": true,\n  \"candidate_production_not_mutated\": true,\n  \"cpu_passed\": 284,\n  \"real_requests_exact\": 180,\n  \"native_key_recurrences_checked\": 24276,\n  \"gzip_roundtrip_verified\": true,\n  \"source_git_status\": \" M semantic_offload/connector.py\\n M tests/test_step_1_5_prefetch.py\\n\",\n  \"report_sha256\": \"d6bb6bf28733f16ddf36cae19ca7b02cbe69af8f8ceafe7176875a73842a49d3\",\n  \"archive_manifest\": \"evidence/export-manifest.json\",\n  \"storage_receipt\": \"evidence/storage-handback.json\",\n  \"restoration_release_pending_separate_receipts\": false,\n  \"native_custody_released\": true,\n  \"subscription_cancelled\": true,\n  \"project_lock_free\": true,\n  \"liveownership\": \"NONE\",\n  \"rejected_relative_restore_launch\": \"No workload launched; sealed absolute restoration subsequently succeeded\"\n}\n"
+}

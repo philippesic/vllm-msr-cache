@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-overhead-20261101/runs/cpu-quality-multi-1103-semantic/cpu-quality.json",
+    "sha256": "bb8000228eba54085d9c28739247d0aae0d427d936de1c45d353bc7670d2be7c"
+  },
+  "content": "{\"sampled_jobs\": 18, \"request_rows\": 50, \"score_values\": 9290, \"max_absolute_error\": 4.57763671875e-05, \"top10_overlap_sum\": 50.0, \"full_rank_equal_rows\": 50}"
+}

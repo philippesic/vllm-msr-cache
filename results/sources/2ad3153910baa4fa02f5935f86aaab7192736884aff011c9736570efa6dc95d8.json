@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/reporting-validation-02.json",
+    "sha256": "2ad3153910baa4fa02f5935f86aaab7192736884aff011c9736570efa6dc95d8"
+  },
+  "content": "{\n  \"schema\": \"stage6-primary-reporting-validation-v1\",\n  \"acquisition_complete\": false,\n  \"helper\": \"benchmarks/research_checks/stage6_primary_findings.py\",\n  \"source_sha256\": \"1fb5fdde6ddc7757e1e78387fd3e9a6aa1f5d73089e1bbe20c5e85017ad23882\",\n  \"prior_validation\": \"reporting-validation.json\",\n  \"checks\": {\n    \"focused_reporting_and_estimator_tests\": {\n      \"passed\": 21,\n      \"command\": \"PYTHONDONTWRITEBYTECODE=1 pinned-PY -m pytest -q -p no:cacheprovider tests/test_stage6_primary_findings.py tests/test_campaign_reporting.py\"\n    },\n    \"standalone_javascript\": {\n      \"syntax\": \"passed current V8 Function construction without execution\",\n      \"full_report_browser_render\": \"pending final measured data\"\n    }\n  },\n  \"change\": \"Presentation-only theme compatibility: transparent page roots, host theme CSS variables with standalone system-color/font fallbacks, no banner title/side padding and row-count fixed-pixel plot height. Paired estimates, work checks, orientation and latency semantics unchanged.\",\n  \"scope\": \"Reporting preparation. Earlier 31 portable checks/compilation remain linked to their original receipt, not rerun here. Full actual primary extraction and final chart render remain pending.\"\n}\n"
+}

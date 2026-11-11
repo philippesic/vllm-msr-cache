@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/prelaunch.json",
+    "sha256": "81d6a15511d1668e0fda52d360600367a18628e97b3c9752d7c7d9534fc47312"
+  },
+  "content": "{\n  \"schedule_matches\": true,\n  \"input_identities_match\": true,\n  \"runtime_identity_matches\": true,\n  \"both_reservations_free\": true,\n  \"historical_states\": {\n    \"('repository', 'failed')\": 1,\n    \"('overhead', 'verified')\": 48,\n    \"('advice', 'verified')\": 12\n  },\n  \"protocol\": \"output/stage6-2080ti-20261106/addendum-03/protocol.lock.json\",\n  \"snapshot\": \"/home/philip/.cache/semantic-offload/stage6-assets/source-snapshots/8898975e65ed010bb145bb74f30fd370204621768fe3d1fca27975a5fa76625d\"\n}\n"
+}

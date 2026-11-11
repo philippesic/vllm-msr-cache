@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-REPOSITORIES = {"legacy", "current"}
+REPOSITORIES = {"legacy", "current", "legacy-local"}
 VERDICTS = {"supported", "negative", "mixed", "unresolved", "functional"}
 FIELDS = {
     "schema",
@@ -54,10 +54,17 @@ def read_result(path: Path) -> dict[str, Any]:
             or source["repository"] not in REPOSITORIES
         ):
             raise ValueError("invalid source fields")
-        if not re.fullmatch(r"[0-9a-f]{40}", source["revision"]) or not re.fullmatch(
-            r"[0-9a-f]{64}", source["sha256"]
-        ):
-            raise ValueError("source needs full revision and SHA-256")
+        revision = source["revision"]
+        valid_revision = (
+            revision is None
+            if source["repository"] == "legacy-local"
+            else isinstance(revision, str)
+            and re.fullmatch(r"[0-9a-f]{40}", revision) is not None
+        )
+        if not valid_revision or not re.fullmatch(r"[0-9a-f]{64}", source["sha256"]):
+            raise ValueError(
+                "source needs a Git revision (null for legacy-local) and SHA-256"
+            )
         if Path(source["path"]).is_absolute() or ".." in Path(source["path"]).parts:
             raise ValueError("source path must be repository-relative")
     chart = data["chart"]
@@ -133,7 +140,9 @@ def figure(chart: dict[str, Any]) -> bytes:
             format="svg",
             metadata={"Date": None, "Description": chart["caption"]},
         )
-        return buffer.getvalue()
+        return (
+            b"\n".join(line.rstrip() for line in buffer.getvalue().splitlines()) + b"\n"
+        )
 
 
 def page(data: dict[str, Any]) -> str:
@@ -152,13 +161,8 @@ def page(data: dict[str, Any]) -> str:
         text += f"\n## Correction\n\n{data['correction']}\n"
     text += "\n## Sources\n\n"
     for source in data["sources"]:
-        if source["repository"] == "legacy":
-            target = f"https://github.com/philippesic/vllm-msr-cache/blob/{source['revision']}/{source['path']}"
-            text += f"- [{source['path']}]({target})\n"
-        else:
-            text += (
-                f"- `{source['repository']}:{source['revision']}:{source['path']}`\n"
-            )
+        target = f"../sources/{source['sha256']}.json"
+        text += f"- [{source['path']}]({target})\n"
     return (
         text + "\nExact source hashes and figure inputs: [result.json](result.json).\n"
     )
@@ -203,6 +207,45 @@ def render(root: Path) -> None:
     (root / "FINDINGS.md").write_text(index(items))
 
 
+def source_content(directory: Path, archive: dict[str, Any]) -> str:
+    if "content" in archive:
+        return str(archive["content"])
+    parts = archive["parts"]
+    sha = archive["source"]["sha256"]
+    if not parts or parts != [f"parts/{sha}/{n:04}.json" for n in range(len(parts))]:
+        raise ValueError("invalid source parts")
+    return "".join(
+        json.loads((directory / part).read_text())["content"] for part in parts
+    )
+
+
+def check_catalog(root: Path, names: set[str]) -> None:
+    catalog = root / "results/sources/catalog.json"
+    if not catalog.exists():
+        return
+    data = json.loads(catalog.read_text())
+    if data["schema"] != 1:
+        raise ValueError("unknown source catalog schema")
+    indexed = set()
+    for entry in data["sources"]:
+        sha = entry["sha256"]
+        if not re.fullmatch(r"[0-9a-f]{64}", sha) or sha in indexed:
+            raise ValueError("invalid or duplicate source catalog identity")
+        indexed.add(sha)
+        archive = json.loads((catalog.parent / f"{sha}.json").read_text())
+        if entry["path"] != archive["source"]["path"]:
+            raise ValueError("source catalog path mismatch")
+        if not entry["results"] or not set(entry["results"]) <= names:
+            raise ValueError("source catalog refers to missing result")
+    actual = {
+        p.stem
+        for p in catalog.parent.glob("*.json")
+        if re.fullmatch(r"[0-9a-f]{64}", p.stem)
+    }
+    if indexed != actual:
+        raise ValueError("source catalog membership mismatch")
+
+
 def check(root: Path) -> list[str]:
     if not (root / "results").exists():
         return []
@@ -211,6 +254,17 @@ def check(root: Path) -> list[str]:
         items = records(root)
         if not items:
             raise ValueError("results directory has no results")
+        check_catalog(root, {path.parent.name for path, _ in items})
+        for archive_path in (root / "results/sources").glob("*.json"):
+            if not re.fullmatch(r"[0-9a-f]{64}", archive_path.stem):
+                continue
+            archived = json.loads(archive_path.read_text())
+            if (
+                digest(source_content(archive_path.parent, archived).encode())
+                != archive_path.stem
+                or archived["source"]["sha256"] != archive_path.stem
+            ):
+                raise ValueError(f"source archive mismatch: {archive_path.name}")
         for path, data in items:
             for source in data["sources"]:
                 archive = json.loads(
@@ -220,7 +274,10 @@ def check(root: Path) -> list[str]:
                 )
                 if (
                     archive["source"] != source
-                    or digest(archive["content"].encode()) != source["sha256"]
+                    or digest(
+                        source_content(root / "results/sources", archive).encode()
+                    )
+                    != source["sha256"]
                 ):
                     raise ValueError(f"source archive mismatch: {source['path']}")
             receipt = json.loads((path.parent / "rendered.json").read_text())
@@ -251,8 +308,12 @@ def check(root: Path) -> list[str]:
 def verify_sources(root: Path, repository: Path) -> None:
     checked: set[tuple[str, str]] = set()
     missing: set[tuple[str, str]] = set()
+    local: set[str] = set()
     for _path, data in records(root):
         for source in data["sources"]:
+            if source["repository"] == "legacy-local":
+                local.add(source["sha256"])
+                continue
             identity = (source["revision"], source["path"])
             if identity in checked or identity in missing:
                 continue
@@ -271,7 +332,8 @@ def verify_sources(root: Path, repository: Path) -> None:
             else:
                 checked.add(identity)
     print(
-        f"Sources verified: {len(checked)}; unavailable in this repository: {len(missing)}"
+        f"Sources verified: {len(checked)}; unavailable in this repository: {len(missing)}; "
+        f"local artifact snapshots (not Git sources): {len(local)}"
     )
     if not checked:
         raise ValueError("no sources verified; provide the correct Git archive")

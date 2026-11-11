@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/early-three-cells-render.json",
+    "sha256": "e3171fa972d8656334d0b456be1b6be8b0486539868cd27bc517d450114adbd4"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-derived-chart-render-v1\",\n  \"campaign_complete\": false,\n  \"data\": \"confirmation-three-cells.json\",\n  \"data_sha256\": \"38a108375ce6f83d0959750d6b12f1dc48a889f764aa68d99eac86a44040b021\",\n  \"html\": \"early-three-cells.html\",\n  \"html_sha256\": \"c4a74447955f3439d8bc25aa90b94efde191a52bb5ca461052e16f1deba8e76f\",\n  \"preview\": {\n    \"width\": 728,\n    \"contentHeight\": 867,\n    \"consoleMessages\": []\n  },\n  \"render\": {\n    \"attachmentId\": \"mcp-launch-5cc79481d4d97b44b4c6cf5f1de491084f7f89c30d5802c9dbc55da66ceb13b2-7224d1cf-a5b8-4adb-a65d-f5f2fd2c4036-html\",\n    \"title\": \"RTX 5080: three completed native cells\",\n    \"height\": 867,\n    \"heights\": [\n      [\n        320,\n        1173\n      ],\n      [\n        375,\n        1095\n      ],\n      [\n        430,\n        1020\n      ],\n      [\n        520,\n        942\n      ],\n      [\n        640,\n        885\n      ],\n      [\n        728,\n        867\n      ],\n      [\n        860,\n        846\n      ],\n      [\n        1000,\n        774\n      ],\n      [\n        1144,\n        774\n      ]\n    ]\n  },\n  \"scope\": \"New three-cell completed-native checkpoint; earlier two-cell display/receipt retained unchanged. Static SVG/table values derived from this exact JSON; full-campaign chart remains pending.\"\n}\n"
+}

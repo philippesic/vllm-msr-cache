@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261109/confirm-quality-checkpoint-03.json",
+    "sha256": "8ddb3fa59a5a51b4a9eaca11fed86dcb2ee2e6b9833b8de3311978f4e02fe66a"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-partial-quality-validator-v1\",\n  \"phase\": \"confirm\",\n  \"acquisition_complete\": false,\n  \"status\": \"audited\",\n  \"reviewed\": 635,\n  \"packet_digest\": \"d6f94d18d9235161f312f83164f47e852228ca8d655860e28ba9437cd1df4535\",\n  \"ratings_digest\": \"7e4992c3a297cc28797837220a2c75579cd86358840b4c854dd603a40233e271\",\n  \"isolated_workspace\": \"/home/philip/vllm-semantic-cache-ext/output/stage6-5080-20261109/quality-confirm-audit-checkpoint-03\",\n  \"scope\": \"Frozen-schema finish validator on a materialized isolated copy of the partial snapshot. Live campaign analysis/quality and acquisition not changed. Not the final confirmation audit.\",\n  \"review_findings\": {\n    \"source_unsupported\": 76,\n    \"instruction_failures\": 84,\n    \"not_useful\": 0\n  },\n  \"validator_binding\": {\n    \"finish_review_and_rubric_ast_equal\": true,\n    \"mutable_module_sha256\": \"80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d\",\n    \"frozen_module_sha256\": \"80711f26e3c39f588b5932d4013c693712ac7d26014e526246ef0c7de7c3706d\",\n    \"scope\": \"Called mutable helper with exact AST equality to archived finish_review and RUBRIC; acquisition uses only frozen source.\"\n  }\n}\n"
+}

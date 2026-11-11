@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/primary-final-report.json",
+    "sha256": "41bddd3b5f22310387ed9510d602fc000bb7a1ae8a5fa5c88e4fc32bd5fb3d43"
+  },
+  "content": "{\n  \"complete\": true,\n  \"throughput_acquisition_complete\": true,\n  \"missing_blocks\": [],\n  \"comparisons\": 42,\n  \"comparisons_digest\": \"ac21f798b07f186b98e96f06d040ce11b1d2c41ab171bf7e4c82c64180afcbd3\",\n  \"quality_status\": \"audited\",\n  \"quality_reviewed\": 6998,\n  \"completion\": {\n    \"complete\": true,\n    \"throughput\": true,\n    \"quality_audit_complete\": true,\n    \"overhead\": true,\n    \"operational\": true,\n    \"recovery\": true,\n    \"portability\": true,\n    \"scope\": \"Ready for the separately gated 5080 replication; no 5080 performance or production claim\"\n  }\n}\n"
+}

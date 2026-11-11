@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/wait-opportunity-20261104/handoff.json",
+    "sha256": "333dc585ae5afdd1400f33945bf42b1749adc1facbae123624a8821c9129e1e3"
+  },
+  "content": "{\n  \"tests\": {\n    \"pinned_runtime_affected_passed\": 453,\n    \"portable_passed\": 31,\n    \"compileall\": \"passed\",\n    \"diff_check\": \"passed\",\n    \"logs\": [\n      \"../../output/wait-opportunity-20261104/final-tests.log\",\n      \"../../output/wait-opportunity-20261104/check-light.log\"\n    ]\n  },\n  \"measurement\": {\n    \"final_cases\": 9,\n    \"responses\": 576,\n    \"actual_tools\": 432,\n    \"test_status_checks\": 144,\n    \"native_endpoint_identities\": 45,\n    \"retained_run_sets_offline_verified\": 9\n  },\n  \"scope\": \"No deployment; exact KV; broader reasoning quality, SVD and GPU prefetch not qualified by this new comparison\",\n  \"commands\": {\n    \"pair\": \"make bench-agent-pressure PY=... MODEL=... OUT=new-directory\",\n    \"three_way\": \"make bench-agent-pressure PY=... MODEL=... OUT=new-directory BENCH_ARGS='--repeats 3 --semantic-config benchmarks/research_checks/fixtures/semantic_wait_prefix.json'\",\n    \"offline\": \"make bench-verify PY=... OUT=existing-directory\"\n  },\n  \"source\": {\n    \"benchmarks/research_checks/wait_opportunity_report.py\": \"8867c9e1d0ae99010a59b237a3ded57cbef7948df8309f0eba6507bf0c082752\",\n    \"benchmarks/serving_suite/verify.py\": \"393e8c41c0eeb24824c287c5d3fd3d7e998eb638c9a8f2a081104bb495199cc2\",\n    \"benchmarks/serving_suite/report.py\": \"c3cd61c2e4d76ae048c45ab9de51cfd8c480abb5a138eec7aba69310304cfb00\"\n  }\n}\n"
+}

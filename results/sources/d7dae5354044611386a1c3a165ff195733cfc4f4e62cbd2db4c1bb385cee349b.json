@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/real-agent-eval-20261104/verification.json",
+    "sha256": "d7dae5354044611386a1c3a165ff195733cfc4f4e62cbd2db4c1bb385cee349b"
+  },
+  "content": "{\n  \"verified_files\": 282,\n  \"cases\": 4,\n  \"request_records\": 128,\n  \"measurement_status\": \"passed\",\n  \"scope\": \"Artifact integrity and aggregate consistency; not a new GPU/quality qualification.\",\n  \"source_archive_files_verified\": 2204,\n  \"source_unchanged_since_execution\": true,\n  \"cpu_checks\": {\n    \"full_passed\": 1423,\n    \"full_skipped\": 26,\n    \"runner_passed\": 104,\n    \"portable_passed\": 31\n  }\n}\n"
+}

@@ -22,8 +22,8 @@ Keep published-system comparisons and their configuration corrections; do not tr
 
 ## Sources
 
-- [evidence/fair-four-20261104/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/fair-four-20261104/README.md)
-- [evidence/fair-four-20261104/FAIRNESS.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/fair-four-20261104/FAIRNESS.md)
-- [evidence/five-way-20261104/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/five-way-20261104/README.md)
+- [evidence/fair-four-20261104/README.md](../sources/ad2c579a666970958e932f2d4f4e9a487cae8b0ac25853abef3c8596f05daf74.json)
+- [evidence/fair-four-20261104/FAIRNESS.md](../sources/166ab5af84086633b621be3721f099d762cad2a1dc9cced48099ef252b6eda51.json)
+- [evidence/five-way-20261104/README.md](../sources/0b4becee3ce003905b0465a76f065d3d8b61e8e28e76602a34db9df0aeea85fe.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

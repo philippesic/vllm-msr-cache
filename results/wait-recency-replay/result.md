@@ -22,6 +22,6 @@ Keep as evidence that simple recency advice can matter; assess latency and usefu
 
 ## Sources
 
-- [evidence/cpu-wait-recency-2080ti-20261102/result.json](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/cpu-wait-recency-2080ti-20261102/result.json)
+- [evidence/cpu-wait-recency-2080ti-20261102/result.json](../sources/13a24c4887c41a9edab31ff860979a3c72ceaaf59fead5a838d1bce3d4766237.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

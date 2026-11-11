@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/wait-opportunity-20261104/preservation.json",
+    "sha256": "50fc747a656bbb6790edc4950985b835bcae1d57bf3ffcb57cc8d18aa935b902"
+  },
+  "content": "{\n  \"unrelated_prior_files\": 43,\n  \"all_preserved\": true,\n  \"proof\": \"../../output/wait-opportunity-20261104/prior-work-check-final.json\",\n  \"backup\": \"../../output/wait-opportunity-20261104/before-files.tar.gz\"\n}\n"
+}

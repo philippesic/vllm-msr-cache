@@ -2,7 +2,11 @@
 
 2026-11-10 · historical · unresolved
 
-The November 8 Continuum warmups failed because its binary lacked sm_120 or PTX. Rebuilding the same LMCache source repaired exact transfers and all required screens. The November 9 report remains a running-campaign snapshot.
+The November 8 Continuum warmups failed because its binary lacked sm_120 or PTX. Rebuilding the same LMCache source repaired exact transfers and all required screens. The November 9 report remains a running-campaign snapshot. Three completed native control cells had throughput intervals spanning parity and no CPU restoration activity.
+
+![Candidate / ARC throughput ratio](chart.svg)
+
+Retained interim 5080 control cells, whole-process paired log Student-t 95% intervals: 12 chat, 6 QA and 12 document pairs. No returning CPU restoration or eviction-affected returns; not a pressured-offload benefit or final campaign estimate.
 
 ## Scope
 
@@ -16,10 +20,14 @@ One candidate attempt had zero restores and preemptions and remains excluded. Co
 
 Retain the binary capability finding and incomplete-study boundary. New-code 5080 qualification remains deferred, not silently inherited.
 
+## Correction
+
+2026-11-10: made the already reported interim control-cell estimates visible; no additional acquisition or completion claim.
+
 ## Sources
 
-- [evidence/stage6-5080-20261108/RESULTS.md](https://github.com/philippesic/vllm-msr-cache/blob/6bbdbdee7ab8ac8012dc27a2938175477d58fb0f/evidence/stage6-5080-20261108/RESULTS.md)
-- [evidence/stage6-5080-20261109/RESULTS.md](https://github.com/philippesic/vllm-msr-cache/blob/6bbdbdee7ab8ac8012dc27a2938175477d58fb0f/evidence/stage6-5080-20261109/RESULTS.md)
-- [evidence/stage6-5080-20261109/lmcache-build.json](https://github.com/philippesic/vllm-msr-cache/blob/6bbdbdee7ab8ac8012dc27a2938175477d58fb0f/evidence/stage6-5080-20261109/lmcache-build.json)
+- [evidence/stage6-5080-20261108/RESULTS.md](../sources/ddac83d85705be6435c128eec946fab974c29b51965bf0cf03363bd890be613a.json)
+- [evidence/stage6-5080-20261109/RESULTS.md](../sources/9b320da8cf8ec55cb6725c3a44fc3958d7b51854dd84b21bc6322428292d6a42.json)
+- [evidence/stage6-5080-20261109/lmcache-build.json](../sources/3ae829d44ab34eb1427b576fdfb76489826d9d598f88e0e5c9c7bc412a6368bd.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

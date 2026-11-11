@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/cleanup-and-caps.json",
+    "sha256": "e4a42a1c7f71e65a19afacc06ab936eb668d7e0131a913109490d323ffd596c7"
+  },
+  "content": "{\n  \"ordinary_responses\": 1152,\n  \"all_attempts\": 18,\n  \"caps\": [\n    {\n      \"attempt\": \"fd838722f86a46b388f67a392d06a5c6\",\n      \"request_id\": \"sc|suite|case|w0-s9|sample-2\",\n      \"node_id\": \"r2\",\n      \"source_id\": \"more-gray_product\"\n    }\n  ],\n  \"all_caps_in_review\": true,\n  \"coordinator_exited\": true,\n  \"both_locks_free\": true,\n  \"owned_cleanup_verified\": true\n}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+    "path": "evidence/stage6-5080-20261108/supervision-takeover.json",
+    "sha256": "e616d54ccd905753ff53fb4a359b2cc62c1c43e6792a7c7f942bbb4770beb3f6"
+  },
+  "content": "{\n  \"schema\": \"stage6-5080-supervision-takeover-v1\",\n  \"thread_title\": \"Stage 6 5080 Replication (continued)\",\n  \"thread_id\": \"mcp:launch:88f1283af00bb5a99a0c27b25e8461a3417935a8903dc08e845bf2bdb84e2f19\",\n  \"thread_link\": \"<t3-thread://v2/92296584-2a2c-4998-8f7d-4ecb7d7f5ff2/mcp:launch:88f1283af00bb5a99a0c27b25e8461a3417935a8903dc08e845bf2bdb84e2f19>\",\n  \"same_authorized_campaign\": true,\n  \"old_schedule\": \"scheduled-task:fbd7ddce-7c9a-45b1-b122-09c729422576\",\n  \"replacement_schedule\": \"scheduled-task:command:mcp:f2e58f4f-4c8a-49b9-8d5b-1b11e3659daa:schedule-task:stage6-5080-supervision-takeover-20261109-01\",\n  \"interval_ms\": 900000,\n  \"old_schedule_enabled\": false,\n  \"replacement_schedule_enabled\": false,\n  \"replacement_first_due_utc\": \"2026-11-09T07:18:54.931Z\",\n  \"outcome\": \"failed\",\n  \"reason\": \"Pinned Continuum LMCache extension lacks RTX 5080 kernel support; all five anchor screens failed warmup\",\n  \"raw_health_receipt\": \"output/stage6-5080-20261108/supervision-health-01.private.json\",\n  \"stop_receipt\": \"output/stage6-5080-20261108/capability-stop.private.json\",\n  \"final_receipt\": \"output/stage6-5080-20261108/failure-closeout.private.json\"\n}\n"
+}

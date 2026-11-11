@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy",
+    "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+    "path": "evidence/stage6-2080ti-20261106/repository-recovery-03/verification.json",
+    "sha256": "eafbe14a352435365414c040d186c8abfd106634d752a682dc355801a96379dd"
+  },
+  "content": "{\n  \"schema\": \"serving-campaign-verification-v1\",\n  \"attempts\": {\n    \"verified\": 18\n  },\n  \"verified_files\": 2476,\n  \"protocol_frozen\": true,\n  \"scope\": \"Integrity and aggregate consistency; acquisition/correctness/quality completion is separate\"\n}\n"
+}

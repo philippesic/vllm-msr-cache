@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-audit/WINDOWS-TRANSFER-CLEANUP.json",
+    "sha256": "23c6a7c3135883d41dd0a80fb1e5277063bf68a6617da1b0ac8cd5be4c14dc9b"
+  },
+  "content": "{\n  \"scope\": \"root-owned verified review-transfer duplicates only; canonical Mac reviews and archived evidence preserved\",\n  \"filesystem\": \"native Windows C\",\n  \"actions\": [\n    {\n      \"path\": \"C:\\\\Users\\\\philip\\\\scoring-audit-astra-review.md\",\n      \"verified_backup\": true,\n      \"removed_bytes\": 25453\n    },\n    {\n      \"path\": \"C:\\\\Users\\\\philip\\\\scoring-audit-astra-round2-review.md\",\n      \"verified_backup\": true,\n      \"removed_bytes\": 22601\n    }\n  ],\n  \"free_before\": 109766500352,\n  \"observed_delta\": 53248,\n  \"free_after\": 109766553600\n}\n"
+}

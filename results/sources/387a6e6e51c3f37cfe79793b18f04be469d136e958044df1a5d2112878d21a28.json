@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/scoring-audit/round4-results/round4/evidence/tiny-gate-analysis.json",
+    "sha256": "387a6e6e51c3f37cfe79793b18f04be469d136e958044df1a5d2112878d21a28"
+  },
+  "content": "{\n  \"prefrozen_hashes_verified\": true,\n  \"phases\": [\n    {\n      \"phase\": \"readiness\",\n      \"mean\": {\n        \"default\": {\n          \"wall_ns\": 7865569.666666667,\n          \"thread_cpu_ns\": 7863294.333333333,\n          \"query_wall_ns\": 0,\n          \"query_thread_cpu_ns\": 0,\n          \"completion_age_ns\": 9053080.333333334\n        },\n        \"cooperative\": {\n          \"wall_ns\": 8125741.666666667,\n          \"thread_cpu_ns\": 207201.66666666666,\n          \"query_wall_ns\": 75624.66666666667,\n          \"query_thread_cpu_ns\": 61018.666666666664,\n          \"completion_age_ns\": 8259370.666666667\n        }\n      },\n      \"cooperative_cpu_ratio\": 0.026350491013456913,\n      \"mean_extra_wall_ms\": 0.260172,\n      \"prefrozen_gate_pass\": true\n    },\n    {\n      \"phase\": \"readback\",\n      \"mean\": {\n        \"default\": {\n          \"wall_ns\": 7880656.333333333,\n          \"thread_cpu_ns\": 7515983.666666667,\n          \"query_wall_ns\": 0,\n          \"query_thread_cpu_ns\": 0,\n          \"completion_age_ns\": 8010369\n        },\n        \"cooperative\": {\n          \"wall_ns\": 8225143.666666667,\n          \"thread_cpu_ns\": 306805.6666666667,\n          \"query_wall_ns\": 91215.66666666667,\n          \"query_thread_cpu_ns\": 76468,\n          \"completion_age_ns\": 8318538.666666667\n        }\n      },\n      \"cooperative_cpu_ratio\": 0.04082042754128746,\n      \"mean_extra_wall_ms\": 0.344487333333334,\n      \"prefrozen_gate_pass\": true\n    }\n  ],\n  \"interval_s\": 0.0005,\n  \"exact_values\": true\n}"
+}

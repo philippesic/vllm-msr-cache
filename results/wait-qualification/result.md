@@ -22,9 +22,9 @@ Keep causal controls, adverse cases and exact support boundaries as design knowl
 
 ## Sources
 
-- [evidence/wait-qualification-20261105/README.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/wait-qualification-20261105/README.md)
-- [evidence/wait-qualification-20261105/SUPPORT_MATRIX.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/wait-qualification-20261105/SUPPORT_MATRIX.md)
-- [evidence/wait-qualification-20261105/REGRESSIONS.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/wait-qualification-20261105/REGRESSIONS.md)
-- [evidence/wait-qualification-20261105/QUALITY.md](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/evidence/wait-qualification-20261105/QUALITY.md)
+- [evidence/wait-qualification-20261105/README.md](../sources/9d586b062630410b28e9dd6599277a7cd39f8733b789c28aeae809b179b211ab.json)
+- [evidence/wait-qualification-20261105/SUPPORT_MATRIX.md](../sources/8e8df31122b9fb3d2d2c04a26b590bb7ffc7fe079069c76d1c9a52832f03b89e.json)
+- [evidence/wait-qualification-20261105/REGRESSIONS.md](../sources/d82d1bf0571a4d7e6013d386631061da100445f40a779679fd87965aea802d94.json)
+- [evidence/wait-qualification-20261105/QUALITY.md](../sources/a6731795aa9ec410f1f3570c10b6104b79a1138dd47c322e2b540b02020f7f01.json)
 
 Exact source hashes and figure inputs: [result.json](result.json).

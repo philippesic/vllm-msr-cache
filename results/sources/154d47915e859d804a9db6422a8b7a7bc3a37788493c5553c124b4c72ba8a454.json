@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/admission-trial/results/admission_trial/funnel.csv",
+    "sha256": "154d47915e859d804a9db6422a8b7a7bc3a37788493c5553c124b4c72ba8a454"
+  },
+  "content": "arm,eligible_events,eligible_unique,offered_events,offered_unique,threshold_rejected_events,qualified_new_events,already_ready_events,already_pending_events,allocation_failed_keys,prepare_none_events,accepted_events,accepted_unique,submitted_events,completed_events,failed_events,cpu_evicted_events,cpu_evicted_unique,peak_ready_blocks,peak_ready_MiB,sample_mean_ready_blocks,final_ready_blocks,completed_store_source_gpu_refpositive,completed_store_source_gpu_ids_checked,stored_physical_ids_reassigned_different_requests_keys,store_jobs,completed_d2h_bytes,resident_ever_unique,demand_restore_unique_keys,spec_restore_unique_keys,stored_unique_ever_actually_demand_restored,stored_unique_ever_spec_restored,lookup_miss_events,lookup_hit_events,lookup_pending_events,first_miss_break_episodes,unprobed_after_first_miss_events,funnel_snapshot_encode_write_cpu_ms_lower_bound,funnel_snapshot_encode_write_wall_ms_lower_bound\r\narc_t2,6069,1692,6052,1692,6031,11,10,0,0,0,11,11,11,11,0,0,0,11,24.75,5.286868391029826,11,11,11,0,11,25952256,11,8,0,8,0,45,17,0,45,4971,28.059534,39.920259\r\nprefetch_t2,6069,1692,6052,1692,6031,11,10,0,0,0,11,11,11,11,0,0,0,11,24.75,5.302434719833527,11,11,11,0,11,25952256,11,7,4,7,4,45,17,0,45,4975,27.297838,27.47814\r\nprefetch_t0,6069,1692,68355,1692,0,66210,2145,0,61248,405,4962,1650,4962,4962,0,4763,1633,199,447.75,159.09167847803187,199,5069,5088,0,39,11706826752,1650,110,56,110,56,72,166,0,72,5289,34.090986,61.953882\r\narc_t0,6069,1692,91403,1692,0,87548,3855,0,82767,470,4781,1658,4781,4781,0,4582,1633,199,447.75,168.32700127029665,199,4800,4933,0,40,11279794176,1658,284,0,284,0,45,284,0,45,4950,36.211852,39.15721\r\n"
+}

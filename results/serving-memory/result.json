@@ -6,7 +6,7 @@
   "verdict": "mixed",
   "summary": "Reducing the candidate to 1,280 GPU KV blocks saved 224 MiB versus native ARC at 1,536 blocks while improving measured throughput. Startup memory did not improve, and the candidate incurred 23 preemptions.",
   "scope": "Thirty-six invocations: twelve matched triples across three previously used public traces, 2,592 natural-EOS responses; equal 1.75 GiB CPU cache.",
-  "limitations": "Positive-wait return-tail improvement was unresolved. No host-RAM or universal tail claim follows. Separate startup-loading prototypes were rejected or interrupted; their partial work remains paused in the old repository.",
+  "limitations": "Positive-wait return-tail improvement was unresolved. No host-RAM or universal tail claim follows. Separate startup-loading prototypes were rejected or interrupted; their partial findings are retained in [paused loading](../paused-loading/result.md).",
   "decision": "Retain serving-memory savings as a scoped result. Do not import the paused loading prototype or claim reduced startup memory.",
   "sources": [
     {
@@ -41,5 +41,5 @@
       }
     ]
   },
-  "correction": ""
+  "correction": "2026-11-10: linked the separately retained partial loading evidence; measurements unchanged."
 }
