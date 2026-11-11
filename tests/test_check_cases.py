@@ -99,15 +99,13 @@ def prepare(root: Path, component: str) -> None:
             "CLAUDE.md": "@AGENTS.md\n",
             "probe.py": "value: int = 1\n",
             "wait_hint_offload/__init__.py": "",
-            "wait_hint_offload/contracts.py": (
-                ROOT / "wait_hint_offload/contracts.py"
-            ).read_text(),
+            "wait_hint_offload/contracts.py": "",
             "wait_hint_offload/vllm_adapter/__init__.py": "",
             "tests/__init__.py": "",
             "vllm/__init__.py": "",
             "tools/check.py": "def main() -> int:\n    return 0\n",
             "docs/system-map.md": "\n".join(system_map.rows()) + "\n",
-            "tests/test_contracts.py": (ROOT / "tests/test_contracts.py").read_text(),
+            "tests/test_contracts.py": "",
             "tools/__init__.py": "",
             "tools/pytest_gate.py": (ROOT / "tools/pytest_gate.py").read_text(),
             "tools/runtime_capture.py": (ROOT / "tools/runtime_capture.py").read_text(),

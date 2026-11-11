@@ -43,16 +43,7 @@ after completion. These are functional cases, not a performance experiment.
 
 ## Repairs and limits
 
-Initial portable checks found test typing/import issues and isolated proof-fixture
-coupling; these were repaired without adding exceptions or weakening rules. A mypy
-internal assertion occurred while runtime and portable checks shared its cache.
-A fresh cache passed; the failed cache and two failed full-check logs are retained
-under `overhaul-20261110/`. Normal-cache type checking passed after replacement.
-
 PyTorch deprecation warnings and upstream shutdown warnings remain in raw logs.
 Hardware fault recovery, distributed execution, other layouts/models and general
 quality equivalence are not established. The pinned upstream ARC eviction defect
 remains in both modes.
-
-Actions CI was removed by request. Local checks and the pre-commit hook remain.
-There is no remote, so this checkpoint and evidence are local only.

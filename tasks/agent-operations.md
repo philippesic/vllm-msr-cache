@@ -1,7 +1,7 @@
 # Agent operations
 
 ## Goal
-Add repository-specific agent operations once the environment overhaul is settled:
+Add repository-specific agent operations after results maintenance is settled:
 skills for repeated procedures and support for long-running work.
 
 ## Authorized
@@ -22,7 +22,8 @@ Candidate list only:
   requalifying both advice modes.
 - Session start: surface open `tasks/` files and recent FINDINGS automatically.
 - Completion notification for long GPU runs, tested end to end before relying on it.
-- A recurring fresh-agent evaluation of this repository (see the efficacy test design).
+Agent effectiveness will be observed during ordinary work over time. No separate
+one-off or recurring evaluation is planned.
 
 ## Next
 Philip reviews the candidate list.

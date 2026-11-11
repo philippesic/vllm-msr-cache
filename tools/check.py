@@ -61,7 +61,9 @@ def component(name: str, root: Path) -> int:
     if name == "lint":
         return run(["ruff", "check", "."], root)
     if name == "types":
-        return run(["mypy", "--strict"], root)
+        return run(
+            ["mypy", "--strict", "--cache-dir", str(config.type_cache(root))], root
+        )
     if name == "imports":
         return run(["lint-imports", "--config", "pyproject.toml", "--no-cache"], root)
     raise ValueError(f"Unknown component: {name}")
@@ -165,6 +167,8 @@ def main() -> int:
         command = [
             "mypy",
             "--strict",
+            "--cache-dir",
+            str(config.type_cache(ROOT, args.runtime_python)),
             "--follow-imports=silent",
             "--python-executable",
             str(args.runtime_python),
