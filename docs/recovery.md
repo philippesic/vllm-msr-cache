@@ -25,8 +25,15 @@ have an independent off-machine backup.
 
 ## Recover the project
 
-Clone the project's private origin, install the locked development environment,
-and enable the local hook with `git config core.hooksPath .githooks`.
+A verified local Git bundle is retained at
+`/home/philip/.local/share/vllm-semantic-cache-ext-next/backups/before-remote-removal.bundle`.
+It contains complete history through the results-maintenance checkpoint. Clone the
+bundle into a new directory, install the locked development environment, and enable
+the local hook with `git config core.hooksPath .githooks`. Later commits remain in
+this working repository; refresh a bundle deliberately when a new checkpoint is needed.
+There is no configured remote. The previously created hosted copy awaits deletion
+because the available GitHub credential lacks deletion permission; see the open
+results-review task.
 Run `uv run --locked python tools/check.py --full` to validate the restored project.
 Run `uv run --locked python tools/check.py --render-results` and confirm
 `git diff --exit-code -- FINDINGS.md results` succeeds. This checks reproducible
