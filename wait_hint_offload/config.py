@@ -5,6 +5,14 @@ from dataclasses import dataclass
 
 from wait_hint_offload.contracts import Namespace, positive_integer
 
+DEFAULT_MAX_SESSIONS = 4096
+DEFAULT_MAX_EVENTS = 256
+MAX_SESSIONS = 100_000
+MAX_EVENTS = 100_000
+DEFAULT_METADATA_BYTES = 64 * 1024 * 1024
+MAX_METADATA_BYTES = 256 * 1024 * 1024
+MAX_CPU_BYTES = 2**50
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -13,7 +21,20 @@ class Settings:
     advice_enabled: bool
     max_sessions: int
     max_events: int
-    store_threshold: int
+    metadata_bytes: int = DEFAULT_METADATA_BYTES
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.namespace, Namespace):
+            raise ValueError("namespace")
+        if type(self.advice_enabled) is not bool:
+            raise ValueError("advice_enabled must be boolean")
+        for name, maximum in (
+            ("cpu_bytes_to_use", MAX_CPU_BYTES),
+            ("max_sessions", MAX_SESSIONS),
+            ("max_events", MAX_EVENTS),
+            ("metadata_bytes", MAX_METADATA_BYTES),
+        ):
+            positive_integer(getattr(self, name), name, maximum)
 
     @classmethod
     def parse(cls, raw: Mapping[str, object]) -> Settings:
@@ -23,32 +44,36 @@ class Settings:
             "advice_enabled",
             "max_sessions",
             "max_events",
-            "store_threshold",
-            "eviction_policy",
+            "metadata_bytes",
         }
         if set(raw) - allowed:
             raise ValueError(f"unknown settings: {sorted(set(raw) - allowed)}")
-        if raw.get("eviction_policy", "arc") != "arc":
-            raise ValueError("ARC required")
         enabled = raw.get("advice_enabled", False)
         if type(enabled) is not bool:
             raise ValueError("advice_enabled must be boolean")
-        threshold = raw.get("store_threshold", 0)
-        if type(threshold) is not int or threshold != 0:
-            raise ValueError("store_threshold")
         return cls(
             Namespace.parse(raw.get("namespace")),
-            positive_integer(raw.get("cpu_bytes_to_use"), "cpu_bytes_to_use", 2**50),
+            positive_integer(
+                raw.get("cpu_bytes_to_use"), "cpu_bytes_to_use", MAX_CPU_BYTES
+            ),
             enabled,
-            positive_integer(raw.get("max_sessions", 4096), "max_sessions", 100_000),
-            positive_integer(raw.get("max_events", 256), "max_events", 100_000),
-            threshold,
+            positive_integer(
+                raw.get("max_sessions", DEFAULT_MAX_SESSIONS),
+                "max_sessions",
+                MAX_SESSIONS,
+            ),
+            positive_integer(
+                raw.get("max_events", DEFAULT_MAX_EVENTS), "max_events", MAX_EVENTS
+            ),
+            positive_integer(
+                raw.get("metadata_bytes", DEFAULT_METADATA_BYTES),
+                "metadata_bytes",
+                MAX_METADATA_BYTES,
+            ),
         )
 
     def mechanisms(self) -> dict[str, object]:
         return {
             "schema": "wait-hint-mechanisms-v1",
             "cpu_arc_recency_advice": self.advice_enabled,
-            "semantic_scoring": "absent",
-            "gpu_prefetch": "absent",
         }

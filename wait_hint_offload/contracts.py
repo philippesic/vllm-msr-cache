@@ -5,6 +5,25 @@ import json
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 
+MAX_NAME_LENGTH = 192
+MAX_GENERATION = 2**63 - 1
+MAX_TIMESTAMP = 2**63 - 1
+MAX_BOUNDARY = 1_000_000
+MAX_HINT_WINDOW_NS = 60_000_000_000
+MAX_KEY_BYTES = 256
+
+
+def bounded_name(value: object, name: str) -> str:
+    if not isinstance(value, str) or not 0 < len(value) <= MAX_NAME_LENGTH:
+        raise ValueError(name)
+    return value
+
+
+def generation_number(value: object) -> int:
+    if type(value) is not int or not 0 <= value <= MAX_GENERATION:
+        raise ValueError("generation")
+    return value
+
 
 @dataclass(frozen=True)
 class Namespace:
@@ -12,6 +31,10 @@ class Namespace:
     tokenizer_revision: str
     adapter_namespace: str
     layout_namespace: str
+
+    def __post_init__(self) -> None:
+        for name, value in self.mapping().items():
+            bounded_name(value, name)
 
     def mapping(self) -> dict[str, str]:
         return {
@@ -32,7 +55,8 @@ class Namespace:
         if not isinstance(raw, dict) or set(raw) != set(names):
             raise ValueError("namespace fields")
         if any(
-            not isinstance(raw[n], str) or not 0 < len(raw[n]) <= 192 for n in names
+            not isinstance(raw[n], str) or not 0 < len(raw[n]) <= MAX_NAME_LENGTH
+            for n in names
         ):
             raise ValueError("namespace values")
         return cls(*(str(raw[n]) for n in names))
@@ -70,6 +94,28 @@ class Hint:
     deadline_ns: int
     clock_domain: str
 
+    def __post_init__(self) -> None:
+        for name in (
+            "scope",
+            "session",
+            "incarnation",
+            "event",
+            "prefix",
+            "clock_domain",
+        ):
+            bounded_name(getattr(self, name), name)
+        generation_number(self.generation)
+        if not isinstance(self.namespace, Namespace):
+            raise ValueError("namespace")
+        positive_integer(self.boundary, "boundary", MAX_BOUNDARY)
+        for name in ("observed_ns", "published_ns", "deadline_ns"):
+            positive_integer(getattr(self, name), name, MAX_TIMESTAMP)
+        if (
+            not self.observed_ns <= self.published_ns < self.deadline_ns
+            or self.deadline_ns - self.published_ns > MAX_HINT_WINDOW_NS
+        ):
+            raise ValueError("causal clocks")
+
     def mapping(self) -> dict[str, object]:
         return {"schema": "wait-hint-v2", **asdict(self)}
 
@@ -102,18 +148,18 @@ class Hint:
             "clock_domain",
         ):
             value = raw[name]
-            if not isinstance(value, str) or not 0 < len(value) <= 192:
+            if not isinstance(value, str) or not 0 < len(value) <= MAX_NAME_LENGTH:
                 raise ValueError(name)
             values[name] = value
         generation = raw["generation"]
-        if type(generation) is not int or not 0 <= generation < 2**63:
+        if type(generation) is not int or not 0 <= generation <= MAX_GENERATION:
             raise ValueError("generation")
-        observed = positive_integer(raw["observed_ns"], "observed_ns", 2**63 - 1)
-        published = positive_integer(raw["published_ns"], "published_ns", 2**63 - 1)
-        deadline = positive_integer(raw["deadline_ns"], "deadline_ns", 2**63 - 1)
+        observed = positive_integer(raw["observed_ns"], "observed_ns", MAX_TIMESTAMP)
+        published = positive_integer(raw["published_ns"], "published_ns", MAX_TIMESTAMP)
+        deadline = positive_integer(raw["deadline_ns"], "deadline_ns", MAX_TIMESTAMP)
         if (
             not observed <= published < deadline
-            or deadline - published > 60_000_000_000
+            or deadline - published > MAX_HINT_WINDOW_NS
         ):
             raise ValueError("causal clocks")
         return cls(
@@ -123,7 +169,7 @@ class Hint:
             generation,
             values["event"],
             values["prefix"],
-            positive_integer(raw["boundary"], "boundary", 1_000_000),
+            positive_integer(raw["boundary"], "boundary", MAX_BOUNDARY),
             Namespace.parse(raw["namespace"]),
             observed,
             published,
@@ -139,6 +185,11 @@ class Registration:
     incarnation: str
     generation: int
 
+    def __post_init__(self) -> None:
+        for name in ("scope", "session", "incarnation"):
+            bounded_name(getattr(self, name), "registration " + name)
+        generation_number(self.generation)
+
     @classmethod
     def parse(cls, raw: object) -> Registration:
         fields = {"schema", "scope", "session", "incarnation", "generation"}
@@ -149,9 +200,12 @@ class Registration:
         ):
             raise ValueError("registration schema")
         for name in ("scope", "session", "incarnation"):
-            if not isinstance(raw[name], str) or not 0 < len(raw[name]) <= 192:
+            if (
+                not isinstance(raw[name], str)
+                or not 0 < len(raw[name]) <= MAX_NAME_LENGTH
+            ):
                 raise ValueError("registration identity")
         generation = raw["generation"]
-        if type(generation) is not int or not 0 <= generation < 2**63:
+        if type(generation) is not int or not 0 <= generation <= MAX_GENERATION:
             raise ValueError("registration generation")
         return cls(raw["scope"], raw["session"], raw["incarnation"], generation)

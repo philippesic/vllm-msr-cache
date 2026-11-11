@@ -52,7 +52,9 @@ def finished_request(scheduler: WaitHintScheduler) -> RequestOffloadState:
     return state
 
 
-def test_finished_sample_guard_registration_and_actual_store_lifecycle() -> None:
+def test_finished_sample_guard_registration_and_actual_store_lifecycle(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     for enabled in (False, True):
         scheduler = scheduler_fixture(enabled)
         state = finished_request(scheduler)
@@ -73,9 +75,8 @@ def test_finished_sample_guard_registration_and_actual_store_lifecycle() -> None
         assert (
             scheduler.manager.lookup(key, state.req_context) is LookupResult.HIT_PENDING
         )
-        observation = scheduler.observed.sessions[
-            ("client", "conversation")
-        ].observation
+        observation = scheduler.observed.observation("client", "conversation")
+        assert observation is not None
         now = time.monotonic_ns()
         hint = Hint(
             "client",
@@ -103,7 +104,17 @@ def test_finished_sample_guard_registration_and_actual_store_lifecycle() -> None
         assert second["refreshed_keys"] == int(enabled)
         replay = scheduler.publish_wait_hint(replace(hint, event="ready").mapping())
         assert replay["newly_refreshed_keys"] == 0
-        assert replay["replayed"] == enabled
+        assert replay["replayed"] is True
+        with monkeypatch.context() as clock:
+            clock.setattr(
+                "wait_hint_offload.vllm_adapter.connector.time.monotonic_ns",
+                lambda: hint.deadline_ns + 1,
+            )
+            late = scheduler.publish_wait_hint(replace(hint, event="ready").mapping())
+        assert late == replay
+        assert replay["ready_cpu_prefix_keys"] == second["ready_cpu_prefix_keys"]
+        assert replay["decision"] == second["decision"]
+        assert replay["refreshed_keys"] == second["refreshed_keys"]
         assert (
             scheduler.publish_wait_hint(replace(hint, generation=0).mapping())[
                 "refreshed_keys"
@@ -113,7 +124,7 @@ def test_finished_sample_guard_registration_and_actual_store_lifecycle() -> None
         old_clock = scheduler.clock_domain
         scheduler.reset_cache()
         assert scheduler.clock_domain != old_clock
-        assert not scheduler.observed.sessions
+        assert scheduler.observed.observation("client", "conversation") is None
         assert scheduler.publish_wait_hint(hint.mapping())["refreshed_keys"] == 0
         assert not cast(Callable[[], bool], torch.cuda.is_initialized)()
 

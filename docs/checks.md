@@ -2,9 +2,9 @@
 
 `uv run --locked python tools/check.py` is the fast lane: every static group and the
 CPU tests in a few seconds, labeled partial. `--full` adds the rule proofs (about 30
-seconds) and is acceptance; the `.githooks/pre-commit` hook and CI run it. Enable
+seconds) and is acceptance; the `.githooks/pre-commit` hook runs it. Enable
 the hook once per clone with `git config core.hooksPath .githooks`; no check command
-changes git configuration. Neither mode runs GPU tests or builds.
+changes git configuration. Neither mode runs GPU tests or builds. Validation is local; there is no Actions CI.
 
 | Command | Purpose |
 | --- | --- |

@@ -45,7 +45,6 @@ def native_fixture(
             "layout_namespace": "fp16-dense-tp1",
         },
         "cpu_bytes_to_use": 1024,
-        "eviction_policy": "arc",
         "advice_enabled": enabled,
     }
     config = OffloadingConfig(
@@ -59,6 +58,7 @@ def native_fixture(
         parallel=OffloadingParallelConfig(0, 1, 1, 1, 1, 1, 0, True),
     )
     spec = CPUOffloadingSpec(config)
+    spec.eviction_policy = "arc"
     spec.offload_prompt_only = False
     vllm_config = SimpleNamespace(
         parallel_config=SimpleNamespace(world_size=1),
