@@ -10,31 +10,12 @@ Exact CPU KV offload with causal wait-hint ARC advice works end to end on the te
 configuration: authenticated endpoint, bounded observation and replay state, and
 transfer-failure bookkeeping. The advice-disabled control shares all guards.
 
-The pinned CPU lane passed 12 integration tests with CUDA uninitialized. On the RTX
-2080 Ti (DESKTOP-T4JKGJB, WSL2), three hardware tests passed: exact GPU/CPU bytes
-across CPU eviction, restored versus fresh generation in both advice modes, and
-authenticated HTTP delivery through async engine RPC. This covers dense FP16 TP1
-with Qwen2.5-0.5B only. It says nothing about performance, other models or other
-hardware. [Evidence and limits](evidence/functional-qualification-20261110.md).
-
-The current engine-method delivery path and repaired core passed 13 pinned-runtime
-CPU tests and all three RTX 2080 Ti hardware tests. This includes both advice modes,
-exact byte transfers, restored versus fresh token IDs and authenticated HTTP delivery.
-[Current evidence and limits](evidence/core-qualification-20261110.md).
-
-## Core and local validation, 2026-11-10
-
-Registration now requires a greater generation within an incarnation; a new
-incarnation replaces the old session. Exact event replays preserve their original
-result after expiry without refreshing ARC again, in both advice modes. The store
-owns mutations and enforces a shared metadata budget. Constructors reject invalid
-contract/settings state; refusal outcomes are typed. Fixed ARC/store choices and
-nonexistent-feature labels are no longer exposed as settings or mechanisms.
-
-Actions CI was removed by Philip's decision. Local portable acceptance and the
-pre-commit hook remain; the optional check container runs full acceptance.
-Benchmark design and agent operations remain deferred.
-[Validation and retained attempts](evidence/core-qualification-20261110.md).
+The current engine-method delivery path and core passed 13 pinned-runtime CPU tests
+and all three RTX 2080 Ti hardware tests. This covers Qwen2.5-0.5B-Instruct, dense
+FP16 TP1 on WSL2: exact byte transfers, restored versus fresh token IDs in both
+advice modes, and authenticated HTTP delivery. Performance, general answer quality
+and other models/hardware remain unqualified.
+[Evidence and limits](evidence/core-qualification-20261110.md).
 
 ## Earlier research in the previous repository
 

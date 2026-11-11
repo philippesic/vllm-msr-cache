@@ -98,3 +98,13 @@ def test_runtime_pin_matches_lock_files() -> None:
     python = ".".join(map(str, PYTHON_VERSION))
     assert (root / ".python-version").read_text().strip() == python
     assert f'requires-python = "=={python}"' in (root / "pyproject.toml").read_text()
+
+
+def test_type_caches_separate_portable_and_runtime_environments(tmp_path: Path) -> None:
+    from tools.config import type_cache
+
+    portable = type_cache(tmp_path)
+    runtime = type_cache(tmp_path, tmp_path / "runtime/bin/python")
+    other = type_cache(tmp_path, tmp_path / "other/bin/python")
+    assert len({portable, runtime, other}) == 3
+    assert runtime == type_cache(tmp_path, tmp_path / "runtime/bin/python")

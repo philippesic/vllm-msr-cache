@@ -74,3 +74,15 @@ actual Python, loaded native libraries, package versions and CUDA state.
 `--verify DIR` checks a retained attempt without rerunning it. Its process helper
 enforces a wall-time limit, makes no automatic retries, and only signals the
 session it created.
+
+## Choosing validation
+
+Run the fast lane during edits and full acceptance before commits. Changes to
+the adapter, hint protocol or runtime tests also need the pinned runtime CPU lane.
+Changes affecting real transfers or serving need the affected hardware checks,
+with GPU authorization; report any pending hardware coverage explicitly.
+
+Portable and runtime type checks use separate caches under `.mypy_cache/`; runtime
+caches are separated by interpreter path. They can run alongside each other.
+Rule proofs use minimal product specimens rather than copying live product tests,
+so adding a product test cannot change a proof fixture's imports or dependencies.
