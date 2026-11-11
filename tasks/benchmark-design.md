@@ -128,6 +128,58 @@ Only the first pair isolates advice; no blanket "control" field may change meani
 between a chart and a gate. Valid-task-rate ratios require a sufficiently useful,
 nonzero baseline; otherwise the benefit comparison is unresolved.
 
+### 3a. Revised comparison roster for review
+
+Research on 2026-11-11 and the old published-system adapter establish that the old
+four names are not a sufficient or accurately labelled permanent matrix. The old
+"upstream" arm is karen-sy's draft vLLM PR #59714 (open, draft, unmerged when checked),
+not released upstream vLLM. It applies GPU cached-block priorities at completion;
+this differs from our CPU ARC refresh during a wait. Continuum's public README calls
+its implementation a preview without the paper's estimation component. Preserve these
+identities and do not generalize preview results to the complete paper system.
+
+Proposed comparison roster, subject to runtime qualification:
+
+| Target | Role and proposed coverage |
+| --- | --- |
+| Pinned vLLM GPU prefix cache, no CPU offload | Mandatory simple deployment reference across core compare/release cases |
+| Guarded native CPU ARC, advice disabled | Mandatory causal control, same runtime/guards as wait-hint |
+| Guarded native CPU ARC plus wait-hint | Candidate, all core cases |
+| vLLM plus LMCache, plain exact CPU caching | First external practical offload target; qualify on the common model/workload subset, include in compare and release |
+| Continuum public preview plus its required LMCache integration | Direct session-aware research competitor; include live-agent, low-opportunity and interference cases in compare and release, not only a favorable tool-wait case |
+| GPU retention PR #59714, or a verified merged successor | Relevant GPU-tier mechanism; use the four-way experiment below after explicit runtime-integration approval |
+| SGLang HiCache / TensorRT-LLM retention | Relevant alternatives to reassess if the deployment expands; not mandatory extra engine ports for the initial 2080 Ti scope. Hardware/runtime feasibility remains unverified, not claimed unsupported or inferior. |
+
+Plain LMCache distinguishes a practical caching alternative from Continuum's combined
+scheduler/cache system. Where possible run Continuum on/off on its own runtime with
+identical LMCache settings to attribute its scheduling effect. Main-runtime LMCache
+and preview-runtime LMCache are not interchangeable controls. Pin publication of
+decode KV, chunk geometry, memory budgets and default versus tuned configurations.
+LMCache is a replacement connector here, not currently a drop-in wait-hint extension:
+our advice mutates native ARC state. Combining them requires a separate adapter/design.
+Do not create that implementation merely to populate a benchmark table.
+
+GPU retention and CPU advice may complement each other. On ONE qualified common
+runtime and identical guarded CPU ARC, run: neither, GPU retention only, CPU advice
+only, both. This measures whether CPU advice still helps after GPU retention and
+whether combining them harms other traffic. Include GPU-resident, GPU-spill and CPU-
+competition conditions. Count GPU survival, CPU restores and recomputation separately.
+This is a compatibility hypothesis, not an available supported configuration. Current
+runtime pins/guards must be requalified; a cross-version comparison cannot substitute
+for this four-way attribution. Use a common causal signal policy, with no future-return
+knowledge; declare that completion-time retention and later wait updates have different
+interfaces, and separate native best-use comparisons from matched-information tests.
+
+Quick compare (also called validation in discussion) includes the qualified external
+shortlist on a compact common subset, not only ARC versus wait-hint. Core three arms
+cover every selected workload family; LMCache and Continuum cover common no-benefit,
+pressure, real-agent and interference cases. The four-way combination is included on
+its relevant subset once qualified. Explicit case filters support faster diagnostics,
+but a filtered run is not the whole compare profile. Expanded arms invalidate the
+previous informal 30–60 minute target until pilots measure startup and case costs.
+Unsupported configurations remain visible. Competitive claims cover only jointly
+exercised models/cases; external arms need not multiply every correctness/fault test.
+
 ### 4. Model and deployment coverage
 
 Proposed minimum for a multi-model release claim:
@@ -199,6 +251,59 @@ prompts/schedules control nominal demand, not generated output identity. Exact
 forced-token replay is optional only with a qualified mechanism and clearly limited
 claims. Actual generation must appear in release evidence; matching token counts
 or replaying yesterday's answers cannot establish application quality.
+
+### 5a. Authentic workloads and coverage admission
+
+The six families describe cache behavior, not six synthetic generators. Retain three
+kinds of evidence inside the existing profiles; these are not new benchmark categories:
+
+- Controlled fixtures isolate no reuse, partial hits, eviction, bad hints and worst-case
+  interference. Useful for explanation and correctness, insufficient for application claims.
+- Trace-derived traffic preserves authentic prompt/session structures and available
+  timing. Proposed sources include WildChat conversations and retained agent trajectories.
+  Replay is labelled replay. Recorded assistant answers are not live application success;
+  future user turns may depend on those recorded answers. Audit timestamps before deriving
+  think time: WildChat assistant timestamps denote full-response receipt, not pure tool wait.
+- Live application harnesses execute fresh model outputs, real tools and dependent turns.
+  Require a coding/repository workflow and a non-coding tool/document workflow for broad
+  agentic release claims, plus ordinary independent request traffic. No synthetic padding
+  or inserted sleeps in the natural-condition results. Pressure sweeps remain separately
+  labelled controlled deployments of these workloads.
+
+Proposed actual assets/harnesses for admission pilots:
+
+| Asset/harness | Use | Constraint |
+| --- | --- | --- |
+| mini-swe-agent with a frozen SWE-bench task subset | Actual read/edit/test loops in isolated repositories; objective tests and complete trajectories | Task/model/context feasibility is unproved on FP16 2080 Ti. Do not select tasks by wait-hint wins; select using independent task properties and baseline usability. A simpler real repository task set is explicitly narrower, not SWE-bench qualification. |
+| Sierra tau-bench text harness, pinned revision/domain | Multi-turn customer-service agent, state-changing tools, final-state checks; initially retail or airline | Simulated users, not production human traffic. Freeze simulator/config and account for its latency/cost separately. Separate simulator resources from the serving GPU; API spend needs authorization. Current tau2-bench repository has evolved, so freeze actual task/evaluator versions rather than a name alone. |
+| Grounded document workflow using retained real documents and qualified public QA sources (e.g. LongBench constituent datasets) | Search/read/answer sessions plus independent QA; reference-supported correctness, shared and unrelated documents | Public QA data alone is not an application harness. Any new search loop is our harness, labelled as such; retain original evaluator and expose prompt/context adaptations. |
+| WildChat and archived agent trajectories | Distribution checks and replay of natural conversation shapes | Audit ancestry, timing, license and truncation; not a substitute for live quality. Previously examined local trajectories are exposed development data. |
+
+At least two distinct live application domains must support a broad application claim;
+exact source counts/task counts follow the quality precision plan. First admission
+choices are coding plus customer-service; grounded document workflows are useful
+ordinary-application coverage and an explicitly scoped fallback if agent/model fit
+fails. A model that fails almost all authentic tasks cannot establish useful agent
+throughput. Hardware/model scope may need review rather than replacing live work with
+synthetic success fixtures. Natural short tool waits and absence of hint opportunity
+are valid outcomes and remain in the evidence.
+
+Choose spread before candidate timing results. For each source/task group record
+actual input/output lengths, turns, reusable-prefix fraction, distinct intervening
+KV bytes, wait distributions, concurrency, source popularity, branching/abandonment,
+and recompute cost relative to transfer. Include negative/misleading opportunity,
+no/low opportunity, intermediate opportunity, and high opportunity. Opportunity labels
+come from workload and baseline cache behavior, not observed candidate wins. Maintain
+a common-application panel and a separately reported niche/stress panel; equal family
+counts are not a claim about real-world prevalence. No headline population weighting
+without a specified target deployment or defensible source distribution.
+
+Audit coverage against held-out real sources and inspect concrete trajectories, not
+just histograms. Pilot ranking disagreements between fixtures, replay and live runs
+trigger investigation. Freeze coverage gaps and why each case exists; remove redundant
+cases only by predeclared coverage reasoning, never because they show losses. We can
+justify a balanced, mechanism-relevant spread, not prove a universally optimal spread
+without a target workload distribution and cost objective.
 
 ### 6. Required operating conditions and tractable matrix
 
@@ -445,6 +550,27 @@ are correlated. Predeclare multiplicity handling for multiple confirmatory claim
 (e.g. simultaneous intervals or Holm adjustment); exploratory heatmaps remain
 exploratory. Separate discovery-selected regions from fresh confirmation estimates.
 
+Proposed repetition policy: functional runs once per check; compare/validation uses
+TWO independently started matched blocks per selected case; release uses THREE per
+confirmation case. Each block runs every assigned arm on the same task set/arrival
+seed; rotate order to spread drift, recording residual imbalance when there are more
+arms than blocks. Release blocks include independent starts and more than one time
+window. Keep a repeated sentinel task set across blocks to expose run variability,
+alongside stratified source instances for task diversity. Report each block, paired
+effects, spread and failures. Two blocks expose gross disagreement, not a reliable
+variance distribution; three give only a coarse run-variance estimate. Do not promise
+95% tail or small-effect confidence solely from these counts or treat within-run
+requests as independent process repetitions.
+
+These are proposed economical defaults replacing the six-block illustration, not a
+new universal sufficiency rule. Pilot precision may require a claim to remain unresolved
+under the three-block budget. No automatic escalation to six and no adding runs until
+a preferred sign appears. If necessary, propose a separately budgeted targeted follow-up
+with its own predeclared analysis; do not pool selectively stopped data as fixed-N
+confirmation. Quality coverage comes mainly from enough independent tasks/sessions,
+not repeatedly solving the same tiny set. Sustained/fault exposure is separate from
+these short performance repetitions and is not automatically tripled.
+
 Pilot estimates noise, baseline variability and task-success frequency; calculate
 sample sizes against useful-effect/non-inferiority margins. Require independent
 process starts and sessions, not merely many requests in one run. Freeze repetitions,
@@ -537,8 +663,9 @@ resources, and practical tuned-system comparison. Use actual output/task quality
 token rate does not rank differently sized or incorrect answers. An unavailable or
 unsupported competitor is listed as such, never treated as slower. Existing historical
 Continuum/upstream experiments provide fairness lessons, not current qualification.
-Selection is an implementation-stage research item; no package is silently chosen
-or downloaded by this plan.
+The proposed shortlist and combination study are specified in section 3a; exact
+versions, hardware fit and adapters remain admission work. No package is downloaded
+or runtime changed by this plan.
 
 ### 14. Release evidence package and claim audit
 
@@ -625,10 +752,11 @@ raw artifact backup remains separate and no new remote is authorized.
 ### 16. Cost and implementation sequence
 
 The core matrix is 36 cells x 3 arms x R independent blocks = 108R arm-runs before
-previous-release/external references, interaction cells and sustained tests. At a
-hypothetical three minutes per arm and R=6 that alone is 32.4 GPU-hours, excluding
-startup, warmup, drain and failures. This is a sizing illustration, not a repetition
-recommendation or measured runtime. Broad release confidence costs more than a short
+previous-release/external references, interaction cells and sustained tests. With the proposed R=3 release default and a
+hypothetical three minutes per arm that alone is 16.2 GPU-hours, excluding startup,
+warmup, drain and failures. External and combination subsets add their own runs; live
+application sessions may take much longer than three minutes. This is a sizing
+illustration, not a measured runtime or evidence that three blocks meet every gate. Broad release confidence costs more than a short
 screen; expose that cost before committing resources.
 
 Plan reports measured/estimated startup and per-case time, event/record volume,
@@ -736,6 +864,17 @@ Additional adversarial-review sources:
 - [Open Versus Closed: A Cautionary Tale, NSDI](https://static.usenix.org/events/nsdi06/tech/full_papers/schroeder/schroeder_html/index.html): completion-dependent and independent-arrival models can produce materially different outcomes.
 - [vLLM reproducibility](https://docs.vllm.ai/en/stable/usage/reproducibility/) and [batch invariance requirements](https://docs.vllm.ai/en/stable/features/batch_invariance/): scheduling/numerical effects and limits of a determinism remedy on the target GPU.
 - [NIST finite-exposure reliability bounds](https://www.itl.nist.gov/div898/handbook/apr/section4/apr451.htm): zero failures still require assumptions and confidence bounds for quantitative lifetime claims.
+
+Additional comparison and workload research (2026-11-11):
+
+- [GPU retention draft PR #59714](https://github.com/vllm-project/vllm/pull/59714): actual old "upstream" target; completion-time GPU priority, open draft when checked through GitHub API.
+- [Continuum preview](https://github.com/Hanchenli/vllm-continuum): public implementation omits paper estimation; documented LMCache integration and mini-swe-agent path.
+- [LMCache paper and project](https://arxiv.org/abs/2510.09665): practical exact KV storage/reuse alternative, separate from a session scheduler.
+- [SGLang HiCache](https://docs.sglang.io/docs/advanced_features/hicache) and [TensorRT-LLM retention](https://developer.nvidia.com/blog/introducing-new-kv-cache-reuse-optimizations-in-nvidia-tensorrt-llm/): broader alternative shortlist, not target-hardware qualification.
+- [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent): actual coding-agent harness candidate.
+- [Sierra text harness](https://github.com/sierra-research/tau2-bench) and [simulation API](https://github.com/sierra-research/tau2-bench/blob/main/docs/running_simulations.md): live dependent agent/user/tool interaction; simulator cost and versioning matter.
+- [LongBench original task runner](https://github.com/THUDM/LongBench/blob/main/LongBench/pred.py): source/evaluator candidates; source data is not by itself live agent execution.
+- [WildChat data card](https://huggingface.co/datasets/allenai/WildChat-1M): authentic conversation shapes; timestamp and ancestry limitations require inspection.
 
 ## Next
 Philip reviews the release-first contract, especially the coverage floor, proposed
