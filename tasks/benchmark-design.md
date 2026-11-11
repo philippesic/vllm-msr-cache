@@ -30,7 +30,9 @@ The primary agent incorporated its findings and independent web research below.
 A second Sol review found the revised plan ready for user design review with two
 wording corrections, now applied. Gates remain proposals for Philip, not accepted
 product guarantees. No reviewer qualified a runtime or performance result. Subsequent user-directed
-comparison, workload and model refinements have not received another Sol review.
+comparison, workload and model refinements received a third Sol review at 9f8c746.
+It found budget/coverage and guarantee contradictions; the bounded corrections below
+incorporate that review. This revised specification has not been executed or re-reviewed.
 Philip has fixed performance repetitions at one validation and two release blocks;
 model pair and concrete workload counts below remain proposals for review. Philip
 requires an 11 GiB 2080 Ti primary target, optional 16 GiB 5080 runs, current model
@@ -101,7 +103,9 @@ References:
 - Current guarded CPU offload with advice disabled: causal wait-hint control.
 - Release candidate with advice enabled: same guards/runtime/resource configuration.
 - Frozen previous release when one exists: regression control, run on affected and
-  core cases; never silently substitute the moving development branch.
+  regression sentinels allocated in section 6; never silently substitute the moving
+  development branch. Broader affected-path work substitutes allocated cases or needs
+  a separately reviewed budget; it is not an uncounted second full matrix.
 - One qualified relevant external cache/offload alternative for a competitive claim.
   A narrow claim of improvement over native offload does not prove superiority to
   external systems. The report distinguishes those claims explicitly.
@@ -113,8 +117,9 @@ registration/hint overhead. Namespace/timestamps legitimately differ per run; ma
 causal event semantics rather than replaying invalid clock identities.
 
 Whole-system comparisons match hardware and explicit resource constraints; disclose
-extra CPU memory and total observed usage. Include a labelled practical configuration
-comparison where each system has documented sensible tuning. Do not confuse matched
+extra CPU memory and total observed usage. Use one frozen, documented sensible configuration per system within the matched
+resource envelope. A separately tuned configuration is a separate study, not a
+second uncounted default comparison. Do not confuse matched
 KV capacity with equal total memory. Pin decode-KV publication, chunking, paging,
 priority, templates and output settings; expose unavoidable differences.
 
@@ -157,8 +162,9 @@ Proposed comparison roster, subject to runtime qualification:
 | SGLang HiCache / TensorRT-LLM retention | Relevant alternatives to reassess if the deployment expands; not mandatory extra engine ports for the initial 2080 Ti scope. Hardware/runtime feasibility remains unverified, not claimed unsupported or inferior. |
 
 Plain LMCache distinguishes a practical caching alternative from Continuum's combined
-scheduler/cache system. Where possible run Continuum on/off on its own runtime with
-identical LMCache settings to attribute its scheduling effect. Main-runtime LMCache
+scheduler/cache system. The default reports Continuum as a whole system. A causal scheduling claim requires
+a separately allocated Continuum on/off comparison on its own runtime with identical
+LMCache settings; it is not included in the default count. Main-runtime LMCache
 and preview-runtime LMCache are not interchangeable controls. Pin publication of
 decode KV, chunk geometry, memory budgets and default versus tuned configurations.
 LMCache is a replacement connector here, not currently a drop-in wait-hint extension:
@@ -179,10 +185,10 @@ interfaces, and separate native best-use comparisons from matched-information te
 Quick compare (also called validation in discussion) includes the qualified external
 shortlist on a compact common subset, not only ARC versus wait-hint. Core three arms
 cover every selected workload family; LMCache and Continuum cover common no-benefit,
-pressure, real-agent and interference cases. The four-way combination is included on
-its relevant subset once qualified. Explicit case filters support faster diagnostics,
-but a filtered run is not the whole compare profile. Expanded arms invalidate the
-previous informal 30–60 minute target until pilots measure startup and case costs.
+pressure, real-agent and interference cases. The four-way combination is an optional replacement study requiring an explicit
+coverage/budget revision, not a mandatory default run. Explicit case filters support faster diagnostics,
+but a filtered run is not the whole compare profile. Section 6 owns the current conditional time budget; pilots must measure startup
+and case costs before acquisition.
 Unsupported configurations remain visible. Competitive claims cover only jointly
 exercised models/cases; external arms need not multiply every correctness/fault test.
 
@@ -268,8 +274,18 @@ Interleave these same workflows in a fixed schedule with unhinted independent re
 returning tool sessions and an abandoned-hint cohort. The small request fixtures add
 load/activation evidence, not independent task-quality samples. One run per system has
 explicit no-benefit, competition and interference phases, rather than launching nine
-separate diagnostic cases. If insufficient state accumulates to exercise a phase,
-report it unexercised and repair the profile; never assume three task labels suffice.
+separate diagnostic cases. Natural workflows and controlled diagnostic phases have separate results. Natural
+low opportunity is valid evidence and must not be tuned away. Controlled phases must
+show a causal tool-wait hint, GPU displacement, multiple eligible competing CPU
+prefixes, a return after competition, and restore/recomputation and unhinted-cohort
+accounting. A refresh acknowledgement alone is insufficient: record survival and
+saved/repeated work against the matched advice-disabled control, even when the
+observed effect is zero or negative. Missing required diagnostic activity is
+unexercised, never a pass. Freeze hint cadence, return order and working sets.
+Rotate one of the three workflow slots to test authoring, terminal debugging or
+branching when the changed mechanism requires it, preserving no-benefit and
+interference phases. A second-architecture change requires its targeted functional
+and performance cases; a Qwen-only default cannot qualify Gemma.
 Validation is advisory, not a complete per-family/model qualification.
 
 Release retains six workload types but only THIRTEEN independent tasks per model and
@@ -285,6 +301,11 @@ repetition. Both models get the same source tasks using their own native templat
 | B1 | One independent grounded QA/summary task and one shared-source search/read/compare task | 2 |
 | Total | Eleven coding/coding-adjacent tasks and two breadth tasks | 13 |
 
+C5 must fork a shared transcript into distinct continuations with branch-specific
+tool results, revisit the earlier branch after competition, and exercise the frozen
+context-compaction policy. Check branch isolation and final executable acceptance;
+one scenario establishes a case result, not broad branching coverage.
+
 C2/C3/C5 and the short validation workflows are project-authored definitions on real
 repositories, not official benchmark scores. Natural tools have natural waits. Choose
 source, task type and baseline usability before confirmation; do not select on candidate
@@ -295,7 +316,11 @@ Core release: 13 tasks x three systems x two models x two repetitions = 156 task
 executions. Each external system gets six tasks (one from each row) per model per
 repetition: 6 x two external systems x two models x two repetitions = 48 executions.
 Total: 204 application executions. Competitive claims cover those six shared tasks,
-not all 13. Missing external/model compatibility is visible; preserving an old preview's
+not all 13. Freeze the same six task IDs for every compared system. Assign at least
+one low-opportunity task, one actual CPU-pressure/return task and one mixed
+hinted/unhinted interference schedule within that subset, identically across arms.
+Report natural and controlled conditions separately; no external claim extends to
+an unexercised condition. Missing external/model compatibility is visible; preserving an old preview's
 name does not justify porting its entire engine. Native/guarded ARC semantics must be
 re-established for hybrid support. The four-task C1 subset is workload coverage, not
 an accurate estimate of general SWE-bench success rate.
@@ -314,10 +339,49 @@ natural application runs and do not establish natural wait-time prevalence. Base
 fit/load pilots set working sets and arrivals; count actual activation rather than
 assuming a short trace reached pressure. Core release: three traces x three systems x
 two models x two repetitions = 36 trace-runs. External activation/pressure evidence is
-collected during its six-task subset rather than another independent matrix. A qualified
-GPU-retention four-way comparison uses one mixed trace with resident/spill/competition
-phases: four settings x two models x two repetitions = 16 trace-runs. No broader
-combination campaign is part of the default release.
+collected during its six-task subset rather than another independent matrix.
+
+The remaining 16 short run slots are mandatory controls, not an unavailable GPU
+retention study. Execution IDs and their allocations are:
+
+| IDs | Configuration and purpose | Runs |
+| --- | --- | ---: |
+| T1–T3 | Three phased traces, core three systems, both models, two blocks | 36 |
+| O1–O2 | Qwen guarded ARC with no registration/hints, and registration-only; no-reuse/resident/pressure phases, two blocks each; matched enabled and advice-disabled references come from T1–T3 | 4 |
+| R1 | Frozen previous release on Qwen and Gemma, one mixed pressure/interference trace per model, two blocks; current references come from T1–T3 | 4 |
+| D1 | Small dense full-attention sentinel, candidate and frozen previous release (or guarded ARC on the initial release), two blocks | 4 |
+| A1 | Extra identical guarded-ARC Qwen start per block paired with T1–T3 for A/A drift/noise diagnostics | 2 |
+| S1 | Qwen guarded-ARC trace with a known measured-path delay, one per block, compared with T1–T3 | 2 |
+| Total | Short traces/control runs; no additional full model matrix | 52 |
+
+If no architecture-compatible previous release exists, R1 uses the frozen admitted
+base implementation and is labelled causal baseline evidence, not previous-release
+regression evidence. D1 preserves the existing dense path: pin a supported small
+dense model, context and cache budgets before acquisition. It must exercise both
+no-benefit overhead and CPU competition/restore; it does not establish broad dense
+model performance. Compare identical runtime/configuration wherever attributing a
+source change. Runtime migration comparisons are labelled whole-stack comparisons.
+
+Within T1–T3, declare working-set bytes relative to usable GPU and CPU cache capacity,
+not just prompt lengths. Include below-capacity GPU reuse, GPU spill/CPU fit, and
+CPU oversubscription. Independently declare low-load and near-limit arrival phases,
+plus bounded overload/drain/recovery in T3. Freeze arrivals from baseline-only probes;
+account for scheduled arrivals, queued/finished/failed work and hinted/unhinted cohorts.
+Near-limit means the baseline meets the frozen completion/queue criterion; overload
+means offered work exceeds its sustainable completion rate and tests bounded recovery.
+The at-most-30-minute baseline probe allowance sets these points, not a capacity curve.
+Initial claims concern fixed-load latency or fixed-work completion; maximum-capacity
+claims are excluded unless a separately specified capacity study replaces other work.
+If phase activation or drain cannot fit the trace allowance, the pilot must reallocate
+within the overall cap or return incomplete coverage, never silently shorten the test.
+
+Initial harness qualification (checker corruption, inactive path, missing/duplicate
+records, interruption and accounting fixtures in section 10) is a prerequisite, not
+recurring application acquisition. Record its own cost and receipts; it is not free
+or included in the 18–28-hour recurring forecast. Requalify changed instruments.
+Recurring A/A and delay sensitivity are explicitly counted above. Native correctness,
+architecture/fault probes and model startup are charged to the 2–3.5-hour allowance;
+its itemized execution manifest must fit before a release run can be admitted.
 
 User-set counts remain ONE validation and TWO release repetitions. No automatic
 additional runs, exhaustive model/precision grid, or full-suite runs on both GPUs.
@@ -337,7 +401,7 @@ Do not hide inability to fit required work by changing quality gates after resul
 | Release core applications | Twelve 13-task panels, 30–60 minutes each | 6–12 hours |
 | Release external subset | Eight six-task panels, 15–30 minutes each | 2–4 hours |
 | Release controlled traces | 36 runs at 2–3 minutes each | 1.2–1.8 hours |
-| Release GPU-retention combination | 16 runs at 2–3 minutes each | 0.5–0.8 hours |
+| Release controls and dense sentinel | 16 allocated runs at 2–3 minutes each; model switches charged to startup allowance | 0.5–0.8 hours |
 | Release sustained exposure | Primary candidate/control two hours each; secondary candidate/control one hour each | 6 hours |
 | Fault checks, startup/report, bounded load probes | Combined planning allowance including at most 30 minutes of load search | 2–3.5 hours |
 | Release total | 204 application executions, 52 trace-runs, sustained/fault checks | Approximately 18–28 hours |
@@ -379,6 +443,14 @@ current tests are narrow. No performance gain can compensate for a correctness e
 | Endpoint/auth/input limits | Missing/wrong credentials, malformed/oversized/unknown-schema inputs, wrong scope identity and bounded refusal; valid traffic remains serviceable. |
 | Resource boundaries | Session/event/metadata capacity reached, replaced and reclaimed; supported maximum boundaries and unsupported configuration refusal. |
 
+Architecture-specific functional/fault cases must establish recurrent checkpoint/token
+alignment for Qwen, local-window boundary crossing for Gemma, all-required-group
+readiness, partial-group transfer failure and fresh-versus-restored continuations.
+The manifest specifies which tensors/checkpoints are transported byte-exactly and
+which states are intentionally recomputed before publication. Generic FP16 KV checks
+cannot substitute for these invariants. Retain dense functional qualification alongside
+D1. Architecture expansion/runtime repins remain separately authorized product work.
+
 Run deterministic fresh-versus-restored output comparisons and, where feasible,
 logit comparisons with declared tolerances calibrated against fresh-versus-fresh
 numerical variability. Exact KV bytes are required; exact output identity across
@@ -414,7 +486,7 @@ If an automated judge is used, pin it, measure disagreement against human checks
 account for cost; no external paid judge is assumed authorized. A weak judge cannot
 establish quality equivalence.
 
-Require baseline absolute usefulness as well as candidate non-inferiority. Two
+Require baseline and candidate absolute usefulness plus paired regression review. Two
 systems that both fail the task do not qualify a useful-work claim. Task-specific
 minimum success criteria must be frozen before confirmation. The practical models
 must support the tasks; impossible or ceiling-saturated tasks are replaced during
@@ -479,7 +551,9 @@ Exposure targets remain proposed test coverage, not a statistically proved lifet
 
 ### 10. Demonstrate that the benchmark can detect problems
 
-Before using the benchmark to decide a release:
+At initial harness qualification and after relevant instrument changes, exercise the
+following controls. Recurring A/A and delay checks are allocated in section 6; other
+qualification receipts are reused only when their executed paths remain unchanged:
 
 - A/A trials measure repeated identical-system noise and order/drift effects.
 - A known delay/cost inserted inside the measured path must appear in independent
@@ -522,13 +596,11 @@ cache structure; it does not create independent evaluation units. Review distrib
 and concrete samples before freezing the matrix. No new workload name, document copy
 or seed makes reused templates fresh confirmation.
 
-For the quality margin, calculate precision from paired task discordance, source/session
-clustering and independent starts. Declare which quality claims are per cell/cohort
-and which are grouped, with a rationale and separate checks for heterogeneous harm.
-Allocate judgement effort and GPU cost jointly. Report required versus affordable
-independent task counts and gate power in the planning receipt; do not approve a
-numeric margin based only on a count of generated answers. Multiple invocations of
-the same task add runtime exposure but not independent task diversity.
+Report paired task discordance, source/session grouping and both independent starts.
+Declare which observed quality conclusions are per task/cohort; report heterogeneous
+harm separately. Multiple invocations add runtime exposure, not independent task
+diversity. A stronger population quality-margin claim requires its own precision,
+clustering and cost analysis and is excluded from the default release contract.
 
 Choose primary outcomes and claimed regions before confirmation. For each relevant
 cell, report paired whole-run effects and uncertainty, with independent run blocks
@@ -557,11 +629,12 @@ exposure is separate and is not multiplied by performance repetition count. Qual
 precision requirements remain explicit; small proposed task samples cannot establish
 two-percentage-point equivalence merely because both arms have similar scores.
 
-Pilot estimates noise, baseline variability and task-success frequency; calculate
-sample sizes against useful-effect/non-inferiority margins. Require independent
+Pilot estimates measurement resolution, baseline variability and task usability.
+Check whether the proposed case-scoped useful effects can be resolved within budget. Require independent
 process starts and sessions, not merely many requests in one run. Freeze repetitions,
-analysis and stopping before confirmation, or predeclare a valid sequential procedure.
-If the resource cap is reached with an interval crossing a gate, verdict is unresolved.
+analysis and stopping before confirmation.
+If the resource cap is reached with mandatory evidence missing or ambiguous, verdict
+is unresolved; do not add repetitions or imply significance from two starts.
 No rerunning only unfavorable arms/pairs. Every scheduled trial stays in a trial ledger.
 A candidate-caused crash, timeout or invalid output remains in its assigned arm's
 failure/quality denominators; it cannot vanish because the pair is incomplete.
@@ -582,21 +655,24 @@ and sensitivity, alongside the full model/workload panel.
 
 ### 12. Proposed release gates
 
-These numbers are concrete starting recommendations for Philip to review. They are
-engineering tolerance choices, not laws or conclusions from old measurements. Pilot
-checks whether they are measurable at affordable cost; noisy results do not justify
-relaxing a gate after the fact. Require the stated confidence bound, not just a point
-estimate; confirmation uses the declared multiplicity policy.
+Default release claims are case-scoped observed outcomes, not population non-inferiority
+or tail guarantees. Freeze useful effects, absolute task-usefulness floors and tolerances
+before results. The initial 5% performance tolerances below are proposed engineering
+choices subject to pilot resolution and user review, not statistical guarantees.
+Report both independent blocks and source-level outcomes; an effect smaller than
+instrument resolution, inconsistent across blocks or confounded remains unresolved.
+Stronger confidence-bound claims require a separately powered protocol and budget;
+no default gate secretly requires a larger campaign.
 
 | Gate | Proposed requirement | Reason |
 | --- | --- | --- |
 | Correctness | Zero observed cache corruption, identity violation, unsafe reuse or protocol invariant failure in required tests/runs; all mandatory functional cases pass | Exact cache behavior is the product contract; finite tests do not prove zero future failures. |
 | Normal operation | No unexplained crash, hang or failed normal request in admitted below-overload cases; intentional fault cases behave as specified | Throughput cannot compensate for instability. Unrelated infra faults invalidate affected evidence rather than count as a product pass. |
 | Coverage | Every mandatory model/workload/condition cell complete and valid, with required activity and quality evidence; no silent fallback | Prevents scope shrinking or inactive-feature wins. |
-| No-op overhead | At fixed admitted load, upper bound of p95 latency ratio <= 1.05 with no added normal-request failures; where capacity is actually measured, capacity ratio lower bound >= 0.97 | Limits the cost imposed on traffic unable to benefit. |
-| Protected traffic | Upper bound of unhinted p95 TTFT and end-to-end ratios <= 1.05 at fixed admitted load, no reduced completion fraction; capacity ratio lower bound >= 0.97 only in capacity trials | Prevents aggregate wins from hiding displacement harm. Report absolute delays too. |
-| Quality | Lower bound of candidate minus control task-success difference >= -0.02 (two percentage points), plus frozen absolute task-usefulness floors; stricter zero-error checks for deterministic assertions | Performance must not be purchased through worse answers. Margins may need tightening for the intended task; reference quality is not presumed. |
-| Claimed benefit | For the preselected primary outcome: capacity/valid-work-rate ratio lower bound >= 1.05 in a capacity or fixed-work experiment, OR latency ratio upper bound <= 0.95 at fixed load; protected secondary gates also pass | Requires a useful, repeatable effect rather than statistical detection of a negligible change. The chosen primary metric is frozen in advance. |
+| No-op overhead | At fixed admitted load, observed per-block task/session latency ratio <= 1.05 under the frozen absolute tolerance, with no added normal-request failures; descriptive tails also reported, no p95 guarantee | Limits the cost imposed on traffic unable to benefit. |
+| Protected traffic | Observed per-block unhinted cohort TTFT and end-to-end ratios <= 1.05 under the frozen absolute tolerance at fixed admitted load, no reduced completion fraction; investigate individual outliers, no tail or capacity guarantee | Prevents aggregate wins from hiding displacement harm. Report absolute delays too. |
+| Quality | All deterministic correctness assertions pass; meet frozen absolute task-usefulness floors; report paired task outcomes and investigate every candidate/control regression. Unexplained candidate-associated regressions block the affected claim. Population quality parity is unestablished | Performance must not be purchased through worse answers. Margins may need tightening for the intended task; reference quality is not presumed. |
+| Claimed benefit | For the preselected primary outcome, observed valid-work-rate ratio >= 1.05 in a fixed-work experiment OR latency ratio <= 0.95 at fixed load in both blocks, exceeding measured instrument resolution; protected secondary gates pass. Claim only the measured cases, not a population lower bound | Requires a useful, repeatable effect rather than statistical detection of a negligible change. The chosen primary metric is frozen in advance. |
 | Resources | No unbounded logical state growth; no breach of declared CPU/GPU/disk budgets; after equivalent churn/drain, retained logical state returns to expected bounded level | CPU memory spent to save GPU work must remain explicit. RSS alone cannot establish a leak or its absence. |
 | Repeatability | Confirmatory result survives independent starts and held-out source groups; all artifacts verify and summary regenerates | One favorable run or a non-reproducible report is insufficient. |
 
@@ -613,13 +689,13 @@ Each latency gate also declares an absolute-time tolerance and reporting resolut
 before confirmation. Near-zero or unresolvably small baselines use a predeclared
 absolute rule instead of an unstable ratio; agents may not choose whichever passes.
 At overloaded points, finite-latency non-inferiority is not assumed: apply the declared
-bounded-refusal, failure accounting and recovery contract. Quality margins apply at
-predeclared task/cohort units; group averages cannot excuse systematic failures in a
-protected task class. Power the quality and tail gates separately from mean throughput.
-If a two-percentage-point bound needs more independent cases than affordable, the
-quality conclusion remains unresolved rather than treating no detected difference
-as parity. Specify which multiple-testing procedure applies to which family; a joint
-all-gates-must-pass non-inferiority claim differs from selecting any winning cell.
+bounded-refusal, failure accounting and recovery contract. Task-usefulness floors apply at predeclared task/cohort units; group averages cannot
+excuse systematic failures in a protected class. Use paired outcomes to identify
+regressions, not a small-sample test to declare parity. A model failing the absolute
+usefulness floor does not qualify useful application acceleration, even if it is fast.
+Task failures arising in both arms remain visible; cache invariants are strict, whereas
+model capability is evaluated against the frozen task rubric. Attribute or resolve
+candidate-associated regressions before publishing the affected performance claim.
 
 Different advice conditions have different obligations. Plausible admitted advice
 must satisfy declared protected-traffic gates. Accepted but deliberately misleading
@@ -644,8 +720,9 @@ workloads/claimed regions and include no-benefit and interference controls; cann
 select only workloads on which our candidate won. If practical budget prevents full
 coverage, limit the competitive claim to the exercised common subset.
 
-Report separately: isolated advice effect, whole-system comparison at matched
-resources, and practical tuned-system comparison. Use actual output/task quality;
+Report separately: isolated advice effect and whole-system comparison at matched
+resources with documented sensible configurations. Separately tuned-system comparisons
+are optional studies, not additional mandatory default arms. Use actual output/task quality;
 token rate does not rank differently sized or incorrect answers. An unavailable or
 unsupported competitor is listed as such, never treated as slower. Existing historical
 Continuum/upstream experiments provide fairness lessons, not current qualification.
@@ -681,8 +758,8 @@ Only three normal commands/profiles are proposed:
 - Functional: existing tests plus a small real-server subset of release correctness
   cases. Fast setup confidence; no performance release verdict.
 - Compare: a stable, stratified subset of release workloads/conditions/references,
-  fewer repetitions and shorter lifecycle exposure. Covers every major workload
-  shape, no-benefit and interference, not only synthetic favorable cases. Advisory.
+  fewer repetitions and shorter lifecycle exposure. Covers the default development shapes, no-benefit and interference; change-directed
+  slot substitution covers affected additional shapes. It is not every release family. Advisory.
 - Release: the frozen full contract above, qualified instrumentation, fresh confirmation
   inputs, required repetitions, lifecycle and recovery coverage. Gate ledger mandatory.
 
@@ -692,7 +769,7 @@ Profiles must preserve required behaviors, not just labels:
 | --- | --- |
 | Functional | Real positive store/evict/restore and causal advice delivery, plus negative identity/refusal checks. An unexercised required path is not a pass. |
 | Compare | Each selected case retains sufficient working set, return order and exposure to trigger its intended pressure/queue/interaction; minimum evidence is case-specific. Report uncovered families, unreliable tails and unexercised paths. No release badge. |
-| Release | Full frozen gate/coverage ledger, power and qualified fault/recovery evidence. Incomplete mandatory cells cannot inherit a pass from compare. |
+| Release | Full frozen gate/coverage ledger, case-scoped claims and qualified fault/recovery evidence. Incomplete mandatory cells cannot inherit a pass from compare. |
 
 Before relying on compare, compare its conclusions with representative full cases and
 known regression controls. If shortening loses the mechanism or reverses the ranking,
@@ -765,12 +842,12 @@ work to resolve, not assumed available features.
 | Concern that could invalidate a release | Required defense |
 | --- | --- |
 | Fast because it reuses wrong KV | Direct byte/identity/publication tests, actual pressure/concurrency and timed-run output checks |
-| Fast because it returns shorter/worse answers | Actual output lengths/termination, task validity, absolute usefulness and quality non-inferiority |
+| Fast because it returns shorter/worse answers | Actual output lengths/termination, task validity, absolute usefulness and paired regression review |
 | Wins only with privileged hints | Real tool/application signals and costs; ideal hints labelled diagnostics only |
 | Hides harm to unrelated work | Mandatory per-cohort latency/throughput gates and mixed/adverse-advice cases |
 | Cache state/load generator manufactures gains | Cold/warm canaries, scheduled-arrival accounting, A/A and sensitivity controls |
 | Small model or one corpus determines everything | Two materially different architectures, coding-first live workflows, source-group holdouts and explicit coverage matrix |
-| Pressure/load interactions missed | Independent capacity/load panel, decode competition and targeted follow-up for observed interactions |
+| Pressure/load interactions missed | Explicit capacity-ratio and low/near-limit/overload phases, decode competition; no default maximum-capacity claim |
 | Tuning/search finds a lucky winner | Frozen confirmation, independent runs, multiplicity control, exposed-data tracking and preserved failures |
 | Only works briefly or in the developer's checkout | Lifecycle/soak/failure recovery and clean reconstruction/report regeneration |
 | Another system/configuration explains the ranking | Guarded causal control plus resource-matched/system comparisons and fairness disclosure |
@@ -784,7 +861,7 @@ review of this map and focused cases. Confidence becomes empirical only after th
 harness sensitivity checks, coverage and repeated release runs actually succeed.
 
 Still unresolved before executable release acquisition: hybrid/window architecture support, quantized kernel compatibility and model fit; fresh corpus/source groups and rights; absolute task-quality floors and
-latency objectives where relevant; telemetry availability/overhead; statistical power;
+latency objectives where relevant; telemetry availability/overhead and measurement resolution;
 external-system compatibility; raw-storage budget; durable ownership/notification;
 review of proposed numeric tolerance and exposure targets. These are explicit release
 readiness blockers, not items an agent may fill with favorable defaults after results.
@@ -803,7 +880,7 @@ are implemented and exercised.
 | Failed pairs vanish from results | All-assigned trial ledger, failure-inclusive gates, conditional survivor estimates only | Exercise timeout/missingness cases |
 | Arbitrary bad advice makes protection impossible | Separate safety obligations, prospective advice envelope and stress harm | Philip's permitted trade-off; measured behavior |
 | Comparator/denominator changes meaning | Explicit gate identity and separate overhead controls; absolute rules when ratios unreliable | Philip's margins and pilot resolution |
-| Quality gate unaffordable or underpowered | Grouping/discordance/cluster/power worksheet; unknown means unresolved | Real task/judge variability and budget |
+| Quality gate unaffordable or underpowered | Case-scoped task acceptance and paired regressions; no default population parity claim | Frozen usefulness floors and judge reliability |
 | Six labels hide one corpus/template | Source/scenario ancestry admission and holdout audit across profiles | Actual asset inventory/diversity |
 | Models fit weights but not workload | Whole-memory worksheet plus context/concurrency/quality pilot | Hardware evidence or scope decision |
 | Short profile never reaches eviction/restore | Activity contracts and compare/full sensitivity checks | Real profile qualification |
@@ -822,6 +899,17 @@ supported advice/traffic envelope, meaningful absolute/relative tolerances, depl
 scope and acquisition budget. Engineering resolves instrumentation, model fit, corpus
 ancestry, sample-size feasibility and recovery tests, then reports their evidence.
 No agent may silently choose favorable tolerances or waive an unresolved requirement.
+
+The third Sol review challenged the reduced campaign, finding quality-gate contradiction,
+uncounted controls, unspecified load coverage, validation activation gaps, architecture/
+branching omissions and lost dense performance coverage. This revision removes the
+unaffordable statistical parity/tail guarantees, assigns the 16 control slots, specifies
+load/activity contracts, adds branch/group-state checks and retains D1. No extra full
+matrix or repetitions are added. The review supports conditional, narrowly scoped
+release evidence; it does not certify this revised manifest or any runtime result.
+The remaining product decisions are architecture authorization and prospective advice/
+harm tolerances. Exact task IDs, dense artifact, startup/fault costs and fit are bounded
+admission work, not permission to expand the campaign or waive coverage after results.
 
 ### 19. Sources and evidence used
 
@@ -864,7 +952,7 @@ Additional comparison and workload research (2026-11-11):
 - [WildChat data card](https://huggingface.co/datasets/allenai/WildChat-1M): authentic conversation shapes; timestamp and ancestry limitations require inspection.
 
 ## Next
-Philip reviews the current-model architecture scope, coding-first roster and explicit
-acquisition budget. Audit hybrid/window offload feasibility and Turing quantization
+Philip reviews the consolidated bounded contract, architecture implementation scope,
+prospective advice/harm tolerances and explicit acquisition budget. Audit hybrid/window offload feasibility and Turing quantization
 before implementing the revised suite. No GPU campaign can be scheduled from the
 conditional ETAs until supported paths and actual model fit are established.
