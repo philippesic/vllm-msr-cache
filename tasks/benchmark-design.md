@@ -1,582 +1,546 @@
-# Benchmark design and implementation proposal
+# Release evidence benchmark proposal
 
 ## Goal
-Build a maintained benchmark suite that characterizes evolving candidates, explains
-observed effects, and tests whether discovered opportunities produce useful outcomes
-against relevant alternatives. Useful applications emerge from the product; no
-application or aggregate score is a permanent optimization target.
+Design one release-evidence benchmark that can defend explicit correctness,
+performance and operating claims. Derive a functional check and quick development
+comparison from it. Discover useful applications from product behavior; do not
+optimize to a permanent target workload or conceal losses in an aggregate score.
 
 ## Authorized
-Philip requested this comprehensive plan for review, following the agreed direction
-for controlled characterization. Design and repository inspection are authorized.
-The specific implementation contract below is proposed, not implemented or approved
-for execution. No GPU runs, downloads, runtime repins, external publication or agent
-operations implementation are authorized by this document.
+Philip requested a comprehensive release-first proposal for review. Design, research,
+repository inspection and recording the proposal are authorized. Implementation,
+GPU acquisition, downloads, runtime repins, external publication and agent-operations
+implementation remain unauthorized. Numeric gates below are proposed policy, not
+approved performance requirements or measured properties.
 
 ## Done when
-Philip has reviewed the benchmark inventory, comparison rules, implementation wiring,
-agent guidance, acquisition scope and remaining choices. Approved implementation work
-will have its own explicit authorization and completion criteria. A plan is not
-qualification; a runner is not qualified until its real execution path is exercised.
+Philip reviews the release claim, coverage, evidence requirements, gates, cost and
+repository integration. The executable manifest must subsequently resolve exact
+models, corpora, limits and repetitions before acquisition. Approval of this design
+alone does not qualify the product or authorize an unlimited GPU campaign.
 
 ## State
-Owner: primary agent, main branch, /home/philip/vllm-semantic-cache-ext-next.
-Status: complete proposal for review. No benchmark implementation or acquisition.
-Existing portable tests, pinned runtime CPU tests and narrow GPU functional evidence
-remain the correctness foundation. There is currently no maintained performance
-benchmark command in this repository. Sol reviewed the five characterization
-families; the rest of this document consolidates the broader proposed suite and
-repository integration, and has not received a separate Sol review.
+Owner: primary agent on main in /home/philip/vllm-semantic-cache-ext-next.
+Status: revised release-first proposal; not implemented or exercised. The earlier
+12-benchmark organization has been replaced. Useful cases are retained inside one
+release benchmark. The only normal user-facing categories will be functional,
+compare and release. Existing correctness tests remain tests, not extra benchmark
+categories. Sol reviewed earlier characterization scope; this revised complete
+release design has not received a separate independent review.
 
-### 1. Decisions and scope
+### 1. What a release verdict means
 
-The suite supports three decisions: where a candidate helps or harms; whether to
-replace an incumbent for a stated operating region; and whether the resulting system
-is useful compared with alternatives. Characterization, explanation and practical
-confirmation share measurement infrastructure but permit different claims.
+A release result evaluates a frozen implementation, configuration, runtime, model
+set, workload population and operating envelope. It supports a statement such as:
 
-Definitions:
+"On the listed FP16 single-GPU configurations, the feature preserves the tested
+exact-cache and protocol invariants, meets the declared quality and interference
+bounds, operates through the stated load/lifecycle tests, and delivers a repeatable
+useful benefit in the listed operating regions relative to the named controls."
 
-- Candidate: the configuration or implementation being investigated.
-- Incumbent: a previously selected implementation for an explicit scope, frozen by
-  source/runtime/configuration identity. It is not automatically the current branch.
-- Baseline: a fixed reference system; multiple baselines answer different questions.
-- Qualified: the specified behavior was exercised on the named configuration.
-- Supported: the maintained implementation accepts the configuration; this alone
-  does not establish performance, answer quality or hardware qualification.
-- Inconclusive: valid evidence does not resolve the question. It is not equivalence,
-  rejection, inactivity or execution failure.
+It does not establish universal improvement, indefinite reliability, support for
+untested models/hardware, or general model intelligence. The report must contain
+ready-to-use claim text with these boundaries, not just a green badge.
 
-Start characterization on the qualified RTX 2080 Ti, dense FP16, TP1, eager,
-TRITON_ATTN configuration with the small qualified model. This establishes the
-instrument and a scoped behavior map. It is insufficient for broad product value.
-A larger model and another model family enter through B11 before broader claims;
-quantization, graphs, different layouts or hardware require explicit qualification.
+Separate three verdicts:
 
-### 2. Common comparison contract
+- Measurement valid/invalid/incomplete: was the comparison actually executed and
+  measured correctly? A valid negative result is successful measurement.
+- Release eligible/not eligible/unresolved: do correctness, quality, operating and
+  resource requirements hold throughout the declared envelope?
+- Benefit supported/not supported/unresolved: does the stated performance claim
+  meet its useful-effect and uncertainty requirements?
 
-Three initial systems:
+An optimization release requires eligibility AND its benefit claim. A correctness
+fix can justify a release without a performance gain, but cannot advertise one.
+Missing mandatory evidence blocks the corresponding verdict. Coverage cannot be
+removed after seeing a loss to preserve an old claim; narrowing creates a new,
+explicitly limited release claim and requires fresh confirmation where selection
+could have biased the result.
 
-- G: native GPU prefix caching, no CPU-offload connector.
-- C: current guarded CPU-offload connector, advice disabled.
-- H: the same connector and guards, advice enabled.
+### 2. Work completed to construct this proposal
 
-C versus H isolates advice when capacities, registration, intended hint traffic,
-scheduler options, runtime, input schedule and instrumentation match. G versus C/H
-compares whole systems; it cannot isolate advice. Initially match explicit GPU KV
-capacity and disclose CPU capacity and total measured resource use. Later B10 also
-compares systems under equal total resource constraints. GPU capacity configuration
-is not total device memory. Historical unguarded ARC is not a substitute for C.
+Reviewed the current architecture and runtime constraints, actual CPU/GPU test
+inventory, entry points, process/receipt tools and result convention. Revisited
+historical interference/quality, workload/model dependence, measurement-reliability,
+replay and external-comparison results. Inspected the old model/system catalogs and
+sampled its workload catalog and repository-pressure tasks. These assets are known
+historically exposed examples, not a complete re-audit of every raw experiment.
 
-An incumbent adds another frozen arm only when needed for the development decision.
-Changing any arm's tuning after viewing results creates a new exploratory comparison.
-Preserve stable baseline definitions and their original results across upgrades.
+Researched primary vLLM benchmark guidance and MLCommons inference/agentic evaluation
+methodology. The useful lessons are independent offered-load accounting, explicit
+cache state, quality measured on the timed configuration, and application/session
+outcomes. This proposal is not an MLPerf implementation or certification. Current
+upstream documentation does not establish compatibility with our pinned runtime.
 
-Record exact model/tokenizer bytes, template, precision, layout, block geometry,
-runtime and executed source, including dirty inputs. Keep seeds, request order,
-decoding settings and intended arrivals fixed within pairs. Alternate or randomize
-arm order across independent blocks. Never mutate executed inputs during a block.
+Mapped the historical failure modes to mandatory evidence below. No new serving
+measurements, model-fit tests, corpus qualification or precision pilot were run.
+Consequently, the proposal can establish coverage intent, not empirical sufficiency.
 
-Separate runtime/kernel warmup from workload-cache warmup. Clean-cache cases verify
-that measured prefixes are absent; warm cases use the same declared prefix-seeding
-sequence. Do not let a previous run accidentally warm the next one. Startup, model
-loading and warmup are reported separately from the measurement window.
+### 3. Frozen release contract and reference systems
 
-The pinned ARC fallback limitation may affect C and H differently. Record eviction
-and store refusals and describe this limitation with affected results. Fixing it is a
-separate runtime change, never an unrecorded benchmark adjustment.
+Before confirmation, freeze the commit/executed-source snapshot, runtime and native
+libraries, model/tokenizer revisions, templates, decoding and stopping rules,
+resource budgets, workload manifests, split ancestry, scheduling policy, arm order,
+metrics, useful effects, regression margins and analysis/stopping plan. Hash dirty
+inputs when exploring; release evidence must identify a reproducible release tree.
+No post-result tuning of an arm inside a confirmation comparison.
 
-### 3. Benchmark inventory
+References:
 
-Every benchmark below specifies a question, execution, comparisons, outputs and
-claim boundary. These are experiment definitions sharing one runner, not independent
-scripts. Small screening subsets and deeper confirmation use the same definitions.
+- Native GPU prefix caching without CPU offload: practical simple-system reference.
+- Current guarded CPU offload with advice disabled: causal wait-hint control.
+- Release candidate with advice enabled: same guards/runtime/resource configuration.
+- Frozen previous release when one exists: regression control, run on affected and
+  core cases; never silently substitute the moving development branch.
+- One qualified relevant external cache/offload alternative for a competitive claim.
+  A narrow claim of improvement over native offload does not prove superiority to
+  external systems. The report distinguishes those claims explicitly.
 
-#### B00: Serving and measurement smoke
+For advice attribution, match registration, offered hint events, API processing,
+GPU/CPU capacities, scheduler options and observation overhead. Separately measure
+end-to-end no-feature versus feature cost so matching integrations does not hide
+registration/hint overhead. Namespace/timestamps legitimately differ per run; match
+causal event semantics rather than replaying invalid clock identities.
 
-- Question: does this exact setup execute the intended serving and measurement path?
-- Execute a few short requests, register completed prefixes, deliberately displace
-  selected prefixes from GPU memory, restore them from CPU and send a causal hint.
-  Include startup, streaming, normal drain and owned-process cleanup.
-- Arms: C and H; G startup/request compatibility when introduced.
-- Measure request completion, actual lengths, registration/hint outcomes, store and
-  restore evidence, protocol validity, timeouts and cleanup. Include deterministic
-  restored/fresh output checks where the existing functional protocol supports them.
-- Validity: prove readiness and real restoration independently of hint acceptance.
-  Reuse the existing GPU byte-integrity test as a prerequisite where relevant;
-  HTTP success and matching text do not replace KV-byte checks.
-- Use before campaigns and after runner/runtime changes. Exit success means the
-  measurement setup worked, not that a policy improved performance.
+Whole-system comparisons match hardware and explicit resource constraints; disclose
+extra CPU memory and total observed usage. Include a labelled practical configuration
+comparison where each system has documented sensible tuning. Do not confuse matched
+KV capacity with equal total memory. Pin decode-KV publication, chunking, paging,
+priority, templates and output settings; expose unavoidable differences.
 
-#### B01: Overhead and measurement sensitivity
+The pinned ARC eviction limitation is a release-relevant confound. Count failed
+stores/evictions and test its characterized path. If claimed benefit depends on the
+bug, describe the claim as specific to that runtime; a broad policy claim needs a
+separately authorized corrected-runtime sensitivity study. Do not assume identical
+bugs cancel, or silently repair the runtime during the campaign.
 
-- Question: what does each layer cost when it has no useful cache opportunity?
-- Execute independent prompts, GPU-resident repeats and roomy-cache requests. Within
-  C/H distinguish no registration, registration without hints, and matched hint
-  traffic. Measure at light load and one shared busy operating point.
-- Arms: G/C/H as applicable; unchanged-versus-unchanged pairs establish noise.
-- Measure latency, completed requests, CPU time, RSS, GPU allocation and registration/
-  hint delivery costs. Report server and client costs separately and together.
-- Qualify timing sensitivity with a separately identified, intentionally added delay
-  inside the measured path. Verify it against an independent clock/event receipt.
-  This diagnostic never enters candidate performance estimates. Misleading hints
-  are not assumed to be a known slowdown; B04 measures whether they actually harm.
-- Output: overhead by layer and a noise/sensitivity report. Required for new mechanisms
-  and integration changes; no universal percentage rejection rule.
+### 4. Model and deployment coverage
 
-#### B02: Reuse structure and distance
+Proposed minimum for a multi-model release claim:
 
-- Question: which patterns of exact reuse make retention valuable?
-- Execute independent returning prefixes, prefixes shared across sessions, and
-  growing/partially overlapping transcripts. Include no reuse, uniform reuse and
-  skewed popularity. Vary elapsed wait independently from intervening distinct
-  native KV-block bytes where feasible; count shared ancestors only once.
-- Arms: C/H, with selected G anchors. Start with fixed external prompt traces;
-  completion-dependent cases are identified separately through B05/B06.
-- Measure return TTFT, completion latency, reuse/recompute tokens, CPU retention,
-  eviction and restoration. Record offered prefix structure and observed exact-key
-  opportunity, not just a configured reuse percentage.
-- Output: behavior by reuse structure and distance. Negative-control early-prefix
-  changes verify that similar text is not being treated as exact reuse.
-- Claim: controlled cache behavior, not prevalence of that behavior in applications.
-
-#### B03: Capacity and computation boundaries
-
-- Question: when do saved prefill costs outweigh movement, admission and contention?
-- Independently vary GPU and CPU KV capacity: GPU-resident working set, GPU spill
-  with adequate CPU space, and competing CPU working set. Include active generation
-  competing for GPU blocks. Vary reusable prefix, new suffix and output lengths
-  separately, with selected mixed-length cases and block-boundary cases.
-- Arms: G/C/H, matching explicit GPU capacity and disclosing extra CPU resources.
-- Measure TTFT, inter-token gaps, end-to-end latency, completed work, transfer bytes,
-  recomputation, preemptions, memory and refused stores/evictions. Record actual
-  unique working-set bytes and active versus reusable cached occupancy.
-- Output: capacity/latency/throughput curves and observed transition regions.
-- Claim: resource trade-offs for this geometry; an artificial cache cap is labelled
-  as a controlled pressure experiment, not a normal deployment configuration.
-
-#### B04: Hint usefulness, timing and interference
-
-- Question: when does advice help, waste work, or displace useful state for others?
-- Execute no hints, timely valid hints, late valid hints, refused stale hints and
-  accepted hints for abandoned continuations. Vary the fraction of hinted sessions
-  and include shared-prefix and independent-prefix cases. Repeated event replay
-  and genuinely new periodic events are separate cases; replays must not be counted
-  as new cache refreshes.
-- Arms: matched C/H; no-registration/no-hint overhead references from B01.
-- Measure hinted and unhinted cohorts separately, hint production and RPC cost,
-  refusals, new refreshes, later reuse and latency. Trace the observation/readiness/
-  refresh/retention/restore chain. A refreshed key is not automatically saved work.
-- Use the actual returned server observation and same-host monotonic clock. Never
-  fabricate readiness, future text or exact future completion knowledge. Ideal
-  timing is an explicitly synthetic opportunity bound; real availability is B07.
-- Output: benefit/harm by advice quality and timing. An abandoned-session hint may
-  benefit another session sharing its keys; do not automatically label it wasted.
-
-#### B05: Demand, queueing and causal returns
-
-- Question: how do load and feedback change the observed advantage?
-- Primary mode: predeclared offered arrival schedules, including spaced, random and
-  bursty arrivals, from light load through a bounded overload episode. Compare arms
-  at the same absolute offered rates; relative-to-own-capacity plots are secondary.
-- Companion mode: each session returns after its predecessor completes plus a
-  declared wait. New-session arrivals remain explicit. This reveals feedback among
-  service time, growing contexts and cache competition.
-- Record scheduled arrival, client submission, server admission when available,
-  first token, subsequent token events, completion, outstanding backlog and failures.
-  Client concurrency limits must not silently turn offered load into completion-
-  limited load. Declare queue caps, timeout, overload termination and drain policy.
-- Output: latency/load curves, attained throughput and backlog growth; separate
-  client waiting from server time. Report failures and unfinished requests in all
-  denominators. Do not invent an application SLO; later report goodput against
-  declared latency limits only when those limits have a stated purpose.
-- Claim: controlled load behavior and causal feedback, not realistic traffic mix.
-
-#### B06: Repeatable replay and change confirmation
-
-- Question: does a proposed change improve a repeatable, stated serving problem?
-- Assemble a versioned development panel from B01-B05 with positive-opportunity,
-  no-benefit, adverse and combined-condition cases. Retain unfavorable regions.
-  Compare a new candidate with frozen incumbent and native controls as relevant.
-- Fixed external replay supplies identical tokenized prompts/schedules/decoding
-  settings. Requested and actual output lengths and fingerprints are retained.
-  Different outputs mean nominal-demand comparison, not identical execution.
-- Exact recorded-token replay is optional and requires an explicitly qualified
-  execution path that performs genuine decode/cache operations. Do not implement
-  a custom forced-token engine solely to claim identical work. If unavailable,
-  retain the limitation and use fixed prompts plus live confirmation.
-- Completion-dependent replay is labelled separately from externally scheduled
-  replay. A recorded transcript is never described as the current arm's live output.
-- Output: paired changes and uncertainty per case, plus a compact regression panel.
-  No single weighted score determines selection. A short screen is advisory.
-- Confirmation uses fresh independent trace instances/source groups and a declared
-  analysis plan after tuning freezes. Previously examined variants remain exposed.
-
-#### B07: Product-derived application discovery and confirmation
-
-- Question: do opportunities found in characterization occur naturally and improve
-  useful completed work when actual outputs and integrations are included?
-- First inspect candidate real traces/tasks for reuse, return gaps, pressure and
-  available hint signals. Select applications from that observed fit, including
-  weak-opportunity cases. Initial possibilities are document follow-ups, repository
-  investigation with real tools and other session-based tasks; these are proposals,
-  not mandatory targets or measured production proportions.
-- Execute actual tools and use actual generated outputs in subsequent requests.
-  Record tool duration, failures and truncation. Hints use only information the
-  application possessed then; include prediction, integration and RPC costs.
-- Arms: candidate/incumbent/native control, plus selected B10 alternatives later.
-- Measure full workflow time, return-ready-to-first-token delay, completed and valid
-  tasks per time, errors and resources. Define task-specific checks before comparing
-  results: e.g. reported test outcome versus real exit status, source-grounded answer
-  checks, and strict format/truncation checks. Retain exact outputs for review.
-- Human or model-assisted audits must disclose selection and uncertainty; no paid
-  judging service is assumed. Separate objective checks from uncertain judgments.
-- Output: application result with success/quality and performance jointly presented.
-  Different live outputs are allowed, but prevent identical-work speedup claims.
-  Scripted waits are labelled; they are not measured human behavior.
-
-#### B08: Mixed-traffic impact
-
-- Question: does a benefit survive sharing the server with unrelated work?
-- Mix returning hinted sessions, returning unhinted sessions and independent traffic;
-  include short and long requests and a change in which cohort is popular. Derive
-  initial cases from B02-B05; later substitute B07 tasks without changing accounting.
-- Arms: C/H or incumbent/candidate; keep request classes and resource allocation
-  comparable. Include misleading advice under real competition.
-- Measure each cohort's latency, completion/failure rate, queueing and cached-work
-  savings as well as aggregate outcomes. Report slowdown distributions and sustained
-  backlog by cohort; sample counts accompany tail metrics.
-- Output: explicit benefit distribution and interference. No pooled average can
-  establish fairness, and no fairness bound is assumed without Philip choosing it.
-- This expands B04's mechanism probe into system-level coexistence evidence.
-
-#### B09: Sustained operation and recovery
-
-- Question: does behavior remain stable across time, churn and interruption?
-- Keep the server alive across waves, bursts, quiet periods, changing hot sets,
-  session creation/retirement and abandoned sessions. Include owned request
-  cancellation/disconnection and bounded server failure/restart controls.
-- Exercise configured metadata/session/event capacities and reclamation; counters
-  and RSS trends distinguish bounded refusal from continuing memory growth.
-- Measure windowed throughput/latency, memory, retained state, errors, queue drain,
-  cancellation acknowledgement and successful recovery generation.
-- Arms: relevant candidate and control; runtime failure injection is isolated from
-  performance intervals. Preserve failed attempts and verify owned-process cleanup.
-- Output: duration- and workload-bounded operational evidence. A passing short wave
-  test is not an indefinite leak test or production certification. Choose longer
-  exposure from observed lifecycle/capacity times, not an arbitrary overnight ritual.
-
-#### B10: External alternatives and resource trade-offs
-
-- Question: would another maintained system be a better practical choice?
-- Select a currently relevant exact prefix-cache/offload alternative after checking
-  compatibility and maintenance. Historical Continuum comparisons are research leads,
-  not a selection or a current ranking. Selection and installation are later work.
-- Run a small B06 panel, selected B07 applications and B08 interference cases. Report
-  both explicitly matched resource constraints and separately labelled documented
-  system-specific tuning. Freeze tuning before fresh comparison.
-- Record differences in runtime, chunk size, decode-KV publication, scheduling,
-  paging, templates, stopping and instrumentation. Unsupported features do not
-  silently fall back. Correctness or output-quality differences limit the comparison.
-- Measure latency, valid completed work, CPU/GPU resources and setup/integration
-  costs relevant to adoption. Token rate alone cannot rank different live outputs.
-- Output: scoped system comparison, not causal attribution to a single policy.
-
-#### B11: Model/runtime/hardware coverage admission
-
-- Question: which conclusions transfer beyond the initial configuration?
-- This is a qualification matrix reusing B00-B10, not another workload generator.
-  Add a larger feasible model, then another model family; select cases that challenge
-  memory geometry and compute/transfer balance. Do not run every cell everywhere.
-- Each model declares tokenizer/template, immutable identity, attention layout,
-  precision, context bounds and measured KV bytes. Regenerate tokenized inputs when
-  needed while preserving source ancestry and documenting changed actual lengths.
-- New precision, architecture, runtime or hardware first passes relevant functional
-  CPU/GPU checks, B00, then B01 and selected B03/B06/B07 cases. Additional hardware
-  requires permission; no 5080 availability or qualification is assumed.
-- Output: tested/unsupported/blocked/untested coverage with evidence links. Capability
-  admission never changes the meaning or claimed scope of old results.
-
-### 4. Measurement and interpretation shared by the suite
-
-Primary measures are request/session latency, first-token delay, token delivery
-stalls, completed work, task validity where applicable, failures and resource cost.
-For fixed-length panels requests/second is interpretable; for mixed/live workloads
-also expose input/output lengths and valid task completions. Denominators include
-submitted, offered, rejected, incomplete and failed counts as appropriate, with an
-explicit measurement window and drain treatment. Startup is separate.
-
-Diagnostics include exact reused/recomputed tokens, CPU loads/stores and transfer
-bytes, eviction/store refusals, preemptions, hint outcomes and retained state.
-Separate logical per-request token accounting from physical repeated work or
-transfers under preemption. Missing data is unavailable, never silently zero.
-Only demand restore or reduced recomputation can support saved-work attribution;
-a ready allocation or accepted hint cannot.
-
-Capture low-cost client events in timed runs. Establish the overhead of required
-server counters; use symmetric instrumentation. Expensive per-block tracing is a
-separate diagnostic replay unless its timed cost is measured and disclosed. Reuse
-supported runtime counters where possible; any new adapter telemetry must stay in
-the adapter boundary and be validated against actual behavior. If critical evidence
-is unavailable, narrow the claim or qualify telemetry; do not invent counters.
-
-Use paired independent execution blocks as the main uncertainty unit, preserving
-within-run correlation. Report estimates and intervals per operating condition,
-not only pooled wins. A/A trials characterize noise and drift. Pilot variability
-and the decision's useful effect size determine repetition. Freeze confirmation
-counts/precision and stopping rules before acquisition; adaptive exploration is
-labelled and separate. If budgets expire with broad uncertainty, report inconclusive.
-Tail latency needs adequate observations; small-sample quantiles remain descriptive.
-Multiple exploratory cells do not justify cherry-picked winner significance.
-
-### 5. Workload assets, ancestry and exposure
-
-Inspect existing assets before downloading or generating replacements. The old
-serving workload catalog and repository task/pressure task examples were sampled:
-they are authored and historically exposed. Their labels do not establish real
-traffic or actual pressure. Inventory any selected raw corpus by source, version,
-license/retention constraints, transforms, parent/session/project grouping, exact
-prompt structure, prior experiments and known exposure. Unknown history is unknown.
-Do not copy the whole old runner or restore retired feature implementations.
-
-Keep three roles distinct: repeatedly used development data; exploratory discovery
-inputs; fresh confirmation groups reserved after a decision is fixed. Related turns,
-variants and projects stay together when that dependency matters. Synthetic seeds
-alone do not make a workload family independent. Store source-level ancestry before
-tokenization and record tokenizer/template transforms and actual realized lengths.
-
-Characterization can begin with small authored exact-prefix fixtures and controlled
-schedules. B07 uses useful source material and real tasks. No large dataset acquisition
-is required to start. Capture all planned/actual mixture proportions; authored mixes
-are coverage choices, not estimates of deployed traffic.
-
-### 6. Proposed commands and repository wiring
-
-Add one maintained entry point, `uv run --locked python -m tools.benchmark`, with
-subcommands below. These commands do not exist yet. Keep `tools/check.py` the validator
-and `tools/runtime_verify.py` the functional verifier; neither becomes a performance
-campaign script. Reuse their helpers rather than create competing process managers.
-
-| Proposed command | Responsibility |
+| Role | Required evidence |
 | --- | --- |
-| `tools.benchmark plan --definition FILE --model PATH --runtime-python PY --out NEW_DIR` | Validate/resolve inputs without serving; print arm/case counts, bounds, estimated cost and unverified runtime facts; write immutable plan. |
-| `tools.benchmark run --plan PLAN --out NEW_DIR --gpu` | Execute explicitly authorized acquisition with frozen resolved inputs, finite limits and owned cleanup. |
-| `tools.benchmark verify RUN_DIR` | Offline artifact/semantic accounting verification; no server or GPU. |
-| `tools.benchmark report RUN_DIR --out NEW_DIR` | Recompute summaries/plots from retained events; never rewrite raw records. |
-| `tools.benchmark resume --run RUN_DIR --out NEW_DIR --gpu` | Create a linked continuation for eligible missing cases; preserve original failed/interrupted attempts. |
+| Existing small qualified model | Harness controls, deterministic functional cases and fast regression feedback; not enough for practical-value claims. |
+| Practical model A | Full release workload panel, actual cache competition, output-validity assessment and operational checks. |
+| Practical model B from another family | Same panel; meaningfully different tokenizer/template and KV/compute geometry, not just another seed or alias. |
+| Every additional advertised model/configuration | Functional checks plus representative load/pressure/quality cases; full panel for any model-specific benefit claim. |
 
-All commands use the portable interpreter as controller. Run invokes the explicit
-pinned runtime interpreter only in owned subprocesses. Plan can inspect local model
-metadata on CPU but cannot claim model fit, successful import or hardware behavior.
-Paths are structured arguments, not interpolated shell commands. No downloads,
-credential changes or implicit network services. `--gpu` is an execution opt-in,
-not proof of user authorization; agents must retain the task's resource permission.
+A and B must fit the intended runtime/host and produce useful answers to the selected
+tasks. Select exact models from inspected assets and current model documentation,
+then verify fit, attention layout and generation before freezing the manifest. Two
+families challenge obvious model-specific behavior; they do not prove arbitrary-model
+support. Model names, byte identities and actual context lengths cannot remain TODOs
+in an executable release plan.
 
-Proposed file ownership and integration:
+Initial deployment claim: RTX 2080 Ti/WSL2, dense FP16 full attention, TP1, HND, eager,
+TRITON_ATTN, same-host causal hints and one trusted operator. Host CPU/RAM/driver,
+power settings and runtime are part of the identity. Native Linux, other GPUs,
+quantization, BF16, graphs, LoRA, hybrid/sliding attention, speculative decoding and
+parallelism are excluded until specifically qualified. Construction/refusal behavior
+for unsupported settings is tested. We will not quietly replace the larger models
+with the tiny model or quantization if fit is difficult: resolve the resource/scope
+choice with Philip.
 
-| Location | Owns / required change |
+The product's scope/session names are not security tenants. Test endpoint auth and
+identity binding, but make no multi-tenant confidentiality or remote-clock claim.
+Broader claims require corresponding security/clock design and evaluation, not just
+more latency trials.
+
+### 5. The release workload panel
+
+These are six sections of ONE benchmark, run with common measurements and controls.
+They challenge distinct reuse/compute/session behaviors; none is a permanent product
+objective. Concrete source selection follows characterization and asset inspection,
+but preserves no-benefit and harmful-opportunity cases. Initial examples below are
+proposed rather than already qualified corpora.
+
+| Section | Actual execution | What it challenges | Validity/quality check |
+| --- | --- | --- | --- |
+| Independent requests | Fresh grounded QA/extraction/short generation, including little or no shared prefix | General overhead; decode-heavy work; accidental shared templates | Reference facts/fields, correct formatting, completion/length/stop checks |
+| Shared-source requests | Different questions over common documents or fixed context, with hot and rare sources | Cross-session sharing, popularity skew and partial prefix overlap | Answers against retained source evidence; unanswerable/contradictory controls |
+| Growing conversations | Real multi-turn outputs appended to subsequent requests, varying turn count and waits | Growing KV, return distance and identity lifecycle | Context-dependent facts/instructions and per-turn/final success |
+| Tool-wait workflows | Real read/search/test or bounded lookup tools; subsequent prompts consume their results | Actual opportunity for causal hints; tool and integration cost | Claims checked against actual tool results; tool failure/timeout/truncation retained |
+| Branching sessions | Shared initial context followed by divergent branches and a dependent final step | Shared ancestors, partial hits, abandoned branches and overlapping returns | Branch outputs and final synthesis checked against retained inputs/results |
+| Mixed traffic | Fixed mixtures of the preceding sections, including hinted/unhinted and short/long requests | Interference, queueing and hiding harm in aggregate | Every cohort separately; constituent checks retained |
+
+For each section include short/medium/long actual input lengths, short/long outputs,
+and relevant context-near-limit cases within supported bounds. Controlled fixtures
+vary reusable prefix, new suffix and generated length separately. Natural workloads
+are not padded merely to manufacture reuse. Preserve actual token IDs after template
+application and verify intended prefix identity. Different seeds are not evidence
+of independent source material.
+
+Use both fixed external request traces and actual output-dependent sessions. Fixed
+prompts/schedules control nominal demand, not generated output identity. Exact
+forced-token replay is optional only with a qualified mechanism and clearly limited
+claims. Actual generation must appear in release evidence; matching token counts
+or replaying yesterday's answers cannot establish application quality.
+
+### 6. Required operating conditions and tractable matrix
+
+Each practical model runs the six sections under three declared environments:
+
+1. Roomy/light: reusable state fits, little queueing; exposes overhead without a
+   retention advantage. Preserve genuinely no-reuse requests too.
+2. Competitive/steady: GPU overflow with CPU working-set competition, at a shared
+   offered rate below the control's sustained saturation boundary.
+3. Busy/changing: higher offered load, bursts or shifts in the hot set, with bounded
+   overload and recovery; mixed traffic includes misleading/abandoned advice.
+
+This is a core floor of 6 x 3 x 2 = 36 matched workload/model/environment cells,
+not 36 requests. Each includes independent source groups and repetitions determined
+by the precision plan. These cells alone are insufficient for pressure/load
+interactions: add a small interaction panel on each practical model crossing three
+capacity regimes (GPU-resident, GPU spill/CPU fits, CPU competition) with three load
+regimes (light, near sustainable, bounded overload). Reuse matching core cases when
+valid; otherwise at most nine additional cells per model. This prevents pressure
+and demand from always changing together.
+
+Across the matrix explicitly cover uniform and skewed reuse, increasing intervening
+distinct KV bytes separately from elapsed wait, cold and deliberately warm state,
+active decode allocations and selected block-boundary lengths. Track which concrete
+cell covers each condition. Every advertised model gets no-benefit, genuine restore,
+CPU-competition and live-quality coverage. Missing intersections remain listed;
+important newly observed interactions trigger additional cells, not a completeness
+claim based on pairwise coverage alone.
+
+Open-loop schedules record intended arrival before any client concurrency gate,
+actual submission, first token, completion and backlog. All arms receive the same
+absolute offered rates. Completion-dependent sessions additionally use predecessor
+completion plus declared waits and are analysed as causal applications. Overload
+uses declared queue/time caps and drain rules; don't run unlimited queues or count
+only survivors. Report sustainable capacity and latency together. Configure SLOs only
+for a stated use; where none exists, publish latency/load curves rather than invent
+an arbitrary universal SLO score.
+
+### 7. Correctness is a mandatory release gate
+
+Integrate existing CPU/runtime/GPU evidence; expand actual hardware coverage where
+current tests are narrow. No performance gain can compensate for a correctness error.
+
+| Obligation | Required execution/evidence |
 | --- | --- |
-| `benchmarks/definitions/` | Small versioned benchmark/campaign JSON definitions, system and workload choices; no executable run-local scripts. |
-| `benchmarks/fixtures/` | Compact authored portable examples, source descriptors and expected accounting cases; large corpora remain external. |
-| `tools/benchmark.py` | CLI parsing and verdict presentation only; one explicit entry-point exception. |
-| `tools/benchmarking/` | Typed definitions, case expansion, workload adapters, client scheduling, execution, event accounting, verification and reporting; start with actual needed modules. |
-| `tools/config.py` | All new environment reads and external artifact-root resolution. |
-| `tools/process.py` | Reuse owned-process identity, timeout and cleanup; extend lifecycle operations only when required and test actual processes. |
-| Existing runtime snapshot/receipt helpers | Extract narrowly reusable code if necessary; preserve existing functional receipt readers and schema meanings. Benchmark records have their own version. |
-| `wait_hint_offload/vllm_adapter/` | Only location for new vLLM-specific telemetry/integration; pure product core never imports benchmark code. |
-| `tests/` | Portable benchmark contracts and accounting tests; normal discovery/inventory/full acceptance. |
-| `tests/runtime/` | Pinned integration and explicit GPU qualification tests, keeping CPU and GPU discovery separate. |
-| `tools/system_map.py`, `docs/system-map.md` | Add the maintained benchmark command when implemented; entries must reflect actual availability. |
-| `tools/check.py`, `tools/rules.json`, proof specimens | Add useful mechanical definition/reference checks and their proofs; no GPU in portable acceptance. |
-| `tools/exceptions.toml` | Narrow reviewed CLI exception; no general exemption for benchmark scripts, suppressions or imports. |
-| `pyproject.toml`, `uv.lock` | Keep typing/lint/dependency coverage; add dependencies only for implemented needs, pinned through the existing mechanism. |
-| `README.md`, `docs/benchmarking.md`, `docs/checks.md` | Short navigation, maintained procedure, targeted/full validation and common repairs. |
-| `AGENTS.md` | Proposed brief benchmark navigation and interpretation rule; Philip owns approval. |
+| Exact KV transport and safe publication | Direct FP16 byte checks over store/evict/restore, varied block counts/boundaries, overlapping loads/stores, and pressure; readiness only after successful transfer. |
+| Correct reuse identity | Shared and nonmatching prefixes, namespace/session/generation/incarnation changes, partial chunks and computed-token limits; no sampled-but-uncomputed token published. |
+| Advice is recency only | No pinning, prefetch, queue promotion, approximate reuse or scheduler-priority change; queue membership and exact native keys retain ownership. |
+| Causal protocol | Real HTTP-to-engine delivery; timestamp/domain/deadline checks, exact replay, changed replay refusal, reset/retirement invalidation, capacity limits and explicit refusal reasons. |
+| Failure handling | Failed stores never publish; failed loads invalidate destinations and safely recompute; unknown completion fence stops safely rather than continuing with corrupt state. Use safe deterministic injection in isolated qualification cases. |
+| Concurrency/lifecycle | Requests finishing while hints arrive, cancellations/disconnects, retirement/reset, duplicate/delayed events and shutdown; no double release or retained stale references. |
+| Endpoint/auth/input limits | Missing/wrong credentials, malformed/oversized/unknown-schema inputs, wrong scope identity and bounded refusal; valid traffic remains serviceable. |
+| Resource boundaries | Session/event/metadata capacity reached, replaced and reclaimed; supported maximum boundaries and unsupported configuration refusal. |
 
-`tools/benchmarking/` is already under the typed development root, while benchmark
-JSON has explicit schema/reference checks. Check import and dependency tooling when
-adding modules so no authored path escapes lint/types/tests. Test inventories are
-updated through existing commands; do not create a parallel testing framework.
-Keep authored files tracked and raw runs external; add no broad ignore for benchmarks.
+Run deterministic fresh-versus-restored output comparisons and, where feasible,
+logit comparisons with declared tolerances calibrated against fresh-versus-fresh
+numerical variability. Exact KV bytes are required; exact output identity across
+arbitrary concurrent schedules is not assumed. Any unexplained divergence is
+investigated, not silently dismissed as nondeterminism. Ordinary realistic performance
+runs also check output validity; passing a separate correctness fixture is not enough.
 
-### 7. Extensibility with explicit boundaries
+All advertised combinations must have applicable tests; document which checks use
+real GPU/native paths versus fakes. Fault injection is separate from timed benefit
+estimates and demonstrates expected safe behavior, not a normal-serving failure.
 
-A benchmark definition selects workload, system arms, model profile, traffic,
-resource geometry, metrics, required evidence and budgets. Version closed schemas;
-reject unknown fields/IDs and unsupported combinations with a repair instruction.
-Keep host-private paths/API keys outside tracked definitions; store redacted resolved
-identity and secret-free commands in receipts.
+### 8. Output quality and useful work
 
-Three concrete variation points suffice initially:
+Check the outputs of the actual performance configuration, not only a separate
+low-load accuracy run. Retain task success, factual/field accuracy, format errors,
+truncation, refusal, tool failure, EOS/context-limit termination and response lengths
+separately. Performance is reported both for offered/completed work and correctly
+completed tasks; no dropping failed tasks from time or denominators.
 
-- Workload adapter: prepares requests or causal sessions and declares input ancestry,
-  timing dependencies, hint availability and output-validity rules.
-- System adapter: validates capabilities, launches the owned server, exposes supported
-  endpoints/telemetry and stops it safely. Initial adapters are G and guarded C/H.
-- Model profile: immutable model/tokenizer identity, template and supported runtime
-  geometry. It supplies facts and admission constraints, not arbitrary callbacks.
+Use objective task checks where possible. Source-grounded or open-ended tasks need
+predeclared rubrics, blinded paired review and a random sample plus separately labelled
+failure-focused review. A failure-selected audit cannot estimate population accuracy.
+If an automated judge is used, pin it, measure disagreement against human checks and
+account for cost; no external paid judge is assumed authorized. A weak judge cannot
+establish quality equivalence.
 
-Use a small explicit registry of implemented adapters, not dynamic code loading,
-entry-point discovery or a user plugin framework. Each adapter supplies only evidence
-it actually supports. The verifier selects required evidence from the benchmark's
-claim. Lack of optional diagnostics is explicit; lack of claim-critical evidence
-makes the measurement invalid for that claim.
+Require baseline absolute usefulness as well as candidate non-inferiority. Two
+systems that both fail the task do not qualify a useful-work claim. Task-specific
+minimum success criteria must be frozen before confirmation. The practical models
+must support the tasks; impossible or ceiling-saturated tasks are replaced during
+pilot with reasons, not silently removed after comparative results.
 
-Adding a workload means one adapter only if the existing schema cannot express it,
-plus fixtures and documented validity rules. Adding a model normally changes a
-profile and tokenized inputs, then B11 qualification. Adding a candidate changes an
-arm/source/config identity, not copied runners. A new mechanism may require new
-activity evidence and diagnostics; wait-hint counters are not universal requirements.
-Adding an external system means an explicit adapter and fairness statement.
+### 9. Stability, recovery and installability
 
-### 8. Records, recovery and result closeout
+Include sustained mixed traffic, session churn, changing hot sets, quiet/restart
+periods and repeated capacity exhaustion/reclamation. Observe windowed throughput,
+latency, memory, metadata, queues, errors and completion. Distinguish allocator/cache
+warmup from continued unreclaimed growth. Verify logical counts directly and retain
+RSS/GPU allocation as complementary measurements.
 
-Every run retains a resolved immutable plan, corpus/trace provenance, source/runtime/
-model identity, arm commands, per-request and session events, resource samples,
-required server observations, exact outputs, failures, terminal status and cleanup
-receipt. Raw locations are outside Git under the existing project data root or an
-explicit new external directory. Never overwrite an attempt.
+Proposed first-release exposure: an eight-hour mixed-load run plus two independently
+started two-hour runs for candidate and matched native control on the primary practical
+model, and at least a two-hour mixed/churn run on the second. Also require three full
+configured session/event-capacity churn/reclamation cycles; shorten configured limits
+in a separate stress case when normal limits make turnover impractical. These are
+engineering exposure targets for review, not proof of a universal failure rate or
+unlimited stability. Pilot may justify a different budget before confirmation.
+Report observed error counts and exposure; do not infer request independence from a
+single long process. Known operational risks may demand longer or targeted exposure.
 
-Keep four states separate: planned, implemented, exercised and qualified. Execution
-status (complete/failed/interrupted), measurement validity and performance conclusion
-are separate fields. A complete valid loss is successful measurement. Offline verify
-can validate the integrity of an honestly failed attempt without calling it a pass.
-Report prints a short verdict, scope, limitations and artifact path.
+Exercise real request abort, client disappearance, failed startup, timeout, server
+termination and restart, disk exhaustion through bounded fault simulation, and
+interrupted report/receipt writes. Verify recovery generation and cleanup of only
+owned processes. Partial artifacts remain verifiable as incomplete. Restarted caches
+are cold unless deliberately rebuilt; resume never claims to restore lost cache state.
 
-Resume occurs at declared independent case/pair boundaries. Do not pretend to restore
-an in-memory cache after a crash. An interrupted warmed sequence restarts from its
-specified initial state in a new attempt. Preserve the failed prefix and exclude it
-from a complete-pair estimate only with explicit reason and counts; never erase it.
-A changed runtime/source/model/config creates a new plan with lineage. Missing source
-or receipts fail verification; report-only recovery is not exact rerun capability.
+Reconstruct the release from its retained Git source and locked inputs in a clean
+checkout/environment. Exercise installation, documented command, one live serve path,
+offline verification and report regeneration. Report which dependencies/models came
+from caches; cached setup is not a fresh-download claim. Offline report recovery must
+not require the original checkout. Exact reruns still require declared external assets.
 
-Use existing `results/NAME/result.json`, generated Markdown/chart and FINDINGS for
-coherent completed investigations. Store compact figure inputs and supporting reports,
-not raw streams or one page per run. Prefer existing figure support initially;
-extend the result schema/rendering only when a useful curve or panel requires it,
-with old readers/results preserved. Do not force unrelated metrics into one chart.
-Invoke close-results at investigation closeout; retain losses and uncertainty.
-The local Git bundle preserves source/compact results only. External raw/model
-preservation remains separately documented; this plan creates no hosted remote.
+### 10. Demonstrate that the benchmark can detect problems
 
-### 9. Agent guidance and long-running work
+Before using the benchmark to decide a release:
 
-Proposed AGENTS guidance, to approve with implementation: use docs/benchmarking.md;
-start with plan and the smallest relevant benchmark; checks are not performance
-qualification; a valid run is not necessarily a win; keep adverse/incomplete evidence;
-obtain explicit GPU scope and close results through the existing procedure.
+- A/A trials measure repeated identical-system noise and order/drift effects.
+- A known delay/cost inserted inside the measured path must appear in independent
+  timing. The control is labelled and excluded from candidate benefit estimates.
+- An intentionally inactive advice path must fail activation validation in a case
+  that requires advice, while no-benefit controls remain valid with zero activity.
+- A deliberately corrupted/incorrect result must fail the independent correctness/
+  task checker; a missing counter or event must not become a zero.
+- A client-side backlog must appear in scheduled-to-result timing, not disappear
+  behind a concurrency semaphore. Overload failures remain in the denominator.
+- Controlled cold/warm cases verify actual cache state and detect carryover.
+- Mismatched source/model/config, truncated streams, duplicate records, changed
+  outputs and interrupted attempts must be detected by offline verification.
+- A minimal frozen evidence bundle must regenerate its displayed metrics/figures
+  from raw events, with hand-calculated fixtures checking the aggregation logic.
 
-The topic guide should answer: which benchmark fits the question, how to inspect
-cost, how to supply model/runtime/assets, what authorization is needed, how to run
-and verify, what a refusal means, and how to interpret/resume/close the result. Include
-one worked retained example and one failed attempt. Do not duplicate full commands
-and thresholds in AGENTS or personal skills.
+These establish sensitivity of specific checks; they do not prove universal detector
+power. Measure diagnostic overhead. Expensive tracing runs separately or has symmetric,
+measured cost. Prefer existing supported runtime counters and narrow adapter hooks;
+never mistake a successful receipt hash for evidence that the scientific claim holds.
 
-A project benchmark-run skill is a candidate for the separate agent-operations
-phase, after the command has been exercised. It should wrap the maintained plan/run/
-verify/close workflow, not own another runner. Shared benchmark-design remains design
-guidance. GPU permissions, completion notifications and sustained-work ownership are
-recorded in the task; reading a task does not assign it to another agent.
+### 11. Statistics, data exposure and stopping
 
-Long runs need a durable owning process, explicit time/resource limits, append-only
-progress, owned cleanup and a tested completion/failure notification integration.
-Coordinate the mechanism with agent operations; do not invent a GPU reservation
-system or assume a session ending cancels ownership. Until that integration is
-qualified, keep acquisitions bounded and supervised. Handle healthy jobs without
-moving their frozen dependencies or reclaiming their artifacts.
+Inventory existing corpora/source trees, licenses and historical exposure before
+acquisition. Related sessions, turns, variants and source projects stay in the same
+split where relevant. Maintain development, exploratory discovery and reserved
+confirmation groups. Historical research corpora are exposed. Reserve inputs before
+candidate selection; new seeds over memorized templates are not enough. Release
+confirmation data can become regression data later, but fresh confirmation is then
+needed for new selected claims. Keep holdout identities/provenance without using
+outcomes to tune the candidate.
 
-### 10. Cost, cadence and acquisition limits
+Choose primary outcomes and claimed regions before confirmation. For each relevant
+cell, report paired whole-run effects and uncertainty, with independent run blocks
+and grouped source resampling where appropriate. Requests within a session/process
+are correlated. Predeclare multiplicity handling for multiple confirmatory claims
+(e.g. simultaneous intervals or Holm adjustment); exploratory heatmaps remain
+exploratory. Separate discovery-selected regions from fresh confirmation estimates.
 
-These are proposed engineering targets, not measured turnaround or authorized GPU
-budgets. Pilot observations must replace estimates before a larger campaign.
+Pilot estimates noise, baseline variability and task-success frequency; calculate
+sample sizes against useful-effect/non-inferiority margins. Require independent
+process starts and sessions, not merely many requests in one run. Freeze repetitions,
+analysis and stopping before confirmation, or predeclare a valid sequential procedure.
+If the resource cap is reached with an interval crossing a gate, verdict is unresolved.
+No rerunning only unfavorable arms/pairs. Report incomplete pairs and cause-specific
+failures; paired estimates use complete pairs without erasing failed acquisition.
 
-| Use | Proposed initial intensity / cost control |
+Tail claims require adequate independent exposure and quantile uncertainty, not a
+p99 from sixteen requests. With insufficient evidence, report descriptive quantiles
+and explicitly withhold the tail guarantee. Averages and weighted scores cannot
+cancel failed mandatory cohorts. Any headline aggregation includes its weighting
+and sensitivity, alongside the full model/workload panel.
+
+### 12. Proposed release gates
+
+These numbers are concrete starting recommendations for Philip to review. They are
+engineering tolerance choices, not laws or conclusions from old measurements. Pilot
+checks whether they are measurable at affordable cost; noisy results do not justify
+relaxing a gate after the fact. Require the stated confidence bound, not just a point
+estimate; confirmation uses the declared multiplicity policy.
+
+| Gate | Proposed requirement | Reason |
+| --- | --- | --- |
+| Correctness | Zero observed cache corruption, identity violation, unsafe reuse or protocol invariant failure in required tests/runs; all mandatory functional cases pass | Exact cache behavior is the product contract; finite tests do not prove zero future failures. |
+| Normal operation | No unexplained crash, hang or failed normal request in admitted below-overload cases; intentional fault cases behave as specified | Throughput cannot compensate for instability. Unrelated infra faults invalidate affected evidence rather than count as a product pass. |
+| Coverage | Every mandatory model/workload/condition cell complete and valid, with required activity and quality evidence; no silent fallback | Prevents scope shrinking or inactive-feature wins. |
+| No-op overhead | Lower confidence bound of candidate/control throughput ratio >= 0.97 and upper bound of p95 latency ratio <= 1.05 in declared no-benefit cases | Limits the cost imposed on traffic unable to benefit. |
+| Protected traffic | Upper confidence bound of unhinted cohort p95 TTFT and end-to-end latency ratios <= 1.05, and throughput lower bound >= 0.97 at matched admitted load | Prevents aggregate wins from hiding displacement harm. Report absolute delays too. |
+| Quality | Lower bound of candidate minus control task-success difference >= -0.02 (two percentage points), plus frozen absolute task-usefulness floors; stricter zero-error checks for deterministic assertions | Performance must not be purchased through worse answers. Margins may need tightening for the intended task; reference quality is not presumed. |
+| Claimed benefit | Lower bound of valid-task-throughput ratio >= 1.05 OR upper bound of chosen latency ratio <= 0.95 in predeclared useful regions, with no failure of protected secondary metrics | Requires a useful, repeatable effect rather than statistical detection of a negligible change. The chosen primary metric is frozen in advance. |
+| Resources | No unbounded logical state growth; no breach of declared CPU/GPU/disk budgets; after equivalent churn/drain, retained logical state returns to expected bounded level | CPU memory spent to save GPU work must remain explicit. RSS alone cannot establish a leak or its absence. |
+| Repeatability | Confirmatory result survives independent starts and held-out source groups; all artifacts verify and summary regenerates | One favorable run or a non-reproducible report is insufficient. |
+
+No universal all-workload win is required. For broad multi-model benefit language,
+confirm benefit on both practical model families and more than one independent
+workload/source family, with all advertised-envelope safety/regression gates met.
+If benefit appears only in one region, release text must say so. Stronger words such
+as "generally faster" require an explicit representative population and weighting;
+this benchmark does not automatically authorize them. If adversarial advice causes
+unacceptable harm, restrict the supported advice policy or repair it; do not average
+the harm away or claim robust operation under that condition.
+
+Exact absolute latency/task-success floors, overload acceptance behavior and any
+exceptions require an explicit claim-specific contract before execution. The defaults
+above make the proposal reviewable but do not substitute for that contract.
+
+### 13. Competitive evidence
+
+Include native references in the entire core panel. Before claiming competitiveness,
+select at least one relevant maintained external exact cache/offload system, inspect
+its supported configuration, and qualify a fair adapter. Start with the same core
+workloads/claimed regions and include no-benefit and interference controls; cannot
+select only workloads on which our candidate won. If practical budget prevents full
+coverage, limit the competitive claim to the exercised common subset.
+
+Report separately: isolated advice effect, whole-system comparison at matched
+resources, and practical tuned-system comparison. Use actual output/task quality;
+token rate does not rank differently sized or incorrect answers. An unavailable or
+unsupported competitor is listed as such, never treated as slower. Existing historical
+Continuum/upstream experiments provide fairness lessons, not current qualification.
+Selection is an implementation-stage research item; no package is silently chosen
+or downloaded by this plan.
+
+### 14. Release evidence package and claim audit
+
+One report contains:
+
+- Release claim and named exclusions; frozen manifest and full coverage table.
+- Correctness and operational gate ledger with direct evidence links.
+- Model/workload performance panel, uncertainty and absolute timing/resource values.
+- Quality, failure and hinted/unhinted cohort panels alongside performance.
+- Cold/warm and load/capacity context, actual activation and saved-work evidence.
+- Regressions, adverse/missing/incomplete cases and their disposition.
+- External-system fairness statement where competitive claims are made.
+- Repeatability, setup/restore evidence and exact reproduction commands.
+- A gate-by-gate eligible/not-eligible/unresolved verdict and permitted release text.
+
+Each material claim maps to one or more valid measurements plus its acceptance rule.
+An independent reviewer, when authorized, should challenge this mapping and inspect
+selected raw traces, not just agree with a summary. No missing obligation is converted
+to a pass through review. Unknowns remain visible. A release-significant fix after
+confirmation invalidates affected evidence; rerun affected cells and common sentinels,
+and repeat broad validation when scheduler/runtime/geometry changes have broad reach.
+
+### 15. Three-category workflow and minimal repository integration
+
+Only three normal commands/profiles are proposed:
+
+- Functional: existing tests plus a small real-server subset of release correctness
+  cases. Fast setup confidence; no performance release verdict.
+- Compare: a stable, stratified subset of release workloads/conditions/references,
+  fewer repetitions and shorter lifecycle exposure. Covers every major workload
+  shape, no-benefit and interference, not only synthetic favorable cases. Advisory.
+- Release: the frozen full contract above, qualified instrumentation, fresh confirmation
+  inputs, required repetitions, lifecycle and recovery coverage. Gate ledger mandatory.
+
+The same case IDs, generators/adapters, schema, metrics and verification serve all
+three. Diagnostic investigations are case filters or separate traced runs, not extra
+normal categories. Compare does not secretly redefine denominators or stopping rules.
+
+Proposed single CLI: `uv run --locked python -m tools.benchmark`, with plan/run/verify/
+report/resume subcommands and `--profile functional|compare|release`. CLI does not
+exist yet. Reuse tools/process.py ownership/timeout/cleanup and existing snapshot
+helpers; preserve functional receipt semantics when extracting shared helpers.
+Keep runtime_verify as the existing correctness tool, not a second campaign runner.
+
+Place compact definitions/profiles and fixtures in benchmarks/; typed orchestration,
+accounting and validation in tools/benchmarking/; vLLM imports/telemetry only in
+wait_hint_offload/vllm_adapter/. Use explicit workload/system adapters and model
+profiles, no dynamic plugin framework. All environment reads remain in config modules.
+New candidates change arm identity/config, not copied scripts. New models qualify
+existing cases; new mechanisms declare their actual activity evidence.
+
+Add one reviewed script exception, system-map entry, README link and docs/benchmarking.md.
+Propose a short AGENTS link telling agents which profile to use, that valid measurement
+is not a win, and to retain negative/incomplete attempts. Full portable checks cover
+schemas, references, accounting fixtures, adapters and offline verification without
+GPU. Pinned CPU/GPU lanes qualify actual integrations. No hosted CI or GPU reservation
+system is introduced. A project execution skill can later wrap the exercised command;
+agent operations must not own another benchmark implementation.
+
+Raw plans/attempts/events/output/frozen execution trees stay outside Git. Preserve
+source, schemas, definitions, compact chart inputs and coherent findings in Git.
+Resume creates linked attempts at independent block boundaries; it never overwrites
+failures or fakes cache continuity. Long acquisition needs an explicitly authorized
+budget, durable owner and tested notification/cleanup; until available, run bounded
+supervised blocks. close-results produces a concise durable report/chart and FINDINGS
+entry with the larger release evidence linked. Local bundles preserve project records;
+raw artifact backup remains separate and no new remote is authorized.
+
+### 16. Cost and implementation sequence
+
+The core matrix is 36 cells x 3 arms x R independent blocks = 108R arm-runs before
+previous-release/external references, interaction cells and sustained tests. At a
+hypothetical three minutes per arm and R=6 that alone is 32.4 GPU-hours, excluding
+startup, warmup, drain and failures. This is a sizing illustration, not a repetition
+recommendation or measured runtime. Broad release confidence costs more than a short
+screen; expose that cost before committing resources.
+
+Plan reports measured/estimated startup and per-case time, event/record volume,
+model/runtime storage, peak memory and acquisition ceilings. Pilot a representative
+short, long, mixed and failure case to estimate those values and statistical
+precision. Select valid repetition/queue limits and approved budgets before the full
+run. If the necessary evidence is unaffordable, report the unresolved claim or negotiate
+scope explicitly; do not silently rename the quick comparison "release validation".
+
+Build in this order:
+
+1. Freeze this release contract and choose actual models/source assets and quality
+   rubrics; inventory coverage and known unknowns before runner implementation.
+2. Implement minimal shared plan/runner/events/verifier around one real path and
+   the benchmark-sensitivity controls. Exercise relevant real failures.
+3. Implement the release workload panel and correctness gates; derive functional
+   and compare profiles from the same definitions immediately.
+4. Pilot, resolve telemetry/cost/precision, and freeze confirmation protocol/data.
+5. Execute authorized release evidence, preserve all outcomes, validate independently
+   where authorized, and publish the gate ledger and bounded claims.
+
+No universal framework, automatic policy optimizer, bespoke forced-token engine or
+model zoo is prerequisite. Missing telemetry or incompatible models are engineering
+work to resolve, not assumed available features.
+
+### 17. Why this is sufficient for the stated claim, and remaining uncertainty
+
+| Concern that could invalidate a release | Required defense |
 | --- | --- |
-| Portable development | Relevant targeted tests while editing; full acceptance before commits. Keep planning/verification CPU-only. Measure added fast-lane cost. |
-| B00 | One tiny case per introduced arm; aim for minutes after model availability. Report startup separately. |
-| Calibration pilot | One paired case per selected family, plus A/A and sensitivity controls; enough to estimate activity, record volume and timing noise, not a winner claim. |
-| Routine screen | A fixed small panel, initially at most 6-8 cases with short bounded windows; aim for tens of minutes including startup, revisable from pilot. |
-| Exploration | At most 24-32 distinct conditions in the first proposed batch, selected for corners/interactions rather than all combinations; approve actual wall-time/storage bounds after pilot. |
-| Confirmation | Freeze selected cases, fresh inputs and useful precision; size repeats from pilot variability and cap total acquisition explicitly. No universal pair count. |
-| B09 | Short lifecycle/capacity checks first; longer exposure sized from observed turnover and resource trends with a separately approved duration. |
-| B10/B11 | Small representative panels first; expand only for a stated comparison or transfer claim. |
+| Fast because it reuses wrong KV | Direct byte/identity/publication tests, actual pressure/concurrency and timed-run output checks |
+| Fast because it returns shorter/worse answers | Actual output lengths/termination, task validity, absolute usefulness and quality non-inferiority |
+| Wins only with privileged hints | Real tool/application signals and costs; ideal hints labelled diagnostics only |
+| Hides harm to unrelated work | Mandatory per-cohort latency/throughput gates and mixed/adverse-advice cases |
+| Cache state/load generator manufactures gains | Cold/warm canaries, scheduled-arrival accounting, A/A and sensitivity controls |
+| Small model or one corpus determines everything | Two practical families, six workload structures, source-group holdouts and explicit coverage matrix |
+| Pressure/load interactions missed | Independent capacity/load panel, decode competition and targeted follow-up for observed interactions |
+| Tuning/search finds a lucky winner | Frozen confirmation, independent runs, multiplicity control, exposed-data tracking and preserved failures |
+| Only works briefly or in the developer's checkout | Lifecycle/soak/failure recovery and clean reconstruction/report regeneration |
+| Another system/configuration explains the ranking | Guarded causal control plus resource-matched/system comparisons and fairness disclosure |
+| Known upstream bug drives results | Store/eviction accounting and explicit pinned-runtime scope; corrected-runtime study for broader claims |
 
-Plan reports cases x arms x repeats, startup/warmup/load/drain bounds, measured or
-estimated wall time, expected/max output volume, model/runtime storage needs and
-required memory headroom. Estimate traces from pilot events/second and bytes/event,
-including frozen inputs and report intermediates. Enforce declared ceilings; a stopped
-case is retained as incomplete. Do not selectively extend only favorable cells.
+This is a reasoned obligation map, not proof that nothing has been missed. No finite
+suite proves arbitrary model/hardware compatibility, multi-tenant security, indefinite
+uptime or universal workload benefit. Those are excluded from the initial claim,
+not silently treated as passed. New mechanisms or observed failure modes require
+review of this map and focused cases. Confidence becomes empirical only after the
+harness sensitivity checks, coverage and repeated release runs actually succeed.
 
-### 11. Implementation sequence and acceptance evidence
+Still unresolved before executable release acquisition: exact practical model IDs
+and fit; fresh corpus/source groups and rights; absolute task-quality floors and
+latency objectives where relevant; telemetry availability/overhead; statistical power;
+external-system compatibility; raw-storage budget; durable ownership/notification;
+review of proposed numeric tolerance and exposure targets. These are explicit release
+readiness blockers, not items an agent may fill with favorable defaults after results.
 
-1. Implement portable definitions, plan validation and offline accounting/verification.
-   Exercise bad IDs, incompatible geometry, missing assets, unknown versions,
-   malformed/duplicate/out-of-order events and incomplete records. Hand-computed
-   fixtures verify denominators and timing; hashes alone are insufficient.
-2. Implement one authentic G/C/H serving path and B00/B01. Reuse existing functional
-   qualification. With separate GPU permission, demonstrate real activity, clean/warm
-   distinction, A/A noise, measured sensitivity and owned cleanup. Preserve failures.
-3. Implement B02-B05 as definitions/adapters on that path; qualify representative
-   conditions including no benefit, interference and overload. Verify actual pressure,
-   client scheduling lag, causal hint timing and server counter agreement.
-4. Freeze a small B06 development panel and exercise one source/config change through
-   plan/run/verify/report. Demonstrate interrupted-pair resume and stale-source refusal.
-5. Select and implement one B07 application from characterized opportunity, with actual
-   tools/outputs and predeclared validity checks. Challenge apparent serving gains
-   early, before optimizing or acquiring a large campaign. Then expand B08 mixtures.
-6. Qualify B09 lifecycle/recovery and the agreed operations handoff. Real timeout,
-   failed startup, disconnect and interruption controls must exercise owned processes;
-   fake fixtures alone do not establish operational readiness.
-7. Add B10 alternatives and B11 larger/different-model coverage for explicit claims.
-   Resolve incompatible runtime/precision facts through qualification, never fallback.
-8. Publish the first coherent result with chart/data/limitations using close-results;
-   verify report regeneration and artifact recovery. Update current docs, remove this
-   completed design task only when its decisions are incorporated into maintained
-   definitions/docs, and retain unfinished implementation in the task convention.
+### 18. Sources and evidence used
 
-Each milestone reports planned versus implemented versus actually exercised coverage,
-acceptance results, GPU scope, unresolved facts, local preservation and next work.
-No source changes beyond the approved milestone, CI adoption, new remote or runtime
-repin are implied. Project acceptance remains local pre-commit and full checks.
-
-### 12. Review choices and unresolved facts
-
-Recommended choices for Philip's review:
-
-1. Adopt B00-B11 as the inventory, with B11 explicitly reusing prior benchmarks;
-   implement incrementally rather than making every family a prerequisite to start.
-2. Approve the single `tools.benchmark` entry point, closed definitions and narrow
-   adapters, with the corresponding reviewed script exception and AGENTS navigation.
-3. Keep fixed external requests plus a small causal continuation check initially;
-   defer forced-token replay unless its additional precision justifies integration.
-4. Treat the proposed screen/exploration sizes as starting ceilings for cost planning;
-   choose acquisition budgets only after pilot estimates and explicit GPU permission.
-5. Choose real application and external-system examples from inspected evidence
-   later, preserving the product-led discovery approach.
-
-Technical facts to resolve during implementation/pilots, not questions delegated to
-Philip: exact telemetry availability and cost; causal registration behavior with
-replayed inputs; affordable model sizes on this runtime; observed pressure boundaries;
-measurement noise and sample size; compatibility of a selected external system;
-actual long-run notification integration. Missing facts must remain labelled until
-exercised. Meaningful changes to scope, guarantees or resource budgets return to Philip.
-
-### 13. Research and retained evidence
-
-- [vLLM serving benchmark controls](https://docs.vllm.ai/en/stable/cli/bench/serve/): arrival/concurrency distinction, token timing and goodput controls.
-- [vLLM cache carryover warning](https://github.com/vllm-project/vllm/blob/main/docs/benchmarking/cli.md): explicit initial cache state.
-- [vLLM prefix caching scope](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching/): prefill savings versus decode work.
-- [MLCommons inference scenarios](https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc): controlled offered-load methodology, not a requirement to implement MLPerf.
-- [Measurement reliability](../results/measurement-reliability/result.md): activity, failure controls and immutable attempts.
-- [Interference and output validity](../results/interference-quality/result.md): cohort harm and limits of throughput.
-- [Replay findings](../results/wait-recency-replay/result.md): constrained replay scope and latency trade-offs.
-- [Workload dependence](../results/workload-dependence/result.md): conditional gains/losses and misleading cache-regime labels.
-- [External comparisons](../results/external-comparisons/result.md): configuration and output differences prevent simple rankings.
-
-Current upstream documentation informs design, not compatibility with the pinned
-runtime. Historical results are hypothesis sources, not qualification of this code.
+- [vLLM benchmark CLI](https://docs.vllm.ai/en/latest/benchmarking/cli/): cache carryover and serving benchmark guidance.
+- [vLLM serving controls](https://docs.vllm.ai/en/stable/cli/bench/serve/): offered load versus concurrency, timing and goodput.
+- [MLCommons inference rules](https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc): distinct accuracy, performance and scenario requirements.
+- [MLCommons agentic evaluation](https://mlcommons.org/2026/07/agentic-inference-for-mlperf-inference/): session outcomes and checking actual performance-run outputs.
+- [Architecture](../docs/architecture.md) and [runtime](../docs/runtime.md): actual contract, support boundaries and known ARC limitation.
+- [Historical interference/quality](../results/interference-quality/result.md): aggregate gains can conceal harm and quality uncertainty.
+- [Historical workload/model dependence](../results/workload-dependence/result.md): heterogeneous outcomes and missing actual pressure.
+- [Historical measurement safeguards](../results/measurement-reliability/result.md): failure/cleanup controls are not policy value.
+- [Historical external comparison](../results/external-comparisons/result.md): runtime/output differences and weak replication.
+- [Historical replay](../results/wait-recency-replay/result.md): constrained replay cannot establish general live benefit.
 
 ## Next
-Philip reviews this proposal. Revise agreed choices here, then authorize a bounded
-implementation milestone and its resource scope. Keep application selection, numeric
-performance thresholds and acquisition budgets open until their evidence is available.
+Philip reviews the release-first contract, especially the coverage floor, proposed
+numeric gates, sustained exposure and explicit deployment boundary. Then resolve
+actual model/data selection and pilot resources before implementation/acquisition.
