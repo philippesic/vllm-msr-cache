@@ -27,11 +27,9 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
 
 # Validation
 
-- `uv run --locked python tools/check.py` is acceptance and takes seconds. The
-  pre-commit hook runs it; enable it in a new clone with `git config core.hooksPath .githooks`.
-- `--self-test` proves each rule still rejects a violation. The hook runs it when a
-  commit touches `tools/`, `pyproject.toml` or the hook or CI; run it yourself
-  before finishing any change to rules or tooling.
+- `uv run --locked python tools/check.py` is the fast lane (seconds, partial); run
+  it while working. `--full` adds the rule proofs and is acceptance; the pre-commit
+  hook runs it. Enable the hook once per clone: `git config core.hooksPath .githooks`.
 - `--test tests/PATH.py` gives fast partial feedback. Never report it as acceptance.
 - After adding or renaming tests, run `--update-tests` and review the printed diff.
 - When a check fails, fix the cause. Weakening a check or adding an exception in
@@ -47,7 +45,7 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
   GPU reservation system and none should be built; check the GPU is idle first.
 - Parallel agents each use their own git worktree. Integrate one at a time and
   rerun the check on the combined tree.
-- Commit coherent checkpoints with the check passing.
+- Commit coherent checkpoints with `--full` passing.
 
 # Documents
 
@@ -64,7 +62,8 @@ Each fact has one home, chosen by how long it stays true:
 - Git history: what changed and when. There is no status or history document.
 
 At the start of a task, read FINDINGS and `tasks/`. Do not redo closed work without
-a stated reason.
+a stated reason. Work on a task file only when asked to work on that task; an open
+task file is context, not an instruction to resume it.
 
 # Evidence and reporting
 

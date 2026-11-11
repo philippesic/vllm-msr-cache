@@ -86,9 +86,14 @@ def main() -> int:
     )
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument(
+        "--full",
+        action="store_true",
+        help="fast lane plus rule proofs; run before committing (the hook runs it)",
+    )
+    parser.add_argument(
         "--self-test",
         action="store_true",
-        help="only the rule proofs; required when rules or tooling change",
+        help="only the rule proofs",
     )
     parser.add_argument(
         "--test", help="Run selected CPU tests; partial, never full acceptance"
@@ -183,12 +188,24 @@ def main() -> int:
         return component(args.component, args.root.resolve())
     if args.root.resolve() != ROOT:
         parser.error("--root is only for isolated component specimens")
+    if args.full:
+        fast = lane(False)
+        proofs = lane(True)
+        print(
+            f"\nFULL: {'FAILED' if fast or proofs else 'PASSED'} (fast lane {'failed' if fast else 'passed'}, rule proofs {'failed' if proofs else 'passed'})",
+            flush=True,
+        )
+        return int(fast or proofs)
+    return lane(args.self_test)
+
+
+def lane(self_test: bool) -> int:
     started = time.monotonic()
     failed = 0
     skipped = 0
     names = (
         []
-        if args.self_test
+        if self_test
         else [
             "format",
             "lint",
@@ -214,20 +231,20 @@ def main() -> int:
             f"{name}: {status} ({time.monotonic() - before:.2f}s)",
             flush=True,
         )
-    label = "rule proofs" if args.self_test else "CPU pytest"
+    label = "rule proofs" if self_test else "CPU pytest"
     print(f"\n=== {label} ===", flush=True)
-    manifest = "tools/self-tests.json" if args.self_test else "tools/cpu-tests.json"
+    manifest = "tools/self-tests.json" if self_test else "tools/cpu-tests.json"
     command = [
         sys.executable,
         "-m",
         "pytest",
-        "-q" if not args.self_test else "-v",
+        "-q" if not self_test else "-v",
         "-p",
         "tools.pytest_gate",
         "--gate-manifest",
         manifest,
     ]
-    if args.self_test:
+    if self_test:
         command.extend(["-s", PROOFS])
     else:
         command.extend(["--ignore=tests/runtime", f"--ignore={PROOFS}", "tests"])
@@ -242,8 +259,8 @@ def main() -> int:
     )
     print(
         "Scope: rule proofs only."
-        if args.self_test
-        else "Scope: deterministic CPU/tooling checks; rule proofs not run (--self-test); no runtime, GPU, performance or native-build qualification."
+        if self_test
+        else "Scope: PARTIAL fast lane; run --full before committing. No runtime, GPU, performance or native-build qualification."
     )
     return int(bool(failed))
 
