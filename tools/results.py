@@ -165,7 +165,7 @@ def page(data: dict[str, Any]) -> str:
 
 
 def index(records: list[tuple[Path, dict[str, Any]]]) -> str:
-    text = "# Findings\n\nCurrent conclusions and relevant earlier research. Historical results describe a\ndifferent implementation and do not qualify this code. See the [result profile](docs/results.md).\n"
+    text = "# Findings\n\nShort conclusion/link index; edit result records, then regenerate. Full evidence\nand limitations live in the linked results. Historical results describe a\ndifferent implementation and do not qualify this code. See the [result profile](docs/results.md).\n"
     for origin, title in (
         ("current", "Current code"),
         ("historical", "Earlier research"),

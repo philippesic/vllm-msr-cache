@@ -1,6 +1,7 @@
 # Findings
 
-Current conclusions and relevant earlier research. Historical results describe a
+Short conclusion/link index; edit result records, then regenerate. Full evidence
+and limitations live in the linked results. Historical results describe a
 different implementation and do not qualify this code. See the [result profile](docs/results.md).
 
 ## Current code
