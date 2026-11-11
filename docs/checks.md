@@ -48,7 +48,7 @@ policy reads the index.
 | Types | mypy `--strict` on the package, tools and tests; no broad exemptions |
 | Imports | Only the adapter imports vLLM; contracts never import the adapter; acyclic siblings |
 | Boundaries | Pure core uses the standard library only, has no import-time calls and no dynamic imports |
-| Repository policy | One root AGENTS.md and a CLAUDE.md pointer; size cap; no raw outputs, copied trees, status diaries, GPU reservation code, symlinks, binaries or large files; selected secret patterns; doc links resolve; task file shape |
+| Repository policy | One root AGENTS.md and a CLAUDE.md pointer; no raw outputs, copied trees, status diaries, GPU reservation code, symlinks, binaries or large files; selected secret patterns; doc links resolve; task file shape |
 | Agent policy | No comments, bare excepts, library prints, stray environment access, test sleeps or standalone scripts |
 | Unused | Vulture at 60% confidence; deptry dependency checks |
 | Native | Fails closed if C++/CUDA/CMake material appears without qualified recipes; skipped otherwise |

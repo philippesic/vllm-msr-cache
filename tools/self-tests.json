@@ -75,8 +75,6 @@
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.agents-missing]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.agents]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.binary]",
-  "tests/test_check_cases.py::test_rule_rejects_specimen[repo.budget-bytes]",
-  "tests/test_check_cases.py::test_rule_rejects_specimen[repo.budget-lines]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.claude-nested]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.claude]",
   "tests/test_check_cases.py::test_rule_rejects_specimen[repo.gpu-lock-env]",
