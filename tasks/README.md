@@ -2,8 +2,10 @@
 
 One file per open task that spans more than one session or agent. The agent doing
 the task owns its file; other agents read it. Delete the file in the commit that
-completes the task, and close any established result using [the result profile](../docs/results.md),
-which updates [FINDINGS](../FINDINGS.md).
+completes the task. If the work establishes a durable lesson, use
+[close-results](../skills/close-results/SKILL.md) and [the result profile](../docs/results.md)
+to retain it and update [FINDINGS](../FINDINGS.md). Routine fixes need no result page.
+Update current topic docs before closing; do not move completed tasks into an archive.
 Git history keeps the record of finished work. Work on a task file only when asked
 to work on that task; an open task file is context, not an instruction to resume it.
 

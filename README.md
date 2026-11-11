@@ -33,6 +33,7 @@ uses a GPU unless explicitly requested.
 - [Checks](docs/checks.md)
 - [System map](docs/system-map.md)
 - [Findings](FINDINGS.md), [result format](docs/results.md) and [recovery](docs/recovery.md)
+- [Open tasks and handoff format](tasks/README.md)
 - [Agent working rules](AGENTS.md)
 
 Raw runs and execution snapshots live outside Git. This checkout has no configured
