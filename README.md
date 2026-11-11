@@ -15,11 +15,11 @@ Use uv **0.13.6** and CPython **3.12.3**:
 uv sync --locked
 git config core.hooksPath .githooks
 uv run --locked python tools/check.py
-uv run --locked python tools/check.py --test tests/test_advice.py
+uv run --locked python tools/check.py --full
 ```
 
-The first check command is full acceptance and is what the pre-commit hook runs.
-The `--test` form is fast partial feedback. After adding or renaming tests, run
+The plain check is the fast lane for use while working. `--full` adds the rule
+proofs; it is acceptance and what the pre-commit hook runs. After adding or renaming tests, run
 `--update-tests` and review the printed diff. See [checks](docs/checks.md).
 
 The pinned vLLM runtime is a separate, hash-locked environment used for integration

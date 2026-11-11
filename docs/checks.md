@@ -1,15 +1,16 @@
 # Checks
 
-`uv run --locked python tools/check.py` is acceptance and takes a few seconds. The
-`.githooks/pre-commit` hook runs it on every commit, and also runs the rule proofs
-(`--self-test`, about 30 seconds) when a commit touches `tools/`, the proof tests,
-`pyproject.toml`, the hook or CI. CI runs both. Enable the hook with
-`git config core.hooksPath .githooks`. It never runs GPU tests or builds.
+`uv run --locked python tools/check.py` is the fast lane: every static group and the
+CPU tests in a few seconds, labeled partial. `--full` adds the rule proofs (about 30
+seconds) and is acceptance; the `.githooks/pre-commit` hook and CI run it. Enable
+the hook once per clone with `git config core.hooksPath .githooks`; no check command
+changes git configuration. Neither mode runs GPU tests or builds.
 
 | Command | Purpose |
 | --- | --- |
-| `tools/check.py` | Acceptance |
-| `tools/check.py --self-test` | Rule proofs: each rule rejects a bad specimen and accepts a good one |
+| `tools/check.py` | Fast lane while working; partial |
+| `tools/check.py --full` | Acceptance: fast lane plus rule proofs; run before committing |
+| `tools/check.py --self-test` | Rule proofs only: each rule rejects a bad specimen and accepts a good one |
 | `tools/check.py --test tests/PATH.py` | Fast partial feedback; never acceptance |
 | `tools/check.py --component NAME` | One group, e.g. `policy`, `types`, `lint` |
 | `tools/check.py --update-tests` | Refresh both test inventories and print the diff |

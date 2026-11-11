@@ -1,7 +1,4 @@
 #!/bin/sh
 set -eu
 cd "$(git rev-parse --show-toplevel)"
-uv run --locked python tools/check.py
-if git diff --cached --name-only | grep -Eq '^(tools/|tests/test_check_cases\.py|pyproject\.toml|\.githooks/|\.github/)'; then
-  uv run --locked python tools/check.py --self-test
-fi
+exec uv run --locked python tools/check.py --full
