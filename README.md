@@ -32,7 +32,9 @@ uses a GPU unless explicitly requested.
 - [Runtime, serving and GPU gate](docs/runtime.md)
 - [Checks](docs/checks.md)
 - [System map](docs/system-map.md)
-- [Findings](FINDINGS.md) and [evidence](evidence/)
+- [Findings](FINDINGS.md), [result format](docs/results.md) and [recovery](docs/recovery.md)
 - [Agent working rules](AGENTS.md)
 
-Raw runs and execution snapshots live outside Git. This checkout has no remote.
+Raw runs and execution snapshots live outside Git. The private user-owned origin
+backs up source, result pages, chart inputs and archived reports. See recovery for
+the separate raw-artifact limitations.

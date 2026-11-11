@@ -11,7 +11,7 @@ if str(ROOT) in sys.path:
     sys.path.remove(str(ROOT))
 sys.path.insert(0, str(ROOT))
 
-from tools import config, native, repo_policy, runtime_policy, unused  # noqa: I001
+from tools import config, native, repo_policy, results, runtime_policy, unused  # noqa: I001
 
 FIXES = "Fixes for common diagnostics: docs/checks.md, 'Common failures and fixes'."
 PROOFS = "tests/test_check_cases.py"
@@ -27,6 +27,11 @@ def run(command: list[str], root: Path) -> int:
 
 
 def component(name: str, root: Path) -> int:
+    if name == "results":
+        errors = results.check(root)
+        for error in errors:
+            print(error)
+        return int(bool(errors))
     if name in {"policy", "boundaries", "native", "unused", "runtime"}:
         if name == "policy":
             errors = repo_policy.check(root)
@@ -74,6 +79,7 @@ def main() -> int:
     parser.add_argument(
         "--component",
         choices=[
+            "results",
             "format",
             "lint",
             "types",
@@ -103,7 +109,15 @@ def main() -> int:
     parser.add_argument("--update-tests", action="store_true")
     parser.add_argument("--runtime-python", type=Path)
     parser.add_argument("--out", type=Path)
+    parser.add_argument("--render-results", action="store_true")
+    parser.add_argument("--verify-result-sources", type=Path)
     args = parser.parse_args()
+    if args.render_results:
+        results.render(ROOT)
+        return 0
+    if args.verify_result_sources:
+        results.verify_sources(ROOT, args.verify_result_sources)
+        return 0
     if args.update_tests:
         import json
 
@@ -211,6 +225,7 @@ def lane(self_test: bool) -> int:
         []
         if self_test
         else [
+            "results",
             "format",
             "lint",
             "types",

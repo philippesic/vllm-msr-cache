@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "title": "Misleading hints harmed other traffic and quality equivalence remained unproved",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "Enabled-without-hints QA throughput was 0.9667 of ARC (95% interval 0.9539–0.9797), leaving the declared 3% loss bound unresolved. Misleading hints increased unhinted first-token latency beyond the declared bound. Aggregate throughput concealed interference, and output audits retained factual, format and truncation failures.",
+  "scope": "Fresh QA: 24 pairs. Misleading-advice study: four advice blocks. Objective checks covered 10,616 primary and 3,504 addendum finals, with selected source reviews.",
+  "limitations": "Failure-selected review is not population accuracy. Per-process unhinted p99 had only sixteen requests. Completed workflows and served tokens are not correctness-adjusted utility.",
+  "decision": "Require separate overhead, unhinted-traffic and output-validity accounting when interpreting future performance.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage6-2080ti-20261106/RESULTS.md",
+      "sha256": "7b7a1cbb180f74f6538129a643664bbe4f455956cf94559ec135bec228ccd972"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/stage6-2080ti-20261106/quality-final-summary.json",
+      "sha256": "3abbca1d7a687bd7394a73ad0e2142b74914d562a8c6ba87ffcffc84e1573bcb"
+    }
+  ],
+  "chart": {
+    "metric": "Unhinted mean first-token latency / ARC",
+    "caption": "Four misleading-advice blocks; original 95% interval. Above 1 is slower. The observed increase exceeded the declared 5% bound.",
+    "baseline": 1,
+    "points": [
+      {
+        "label": "Unhinted mean first-token latency (4 blocks)",
+        "estimate": 1.1456,
+        "lower": 1.1066,
+        "upper": 1.186
+      }
+    ]
+  },
+  "correction": ""
+}

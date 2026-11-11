@@ -54,9 +54,9 @@ Each fact has one home, chosen by how long it stays true:
 - `AGENTS.md`: rules for every task. Philip owns it; propose changes.
 - `docs/*.md`: how each part works now, and why. Update in the same commit as the
   code. Delete outdated text instead of marking it superseded; git keeps history.
-- [FINDINGS](FINDINGS.md): closed questions with evidence, including failures and
-  dead ends.
-- `evidence/`: dated records backing findings. Never edited afterwards.
+- [FINDINGS](FINDINGS.md): generated index of results, including failures.
+- Close investigations with [close-results](skills/close-results/SKILL.md) and
+  [the result profile](docs/results.md); raw records remain immutable.
 - [`tasks/`](tasks/README.md): one file per open multi-session task, owned by the
   agent doing it and deleted when the task completes.
 - Git history: what changed and when. There is no status or history document.

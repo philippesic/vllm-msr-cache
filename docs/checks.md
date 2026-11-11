@@ -38,7 +38,7 @@ policy reads the index.
 | `types.suppression`, `exceptions.*` | Fix the type error. A directive needs an exact, reasoned `tools/exceptions.toml` entry and Philip's review. |
 | `docs.link`, `docs.map` | Fix the link, or keep `docs/system-map.md` rows in sync with `tools/system_map.py`. |
 | `docs.task` | Task files follow the template in [tasks/README.md](../tasks/README.md). |
-| `repo.artifacts` | Raw outputs, logs, plans, scratch and status diaries stay out of Git. Use `tasks/`, FINDINGS or `evidence/`. |
+| `repo.artifacts` | Raw outputs, logs, plans, scratch and status diaries stay out of Git. Use `tasks/` or the result format in `docs/results.md`. |
 
 ## Enforced groups
 
@@ -86,3 +86,7 @@ Portable and runtime type checks use separate caches under `.mypy_cache/`; runti
 caches are separated by interpreter path. They can run alongside each other.
 Rule proofs use minimal product specimens rather than copying live product tests,
 so adding a product test cannot change a proof fixture's imports or dependencies.
+
+Result schemas, archived-source hashes, rendering freshness and index membership
+are checked in the `results` group. Use `--render-results` after editing a result;
+see [results](results.md) for closeout and source recovery.

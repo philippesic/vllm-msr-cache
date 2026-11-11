@@ -16,7 +16,7 @@ Candidate list only:
 - Skill: run the runtime CPU lane and report its one-line verdict and record location.
 - Skill: GPU qualification run: confirm authorization, check the GPU is idle and disk
   headroom, run the hardware lane, record the result as evidence and a finding.
-- Skill: record a finding: write the evidence record, add the FINDINGS entry with scope.
+- Integrate the implemented close-results skill into ordinary task handoff.
 - Skill: task handoff: create, update and close `tasks/` files correctly.
 - Skill: vLLM repin: the approved procedure for moving to a new vLLM version and
   requalifying both advice modes.

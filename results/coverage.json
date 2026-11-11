@@ -1,0 +1,154 @@
+{
+  "schema": 1,
+  "legacy_revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+  "additional_5080_revision": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f",
+  "scope": "All evidence collections in the inspected local snapshot, plus the pinned remote 5080 reports. Report-level curation; raw attempts were not rerun or universally reverified.",
+  "collections": {
+    "a27": {
+      "results": [
+        "semantic-prefetch"
+      ],
+      "disposition": "curated"
+    },
+    "benchmark-suite-20261103": {
+      "results": [
+        "measurement-reliability"
+      ],
+      "disposition": "curated"
+    },
+    "cpu-wait-recency-2080ti-20261102": {
+      "results": [
+        "wait-recency-replay"
+      ],
+      "disposition": "curated"
+    },
+    "e04": {
+      "results": [
+        "semantic-admission"
+      ],
+      "disposition": "curated"
+    },
+    "fair-four-20261104": {
+      "results": [
+        "external-comparisons"
+      ],
+      "disposition": "curated"
+    },
+    "five-way-20261104": {
+      "results": [
+        "external-comparisons"
+      ],
+      "disposition": "curated"
+    },
+    "live-optimization-2080ti-20261103": {
+      "results": [
+        "live-continuations"
+      ],
+      "disposition": "curated"
+    },
+    "msr-hybrid-qualification-20261103": {
+      "results": [
+        "semantic-opportunity"
+      ],
+      "disposition": "curated"
+    },
+    "real-agent-eval-20261104": {
+      "results": [
+        "real-tool-workflows"
+      ],
+      "disposition": "curated"
+    },
+    "semantic-svd-serving-20261104": {
+      "results": [
+        "semantic-svd"
+      ],
+      "disposition": "curated"
+    },
+    "stage5-optimization-20261105": {
+      "results": [
+        "optimization-limits"
+      ],
+      "disposition": "curated"
+    },
+    "stage6-2080ti-20261106": {
+      "results": [
+        "interference-quality",
+        "pressure-recovery"
+      ],
+      "disposition": "curated"
+    },
+    "upstream-pin-fix-20261104": {
+      "results": [
+        "mapped-memory"
+      ],
+      "disposition": "curated"
+    },
+    "vram-frontier-2080ti-20261103": {
+      "results": [
+        "serving-memory"
+      ],
+      "disposition": "curated"
+    },
+    "wait-opportunity-20261104": {
+      "results": [
+        "real-tool-workflows"
+      ],
+      "disposition": "curated"
+    },
+    "wait-qualification-20261105": {
+      "results": [
+        "wait-qualification"
+      ],
+      "disposition": "curated"
+    },
+    "workflow-finalization-20261103": {
+      "results": [
+        "measurement-reliability"
+      ],
+      "disposition": "curated"
+    }
+  },
+  "root_documents": {
+    "evidence/README.md": "navigation replaced by result index",
+    "evidence/september-2026.md": "semantic-admission and semantic-prefetch"
+  },
+  "sources": {
+    "evidence/core-qualification-20261110.md": "current-functionality",
+    "evidence/e04/E04-FINAL-RESULT.md": "semantic-admission",
+    "evidence/september-2026.md": "semantic-admission",
+    "evidence/a27/FINAL-REPORT.md": "semantic-prefetch",
+    "evidence/cpu-wait-recency-2080ti-20261102/result.json": "wait-recency-replay",
+    "evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json": "live-continuations",
+    "evidence/live-optimization-2080ti-20261103/qualified-live-profile.json": "live-continuations",
+    "evidence/vram-frontier-2080ti-20261103/README.md": "serving-memory",
+    "evidence/vram-frontier-2080ti-20261103/confirmation.json": "serving-memory",
+    "evidence/msr-hybrid-qualification-20261103/README.md": "semantic-opportunity",
+    "evidence/msr-hybrid-qualification-20261103/source-followup.json": "semantic-opportunity",
+    "evidence/msr-hybrid-qualification-20261103/deadline-sensitivity.json": "semantic-opportunity",
+    "evidence/real-agent-eval-20261104/README.md": "real-tool-workflows",
+    "evidence/wait-opportunity-20261104/README.md": "real-tool-workflows",
+    "evidence/fair-four-20261104/README.md": "external-comparisons",
+    "evidence/fair-four-20261104/FAIRNESS.md": "external-comparisons",
+    "evidence/five-way-20261104/README.md": "external-comparisons",
+    "evidence/upstream-pin-fix-20261104/README.md": "mapped-memory",
+    "evidence/upstream-pin-fix-20261104/mapped-host-pointer.patch": "mapped-memory",
+    "evidence/semantic-svd-serving-20261104/README.md": "semantic-svd",
+    "evidence/semantic-svd-serving-20261104/results.json": "semantic-svd",
+    "evidence/wait-qualification-20261105/README.md": "wait-qualification",
+    "evidence/wait-qualification-20261105/SUPPORT_MATRIX.md": "wait-qualification",
+    "evidence/wait-qualification-20261105/REGRESSIONS.md": "wait-qualification",
+    "evidence/wait-qualification-20261105/QUALITY.md": "wait-qualification",
+    "evidence/stage5-optimization-20261105/README.md": "optimization-limits",
+    "evidence/stage5-optimization-20261105/EVICTION.md": "optimization-limits",
+    "evidence/stage5-optimization-20261105/EXHAUSTION.md": "optimization-limits",
+    "evidence/stage6-2080ti-20261106/RESULTS.md": "interference-quality",
+    "evidence/stage6-2080ti-20261106/quality-final-summary.json": "interference-quality",
+    "evidence/stage6-2080ti-20261106/repository-recovery-03/README.md": "pressure-recovery",
+    "evidence/stage6-2080ti-20261106/repository-recovery-03/comparisons.json": "pressure-recovery",
+    "evidence/stage6-5080-20261108/RESULTS.md": "hardware-5080",
+    "evidence/stage6-5080-20261109/RESULTS.md": "hardware-5080",
+    "evidence/stage6-5080-20261109/lmcache-build.json": "hardware-5080",
+    "evidence/benchmark-suite-20261103/README.md": "measurement-reliability",
+    "evidence/workflow-finalization-20261103/README.md": "measurement-reliability"
+  }
+}

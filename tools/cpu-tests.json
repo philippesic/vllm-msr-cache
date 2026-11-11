@@ -26,5 +26,8 @@
   "tests/test_operation.py::test_runtime_pin_matches_lock_files",
   "tests/test_operation.py::test_snapshot_includes_dirty_and_untracked_inputs",
   "tests/test_operation.py::test_stale_control_does_not_signal_current_process",
-  "tests/test_operation.py::test_type_caches_separate_portable_and_runtime_environments"
+  "tests/test_operation.py::test_type_caches_separate_portable_and_runtime_environments",
+  "tests/test_results.py::test_render_is_reproducible_and_tampering_refuses",
+  "tests/test_results.py::test_source_recovery_checks_committed_bytes",
+  "tests/test_results.py::test_unknown_schema_and_invalid_intervals_refuse"
 ]

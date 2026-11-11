@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "title": "CPU recency advice traded a small replay-rate gain for latency costs",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "Exact recorded-output serving replay established a small throughput gain while saving 56 MiB of GPU cache capacity. It did not establish a general interactive-latency or generation-quality benefit.",
+  "scope": "Twelve fresh matched workflow pairs, 1,728 exact requests, three fixed traces; Qwen2.5-7B-AWQ FP16 on RTX 2080 Ti/WSL2. Candidate 2,048 GPU blocks versus ARC 2,112; equal CPU capacity.",
+  "limitations": "Recorded-output replay is not free generation. Earlier pilots and failed confirmation are excluded from the fresh estimate and retained in the source. Latency regressions limit adoption.",
+  "decision": "Keep as evidence that simple recency advice can matter; assess latency and useful work separately when developing it.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/cpu-wait-recency-2080ti-20261102/result.json",
+      "sha256": "13a24c4887c41a9edab31ff860979a3c72ceaaf59fead5a838d1bce3d4766237"
+    }
+  ],
+  "chart": {
+    "metric": "Gain (%)",
+    "caption": "Original whole-workflow paired Student-t 95% intervals, conditional on three traces. Higher is better.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Throughput",
+        "estimate": 0.6446057136533535,
+        "lower": 0.09182622252260794,
+        "upper": 1.200438053126934
+      },
+      {
+        "label": "Throughput per device peak VRAM",
+        "estimate": 1.3394020010730372,
+        "lower": 0.7828064173114347,
+        "upper": 1.8990715084023182
+      }
+    ]
+  },
+  "correction": ""
+}

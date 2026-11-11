@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "title": "Live continuation gains supported only a constrained operating profile",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "supported",
+  "summary": "Fresh live workflows supported controlled asynchronous continuation/status drafts with human review on the exact tested implementation. The original assessment did not qualify general interactive serving.",
+  "scope": "Correctness-normalized native ARC; common patched runtime, return credit, 1,536 GPU and 2,048 CPU blocks. The exact installed-wheel/overlay identity is retained in the source.",
+  "limitations": "Cold/burst delays, registry lifetime management and conditional trace coverage constrain the result. Later runtime and instrumentation changes are outside this qualification.",
+  "decision": "Preserve the operating limits alongside the gain; do not transfer qualification automatically to the new implementation.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/live-optimization-2080ti-20261103/operational-final-root-assessment.json",
+      "sha256": "61893b7485e3e193f3086336615329f0855c521d5ae719121d48cd4f2dac8f77"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/live-optimization-2080ti-20261103/qualified-live-profile.json",
+      "sha256": "653020d8a8ce79bf1a786723df4328fb6dd8855cd05b4ea5e1967f941033d1f4"
+    }
+  ],
+  "chart": {
+    "metric": "Workflow throughput gain (%)",
+    "caption": "Original fresh paired estimate and 95% interval for the tested profile; higher is better.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Live continuation profile",
+        "estimate": 6.381879007217495,
+        "lower": 4.055751819002531,
+        "upper": 8.760005893682342
+      }
+    ]
+  },
+  "correction": ""
+}

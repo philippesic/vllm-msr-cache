@@ -20,6 +20,7 @@ dev = [
   "pytest==8.4.2",
   "vulture==2.14",
   "deptry==0.24.0",
+  "matplotlib==3.10.8",
 ]
 
 [tool.uv]

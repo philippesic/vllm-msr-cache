@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "title": "Lower serving memory retained gains but increased preemptions",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "mixed",
+  "summary": "Reducing the candidate to 1,280 GPU KV blocks saved 224 MiB versus native ARC at 1,536 blocks while improving measured throughput. Startup memory did not improve, and the candidate incurred 23 preemptions.",
+  "scope": "Thirty-six invocations: twelve matched triples across three previously used public traces, 2,592 natural-EOS responses; equal 1.75 GiB CPU cache.",
+  "limitations": "Positive-wait return-tail improvement was unresolved. No host-RAM or universal tail claim follows. Separate startup-loading prototypes were rejected or interrupted; their partial work remains paused in the old repository.",
+  "decision": "Retain serving-memory savings as a scoped result. Do not import the paused loading prototype or claim reduced startup memory.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/vram-frontier-2080ti-20261103/README.md",
+      "sha256": "5862100cb703430d1ba5995f0717ccb97d4b20b8fa58d451f027b0cba74b6e1f"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/vram-frontier-2080ti-20261103/confirmation.json",
+      "sha256": "ed768c25ed631c8e3ca1d1e83222fc585b7009eb9f50450b00af9a59a597a7f3"
+    }
+  ],
+  "chart": {
+    "metric": "Candidate token-throughput gain (%)",
+    "caption": "Whole matched-workflow nominal 95% intervals on three fixed traces; higher is better.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Candidate 1,280 vs ARC 1,536 blocks",
+        "estimate": 6.13,
+        "lower": 2.81,
+        "upper": 9.56
+      },
+      {
+        "label": "Candidate 1,280 vs ARC 1,280 blocks",
+        "estimate": 4.19,
+        "lower": 1.4,
+        "upper": 7.06
+      }
+    ]
+  },
+  "correction": ""
+}

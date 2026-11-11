@@ -228,6 +228,8 @@ def check(root: Path) -> list[str]:
             "docs",
             "wait_hint_offload",
             "tasks",
+            "results",
+            "skills",
         }
         or p.name in {"AGENTS.md", "CLAUDE.md", "pyproject.toml", "uv.lock"}
     ]

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "title": "Real tool waits exposed recency benefits and output-dependent comparisons",
+  "date": "2026-11-10",
+  "origin": "historical",
+  "verdict": "supported",
+  "summary": "An initial two-pair repository workflow was diagnostic. A later three-repeat pressure study measured higher workflow throughput from early CPU wait hints; adding semantic retention provided no incremental gain.",
+  "scope": "Pressure study: Qwen2.5-7B-AWQ, RTX 2080 Ti, decode graphs, nine cases, 576 responses and 432 actual tools. Initial study: four cases and 128 responses.",
+  "limitations": "Later live prompts/outputs differ. These are closed-loop workflow results, not identical-work policy attribution. Narrow test-status correctness does not establish general answer quality.",
+  "decision": "Retain actual tool waits and demonstrated cache competition as useful experimental ingredients, without fixing the product to these workloads.",
+  "sources": [
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/real-agent-eval-20261104/README.md",
+      "sha256": "0edefabd69d0ba106ad7841a1e9be40f1e45a19995863458f84527f917f2339f"
+    },
+    {
+      "repository": "legacy",
+      "revision": "1319f09bafac46bab89df465dd433c67441f4b26",
+      "path": "evidence/wait-opportunity-20261104/README.md",
+      "sha256": "7489a9997ed06bc35272c18529b1915b56396975dccb9328c2f0370839e90b4a"
+    }
+  ],
+  "chart": {
+    "metric": "Workflow throughput change (%)",
+    "caption": "Three whole-case paired repetitions on fixed inputs; original 95% intervals. Higher is faster.",
+    "baseline": 0,
+    "points": [
+      {
+        "label": "Wait ARC vs ARC",
+        "estimate": 7.0,
+        "lower": 5.9,
+        "upper": 8.1
+      },
+      {
+        "label": "Semantic + wait vs wait ARC",
+        "estimate": -3.01,
+        "lower": -5.83,
+        "upper": -0.12
+      }
+    ]
+  },
+  "correction": ""
+}
