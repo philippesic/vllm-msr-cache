@@ -32,7 +32,9 @@ wording corrections, now applied. Gates remain proposals for Philip, not accepte
 product guarantees. No reviewer qualified a runtime or performance result. Subsequent user-directed
 comparison, workload and model refinements have not received another Sol review.
 Philip has fixed performance repetitions at one validation and two release blocks;
-model pair and concrete workload counts below remain proposals for review.
+model pair and concrete workload counts below remain proposals for review. Philip
+requires an 11 GiB 2080 Ti primary target, optional 16 GiB 5080 runs, current model
+architectures and coding-first coverage. Previous small full-attention pair rejected.
 
 ### 1. What a release verdict means
 
@@ -183,326 +185,181 @@ previous informal 30–60 minute target until pilots measure startup and case co
 Unsupported configurations remain visible. Competitive claims cover only jointly
 exercised models/cases; external arms need not multiply every correctness/fault test.
 
-### 4. Model and deployment coverage
+### 4. Coding-first model and deployment proposal
 
-Proposed minimum for a multi-model release claim:
+Philip requires the 11 GiB RTX 2080 Ti as the primary target; selected runs may use
+an RTX 5080 with 16 GiB. Larger GPUs are not assumed. The previous two small 2025
+full-attention models were rejected: selection must represent current local coding
+and materially different cache architectures, not merely convenient existing support.
 
-| Role | Required evidence |
-| --- | --- |
-| Existing small qualified model | Harness controls, deterministic functional cases and fast regression feedback; not enough for practical-value claims. |
-| Practical model A | Full release workload panel, actual cache competition, output-validity assessment and operational checks. |
-| Practical model B from another family | Same panel; meaningfully different tokenizer/template and KV/compute geometry, not just another seed or alias. |
-| Every additional advertised model/configuration | Functional checks plus representative load/pressure/quality cases; full panel for any model-specific benefit claim. |
+Recommend Qwen/Qwen3.5-9B and google/gemma-4-12B-it, text-only, with qualified 4-bit
+weight-only quantization and FP16 activations/cache on the 2080 Ti. These are 2026
+models from widely used families. Exact quantized artifacts remain admission candidates,
+not approved runtime inputs. Qwen's hybrid DeltaNet state and Gemma's local/global
+attention require real product support work; neither currently qualifies through this
+connector. Model size alone must not substitute for architecture coverage.
 
-A and B must fit the intended runtime/host and produce useful answers to the selected
-tasks. Select exact models from inspected assets and current model documentation,
-then verify fit, attention layout and generation before freezing the manifest. Two
-families challenge obvious model-specific behavior; they do not prove arbitrary-model
-support. Model names, byte identities and actual context lengths cannot remain TODOs
-in an executable release plan.
-
-Initial deployment claim: RTX 2080 Ti/WSL2, dense FP16 full attention, TP1, HND, eager,
-TRITON_ATTN, same-host causal hints and one trusted operator. Host CPU/RAM/driver,
-power settings and runtime are part of the identity. Native Linux, other GPUs,
-quantization, BF16, graphs, LoRA, hybrid/sliding attention, speculative decoding and
-parallelism are excluded until specifically qualified. Construction/refusal behavior
-for unsupported settings is tested. We will not quietly replace the larger models
-with the tiny model or quantization if fit is difficult: resolve the resource/scope
-choice with Philip.
-
-Before model admission, prepare a memory worksheet from exact configuration and
-weight bytes: weights, KV per token/block, maximum simultaneous active/cached tokens,
-workspace/activations, allocator headroom and CPU/pinned-memory commitments. For the
-supported dense full-attention layout, raw KV payload per token is twice the sum over
-layers of KV-head count x head dimension x bytes per element; verify actual allocation
-rather than treating that formula as peak memory. Historical AWQ fit is not FP16 fit.
-An authorized fit/quality pilot must exercise intended context/concurrency, not just
-startup. Infeasible cells remain blocked; preserve the broad design and return scope/
-hardware choices to Philip rather than silently shrinking the workload.
-
-The product's scope/session names are not security tenants. Test endpoint auth and
-identity binding, but make no multi-tenant confidentiality or remote-clock claim.
-Broader claims require corresponding security/clock design and evaluation, not just
-more latency trials.
-
-### 4a. Concrete two-model recommendation
-
-Recommend Qwen/Qwen3-4B-Instruct-2507 and HuggingFaceTB/SmolLM3-3B, both served in
-FP16, non-thinking mode, TP1/eager/full attention. The source weights are BF16;
-explicit FP16 conversion at load is required and must be checked for usable generation.
-No weight quantization or silent model replacement. Both are publicly available
-Apache-2.0 instruction models from 2025, not the newest 2026 architecture generation.
-Hugging Face API checked 2026-11-11 reports approximately 2.58M and 297k downloads,
-respectively; these are adoption indicators, not unique users or quality evidence.
-
-| Property | Qwen3-4B-Instruct-2507 | SmolLM3-3B |
+| Model | Architectural distinction | Benchmark implication |
 | --- | --- | --- |
-| Proposed source revision | cdbee75f17c01a7cc42f958dc650907174af0554 | a07cc9a04f16550a088caea529712d1d335b0ac1 |
-| Dense full-attention layers | 36 | 36 |
-| Query / KV heads, head dimension | 32 / 8, 128 | 16 / 4, 128 |
-| Derived raw FP16 KV per token | 144 KiB | 72 KiB |
-| Derived raw KV for 8,192 tokens | 1.125 GiB | 0.5625 GiB |
-| Source tensor payload, approximate | 7.49 GiB | 5.73 GiB |
-| Positional encoding | RoPE | Every fourth layer omits RoPE; still full attention |
-| Local pinned vLLM route inspected | Qwen native architecture | Registry maps SmolLM3ForCausalLM to TransformersForCausalLM |
+| Qwen3.5-9B, W4A16 | 24 linear-attention layers and eight full-attention layers | Resume requires compatible recurrent state/checkpoints plus full-attention KV; preserving ordinary KV alone may be insufficient |
+| Gemma 4 12B IT, W4A16 | 40 sliding-window layers and eight full-attention layers, 1,024-token window; different local/global head geometry and shared K/V in global attention | Restore must respect window lifetime and cache-group alignment; global-prefix retention can matter even when local state is bounded |
 
-The 2x KV difference changes bytes transferred, number of retained tokens at equal
-cache bytes and eviction opportunity; smaller SmolLM weights also leave more potential
-GPU-cache capacity. Different widths, training, templates, tokenizers and positional
-handling challenge model dependence. Do not claim NoPE alone causes a policy ranking:
-this is a two-model robustness comparison, not an isolated architecture ablation.
-Compare systems WITHIN each model; task tokens and answer lengths differ across models.
-Use both practical equal-hardware deployment results and controlled cache-pressure
-settings, clearly separated. Do not force equal token counts by padding real inputs.
+These test two genuinely distinct cache-lifecycle problems. Keep the existing tiny
+full-attention fixture for functional regression only, not a third performance model.
+Two architectures are a useful first supported scope, not proof of universal support;
+MoE, MLA, distributed and multimodal claims would require corresponding evidence.
 
-Start model admission at an 8,192-token total context cap, then attempt 16,384 for the
-release long-context subset if the same serving constraints fit. Neither advertised
-64K/256K context implies those lengths fit an 11 GiB GPU. Weight/KV figures exclude
-workspace, activations, allocator, model-loading peak and CPU transfers. Registry
-presence is not offload qualification: exercise the Transformers route, cache geometry,
-FP16 numerics, tool formatting and real tasks. No model/GPU download or launch occurred.
+Artifact shortlist: cyankiwi/Qwen3.5-9B-AWQ-4bit and
+axteam/gemma-4-12B-it-AWQ-4bit. Inspect actual quantization config, ignored tensors,
+calibration provenance, tensor bytes and loader/kernel support before selecting pins.
+Hugging Face file metadata inspected 2026-11-11 gives 9,068,588,904 tensor bytes
+(8.45 GiB) for Qwen revision e4d2d39cede8c5d1716d824cd843e2889c648083 and
+8,421,320,792 bytes (7.84 GiB) for Gemma revision
+7c781be42ce8d29d0975b857f6d0c0b2558d9b63. These are file payloads, not measured
+loaded peaks; both leave tight headroom on 11 GiB. The Gemma publisher reports only B200 execution,
+so its Turing compatibility statement is not a measured 2080 Ti result. FP16 casting
+must include the execution path, not just changing a metadata field. Neither an AWQ
+label nor total parameter count establishes peak memory. Some other Gemma INT4 builds
+are over 11 GB on disk and are unsuitable for the intended memory budget.
 
-Why these rather than other inspected candidates: Llama-3.2-3B is more established
-but older and has eight KV heads; Phi-4-mini also has eight. Ministral-3-3B is newer
-and attractive for agents, but its 26 layers/eight KV heads give less KV contrast and
-its multimodal packaging adds qualification work (its BF16 card advertises 16GB fit,
-not proof of 2080 Ti fit). Qwen3.5 mixes linear and full attention, outside the current
-single-full-attention-group product contract. Hybrid, MLA, sliding-window, MoE and
-multimodal support require separate architectural qualification, not a token third
-model. Two models suffice for a bounded two-family full-attention claim while varying
-pressure/load directly; they cannot establish model-universal performance. Add another
-model only for an advertised new architecture/size/deployment or unexplained dependence.
+Weight quantization and cache precision are separate. Current connector code requires
+FP16 KV, not an explicit ban on quantized weights. Weight-only INT4 can retain exact
+FP16 KV semantics after qualification. Hybrid/group support is the architectural
+blocker; it must not be bypassed by removing guards. Required review covers group
+identity, recurrent checkpoint readiness, window-aware retention, exact restore,
+publication/failure handling and end-to-end reuse eligibility. Start with a CPU/runtime
+feasibility audit and explicit implementation proposal; this planning task does not
+authorize the architecture expansion or a runtime repin.
 
-### 5. The release workload panel
+For 5080, propose a small same-model W4A16 versus W8A16 Qwen sensitivity panel (eight
+coding tasks, core three systems, two repetitions per precision). First qualify the
+INT8 format/kernel and 16 GiB fit. Run BOTH precisions on the same 5080; never attribute
+2080-vs-5080 differences to quantization. FP8/NVFP4 are alternative hardware-specific
+studies, not automatic substitutes on Turing. Preserve FP16 KV initially so weight
+precision is isolated; cache quantization is separate product work. Avoid expanding
+this into every model x every precision x every workload.
 
-These are six sections of ONE benchmark, run with common measurements and controls.
-They challenge distinct reuse/compute/session behaviors; none is a permanent product
-objective. Concrete source selection follows characterization and asset inspection,
-but preserves no-benefit and harmful-opportunity cases. Initial examples below are
-proposed rather than already qualified corpora.
+Admit at 8,192 total context tokens and probe 16,384; long coding sessions need an
+explicit common context-management policy, not arbitrary truncation. Full memory
+accounting includes retained high-precision weights/embeddings, all cache groups,
+recurrent states, workspace/activations and concurrent decoding. If a model cannot
+fit a useful workload on 11 GiB, return the limitation; do not silently make the 5080
+mandatory or substitute an older model. This is a recommended pair pending feasibility,
+not a promise that both already run on this hardware.
 
-| Section | Actual execution | What it challenges | Validity/quality check |
-| --- | --- | --- | --- |
-| Independent requests | Fresh grounded QA/extraction/short generation, including little or no shared prefix | General overhead; decode-heavy work; accidental shared templates | Reference facts/fields, correct formatting, completion/length/stop checks |
-| Shared-source requests | Different questions over common documents or fixed context, with hot and rare sources | Cross-session sharing, popularity skew and partial prefix overlap | Answers against retained source evidence; unanswerable/contradictory controls |
-| Growing conversations | Real multi-turn outputs appended to subsequent requests, varying turn count and waits | Growing KV, return distance and identity lifecycle | Context-dependent facts/instructions and per-turn/final success |
-| Tool-wait workflows | Real read/search/test or bounded lookup tools; subsequent prompts consume their results | Actual opportunity for causal hints; tool and integration cost | Claims checked against actual tool results; tool failure/timeout/truncation retained |
-| Branching sessions | Shared initial context followed by divergent branches and a dependent final step | Shared ancestors, partial hits, abandoned branches and overlapping returns | Branch outputs and final synthesis checked against retained inputs/results |
-| Mixed traffic | Fixed mixtures of the preceding sections, including hinted/unhinted and short/long requests | Interference, queueing and hiding harm in aggregate | Every cohort separately; constituent checks retained |
+### 5. Exact coding-first workload proposal
 
-For each section include short/medium/long actual input lengths, short/long outputs,
-and relevant context-near-limit cases within supported bounds. Controlled fixtures
-vary reusable prefix, new suffix and generated length separately. Natural workloads
-are not padded merely to manufacture reuse. Preserve actual token IDs after template
-application and verify intended prefix identity. Different seeds are not evidence
-of independent source material.
+Approximately 80–85% of task identities are coding/coding-adjacent. This is Philip's
+product-priority weighting, not a measured claim about all local-model users. Keep
+non-coding breadth and harmful/no-opportunity cases, but drop mandatory retail/airline
+and generic chat campaigns from the first release. Six workload types share a runner;
+real harnesses execute tools and feed actual outputs into later turns.
 
-Use both fixed external request traces and actual output-dependent sessions. Fixed
-prompts/schedules control nominal demand, not generated output identity. Exact
-forced-token replay is optional only with a qualified mechanism and clearly limited
-claims. Actual generation must appear in release evidence; matching token counts
-or replaying yesterday's answers cannot establish application quality.
+| ID | Workload, source and check | Validation tasks | Release tasks per repetition |
+| --- | --- | ---: | ---: |
+| C1 | Bug repair: mini-swe-agent, SWE-bench Verified, real read/edit/test loop, official hidden grading; split by repository and task ancestry | 2 | 16 |
+| C2 | Regression-test authoring: real issue/fixed-version pairs from separate SWE-bench source groups; agent writes tests, evaluator checks original fails and fixed version passes; reference patch hidden | 2 | 8 |
+| C3 | Repository navigation/change-impact: locate implementation, trace callers, identify affected tests in pinned more-itertools, Click, Requests and pytest repositories; retained symbol/file evidence and runnable targeted tests | 2 | 8 |
+| C4 | Terminal development/debugging: pinned Terminal-Bench 2.0 via Harbor; CPU-only programming, build and environment-repair tasks with original validators; no network-dependent or extra-GPU tasks | 1 | 8 |
+| C5 | Multi-turn coding revision and branches: four-step investigate/edit/test/revise tasks over real repositories, actual generated patches/test output, two competing branches on half the tasks; executable acceptance checks | 1 | 4 |
+| B1 | Non-coding grounded document work: half independent QA/summaries, half shared-source search/read/compare over frozen PEPs/RFCs and admitted LongBench sources; source-supported answers | 2 | 8 |
+| Total | Coding/coding-adjacent identities: 8/10 validation, 44/52 release | 10 | 52 |
 
-### 5a. Authentic workloads and coverage admission
+Counts are per included model/system/repetition, not per arbitrary environment grid.
+C2/C3/C5 are explicitly project-authored tasks on real repositories, not official
+published benchmark scores. C1/C4 retain actual application harnesses. Natural tools
+have natural waits, not inserted sleeps. Select by source, task type, context size and
+baseline usability before confirmation; never choose based on wait-hint speedup.
+Validation and release groups remain disjoint; exact task IDs, revisions, references,
+context policies and grading fixtures must be frozen before acquisition. Counts are
+proposed coverage budgets, not proof of the 2pp quality margin.
 
-The six families describe cache behavior, not six synthetic generators. Retain three
-kinds of evidence inside the existing profiles; these are not new benchmark categories:
+Validation uses the complete ten-task panel on the current primary model (default
+Qwen) for GPU-only/native ARC/wait-hint: 30 task executions. LMCache and Continuum each
+run four sentinels: one C1, C3, C5 and B1 task, adding eight executions. The second
+model runs one C1 and one C3 sentinel on the core three systems, adding six executions.
+Total: 44 task executions, each ONCE, plus three short mechanism cases on the core
+three systems (nine case-runs). Those are (a) no-return/unhinted traffic, (b) actual
+CPU competition with returning tool sessions and (c) returning sessions competing with
+abandoned hints. Case sizes are set to reach real pressure, not merely a fixed tiny
+request count. A model-specific change makes that model primary; changing both models'
+common cache machinery requires the full validation panel on both, explicitly a larger
+run. Missing/incompatible external arms remain listed, not silently dropped as passes.
 
-- Controlled fixtures isolate no reuse, partial hits, eviction, bad hints and worst-case
-  interference. Useful for explanation and correctness, insufficient for application claims.
-- Trace-derived traffic preserves authentic prompt/session structures and available
-  timing. Proposed sources include WildChat conversations and retained agent trajectories.
-  Replay is labelled replay. Recorded assistant answers are not live application success;
-  future user turns may depend on those recorded answers. Audit timestamps before deriving
-  think time: WildChat assistant timestamps denote full-response receipt, not pure tool wait.
-- Live application harnesses execute fresh model outputs, real tools and dependent turns.
-  Require a coding/repository workflow and a non-coding tool/document workflow for broad
-  agentic release claims, plus ordinary independent request traffic. No synthetic padding
-  or inserted sleeps in the natural-condition results. Pressure sweeps remain separately
-  labelled controlled deployments of these workloads.
+Release: both models run the 52-task full panel on the core three systems twice:
+624 task executions. Each external system runs a frozen 20-task subset per model per
+repetition: six C1, three C2, three C3, three C4, two C5 and three B1, adding 160 tasks.
+Total: 784 main-panel task executions. External claims cover that subset only. Repeated
+source identities are not independent quality examples. Native/guarded ARC identities
+must be re-established for hybrid support; existing ARC assumptions cannot be carried
+over unexamined. Continuum may not support these architectures on its preview runtime:
+if it does not, label it incompatible and reassess the closest functioning competitor,
+rather than porting an entire engine just to preserve its historical name.
 
-Proposed actual assets/harnesses for admission pilots:
+### 6. Conditions and runtime budget
 
-| Asset/harness | Use | Constraint |
+Run the main live panel at one frozen realistic deployment configuration per model,
+with interleaved sessions and admitted concurrency. Do not repeat every long agent
+task under every possible load/pressure setting. A targeted six-case mechanism panel
+covers: no reuse; GPU-resident reuse; GPU spill/CPU fits; CPU competition; long decode
+plus returning tools; and misleading/abandoned hints harming unhinted traffic. These
+cases include mixed coding and document traffic. Fixed-input controlled wait sweeps
+are diagnostic and separate from actual application timings. Baseline-only fit/load
+pilots set working sets, arrivals and exposure to activate each case.
+
+Core release mechanism panel: six cases x three systems x two models x two repetitions
+= 72 case-runs. External pressure/no-benefit subset: two cases x two systems x two
+models x two repetitions = 16 case-runs. GPU-retention combination study, if separately
+qualified: three cases (GPU-resident, spill, CPU competition) x four settings x two
+models x two repetitions = 48 case-runs. Capacity/load curves use the mixed coding
+case; counts/costs for boundary-search probes must be explicit in the acquisition
+manifest, with a planning reserve of four hours and no unlimited search.
+
+One validation block cannot estimate between-run variance. Two release blocks give
+repeatability evidence, not precise run-variance or tail guarantees. Report both runs,
+within-run task distributions and inconsistencies. Underpowered gates remain unresolved;
+no automatic extra repetitions. Repeat the same frozen release task set with independent
+starts and changed arm order. Keep cold/warm state, actual arrivals/backlog, complete
+failure accounting, output quality, thermal state, tool filesystem resets and driver
+headroom visible. Streaming chunks are not individual token timestamps.
+
+Planning ETAs BELOW ARE NOT MEASURED and are conditional on successful architecture,
+kernel and model-fit qualification. They assume one GPU used serially, cached weights/
+containers, two to four interleaved live sessions where fit allows, aggregate generated
+throughput roughly 15–40 tokens/s on the 2080 Ti, ordinary bounded CPU tools and no
+repeated model downloads. Reasoning tokens count. No 5080 speedup is assumed.
+
+| Acquisition component | Planning arithmetic / assumption | Wall-clock estimate |
 | --- | --- | --- |
-| mini-swe-agent with a frozen SWE-bench task subset | Actual read/edit/test loops in isolated repositories; objective tests and complete trajectories | Task/model/context feasibility is unproved on FP16 2080 Ti. Do not select tasks by wait-hint wins; select using independent task properties and baseline usability. A simpler real repository task set is explicitly narrower, not SWE-bench qualification. |
-| Sierra tau-bench text harness, pinned revision/domain | Multi-turn customer-service agent, state-changing tools, final-state checks; initially retail or airline | Simulated users, not production human traffic. Freeze simulator/config and account for its latency/cost separately. Separate simulator resources from the serving GPU; API spend needs authorization. Current tau2-bench repository has evolved, so freeze actual task/evaluator versions rather than a name alone. |
-| Grounded document workflow using retained real documents and qualified public QA sources (e.g. LongBench constituent datasets) | Search/read/answer sessions plus independent QA; reference-supported correctness, shared and unrelated documents | Public QA data alone is not an application harness. Any new search loop is our harness, labelled as such; retain original evaluator and expose prompt/context adaptations. |
-| WildChat and archived agent trajectories | Distribution checks and replay of natural conversation shapes | Audit ancestry, timing, license and truncation; not a substitute for live quality. Previously examined local trajectories are exposed development data. |
+| Validation main core | Three ten-task panels, 12–25 min each for deliberately short development tasks | 36–75 min |
+| Validation external sentinels | Two four-task panels, 4–10 min each | 8–20 min |
+| Validation second-model sentinels | Three two-task panels, 2–5 min each | 6–15 min |
+| Validation mechanism + startup/report | Nine short cases plus model loads and checking | 25–50 min |
+| Validation total | 44 task executions + nine cases, one repetition | Approximately 1.5–3 hours |
+| Release main core | Twelve 52-task panels (3 systems x 2 models x 2 reps), 2–4 hours each | 24–48 hours |
+| Release external subset | Eight 20-task panels, 45–90 min each | 6–12 hours |
+| Release mechanism cases | 88 cases at an assumed 3–6 min each | 4.4–8.8 hours |
+| Release combination study | 48 cases at an assumed 3–6 min each | 2.4–4.8 hours |
+| Release sustained exposure | Existing primary-model candidate/control 8+2+2h each, secondary candidate/control 2h each | 28 hours |
+| Release fault checks, startup/report, capacity-search reserve | 3–6h fault work + 3–6h loading/report + up to 4h search | 10–16 hours |
+| Release total including combination | All rows above, two performance repetitions | Approximately 75–120 hours, or 3–5 days |
+| Optional 5080 weight-precision panel | Eight coding tasks x three core systems x two precisions x two repetitions = 96 task executions | Reserve another 4–8 hours, replace with measured estimate |
 
-At least two distinct live application domains must support a broad application claim;
-exact source counts/task counts follow the quality precision plan. First admission
-choices are coding plus customer-service; grounded document workflows are useful
-ordinary-application coverage and an explicitly scoped fallback if agent/model fit
-fails. A model that fails almost all authentic tasks cannot establish useful agent
-throughput. Hardware/model scope may need review rather than replacing live work with
-synthetic success fixtures. Natural short tool waits and absence of hint opportunity
-are valid outcomes and remain in the evidence.
+Panel assumptions correspond to roughly 8–15k generated tokens for the short validation
+panel and 70–120k for the full release panel, plus prefill and tool time. They are
+forecast inputs, not caps to force favorable timing; actual reasoning/tool loops can
+exceed them. Before a campaign, pilot representative short/edit/terminal/long-context
+cases and replace estimates with measured token volume, prefill/decode and tool costs.
+If estimates exceed budget, return a concrete scope/cost choice; do not truncate tasks
+and present the shortened run as complete. Suggested per-session emergency ceilings
+are 30 model calls/20min for coding and terminal work, 12 calls/10min for navigation
+and document work; reaching a ceiling is an incomplete outcome, not success. Ceilings
+must accommodate official harness validity requirements or the claim is a subset/adaptation.
 
-Choose spread before candidate timing results. For each source/task group record
-actual input/output lengths, turns, reusable-prefix fraction, distinct intervening
-KV bytes, wait distributions, concurrency, source popularity, branching/abandonment,
-and recompute cost relative to transfer. Include negative/misleading opportunity,
-no/low opportunity, intermediate opportunity, and high opportunity. Opportunity labels
-come from workload and baseline cache behavior, not observed candidate wins. Maintain
-a common-application panel and a separately reported niche/stress panel; equal family
-counts are not a claim about real-world prevalence. No headline population weighting
-without a specified target deployment or defensible source distribution.
-
-Audit coverage against held-out real sources and inspect concrete trajectories, not
-just histograms. Pilot ranking disagreements between fixtures, replay and live runs
-trigger investigation. Freeze coverage gaps and why each case exists; remove redundant
-cases only by predeclared coverage reasoning, never because they show losses. We can
-justify a balanced, mechanism-relevant spread, not prove a universally optimal spread
-without a target workload distribution and cost objective.
-
-### 5b. Concrete validation and release workload proposal
-
-The following are exact workload definitions and proposed acquisition counts for
-review, not already assembled or qualified manifests. Sample IDs, source revisions,
-licenses and tool/evaluator pins must be frozen before execution using deterministic,
-source-group-stratified selection. Counts are per model, assigned arm and operating
-condition, per repetition. Run both selected models in normal validation and release.
-Validation uses exposed development groups; release uses disjoint confirmation groups.
-The same release tasks repeat in the second block; that does not double source diversity.
-
-| ID / workload | What actually runs | Validation, one block | Release, two blocks |
-| --- | --- | --- | --- |
-| W1 Independent QA and summaries | Intact SQuAD v1.1 paragraphs with original questions; LongBench multi_news/gov_report documents with source-grounded summaries. No hints, independent sources. | 16 QA + 4 summaries | 128 QA + 32 summaries per block |
-| W2 Shared-document questions | SQuAD articles with four original questions over a shared context, interleaved across articles. Same-source reuse without waiting advice. | 4 articles x 4 questions = 16 requests | 32 articles x 4 questions = 128 requests per block |
-| W3 Natural conversation replay | WildChat English text-only 4–8-turn conversations; replay actual historical prefixes, generating fresh responses but retaining recorded histories for later prompts. No authored generic follow-ups or hints. | 8 conversations | 64 conversations per block |
-| W4 Live coding agent | mini-swe-agent on SWE-bench Verified issues in isolated repository environments; real read/edit/test actions, model-dependent continuation, official test-based grading. | 2 issues | 24 issues per block, stratified over at least four source projects |
-| W5 Live customer-service agent | Sierra text harness in English, retail and airline; real simulated-domain API calls and model/user-dependent dialogue, original final-state/policy evaluator. | 2 tasks/domain = 4 tasks | 12 tasks/domain = 24 tasks per block |
-| W6 Live document research | Local search/read tools over frozen Python PEPs and IETF RFCs: find relevant documents, extract supported facts, compare requirements, answer with citations. Actual outputs feed later turns. | 4 tasks, 2 per source collection | 24 tasks, 12 per source collection, per block |
-| W7 Branch-and-merge document research | W6 harness; shared initial evidence, two parallel model/tool branches, final answer consumes actual branch outputs. One additional controlled variant cancels one branch and records it. | 4 parent tasks | 16 parent tasks per block |
-| W8 Mixed applications | Concurrent W1/W6/W4/W5 sessions in fixed 60/20/10/10 start-count proportions; short unhinted traffic competes with real returning agents. Report each cohort separately. | 20 starts: 12/4/2/2 | 100 starts: 60/20/10/10 per block |
-
-These counts prioritize workload breadth and affordable acquisition; they do not
-power the earlier 2pp quality gate or precise p99 claims automatically. W8 may reuse
-profile tasks from standalone rows but is an additional execution; reused identities
-are clustered together in quality analysis. Mixture weights are an authored coverage
-choice, not measured market prevalence. Agent tasks run with real outputs and failures
-remain in denominators. Frozen initial task difficulty/context selection cannot use
-candidate speedup or confirmation successes. Keep oracle patches/reference answers out
-of agent-visible input. Confirmation source projects/documents/scenario ancestors must
-be distinct from development where the split contract requires it; if counts cannot
-be met, flag the gap rather than duplicate rows.
-
-Validation conditions: W1/W3 at light load; W2 once GPU-resident and once with GPU
-spill; W4–W7 under moderate controlled competition; W8 under CPU competition with a
-hot-set shift. These are different cases, each with ONE execution per arm, not hidden
-repetitions. Small live samples are integration/performance diagnostics, not quality
-certification. Core GPU-only/ARC/wait arms run all rows. Plain LMCache runs all common
-rows; Continuum runs W1/W2/W4/W5/W8; qualified GPU-retention four-way runs W2/W6/W8.
-Both models use the same admitted source tasks, with model-native templates.
-
-Release runs all eight rows under the three environments in section 6 for core arms;
-LMCache runs the common full panel, Continuum W1/W2/W4/W5/W8, and the four-way study
-W2/W6/W8 across GPU-resident, GPU-spill and CPU-competition regimes. Missing model/
-external compatibility is an explicit claim limit. The interaction panel adds long
-summary decode competing with W6 returns, and W7 cancellation competing with W1.
-Capacity search uses W1 and W8, with fixed-load latency retained for other cases.
-
-Natural tasks use no inserted sleeps. Issuing a hint follows a real tool-start event
-using only then-available information; no future return timestamps. W3 is replay and
-cannot validate fresh conversational quality. Controlled W6/W7 diagnostics separately
-sweep 0/1/10/60-second declared waits and abandoned hints to expose the opportunity
-range; these never support claims about natural tool durations. Source waits longer
-than the hint protocol permits do not receive secretly extended deadlines.
-
-Initial per-request generation caps: QA 128, summaries 512, document/branch responses
-512, coding/support actions 1,024 tokens. Live coding has a 30-model-call/20-minute
-session ceiling; support 30 agent calls/10 minutes; document/branch workflows 12 calls
-per branch or session/10 minutes. These are proposed operational ceilings, not expected
-durations or permission to truncate silently. All ceilings apply equally across arms;
-hits/timeouts are recorded as incomplete, including harness user-simulator time. Task
-inputs must fit both tokenizers' admitted context limits, with full-source eligibility
-for QA/summary; no answer-aware cropping as used historically. Live context overflow
-fails visibly unless a single explicit common context-management policy was qualified
-and frozen beforehand. Actual peak concurrency, cache budgets and arrivals are frozen
-from baseline-only fit/capacity pilots; no invented requests/sec before measurement.
-
-Release still includes the separately specified correctness, recovery and sustained
-runs. Their exposure is not doubled automatically. Agent environment/tool startup is
-reported separately from timed sessions; repeated-arm filesystem and simulator state
-are reset. The simulator's exact model/provider remains an execution dependency and
-cost decision, not implicit paid-service authorization. No aggregate wall-clock
-promise is possible before real tool/agent pilots. A 20-minute coding cap multiplied
-by issues, configurations, conditions and models is a real budget constraint.
-
-### 6. Required operating conditions and tractable matrix
-
-Each practical model runs the eight concrete workloads in section 5b, covering the
-six behavioral families, under three declared environments:
-
-1. Roomy/light: reusable state fits, little queueing; exposes overhead without a
-   retention advantage. Preserve genuinely no-reuse requests too.
-2. Competitive/steady: GPU overflow with CPU working-set competition, at a shared
-   offered rate below the control's sustained saturation boundary.
-3. Busy/changing: higher offered load, bursts or shifts in the hot set, with bounded
-   overload and recovery; mixed traffic includes misleading/abandoned advice.
-
-The concrete eight-row roster in section 5b gives 8 x 3 x 2 = 48 matched
-workload/model/environment cells,
-not 36 requests. Each includes independent source groups and repetitions determined
-by the precision plan. These cells alone are insufficient for pressure/load
-interactions: add a small interaction panel on each practical model crossing three
-capacity regimes (GPU-resident, GPU spill/CPU fits, CPU competition) with three load
-regimes (light, near sustainable, bounded overload). Reuse matching core cases when
-valid; otherwise initially up to nine additional cells per model. This prevents pressure
-and demand from always changing together.
-
-Across the matrix explicitly cover uniform and skewed reuse, increasing intervening
-distinct KV bytes separately from elapsed wait, cold and deliberately warm state,
-active decode allocations and selected block-boundary lengths. Track which concrete
-cell covers each condition. Every advertised model gets no-benefit, genuine restore,
-CPU-competition and live-quality coverage. Missing intersections remain listed;
-important newly observed interactions trigger additional cells, not a completeness
-claim based on pairwise coverage alone.
-
-Open-loop schedules record intended arrival before any client concurrency gate,
-actual submission, first token, completion and backlog. All arms receive the same
-absolute offered rates. Completion-dependent sessions additionally use predecessor
-completion plus declared waits and are analysed as causal applications. Overload
-uses declared queue/time caps and drain rules; don't run unlimited queues or count
-only survivors. Report sustainable capacity and latency together. Configure SLOs only
-for a stated use; where none exists, publish latency/load curves rather than invent
-an arbitrary universal SLO score.
-
-Measure outcomes according to the traffic model. At a fixed below-capacity arrival
-rate, completed requests/second mostly measures offered load, not service capacity.
-Use latency, queueing, error/completion fraction and resource cost there. Measure
-capacity with a separate bracketed load search under declared latency/quality/error
-constraints and a bounded stable-backlog criterion, then confirm selected boundary
-points with fresh runs. Report the search bracket and uncertainty. If no application
-latency objective exists, publish a capacity/latency curve without calling one point
-universally acceptable. Fixed-work makespan is another useful outcome; declare
-startup, warmup, tool waits and final drain rather than changing the denominator to
-obtain a gain. Do not claim a 5% throughput gain in an arrival-limited case.
-
-Streaming receipts distinguish transport chunks from tokens. If a chunk contains
-multiple tokens, do not fabricate their individual delivery timestamps or label
-chunk-gap measurements as true token-gap measurements. Record unavailable timing
-precision and use only metrics the instrumentation actually observes.
-
-Record host CPU/RAM pressure, background activity, GPU clocks/temperature/power and
-client scheduling lag. Warm operating state and randomized order control drift.
-Candidate-induced contention or throttling is a result, not an exclusion. External
-interference is excluded only by predeclared, arm-blind evidence rules. The driver
-must demonstrate headroom at peak offered rate; otherwise the result is load-generator
-limited. Reset or identically seed tool filesystem state, tool caches and external
-responses; repeated tools must not make the second arm easier. Charge genuine
-application contention to both complete workflows.
-
-Each interaction case must name its workload and causal hypothesis, not just occupy
-a slot in a grid. Mandatory examples include long decode plus CPU competition and
-returning sessions; abandoned advice competing with unhinted returns; shared ancestors
-under skewed popularity; and a load burst followed by a change in the hot set. Record
-expected opportunity separately from realized activity. Primary outcomes include all
-assigned sessions, never only sessions that happened to receive an accepted hint or
-restore. A useful treatment may reduce evictions, so do not require identical eviction
-counts in both arms. Require evidence of opportunity in the control and actual path
-activation where claimed; unexpected inactivity is investigated and labelled.
+The 5080 is a separately qualified lane. Compare quantization only within that lane,
+with the same model and cache settings; compare hardware only with matched precision.
+The primary 2080 Ti release must not depend on optional 5080 availability. No paid
+services, machine changes, downloads or GPU execution are authorized by this proposal.
 
 ### 7. Correctness is a mandatory release gate
 
@@ -877,20 +734,12 @@ raw artifact backup remains separate and no new remote is authorized.
 
 ### 16. Cost and implementation sequence
 
-The core matrix is 48 cells x 3 arms x R independent blocks = 144R arm-runs before
-previous-release/external references, interaction cells and sustained tests. With the user-set R=2 release count and a
-hypothetical three minutes per arm that alone is 14.4 GPU-hours, excluding startup,
-warmup, drain and failures. External and combination subsets add their own runs; live
-application sessions may take much longer than three minutes. This is a sizing
-illustration, not a measured runtime or evidence that two blocks meet every gate. Broad release confidence costs more than a short
-screen; expose that cost before committing resources.
-
-Plan reports measured/estimated startup and per-case time, event/record volume,
-model/runtime storage, peak memory and acquisition ceilings. Pilot a representative
-short, long, mixed and failure case to estimate those values and statistical
-precision. Select valid repetition/queue limits and approved budgets before the full
-run. If the necessary evidence is unaffordable, report the unresolved claim or negotiate
-scope explicitly; do not silently rename the quick comparison "release validation".
+Section 6 owns acquisition counts, arithmetic and conditional ETA ranges. The earlier
+full workload x three environments Cartesian product is removed. Keep the broad live
+panel and targeted mechanism coverage distinct; new obligations require explicit cost
+rather than silently multiplying all cells. One-time hybrid/window support, quantized
+kernel qualification and runner implementation are prerequisites, not included in the
+GPU acquisition ETAs and not yet estimated. This design remains under user review.
 
 Build in this order:
 
@@ -917,7 +766,7 @@ work to resolve, not assumed available features.
 | Wins only with privileged hints | Real tool/application signals and costs; ideal hints labelled diagnostics only |
 | Hides harm to unrelated work | Mandatory per-cohort latency/throughput gates and mixed/adverse-advice cases |
 | Cache state/load generator manufactures gains | Cold/warm canaries, scheduled-arrival accounting, A/A and sensitivity controls |
-| Small model or one corpus determines everything | Two practical families, six workload structures, source-group holdouts and explicit coverage matrix |
+| Small model or one corpus determines everything | Two materially different architectures, coding-first live workflows, source-group holdouts and explicit coverage matrix |
 | Pressure/load interactions missed | Independent capacity/load panel, decode competition and targeted follow-up for observed interactions |
 | Tuning/search finds a lucky winner | Frozen confirmation, independent runs, multiplicity control, exposed-data tracking and preserved failures |
 | Only works briefly or in the developer's checkout | Lifecycle/soak/failure recovery and clean reconstruction/report regeneration |
@@ -931,7 +780,7 @@ not silently treated as passed. New mechanisms or observed failure modes require
 review of this map and focused cases. Confidence becomes empirical only after the
 harness sensitivity checks, coverage and repeated release runs actually succeed.
 
-Still unresolved before executable release acquisition: qualification of the recommended model IDs and fit; fresh corpus/source groups and rights; absolute task-quality floors and
+Still unresolved before executable release acquisition: hybrid/window architecture support, quantized kernel compatibility and model fit; fresh corpus/source groups and rights; absolute task-quality floors and
 latency objectives where relevant; telemetry availability/overhead; statistical power;
 external-system compatibility; raw-storage budget; durable ownership/notification;
 review of proposed numeric tolerance and exposure targets. These are explicit release
@@ -973,14 +822,15 @@ No agent may silently choose favorable tolerances or waive an unresolved require
 
 ### 19. Sources and evidence used
 
-Model selection research (2026-11-11):
+Current-model/coding-first research (2026-11-11):
 
-- [Qwen3-4B-Instruct-2507 card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507), [configuration](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/blob/main/config.json) and [tensor index](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/blob/main/model.safetensors.index.json).
-- [SmolLM3-3B card](https://huggingface.co/HuggingFaceTB/SmolLM3-3B), [configuration](https://huggingface.co/HuggingFaceTB/SmolLM3-3B/blob/main/config.json) and [tensor index](https://huggingface.co/HuggingFaceTB/SmolLM3-3B/blob/main/model.safetensors.index.json). Native cache shape computed from configurations, not measured allocation.
-- [Qwen model metadata](https://huggingface.co/api/models/Qwen/Qwen3-4B-Instruct-2507) and [SmolLM metadata](https://huggingface.co/api/models/HuggingFaceTB/SmolLM3-3B): snapshot adoption indicators and source revisions.
-- [Ministral BF16](https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512-BF16), [Phi-4-mini config](https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/main/config.json), [Qwen3.5 config](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/config.json): alternative-selection constraints.
-- [SWE-bench Verified](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified): concrete coding source and test-based grading, proposed subset not an official full benchmark score.
-
+- [Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B) and [configuration](https://huggingface.co/Qwen/Qwen3.5-9B/blob/main/config.json): recurrent/full-attention architecture.
+- [Gemma 4 12B IT](https://huggingface.co/google/gemma-4-12B-it) and [configuration](https://huggingface.co/google/gemma-4-12B-it/blob/main/config.json): sliding/global attention and distinct group geometry.
+- [Gemma releases](https://ai.google.dev/gemma/docs/releases): June 2026 12B release.
+- [Qwen quantized candidate](https://huggingface.co/cyankiwi/Qwen3.5-9B-AWQ-4bit) and [Gemma quantized candidate](https://huggingface.co/axteam/gemma-4-12B-it-AWQ-4bit): inspectable artifact candidates, not hardware qualification.
+- [vLLM quantization](https://docs.vllm.ai/en/stable/features/quantization/) and [hybrid caching](https://docs.vllm.ai/en/v0.30.0/features/automatic_prefix_caching/): kernel and state compatibility need explicit verification against the selected runtime.
+- [Terminal-Bench 2.0 and Harbor](https://www.tbench.ai/news/announcement-2-0): real terminal harness; use a pinned CPU-only development-task subset, not the moving latest suite.
+- [SWE-bench Verified](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified): real repair tasks with test-based grading; selected subsets are not official full-suite scores.
 
 - [vLLM benchmark CLI](https://docs.vllm.ai/en/latest/benchmarking/cli/): cache carryover and serving benchmark guidance.
 - [vLLM serving controls](https://docs.vllm.ai/en/stable/cli/bench/serve/): offered load versus concurrency, timing and goodput.
@@ -1011,6 +861,7 @@ Additional comparison and workload research (2026-11-11):
 - [WildChat data card](https://huggingface.co/datasets/allenai/WildChat-1M): authentic conversation shapes; timestamp and ancestry limitations require inspection.
 
 ## Next
-Philip reviews the release-first contract, especially the coverage floor, proposed
-numeric gates, sustained exposure and explicit deployment boundary. Then resolve
-actual model/data selection and pilot resources before implementation/acquisition.
+Philip reviews the current-model architecture scope, coding-first roster and explicit
+acquisition budget. Audit hybrid/window offload feasibility and Turing quantization
+before implementing the revised suite. No GPU campaign can be scheduled from the
+conditional ETAs until supported paths and actual model fit are established.
