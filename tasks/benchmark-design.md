@@ -29,7 +29,10 @@ categories. Sol adversarially reviewed the complete release-first plan at 6f4f09
 The primary agent incorporated its findings and independent web research below.
 A second Sol review found the revised plan ready for user design review with two
 wording corrections, now applied. Gates remain proposals for Philip, not accepted
-product guarantees. No reviewer qualified a runtime or performance result.
+product guarantees. No reviewer qualified a runtime or performance result. Subsequent user-directed
+comparison, workload and model refinements have not received another Sol review.
+Philip has fixed performance repetitions at one validation and two release blocks;
+model pair and concrete workload counts below remain proposals for review.
 
 ### 1. What a release verdict means
 
@@ -222,6 +225,54 @@ identity binding, but make no multi-tenant confidentiality or remote-clock claim
 Broader claims require corresponding security/clock design and evaluation, not just
 more latency trials.
 
+### 4a. Concrete two-model recommendation
+
+Recommend Qwen/Qwen3-4B-Instruct-2507 and HuggingFaceTB/SmolLM3-3B, both served in
+FP16, non-thinking mode, TP1/eager/full attention. The source weights are BF16;
+explicit FP16 conversion at load is required and must be checked for usable generation.
+No weight quantization or silent model replacement. Both are publicly available
+Apache-2.0 instruction models from 2025, not the newest 2026 architecture generation.
+Hugging Face API checked 2026-11-11 reports approximately 2.58M and 297k downloads,
+respectively; these are adoption indicators, not unique users or quality evidence.
+
+| Property | Qwen3-4B-Instruct-2507 | SmolLM3-3B |
+| --- | --- | --- |
+| Proposed source revision | cdbee75f17c01a7cc42f958dc650907174af0554 | a07cc9a04f16550a088caea529712d1d335b0ac1 |
+| Dense full-attention layers | 36 | 36 |
+| Query / KV heads, head dimension | 32 / 8, 128 | 16 / 4, 128 |
+| Derived raw FP16 KV per token | 144 KiB | 72 KiB |
+| Derived raw KV for 8,192 tokens | 1.125 GiB | 0.5625 GiB |
+| Source tensor payload, approximate | 7.49 GiB | 5.73 GiB |
+| Positional encoding | RoPE | Every fourth layer omits RoPE; still full attention |
+| Local pinned vLLM route inspected | Qwen native architecture | Registry maps SmolLM3ForCausalLM to TransformersForCausalLM |
+
+The 2x KV difference changes bytes transferred, number of retained tokens at equal
+cache bytes and eviction opportunity; smaller SmolLM weights also leave more potential
+GPU-cache capacity. Different widths, training, templates, tokenizers and positional
+handling challenge model dependence. Do not claim NoPE alone causes a policy ranking:
+this is a two-model robustness comparison, not an isolated architecture ablation.
+Compare systems WITHIN each model; task tokens and answer lengths differ across models.
+Use both practical equal-hardware deployment results and controlled cache-pressure
+settings, clearly separated. Do not force equal token counts by padding real inputs.
+
+Start model admission at an 8,192-token total context cap, then attempt 16,384 for the
+release long-context subset if the same serving constraints fit. Neither advertised
+64K/256K context implies those lengths fit an 11 GiB GPU. Weight/KV figures exclude
+workspace, activations, allocator, model-loading peak and CPU transfers. Registry
+presence is not offload qualification: exercise the Transformers route, cache geometry,
+FP16 numerics, tool formatting and real tasks. No model/GPU download or launch occurred.
+
+Why these rather than other inspected candidates: Llama-3.2-3B is more established
+but older and has eight KV heads; Phi-4-mini also has eight. Ministral-3-3B is newer
+and attractive for agents, but its 26 layers/eight KV heads give less KV contrast and
+its multimodal packaging adds qualification work (its BF16 card advertises 16GB fit,
+not proof of 2080 Ti fit). Qwen3.5 mixes linear and full attention, outside the current
+single-full-attention-group product contract. Hybrid, MLA, sliding-window, MoE and
+multimodal support require separate architectural qualification, not a token third
+model. Two models suffice for a bounded two-family full-attention claim while varying
+pressure/load directly; they cannot establish model-universal performance. Add another
+model only for an advertised new architecture/size/deployment or unexplained dependence.
+
 ### 5. The release workload panel
 
 These are six sections of ONE benchmark, run with common measurements and controls.
@@ -305,9 +356,84 @@ cases only by predeclared coverage reasoning, never because they show losses. We
 justify a balanced, mechanism-relevant spread, not prove a universally optimal spread
 without a target workload distribution and cost objective.
 
+### 5b. Concrete validation and release workload proposal
+
+The following are exact workload definitions and proposed acquisition counts for
+review, not already assembled or qualified manifests. Sample IDs, source revisions,
+licenses and tool/evaluator pins must be frozen before execution using deterministic,
+source-group-stratified selection. Counts are per model, assigned arm and operating
+condition, per repetition. Run both selected models in normal validation and release.
+Validation uses exposed development groups; release uses disjoint confirmation groups.
+The same release tasks repeat in the second block; that does not double source diversity.
+
+| ID / workload | What actually runs | Validation, one block | Release, two blocks |
+| --- | --- | --- | --- |
+| W1 Independent QA and summaries | Intact SQuAD v1.1 paragraphs with original questions; LongBench multi_news/gov_report documents with source-grounded summaries. No hints, independent sources. | 16 QA + 4 summaries | 128 QA + 32 summaries per block |
+| W2 Shared-document questions | SQuAD articles with four original questions over a shared context, interleaved across articles. Same-source reuse without waiting advice. | 4 articles x 4 questions = 16 requests | 32 articles x 4 questions = 128 requests per block |
+| W3 Natural conversation replay | WildChat English text-only 4–8-turn conversations; replay actual historical prefixes, generating fresh responses but retaining recorded histories for later prompts. No authored generic follow-ups or hints. | 8 conversations | 64 conversations per block |
+| W4 Live coding agent | mini-swe-agent on SWE-bench Verified issues in isolated repository environments; real read/edit/test actions, model-dependent continuation, official test-based grading. | 2 issues | 24 issues per block, stratified over at least four source projects |
+| W5 Live customer-service agent | Sierra text harness in English, retail and airline; real simulated-domain API calls and model/user-dependent dialogue, original final-state/policy evaluator. | 2 tasks/domain = 4 tasks | 12 tasks/domain = 24 tasks per block |
+| W6 Live document research | Local search/read tools over frozen Python PEPs and IETF RFCs: find relevant documents, extract supported facts, compare requirements, answer with citations. Actual outputs feed later turns. | 4 tasks, 2 per source collection | 24 tasks, 12 per source collection, per block |
+| W7 Branch-and-merge document research | W6 harness; shared initial evidence, two parallel model/tool branches, final answer consumes actual branch outputs. One additional controlled variant cancels one branch and records it. | 4 parent tasks | 16 parent tasks per block |
+| W8 Mixed applications | Concurrent W1/W6/W4/W5 sessions in fixed 60/20/10/10 start-count proportions; short unhinted traffic competes with real returning agents. Report each cohort separately. | 20 starts: 12/4/2/2 | 100 starts: 60/20/10/10 per block |
+
+These counts prioritize workload breadth and affordable acquisition; they do not
+power the earlier 2pp quality gate or precise p99 claims automatically. W8 may reuse
+profile tasks from standalone rows but is an additional execution; reused identities
+are clustered together in quality analysis. Mixture weights are an authored coverage
+choice, not measured market prevalence. Agent tasks run with real outputs and failures
+remain in denominators. Frozen initial task difficulty/context selection cannot use
+candidate speedup or confirmation successes. Keep oracle patches/reference answers out
+of agent-visible input. Confirmation source projects/documents/scenario ancestors must
+be distinct from development where the split contract requires it; if counts cannot
+be met, flag the gap rather than duplicate rows.
+
+Validation conditions: W1/W3 at light load; W2 once GPU-resident and once with GPU
+spill; W4–W7 under moderate controlled competition; W8 under CPU competition with a
+hot-set shift. These are different cases, each with ONE execution per arm, not hidden
+repetitions. Small live samples are integration/performance diagnostics, not quality
+certification. Core GPU-only/ARC/wait arms run all rows. Plain LMCache runs all common
+rows; Continuum runs W1/W2/W4/W5/W8; qualified GPU-retention four-way runs W2/W6/W8.
+Both models use the same admitted source tasks, with model-native templates.
+
+Release runs all eight rows under the three environments in section 6 for core arms;
+LMCache runs the common full panel, Continuum W1/W2/W4/W5/W8, and the four-way study
+W2/W6/W8 across GPU-resident, GPU-spill and CPU-competition regimes. Missing model/
+external compatibility is an explicit claim limit. The interaction panel adds long
+summary decode competing with W6 returns, and W7 cancellation competing with W1.
+Capacity search uses W1 and W8, with fixed-load latency retained for other cases.
+
+Natural tasks use no inserted sleeps. Issuing a hint follows a real tool-start event
+using only then-available information; no future return timestamps. W3 is replay and
+cannot validate fresh conversational quality. Controlled W6/W7 diagnostics separately
+sweep 0/1/10/60-second declared waits and abandoned hints to expose the opportunity
+range; these never support claims about natural tool durations. Source waits longer
+than the hint protocol permits do not receive secretly extended deadlines.
+
+Initial per-request generation caps: QA 128, summaries 512, document/branch responses
+512, coding/support actions 1,024 tokens. Live coding has a 30-model-call/20-minute
+session ceiling; support 30 agent calls/10 minutes; document/branch workflows 12 calls
+per branch or session/10 minutes. These are proposed operational ceilings, not expected
+durations or permission to truncate silently. All ceilings apply equally across arms;
+hits/timeouts are recorded as incomplete, including harness user-simulator time. Task
+inputs must fit both tokenizers' admitted context limits, with full-source eligibility
+for QA/summary; no answer-aware cropping as used historically. Live context overflow
+fails visibly unless a single explicit common context-management policy was qualified
+and frozen beforehand. Actual peak concurrency, cache budgets and arrivals are frozen
+from baseline-only fit/capacity pilots; no invented requests/sec before measurement.
+
+Release still includes the separately specified correctness, recovery and sustained
+runs. Their exposure is not doubled automatically. Agent environment/tool startup is
+reported separately from timed sessions; repeated-arm filesystem and simulator state
+are reset. The simulator's exact model/provider remains an execution dependency and
+cost decision, not implicit paid-service authorization. No aggregate wall-clock
+promise is possible before real tool/agent pilots. A 20-minute coding cap multiplied
+by issues, configurations, conditions and models is a real budget constraint.
+
 ### 6. Required operating conditions and tractable matrix
 
-Each practical model runs the six sections under three declared environments:
+Each practical model runs the eight concrete workloads in section 5b, covering the
+six behavioral families, under three declared environments:
 
 1. Roomy/light: reusable state fits, little queueing; exposes overhead without a
    retention advantage. Preserve genuinely no-reuse requests too.
@@ -316,7 +442,8 @@ Each practical model runs the six sections under three declared environments:
 3. Busy/changing: higher offered load, bursts or shifts in the hot set, with bounded
    overload and recovery; mixed traffic includes misleading/abandoned advice.
 
-This is a core floor of 6 x 3 x 2 = 36 matched workload/model/environment cells,
+The concrete eight-row roster in section 5b gives 8 x 3 x 2 = 48 matched
+workload/model/environment cells,
 not 36 requests. Each includes independent source groups and repetitions determined
 by the precision plan. These cells alone are insufficient for pressure/load
 interactions: add a small interaction panel on each practical model crossing three
@@ -550,26 +677,25 @@ are correlated. Predeclare multiplicity handling for multiple confirmatory claim
 (e.g. simultaneous intervals or Holm adjustment); exploratory heatmaps remain
 exploratory. Separate discovery-selected regions from fresh confirmation estimates.
 
-Proposed repetition policy: functional runs once per check; compare/validation uses
-TWO independently started matched blocks per selected case; release uses THREE per
-confirmation case. Each block runs every assigned arm on the same task set/arrival
-seed; rotate order to spread drift, recording residual imbalance when there are more
-arms than blocks. Release blocks include independent starts and more than one time
-window. Keep a repeated sentinel task set across blocks to expose run variability,
-alongside stratified source instances for task diversity. Report each block, paired
-effects, spread and failures. Two blocks expose gross disagreement, not a reliable
-variance distribution; three give only a coarse run-variance estimate. Do not promise
-95% tail or small-effect confidence solely from these counts or treat within-run
-requests as independent process repetitions.
+User-set repetition policy: functional runs once per check; compare/validation runs
+ONE matched block per selected case; release runs TWO independently started matched
+blocks per confirmation case. Each block runs every assigned arm on matched task IDs
+and arrival seeds. Release repeats the task set with reset application/cache state,
+reverses arm order for the second block and separates the starts in time. Record
+residual order effects; two blocks cannot balance every multi-arm ordering.
 
-These are proposed economical defaults replacing the six-block illustration, not a
-new universal sufficiency rule. Pilot precision may require a claim to remain unresolved
-under the three-block budget. No automatic escalation to six and no adding runs until
-a preferred sign appears. If necessary, propose a separately budgeted targeted follow-up
-with its own predeclared analysis; do not pool selectively stopped data as fixed-N
-confirmation. Quality coverage comes mainly from enough independent tasks/sessions,
-not repeatedly solving the same tiny set. Sustained/fault exposure is separate from
-these short performance repetitions and is not automatically tripled.
+Validation reports within-run variation and descriptive comparisons only; one block
+cannot estimate between-run noise. Release reports both effects and their disagreement;
+two blocks do not establish a reliable run-variance distribution or narrow 95% bounds.
+Do not substitute correlated requests for independent starts. Enough distinct source
+sessions can inform task-population uncertainty conditional on these runs, but cannot
+remove uncertainty about process/host variation. A small or inconsistent effect remains
+unresolved. These repetition limits are Philip's decision, not defaults to expand
+automatically. No optional stopping or added runs until a preferred sign appears.
+A targeted follow-up requires a separately agreed budget and analysis. Sustained/fault
+exposure is separate and is not multiplied by performance repetition count. Quality
+precision requirements remain explicit; small proposed task samples cannot establish
+two-percentage-point equivalence merely because both arms have similar scores.
 
 Pilot estimates noise, baseline variability and task-success frequency; calculate
 sample sizes against useful-effect/non-inferiority margins. Require independent
@@ -751,12 +877,12 @@ raw artifact backup remains separate and no new remote is authorized.
 
 ### 16. Cost and implementation sequence
 
-The core matrix is 36 cells x 3 arms x R independent blocks = 108R arm-runs before
-previous-release/external references, interaction cells and sustained tests. With the proposed R=3 release default and a
-hypothetical three minutes per arm that alone is 16.2 GPU-hours, excluding startup,
+The core matrix is 48 cells x 3 arms x R independent blocks = 144R arm-runs before
+previous-release/external references, interaction cells and sustained tests. With the user-set R=2 release count and a
+hypothetical three minutes per arm that alone is 14.4 GPU-hours, excluding startup,
 warmup, drain and failures. External and combination subsets add their own runs; live
 application sessions may take much longer than three minutes. This is a sizing
-illustration, not a measured runtime or evidence that three blocks meet every gate. Broad release confidence costs more than a short
+illustration, not a measured runtime or evidence that two blocks meet every gate. Broad release confidence costs more than a short
 screen; expose that cost before committing resources.
 
 Plan reports measured/estimated startup and per-case time, event/record volume,
@@ -805,8 +931,7 @@ not silently treated as passed. New mechanisms or observed failure modes require
 review of this map and focused cases. Confidence becomes empirical only after the
 harness sensitivity checks, coverage and repeated release runs actually succeed.
 
-Still unresolved before executable release acquisition: exact practical model IDs
-and fit; fresh corpus/source groups and rights; absolute task-quality floors and
+Still unresolved before executable release acquisition: qualification of the recommended model IDs and fit; fresh corpus/source groups and rights; absolute task-quality floors and
 latency objectives where relevant; telemetry availability/overhead; statistical power;
 external-system compatibility; raw-storage budget; durable ownership/notification;
 review of proposed numeric tolerance and exposure targets. These are explicit release
@@ -847,6 +972,15 @@ ancestry, sample-size feasibility and recovery tests, then reports their evidenc
 No agent may silently choose favorable tolerances or waive an unresolved requirement.
 
 ### 19. Sources and evidence used
+
+Model selection research (2026-11-11):
+
+- [Qwen3-4B-Instruct-2507 card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507), [configuration](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/blob/main/config.json) and [tensor index](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/blob/main/model.safetensors.index.json).
+- [SmolLM3-3B card](https://huggingface.co/HuggingFaceTB/SmolLM3-3B), [configuration](https://huggingface.co/HuggingFaceTB/SmolLM3-3B/blob/main/config.json) and [tensor index](https://huggingface.co/HuggingFaceTB/SmolLM3-3B/blob/main/model.safetensors.index.json). Native cache shape computed from configurations, not measured allocation.
+- [Qwen model metadata](https://huggingface.co/api/models/Qwen/Qwen3-4B-Instruct-2507) and [SmolLM metadata](https://huggingface.co/api/models/HuggingFaceTB/SmolLM3-3B): snapshot adoption indicators and source revisions.
+- [Ministral BF16](https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512-BF16), [Phi-4-mini config](https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/main/config.json), [Qwen3.5 config](https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/config.json): alternative-selection constraints.
+- [SWE-bench Verified](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified): concrete coding source and test-based grading, proposed subset not an official full benchmark score.
+
 
 - [vLLM benchmark CLI](https://docs.vllm.ai/en/latest/benchmarking/cli/): cache carryover and serving benchmark guidance.
 - [vLLM serving controls](https://docs.vllm.ai/en/stable/cli/bench/serve/): offered load versus concurrency, timing and goodput.
