@@ -48,6 +48,7 @@ def probe(
     system: str = "gpu-only",
     backend: str = "TRITON_ATTN",
     coding: tuple[Path, Path, str] | None = None,
+    coding_kind: str = "repair",
 ) -> int:
     if not python.is_file() or not (model / "config.json").is_file():
         raise ValueError("runtime Python and a complete local model are required")
@@ -55,6 +56,8 @@ def probe(
         raise ValueError("new external output and timeout in 1..1800 required")
     if system not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):
         raise ValueError("unsupported system")
+    if coding_kind not in ("repair", "regression"):
+        raise ValueError("unsupported coding task kind")
     output.mkdir(parents=True, exist_ok=False)
     identities = snapshot(root, output / "source")
     model_identity = {
@@ -116,6 +119,7 @@ def probe(
                 "dataset": str(coding[1]),
                 "dataset_sha256": digest_file(coding[1]),
                 "instance": coding[2],
+                "kind": coding_kind,
             },
         },
     )
@@ -212,6 +216,7 @@ def probe(
                                 endpoint,
                                 output / "coding",
                                 240,
+                                coding_kind,
                             )
                         if result["coding"]["quality"] == "ungraded":
                             result["status"] = "failed"
@@ -381,24 +386,31 @@ def verify_probe(output: Path) -> dict[str, Any]:
                 or pinned[0]["image_name"] != acquisition["image"]["id"]
             ):
                 raise ValueError("coding and grader image identities differ")
-        reports = list(
-            (output / "coding/grading/logs/run_evaluation").rglob("report.json")
-        )
-        if (
-            acquisition != terminal["coding"]
-            or grading != acquisition["grading"]
-            or grading["exit_code"] != 0
-            or len(reports) != 1
-            or json.loads(reports[0].read_text()) != grading["report"]
-            or type(grading["report"][coding["instance"]]["resolved"]) is not bool
-            or acquisition["quality"]
-            != (
-                "resolved"
-                if grading["report"][coding["instance"]]["resolved"]
-                else "unresolved"
+        if acquisition != terminal["coding"] or grading != acquisition["grading"]:
+            raise ValueError("coding acquisition differs from grading receipt")
+        if coding.get("kind", "repair") == "regression":
+            from tools.benchmarking.regression import verify_regression
+
+            verified = verify_regression(output / "coding/grading")
+            if verified["quality"] != acquisition["quality"]:
+                raise ValueError("regression task quality differs from observations")
+        else:
+            reports = list(
+                (output / "coding/grading/logs/run_evaluation").rglob("report.json")
             )
-        ):
-            raise ValueError("coding verdict disagrees with original grader")
+            if (
+                grading["exit_code"] != 0
+                or len(reports) != 1
+                or json.loads(reports[0].read_text()) != grading["report"]
+                or type(grading["report"][coding["instance"]]["resolved"]) is not bool
+                or acquisition["quality"]
+                != (
+                    "resolved"
+                    if grading["report"][coding["instance"]]["resolved"]
+                    else "unresolved"
+                )
+            ):
+                raise ValueError("coding verdict disagrees with original grader")
     return terminal
 
 
