@@ -3725,41 +3725,6 @@
     {
       "path": "evidence/cpu-wait-recency-2080ti-20261102/curves.png",
       "reason": "Generated binary figure; curated figure and numeric inputs retained."
-    },
-    {
-      "path": "output/quantized-realworld-20261101/final-results.json",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335"
-    },
-    {
-      "path": "output/quantized-realworld-20261101/qualification/strict-proof-gap-terminal.json",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "25d32e4ed9956bfeb8141cff1cf4451074cafca9cb48e8b53270cd33fb478a5f"
-    },
-    {
-      "path": "output/prefetch-vram-20261101/confirmation-long-results.json",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad"
-    },
-    {
-      "path": "output/prefetch-vram-20261101/confirmation-short-combined-results.json",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "4ed5d670907ffb29cf9c701ca563030a0bf634420d573adc4eb99656d0f21989"
-    },
-    {
-      "path": "output/prefetch-vram-20261101/gather-screen-output-crossreference.json",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "548ccb2ae32db0b3a2d1e634462641792634be50be192a99b1201e6c42f25722"
-    },
-    {
-      "path": "output/admission-trial/results/admission_trial/capacity-samples.csv",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0"
-    },
-    {
-      "path": "output/matrix-2080ti-20261031/measurements.json",
-      "reason": "Bulky per-request/per-sample measurement data remains with raw runs; the complete report, compact tables and result preserve its conclusions. Not needed for report inspection; required for reanalysis.",
-      "sha256": "ec742ac3183e764f84e84dd688546099b5c93958113320c9d9b094322fdf14aa"
     }
   ],
   "collections": {
@@ -3976,12 +3941,195 @@
   "verification": {
     "source_bytes_verified_against_originals": {
       "legacy": 406,
-      "legacy-local": 187,
+      "legacy-local": 209,
       "current": 1
     },
     "historical_evidence_files_inventoried": 407,
     "local_experiment_collections": 31,
-    "curated_results": 31,
-    "scope": "Read-only report/source audit; no benchmark reruns; all result links resolve locally."
+    "curated_results": 32,
+    "scope": "2026-11-12 byte-exact recheck of all 616 archived sources against imported Git history or local originals; includes seven formerly excluded numeric exports and the earlier agent workflow pilot. No new performance or agent experiment."
+  },
+  "supporting_numeric_exports": [
+    {
+      "path": "output/quantized-realworld-20261101/final-results.json",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "public-prefetch"
+      ]
+    },
+    {
+      "path": "output/quantized-realworld-20261101/qualification/strict-proof-gap-terminal.json",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "25d32e4ed9956bfeb8141cff1cf4451074cafca9cb48e8b53270cd33fb478a5f",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "public-prefetch"
+      ]
+    },
+    {
+      "path": "output/prefetch-vram-20261101/confirmation-long-results.json",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "prefetch-capacity"
+      ]
+    },
+    {
+      "path": "output/prefetch-vram-20261101/confirmation-short-combined-results.json",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "4ed5d670907ffb29cf9c701ca563030a0bf634420d573adc4eb99656d0f21989",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "prefetch-capacity"
+      ]
+    },
+    {
+      "path": "output/prefetch-vram-20261101/gather-screen-output-crossreference.json",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "548ccb2ae32db0b3a2d1e634462641792634be50be192a99b1201e6c42f25722",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "prefetch-capacity"
+      ]
+    },
+    {
+      "path": "output/admission-trial/results/admission_trial/capacity-samples.csv",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "admission-pressure"
+      ]
+    },
+    {
+      "path": "output/matrix-2080ti-20261031/measurements.json",
+      "reason": "Supporting numeric export retained byte-exactly before raw-tree closeout.",
+      "sha256": "ec742ac3183e764f84e84dd688546099b5c93958113320c9d9b094322fdf14aa",
+      "repository": "legacy-local",
+      "retained": true,
+      "results": [
+        "continuous-semantic-overhead"
+      ]
+    }
+  ],
+  "agent_workflow_pilot": {
+    "result": "agent-workflow-pilot",
+    "source_inventory": [
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/REPORT.md",
+        "sha256": "aee60d032f697acea2a27d4ef8519da7305cabdd699f295edb2ad6c122353669"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/grades.json",
+        "sha256": "22e7af02a99b57d20c0ebfac6ef0e8be874fc6ace23197331ab4f80b52309ff8"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/integrity.json",
+        "sha256": "f26306dc3dfa20ebae2e6bc2d592aa8896ed098472323008dc22ff5b899e5b63"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/claim-audit.json",
+        "sha256": "42b3f9e1ee5c7268365d0a002d7f83bd35052aaffd425a5f07295d5fe30bb711"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/audit-actions.json",
+        "sha256": "0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/suite/protocol.json",
+        "sha256": "196fe0b9856418df95cec3d4c398f16ea0c18997e1256ebfb745d4b2a445af68"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/suite/tasks.json",
+        "sha256": "de1a27e463dc2f35eeae5b19bb1557165c30869fd40c8390cf4c01375ff3a6fc"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/suite/rubric.md",
+        "sha256": "36776af641220c506deb653709a9f1af981409ef1146c2d7f8e17e1e27c0b8f4"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-after-1/diff.patch",
+        "sha256": "2dcac83b1bf7bd1cfcbe64d6f2f62b1c8e4012146f2b62166179458cd55afc11"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-after-1/handoff-A-diff.patch",
+        "sha256": "94ec6508d515fb22b077cadab7f61c813f3d93f6dcacbd75190decd2dc7e30bf"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-after-2/diff.patch",
+        "sha256": "04f4b3bf6ab2724d28c8ae0fc6d8e7f49a202852602d48633780aa615b041eb0"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-after-2/handoff-A-diff.patch",
+        "sha256": "160613b7339cbc15050c5bff2d78d78c16cf7d33cec7b7655b111a9711ea4a9b"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-before-1/diff.patch",
+        "sha256": "4cee872c65eb06c447444c5c450b11c31a30423fefbd72b5ac45e1220f7afc4a"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-before-1/handoff-A-diff.patch",
+        "sha256": "94e03c18de63a8c0fcfc74c7d45822c3fa109f1657c1f9996f902d0962855748"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-before-2/diff.patch",
+        "sha256": "492a94afd913d5140c504976d7414006368f0f4c8eb202e6ae1dd2547885356e"
+      },
+      {
+        "repository": "legacy-local",
+        "revision": null,
+        "path": "efficacy/20261110/trials/handoff-before-2/handoff-A-diff.patch",
+        "sha256": "94e03c18de63a8c0fcfc74c7d45822c3fa109f1657c1f9996f902d0962855748"
+      }
+    ],
+    "scope": "Earlier contaminated agent study; retain reports, scores, frozen inputs and handoff diffs, not a causal efficacy claim."
+  },
+  "ignored_experiment_source": {
+    "ref": "refs/archive/original/ignored-experiment-source",
+    "revision": "98a5a1e71fd20664642f41d5e41257a786b8e956",
+    "source_files": 16960,
+    "source_bytes": 327940006,
+    "index_sha256": "175c13c1579faef8320b9904005c72d51ff26a80ec2fada82730de191b0da69a",
+    "verified": true,
+    "scope": "Ignored historical Python/shell scripts and patch/diff files, including frozen runtime source; inert Git archive, not maintained implementation or an exact environment replay."
   }
 }

@@ -11,15 +11,16 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
 - [Architecture](docs/architecture.md): components, ownership and the hint protocol.
 - [Runtime](docs/runtime.md): pinned vLLM runtime, runtime test lane, serving, GPU gate.
 - [Checks](docs/checks.md): check modes, entry points and how to fix failures.
+- [Benchmarks](docs/benchmarks.md): functional, quick comparison and release workflows.
+- [System map](docs/system-map.md): maintained commands and product flow.
 
 # Code
 
 - `wait_hint_offload/` is the pure core: standard library only, no vLLM.
   `wait_hint_offload/vllm_adapter/` is the only code that imports vLLM.
-- Make invalid states hard to represent: closed schemas, refuse unknown fields
-  and versions, typed outcomes, no silent fallbacks or hidden defaults.
+- Protocols use closed schemas: refuse unknown fields and versions, with typed
+  outcomes and explicit configuration.
 - Each piece of state has one owner that mutates it; everything else reads.
-- Tests assert observable behavior with small fakes and fake clocks.
 - Read environment variables only in the config modules. Add no standalone
   scripts; extend the existing entry points.
 
@@ -37,15 +38,13 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
 
 - GPU use needs Philip's explicit authorization; otherwise stay on CPU. There is no
   GPU reservation system and none should be built; check the GPU is idle first.
-- Parallel agents each use their own git worktree. Integrate one at a time and
-  rerun the check on the combined tree.
-- Commit coherent checkpoints with `--full` passing.
 
 # Documents
 
 Each fact has one home, chosen by how long it stays true:
 
-- `AGENTS.md`: rules for every task. Philip owns it; propose changes.
+- `AGENTS.md`: project rules and navigation. General working preferences live in
+  the global AGENTS.md maintained by p-stack.
 - `docs/*.md`: how each part works now, and why. Update in the same commit as the
   code. Delete outdated text instead of marking it superseded; git keeps history.
 - [FINDINGS](FINDINGS.md): short generated conclusion/link index, including failures.
@@ -61,6 +60,12 @@ request or shared ownership. Follow tasks/README.md for task maintenance.
 
 # Evidence and reporting
 
-- Raw runs, logs and generated data live outside the repository.
+- Generate project runs, logs, assets and temporary checkouts under ignored
+  `artifacts/` in this repository. Keep reusable definitions and compact results
+  tracked. Close experiments through the result profile, then remove obsolete raw
+  material once its useful evidence and source identities have been retained.
+- Preserve active runs and failed/unfavorable evidence during closeout. Existing
+  external benchmark runs are a temporary migration dependency; do not move their
+  files while the active task or queued acquisition uses them.
 - Current qualification and its limits live in FINDINGS and linked results. Follow
   docs/results.md for corrections; do not rewrite immutable execution records.

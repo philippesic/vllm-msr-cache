@@ -6,15 +6,15 @@ Do not use a successful model probe as release or performance evidence.
 
 The maintained entry point is `uv run --locked python -m tools.benchmark`:
 
-- `functional --runtime-python /external/venv/bin/python --model /external/dense-model
-  --out /external/new-attempt --timeout 600` runs the existing dense GPU gate through
+- `functional --runtime-python artifacts/venvs/runtime/bin/python --model /local/dense-model
+  --out artifacts/runs/new-attempt --timeout 600` runs the existing dense GPU gate through
   the shared benchmark entry point. Its receipt uses the runtime verifier format;
-  verify it with `python -m tools.runtime_verify --verify /external/attempt`.
+  verify it with `python -m tools.runtime_verify --verify artifacts/runs/attempt`.
 - `models` prints immutable model candidates and their qualification state.
 - `plan --profile functional|compare|release` prints the allocated cases, repetitions
   and budget. The output explicitly says `unqualified_schedule`.
-- `probe-model --runtime-python /external/venv/bin/python --model /external/model
-  --out /external/new-attempt --system gpu-only|native-arc|wait-hint|lmcache --timeout 900`
+- `probe-model --runtime-python artifacts/venvs/runtime/bin/python --model /local/model
+  --out artifacts/runs/new-attempt --system gpu-only|native-arc|wait-hint|lmcache --timeout 900`
   launches one localhost server, checks generation, and for CPU-offload modes tests
   GPU-only displacement and restored versus fresh token IDs. Native ARC and wait-hint
   also require registered readiness. New LMCache probes require external restoration;
@@ -23,7 +23,7 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   VMM/staged-copy repair, plus one graded Qwen coding pilot. Broader application
   and reliability qualification remains pending.
   See the active benchmark task for evidence.
-- `verify-probe /external/attempt` checks a v3/v4/v5/v6 receipt, frozen source/model hashes,
+- `verify-probe artifacts/runs/attempt` checks a v3/v4/v5/v6 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
 - A focused controlled probe adds `--trace-case T1|T2 --trace-seconds 180
@@ -32,16 +32,16 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   for the admitted Qwen configuration and 24 for Gemma. This is supplementary
   mechanism evidence, not a replacement for a complete application campaign.
 
-- `report-probe /external/attempt` verifies first, then summarizes task quality,
+- `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures
   refuse. It makes no comparative performance or release claim.
-- `grade-coding --harness-python /external/harness/bin/python --dataset /external/test.json
-  --predictions /external/preds.json --instance INSTANCE --out /external/new-grade`
+- `grade-coding --harness-python artifacts/venvs/harness/bin/python --dataset artifacts/assets/test.json
+  --predictions artifacts/runs/preds.json --instance INSTANCE --out artifacts/runs/new-grade`
   grades an existing prediction without rerunning generation. It creates a new receipt
   linked to the original dataset and prediction hashes; never rewrite the original run.
 
-A coding pilot adds `--coding-dataset /external/dataset/test.json`,
-`--harness-python /external/harness/bin/python` and `--instance INSTANCE_ID`.
+A coding pilot adds `--coding-dataset artifacts/assets/test.json`,
+`--harness-python artifacts/venvs/harness/bin/python` and `--instance INSTANCE_ID`.
 The default --coding-kind repair uses the original issue and grader.
 --coding-kind regression instead asks for one new benchmark_generated_test.py,
 keeps the reference fix hidden, and checks the same test before and after that fix.
@@ -75,16 +75,16 @@ Portable checks need no serving or harness dependencies. Runtime installation is
 [runtime](runtime.md). The Gemma feasibility environment first installs that exact
 runtime, then applies the three hash-pinned packages in
 [the compatibility override](../benchmarks/runtime-overrides.txt) with
-`uv pip install --python /external/venv/bin/python --no-deps --require-hashes -r benchmarks/runtime-overrides.txt`.
+`uv pip install --python artifacts/venvs/runtime/bin/python --no-deps --require-hashes -r benchmarks/runtime-overrides.txt`.
 This is a separate environment: do not alter a runtime used by active work.
 The override restores the Transformers configuration interface used by the pinned
 vLLM; it does not fix the Gemma attention kernel limitation on Turing.
 
 [Harness requirements](../benchmarks/harness-requirements.txt) record the isolated
 mini-swe-agent/Harbor/SWE-bench environment. Install into a separate Python 3.12.3
-venv with `uv pip install --python /external/harness/bin/python --require-hashes
+venv with `uv pip install --python artifacts/venvs/harness/bin/python --require-hashes
 --no-deps -r benchmarks/harness-requirements.txt`, then `uv pip check --python
-/external/harness/bin/python`. A clean installation and dependency check passed locally.
+artifacts/venvs/harness/bin/python`. A clean installation and dependency check passed locally.
 Docker is required for coding tasks; model commands
 must execute inside task containers, without host mounts or network access.
 C1 image IDs are pinned in benchmarks/workloads.json. Acquisition uses the image
@@ -107,7 +107,7 @@ source ancestry, selection rationale and compact evidence belong in Git.
 
 `run --profile compare|release --runtime-python CORE_PY --lmcache-python LMCACHE_PY
 --harness-python HARNESS_PY --dataset ASSET_DIRECTORY --model ID=MODEL_PATH
---out NEW_EXTERNAL_DIRECTORY` admits every required workload before starting a GPU.
+--out artifacts/runs/NEW_DIRECTORY` admits every required workload before starting a GPU.
 Repeat `--model` for the pinned model IDs; release also requires `dense-fixture`.
 The asset directory contains the source-specific `swebench-c1`, `swebench-c2`,
 `navigation-c3`, `terminal-c4`, `branching-c5` and `grounded-b1` directories.
@@ -159,6 +159,9 @@ receipt before acquisition. Previously admitted groups stay exposed even after a
 failure; repeating starts does not create independent source tasks. Initial known
 pilot exposure lives in workloads.json. Copy this small generated exposure registry
 with assets when moving machines; omitting it loses confirmation provenance.
+At closeout, retain exposure receipts under tracked `benchmarks/exposure/` before
+pruning raw runs or assets. New admission reads both that retained registry and
+the active asset registry, so cleanup cannot make an exposed source appear fresh.
 
 Panels record serving-session RSS and whole-device memory/temperature/power/clocks.
 Traces retain periodic windows and actual cache-reset responses. Summed RSS includes
@@ -197,7 +200,7 @@ must enforce the reviewed budgets and preserve failed or incomplete attempts.
 
 ## Local compatibility patches
 
-`patch-runtime --runtime-python /external/venv/bin/python lmcache-peer lmcache-copy lmcache-allocator`
+`patch-runtime --runtime-python artifacts/venvs/runtime/bin/python lmcache-peer lmcache-copy lmcache-allocator`
 applies the LMCache 0.5.6 WSL compatibility repair. `gemma-turing` applies the narrow
 Turing attention tile/stage change to the pinned vLLM. The command checks complete
 original source hashes, preserves `.benchmark-original` backups and refuses source
@@ -224,8 +227,8 @@ new lifecycle, exposure, resource or load guarantees.
 
 ## Regression-test grading
 
-`grade-regression --dataset /external/swebench-c2/test.json
---prediction /external/submitted.patch --instance INSTANCE --out /external/new-grade`
+`grade-regression --dataset artifacts/assets/swebench-c2/test.json
+--prediction artifacts/runs/submitted.patch --instance INSTANCE --out artifacts/runs/new-grade`
 checks that a submission only adds the designated test file. It runs that exact test
 in the pinned source image before and after applying the hidden reference fix.
 A successful result needs matching nonempty test identities, an assertion failure
@@ -234,7 +237,7 @@ or out-of-scope submission is an unsuccessful task, not a grader infrastructure
 failure. Images run without networking, with one CPU and 2 GiB RAM; grading has a
 165-second bound including cleanup.
 
-`verify-regression /external/grade` checks retained source/patch hashes and recomputes
+`verify-regression artifacts/runs/grade` checks retained source/patch hashes and recomputes
 the outcome from the JUnit reports. It also independently checks rubric refusals.
 Real checker qualification accepted a known Requests regression and rejected a
 test that passed on both versions, plus an empty submission. This checks the
@@ -244,13 +247,13 @@ its original limited provenance remains readable.
 
 ## Repository-navigation grading
 
-`grade-navigation --dataset /external/navigation-c3/test.json
---prediction /external/submitted.patch --instance INSTANCE --out /external/new-grade`
+`grade-navigation --dataset artifacts/assets/navigation-c3/test.json
+--prediction artifacts/runs/submitted.patch --instance INSTANCE --out artifacts/runs/new-grade`
 requires a single added JSON answer file; source edits and extra answer fields fail
 the task. The rubric fixes the relevant symbols and semantics before acquisition.
 Matching answers must also pass upstream tests and hidden API behavior checks in a
 fresh content-addressed image, without network access. `verify-navigation
-/external/grade` checks the retained rubric, patch and observations and derives the
+artifacts/runs/grade` checks the retained rubric, patch and observations and derives the
 outcome again. Known answers for both projects passed the real container checker;
 an incorrect precedence answer was rejected. This qualifies those rubric checks,
 not broad repository-understanding quality.
@@ -273,10 +276,10 @@ dataset directory sits beside `harbor/terminal-bench`, matching its relative sou
 paths. Docker Compose is required; this host uses the checksum-verified v5.6.0
 plugin installed using [Docker's documented method](https://docs.docker.com/compose/install/linux/).
 
-For CPU instrument qualification, `terminal --harness-python /external/harness/bin/python
---dataset /external/terminal-c4/test.json --instance INSTANCE --agent oracle|nop
---out /external/new-attempt` runs the original known solution or no-op control.
-`verify-terminal /external/attempt` checks retained source, original test observations
+For CPU instrument qualification, `terminal --harness-python artifacts/venvs/harness/bin/python
+--dataset artifacts/assets/terminal-c4/test.json --instance INSTANCE --agent oracle|nop
+--out artifacts/runs/new-attempt` runs the original known solution or no-op control.
+`verify-terminal artifacts/runs/attempt` checks retained source, original test observations
 and reward agreement. Current v2 receipts also retain the executed driver source;
 earlier v1 instrument receipts keep their earlier provenance scope. Both original
 solutions passed and the Git no-op control failed as expected. Model acquisition
@@ -295,14 +298,14 @@ search/read tools and a Git checkout of those exact documents, without host moun
 or network access during acquisition. The external dataset directory contains
 `test.json` beside its admitted document files.
 
-`grade-grounded --dataset /external/grounded-b1/test.json --prediction /external/answer.patch
---instance INSTANCE --out /external/new-grade` accepts only a newly added
+`grade-grounded --dataset artifacts/assets/grounded-b1/test.json --prediction artifacts/runs/answer.patch
+--instance INSTANCE --out artifacts/runs/new-grade` accepts only a newly added
 `benchmark_grounded.json`. The frozen rubric requires correct structured facts and
 supporting one-based source line ranges, with at most 12 lines per citation.
-`verify-grounded /external/grade` derives the outcome from retained document bytes,
+`verify-grounded artifacts/runs/grade` derives the outcome from retained document bytes,
 facts and citations. The checker rejects correct facts with unrelated citations.
 Both known answers passed; this evaluates the named tasks, not broad summary quality
-or a general QA benchmark score. Original documents stay in external assets and
+or a general QA benchmark score. Original documents stay in ignored artifacts/assets and
 receipts; only authored definitions and provenance are tracked here.
 
 ## Branching workflows

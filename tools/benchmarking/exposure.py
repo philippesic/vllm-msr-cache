@@ -28,11 +28,17 @@ def admit_exposure(
     }
     registry = assets / "exposure"
     registry.mkdir(exist_ok=True)
-    prior = {}
-    for path in sorted(registry.glob("*.json")):
+    prior: dict[str, str] = {}
+    paths = sorted((root / "benchmarks/exposure").glob("*.json")) + sorted(
+        registry.glob("*.json")
+    )
+    for path in paths:
         record = json.loads(path.read_text())
         known.update(record["source_groups"])
-        prior[path.name] = digest_file(path)
+        digest = digest_file(path)
+        if path.name in prior and prior[path.name] != digest:
+            raise ValueError("source exposure registry drift")
+        prior[path.name] = digest
     groups = set()
     for job in jobs:
         if job["kind"] != "application":

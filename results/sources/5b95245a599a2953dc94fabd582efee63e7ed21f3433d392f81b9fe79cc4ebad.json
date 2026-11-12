@@ -1,0 +1,15 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/prefetch-vram-20261101/confirmation-long-results.json",
+    "sha256": "5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad"
+  },
+  "parts": [
+    "parts/5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad/0000.json",
+    "parts/5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad/0001.json",
+    "parts/5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad/0002.json",
+    "parts/5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad/0003.json",
+    "parts/5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad/0004.json"
+  ]
+}

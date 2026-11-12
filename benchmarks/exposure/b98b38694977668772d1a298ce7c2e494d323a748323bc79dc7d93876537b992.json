@@ -1,0 +1,18 @@
+{
+  "campaign": "/home/philip/.local/share/vllm-semantic-cache-ext-next/attempts/benchmark-release-01",
+  "policy": "all admitted source groups count exposed even if interrupted; repeated starts within this frozen campaign are not new source tasks",
+  "prior_sha256": {},
+  "schema": "benchmark-exposure-v1",
+  "source_groups": [
+    "encode__httpx",
+    "grounded__http",
+    "grounded__queue",
+    "harbor__fix",
+    "harbor__polyglot",
+    "pallets__click",
+    "pallets__flask",
+    "psf__requests",
+    "pytest-dev__pytest",
+    "sympy__sympy"
+  ]
+}

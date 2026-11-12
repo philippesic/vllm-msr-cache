@@ -69,7 +69,7 @@ KV transfers, device fences or live serving; the runtime and GPU lanes in
 passed. Secret scanning recognizes selected patterns only.
 
 The runtime verifier snapshots tracked, dirty and untracked inputs into a new
-external attempt, with separate admission and terminal records. It records the
+attempt under ignored `artifacts/`, with separate admission and terminal records. It records the
 actual Python, loaded native libraries, package versions and CUDA state.
 `--verify DIR` checks a retained attempt without rerunning it. Its process helper
 enforces a wall-time limit, makes no automatic retries, and only signals the

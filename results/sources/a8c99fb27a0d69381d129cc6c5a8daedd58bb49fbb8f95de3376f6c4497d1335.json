@@ -1,0 +1,37 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/quantized-realworld-20261101/final-results.json",
+    "sha256": "a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335"
+  },
+  "parts": [
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0000.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0001.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0002.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0003.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0004.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0005.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0006.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0007.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0008.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0009.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0010.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0011.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0012.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0013.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0014.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0015.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0016.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0017.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0018.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0019.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0020.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0021.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0022.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0023.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0024.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0025.json",
+    "parts/a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335/0026.json"
+  ]
+}

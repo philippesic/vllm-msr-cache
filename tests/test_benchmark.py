@@ -82,7 +82,7 @@ def test_trace_cli_preserves_pressure_inputs_and_refuses_mixed_coding(
         "--model",
         str(tmp_path / "model"),
         "--out",
-        str(tmp_path / "out"),
+        str(Path(benchmark.__file__).resolve().parents[1] / "artifacts/test-cli-out"),
         "--system",
         "lmcache",
         "--trace-case",
@@ -106,6 +106,36 @@ def test_trace_cli_preserves_pressure_inputs_and_refuses_mixed_coding(
     with pytest.raises(SystemExit):
         benchmark.main()
     assert len(captured) == 1
+    external = arguments.copy()
+    external[external.index("--out") + 1] = str(tmp_path / "outside")
+    monkeypatch.setattr("sys.argv", external)
+    with pytest.raises(SystemExit):
+        benchmark.main()
+    assert len(captured) == 1
+
+
+def test_artifact_snapshot_excludes_ignored_runs_and_preserves_source_boundary(
+    tmp_path: Path,
+) -> None:
+    import subprocess
+
+    from tools.config import output_overwrites_source
+    from tools.repo_policy import visible_files
+    from tools.runtime_verify import snapshot
+
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    (tmp_path / ".gitignore").write_text("/artifacts/\n")
+    (tmp_path / "source.py").write_text("value = 1\n")
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "AGENTS.md").write_text("Frozen historical instructions\n")
+    destination = artifacts / "run/source"
+    captured = snapshot(tmp_path, destination)
+    assert set(captured) == {".gitignore", "source.py"}
+    assert (destination / "source.py").read_text() == "value = 1\n"
+    assert Path("artifacts/AGENTS.md") not in visible_files(tmp_path)
+    assert not output_overwrites_source(tmp_path, destination)
+    assert output_overwrites_source(tmp_path, tmp_path / "results/new")
 
 
 def test_empty_repair_is_a_failed_task_only_with_original_grader_evidence(

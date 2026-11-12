@@ -46,7 +46,13 @@ def dependency_command(root: Path) -> list[str]:
     entries, errors = exceptions(root)
     if errors:
         raise ValueError(errors[0])
-    command = ["deptry", ".", "--no-ansi", "--exclude", r"(?:\.venv|\.git)(?:/|$)"]
+    command = [
+        "deptry",
+        ".",
+        "--no-ansi",
+        "--exclude",
+        r"(?:\.venv|\.git)(?:/|$)|^artifacts(?:/|$)",
+    ]
     modules_path = root / "runtime/modules.json"
     if modules_path.exists():
         modules = json.loads(modules_path.read_text())

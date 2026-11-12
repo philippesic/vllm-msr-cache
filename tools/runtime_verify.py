@@ -129,9 +129,9 @@ def main() -> int:
     mode = "hardware" if args.gpu else "runtime-cpu"
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
     directory = (args.out or attempts_root() / f"{mode}-{stamp}").resolve()
-    if directory.is_relative_to(root) or not 0 < args.timeout <= 1800:
+    if not directory.is_relative_to(root / "artifacts") or not 0 < args.timeout <= 1800:
         parser.error(
-            "use a new output root outside the repository and timeout in 1..1800 seconds"
+            "use a new artifacts/ output directory and timeout in 1..1800 seconds"
         )
     if args.gpu and (args.model is None or not args.model.is_dir()):
         parser.error(

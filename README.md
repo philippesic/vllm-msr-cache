@@ -36,7 +36,8 @@ uses a GPU unless explicitly requested.
 - [Open tasks and handoff format](tasks/README.md)
 - [Agent working rules](AGENTS.md)
 
-Raw runs and execution snapshots live outside Git. This checkout has no configured
+Temporary runs and execution snapshots live under ignored `artifacts/` until curated
+into tracked results and pruned. This checkout has no configured
 remote. Source, result pages, chart inputs and archived reports are retained locally;
 see [recovery](docs/recovery.md) for the local recovery bundle.
 

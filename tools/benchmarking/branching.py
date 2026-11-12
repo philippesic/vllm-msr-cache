@@ -18,6 +18,7 @@ from tools.benchmarking.harness import (
 )
 from tools.benchmarking.probe import digest_file, request
 from tools.benchmarking.regression import grade_regression, verify_regression
+from tools.config import output_overwrites_source
 from tools.runtime_verify import write_record
 
 
@@ -35,12 +36,12 @@ def run_branching(
     seconds: int,
 ) -> dict[str, Any]:
     if (
-        output.resolve().is_relative_to(root.resolve())
+        output_overwrites_source(root, output)
         or output.exists()
         or not 0 < seconds <= 240
     ):
         raise ValueError(
-            "branching requires a new external output and bounded acquisition"
+            "branching requires a new artifact output and bounded acquisition"
         )
     rows = [
         row for row in json.loads(dataset.read_text()) if row["instance_id"] == instance

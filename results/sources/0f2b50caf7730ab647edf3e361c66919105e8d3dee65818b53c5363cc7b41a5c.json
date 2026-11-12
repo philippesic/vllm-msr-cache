@@ -1,0 +1,14 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "efficacy/20261110/audit-actions.json",
+    "sha256": "0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c"
+  },
+  "parts": [
+    "parts/0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c/0000.json",
+    "parts/0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c/0001.json",
+    "parts/0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c/0002.json",
+    "parts/0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c/0003.json"
+  ]
+}

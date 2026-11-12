@@ -4209,6 +4209,160 @@
       "results": [
         "public-prefetch"
       ]
+    },
+    {
+      "sha256": "a8c99fb27a0d69381d129cc6c5a8daedd58bb49fbb8f95de3376f6c4497d1335",
+      "path": "output/quantized-realworld-20261101/final-results.json",
+      "results": [
+        "public-prefetch"
+      ]
+    },
+    {
+      "sha256": "25d32e4ed9956bfeb8141cff1cf4451074cafca9cb48e8b53270cd33fb478a5f",
+      "path": "output/quantized-realworld-20261101/qualification/strict-proof-gap-terminal.json",
+      "results": [
+        "public-prefetch"
+      ]
+    },
+    {
+      "sha256": "5b95245a599a2953dc94fabd582efee63e7ed21f3433d392f81b9fe79cc4ebad",
+      "path": "output/prefetch-vram-20261101/confirmation-long-results.json",
+      "results": [
+        "prefetch-capacity"
+      ]
+    },
+    {
+      "sha256": "4ed5d670907ffb29cf9c701ca563030a0bf634420d573adc4eb99656d0f21989",
+      "path": "output/prefetch-vram-20261101/confirmation-short-combined-results.json",
+      "results": [
+        "prefetch-capacity"
+      ]
+    },
+    {
+      "sha256": "548ccb2ae32db0b3a2d1e634462641792634be50be192a99b1201e6c42f25722",
+      "path": "output/prefetch-vram-20261101/gather-screen-output-crossreference.json",
+      "results": [
+        "prefetch-capacity"
+      ]
+    },
+    {
+      "sha256": "9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0",
+      "path": "output/admission-trial/results/admission_trial/capacity-samples.csv",
+      "results": [
+        "admission-pressure"
+      ]
+    },
+    {
+      "sha256": "ec742ac3183e764f84e84dd688546099b5c93958113320c9d9b094322fdf14aa",
+      "path": "output/matrix-2080ti-20261031/measurements.json",
+      "results": [
+        "continuous-semantic-overhead"
+      ]
+    },
+    {
+      "sha256": "aee60d032f697acea2a27d4ef8519da7305cabdd699f295edb2ad6c122353669",
+      "path": "efficacy/20261110/REPORT.md",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "22e7af02a99b57d20c0ebfac6ef0e8be874fc6ace23197331ab4f80b52309ff8",
+      "path": "efficacy/20261110/grades.json",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "f26306dc3dfa20ebae2e6bc2d592aa8896ed098472323008dc22ff5b899e5b63",
+      "path": "efficacy/20261110/integrity.json",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "42b3f9e1ee5c7268365d0a002d7f83bd35052aaffd425a5f07295d5fe30bb711",
+      "path": "efficacy/20261110/claim-audit.json",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "0f2b50caf7730ab647edf3e361c66919105e8d3dee65818b53c5363cc7b41a5c",
+      "path": "efficacy/20261110/audit-actions.json",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "196fe0b9856418df95cec3d4c398f16ea0c18997e1256ebfb745d4b2a445af68",
+      "path": "efficacy/20261110/suite/protocol.json",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "de1a27e463dc2f35eeae5b19bb1557165c30869fd40c8390cf4c01375ff3a6fc",
+      "path": "efficacy/20261110/suite/tasks.json",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "36776af641220c506deb653709a9f1af981409ef1146c2d7f8e17e1e27c0b8f4",
+      "path": "efficacy/20261110/suite/rubric.md",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "2dcac83b1bf7bd1cfcbe64d6f2f62b1c8e4012146f2b62166179458cd55afc11",
+      "path": "efficacy/20261110/trials/handoff-after-1/diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "94ec6508d515fb22b077cadab7f61c813f3d93f6dcacbd75190decd2dc7e30bf",
+      "path": "efficacy/20261110/trials/handoff-after-1/handoff-A-diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "04f4b3bf6ab2724d28c8ae0fc6d8e7f49a202852602d48633780aa615b041eb0",
+      "path": "efficacy/20261110/trials/handoff-after-2/diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "160613b7339cbc15050c5bff2d78d78c16cf7d33cec7b7655b111a9711ea4a9b",
+      "path": "efficacy/20261110/trials/handoff-after-2/handoff-A-diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "4cee872c65eb06c447444c5c450b11c31a30423fefbd72b5ac45e1220f7afc4a",
+      "path": "efficacy/20261110/trials/handoff-before-1/diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "94e03c18de63a8c0fcfc74c7d45822c3fa109f1657c1f9996f902d0962855748",
+      "path": "efficacy/20261110/trials/handoff-before-2/handoff-A-diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
+    },
+    {
+      "sha256": "492a94afd913d5140c504976d7414006368f0f4c8eb202e6ae1dd2547885356e",
+      "path": "efficacy/20261110/trials/handoff-before-2/diff.patch",
+      "results": [
+        "agent-workflow-pilot"
+      ]
     }
   ]
 }

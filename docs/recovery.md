@@ -1,53 +1,49 @@
 # Storage and recovery
 
-Git tracks the code, skill, result profile, summaries, compact chart data and
-archived source reports. `results/sources/` stores report content as inert JSON,
-keyed by its SHA-256, with ordered parts for larger texts. Result validation checks
-reassembled content and source metadata. These
-copies let a fresh checkout inspect historical conclusions and their cited sources
-without the old checkout or GitHub. The source catalog also retains supporting
-records by original path; coverage lists excluded bulky/generated artifacts.
-They do not turn old reports into active project instructions.
+The repository owns project source, workflow definitions, compact results and their
+supporting evidence. `results/sources/` stores cited reports as inert, hash-checked
+JSON; larger texts use ordered parts. Reading historical conclusions and regenerating
+charts must work from this repository without an old checkout or external archive.
 
-Raw attempts, model files, large datasets and frozen execution trees stay outside
-Git. Existing local roots are:
+Generate temporary runs, logs, benchmark assets, runtime environments and temporary
+checkouts under ignored `artifacts/`. Keep reusable definitions in tracked source.
+Follow [results](results.md) to curate useful evidence, including failures and
+inconclusive outcomes, then remove obsolete raw material. This deliberately gives up
+exact raw reanalysis when it is no longer worth retaining. Shared package/model/Docker
+caches are dependencies, not the sole home of authored project work or results.
 
-- `/home/philip/.local/share/vllm-semantic-cache-ext-next/attempts/`: current
-  functional attempts, with source snapshots and admission/terminal records.
-- `/home/philip/.local/share/vllm-semantic-cache-ext-next/archives/legacy.git`:
-  bare historical repository, including the pinned 5080 snapshot under
-  `refs/archive/5080`.
-- `/home/philip/vllm-semantic-cache-ext/output/`: earlier local experiments.
-  Remote 5080 raw artifacts remain on their original host.
+## Current transition
 
-Do not delete these roots as part of result closeout. Report-level recovery and
-chart regeneration are supported by the tracked files. Full experiment reproduction
-still requires each report's original runtime, inputs and raw artifacts; a fresh
-clone alone does not provide those dependencies. Raw artifacts are not claimed to
-have an independent off-machine backup.
+Existing benchmark acquisition still uses
+`/home/philip/.local/share/vllm-semantic-cache-ext-next/` and isolated runtime
+venvs. Preserve those paths until the active release and queued qualification finish.
+The old checkout still holds about 79 GiB of raw experiments. All 31 output collections
+have curated result homes; [coverage](../results/coverage.json) records what was
+inspected and the supporting reports retained. Neither fact alone authorizes claiming
+that every raw byte has been ported or that active dependencies are safe to delete.
+The remaining consolidation is tracked in [the open task](../tasks/consolidation.md).
 
-## Recover the project
+Both original Git histories are being retained inside this repository under
+`refs/archive/original/` and `refs/archive/retained/`, including the separate 5080
+snapshot. Ignored historical scripts and patches are preserved under
+`refs/archive/original/ignored-experiment-source`; the exact commit and file-count
+verification live in coverage.json. They are inert historical code, not maintained
+entry points or a promise of exact environment replay. Final history integration and the `wait-hint-kv` directory/package rename
+follow acquisition and evidence closeout. Historical hashes, source labels and
+immutable report bytes retain their original names; changing them would break provenance.
 
-A verified local Git bundle is retained at
-`/home/philip/.local/share/vllm-semantic-cache-ext-next/backups/local-results.bundle`.
-Refresh it after local checkpoints and verify it with `git bundle verify`. Clone the
-bundle into a new directory, install the locked development environment, and enable
-the local hook with `git config core.hooksPath .githooks`. Later commits remain in
-this working repository; refresh a bundle deliberately when a new checkpoint is needed.
-There is no configured remote. The previously created hosted copy awaits deletion
-because the available GitHub credential lacks deletion permission. Its identity is
-`philippesic/vllm-semantic-cache-ext-next`; deleting that hosted copy must not remove
-the local repository or bundles.
-Run `uv run --locked python tools/check.py --full` to validate the restored project.
-Run `uv run --locked python tools/check.py --render-results` and confirm
-`git diff --exit-code -- FINDINGS.md results` succeeds. This checks reproducible
-presentation, not the truth of each scientific claim.
+## Verify recovery
 
-The current functional verifier can independently read retained attempts with
-`python -m tools.runtime_verify --verify /external/attempt` using the runtime
-Python. A failed or missing raw attempt remains a limitation even if its compact
-report is recoverable. Never replace missing measurements with reconstructed data.
+Run `uv run --locked python tools/check.py --full`, then
+`uv run --locked python tools/check.py --render-results` and confirm
+`git diff --exit-code -- FINDINGS.md results` succeeds. To verify cited Git source
+bytes, use `uv run --locked python tools/check.py --verify-result-sources .`.
+Archived local-only reports are verified directly by result checks. Structural
+validation does not establish scientific truth or missing hardware qualification.
 
-When moving valuable raw artifacts, copy first, verify the existing receipt and
-required dependencies at the destination, and only then consider deleting an owned
-source copy. Active jobs and paused/shared work are outside routine pruning.
+The project has no configured remote. The prior verified local bundle is a temporary
+migration recovery copy, not an off-machine backup; remove redundant external copies
+after the integrated repository is verified. No new hosted repository is authorized.
+The earlier hosted `philippesic/vllm-semantic-cache-ext-next` copy was requested for
+deletion; prior credentials lacked deletion scope. Its removal is separate from
+preserving local data.

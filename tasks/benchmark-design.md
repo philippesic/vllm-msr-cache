@@ -99,12 +99,17 @@ The fixed recurring budgets remain 45 minutes for compare and 30 hours for relea
 preparation/qualification is charged separately, with native load calibration bounded
 to ten minutes per model. No paid resources or additional machines are authorized.
 
-Raw attempts and assets live under
-/home/philip/.local/share/vllm-semantic-cache-ext-next. Three isolated environments
+Active raw attempts and assets temporarily remain under
+/home/philip/.local/share/vllm-semantic-cache-ext-next. New maintained commands write
+under this repository's artifacts/. See tasks/consolidation.md for the authorized
+evidence curation, external cleanup, history integration and wait-hint-kv rename.
+Three isolated environments
 are under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established runtime was
-preserved. This project is local-only; checkpoint bundles are verified in the
-existing backups/local-results.bundle. The bundle was refreshed and verified at 386715e.
+preserved. This project is local-only. The existing external recovery bundle was verified at
+77a477e; do not create further external bundles. Imported historical refs now live
+in this repository. Remove redundant external recovery copies after integrated
+Git and curated evidence are verified.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.
