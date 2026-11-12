@@ -25,7 +25,7 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 Implementation is active and incomplete. The functional entry point passed four
 real GPU cases, including full/sliding attention against a float reference for
 256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
-52 release traces and six hours of soak. Partial C1 repair and C2 test-authoring acquisition and their readers
+52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring and C3 navigation acquisition and their readers
 are implemented; mixed-dataset campaign integration is pending. Remaining workload definitions, activity contracts, traces, soak,
 resume and release verdicts still need implementation and real qualification.
 Successful feasibility pilots are not completion of these suites.
@@ -90,9 +90,9 @@ admission remain open.
 Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
 Isolated runtimes under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established wait-hint-offload
-environment was preserved. The previous portable checkpoint passed 46 CPU tests and 105 rule
-proofs; the new deadline/image behavior checks bring portable coverage to 48 tests,
-with combined acceptance running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
+environment was preserved. The previous portable checkpoint passed 53 CPU tests and 105 rule
+proofs. Navigation parser/observation checks bring the current CPU count to 55;
+combined acceptance is running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
 existing external backups directory. No paid compute, remote publication, automatic
 delegation or 5080 use occurred.
 
@@ -109,8 +109,19 @@ unsuccessful task in benchmark-regression-checker-empty-01. Its reader verifies
 retained source/patch bytes and derives the verdict from matching JUnit identities.
 The first checker receipt remains readable with its earlier source-provenance limit.
 The second issue also passed its known regression checker in
-benchmark-regression-checker-03. Live model test-authoring acquisition is not yet exercised. Five portable checker
-cases bring the current CPU count to 53; combined acceptance is pending.
+benchmark-regression-checker-03. The live Qwen wait-hint C2 pilot
+benchmark-qwen35-regression-01 completed 21 requests in 175.81 seconds of acquisition.
+Its generated test failed after the reference fix and correctly graded unresolved;
+the complete receipt/report verified. That unsuccessful outcome remains in evidence.
+
+C3 now defines two navigation/change-impact tasks on pinned Click and HTTPX source
+revisions. Their images use a content-pinned Python base and hash-locked Python
+dependencies. Matching answers must name the actual implementation/callers and
+current override semantics, identify an affected upstream test, and pass that test
+plus hidden executable behavior checks in a fresh offline container. Known answers
+passed benchmark-navigation-checker-01/02; an incorrect precedence answer was
+rejected in benchmark-navigation-checker-negative-01. All three receipts verified.
+Live navigation model acquisition is not yet exercised.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.

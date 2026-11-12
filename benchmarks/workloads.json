@@ -78,6 +78,30 @@
       "seconds": 240,
       "exposure": "checker-only",
       "image_id": "sha256:639088346355ea7076bc6faf2eadb23b1e1f1ed4f34b291e843061b2fc87cbe2"
+    },
+    {
+      "id": "C3-1",
+      "instance": "pallets__click-navigation",
+      "base_commit": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "dataset": "navigation-c3",
+      "task_kind": "navigation",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-navigation-impact-v1",
+      "seconds": 240,
+      "exposure": "checker-only",
+      "image_id": "sha256:74c39af4d671327ac2fd243a649c6e029a675ac4df5141ee0cda201cbb71fe7d"
+    },
+    {
+      "id": "C3-2",
+      "instance": "encode__httpx-navigation",
+      "base_commit": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+      "dataset": "navigation-c3",
+      "task_kind": "navigation",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-navigation-impact-v1",
+      "seconds": 240,
+      "exposure": "checker-only",
+      "image_id": "sha256:1f03b0e7340e909f57f00670a9a97119ce33e05e04a827d5c26a8937f294d952"
     }
   ],
   "additional_datasets": {
@@ -87,6 +111,11 @@
       "revision": "c104f840cc67f8b6eec6f759ebc8b2693d585d4a",
       "split": "test",
       "selection": "two independent small real Requests issues for fail-before/pass-after test authoring; no candidate output observed during selection"
+    },
+    "navigation-c3": {
+      "dataset_sha256": "38768ce19c0f2876b24d2a4efc99470d740004c3f95753f60ac103af9fe3ac13",
+      "definitions": "benchmarks/workflows/navigation.json",
+      "selection": "Two independent maintained Python projects; current default/override resolution and proposed change impact; selected before candidate output. Project-authored tasks, not official benchmark scores."
     }
   }
 }

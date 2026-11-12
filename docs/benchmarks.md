@@ -41,6 +41,10 @@ The default --coding-kind repair uses the original issue and grader.
 --coding-kind regression instead asks for one new benchmark_generated_test.py,
 keeps the reference fix hidden, and checks the same test before and after that fix.
 It is a project-authored rubric, not an official SWE-bench test-generation score.
+`--coding-kind navigation` instead investigates a pinned project and submits only
+`benchmark_navigation.json`. The answer names implementation/callers, current
+override behavior and affected upstream tests. Grading checks that answer and runs
+the selected upstream tests plus hidden executable behavior checks in a fresh image.
 
 It executes mini-swe-agent in a disposable Docker container, captures every completed
 model request and causal tool-wait hint, then invokes SWE-bench 4.1.0's original grader for the classic Verified dataset schema.
@@ -77,6 +81,14 @@ ID, and grading uses a local tag containing the complete image hash; image chang
 between acquisition and grading refuse. The grader retains instance images and
 does not clean unrelated image caches. Other source assets and validators still
 need admission before confirmation.
+The C3 Click and HTTPX definitions, revisions, image identities and hidden reference
+checks live in [navigation definitions](../benchmarks/workflows/navigation.json).
+Their [Dockerfile](../benchmarks/workflows/Dockerfile) uses a pinned base and
+[hash-locked dependencies](../benchmarks/workflows/requirements.txt). Build with the
+cloned pinned project as `source/`, beside that Dockerfile and requirements file;
+retain the final image ID and exact build inputs before admitting a new task. These
+are task-specific development images, not serving environments. Do not replace
+an admitted image tag or change the reference checks after observing candidate outputs.
 Downloaded datasets and weights live outside Git; authored workload definitions,
 source ancestry, selection rationale and compact evidence belong in Git.
 
@@ -152,3 +164,16 @@ test that passed on both versions, plus an empty submission. This checks the
 instrument; it does not qualify agent performance, broad test usefulness or release
 coverage. The first investigation receipt lacks the later retained full dataset;
 its original limited provenance remains readable.
+
+## Repository-navigation grading
+
+`grade-navigation --dataset /external/navigation-c3/test.json
+--prediction /external/submitted.patch --instance INSTANCE --out /external/new-grade`
+requires a single added JSON answer file; source edits and extra answer fields fail
+the task. The rubric fixes the relevant symbols and semantics before acquisition.
+Matching answers must also pass upstream tests and hidden API behavior checks in a
+fresh content-addressed image, without network access. `verify-navigation
+/external/grade` checks the retained rubric, patch and observations and derives the
+outcome again. Known answers for both projects passed the real container checker;
+an incorrect precedence answer was rejected. This qualifies those rubric checks,
+not broad repository-understanding quality.

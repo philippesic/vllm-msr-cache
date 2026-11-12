@@ -116,15 +116,20 @@ def run_swebench(
     seconds: int,
     task_kind: str = "repair",
 ) -> dict[str, Any]:
-    if task_kind not in ("repair", "regression"):
+    if task_kind not in ("repair", "regression", "navigation"):
         raise ValueError("unsupported coding task kind")
     output.mkdir(parents=True, exist_ok=False)
-    image = pin_swebench_image(instance)
     selected = [
         row for row in json.loads(dataset.read_text()) if row["instance_id"] == instance
     ]
     if len(selected) != 1:
         raise ValueError("coding requires exactly one source instance")
+    if task_kind == "navigation":
+        image = {"id": selected[0]["image_name"]}
+        if not re.fullmatch(r"sha256:[0-9a-f]{64}", image["id"]):
+            raise ValueError("navigation requires a content-addressed image")
+    else:
+        image = pin_swebench_image(instance)
     selected[0]["image_name"] = image["id"]
     pinned_dataset = output / "dataset"
     pinned_dataset.mkdir()
@@ -141,6 +146,15 @@ def run_swebench(
             "and pass after the hidden reference fix. Inspect code and run the test. "
             "Use exactly one mswea_bash_command fenced command per response. "
             "To submit, run git add -N benchmark_generated_test.py, then "
+            "printf 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\\n'; git diff --no-ext-diff"
+        )
+    elif task_kind == "navigation":
+        configuration["agent"]["instance_template"] = (
+            "Investigate this repository navigation/change-impact task in /testbed: {{task}}\n"
+            "Read the actual implementation and run affected tests. Do not change source or tests. "
+            "Only add benchmark_navigation.json with the requested answer. "
+            "Use exactly one mswea_bash_command fenced command per response. "
+            "To submit, run git add -N benchmark_navigation.json, then "
             "printf 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\\n'; git diff --no-ext-diff"
         )
     configuration["agent"]["output_path"] = str(output / "trajectory-live.json")
@@ -256,12 +270,14 @@ def run_swebench(
         result["prediction_origin"] = "deadline-snapshot"
     if predictions.is_file():
         result["prediction"] = json.loads(predictions.read_text()).get(instance)
-        if task_kind == "regression":
+        if task_kind in ("regression", "navigation"):
+            from tools.benchmarking.navigation import grade_navigation
             from tools.benchmarking.regression import grade_regression
 
             patch = output / "submitted.patch"
             patch.write_text((result["prediction"] or {}).get("model_patch") or "")
-            result["grading"] = grade_regression(
+            grader = grade_regression if task_kind == "regression" else grade_navigation
+            result["grading"] = grader(
                 root, dataset, patch, instance, output / "grading"
             )
         else:

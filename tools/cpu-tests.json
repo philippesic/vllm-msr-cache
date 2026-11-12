@@ -17,6 +17,8 @@
   "tests/test_benchmark.py::test_compare_is_one_block_and_unknown_profiles_refuse",
   "tests/test_benchmark.py::test_external_restoration_requires_cpu_reuse_and_fresh_equal_tokens",
   "tests/test_benchmark.py::test_model_probe_refuses_missing_assets_before_creating_attempt",
+  "tests/test_benchmark.py::test_navigation_answer_refuses_source_edits_and_wrong_override_semantics",
+  "tests/test_benchmark.py::test_navigation_reader_rejects_forged_success_and_test_identity_loss",
   "tests/test_benchmark.py::test_probe_reader_rejects_drift_failed_attempt_and_unobserved_restoration",
   "tests/test_benchmark.py::test_regression_checker_requires_failure_then_same_test_passes[--unresolved]",
   "tests/test_benchmark.py::test_regression_checker_requires_failure_then_same_test_passes[<error/>--unresolved]",
