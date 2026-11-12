@@ -198,5 +198,9 @@ def release_gates(
         else "unresolved"
         if observed_benefits
         else "not_established",
-        "permitted_statement": "Retained measurements describe the named tasks/configurations. No optimization-release, competitive-superiority or general quality guarantee is established until all relevant gates pass.",
+        "permitted_statement": (
+            "All declared gates passed for the retained configurations. Benefit claims are limited to the listed confirmed task/configuration regions; population quality, competitive superiority and long-term reliability remain unestablished."
+            if status == "eligible"
+            else "Retained measurements describe the named tasks/configurations. Optimization release evidence remains incomplete or failed; competitive superiority and general quality guarantees are unestablished."
+        ),
     }

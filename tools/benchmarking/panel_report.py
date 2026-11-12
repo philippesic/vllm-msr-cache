@@ -26,6 +26,13 @@ def cell_observations(
         "source_group_previously_exposed": job.get(
             "source_group_previously_exposed", True
         ),
+        "timing_scope": (
+            "Harbor trial including environment setup, agent, original verifier and cleanup"
+            if job.get("task_kind") == "terminal"
+            else "agent acquisition including tools; grading excluded"
+            if job["kind"] == "application"
+            else "controlled trace"
+        ),
     }
     if "directory" not in result:
         return observation
@@ -112,6 +119,7 @@ def cell_observations(
     )
     counts: Counter[str] = Counter()
     durations: list[float] = []
+    engine_first_tokens: list[float] = []
     for path in captures:
         record = json.loads(path.read_text())
         if "response" not in record:
@@ -131,6 +139,9 @@ def cell_observations(
                 (acknowledgement.get("ready_cpu_prefix_keys") or 0) > 0
             )
         durations.append((record["forwarded_ns"] - record["start_ns"]) / 1e9)
+        first = record["response"].get("metrics", {}).get("time_to_first_token_ms")
+        if type(first) in (int, float) and 0 <= first < float("inf"):
+            engine_first_tokens.append(first)
     observation.update(
         offered_requests=len(admissions),
         captured_requests=len(captures),
@@ -138,11 +149,21 @@ def cell_observations(
         counts=dict(counts),
         request_seconds={
             "sum": sum(durations),
+            "min": min(durations, default=None),
             "median": statistics.median(durations) if durations else None,
+            "max": max(durations, default=None),
+        },
+        engine_first_token_ms={
+            "samples": len(engine_first_tokens),
+            "median": statistics.median(engine_first_tokens)
+            if engine_first_tokens
+            else None,
+            "scope": "engine timing; non-streaming capture does not measure client streaming TTFT",
         },
     )
     if "diagnostic" in result:
         observation["diagnostic_activity"] = result["diagnostic"]["activity"]
+        observation["diagnostic"] = result["diagnostic"]
     return observation
 
 

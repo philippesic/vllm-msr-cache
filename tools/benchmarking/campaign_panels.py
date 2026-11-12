@@ -65,9 +65,9 @@ def admitted_jobs(root: Path, profile: str, assets: Path) -> list[dict[str, Any]
                 image=image,
                 exposure=definition["exposure"],
             )
-            if cell.case == "V3":
+            if cell.case == "V3" or (cell.system == "lmcache" and cell.case == "B1-1"):
                 job["diagnostic_seconds"] = 180
-                job["pressure_prefixes"] = 48
+                job["pressure_prefixes"] = 24 if "gemma" in cell.model else 48
         elif cell.kind in ("trace", "soak"):
             if cell.kind == "soak":
                 job["kind"] = "trace"

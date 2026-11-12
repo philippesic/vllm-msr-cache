@@ -28,6 +28,9 @@ def main() -> int:
     command.add_argument("--coding-dataset", type=Path)
     command.add_argument("--harness-python", type=Path)
     command.add_argument("--instance")
+    command.add_argument("--trace-case", choices=("T1", "T2"))
+    command.add_argument("--trace-seconds", type=int, default=180)
+    command.add_argument("--pressure-prefixes", type=int, default=24)
     command.add_argument(
         "--coding-kind",
         choices=(
@@ -252,6 +255,29 @@ def main() -> int:
             print(json.dumps(verify_probe(args.directory.resolve()), indent=2))
             return 0
         coding = None
+        panel = None
+        if args.trace_case:
+            if any((args.coding_dataset, args.harness_python, args.instance)):
+                parser.error("trace and coding probes must be separate")
+            if (
+                not 60 <= args.trace_seconds <= 600
+                or not 2 <= args.pressure_prefixes <= 64
+            ):
+                parser.error(
+                    "trace requires 60..600 seconds and 2..64 pressure prefixes"
+                )
+            panel = (
+                args.runtime_python.absolute(),
+                [
+                    {
+                        "identity": f"trace/{args.trace_case}/{args.system}",
+                        "kind": "trace",
+                        "case": args.trace_case,
+                        "seconds": args.trace_seconds,
+                        "pressure_prefixes": args.pressure_prefixes,
+                    }
+                ],
+            )
         if any((args.coding_dataset, args.harness_python, args.instance)):
             if not all((args.coding_dataset, args.harness_python, args.instance)):
                 parser.error(
@@ -272,6 +298,7 @@ def main() -> int:
             args.backend,
             coding,
             args.coding_kind,
+            panel,
         )
         print(json.dumps({"exit_code": status, "attempt": str(args.out)}))
         return status
