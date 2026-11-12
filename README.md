@@ -39,3 +39,5 @@ uses a GPU unless explicitly requested.
 Raw runs and execution snapshots live outside Git. This checkout has no configured
 remote. Source, result pages, chart inputs and archived reports are retained locally;
 see [recovery](docs/recovery.md) for the local recovery bundle.
+
+Benchmark implementation and bounded feasibility commands: [benchmark guide](docs/benchmarks.md). Comparison campaigns remain unqualified.

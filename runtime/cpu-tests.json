@@ -1,5 +1,6 @@
 [
   "tests/runtime/test_arc.py::test_actual_arc_prefix_order_references_and_pending_boundary",
+  "tests/runtime/test_arc.py::test_group_advice_requires_aligned_ready_window_and_checkpoint",
   "tests/runtime/test_arc.py::test_pinned_arc_fallback_limitation_is_characterized",
   "tests/runtime/test_endpoint.py::test_authenticated_endpoint_and_actual_rpc_method_chain",
   "tests/runtime/test_endpoint.py::test_engine_method_reports_missing_connector",

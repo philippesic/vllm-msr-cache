@@ -1,0 +1,55 @@
+{
+  "schema": "benchmark-workloads-v1",
+  "status": "admission_in_progress",
+  "source": {
+    "repository": "princeton-nlp/SWE-bench_Verified",
+    "revision": "c104f840cc67f8b6eec6f759ebc8b2693d585d4a",
+    "split": "test",
+    "instances": [
+      "pallets__flask-5014",
+      "psf__requests-5414",
+      "pytest-dev__pytest-7571",
+      "sympy__sympy-11618"
+    ],
+    "selection": "small issue scope across four projects; no candidate results observed"
+  },
+  "dataset_sha256": "57c32f312050da66b57778cac1af1de2f341a5b9705d73cecf883864972a6802",
+  "cases": [
+    {
+      "id": "C1-1",
+      "instance": "pallets__flask-5014",
+      "base_commit": "7ee9ceb71e868944a46e1ff00b506772a53a4f1d",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "swebench-5.0.2",
+      "seconds": 240,
+      "exposure": "feasibility-pilot"
+    },
+    {
+      "id": "C1-2",
+      "instance": "psf__requests-5414",
+      "base_commit": "39d0fdd9096f7dceccbc8f82e1eda7dd64717a8e",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "swebench-5.0.2",
+      "seconds": 240,
+      "exposure": "selected-not-executed"
+    },
+    {
+      "id": "C1-3",
+      "instance": "pytest-dev__pytest-7571",
+      "base_commit": "422685d0bdc110547535036c1ff398b5e1c44145",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "swebench-5.0.2",
+      "seconds": 240,
+      "exposure": "selected-not-executed"
+    },
+    {
+      "id": "C1-4",
+      "instance": "sympy__sympy-11618",
+      "base_commit": "360290c4c401e386db60723ddb0109ed499c9f6e",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "swebench-5.0.2",
+      "seconds": 240,
+      "exposure": "selected-not-executed"
+    }
+  ]
+}

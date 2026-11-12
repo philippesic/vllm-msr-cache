@@ -1,0 +1,25 @@
+{
+  "schema": "benchmark-models-v1",
+  "models": [
+    {
+      "id": "qwen35-4b-int4",
+      "repository": "cyankiwi/Qwen3.5-4B-AWQ-4bit",
+      "revision": "d3e78b50c727b1f34802f440ca84b25781625352",
+      "architecture": "Qwen3_5ForConditionalGeneration",
+      "weight_format": "compressed-tensors",
+      "activation_dtype": "float16",
+      "context_tokens": 8192,
+      "architecture_status": "qualification_required"
+    },
+    {
+      "id": "gemma4-12b-int4",
+      "repository": "axteam/gemma-4-12B-it-AWQ-4bit",
+      "revision": "7c781be42ce8d29d0975b857f6d0c0b2558d9b63",
+      "architecture": "Gemma4UnifiedForConditionalGeneration",
+      "weight_format": "compressed-tensors",
+      "activation_dtype": "float16",
+      "context_tokens": 8192,
+      "architecture_status": "qualification_required"
+    }
+  ]
+}

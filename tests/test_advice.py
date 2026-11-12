@@ -9,6 +9,7 @@ from wait_hint_offload.contracts import Hint, Namespace, prefix_digest
 from wait_hint_offload.observed import (
     AdviceDecision,
     Observation,
+    ObservedGroup,
     ObservedStore,
     RegistrationDecision,
 )
@@ -37,6 +38,21 @@ def sample() -> tuple[ObservedStore, Target, Hint]:
         "scope", "session", "epoch", 1, "event", digest, 2, ns, 10, 11, 100, "boot"
     )
     return store, Target(), hint
+
+
+def test_group_observations_require_aligned_boundary_and_full_anchor() -> None:
+    store, _, _ = sample()
+    observation = store.observation("scope", "session")
+    assert observation is not None
+    full = ObservedGroup(1, None, (b"a", b"b"))
+    recurrent = ObservedGroup(2, 1, (b"state",))
+    replacement = replace(observation, groups=(full, recurrent), generation=2)
+    assert store.register("scope", "session", replacement).accepted
+    for groups in ((recurrent,), (full, ObservedGroup(1, 1, (b"state",)))):
+        with pytest.raises(ValueError, match="boundary or anchor"):
+            replace(observation, groups=groups)
+    with pytest.raises(ValueError, match="group keys"):
+        ObservedGroup(2, 1, ())
 
 
 def test_advice_replay_conflict_and_disabled() -> None:

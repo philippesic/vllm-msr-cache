@@ -5,6 +5,13 @@ from pathlib import Path
 
 ENTRY_POINTS = (
     (
+        "Benchmark qualification",
+        "uv run --locked python -m tools.benchmark",
+        "tools/benchmark.py",
+        "main",
+        "model/coding probes implemented; comparison campaigns unqualified",
+    ),
+    (
         "CPU checks",
         "uv run --locked python tools/check.py",
         "tools/check.py",
