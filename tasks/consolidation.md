@@ -45,7 +45,9 @@ These are inert historical code and receipts, not current entry points.
 Inactive old output/, efficacy trials, wait-hint-port-work and dated overhaul,
 readiness, maintenance and history-audit roots were deleted after source verification
 and process/reference ownership checks. results/coverage.json records disposition.
-Exact raw replay is deliberately no longer available. Active attempts, assets,
+Exact raw replay is deliberately no longer available. The retiring old checkout
+intentionally shows deleted tracked output files; their Git history is retained.
+Do not restore these pruned working copies. Active attempts, assets,
 checkouts and temporary recovery archives/bundles remain under
 ~/.local/share/vllm-semantic-cache-ext-next; project runtime environments remain
 under ~/.local/share/venvs. Preserve them until release-01 and its admitted queue
@@ -56,6 +58,10 @@ The benchmark uses frozen 50e53cf/386715e checkouts. History integration and ren
 remain pending: preserve original next main under an archive ref, rebase its clean
 history onto original main, resolve the root to the exact original clean root tree,
 then verify unchanged final tree and original-main ancestry. Preserve cited hashes.
+A disposable history-integration rehearsal rebased all 54 commits at cdbbebf6 onto
+original main successfully: final tree byte-identical and original main an ancestor.
+It required resolving only the first root commit to the original clean root tree.
+The scratch checkout was removed; the maintained branch remains unchanged.
 The existing same-thread continuation now covers both tasks and the latest storage
 policy; no duplicate schedule exists. The active thread's project is still bound to
 the old root; update its workspace binding and schedule paths before removing it.
