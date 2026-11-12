@@ -26,7 +26,7 @@ Implementation is active and incomplete. The functional entry point passed four
 real GPU cases, including full/sliding attention against a float reference for
 256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
 52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring, C3 navigation, C4 terminal and B1 grounded-document acquisition and their readers
-are implemented; mixed-dataset campaign integration is pending. Remaining workload definitions, activity contracts, traces, soak,
+are implemented; mixed-dataset campaign integration is pending. Branching acquisition and its two-branch grading are implemented but not yet live-qualified. Remaining activity contracts, traces, soak,
 resume and release verdicts still need implementation and real qualification.
 Successful feasibility pilots are not completion of these suites.
 
@@ -92,7 +92,7 @@ Isolated runtimes under /home/philip/.local/share/venvs: wait-hint-benchmark-run
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established wait-hint-offload
 environment was preserved. The previous portable checkpoint passed 53 CPU tests and 105 rule
 proofs. Navigation, terminal and grounding behavior checks bring the current CPU count to 58;
-combined acceptance is running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
+the latest full acceptance passed 59 CPU tests and 105 rule proofs. The project is local-only; its verified Git bundle is retained under the
 existing external backups directory. No paid compute, remote publication, automatic
 delegation or 5080 use occurred.
 
@@ -142,16 +142,14 @@ but hit the 240-second task deadline. Harbor still ran its original validator an
 recorded reward zero; the probe remains failed, not qualified. The transcript shows
 Git history entering an interactive pager and subsequent recovery attempts. Terminal
 acquisition now sets PAGER/GIT_PAGER to cat, matching the existing coding harness;
-the task, model limits and original validators are unchanged. A new live probe must
-qualify this repair.
+the task, model limits and original validators are unchanged. Attempt 03 with pagers disabled also hit the task deadline. Preserve it; do not repeatedly rerun the same task to select a success. Qualify the second selected terminal task next, then keep failures in campaign denominators.
 
 B1 defines an independent Python 3.14.0 queue-document task and a shared-source
 RFC 5861/9111 comparison. Source bytes, URLs, structured facts and acceptable evidence
 spans were frozen before candidate output. Known answers passed
 benchmark-grounded-checker-01/02; correct facts with an unrelated citation failed
 benchmark-grounded-checker-negative-01. All three receipts verified. This is a narrow
-fact/citation rubric, not general summary-quality qualification. Live B1 acquisition
-is not yet exercised.
+fact/citation rubric, not general summary-quality qualification. The live Qwen wait-hint document pilot benchmark-qwen35-grounded-02 completed with an unresolved answer; independent report verification is running. Attempt 01 used an incorrect task identifier and failed before application acquisition; it is preserved. New probe preflight rejects missing tasks before starting a model.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.

@@ -62,8 +62,16 @@ def probe(
         "navigation",
         "terminal",
         "grounded",
+        "branching",
     ):
         raise ValueError("unsupported coding task kind")
+    if coding is not None:
+        harness_python, dataset, instance = coding
+        if not harness_python.is_file() or not dataset.is_file():
+            raise ValueError("coding requires existing harness and dataset")
+        rows = json.loads(dataset.read_text())
+        if sum(row.get("instance_id") == instance for row in rows) != 1:
+            raise ValueError("coding requires exactly one matching dataset instance")
     output.mkdir(parents=True, exist_ok=False)
     identities = snapshot(root, output / "source")
     model_identity = {
@@ -204,7 +212,9 @@ def probe(
                         from tools.benchmarking.proxy import local_proxy
 
                         harness_python, dataset, instance = coding
-                        if seconds - (time.monotonic() - started) < 420:
+                        if seconds - (time.monotonic() - started) < (
+                            600 if coding_kind == "branching" else 420
+                        ):
                             raise ValueError(
                                 "insufficient remaining pilot budget for acquisition and grading"
                             )
@@ -217,7 +227,19 @@ def probe(
                             if coding_kind == "terminal"
                             else "mini-swe",
                         ) as endpoint:
-                            if coding_kind == "terminal":
+                            if coding_kind == "branching":
+                                from tools.benchmarking.branching import run_branching
+
+                                result["coding"] = run_branching(
+                                    root,
+                                    harness_python,
+                                    dataset,
+                                    instance,
+                                    endpoint,
+                                    output / "coding",
+                                    240,
+                                )
+                            elif coding_kind == "terminal":
                                 from tools.benchmarking.terminal import run_terminal
 
                                 result["coding"] = run_terminal(
@@ -393,6 +415,17 @@ def verify_probe(output: Path) -> dict[str, Any]:
         ]["quality"] not in ("resolved", "unresolved"):
             raise ValueError("coding input drift or missing grading")
         acquisition = json.loads((output / "coding/acquisition.json").read_text())
+        if coding.get("kind", "repair") == "branching":
+            from tools.benchmarking.branching import verify_branching
+
+            if (
+                verify_branching(output / "coding") != acquisition
+                or acquisition != terminal["coding"]
+            ):
+                raise ValueError(
+                    "branch acquisition differs from original observations"
+                )
+            return terminal
         if coding.get("kind", "repair") == "terminal":
             from tools.benchmarking.terminal import verify_terminal
 
