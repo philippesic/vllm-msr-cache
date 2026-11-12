@@ -22,46 +22,79 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 
 ## State
 
-Implementation is active; the suite is not complete or qualified. Latest authorization
-covers implementation, necessary local setup, and end-to-end GPU verification. No
-paid resources or delegation. Compare remains one repetition / 45 minutes; recurring
-release remains two repetitions / 30 hours, with setup qualification accounted separately.
+Implementation is active and incomplete. The functional entry point reuses the existing
+GPU gate. Compare/release allocations are encoded (15/204 applications, 52 release
+traces, six hours of soak), but their campaign runners, full workload definitions,
+resumption and release verdicts are not implemented or qualified. Do not confuse the
+bounded feasibility pilots with the agreed suites.
 
-Implemented schedule accounting preserves 15 compare applications, 204 release
-applications, 52 traces and 6 hours of soak. These are allocations, not executed coverage.
-A bounded model probe and receipt reader are being qualified. Qwen3.5 W4A16 generated
-on the 2080 Ti and an initial wait-hint probe demonstrated CPU restoration after GPU
-reset with matched fresh text. Token-ID checks and complete frozen receipt verification
-are being added; this is not broad hybrid correctness qualification.
+The bounded model/coding probe snapshots source and hashes model artifacts, applies
+finite deadlines, cleans its owned server/container processes, captures requests and
+causal hints, and grades saved patches with the original SWE-bench grader. The reader
+checks token equality, artifact identities and the original grading report; the report
+refuses incomplete request captures and distinguishes hint activity from actual reuse.
+Context management retains system/task instructions and recent complete tool turns.
+Failed, unfavorable and obsolete-schema attempts remain immutable outside Git.
 
-Gemma's pinned artifact loads with Transformers 5.14.0 in the separate
-`wait-hint-benchmark-runtime` environment; the established runtime remains unchanged.
-Transformers 5.22.1 is incompatible with this vLLM's legacy Gemma configuration access.
-At batch 512 / GPU utilization 0.89, Gemma gets 1.14 GiB KV capacity and nominal 8K fit,
-but TRITON_ATTN startup fails: 98,304 bytes shared memory required versus Turing's
-65,536-byte limit. FLEX_ATTENTION is under bounded investigation. No model substitution,
-smaller context, weight offload or 5080 requirement has been silently introduced.
+Qwen3.5 W4A16 runs on the 2080 Ti in the isolated compatibility environment. Its
+wait-hint and ARC probes demonstrated registered group readiness, CPU restoration after
+GPU displacement, and restored/fresh token-ID equality. Native group-aware recency
+aligns full attention, sliding windows and recurrent checkpoints; broad hybrid failure
+and correctness qualification remains unfinished. The separate compatibility runtime
+passed 18 runtime CPU tests (runtime-cpu-20261112T034300Z) and all three dense GPU tests
+(hardware-20261112T035825Z). These are functional observations, not performance evidence.
 
-Native group-aware recency is under implementation and tests. Observations align
-full, sliding-window and recurrent checkpoint groups; no partial group may refresh.
-Portable acceptance passed 38 tests and 105 rule proofs before latest probe edits.
-Initial runtime CPU extension passed 18 tests; new compatibility environment testing
-is in progress. Full dense GPU regression remains pending.
+Coding baseline attempt benchmark-qwen35-coding-04 completed 24 tool turns but its
+integrated SWE-bench 5.0.2 grader was incompatible with the classic Verified schema.
+The saved patch was regraded successfully using 4.1.0 in benchmark-coding-grade-01;
+the original failed attempt was not rewritten. Attempt benchmark-qwen35-coding-05
+then completed the integrated ARC control path: 24 model turns, 207.56 seconds of
+acquisition, 275.01 seconds including startup/restoration/grading, original grader
+resolved=true, and successful independent receipt/report verification. Ten turns
+required context compaction. Candidate attempt benchmark-qwen35-coding-06 also resolved the task: 24 turns,
+216.47 seconds acquisition / 282.64 seconds total, five refreshed hints and 17
+no-ready-prefix acknowledgements. It produced the same token counts and cached-token
+count as the control. Both complete receipts and request reports verify. This is
+not evidence of useful retention or a statistically established timing difference.
+These exposed feasibility tasks are not fresh confirmation or a quality score.
 
-Docker and isolated mini-swe-agent 2.4.6 / Harbor 0.25.0 / SWE-bench 5.0.2 dependencies
-are installed. Terminal-Bench 2.0 source tasks and SWE-bench Verified are cached outside
-Git. Real-task admission, grading, workload definitions, runner lifecycle, reports,
-external compatibility and the campaigns remain unfinished. The Continuum public
-preview at 316a58794a6ff86b216e579b74fd56ed0c5a911f has neither Qwen3.5 nor Gemma4
-native model registration and depends on torch 2.8; it is not an admitted comparator.
-LMCache's current documented hybrid path requires separate MP integration qualification.
+The mini-swe-agent 2.4.6 / Harbor 0.25.0 / SWE-bench 4.1.0 environment is hash-locked in
+benchmarks/harness-requirements.txt. A new wait-hint-benchmarks-locked environment
+installed it with --require-hashes --no-deps and passed uv pip check (131 packages).
+Docker and source task assets are local. Image pinning, remaining task families,
+original validators, activity contracts and workload cost admission remain unfinished.
 
-Attempt records remain under the local external attempts root, including failures;
-old receipts are immutable and use the schema captured when executed. New probes
-use v2 receipts with model/source hashes and runtime package versions.
+Two consequential questions are pending; silence is not approval:
+
+- Gemma loads with Transformers 5.14.0 in wait-hint-benchmark-runtime; the original
+  runtime is unchanged. At batch 512 / utilization 0.89 it gets 1.14 GiB KV capacity
+  and nominal 8K fit, but TRITON_ATTN needs 98,304 bytes shared memory and FLEX_ATTENTION
+  needs 163,840, versus Turing's 65,536. May a narrow runtime kernel compatibility patch
+  be implemented/qualified, or should Gemma wait for a 5080? No context reduction,
+  model substitution or required hardware change has been silently introduced.
+- LMCache 0.5.6 MP mode fails CUDA IPC registration; a minimal standalone PyTorch
+  CUDA IPC transfer reproduces invalid-resource-handle on this host/runtime. Its
+  engine-driven alternative explicitly refuses multiple KV transfer groups. The legacy
+  adapter also documents one-group-only support. Continuum public preview commit
+  316a58794a6ff86b216e579b74fd56ed0c5a911f registers neither model architecture and uses
+  torch 2.8. Neither is admitted. Should external compatibility remain a completion
+  prerequisite, or become a separate follow-up with competitive claims blocked?
+
+Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
+Established runtime: wait-hint-offload. Compatibility runtime: wait-hint-benchmark-runtime.
+Separate comparator runtime: wait-hint-lmcache. All reside under the existing external
+venvs root. No paid compute, remote publication, delegation or 5080 use occurred.
+
+The public functional command passed all three dense GPU tests in 96 seconds and its
+receipt verified (benchmark-functional-01). The portable lane passes 41 CPU tests;
+full rule-proof acceptance runs at the checkpoint. No owned GPU job remains.
+
+Next: resolve the two scope questions;
+continue authentic workload admission and campaign implementation, then exercise the
+full agreed profiles within their original budgets. Broad release evidence is not ready.
 
 The following design remains the intended contract; its historical planning-only
-authorization statements are superseded by the implementation authorization above.
+statements are superseded by the implementation authorization above.
 
 ### 1. What a release verdict means
 

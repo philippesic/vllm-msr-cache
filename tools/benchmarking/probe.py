@@ -189,6 +189,7 @@ def probe(
                             )
                     break
                 except (OSError, ValueError, KeyError, TypeError) as error:
+                    result["status"] = "failed"
                     result["reason"] = str(error)
                     break
             else:
@@ -207,7 +208,7 @@ def probe(
                 for path in sorted(output.rglob("*"))
                 if path.is_file()
                 and not path.is_relative_to(output / "source")
-                and path.name != "admission.json"
+                and path != output / "admission.json"
             }
             result["admission_sha256"] = digest_file(output / "admission.json")
             write_record(output / "terminal.json", result)
@@ -217,6 +218,7 @@ def probe(
 
 
 def verify_probe(output: Path) -> dict[str, Any]:
+    output = output.resolve()
     admission = json.loads((output / "admission.json").read_text())
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
     if (
@@ -224,6 +226,27 @@ def verify_probe(output: Path) -> dict[str, Any]:
         or terminal.get("schema") != "benchmark-model-terminal-v3"
     ):
         raise ValueError("unsupported probe receipt schema")
+    if set(admission) != {
+        "schema",
+        "command",
+        "source_sha256",
+        "budget_seconds",
+        "scope",
+        "system",
+        "model_sha256",
+        "runtime_packages",
+        "coding",
+    } or admission["system"] not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):
+        raise ValueError("invalid probe admission")
+    if (
+        admission["scope"] != "model-loading-generation-and-optional-restoration"
+        or terminal["scope"] != admission["scope"]
+        or not admission["source_sha256"]
+        or not admission["model_sha256"]
+        or type(admission["budget_seconds"]) is not int
+        or not 0 < admission["budget_seconds"] <= 1800
+    ):
+        raise ValueError("invalid probe scope, inputs or budget")
     for relative, digest in admission["source_sha256"].items():
         path = (output / "source" / relative).resolve()
         if not path.is_relative_to(output / "source") or digest_file(path) != digest:
@@ -259,7 +282,16 @@ def verify_probe(output: Path) -> dict[str, Any]:
     if admission["system"] in ("native-arc", "wait-hint"):
         observation = terminal["restore"]
         if (
-            observation["restored"]["usage"]["prompt_tokens_details"]["cached_tokens"]
+            not observation["initial"]["kv_transfer_params"]["wait_hint"]["registered"]
+            or observation["acknowledgement"]["ready_cpu_prefix_keys"] <= 0
+            or observation["acknowledgement"]["decision"]
+            != ("refreshed" if admission["system"] == "wait-hint" else "disabled")
+            or not observation["restored"]["choices"][0].get("token_ids")
+            or observation["restored"]["choices"][0]["token_ids"]
+            != observation["fresh"]["choices"][0]["token_ids"]
+            or observation["restored"]["usage"]["prompt_tokens_details"][
+                "cached_tokens"
+            ]
             <= 0
             or observation["fresh"]["usage"]["prompt_tokens_details"]["cached_tokens"]
             != 0
@@ -273,6 +305,26 @@ def verify_probe(output: Path) -> dict[str, Any]:
             "coding"
         ]["quality"] not in ("resolved", "unresolved"):
             raise ValueError("coding input drift or missing grading")
+        acquisition = json.loads((output / "coding/acquisition.json").read_text())
+        grading = json.loads((output / "coding/grading/terminal.json").read_text())
+        reports = list(
+            (output / "coding/grading/logs/run_evaluation").rglob("report.json")
+        )
+        if (
+            acquisition != terminal["coding"]
+            or grading != acquisition["grading"]
+            or grading["exit_code"] != 0
+            or len(reports) != 1
+            or json.loads(reports[0].read_text()) != grading["report"]
+            or type(grading["report"][coding["instance"]]["resolved"]) is not bool
+            or acquisition["quality"]
+            != (
+                "resolved"
+                if grading["report"][coding["instance"]]["resolved"]
+                else "unresolved"
+            )
+        ):
+            raise ValueError("coding verdict disagrees with original grader")
     return terminal
 
 

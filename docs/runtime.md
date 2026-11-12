@@ -69,8 +69,13 @@ session it created.
 ## Serving configuration
 
 The supported target is dense full-attention FP16, TP1, HND, eager execution with
-TRITON_ATTN. BF16 on Turing, sliding/hybrid attention, speculative decoding, LoRA
-and parallel execution refuse or are unqualified. Use an ordinary vLLM serving
+TRITON_ATTN. The benchmark implementation additionally accepts FP16 full/sliding
+cache groups and aligned recurrent checkpoints, with at least one full-attention group.
+Qwen3.5 has an initial restored-continuation probe; this does not yet qualify broad
+hybrid correctness or performance. Gemma4 cannot start the tested attention kernels on
+the 2080 Ti. See [benchmark qualification](benchmarks.md) for the isolated compatibility
+environment. BF16 on Turing, speculative decoding, LoRA and parallel execution remain
+unsupported. Use an ordinary vLLM serving
 command with `--dtype float16`, `--enforce-eager`, `--attention-backend TRITON_ATTN`,
 prefix caching, an explicit API key, and this `--kv-transfer-config`:
 

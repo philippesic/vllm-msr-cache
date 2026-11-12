@@ -77,7 +77,8 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
     def upstream(url: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
         calls.append((url, payload))
         if url.endswith("/tokenize"):
-            return {"count": 64}
+            assert payload is not None
+            return {"count": 9000 if len(payload["messages"]) > 6 else 64}
         if url.endswith("/v1/wait-hints"):
             return {"decision": "disabled", "refreshed_keys": 0}
         return {
@@ -110,7 +111,19 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
             handler.command = "POST"
             handler.headers = Message()
             body = json.dumps(
-                {"model": "qualification", "messages": [], "stream": False}
+                {
+                    "model": "qualification",
+                    "messages": [
+                        {"role": "system", "content": "instructions"},
+                        {"role": "user", "content": "task"},
+                    ]
+                    + [
+                        {"role": role, "content": str(turn)}
+                        for turn in range(3)
+                        for role in ("assistant", "user")
+                    ],
+                    "stream": False,
+                }
             ).encode()
             handler.headers["Content-Length"] = str(len(body))
             handler.rfile = io.BytesIO(body)
@@ -122,11 +135,132 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
             )
             assert observed["hint"]["generation"] == generation
             assert observed["acknowledgement"]["decision"] == "disabled"
+            assert observed["compaction"]["removed_messages"] == 2
+            assert len(observed["request"]["messages"]) == 6
             assert (
                 observed["start_ns"]
                 <= observed["received_ns"]
                 <= observed["forwarded_ns"]
             )
-        assert len(calls) == 6
+        assert len(calls) == 8
     finally:
         server.server_close()
+
+
+def test_probe_reader_rejects_drift_failed_attempt_and_unobserved_restoration(
+    tmp_path: Path,
+) -> None:
+    import json
+    from typing import Any
+
+    from tools.benchmarking.probe import digest_file, verify_probe
+
+    (tmp_path / "source").mkdir()
+    source = tmp_path / "source/input.py"
+    source.write_text("value = 1\n")
+    log = tmp_path / "execution.log"
+    log.write_text("generation completed\n")
+    admission = {
+        "schema": "benchmark-model-probe-v3",
+        "scope": "model-loading-generation-and-optional-restoration",
+        "command": ["runtime", "-m", "server"],
+        "runtime_packages": {"runtime": "1"},
+        "system": "gpu-only",
+        "budget_seconds": 30,
+        "source_sha256": {"input.py": digest_file(source)},
+        "model_sha256": {str(source): digest_file(source)},
+        "coding": None,
+    }
+    (tmp_path / "admission.json").write_text(json.dumps(admission))
+    terminal = {
+        "schema": "benchmark-model-terminal-v3",
+        "scope": "model-loading-generation-and-optional-restoration",
+        "admission_sha256": digest_file(tmp_path / "admission.json"),
+        "status": "generation_observed",
+        "elapsed_seconds": 2,
+        "artifacts_sha256": {"execution.log": digest_file(log)},
+        "response": {"choices": [{"message": {"content": "4"}}]},
+    }
+    receipt = tmp_path / "terminal.json"
+    receipt.write_text(json.dumps(terminal))
+    assert verify_probe(tmp_path)["status"] == "generation_observed"
+    log.write_text("different execution\n")
+    with pytest.raises(ValueError, match="artifact drift"):
+        verify_probe(tmp_path)
+    log.write_text("generation completed\n")
+    receipt.write_text(json.dumps({**terminal, "status": "failed"}))
+    with pytest.raises(ValueError, match="did not pass"):
+        verify_probe(tmp_path)
+    admission["system"] = "wait-hint"
+    (tmp_path / "admission.json").write_text(json.dumps(admission))
+    receipt.write_text(
+        json.dumps(
+            {**terminal, "admission_sha256": digest_file(tmp_path / "admission.json")}
+        )
+    )
+    with pytest.raises(ValueError, match="did not pass"):
+        verify_probe(tmp_path)
+    restored = {
+        "choices": [{"text": "same decoded text", "token_ids": [42]}],
+        "usage": {"prompt_tokens_details": {"cached_tokens": 16}},
+    }
+    fresh: dict[str, Any] = {
+        "choices": [{"text": "same decoded text", "token_ids": [42]}],
+        "usage": {"prompt_tokens_details": {"cached_tokens": 0}},
+    }
+    observation = {
+        "initial": {"kv_transfer_params": {"wait_hint": {"registered": True}}},
+        "acknowledgement": {"decision": "refreshed", "ready_cpu_prefix_keys": 1},
+        "restored": restored,
+        "fresh": fresh,
+    }
+    nested = tmp_path / "coding/grading/admission.json"
+    nested.parent.mkdir(parents=True)
+    nested.write_text("{}\n")
+    terminal.update(
+        status="restoration_observed",
+        restore=observation,
+        admission_sha256=digest_file(tmp_path / "admission.json"),
+        artifacts_sha256={
+            "execution.log": digest_file(log),
+            "coding/grading/admission.json": digest_file(nested),
+        },
+    )
+    receipt.write_text(json.dumps(terminal))
+    assert verify_probe(tmp_path)["status"] == "restoration_observed"
+    fresh["choices"][0]["token_ids"] = [43]
+    receipt.write_text(json.dumps(terminal))
+    with pytest.raises(ValueError, match="restoration observations"):
+        verify_probe(tmp_path)
+    fresh["choices"][0]["token_ids"] = [42]
+    dataset = tmp_path / "dataset.json"
+    dataset.write_text("[]\n")
+    admission["coding"] = {
+        "dataset": str(dataset),
+        "dataset_sha256": digest_file(dataset),
+        "instance": "case",
+    }
+    (tmp_path / "admission.json").write_text(json.dumps(admission))
+    grading = {
+        "exit_code": 0,
+        "quality": "resolved",
+        "report": {"case": {"resolved": False}},
+    }
+    acquisition = {"quality": "resolved", "grading": grading}
+    terminal["coding"] = acquisition
+    (tmp_path / "coding/acquisition.json").write_text(json.dumps(acquisition))
+    (tmp_path / "coding/grading/terminal.json").write_text(json.dumps(grading))
+    report = tmp_path / "coding/grading/logs/run_evaluation/run/model/case/report.json"
+    report.parent.mkdir(parents=True)
+    report.write_text(json.dumps(grading["report"]))
+    terminal["admission_sha256"] = digest_file(tmp_path / "admission.json")
+    terminal["artifacts_sha256"] = {
+        str(path.relative_to(tmp_path)): digest_file(path)
+        for path in tmp_path.rglob("*")
+        if path.is_file()
+        and not path.is_relative_to(tmp_path / "source")
+        and path not in (tmp_path / "admission.json", receipt)
+    }
+    receipt.write_text(json.dumps(terminal))
+    with pytest.raises(ValueError, match="original grader"):
+        verify_probe(tmp_path)
