@@ -64,21 +64,31 @@ installed it with --require-hashes --no-deps and passed uv pip check (131 packag
 Docker and source task assets are local. Image pinning, remaining task families,
 original validators, activity contracts and workload cost admission remain unfinished.
 
-Two consequential questions are pending; silence is not approval:
+Current authorization and compatibility work:
 
-- Gemma loads with Transformers 5.14.0 in wait-hint-benchmark-runtime; the original
-  runtime is unchanged. At batch 512 / utilization 0.89 it gets 1.14 GiB KV capacity
-  and nominal 8K fit, but TRITON_ATTN needs 98,304 bytes shared memory and FLEX_ATTENTION
-  needs 163,840, versus Turing's 65,536. May a narrow runtime kernel compatibility patch
-  be implemented/qualified, or should Gemma wait for a 5080? No context reduction,
-  model substitution or required hardware change has been silently introduced.
-- LMCache 0.5.6 MP mode fails CUDA IPC registration; a minimal standalone PyTorch
-  CUDA IPC transfer reproduces invalid-resource-handle on this host/runtime. Its
-  engine-driven alternative explicitly refuses multiple KV transfer groups. The legacy
-  adapter also documents one-group-only support. Continuum public preview commit
-  316a58794a6ff86b216e579b74fd56ed0c5a911f registers neither model architecture and uses
-  torch 2.8. Neither is admitted. Should external compatibility remain a completion
-  prerequisite, or become a separate follow-up with competitive claims blocked?
+- Philip approved a narrow Gemma runtime kernel compatibility patch. Gemma loads
+  with Transformers 5.14.0 in the separate compatibility runtime and fits 8K at
+  batch 512 / GPU utilization 0.89, but both tested attention backends exceed
+  Turing's 65,536-byte shared-memory limit. Patch qualification remains unfinished.
+- Philip explicitly requested repairing LMCache if feasible and researching a DRAM
+  comparator to replace Continuum. External comparisons remain required; reducing
+  the campaign to core arms is not approved. Continuum's preview registers neither
+  selected architecture. Replacement selection below is a proposal, not qualification.
+- LMCache 0.5.6 ordinary and isolated CUDA IPC fail on this host. Engine-driven
+  transfer rejects multiple cache groups. A minimal PyTorch virtual-memory-allocator
+  transfer succeeded with permission granted only to the receiving child process;
+  this does not yet establish LMCache transfer correctness. Attempts and exploratory
+  patch identities are retained outside Git. No system-wide ptrace setting changed.
+  Attempt 05 failed raw isolated IPC; 06 passed startup/generation after the
+  process-specific permission patch and expandable allocator. Attempts 07/08/10
+  then failed actual DRAM-store staging with CUDA illegal memory access, including
+  synchronous CUDA diagnostics and a separate server allocator configuration.
+  Attempt 09 was deliberately interrupted because its patch precondition failed;
+  it supplies no compatibility result. All attempts remain retained. Exploratory
+  site-package changes were restored after testing; LMCache is still unqualified.
+  The maintained probe now exercises external restore/fresh continuation rather
+  than accepting generation alone on newly executed LMCache probes. Prior v3
+  receipts remain readable and do not retroactively gain restoration evidence.
 
 Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
 Established runtime: wait-hint-offload. Compatibility runtime: wait-hint-benchmark-runtime.
@@ -86,10 +96,10 @@ Separate comparator runtime: wait-hint-lmcache. All reside under the existing ex
 venvs root. No paid compute, remote publication, delegation or 5080 use occurred.
 
 The public functional command passed all three dense GPU tests in 96 seconds and its
-receipt verified (benchmark-functional-01). The portable lane passes 41 CPU tests;
+receipt verified (benchmark-functional-01). The portable lane passes 42 CPU tests;
 full rule-proof acceptance runs at the checkpoint. No owned GPU job remains.
 
-Next: resolve the two scope questions;
+Next: qualify the approved compatibility repairs and resolve the external replacement;
 continue authentic workload admission and campaign implementation, then exercise the
 full agreed profiles within their original budgets. Broad release evidence is not ready.
 
@@ -227,6 +237,64 @@ decode KV, chunk geometry, memory budgets and default versus tuned configuration
 LMCache is a replacement connector here, not currently a drop-in wait-hint extension:
 our advice mutates native ARC state. Combining them requires a separate adapter/design.
 Do not create that implementation merely to populate a benchmark table.
+
+### DRAM comparator reassessment
+
+Deep primary-source review, 2026-11-11: **qualify direct vLLM Mooncake Store first**
+as the proposed Continuum replacement. Keep five arms and the existing external
+work allocation, rather than adding another full matrix. This would compare
+GPU-only, native ARC, ARC plus wait-hint, LMCache CPU, and Mooncake local DRAM.
+The earlier Continuum roster remains conditional until the replacement is accepted
+and passes functional qualification. Do not report an unsupported arm as passed.
+
+- Mooncake Store: the pinned vLLM connector implements SupportsHMA and checks Mamba
+  block alignment; it accepts full/sliding groups. Embedded local DRAM and TCP
+  fallback avoid requiring RDMA hardware or a cluster. A local metadata master is
+  still required. Use direct MooncakeStoreConnector, not LMCache with a Mooncake
+  storage backend: the latter would not be an independent caching integration.
+  Disable disk offload and remote capacity. Count cache, staging, metadata and
+  process memory; match useful GPU/CPU budgets and disclose eviction leases.
+  First test both actual model layouts, GPU-displaced CPU restoration, continuation
+  correctness, CPU eviction, cleanup and memory fit. Not installed or qualified yet.
+- SGLang HiCache: relevant hierarchical DRAM caching including recurrent state;
+  current SGLang raised minimum support from SM75 to SM80. Therefore a possible
+  5080 cross-engine comparison, not a drop-in 2080 Ti target. Do not resurrect an
+  old runtime without checking the selected models and confounds.
+- FlexKV: relevant local CPU caching and configurable eviction. The inspected vLLM
+  wrapper lacks SupportsHMA and its adapter does not establish recurrent-state
+  support. Keep as a fallback only after proving the actual hybrid layouts; its
+  broader SGLang support does not prove this vLLM path works.
+- llama.cpp host-RAM prompt caching: relevant practical local-serving alternative,
+  including idle-session state caching. It changes runtime, GGUF weights and cache
+  granularity. Suitable for a separately scoped whole-system comparison, not a
+  clean replacement within the current same-weights vLLM experiment.
+- TensorRT-LLM: current hardware list starts at Ampere; current Gemma 4 model matrix
+  does not advertise KV reuse. Dynamo KVBM is deprecated in v1.5, removal targeted
+  for v1.7. Neither is a sensible new dependency for this target.
+- Adjacent deployment frameworks such as llm-d reuse native or third-party cache
+  connectors; counting them as independent eviction competitors would duplicate
+  mechanisms. SGLang's programmatic KV-cache RFC #27574 is closely related to
+  caller-provided retention advice, but a closed RFC is not a qualified runnable
+  comparator: https://github.com/sgl-project/sglang/issues/27574.
+- Research systems (HiState, Marconi, Penelope, CacheScout): useful mechanism leads,
+  but this search did not establish a maintained, runnable implementation covering
+  our hardware and both layouts. Paper results are not compatibility evidence.
+
+Sources checked beyond search snippets:
+[Mooncake pinned deployment guide](https://github.com/vllm-project/vllm/blob/dc1be79031d948d7a18c37600881e45ca708d913/docs/features/mooncake_store_connector_usage.md),
+[pinned connector](https://github.com/vllm-project/vllm/blob/dc1be79031d948d7a18c37600881e45ca708d913/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/connector.py),
+[store eviction design](https://github.com/kvcache-ai/Mooncake/blob/main/docs/source/design/store/mooncake-store.md),
+[HiCache guidance](https://github.com/sgl-project/sglang/blob/44643740722a1a633f65f058a03c90ee106822b8/docs/docs/advanced_features/hicache_best_practices.mdx),
+[SGLang minimum-GPU change](https://github.com/sgl-project/sglang/pull/24336),
+[FlexKV adapter](https://github.com/taco-project/FlexKV/blob/15a1b738718c24077027a7777ff75861b923ddcf/flexkv/integration/vllm/vllm_v1_adapter.py),
+[llama.cpp server](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md),
+[TensorRT hardware](https://nvidia.github.io/TensorRT-LLM/supported-hardware.html),
+[TensorRT models](https://nvidia.github.io/TensorRT-LLM/models/supported-models.html),
+[Dynamo deprecation](https://docs.nvidia.com/dynamo/v1.5.0/reference/releases/v1-5-0).
+
+The recommendation prioritizes relevant DRAM behavior and feasible integration,
+not presumed performance. Whole-stack comparisons cannot attribute differences to
+wait-hint alone; native ARC versus ARC plus advice remains the causal comparison.
 
 GPU retention and CPU advice may complement each other. On ONE qualified common
 runtime and identical guarded CPU ARC, run: neither, GPU retention only, CPU advice
