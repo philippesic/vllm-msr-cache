@@ -65,14 +65,26 @@ retirement / reset cycles, disconnect recovery and a real engine restart. The ex
 Attempt 03 retained an incorrect test expectation: a full reset invalidates the old
 clock domain before checking observation presence. The corrected test asserts that
 refusal and zero retained counts; the product contract was unchanged. Runtime CPU acceptance passed 18 tests in
-benchmark-runtime-accounting-01; portable full acceptance most recently passed
-68 CPU tests and 105 rule proofs passed at checkpoint 50e53cf. Later portable
-reporting/trace-CLI changes are being checked separately.
+benchmark-runtime-accounting-02. Portable full acceptance passed 68 CPU tests and
+105 rule proofs at checkpoint 50e53cf; later reporting/trace-CLI checkpoint 386715e
+passed 69 CPU tests and 105 rule proofs.
 
 Release-01 is running from immutable 50e53cf under
 checkouts/benchmark-campaign-02, output attempts/benchmark-release-01. Its full roster is 180 applications, 52 traces and four bounded
-operating runs totaling six hours. Remaining work is live qualification, complete
-release/report gates, the full campaigns, current workflow guidance and closeout.
+operating runs totaling six hours. A separate admitted queue in attempts/benchmark-final-qualification-01 waits for
+release owner PID 322014/start_ticks 10557436, then runs compare-02 and four LMCache
+T2 supplements from immutable 386715e in checkouts/benchmark-campaign-03. Its tool
+session is 53353. Do not duplicate that queued GPU acquisition. The queue refuses an
+occupied GPU and charges supplements against the original release ceiling.
+Same-thread automatic continuation is enabled every 20 minutes, next initial run
+2026-11-12 19:10 UTC. Its ID is
+`scheduled-task:command:mcp:acd6cba2-620f-415a-8977-34d1eb52ad1f:schedule-task:semantic-cache-next-benchmark-completion-20261112`.
+It performs bounded health checks, repairs actionable failures and continues through
+verification/docs/result closeout; healthy ongoing acquisition needs no heartbeat.
+Disable this same schedule after actual completion or a genuine consequential blocker,
+not after an intermediate checkpoint. Do not create a duplicate.
+Remaining work is inspecting actual campaign outcomes, repairing actionable defects,
+current workflow guidance and closeout.
 The live release snapshot predates explicit LMCache pressure diagnostics. Four
 focused T2 probes (two models/two starts) must supplement it after acquisition; do
 not change its frozen source or pretend the diagnostics ran inside that campaign.
@@ -92,7 +104,7 @@ Raw attempts and assets live under
 are under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established runtime was
 preserved. This project is local-only; checkpoint bundles are verified in the
-existing backups/local-results.bundle. The bundle was refreshed and verified at 50e53cf.
+existing backups/local-results.bundle. The bundle was refreshed and verified at 386715e.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.
@@ -983,9 +995,11 @@ Additional comparison and workload research (2026-11-11):
 - [WildChat data card](https://huggingface.co/datasets/allenai/WildChat-1M): authentic conversation shapes; timestamp and ancestry limitations require inspection.
 
 ## Next
-Complete the shared-server campaign runner, controlled traces, operating/fault checks,
-resume and reporting. Qualify the live branching and second terminal paths, then run
-and independently verify the complete compare and release suites within the authorized
-budgets. No user answer or renewed permission is pending. Status requests and read-only
-consultations do not end this implementation task. Retain failed outcomes and distinguish
-completed measurement from release eligibility and supported benefit.
+Let the active release and admitted follow-up queue finish under their fixed budgets.
+Inspect actual application/trace/operating outcomes and diagnose actionable runner
+failures. Independently verify retained campaign/probe receipts, qualify any remaining
+live paths, update current workflow guidance, preserve a concise result and close out.
+No user answer or renewed permission is pending. Status requests and read-only
+consultations do not end this task. Preserve censored/adverse attempts and distinguish
+measurement completeness from release eligibility and supported benefit. The saved
+same-thread schedule provides automatic continuation; do not duplicate its GPU queue.
