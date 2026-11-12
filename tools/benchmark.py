@@ -29,7 +29,9 @@ def main() -> int:
     command.add_argument("--harness-python", type=Path)
     command.add_argument("--instance")
     command.add_argument(
-        "--coding-kind", choices=("repair", "regression"), default="repair"
+        "--coding-kind",
+        choices=("repair", "regression", "navigation"),
+        default="repair",
     )
     command.add_argument(
         "--backend", choices=("TRITON_ATTN", "FLEX_ATTENTION"), default="TRITON_ATTN"
@@ -75,8 +77,27 @@ def main() -> int:
     regression.add_argument("--out", type=Path, required=True)
     regression_verify = sub.add_parser("verify-regression")
     regression_verify.add_argument("directory", type=Path)
+    navigation = sub.add_parser("grade-navigation")
+    navigation.add_argument("--dataset", type=Path, required=True)
+    navigation.add_argument("--prediction", type=Path, required=True)
+    navigation.add_argument("--instance", required=True)
+    navigation.add_argument("--out", type=Path, required=True)
+    navigation_verify = sub.add_parser("verify-navigation")
+    navigation_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.operation in ("grade-navigation", "verify-navigation"):
+        from tools.benchmarking.navigation import grade_navigation, verify_navigation
+
+        result = (
+            verify_navigation(args.directory)
+            if args.operation == "verify-navigation"
+            else grade_navigation(
+                root, args.dataset, args.prediction, args.instance, args.out
+            )
+        )
+        print(json.dumps(result, indent=2))
+        return int(result["quality"] == "ungraded")
     if args.operation in ("grade-regression", "verify-regression"):
         from tools.benchmarking.regression import grade_regression, verify_regression
 

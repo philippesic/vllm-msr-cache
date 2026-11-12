@@ -1,0 +1,13 @@
+pytest==8.4.1
+flit_core==3.12.0
+hatchling==1.27.0
+hatch-fancy-pypi-readme==25.1.0
+anyio==4.11.0
+httpcore==1.0.9
+certifi==2025.10.5
+idna==3.11
+trustme==1.2.1
+uvicorn==0.35.0
+cryptography==45.0.7
+chardet==5.2.0
+trio==0.31.0

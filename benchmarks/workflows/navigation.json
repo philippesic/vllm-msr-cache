@@ -1,0 +1,63 @@
+{
+  "schema": "benchmark-navigation-definitions-v1",
+  "selection": "Two independent maintained Python projects; current default/override resolution and proposed change impact; selected before candidate output. Project-authored tasks, not official benchmark scores.",
+  "cases": [
+    {
+      "id": "C3-1",
+      "instance_id": "pallets__click-navigation",
+      "repository": "https://github.com/pallets/click.git",
+      "revision": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "problem_statement": "Assess the impact of moving default_map ahead of environment variables for ordinary Click options, without implementing the change. Trace the current base parameter value resolution and its parse-result caller. Add benchmark_navigation.json with exactly symbols, behavior, tests. symbols must map resolution and caller to source-relative file:Class.method strings. behavior must be the current four source names in descending priority (exclude prompts). tests must list one or more upstream pytest node IDs that check default_map source reporting. Read the code and run the affected tests before answering.",
+      "rubric": {
+        "symbols": {
+          "resolution": "src/click/core.py:Parameter.consume_value",
+          "caller": "src/click/core.py:Parameter.handle_parse_result"
+        },
+        "behavior": [
+          "COMMANDLINE",
+          "ENVIRONMENT",
+          "DEFAULT_MAP",
+          "DEFAULT"
+        ],
+        "tests": [
+          "tests/test_defaults.py::test_default_map_source"
+        ]
+      },
+      "reference_check": "import click\nimport pytest\nfrom click.testing import CliRunner\n\n\n@pytest.mark.parametrize((\"args\", \"env\", \"mapping\", \"expected\"), [([\"--name\", \"cli\"], {\"CHECK_NAME\": \"environment\"}, {\"name\": \"mapped\"}, \"cli:COMMANDLINE\"), ([], {\"CHECK_NAME\": \"environment\"}, {\"name\": \"mapped\"}, \"environment:ENVIRONMENT\"), ([], {}, {\"name\": \"mapped\"}, \"mapped:DEFAULT_MAP\"), ([], {}, {}, \"fallback:DEFAULT\")])\ndef test_resolution_impact(args, env, mapping, expected):\n    @click.command()\n    @click.option(\"--name\", envvar=\"CHECK_NAME\", default=\"fallback\")\n    @click.pass_context\n    def command(ctx, name):\n        click.echo(f\"{name}:{ctx.get_parameter_source('name').name}\")\n    result = CliRunner().invoke(command, args, env=env, default_map=mapping)\n    assert result.exit_code == 0\n    assert result.output.strip() == expected\n",
+      "image_name": "sha256:74c39af4d671327ac2fd243a649c6e029a675ac4df5141ee0cda201cbb71fe7d",
+      "build_recipe_sha256": {
+        "Dockerfile": "c8ba209080c08f1d8bb0661acf47b858be23de46ec245048e2b0c058385190d8",
+        "requirements.txt": "da9fa90b4ee21839170d8fd70e00c28b595335b0f06f84d900a3b8c7ca2944ab"
+      }
+    },
+    {
+      "id": "C3-2",
+      "instance_id": "encode__httpx-navigation",
+      "repository": "https://github.com/encode/httpx.git",
+      "revision": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+      "problem_statement": "Assess the impact of unconditionally replacing the timeout extension in Client.send, without changing code. Trace the base request builder, timeout fill method and synchronous/asynchronous send callers. Add benchmark_navigation.json with exactly symbols, behavior, tests. symbols keys construct, fill, sync_caller, async_caller must name source-relative file:Class.method. behavior must map explicit_extensions_preserved, None_disables and unspecified_uses_client_default to their current boolean values. tests must list one or more upstream pytest node IDs checking the client timeout property. Read the implementation, check the explicit-extension and None cases, and run the affected tests.",
+      "rubric": {
+        "symbols": {
+          "construct": "httpx/_client.py:BaseClient.build_request",
+          "fill": "httpx/_client.py:BaseClient._set_timeout",
+          "sync_caller": "httpx/_client.py:Client.send",
+          "async_caller": "httpx/_client.py:AsyncClient.send"
+        },
+        "behavior": {
+          "explicit_extensions_preserved": true,
+          "None_disables": true,
+          "unspecified_uses_client_default": true
+        },
+        "tests": [
+          "tests/client/test_properties.py::test_client_timeout"
+        ]
+      },
+      "reference_check": "import httpx\nimport pytest\n\n\n@pytest.mark.parametrize((\"arguments\", \"expected\"), [({}, 7.0), ({\"timeout\": None}, None), ({\"timeout\": 3.0}, 3.0)])\ndef test_build_timeout(arguments, expected):\n    client = httpx.Client(timeout=7.0, trust_env=False)\n    request = client.build_request(\"GET\", \"http://example.invalid\", **arguments)\n    assert request.extensions[\"timeout\"] == dict.fromkeys((\"connect\", \"read\", \"write\", \"pool\"), expected)\n\n\ndef test_explicit_extension_and_raw_send():\n    captured = []\n    def handle(request):\n        captured.append(request.extensions[\"timeout\"])\n        return httpx.Response(200)\n    with httpx.Client(timeout=7.0, trust_env=False, transport=httpx.MockTransport(handle)) as client:\n        explicit = {\"connect\": 1, \"read\": 2, \"write\": 3, \"pool\": 4}\n        built = client.build_request(\"GET\", \"http://example.invalid\", timeout=99, extensions={\"timeout\": explicit})\n        client.send(built)\n        client.send(httpx.Request(\"GET\", \"http://example.invalid\"))\n    assert captured == [explicit, dict.fromkeys((\"connect\", \"read\", \"write\", \"pool\"), 7.0)]\n",
+      "image_name": "sha256:1f03b0e7340e909f57f00670a9a97119ce33e05e04a827d5c26a8937f294d952",
+      "build_recipe_sha256": {
+        "Dockerfile": "c8ba209080c08f1d8bb0661acf47b858be23de46ec245048e2b0c058385190d8",
+        "requirements.txt": "da9fa90b4ee21839170d8fd70e00c28b595335b0f06f84d900a3b8c7ca2944ab"
+      }
+    }
+  ]
+}

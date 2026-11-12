@@ -6,6 +6,62 @@ from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import probe
 
 
+def test_navigation_answer_refuses_source_edits_and_wrong_override_semantics(
+    tmp_path: Path,
+) -> None:
+    import json
+
+    from tools.benchmarking.navigation import check_answer, navigation_answer
+
+    rubric = {
+        "symbols": {"fill": "httpx/_client.py:BaseClient._set_timeout"},
+        "behavior": {"explicit_extensions_preserved": True},
+        "tests": ["tests/client/test_properties.py::test_client_timeout"],
+    }
+    patch = tmp_path / "submission.patch"
+    content = json.dumps(rubric)
+    added = (
+        "diff --git a/benchmark_navigation.json b/benchmark_navigation.json\n"
+        "new file mode 100644\n"
+        "--- /dev/null\n+++ b/benchmark_navigation.json\n@@ -0,0 +1 @@\n+"
+        + content
+        + "\n\\ No newline at end of file\n"
+    )
+    patch.write_text(added)
+    assert check_answer(navigation_answer(patch), rubric)
+    incorrect = json.loads(content)
+    incorrect["behavior"]["explicit_extensions_preserved"] = False
+    assert not check_answer(incorrect, rubric)
+    incorrect["behavior"]["explicit_extensions_preserved"] = 1
+    assert not check_answer(incorrect, rubric)
+    patch.write_text(added.replace("benchmark_navigation.json", "httpx/_client.py"))
+    with pytest.raises(ValueError, match="only add"):
+        navigation_answer(patch)
+
+
+def test_navigation_reader_rejects_forged_success_and_test_identity_loss(
+    tmp_path: Path,
+) -> None:
+    import json
+
+    from tools.benchmarking.navigation import navigation_observations
+
+    rubric = {"symbols": {}, "behavior": [], "tests": ["tests/test_policy.py"]}
+    (tmp_path / "admission.json").write_text(json.dumps({"rubric": rubric}))
+    (tmp_path / "submitted.patch").write_text(
+        "diff --git a/benchmark_navigation.json b/benchmark_navigation.json\n"
+        "new file mode 100644\n--- /dev/null\n+++ b/benchmark_navigation.json\n"
+        "@@ -0,0 +1 @@\n+" + json.dumps(rubric) + "\n"
+    )
+    (tmp_path / "tests.xml").write_text(
+        '<testsuite><testcase classname="impact" name="override"><failure/></testcase></testsuite>'
+    )
+    assert navigation_observations(tmp_path)["quality"] == "unresolved"
+    (tmp_path / "tests.xml").write_text("<testsuite/>")
+    with pytest.raises(ValueError, match="missing or duplicate"):
+        navigation_observations(tmp_path)
+
+
 @pytest.mark.parametrize(
     ("before", "after", "quality"),
     (
