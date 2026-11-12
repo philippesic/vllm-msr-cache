@@ -75,6 +75,27 @@ def retained_bytes(value: object) -> int:
 
 
 @dataclass(frozen=True)
+class ObservedGroup:
+    tokens_per_chunk: int
+    window_chunks: int | None
+    keys: tuple[bytes, ...]
+
+    def __post_init__(self) -> None:
+        positive_integer(self.tokens_per_chunk, "tokens_per_chunk", MAX_BOUNDARY)
+        if self.window_chunks is not None:
+            positive_integer(self.window_chunks, "window_chunks", MAX_BOUNDARY)
+        if (
+            type(self.keys) is not tuple
+            or not self.keys
+            or any(
+                type(key) is not bytes or not 0 < len(key) <= MAX_KEY_BYTES
+                for key in self.keys
+            )
+        ):
+            raise ValueError("group keys")
+
+
+@dataclass(frozen=True)
 class Observation:
     incarnation: str
     generation: int
@@ -83,8 +104,13 @@ class Observation:
     namespace: Namespace
     observed_ns: int
     keys: tuple[bytes, ...]
+    groups: tuple[ObservedGroup, ...] = ()
 
     def __post_init__(self) -> None:
+        if type(self.groups) is not tuple or any(
+            not isinstance(group, ObservedGroup) for group in self.groups
+        ):
+            raise ValueError("observation groups")
         bounded_name(self.incarnation, "incarnation")
         bounded_name(self.prefix, "prefix")
         generation_number(self.generation)
@@ -92,6 +118,17 @@ class Observation:
         positive_integer(self.observed_ns, "observed_ns", MAX_TIMESTAMP)
         if not isinstance(self.namespace, Namespace):
             raise ValueError("namespace")
+        if self.groups and (
+            not any(
+                group.window_chunks is None and group.keys == self.keys
+                for group in self.groups
+            )
+            or any(
+                len(group.keys) * group.tokens_per_chunk != self.boundary
+                for group in self.groups
+            )
+        ):
+            raise ValueError("group boundary or anchor mismatch")
         if (
             type(self.keys) is not tuple
             or not 0 < len(self.keys) <= self.boundary

@@ -7,37 +7,61 @@ comparison from it. Discover useful applications from product behavior; do not
 optimize to a permanent target workload or conceal losses in an aggregate score.
 
 ## Authorized
-Philip requested a comprehensive release-first proposal for review. Design, research,
-repository inspection and recording the proposal are authorized. Implementation,
-GPU acquisition, downloads, runtime repins, external publication and agent-operations
-implementation remain unauthorized. Numeric gates below are proposed policy, not
-approved performance requirements or measured properties.
+Philip has now requested implementation and end-to-end verification of this plan,
+including the necessary GPU qualification, downloads and compatibility work. Use the
+11 GiB 2080 Ti and the agreed one/two repetition policy. Keep validation within
+45 minutes and recurring release acquisition within 30 hours; preparation and
+qualification are recorded separately. No paid resources, publication, automatic
+delegation or optional 5080/combination expansion is authorized by this task.
 
 ## Done when
-Philip reviews the release claim, coverage, evidence requirements, gates, cost and
-repository integration. The executable manifest must subsequently resolve exact
-models, corpora, limits and repetitions before acquisition. Approval of this design
-alone does not qualify the product or authorize an unlimited GPU campaign.
+The functional, compare and release workflows are implemented through maintained
+entry points, exercised end to end with real admitted inputs, independently verified
+by their evidence readers, and documented with actual results and limitations.
+Unsupported paths and incomplete measurements cannot count as completion or passes.
 
 ## State
-Owner: primary agent on main in /home/philip/vllm-semantic-cache-ext-next.
-Status: revised release-first proposal; not implemented or exercised. The earlier
-12-benchmark organization has been replaced. Useful cases are retained inside one
-release benchmark. The only normal user-facing categories will be functional,
-compare and release. Existing correctness tests remain tests, not extra benchmark
-categories. Sol adversarially reviewed the complete release-first plan at 6f4f09f.
-The primary agent incorporated its findings and independent web research below.
-A second Sol review found the revised plan ready for user design review with two
-wording corrections, now applied. Gates remain proposals for Philip, not accepted
-product guarantees. No reviewer qualified a runtime or performance result. Subsequent user-directed
-comparison, workload and model refinements received a third Sol review at 9f8c746.
-It found budget/coverage and guarantee contradictions; the bounded corrections below
-incorporate that review. This revised specification has not been executed or re-reviewed.
-Philip has fixed performance repetitions at one validation and two release blocks;
-model pair and concrete workload counts below remain proposals for review. Philip
-requires an 11 GiB 2080 Ti primary target, optional 16 GiB 5080 runs, current model
-architectures and coding-first coverage. Previous small full-attention pair rejected. Philip selected Qwen3.5-4B and
-requested approximately fourfold smaller acquisition; the bounded revision is below.
+
+Implementation is active; the suite is not complete or qualified. Latest authorization
+covers implementation, necessary local setup, and end-to-end GPU verification. No
+paid resources or delegation. Compare remains one repetition / 45 minutes; recurring
+release remains two repetitions / 30 hours, with setup qualification accounted separately.
+
+Implemented schedule accounting preserves 15 compare applications, 204 release
+applications, 52 traces and 6 hours of soak. These are allocations, not executed coverage.
+A bounded model probe and receipt reader are being qualified. Qwen3.5 W4A16 generated
+on the 2080 Ti and an initial wait-hint probe demonstrated CPU restoration after GPU
+reset with matched fresh text. Token-ID checks and complete frozen receipt verification
+are being added; this is not broad hybrid correctness qualification.
+
+Gemma's pinned artifact loads with Transformers 5.14.0 in the separate
+`wait-hint-benchmark-runtime` environment; the established runtime remains unchanged.
+Transformers 5.22.1 is incompatible with this vLLM's legacy Gemma configuration access.
+At batch 512 / GPU utilization 0.89, Gemma gets 1.14 GiB KV capacity and nominal 8K fit,
+but TRITON_ATTN startup fails: 98,304 bytes shared memory required versus Turing's
+65,536-byte limit. FLEX_ATTENTION is under bounded investigation. No model substitution,
+smaller context, weight offload or 5080 requirement has been silently introduced.
+
+Native group-aware recency is under implementation and tests. Observations align
+full, sliding-window and recurrent checkpoint groups; no partial group may refresh.
+Portable acceptance passed 38 tests and 105 rule proofs before latest probe edits.
+Initial runtime CPU extension passed 18 tests; new compatibility environment testing
+is in progress. Full dense GPU regression remains pending.
+
+Docker and isolated mini-swe-agent 2.4.6 / Harbor 0.25.0 / SWE-bench 5.0.2 dependencies
+are installed. Terminal-Bench 2.0 source tasks and SWE-bench Verified are cached outside
+Git. Real-task admission, grading, workload definitions, runner lifecycle, reports,
+external compatibility and the campaigns remain unfinished. The Continuum public
+preview at 316a58794a6ff86b216e579b74fd56ed0c5a911f has neither Qwen3.5 nor Gemma4
+native model registration and depends on torch 2.8; it is not an admitted comparator.
+LMCache's current documented hybrid path requires separate MP integration qualification.
+
+Attempt records remain under the local external attempts root, including failures;
+old receipts are immutable and use the schema captured when executed. New probes
+use v2 receipts with model/source hashes and runtime package versions.
+
+The following design remains the intended contract; its historical planning-only
+authorization statements are superseded by the implementation authorization above.
 
 ### 1. What a release verdict means
 

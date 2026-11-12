@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 import time
 import uuid
 from typing import Any
@@ -17,7 +18,7 @@ from vllm.distributed.kv_transfer.kv_connector.v1.offloading.scheduler import (
 from vllm.distributed.kv_transfer.kv_connector.v1.offloading_connector import (
     OffloadingConnector,
 )
-from vllm.v1.kv_cache_interface import FullAttentionSpec
+from vllm.v1.kv_cache_interface import FullAttentionSpec, MambaSpec, SlidingWindowSpec
 from vllm.v1.kv_offload.cpu.manager import CPUOffloadingManager
 from vllm.v1.kv_offload.cpu.policies.arc import ARCCachePolicy
 from vllm.v1.kv_offload.cpu.spec import CPUOffloadingSpec
@@ -25,9 +26,9 @@ from vllm.v1.kv_offload.cpu.spec import CPUOffloadingSpec
 from wait_hint_offload.advice import advise
 from wait_hint_offload.config import Settings
 from wait_hint_offload.contracts import MAX_BOUNDARY, Hint, Registration, prefix_digest
-from wait_hint_offload.observed import Observation, ObservedStore
+from wait_hint_offload.observed import Observation, ObservedGroup, ObservedStore
 from wait_hint_offload.vllm_adapter import engine_rpc
-from wait_hint_offload.vllm_adapter.arc import ARCRecency
+from wait_hint_offload.vllm_adapter.arc import ARCRecency, GroupARCRecency
 from wait_hint_offload.vllm_adapter.binding import require_runtime
 from wait_hint_offload.vllm_adapter.transfers import TransferMetadata, TransferWorker
 
@@ -40,11 +41,11 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             raise ValueError("native ARC required")
         super().__init__(spec, vllm_config, kv_cache_config)
         self.settings = Settings.parse(spec.extra_config)
-        if (
-            len(self.config.kv_group_configs) != 1
-            or self.config.kv_group_configs[0].sliding_window_size_in_chunks is not None
+        if not any(
+            group.sliding_window_size_in_chunks is None
+            for group in self.config.kv_group_configs
         ):
-            raise ValueError("dense single KV group required")
+            raise ValueError("full attention anchor required")
         if vllm_config.parallel_config.world_size != 1:
             raise ValueError("TP1 required")
         if not isinstance(self.manager, CPUOffloadingManager):
@@ -93,7 +94,9 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
         except ValueError as error:
             return result[0], {"wait_hint": {"registered": False, "reason": str(error)}}
         count = self._calc_num_offloadable_tokens(status, request.num_computed_tokens)
-        chunk = self.config.kv_group_configs[0].tokens_per_chunk
+        chunk = math.lcm(
+            *(group.tokens_per_chunk for group in self.config.kv_group_configs)
+        )
         boundary = count // chunk * chunk
         if not boundary:
             return result[0], {
@@ -104,14 +107,29 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
                 "wait_hint": {"registered": False, "reason": "boundary_out_of_range"}
             }
         status.update_offload_keys()
-        keys = tuple(
-            bytes(key)
-            for key in status.group_states[0].offload_keys[: boundary // chunk]
-        )
-        if len(keys) != boundary // chunk:
+        if any(
+            len(state.offload_keys) < boundary // group.tokens_per_chunk
+            for group, state in zip(
+                self.config.kv_group_configs, status.group_states, strict=True
+            )
+        ):
             return result[0], {
                 "wait_hint": {"registered": False, "reason": "incomplete_prefix_keys"}
             }
+        groups = tuple(
+            ObservedGroup(
+                group.tokens_per_chunk,
+                group.sliding_window_size_in_chunks,
+                tuple(
+                    bytes(key)
+                    for key in state.offload_keys[: boundary // group.tokens_per_chunk]
+                ),
+            )
+            for group, state in zip(
+                self.config.kv_group_configs, status.group_states, strict=True
+            )
+        )
+        keys = next(group.keys for group in groups if group.window_chunks is None)
         digest = prefix_digest(
             list(request.all_token_ids[:boundary]), self.settings.namespace
         )
@@ -123,6 +141,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             self.settings.namespace,
             time.monotonic_ns(),
             keys,
+            groups if len(groups) > 1 else (),
         )
         accepted = self.observed.register(
             registration.scope, registration.session, observation
@@ -141,9 +160,15 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
 
     def publish_wait_hint(self, raw: dict[str, Any]) -> dict[str, Any]:
         hint = Hint.parse(raw)
+        observation = self.observed.observation(hint.scope, hint.session)
+        target = (
+            GroupARCRecency(self.recency.policy, observation.groups)
+            if observation is not None and observation.groups
+            else self.recency
+        )
         result = advise(
             self.observed,
-            self.recency,
+            target,
             hint,
             time.monotonic_ns(),
             self.clock_domain,
@@ -213,10 +238,20 @@ class WaitHintConnector(OffloadingConnector):
         if vllm_config.kv_transfer_config.kv_load_failure_policy != "recompute":
             raise ValueError("kv_load_failure_policy must be recompute")
         groups = kv_cache_config.kv_cache_groups
-        if len(groups) != 1 or type(groups[0].kv_cache_spec) is not FullAttentionSpec:
-            raise ValueError("single dense full-attention group required")
-        if str(groups[0].kv_cache_spec.dtype) != "torch.float16":
-            raise ValueError("FP16 KV required")
+        if not groups or not any(
+            type(group.kv_cache_spec) is FullAttentionSpec for group in groups
+        ):
+            raise ValueError("full-attention group required")
+        for group in groups:
+            specification = group.kv_cache_spec
+            if type(specification) in (FullAttentionSpec, SlidingWindowSpec):
+                if str(specification.dtype) != "torch.float16":
+                    raise ValueError("FP16 KV required")
+            elif type(specification) is MambaSpec:
+                if specification.mamba_cache_mode != "align":
+                    raise ValueError("aligned recurrent checkpoints required")
+            else:
+                raise ValueError("unsupported cache group")
         if (
             vllm_config.parallel_config.world_size != 1
             or getattr(vllm_config.parallel_config, "data_parallel_size", 1) != 1

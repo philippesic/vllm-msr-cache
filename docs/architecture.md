@@ -25,11 +25,21 @@ matching. Advice changes queue order only. Each key stays in its own T1/T2 queue
 and the root is most recent within its queue. An absent or pending block ends the
 eligible prefix; active ready references are unchanged.
 
+For multiple cache groups, observations share a token boundary aligned to every
+group’s chunk size. Refresh requires the full-attention prefix and each other group’s
+required window/checkpoint at that boundary. A missing or pending required group
+reduces the boundary or refuses refresh. Recurrent storage retains the native state
+precision, which may differ from attention KV precision. Group key lists are charged
+to the same observation memory budget.
+
 ## Construction
 
 Use the pinned runtime and launcher described in [runtime](runtime.md). The
-connector accepts exactly one dense FP16 full-attention group, TP1, without LoRA or
-speculative decoding, and requires `kv_load_failure_policy="recompute"`. Unsupported
+connector accepts FP16 full-attention groups, optional FP16 sliding-window groups,
+and aligned native recurrent checkpoints, TP1, without LoRA or speculative decoding.
+At least one full-attention group is required. Dense qualification remains the
+established scope; hybrid/sliding qualification is ongoing in [benchmarks](benchmarks.md).
+The connector requires `kv_load_failure_policy="recompute"`. Unsupported
 construction and optimized Python execution refuse explicitly.
 
 Settings are `namespace`, positive `cpu_bytes_to_use`, Boolean `advice_enabled`,

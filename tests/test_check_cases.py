@@ -89,6 +89,7 @@ def prepare(root: Path, component: str) -> None:
         "probe.py",
         "test_probe.py",
         "tools/runtime_verify.py",
+        "tools/benchmark.py",
     ):
         fixture_exceptions += f'[[exception]]\nrule = "script"\npath = "{path}"\nmatch = "entry"\nreason = "Isolated control entry."\n'
     write(
@@ -112,6 +113,7 @@ def prepare(root: Path, component: str) -> None:
             "tools/native.json": (ROOT / "tools/native.json").read_text(),
             "tools/exceptions.toml": fixture_exceptions,
             "tools/runtime_verify.py": (ROOT / "tools/runtime_verify.py").read_text(),
+            "tools/benchmark.py": (ROOT / "tools/benchmark.py").read_text(),
             "test_probe.py": "def test_control() -> None:\n    assert 1 + 1 == 2\n",
             "cpu.json": '["test_probe.py::test_control"]\n',
         },

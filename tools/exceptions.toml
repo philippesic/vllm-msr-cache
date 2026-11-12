@@ -99,3 +99,9 @@ rule = "unused"
 path = "tools/runtime_capture.py"
 match = "unused function 'pytest_sessionfinish' (60% confidence)"
 reason = "Runtime pytest invokes this hook to capture actual executable and loaded binary identities."
+
+[[exception]]
+rule = "script"
+path = "tools/benchmark.py"
+match = "entry"
+reason = "Authorized benchmark entry point owns bounded acquisition and verification."

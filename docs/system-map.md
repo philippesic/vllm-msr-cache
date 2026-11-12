@@ -2,10 +2,11 @@
 
 | Flow | Command | Target | Availability |
 | --- | --- | --- | --- |
+| Benchmark qualification | `uv run --locked python -m tools.benchmark` | `tools/benchmark.py:main` | model/coding probes implemented; comparison campaigns unqualified |
 | CPU checks | `uv run --locked python tools/check.py` | `tools/check.py:main` | implemented |
 | Runtime verify | `uv run --locked python -m tools.runtime_verify` | `tools/runtime_verify.py:main` | implemented; explicit runtime and output required |
 The check enforces these rows against `tools/system_map.py` and the actual targets.
-See [checks](checks.md) for check modes and [runtime](runtime.md) for the runtime lane.
+See [checks](checks.md) for check modes and [runtime](runtime.md) for the runtime lane. See [benchmarks](benchmarks.md) for implementation status and model/coding probes.
 
 Product flow: HTTP `/v1/wait-hints` → endpoint authentication and schema validation →
 engine utility RPC → scheduler-owned observation validation → ready native ARC queue

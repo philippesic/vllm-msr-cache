@@ -52,3 +52,12 @@ def type_cache(root: Path, runtime_python: Path | None = None) -> Path:
         identity = str(runtime_python.absolute())
         lane = "runtime-" + hashlib.sha256(identity.encode()).hexdigest()[:16]
     return base / lane
+
+
+def benchmark_environment(
+    root: Path, model: Path, endpoint: bool = False
+) -> dict[str, str]:
+    env = hardware_environment(root, model)
+    env["VLLM_PLUGINS"] = "wait_hint" if endpoint else ""
+    env["VLLM_SERVER_DEV_MODE"] = "1"
+    return env

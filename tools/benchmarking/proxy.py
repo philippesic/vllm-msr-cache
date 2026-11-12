@@ -1,0 +1,168 @@
+from __future__ import annotations
+
+import json
+import re
+import threading
+import time
+import urllib.error
+from contextlib import contextmanager
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from typing import Any, Iterator, cast
+
+from tools.benchmarking.probe import request
+from tools.runtime_verify import write_record
+
+
+class Proxy(ThreadingHTTPServer):
+    def __init__(
+        self, upstream: str, system: str, namespace: dict[str, str], output: Path
+    ) -> None:
+        super().__init__(("127.0.0.1", 0), Handler)
+        self.upstream = upstream
+        self.system = system
+        self.namespace = namespace
+        self.output = output
+        self.sequence = 0
+        self.serial = threading.Lock()
+
+    def generate(self, payload: dict[str, Any]) -> dict[str, Any]:
+        with self.serial:
+            self.sequence += 1
+            generation = self.sequence
+            start = time.monotonic_ns()
+            registration = {
+                "schema": "wait-registration-v2",
+                "scope": "coding-pilot",
+                "session": "task",
+                "incarnation": self.output.name,
+                "generation": generation,
+            }
+            forwarded = {**payload, "stream": False}
+            write_record(
+                self.output / f"request-{generation:04d}.admission.json",
+                {"request": payload, "start_ns": start, "generation": generation},
+            )
+            removed = 0
+            while True:
+                tokenized = request(
+                    self.upstream + "/tokenize",
+                    {
+                        "model": forwarded["model"],
+                        "messages": forwarded["messages"],
+                        "add_generation_prompt": True,
+                        "chat_template_kwargs": {"enable_thinking": False},
+                    },
+                )
+                if tokenized["count"] + forwarded.get("max_tokens", 512) <= 8192:
+                    break
+                messages = forwarded["messages"]
+                if len(messages) <= 4:
+                    raise ValueError(
+                        "task plus latest tool turn exceeds context budget"
+                    )
+                forwarded["messages"] = messages[:2] + messages[4:]
+                removed += 2
+            if self.system in ("native-arc", "wait-hint"):
+                forwarded["kv_transfer_params"] = {"wait_hint": registration}
+            result = request(self.upstream + "/v1/chat/completions", forwarded)
+            received = time.monotonic_ns()
+            record: dict[str, Any] = {
+                "schema": "benchmark-request-v1",
+                "request": forwarded,
+                "response": result,
+                "start_ns": start,
+                "received_ns": received,
+                "system": self.system,
+                "hint": None,
+                "acknowledgement": None,
+                "compaction": {
+                    "policy": "retain-system-task-and-newest-complete-turns-v1",
+                    "removed_messages": removed,
+                    "forwarded_tokens": tokenized["count"],
+                },
+            }
+            text = result["choices"][0]["message"].get("content") or ""
+            actions = re.findall(
+                r"```mswea_bash_command\s*\n(.*?)\n```", text, re.DOTALL
+            )
+            if (
+                self.system in ("native-arc", "wait-hint")
+                and len(actions) == 1
+                and "COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT" not in actions[0]
+            ):
+                observed = (result.get("kv_transfer_params") or {}).get("wait_hint", {})
+                if observed.get("registered"):
+                    now = time.monotonic_ns()
+                    hint = {
+                        "schema": "wait-hint-v2",
+                        **{
+                            key: value
+                            for key, value in registration.items()
+                            if key != "schema"
+                        },
+                        "event": "tool-wait",
+                        "namespace": self.namespace,
+                        **{
+                            key: observed[key]
+                            for key in (
+                                "prefix",
+                                "boundary",
+                                "observed_ns",
+                                "clock_domain",
+                            )
+                        },
+                        "published_ns": now,
+                        "deadline_ns": now + 60_000_000_000,
+                    }
+                    record["hint"] = hint
+                    record["acknowledgement"] = request(
+                        self.upstream + "/v1/wait-hints", hint
+                    )
+            record["forwarded_ns"] = time.monotonic_ns()
+            write_record(self.output / f"request-{generation:04d}.json", record)
+            return result
+
+
+class Handler(BaseHTTPRequestHandler):
+    def do_POST(self) -> None:
+        if self.path != "/v1/chat/completions":
+            self.send_error(404)
+            return
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+            if not 0 < length <= 4 * 1024 * 1024:
+                raise ValueError("request size")
+            payload = json.loads(self.rfile.read(length))
+            result = cast(Proxy, self.server).generate(payload)
+            content = json.dumps(result).encode()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(content)))
+            self.end_headers()
+            self.wfile.write(content)
+        except urllib.error.HTTPError as error:
+            content = error.read()
+            self.send_response(error.code)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(content)))
+            self.end_headers()
+            self.wfile.write(content)
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            self.send_error(502, str(error))
+
+
+@contextmanager
+def local_proxy(
+    upstream: str, system: str, namespace: dict[str, str], output: Path
+) -> Iterator[str]:
+    output.mkdir(parents=True, exist_ok=False)
+    server = Proxy(upstream, system, namespace, output)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield f"http://127.0.0.1:{server.server_address[1]}"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
