@@ -60,6 +60,54 @@ def test_probe_rejects_missing_task_before_creating_attempt(tmp_path: Path) -> N
     assert not output.exists()
 
 
+def test_trace_cli_preserves_pressure_inputs_and_refuses_mixed_coding(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from typing import Any
+
+    from tools import benchmark
+
+    captured: list[tuple[Any, ...]] = []
+
+    def run(*args: Any) -> int:
+        captured.append(args)
+        return 0
+
+    monkeypatch.setattr(benchmark, "probe", run)
+    arguments = [
+        "benchmark",
+        "probe-model",
+        "--runtime-python",
+        str(tmp_path / "python"),
+        "--model",
+        str(tmp_path / "model"),
+        "--out",
+        str(tmp_path / "out"),
+        "--system",
+        "lmcache",
+        "--trace-case",
+        "T2",
+        "--pressure-prefixes",
+        "48",
+    ]
+    monkeypatch.setattr("sys.argv", arguments)
+    assert benchmark.main() == 0
+    assert captured[0][5] == "lmcache"
+    assert captured[0][9][1] == [
+        {
+            "identity": "trace/T2/lmcache",
+            "kind": "trace",
+            "case": "T2",
+            "seconds": 180,
+            "pressure_prefixes": 48,
+        }
+    ]
+    monkeypatch.setattr("sys.argv", arguments + ["--instance", "coding-task"])
+    with pytest.raises(SystemExit):
+        benchmark.main()
+    assert len(captured) == 1
+
+
 def test_empty_repair_is_a_failed_task_only_with_original_grader_evidence(
     tmp_path: Path,
 ) -> None:

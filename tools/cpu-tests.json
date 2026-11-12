@@ -35,6 +35,7 @@
   "tests/test_benchmark.py::test_runtime_patch_requires_exact_source_and_preserves_backup",
   "tests/test_benchmark.py::test_terminal_hint_detection_requires_a_valid_nonfinal_action",
   "tests/test_benchmark.py::test_terminal_reader_checks_original_tests_instead_of_reward_alone",
+  "tests/test_benchmark.py::test_trace_cli_preserves_pressure_inputs_and_refuses_mixed_coding",
   "tests/test_benchmark.py::test_v5_lmcache_receipt_cannot_pass_without_external_restore",
   "tests/test_benchmark_report.py::test_campaign_recovers_dead_owner_without_retrying_interrupted_cells",
   "tests/test_benchmark_report.py::test_exposure_tracks_source_ancestry_and_retains_failed_admissions",

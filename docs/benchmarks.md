@@ -26,6 +26,11 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
 - `verify-probe /external/attempt` checks a v3/v4/v5/v6 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
+- A focused controlled probe adds `--trace-case T1|T2 --trace-seconds 180
+  --pressure-prefixes 24` to `probe-model`. T1 checks resident/restored continuation;
+  T2 adds competition, abandoned advice and unhinted return. Use 48 pressure prefixes
+  for the admitted Qwen configuration and 24 for Gemma. This is supplementary
+  mechanism evidence, not a replacement for a complete application campaign.
 
 - `report-probe /external/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures
@@ -112,6 +117,10 @@ Current v3 campaigns keep one server per model/comparator/block and reset both G
 and external cache state between tasks. Each application keeps its own transcript,
 requests, grading and deadline. Validation adds a separately accounted pressure,
 abandoned-hint and unhinted-return diagnostic to its last application slot.
+Release also attaches this diagnostic to LMCache's B1-1 slot on each model/start,
+so external pressure coverage does not depend on incidental application traffic.
+These four embedded diagnostics are charged separately within the campaign budget;
+they do not increase the 180 application / 52 standalone trace counts.
 `--case ID` selects a labelled partial acquisition; it cannot qualify the full suite.
 The earlier single-dataset runner remains available for old partial reproductions.
 
@@ -165,6 +174,10 @@ latency tolerances. These are descriptive engineering gates, not statistical mar
 The report exposes paired regressions, raw protected-cohort delays and all failed
 cells; fresh confirmation requires a previously unexposed source group. It never
 turns repeated starts into more source tasks or publishes an overall competitor ranking.
+Application reports identify their timing scope: mini-swe acquisition excludes
+grading; Harbor trial time includes setup, verification and cleanup. Compare only
+matched tasks/harnesses. Engine first-token timing is reported separately and is
+not client streaming latency.
 
 ## Extending and checking
 

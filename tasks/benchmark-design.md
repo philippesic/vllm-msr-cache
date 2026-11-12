@@ -66,12 +66,19 @@ Attempt 03 retained an incorrect test expectation: a full reset invalidates the 
 clock domain before checking observation presence. The corrected test asserts that
 refusal and zero retained counts; the product contract was unchanged. Runtime CPU acceptance passed 18 tests in
 benchmark-runtime-accounting-01; portable full acceptance most recently passed
-68 CPU tests are now collected; the preceding full checkpoint passed 66 tests and
-105 rule proofs. Run full acceptance on the combined checkpoint.
+68 CPU tests and 105 rule proofs passed at checkpoint 50e53cf. Later portable
+reporting/trace-CLI changes are being checked separately.
 
-Release acquisition remains unrun: 180 applications, 52 traces and four bounded
+Release-01 is running from immutable 50e53cf under
+checkouts/benchmark-campaign-02, output attempts/benchmark-release-01. Its full roster is 180 applications, 52 traces and four bounded
 operating runs totaling six hours. Remaining work is live qualification, complete
 release/report gates, the full campaigns, current workflow guidance and closeout.
+The live release snapshot predates explicit LMCache pressure diagnostics. Four
+focused T2 probes (two models/two starts) must supplement it after acquisition; do
+not change its frozen source or pretend the diagnostics ran inside that campaign.
+Future campaigns attach the same diagnostic to LMCache B1-1. The maintained
+probe-model --trace-case entry point supports this supplementary qualification.
+
 The revised diagnostic separates a 1K pressure-prefix fixture from the retained 3K
 resident/restore and calibrated load probes. Its purpose is distinguishing retention
 policy from a pool unable to hold several long prefixes, not changing application
@@ -85,7 +92,7 @@ Raw attempts and assets live under
 are under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established runtime was
 preserved. This project is local-only; checkpoint bundles are verified in the
-existing backups/local-results.bundle. Refresh the bundle after the next checkpoint.
+existing backups/local-results.bundle. The bundle was refreshed and verified at 50e53cf.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.
@@ -190,121 +197,39 @@ Only the first pair isolates advice; no blanket "control" field may change meani
 between a chart and a gate. Valid-task-rate ratios require a sufficiently useful,
 nonzero baseline; otherwise the benefit comparison is unresolved.
 
-### 3a. Revised comparison roster for review
+### 3a. Approved comparison roster
 
-Research on 2026-11-11 and the old published-system adapter establish that the old
-four names are not a sufficient or accurately labelled permanent matrix. The old
-"upstream" arm is karen-sy's draft vLLM PR #59714 (open, draft, unmerged when checked),
-not released upstream vLLM. It applies GPU cached-block priorities at completion;
-this differs from our CPU ARC refresh during a wait. Continuum's public README calls
-its implementation a preview without the paper's estimation component. Preserve these
-identities and do not generalize preview results to the complete paper system.
+Philip selected exactly four arms after the compatibility investigation:
 
-Proposed comparison roster, subject to runtime qualification:
-
-| Target | Role and proposed coverage |
+| Target | Role and coverage |
 | --- | --- |
-| Pinned vLLM GPU prefix cache, no CPU offload | Mandatory simple deployment reference across core compare/release cases |
-| Guarded native CPU ARC, advice disabled | Mandatory causal control, same runtime/guards as wait-hint |
-| Guarded native CPU ARC plus wait-hint | Candidate, all core cases |
-| vLLM plus LMCache, plain exact CPU caching | First external practical offload target; qualify on the common model/workload subset, include in compare and release |
-| Continuum public preview plus its required LMCache integration | Direct session-aware research competitor; include live-agent, low-opportunity and interference cases in compare and release, not only a favorable tool-wait case |
-| GPU retention PR #59714, or a verified merged successor | Relevant GPU-tier mechanism; use the four-way experiment below after explicit runtime-integration approval |
-| SGLang HiCache / TensorRT-LLM retention | Relevant alternatives to reassess if the deployment expands; not mandatory extra engine ports for the initial 2080 Ti scope. Hardware/runtime feasibility remains unverified, not claimed unsupported or inferior. |
+| Pinned vLLM GPU prefix cache, no CPU offload | Simple deployment reference across every core application/trace |
+| Guarded native CPU ARC, advice disabled | Causal control using the candidate runtime and correctness guards |
+| Guarded native CPU ARC plus wait-hint | Candidate across all core cases |
+| vLLM plus LMCache exact CPU caching | External replacement connector, all compare cases and the six shared release tasks |
 
-Plain LMCache distinguishes a practical caching alternative from Continuum's combined
-scheduler/cache system. The default reports Continuum as a whole system. A causal scheduling claim requires
-a separately allocated Continuum on/off comparison on its own runtime with identical
-LMCache settings; it is not included in the default count. Main-runtime LMCache
-and preview-runtime LMCache are not interchangeable controls. Pin publication of
-decode KV, chunk geometry, memory budgets and default versus tuned configurations.
-LMCache is a replacement connector here, not currently a drop-in wait-hint extension:
-our advice mutates native ARC state. Combining them requires a separate adapter/design.
-Do not create that implementation merely to populate a benchmark table.
+LMCache and native ARC own different cache implementations. Their comparison is a
+whole-system comparison with the same weights, runtime pin, GPU limits and declared
+DRAM pool bytes; staging/metadata/padding and process memory remain costs to report.
+LMCache cannot receive our ARC recency advice without a separate adapter/design.
+Do not implement that combination to populate a table.
 
-### DRAM comparator reassessment
+Continuum was excluded because its available runtime lacks the selected architectures.
+Mooncake was researched as a possible replacement but Philip chose the four arms above.
+GPU-retention combinations and other engines are deferred; none is required or
+implicitly authorized here. Historical draft-PR/preview identities and research links
+remain in Git history, not an instruction to restore discarded comparison arms.
 
-Deep primary-source review, 2026-11-11: **qualify direct vLLM Mooncake Store first**
-as the proposed Continuum replacement. Keep five arms and the existing external
-work allocation, rather than adding another full matrix. This would compare
-GPU-only, native ARC, ARC plus wait-hint, LMCache CPU, and Mooncake local DRAM.
-The earlier Continuum roster remains conditional until the replacement is accepted
-and passes functional qualification. Do not report an unsupported arm as passed.
-
-- Mooncake Store: the pinned vLLM connector implements SupportsHMA and checks Mamba
-  block alignment; it accepts full/sliding groups. Embedded local DRAM and TCP
-  fallback avoid requiring RDMA hardware or a cluster. A local metadata master is
-  still required. Use direct MooncakeStoreConnector, not LMCache with a Mooncake
-  storage backend: the latter would not be an independent caching integration.
-  Disable disk offload and remote capacity. Count cache, staging, metadata and
-  process memory; match useful GPU/CPU budgets and disclose eviction leases.
-  First test both actual model layouts, GPU-displaced CPU restoration, continuation
-  correctness, CPU eviction, cleanup and memory fit. Not installed or qualified yet.
-- SGLang HiCache: relevant hierarchical DRAM caching including recurrent state;
-  current SGLang raised minimum support from SM75 to SM80. Therefore a possible
-  5080 cross-engine comparison, not a drop-in 2080 Ti target. Do not resurrect an
-  old runtime without checking the selected models and confounds.
-- FlexKV: relevant local CPU caching and configurable eviction. The inspected vLLM
-  wrapper lacks SupportsHMA and its adapter does not establish recurrent-state
-  support. Keep as a fallback only after proving the actual hybrid layouts; its
-  broader SGLang support does not prove this vLLM path works.
-- llama.cpp host-RAM prompt caching: relevant practical local-serving alternative,
-  including idle-session state caching. It changes runtime, GGUF weights and cache
-  granularity. Suitable for a separately scoped whole-system comparison, not a
-  clean replacement within the current same-weights vLLM experiment.
-- TensorRT-LLM: current hardware list starts at Ampere; current Gemma 4 model matrix
-  does not advertise KV reuse. Dynamo KVBM is deprecated in v1.5, removal targeted
-  for v1.7. Neither is a sensible new dependency for this target.
-- Adjacent deployment frameworks such as llm-d reuse native or third-party cache
-  connectors; counting them as independent eviction competitors would duplicate
-  mechanisms. SGLang's programmatic KV-cache RFC #27574 is closely related to
-  caller-provided retention advice, but a closed RFC is not a qualified runnable
-  comparator: https://github.com/sgl-project/sglang/issues/27574.
-- Research systems (HiState, Marconi, Penelope, CacheScout): useful mechanism leads,
-  but this search did not establish a maintained, runnable implementation covering
-  our hardware and both layouts. Paper results are not compatibility evidence.
-
-Sources checked beyond search snippets:
-[Mooncake pinned deployment guide](https://github.com/vllm-project/vllm/blob/dc1be79031d948d7a18c37600881e45ca708d913/docs/features/mooncake_store_connector_usage.md),
-[pinned connector](https://github.com/vllm-project/vllm/blob/dc1be79031d948d7a18c37600881e45ca708d913/vllm/distributed/kv_transfer/kv_connector/v1/mooncake/store/connector.py),
-[store eviction design](https://github.com/kvcache-ai/Mooncake/blob/main/docs/source/design/store/mooncake-store.md),
-[HiCache guidance](https://github.com/sgl-project/sglang/blob/44643740722a1a633f65f058a03c90ee106822b8/docs/docs/advanced_features/hicache_best_practices.mdx),
-[SGLang minimum-GPU change](https://github.com/sgl-project/sglang/pull/24336),
-[FlexKV adapter](https://github.com/taco-project/FlexKV/blob/15a1b738718c24077027a7777ff75861b923ddcf/flexkv/integration/vllm/vllm_v1_adapter.py),
-[llama.cpp server](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md),
-[TensorRT hardware](https://nvidia.github.io/TensorRT-LLM/supported-hardware.html),
-[TensorRT models](https://nvidia.github.io/TensorRT-LLM/models/supported-models.html),
-[Dynamo deprecation](https://docs.nvidia.com/dynamo/v1.5.0/reference/releases/v1-5-0).
-
-The recommendation prioritizes relevant DRAM behavior and feasible integration,
-not presumed performance. Whole-stack comparisons cannot attribute differences to
-wait-hint alone; native ARC versus ARC plus advice remains the causal comparison.
-
-GPU retention and CPU advice may complement each other. On ONE qualified common
-runtime and identical guarded CPU ARC, run: neither, GPU retention only, CPU advice
-only, both. This measures whether CPU advice still helps after GPU retention and
-whether combining them harms other traffic. Include GPU-resident, GPU-spill and CPU-
-competition conditions. Count GPU survival, CPU restores and recomputation separately.
-This is a compatibility hypothesis, not an available supported configuration. Current
-runtime pins/guards must be requalified; a cross-version comparison cannot substitute
-for this four-way attribution. Use a common causal signal policy, with no future-return
-knowledge; declare that completion-time retention and later wait updates have different
-interfaces, and separate native best-use comparisons from matched-information tests.
-
-Quick compare (also called validation in discussion) includes the qualified external
-shortlist on a compact common subset, not only ARC versus wait-hint. Core three arms
-cover every selected workload family; LMCache and Continuum cover common no-benefit,
-pressure, real-agent and interference cases. The four-way combination is an optional replacement study requiring an explicit
-coverage/budget revision, not a mandatory default run. Explicit case filters support faster diagnostics,
-but a filtered run is not the whole compare profile. Section 6 owns the current conditional time budget; pilots must measure startup
-and case costs before acquisition.
-Unsupported configurations remain visible. Competitive claims cover only jointly
-exercised models/cases; external arms need not multiply every correctness/fault test.
+Quick compare includes all four systems. Release competitive statements cover only
+the common six-task subset and actually exercised conditions. Unsupported or inactive
+conditions stay visible and cannot be scored as slower or inferior. The native ARC /
+wait-hint pair isolates advice; cross-connector differences do not.
 
 ### 4. Coding-first model and deployment proposal
 
 Philip requires the 11 GiB RTX 2080 Ti as the primary target; selected runs may use
-an RTX 5080 with 16 GiB. Larger GPUs are not assumed. The previous two small 2025
+an RTX 5080 with 16 GiB in a separately authorized study. This implementation task
+uses only the 2080 Ti. Larger GPUs are not assumed. The previous two small 2025
 full-attention models were rejected: selection must represent current local coding
 and materially different cache architectures, not merely convenient existing support.
 
@@ -456,7 +381,7 @@ retention study. Execution IDs and their allocations are:
 | --- | --- | ---: |
 | T1–T3 | Three phased traces, core three systems, both models, two blocks | 36 |
 | O1–O2 | Qwen guarded ARC with no registration/hints, and registration-only; no-reuse/resident/pressure phases, two blocks each; matched enabled and advice-disabled references come from T1–T3 | 4 |
-| R1 | Frozen previous release on Qwen and Gemma, one mixed pressure/interference trace per model, two blocks; current references come from T1–T3 | 4 |
+| R1 | Frozen advice-disabled ARC on this initial release, both models/two blocks; reference evidence, not a previous-release regression claim | 4 |
 | D1 | Small dense full-attention sentinel, candidate and frozen previous release (or guarded ARC on the initial release), two blocks | 4 |
 | A1 | Extra identical guarded-ARC Qwen start per block paired with T1–T3 for A/A drift/noise diagnostics | 2 |
 | S1 | Qwen guarded-ARC trace with a known measured-path delay, one per block, compared with T1–T3 | 2 |
@@ -834,9 +759,9 @@ are optional studies, not additional mandatory default arms. Use actual output/t
 token rate does not rank differently sized or incorrect answers. An unavailable or
 unsupported competitor is listed as such, never treated as slower. Existing historical
 Continuum/upstream experiments provide fairness lessons, not current qualification.
-The proposed shortlist and combination study are specified in section 3a; exact
-versions, hardware fit and adapters remain admission work. No package is downloaded
-or runtime changed by this plan.
+The approved four-arm roster is specified in section 3a. Runtime repairs and model
+restoration proofs are recorded in State. Unsupported engines are excluded rather
+than assigned performance ranks.
 
 ### 14. Release evidence package and claim audit
 
@@ -891,8 +816,7 @@ three. Diagnostic investigations are case filters or separate traced runs, not e
 normal categories. Compare does not secretly redefine denominators or stopping rules.
 
 Proposed single CLI: `uv run --locked python -m tools.benchmark`, with plan/run/verify/
-report/resume subcommands and `--profile functional|compare|release`. CLI does not
-exist yet. Reuse tools/process.py ownership/timeout/cleanup and existing snapshot
+report/resume subcommands and `--profile functional|compare|release`. The CLI is implemented; docs/benchmarks.md owns current commands and status. Reuse tools/process.py ownership/timeout/cleanup and existing snapshot
 helpers; preserve functional receipt semantics when extracting shared helpers.
 Keep runtime_verify as the existing correctness tool, not a second campaign runner.
 
@@ -903,7 +827,7 @@ profiles, no dynamic plugin framework. All environment reads remain in config mo
 New candidates change arm identity/config, not copied scripts. New models qualify
 existing cases; new mechanisms declare their actual activity evidence.
 
-Add one reviewed script exception, system-map entry, README link and docs/benchmarking.md.
+Maintain the reviewed script entry, system-map entry, README link and docs/benchmarks.md.
 Propose a short AGENTS link telling agents which profile to use, that valid measurement
 is not a win, and to retain negative/incomplete attempts. Full portable checks cover
 schemas, references, accounting fixtures, adapters and offline verification without
@@ -927,7 +851,7 @@ full workload x three environments Cartesian product is removed. Keep the broad 
 panel and targeted mechanism coverage distinct; new obligations require explicit cost
 rather than silently multiplying all cells. One-time hybrid/window support, quantized
 kernel qualification and runner implementation are prerequisites, not included in the
-GPU acquisition ETAs and not yet estimated. This design remains under user review.
+GPU acquisition ETAs and not yet estimated. The design is authorized for engineering implementation/acquisition; qualification is measured separately.
 
 Build in this order:
 
@@ -968,11 +892,10 @@ not silently treated as passed. New mechanisms or observed failure modes require
 review of this map and focused cases. Confidence becomes empirical only after the
 harness sensitivity checks, coverage and repeated release runs actually succeed.
 
-Still unresolved before executable release acquisition: hybrid/window architecture support, quantized kernel compatibility and model fit; fresh corpus/source groups and rights; absolute task-quality floors and
-latency objectives where relevant; telemetry availability/overhead and measurement resolution;
-external-system compatibility; raw-storage budget; durable ownership/notification;
-review of proposed numeric tolerance and exposure targets. These are explicit release
-readiness blockers, not items an agent may fill with favorable defaults after results.
+The current State distinguishes implemented, exercised and qualified paths. Formal
+release eligibility still requires the frozen policy, measured activity, task utility,
+noise/protected-traffic checks and exposure evidence. A completed engineering campaign
+cannot waive a missing gate or approve broader product claims.
 
 ### 18. Adversarial review and disposition
 
