@@ -65,7 +65,9 @@ class Proxy(ThreadingHTTPServer):
                 removed += 2
             if self.system in ("native-arc", "wait-hint"):
                 forwarded["kv_transfer_params"] = {"wait_hint": registration}
-            result = request(self.upstream + "/v1/chat/completions", forwarded)
+            result = request(
+                self.upstream + "/v1/chat/completions", forwarded, timeout=90
+            )
             received = time.monotonic_ns()
             record: dict[str, Any] = {
                 "schema": "benchmark-request-v1",

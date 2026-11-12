@@ -11,6 +11,8 @@
   "tests/test_advice.py::test_wrong_identity_is_no_action",
   "tests/test_benchmark.py::test_campaign_keeps_failed_cells_in_coverage",
   "tests/test_benchmark.py::test_campaign_refuses_unimplemented_coverage_before_acquisition",
+  "tests/test_benchmark.py::test_coding_deadline_retains_patch_before_owned_container_cleanup",
+  "tests/test_benchmark.py::test_coding_image_drift_refuses_before_tagging",
   "tests/test_benchmark.py::test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions",
   "tests/test_benchmark.py::test_compare_is_one_block_and_unknown_profiles_refuse",
   "tests/test_benchmark.py::test_external_restoration_requires_cpu_reuse_and_fresh_equal_tokens",

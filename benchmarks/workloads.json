@@ -22,7 +22,8 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "swebench-4.1.0",
       "seconds": 240,
-      "exposure": "feasibility-pilot"
+      "exposure": "feasibility-pilot",
+      "image_id": "sha256:bde4fbdafa36141d4396944da88ec37aabdef612ed36920090675bccd0ca5d72"
     },
     {
       "id": "C1-2",
@@ -31,7 +32,8 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "swebench-4.1.0",
       "seconds": 240,
-      "exposure": "selected-not-executed"
+      "exposure": "selected-not-executed",
+      "image_id": "sha256:71c78211f16803c111ed1807ded20f8defd5f6917fb958ace4e076d5ea7d8b10"
     },
     {
       "id": "C1-3",
@@ -40,7 +42,8 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "swebench-4.1.0",
       "seconds": 240,
-      "exposure": "selected-not-executed"
+      "exposure": "selected-not-executed",
+      "image_id": "sha256:0a1f84cd32e2c8332f90bfad6f3fd16304f25c01384adb4ffd4f7250316bd60a"
     },
     {
       "id": "C1-4",
@@ -49,7 +52,8 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "swebench-4.1.0",
       "seconds": 240,
-      "exposure": "selected-not-executed"
+      "exposure": "selected-not-executed",
+      "image_id": "sha256:744c19afa2b657ef131aea81a85d1c9cf86fe934b50db44443a5fdcdc9ac9649"
     }
   ]
 }

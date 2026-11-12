@@ -22,121 +22,82 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 
 ## State
 
-Implementation is active and incomplete. The functional entry point reuses the existing
-GPU gate. Compare/release allocations are encoded (12/180 applications, 52 release
-traces, six hours of soak), but full workload definitions,
-resumption and release verdicts are not implemented or qualified. A partial C1 campaign
-runner and verifier are implemented with explicit coverage/refusal checks; real campaign
-qualification is still pending. Do not confuse the
-bounded feasibility pilots with the agreed suites.
+Implementation is active and incomplete. The functional entry point passed four
+real GPU cases, including full/sliding attention against a float reference for
+256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
+52 release traces and six hours of soak. Only partial C1 acquisition and its reader
+are implemented. Remaining workload definitions, activity contracts, traces, soak,
+resume and release verdicts still need implementation and real qualification.
+Successful feasibility pilots are not completion of these suites.
 
-The bounded model/coding probe snapshots source and hashes model artifacts, applies
-finite deadlines, cleans its owned server/container processes, captures requests and
-causal hints, and grades saved patches with the original SWE-bench grader. The reader
-checks token equality, artifact identities and the original grading report; the report
-refuses incomplete request captures and distinguishes hint activity from actual reuse.
-Context management retains system/task instructions and recent complete tool turns.
-Failed, unfavorable and obsolete-schema attempts remain immutable outside Git.
+The maintained probe snapshots source, hashes local model artifacts and relevant
+installed runtime files, bounds execution, cleans owned processes, captures real
+tool turns and causal hints, and grades saved patches with the original SWE-bench
+4.1.0 grader. Its independent reader checks identities, restored/fresh token IDs,
+artifacts and original grading reports. The report rejects incomplete request
+captures. Context compaction retains system/task instructions and recent complete
+turns. Failures and earlier receipt meanings remain immutable.
 
-Qwen3.5 W4A16 runs on the 2080 Ti in the isolated compatibility environment. Its
-wait-hint and ARC probes demonstrated registered group readiness, CPU restoration after
-GPU displacement, and restored/fresh token-ID equality. Native group-aware recency
-aligns full attention, sliding windows and recurrent checkpoints; broad hybrid failure
-and correctness qualification remains unfinished. The separate compatibility runtime
-passed 18 runtime CPU tests (runtime-cpu-20261112T034300Z) and all three dense GPU tests
-(hardware-20261112T035825Z). These are functional observations, not performance evidence.
+The authorized roster is GPU-only, native ARC, wait-hint and LMCache. Continuum and
+Mooncake are excluded. Qwen receives 256 MiB of DRAM cache per CPU arm; Gemma receives
+2 GiB per CPU arm because smaller LMCache pools could not retain required objects.
+Physical memory/staging differences remain reportable comparator costs. Serving is
+8K, FP16 eager TP1 on the 11 GiB 2080 Ti. The optional 5080/precision study is deferred.
 
-Coding baseline attempt benchmark-qwen35-coding-04 completed 24 tool turns but its
-integrated SWE-bench 5.0.2 grader was incompatible with the classic Verified schema.
-The saved patch was regraded successfully using 4.1.0 in benchmark-coding-grade-01;
-the original failed attempt was not rewritten. Attempt benchmark-qwen35-coding-05
-then completed the integrated ARC control path: 24 model turns, 207.56 seconds of
-acquisition, 275.01 seconds including startup/restoration/grading, original grader
-resolved=true, and successful independent receipt/report verification. Ten turns
-required context compaction. Candidate attempt benchmark-qwen35-coding-06 also resolved the task: 24 turns,
-216.47 seconds acquisition / 282.64 seconds total, five refreshed hints and 17
-no-ready-prefix acknowledgements. It produced the same token counts and cached-token
-count as the control. Both complete receipts and request reports verify. This is
-not evidence of useful retention or a statistically established timing difference.
-These exposed feasibility tasks are not fresh confirmation or a quality score.
+Both modern models now load and execute actual CPU restoration. Qwen native ARC and
+wait-hint probes passed group readiness and exact restored/fresh continuations.
+Gemma native restoration passed in benchmark-gemma4-patched-02. LMCache restoration
+passed on Qwen in benchmark-lmcache-qwen35-12 and Gemma in
+benchmark-lmcache-gemma4-04 (3072 cached prompt tokens, zero fresh, equal continuation
+IDs). Independent readers accepted these receipts. Broad hybrid fault, lifecycle and
+performance qualification remains unfinished.
 
-The mini-swe-agent 2.4.6 / Harbor 0.25.0 / SWE-bench 4.1.0 environment is hash-locked in
-benchmarks/harness-requirements.txt. A new wait-hint-benchmarks-locked environment
-installed it with --require-hashes --no-deps and passed uv pip check (131 packages).
-Docker and source task assets are local. Image pinning, remaining task families,
-original validators, activity contracts and workload cost admission remain unfinished.
+The approved Gemma Turing compatibility patch uses one pipeline stage and a maximum
+16-token KV tile for 512-wide heads on capability 7.5. A stages-only attempt still
+exceeded shared memory. LMCache 0.5.6 requires three opt-in local repairs on this WSL
+host: permission for its specific receiver child to share VMM memory, expandable
+allocation enabled only for KV after weight loading, and its existing staged-copy
+path instead of the failing direct batch-copy path. No global ptrace setting changed.
+The four exact source patches and hashes are maintained in
+benchmarks/runtime-patches/manifest.json; patch-runtime preserves originals and
+refuses unrelated installed edits. Extra staging cost must be disclosed.
 
-Current authorization and compatibility work:
+Real coding feasibility on the exposed Flask issue passed the original grader for
+Qwen native ARC, wait-hint and LMCache. The LMCache pilot
+benchmark-lmcache-qwen35-coding-01 took 216.90 seconds of acquisition, completed 24
+requests, resolved the task and passed receipt/report verification. Native control
+and candidate had equal token/cache counts; these pilots establish neither useful
+retention nor a comparative performance benefit. Gemma LMCache coding attempt 01
+failed because the proxy's 30-second request deadline expired during normal slow
+decode. The common request deadline is now 90 seconds (120 at the harness client),
+within unchanged task/campaign budgets. Attempt 02 completed ten captured requests
+but exceeded the 240-second acquisition limit; it remains incomplete, with no
+cache transfer fault observed. New runs retain incremental trajectories and snapshot
+unfinished patches before owned-container cleanup; a deadline cannot pass even when
+the retained patch grades. Preserve both failed attempts.
 
-Philip subsequently fixed the roster to GPU-only, native ARC, wait-hint and LMCache.
-Continuum and the proposed Mooncake replacement are removed from implementation
-scope. Compare has 12 application cells; release has 180 application cells. Existing
-trace/soak allocations remain. Repair LMCache and complete/verify the full suite;
-startup-only qualification is insufficient.
-
-- Philip approved a narrow Gemma runtime kernel compatibility patch. Gemma loads
-  with Transformers 5.14.0 in the separate compatibility runtime and fits 8K at
-  batch 512 / GPU utilization 0.89, but both tested attention backends exceed
-  Turing's 65,536-byte shared-memory limit. Patch qualification remains unfinished.
-- Philip explicitly requested repairing LMCache if feasible and researching a DRAM
-  comparator to replace Continuum. External comparisons remain required; reducing
-  the campaign to core arms is not approved. Continuum's preview registers neither
-  selected architecture. Replacement selection below is a proposal, not qualification.
-- LMCache 0.5.6 ordinary and isolated CUDA IPC fail on this host. Engine-driven
-  transfer rejects multiple cache groups. A minimal PyTorch virtual-memory-allocator
-  transfer succeeded with permission granted only to the receiving child process;
-  this does not yet establish LMCache transfer correctness. Attempts and exploratory
-  patch identities are retained outside Git. No system-wide ptrace setting changed.
-  Attempt 05 failed raw isolated IPC; 06 passed startup/generation after the
-  process-specific permission patch and expandable allocator. Attempts 07/08/10
-  then failed actual DRAM-store staging with CUDA illegal memory access, including
-  synchronous CUDA diagnostics and a separate server allocator configuration.
-  Attempt 09 was deliberately interrupted because its patch precondition failed;
-  it supplies no compatibility result. All attempts remain retained. Exploratory
-  site-package changes were restored after testing; LMCache is still unqualified.
-  The maintained probe now exercises external restore/fresh continuation rather
-  than accepting generation alone on newly executed LMCache probes. Prior v3
-  receipts remain readable and do not retroactively gain restoration evidence.
+The isolated mini-swe-agent 2.4.6 / Harbor 0.25.0 / SWE-bench 4.1.0 environment is
+hash-locked (131 packages) and passes dependency checks. Original SWE-bench 5.0.2
+was incompatible with the classic dataset; the failed run and separate 4.1.0 regrade
+are preserved. Four C1 source tasks are selected, one pilot-exposed. Their downloaded images are
+pinned by complete content IDs; campaign v2 freezes those IDs across cells and
+refuses acquisition/grading drift. A saved Qwen patch passed the original grader
+using its content-addressed image tag. The grader now disables its broad image
+cleanup, which otherwise deleted a concurrently downloaded owned task image; that
+image was restored. Fresh source/task admission, independent validators and cost
+admission remain open.
 
 Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
-Established runtime: wait-hint-offload. Compatibility runtime: wait-hint-benchmark-runtime.
-Separate comparator runtime: wait-hint-lmcache. All reside under the existing external
-venvs root. No paid compute, remote publication, delegation or 5080 use occurred.
+Isolated runtimes under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
+wait-hint-lmcache and wait-hint-benchmarks-locked. The established wait-hint-offload
+environment was preserved. The previous portable checkpoint passed 46 CPU tests and 105 rule
+proofs; the new deadline/image behavior checks bring portable coverage to 48 tests,
+with combined acceptance running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
+existing external backups directory. No paid compute, remote publication, automatic
+delegation or 5080 use occurred.
 
-The public functional command passed all three dense GPU tests in 96 seconds and its
-receipt verified (benchmark-functional-01). The portable lane passes 46 CPU tests;
-full rule-proof acceptance runs at the checkpoint. No owned GPU job remains.
-
-LMCache repair update: attempt benchmark-lmcache-qwen35-12 passed actual CPU
-restore/fresh continuation after disabling the direct batch-copy path while retaining
-LMCache's existing staged-copy implementation, together with process-specific VMM
-sharing permission. Attempt 11 showed pinning the block-ID staging input did not fix
-the fault; the failure occurred after an earlier store. This establishes one Qwen
-functional path, not general stability, Gemma support or benchmark completion.
-The patch is opt-in via LMCACHE_WSL_VMM and is being qualified through maintained
-patch-runtime, with exact original/patched source hashes and backups. Gemma's first
-num_stages-only patch still exceeded shared memory; a smaller KV tile is under test.
-
-Current compatibility qualification: benchmark-gemma4-patched-02 passed native
-restoration; benchmark-functional-02 passed all four GPU cases including the new
-large-head float-reference check. benchmark-lmcache-gemma4-04 passed restoration
-with 3072 cached prompt tokens, zero on fresh computation, and matching continuation
-IDs. Its independent receipt verification passed. Gemma needs a 2 GiB matched DRAM
-budget: 256 MiB/1 GiB pools could not retain the required objects. All three cache
-arms now receive 2 GiB on Gemma, 256 MiB on Qwen. LMCache additionally switches to
-expandable allocation only for KV after weights load; enabling it for the large
-Gemma weight allocations failed. The Qwen LMCache live coding pilot benchmark-lmcache-qwen35-coding-01 resolved
-the issue under the original grader (216.90 seconds acquisition); its receipt/report
-verification is underway. A Gemma LMCache coding pilot is running.
-The maintained patch manifest captures all four changes. These observations do not
-qualify all workloads, fault behavior, long operation or a release.
-
-Next: qualify the approved compatibility repairs and resolve the external replacement;
-continue authentic workload admission and campaign implementation, then exercise the
-full agreed profiles within their original budgets. Broad release evidence is not ready.
-
-The following design remains the intended contract; its historical planning-only
-statements are superseded by the implementation authorization above.
+The design below is the intended contract. Implementation authorization above
+replaces its original planning-only language; unqualified promises are not results.
 
 ### 1. What a release verdict means
 
