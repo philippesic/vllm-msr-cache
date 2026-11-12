@@ -26,8 +26,7 @@ Implementation is active and incomplete. The functional entry point passed four
 real GPU cases, including full/sliding attention against a float reference for
 256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
 52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring, C3 navigation, C4 terminal and B1 grounded-document acquisition and their readers
-are implemented; mixed-dataset campaign integration is pending. Branching acquisition and its two-branch grading are implemented but not yet live-qualified. Remaining activity contracts, traces, soak,
-resume and release verdicts still need implementation and real qualification.
+are implemented; mixed-dataset campaign integration is pending. Branching acquisition and its two-branch grading are implemented but not yet live-qualified. Shared-server panels, mixed-dataset admission, bounded traces and append-only resume are now implemented but not GPU-qualified. Remaining activity/resource/fault gates and release verdicts still need completion.
 Successful feasibility pilots are not completion of these suites.
 
 The maintained probe snapshots source, hashes local model artifacts and relevant
@@ -149,7 +148,9 @@ RFC 5861/9111 comparison. Source bytes, URLs, structured facts and acceptable ev
 spans were frozen before candidate output. Known answers passed
 benchmark-grounded-checker-01/02; correct facts with an unrelated citation failed
 benchmark-grounded-checker-negative-01. All three receipts verified. This is a narrow
-fact/citation rubric, not general summary-quality qualification. The live Qwen wait-hint document pilot benchmark-qwen35-grounded-02 completed with an unresolved answer; independent report verification is running. Attempt 01 used an incorrect task identifier and failed before application acquisition; it is preserved. New probe preflight rejects missing tasks before starting a model.
+fact/citation rubric, not general summary-quality qualification. The live Qwen wait-hint document pilot benchmark-qwen35-grounded-02 completed six requests in 51.37 seconds with an unresolved answer; independent report verification passed. Attempt 01 used an incorrect task identifier and failed before application acquisition; it is preserved. New probe preflight rejects missing tasks before starting a model.
+
+The first branching pilot completed its fixed 12 turns but submitted an empty repair and an out-of-scope test patch. The official grader records empty patches in its aggregate summary rather than a per-case report; the wrapper now preserves and recognizes that unsuccessful outcome. A separate original-grader regrade in benchmark-empty-repair-checker-01 confirmed the repair. Branch acquisition now uses the same conda shell initialization as the other coding harness and allows up to 32 turns within the unchanged 240-second wall budget. Attempt 01 remains failed and immutable.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.
@@ -1124,7 +1125,9 @@ Additional comparison and workload research (2026-11-11):
 - [WildChat data card](https://huggingface.co/datasets/allenai/WildChat-1M): authentic conversation shapes; timestamp and ancestry limitations require inspection.
 
 ## Next
-Philip reviews the consolidated bounded contract, architecture implementation scope,
-prospective advice/harm tolerances and explicit acquisition budget. Audit hybrid/window offload feasibility and Turing quantization
-before implementing the revised suite. No GPU campaign can be scheduled from the
-conditional ETAs until supported paths and actual model fit are established.
+Complete the shared-server campaign runner, controlled traces, operating/fault checks,
+resume and reporting. Qualify the live branching and second terminal paths, then run
+and independently verify the complete compare and release suites within the authorized
+budgets. No user answer or renewed permission is pending. Status requests and read-only
+consultations do not end this implementation task. Retain failed outcomes and distinguish
+completed measurement from release eligibility and supported benefit.

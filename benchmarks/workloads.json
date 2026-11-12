@@ -158,6 +158,41 @@
       "seconds": 240,
       "exposure": "selected-not-executed",
       "image_id": "sha256:b2733e57feb4cfaeac24ab5ec496d4cb89a37db53bd0ca72eaededdb2ce19d1c"
+    },
+    {
+      "id": "V1",
+      "instance": "psf__requests-1921",
+      "base_commit": "3c88e520da24ae6f736929a750876e7654accc3d",
+      "dataset": "swebench-c2",
+      "task_kind": "repair",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "swebench-4.1.0",
+      "seconds": 120,
+      "exposure": "development-validation",
+      "image_id": "sha256:2ee0a4c706f04d2926a1622ec51b53d4ce6010b80d3ee10d414ea2a276c26cc9"
+    },
+    {
+      "id": "V2",
+      "instance": "pallets__click-navigation",
+      "base_commit": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "dataset": "navigation-c3",
+      "task_kind": "navigation",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-navigation-impact-v1",
+      "seconds": 120,
+      "exposure": "development-validation",
+      "image_id": "sha256:74c39af4d671327ac2fd243a649c6e029a675ac4df5141ee0cda201cbb71fe7d"
+    },
+    {
+      "id": "V3",
+      "instance": "grounded__queue-shutdown",
+      "dataset": "grounded-b1",
+      "task_kind": "grounded",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-facts-and-citations-v1",
+      "seconds": 120,
+      "exposure": "development-validation",
+      "image_id": "sha256:43db88051593792a9c97630bee2d4f89dd6006c73183f9e9cbb2ed5a2d99dafa"
     }
   ],
   "additional_datasets": {
@@ -189,5 +224,6 @@
       "revision": "c104f840cc67f8b6eec6f759ebc8b2693d585d4a",
       "selection": "Real independent Requests issue; production repair and test-only fork from a shared retrieved source transcript, return to the original branch. Selected before candidate output."
     }
-  }
+  },
+  "validation_policy": "Three complete bounded development workflows. Shared task ancestry with qualification pilots is exposed; this is advisory development feedback, not fresh release confirmation."
 }

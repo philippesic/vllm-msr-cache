@@ -11,7 +11,11 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-from tools.benchmarking.harness import grade_swebench, pin_swebench_image
+from tools.benchmarking.harness import (
+    grade_swebench,
+    pin_swebench_image,
+    verify_coding_grade,
+)
 from tools.benchmarking.probe import digest_file, request
 from tools.benchmarking.regression import grade_regression, verify_regression
 from tools.runtime_verify import write_record
@@ -84,6 +88,8 @@ def run_branching(
                 "PAGER=cat",
                 "-e",
                 "GIT_PAGER=cat",
+                "-e",
+                "BASH_ENV=/root/.bashrc",
                 names[branch],
                 "timeout",
                 "15",
@@ -209,14 +215,14 @@ def run_branching(
                 "image": image,
                 "shared_transcript_sha256": transcript_identity(shared),
                 "budget_seconds": seconds,
-                "schedule": ["A:3", "B:4", "A:5"],
+                "schedule": ["A:6", "B:10", "A:16"],
                 "scope": "project-authored transcript fork, independent real patches, return to original branch and original/fail-before-pass-after grading",
             },
         )
-        turns("A", 3, "initial-fix")
+        turns("A", 6, "initial-fix")
         original_a = execute("A", "git diff --no-ext-diff", retain_full=True)
         write_record(output / "A-before-B.json", original_a)
-        turns("B", 4, "competing-test")
+        turns("B", 10, "competing-test")
         after_b = execute("A", "git diff --no-ext-diff", retain_full=True)
         write_record(output / "A-after-B.json", after_b)
         if after_b != original_a:
@@ -231,7 +237,7 @@ def run_branching(
                 + json.dumps(diagnostic),
             }
         )
-        turns("A", 5, "return-and-revise")
+        turns("A", 16, "return-and-revise")
         state["execution_exit"] = 0
     except (
         OSError,
@@ -372,19 +378,12 @@ def verify_branching(output: Path) -> dict[str, Any]:
         != (output / "A.patch").read_text()
     ):
         raise ValueError("branch graders used different patches")
-    repair = json.loads((output / "repair-grade/terminal.json").read_text())
-    reports = list((output / "repair-grade/logs/run_evaluation").rglob("report.json"))
-    if (
-        len(reports) != 1
-        or json.loads(reports[0].read_text()) != repair["report"]
-        or repair["exit_code"] != 0
-    ):
-        raise ValueError("branch repair grade incomplete")
+    repair = verify_coding_grade(output / "repair-grade")
     if regression != state["regression_grade"] or repair != state["repair_grade"]:
         raise ValueError("branch grading differs from original observations")
     resolved = (
         all(state["completed_branches"].values())
-        and repair["report"][admission["instance"]]["resolved"]
+        and repair["quality"] == "resolved"
         and regression["quality"] == "resolved"
     )
     if state["quality"] != ("resolved" if resolved else "unresolved"):

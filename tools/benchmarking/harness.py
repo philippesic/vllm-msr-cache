@@ -396,5 +396,64 @@ def grade_swebench(
         result["quality"] = (
             "resolved" if result["report"][instance]["resolved"] else "unresolved"
         )
+    elif status == 0:
+        summaries = list(output.glob("*." + run_id + ".json"))
+        submitted = json.loads(predictions.read_text())[instance]
+        if len(summaries) == 1 and not submitted.get("model_patch"):
+            summary = json.loads(summaries[0].read_text())
+            if (
+                summary["submitted_ids"] == [instance]
+                and summary["empty_patch_ids"] == [instance]
+                and summary["error_ids"] == summary["completed_ids"] == []
+            ):
+                result.update(quality="unresolved", empty_patch_summary=summary)
     write_record(output / "terminal.json", result)
     return result
+
+
+def verify_coding_grade(output: Path) -> dict[str, Any]:
+    admission = json.loads((output / "admission.json").read_text())
+    grading: dict[str, Any] = json.loads((output / "terminal.json").read_text())
+    if grading["exit_code"] != 0:
+        raise ValueError("repair grader did not complete")
+    if "empty_patch_summary" in grading:
+        instance = admission["instance"]
+        prediction = json.loads(Path(admission["predictions"]).read_text())[instance]
+        summaries = [
+            json.loads(path.read_text())
+            for path in output.glob("*.json")
+            if path.name not in ("admission.json", "terminal.json")
+        ]
+        summary = grading["empty_patch_summary"]
+        if (
+            prediction.get("model_patch")
+            or digest_bytes(Path(admission["predictions"]).read_bytes())
+            != admission["predictions_sha256"]
+            or summary not in summaries
+            or summary["submitted_ids"] != [instance]
+            or summary["empty_patch_ids"] != [instance]
+            or summary["error_ids"] != []
+            or summary["completed_ids"] != []
+            or grading["quality"] != "unresolved"
+        ):
+            raise ValueError("empty repair result differs from original summary")
+    else:
+        reports = list((output / "logs/run_evaluation").rglob("report.json"))
+        if len(reports) != 1 or json.loads(reports[0].read_text()) != grading["report"]:
+            raise ValueError("missing original repair grading observations")
+        if type(grading["report"][admission["instance"]]["resolved"]) is not bool:
+            raise ValueError("original grader has no boolean task verdict")
+        expected = (
+            "resolved"
+            if grading["report"][admission["instance"]]["resolved"]
+            else "unresolved"
+        )
+        if grading["quality"] != expected:
+            raise ValueError("repair verdict differs from original grader observations")
+    return grading
+
+
+def digest_bytes(content: bytes) -> str:
+    import hashlib
+
+    return hashlib.sha256(content).hexdigest()

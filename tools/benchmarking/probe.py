@@ -49,11 +49,14 @@ def probe(
     backend: str = "TRITON_ATTN",
     coding: tuple[Path, Path, str] | None = None,
     coding_kind: str = "repair",
+    panel: tuple[Path, list[dict[str, Any]]] | None = None,
 ) -> int:
     if not python.is_file() or not (model / "config.json").is_file():
         raise ValueError("runtime Python and a complete local model are required")
-    if output.is_relative_to(root) or not 0 < seconds <= 1800:
-        raise ValueError("new external output and timeout in 1..1800 required")
+    if output.is_relative_to(root) or not 0 < seconds <= (108000 if panel else 1800):
+        raise ValueError("new external output and supported bounded timeout required")
+    if panel is not None and coding is not None:
+        raise ValueError("use either a panel or a single coding probe")
     if system not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):
         raise ValueError("unsupported system")
     if coding_kind not in (
@@ -117,7 +120,9 @@ def probe(
     write_record(
         output / "admission.json",
         {
-            "schema": "benchmark-model-probe-v5",
+            "schema": "benchmark-model-probe-v6"
+            if panel
+            else "benchmark-model-probe-v5",
             "command": command,
             "source_sha256": identities,
             "budget_seconds": seconds,
@@ -126,6 +131,7 @@ def probe(
             "model_sha256": model_identity,
             "runtime_packages": json.loads(runtime.stdout),
             "runtime_sources": json.loads(runtime_sources.stdout),
+            **({"panel": {"python": str(panel[0]), "jobs": panel[1]}} if panel else {}),
             "coding": None
             if coding is None
             else {
@@ -139,7 +145,9 @@ def probe(
     )
     result: dict[str, Any] = {
         "status": "failed",
-        "schema": "benchmark-model-terminal-v5",
+        "schema": "benchmark-model-terminal-v6"
+        if panel
+        else "benchmark-model-terminal-v5",
         "scope": "model-loading-generation-and-optional-restoration",
     }
     with (output / "execution.log").open("x") as log:
@@ -207,6 +215,28 @@ def probe(
                         )
                         validate_external_restoration(result["external_restore"])
                         result["status"] = "restoration_observed"
+                    if panel is not None:
+                        from tools.benchmarking.panel import acquire_panel
+
+                        result["panel"] = acquire_panel(
+                            root,
+                            panel[0],
+                            panel[1],
+                            f"http://127.0.0.1:{port}",
+                            namespace,
+                            system,
+                            output / "panel",
+                            started + seconds - 20,
+                            2 * 1024**3
+                            if json.loads((model / "config.json").read_text()).get(
+                                "model_type"
+                            )
+                            == "gemma4_unified"
+                            else 256 * 1024**2,
+                        )
+                        if not result["panel"]["complete"]:
+                            result["status"] = "failed"
+                            result["reason"] = "panel has failed or unexecuted cells"
                     if coding is not None:
                         from tools.benchmarking.harness import run_swebench
                         from tools.benchmarking.proxy import local_proxy
@@ -300,7 +330,7 @@ def probe(
     )
 
 
-def verify_probe(output: Path) -> dict[str, Any]:
+def verify_probe(output: Path, *, allow_failed_panel: bool = False) -> dict[str, Any]:
     output = output.resolve()
     admission = json.loads((output / "admission.json").read_text())
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
@@ -308,6 +338,7 @@ def verify_probe(output: Path) -> dict[str, Any]:
         "benchmark-model-probe-v3",
         "benchmark-model-probe-v4",
         "benchmark-model-probe-v5",
+        "benchmark-model-probe-v6",
     ) or terminal.get("schema") != admission["schema"].replace("probe", "terminal"):
         raise ValueError("unsupported probe receipt schema")
     expected_keys = {
@@ -321,7 +352,13 @@ def verify_probe(output: Path) -> dict[str, Any]:
         "runtime_packages",
         "coding",
     }
-    if admission["schema"] in ("benchmark-model-probe-v4", "benchmark-model-probe-v5"):
+    if admission["schema"] == "benchmark-model-probe-v6":
+        expected_keys.add("panel")
+    if admission["schema"] in (
+        "benchmark-model-probe-v4",
+        "benchmark-model-probe-v5",
+        "benchmark-model-probe-v6",
+    ):
         expected_keys.add("runtime_sources")
         if not admission["runtime_sources"]:
             raise ValueError("missing runtime source identity")
@@ -338,7 +375,9 @@ def verify_probe(output: Path) -> dict[str, Any]:
         or not admission["source_sha256"]
         or not admission["model_sha256"]
         or type(admission["budget_seconds"]) is not int
-        or not 0 < admission["budget_seconds"] <= 1800
+        or not 0
+        < admission["budget_seconds"]
+        <= (108000 if "panel" in admission else 1800)
     ):
         raise ValueError("invalid probe scope, inputs or budget")
     for relative, digest in admission["source_sha256"].items():
@@ -370,7 +409,12 @@ def verify_probe(output: Path) -> dict[str, Any]:
         )
         else "restoration_observed"
     )
-    if terminal["status"] != expected:
+    if terminal["status"] != expected and not (
+        allow_failed_panel
+        and "panel" in admission
+        and "panel" in terminal
+        and terminal["status"] == "failed"
+    ):
         raise ValueError(
             f"probe did not pass: {terminal.get('reason', terminal['status'])}"
         )
@@ -400,7 +444,8 @@ def verify_probe(output: Path) -> dict[str, Any]:
             raise ValueError("invalid restoration observations")
     if (
         admission["system"] == "lmcache"
-        and admission["schema"] == "benchmark-model-probe-v5"
+        and admission["schema"]
+        in ("benchmark-model-probe-v5", "benchmark-model-probe-v6")
         and "external_restore" not in terminal
     ):
         raise ValueError("missing external restoration")
@@ -408,6 +453,14 @@ def verify_probe(output: Path) -> dict[str, Any]:
         if admission["system"] != "lmcache":
             raise ValueError("unexpected external restoration")
         validate_external_restoration(terminal["external_restore"])
+    if "panel" in admission:
+        from tools.benchmarking.panel import verify_panel
+
+        observed_panel = verify_panel(output / "panel")
+        if observed_panel != terminal["panel"] or (
+            not observed_panel["complete"] and not allow_failed_panel
+        ):
+            raise ValueError("panel incomplete or differs from observations")
     if admission["coding"] is not None:
         coding = admission["coding"]
         if digest_file(Path(coding["dataset"])) != coding["dataset_sha256"] or terminal[
@@ -468,20 +521,11 @@ def verify_probe(output: Path) -> dict[str, Any]:
             if verified["quality"] != acquisition["quality"]:
                 raise ValueError("regression task quality differs from observations")
         else:
-            reports = list(
-                (output / "coding/grading/logs/run_evaluation").rglob("report.json")
-            )
+            from tools.benchmarking.harness import verify_coding_grade
+
             if (
-                grading["exit_code"] != 0
-                or len(reports) != 1
-                or json.loads(reports[0].read_text()) != grading["report"]
-                or type(grading["report"][coding["instance"]]["resolved"]) is not bool
-                or acquisition["quality"]
-                != (
-                    "resolved"
-                    if grading["report"][coding["instance"]]["resolved"]
-                    else "unresolved"
-                )
+                verify_coding_grade(output / "coding/grading") != grading
+                or acquisition["quality"] != grading["quality"]
             ):
                 raise ValueError("coding verdict disagrees with original grader")
     return terminal
