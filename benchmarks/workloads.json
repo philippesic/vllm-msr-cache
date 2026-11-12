@@ -102,6 +102,28 @@
       "seconds": 240,
       "exposure": "checker-only",
       "image_id": "sha256:1f03b0e7340e909f57f00670a9a97119ce33e05e04a827d5c26a8937f294d952"
+    },
+    {
+      "id": "C4-1",
+      "instance": "harbor__fix-git",
+      "dataset": "terminal-c4",
+      "task_kind": "terminal",
+      "harness": "harbor-0.25.0-terminus-2",
+      "grader": "terminal-bench-original",
+      "seconds": 240,
+      "exposure": "oracle-and-noop-only",
+      "image_id": "sha256:598d69b951cb773256f7ed5f16edf0a7779fccfff9d5a1d0a9ec6ccf5a503292"
+    },
+    {
+      "id": "C4-2",
+      "instance": "harbor__polyglot-c-py",
+      "dataset": "terminal-c4",
+      "task_kind": "terminal",
+      "harness": "harbor-0.25.0-terminus-2",
+      "grader": "terminal-bench-original",
+      "seconds": 240,
+      "exposure": "oracle-and-noop-only",
+      "image_id": "sha256:465659245190448c277bb7d753cfd79f19fbf1ef4ef45fb2b2a85eeed5da9d0b"
     }
   ],
   "additional_datasets": {
@@ -116,6 +138,11 @@
       "dataset_sha256": "38768ce19c0f2876b24d2a4efc99470d740004c3f95753f60ac103af9fe3ac13",
       "definitions": "benchmarks/workflows/navigation.json",
       "selection": "Two independent maintained Python projects; current default/override resolution and proposed change impact; selected before candidate output. Project-authored tasks, not official benchmark scores."
+    },
+    "terminal-c4": {
+      "dataset_sha256": "7ae0b74e613571c821d0be2eecefcd8029a4ad2850c0f26712bff0c846ad06e0",
+      "definitions": "benchmarks/workflows/terminal.json",
+      "selection": "Original bounded CPU terminal tasks, selected before candidate outputs; independent Git recovery and Python/C build tasks; two task-specific results, not an official Terminal-Bench score"
     }
   }
 }

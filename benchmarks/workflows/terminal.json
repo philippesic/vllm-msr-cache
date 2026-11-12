@@ -1,0 +1,38 @@
+{
+  "schema": "benchmark-terminal-definitions-v1",
+  "cases": [
+    {
+      "id": "C4-1",
+      "instance_id": "harbor__fix-git",
+      "source_path": "../harbor/terminal-bench/fix-git",
+      "source_sha256": {
+        "environment/Dockerfile": "dfd64a46955909f58d1b562ea233c3cace75195bbef5d75cd6b599f3b8967bb7",
+        "environment/resources/patch_files/about.md": "2e09260b011012f9f7f491cd02809903449924cf8f825acd369fb8990b04e768",
+        "environment/resources/patch_files/default.html": "fb3fad17b83338002f5fd6a99ea1ec3a662cea570f9fff9240b8abc1861be655",
+        "environment/setup.sh": "99125cf2e362f2f4a864ba2f55c2f0e9f0aa0641fed588cef588184fcc192de2",
+        "instruction.md": "f98174e47ba5ce040f6fad22ef3cbca4dd27b3192868ea5d082077222c3ec4e8",
+        "solution/solve.sh": "4789fa74e92e5b7b893c4b8637c26db2b6458b2136edfc3e686cc278dfc23630",
+        "task.toml": "65ed15b71751a10df66cd1fba4658762156f34bacd9f7ba1688a13947d0999e6",
+        "tests/test.sh": "4770437ea96c3cc84684b4f99d55fb148fcac09f9ea1e8ef49de487716e6c334",
+        "tests/test_outputs.py": "a8a6f51eb0d7c4ebdf0813c8f0b645edf29c995f1f9faf2aca3886a6713043f3"
+      },
+      "image_name": "sha256:598d69b951cb773256f7ed5f16edf0a7779fccfff9d5a1d0a9ec6ccf5a503292",
+      "selection": "Selected before candidate output: bounded Git recovery and compiled/interpreted programming; original Terminal-Bench validators; no official aggregate score"
+    },
+    {
+      "id": "C4-2",
+      "instance_id": "harbor__polyglot-c-py",
+      "source_path": "../harbor/terminal-bench/polyglot-c-py",
+      "source_sha256": {
+        "environment/Dockerfile": "2eb537f29d2bc4ab30e1b35ff352578437a08b90f91ef6360ee28d8195d5098a",
+        "instruction.md": "a57c0c0e1232113113cd29a154ea7e0ac9ea45e4aedc16958fbc6bc753a4ef96",
+        "solution/solve.sh": "e768453a194037b0517803fa0d99dbd3b6f820dead842e0b6161019b33456bf0",
+        "task.toml": "02c98637eba6754d556594f679404ba5ac282436d089f53d1c839b17eff9c710",
+        "tests/test.sh": "4770437ea96c3cc84684b4f99d55fb148fcac09f9ea1e8ef49de487716e6c334",
+        "tests/test_outputs.py": "b94a7a9882decd8114835bdf52b5bc42fc78e9fe67ecad9bd19050b11781ddec"
+      },
+      "image_name": "sha256:465659245190448c277bb7d753cfd79f19fbf1ef4ef45fb2b2a85eeed5da9d0b",
+      "selection": "Selected before candidate output: bounded Git recovery and compiled/interpreted programming; original Terminal-Bench validators; no official aggregate score"
+    }
+  ]
+}

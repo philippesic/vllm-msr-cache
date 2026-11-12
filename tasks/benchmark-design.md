@@ -25,7 +25,7 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 Implementation is active and incomplete. The functional entry point passed four
 real GPU cases, including full/sliding attention against a float reference for
 256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
-52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring and C3 navigation acquisition and their readers
+52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring, C3 navigation and C4 terminal acquisition and their readers
 are implemented; mixed-dataset campaign integration is pending. Remaining workload definitions, activity contracts, traces, soak,
 resume and release verdicts still need implementation and real qualification.
 Successful feasibility pilots are not completion of these suites.
@@ -91,7 +91,7 @@ Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
 Isolated runtimes under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established wait-hint-offload
 environment was preserved. The previous portable checkpoint passed 53 CPU tests and 105 rule
-proofs. Navigation parser/observation checks bring the current CPU count to 55;
+proofs. Navigation and terminal behavior checks bring the current CPU count to 57;
 combined acceptance is running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
 existing external backups directory. No paid compute, remote publication, automatic
 delegation or 5080 use occurred.
@@ -121,7 +121,20 @@ current override semantics, identify an affected upstream test, and pass that te
 plus hidden executable behavior checks in a fresh offline container. Known answers
 passed benchmark-navigation-checker-01/02; an incorrect precedence answer was
 rejected in benchmark-navigation-checker-negative-01. All three receipts verified.
-Live navigation model acquisition is not yet exercised.
+The Gemma/LMCache navigation pilot benchmark-gemma4-navigation-01 completed three
+requests in 66.87 seconds of acquisition; it submitted an empty patch and correctly
+graded unresolved. Its complete receipt/report verified. This is a usable measured
+negative outcome, not evidence of broad agent quality or cache benefit.
+
+C4 integrates the original Terminal-Bench fix-git and polyglot-c-py tasks in Harbor
+0.25.0 with host-side Terminus-2. Prepared images cache verifier dependencies and
+support offline acquisition/verification. Both original oracle solutions passed in
+benchmark-terminal-oracle-02/03, and the no-op Git control correctly failed in
+benchmark-terminal-negative-01. All three original observations/receipts verified.
+The first oracle attempt failed because Docker Compose was absent; the failed
+attempt is preserved. Checksum-verified Compose v5.6.0 is now installed as a local
+CLI plugin. New terminal receipts retain driver snapshots as well as original task
+and validator bytes. Live terminal model acquisition remains unexercised.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.

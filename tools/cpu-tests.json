@@ -27,6 +27,8 @@
   "tests/test_benchmark.py::test_regression_checker_requires_failure_then_same_test_passes[<failure/>-<skipped/>-unresolved]",
   "tests/test_benchmark.py::test_release_schedule_preserves_budget_and_comparison_denominators",
   "tests/test_benchmark.py::test_runtime_patch_requires_exact_source_and_preserves_backup",
+  "tests/test_benchmark.py::test_terminal_hint_detection_requires_a_valid_nonfinal_action",
+  "tests/test_benchmark.py::test_terminal_reader_checks_original_tests_instead_of_reward_alone",
   "tests/test_benchmark.py::test_v5_lmcache_receipt_cannot_pass_without_external_restore",
   "tests/test_benchmark_report.py::test_report_requires_complete_requests_and_separates_hint_from_reuse",
   "tests/test_contracts.py::test_contracts_are_immutable",

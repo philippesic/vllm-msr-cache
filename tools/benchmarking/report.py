@@ -40,7 +40,7 @@ def summarize_probe(output: Path) -> dict[str, Any]:
         record = json.loads(path.read_text())
         original = json.loads(admissions[index - 1].read_text())
         if (
-            record["schema"] != "benchmark-request-v1"
+            record["schema"] not in ("benchmark-request-v1", "benchmark-request-v2")
             or record["system"] != admission["system"]
             or original["generation"] != index
             or original["start_ns"] != record["start_ns"]

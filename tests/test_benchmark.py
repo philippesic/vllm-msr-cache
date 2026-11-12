@@ -6,6 +6,67 @@ from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import probe
 
 
+def test_terminal_hint_detection_requires_a_valid_nonfinal_action() -> None:
+    import json
+
+    from tools.benchmarking.proxy import expects_tool_return
+
+    action = {
+        "analysis": "Read the repository",
+        "plan": "Inspect state",
+        "commands": [{"keystrokes": "git status\n", "duration": 1}],
+    }
+    assert expects_tool_return(json.dumps(action), "terminus-json")
+    assert not expects_tool_return(
+        json.dumps({**action, "task_complete": True}), "terminus-json"
+    )
+    assert not expects_tool_return(
+        json.dumps({**action, "commands": []}), "terminus-json"
+    )
+    assert not expects_tool_return(
+        '{"commands": [{"keystrokes": "pwd"}]}', "terminus-json"
+    )
+    assert not expects_tool_return("Read the repository next", "terminus-json")
+    with pytest.raises(ValueError, match="unsupported tool protocol"):
+        expects_tool_return("pwd", "unknown")
+
+
+def test_terminal_reader_checks_original_tests_instead_of_reward_alone(
+    tmp_path: Path,
+) -> None:
+    import json
+
+    from tools.benchmarking.terminal import terminal_observation
+
+    trial = tmp_path / "trials/fixture"
+    verifier = trial / "verifier"
+    verifier.mkdir(parents=True)
+    (tmp_path / "admission.json").write_text(json.dumps({"trial_name": "fixture"}))
+    (trial / "result.json").write_text(
+        json.dumps(
+            {
+                "trial_name": "fixture",
+                "exception_info": None,
+                "verifier_result": {"rewards": {"reward": 1.0}},
+            }
+        )
+    )
+    (verifier / "reward.txt").write_text("1\n")
+    (verifier / "ctrf.json").write_text(
+        json.dumps(
+            {"results": {"tests": [{"name": "test_output", "status": "failed"}]}}
+        )
+    )
+    with pytest.raises(ValueError, match="executable observations"):
+        terminal_observation(tmp_path)
+    (verifier / "ctrf.json").write_text(
+        json.dumps(
+            {"results": {"tests": [{"name": "test_output", "status": "passed"}]}}
+        )
+    )
+    assert terminal_observation(tmp_path)["quality"] == "resolved"
+
+
 def test_navigation_answer_refuses_source_edits_and_wrong_override_semantics(
     tmp_path: Path,
 ) -> None:
