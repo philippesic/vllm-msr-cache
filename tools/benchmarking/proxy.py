@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
@@ -64,20 +65,31 @@ class Proxy(ThreadingHTTPServer):
         self.sequence = 0
         self.serial = threading.Lock()
         self.tool_protocol = tool_protocol
+        self.closing = False
 
     def generate(self, payload: dict[str, Any]) -> dict[str, Any]:
         with self.serial:
+            if self.closing:
+                raise ValueError("benchmark proxy is closing")
+            session = payload.get("benchmark_session", "task")
+            if not isinstance(session, str) or not re.fullmatch(
+                r"[A-Za-z0-9_-]{1,64}", session
+            ):
+                raise ValueError("invalid benchmark session")
             self.sequence += 1
             generation = self.sequence
             start = time.monotonic_ns()
             registration = {
                 "schema": "wait-registration-v2",
                 "scope": "coding-pilot",
-                "session": "task",
-                "incarnation": self.output.name,
+                "session": session,
+                "incarnation": hashlib.sha256(
+                    str(self.output.resolve()).encode()
+                ).hexdigest()[:32],
                 "generation": generation,
             }
             forwarded = {**payload, "stream": False}
+            forwarded.pop("benchmark_session", None)
             write_record(
                 self.output / f"request-{generation:04d}.admission.json",
                 {"request": payload, "start_ns": start, "generation": generation},
@@ -111,6 +123,7 @@ class Proxy(ThreadingHTTPServer):
             record: dict[str, Any] = {
                 "schema": "benchmark-request-v2",
                 "tool_protocol": self.tool_protocol,
+                "session": session,
                 "request": forwarded,
                 "response": result,
                 "start_ns": start,
@@ -178,6 +191,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Length", str(len(content)))
             self.end_headers()
             self.wfile.write(content)
+        except (BrokenPipeError, ConnectionResetError):
+            return
         except urllib.error.HTTPError as error:
             content = error.read()
             self.send_response(error.code)
@@ -204,6 +219,14 @@ def local_proxy(
     try:
         yield f"http://127.0.0.1:{server.server_address[1]}"
     finally:
+        server.closing = True
         server.shutdown()
-        server.server_close()
-        thread.join(timeout=5)
+        drained = server.serial.acquire(timeout=95)
+        try:
+            if not drained:
+                raise TimeoutError("benchmark proxy drain exceeded its deadline")
+        finally:
+            server.server_close()
+            if drained:
+                server.serial.release()
+            thread.join(timeout=5)

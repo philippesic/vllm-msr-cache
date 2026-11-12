@@ -227,3 +227,15 @@ facts and citations. The checker rejects correct facts with unrelated citations.
 Both known answers passed; this evaluates the named tasks, not broad summary quality
 or a general QA benchmark score. Original documents stay in external assets and
 receipts; only authored definitions and provenance are tracked here.
+
+## Branching workflows
+
+`probe-model --coding-kind branching` forks one real Requests issue into a production
+repair and an independently authored regression test. Both branches start with the
+same actual retrieved source transcript in separate offline containers. The fixed
+A/B/A schedule returns to the original patch after competing tool work. Named proxy
+sessions keep observations separate; the common context policy applies to every turn.
+The original SWE-bench grader evaluates the repair; the regression test must fail
+before and pass after the hidden reference fix. `verify-branching DIRECTORY` checks
+branch isolation, executed transcripts, patch/input/image identities and both graders.
+The live path and required compaction activity remain unqualified.

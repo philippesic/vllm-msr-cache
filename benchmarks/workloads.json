@@ -146,6 +146,18 @@
       "seconds": 240,
       "exposure": "checker-only",
       "image_id": "sha256:74ff862f039852af09b7dca1a42e14fa25b872d637216d65450d296f615cdd25"
+    },
+    {
+      "id": "C5-1",
+      "instance": "psf__requests-1142",
+      "base_commit": "22623bd8c265b78b161542663ee980738441c307",
+      "dataset": "branching-c5",
+      "task_kind": "branching",
+      "harness": "project-transcript-fork-v1",
+      "grader": "swebench-4.1.0-and-project-regression-v1",
+      "seconds": 240,
+      "exposure": "selected-not-executed",
+      "image_id": "sha256:b2733e57feb4cfaeac24ab5ec496d4cb89a37db53bd0ca72eaededdb2ce19d1c"
     }
   ],
   "additional_datasets": {
@@ -170,6 +182,12 @@
       "dataset_sha256": "fcefac2f2defb05c479ea369978499f9985dfe3260d80e2b7d6d47f5fabc3d27",
       "definitions": "benchmarks/workflows/grounded.json",
       "selection": "Immutable public technical documents: independent grounded QA and two-source search/read/compare; sources and rubrics frozen before candidate output"
+    },
+    "branching-c5": {
+      "dataset_sha256": "03c5b50754d6de0bd9a0651bcd595ec4955dfcf53741bd62f811dcf67df92e7a",
+      "repository": "princeton-nlp/SWE-bench_Verified",
+      "revision": "c104f840cc67f8b6eec6f759ebc8b2693d585d4a",
+      "selection": "Real independent Requests issue; production repair and test-only fork from a shared retrieved source transcript, return to the original branch. Selected before candidate output."
     }
   }
 }

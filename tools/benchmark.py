@@ -30,7 +30,14 @@ def main() -> int:
     command.add_argument("--instance")
     command.add_argument(
         "--coding-kind",
-        choices=("repair", "regression", "navigation", "terminal", "grounded"),
+        choices=(
+            "repair",
+            "regression",
+            "navigation",
+            "terminal",
+            "grounded",
+            "branching",
+        ),
         default="repair",
     )
     command.add_argument(
@@ -102,8 +109,15 @@ def main() -> int:
     grounded.add_argument("--out", type=Path, required=True)
     grounded_verify = sub.add_parser("verify-grounded")
     grounded_verify.add_argument("directory", type=Path)
+    branching_verify = sub.add_parser("verify-branching")
+    branching_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.operation == "verify-branching":
+        from tools.benchmarking.branching import verify_branching
+
+        print(json.dumps(verify_branching(args.directory), indent=2))
+        return 0
     if args.operation in ("grade-grounded", "verify-grounded"):
         from tools.benchmarking.grounded import grade_grounded, verify_grounded
 

@@ -39,6 +39,27 @@ def test_grounded_checker_requires_correct_facts_and_supporting_bounded_citation
     )
 
 
+def test_probe_rejects_missing_task_before_creating_attempt(tmp_path: Path) -> None:
+    import json
+
+    model = tmp_path / "model"
+    model.mkdir()
+    (model / "config.json").write_text("{}")
+    dataset = tmp_path / "dataset.json"
+    dataset.write_text(json.dumps([{"instance_id": "real-task"}]))
+    output = tmp_path / "attempt"
+    with pytest.raises(ValueError, match="exactly one matching dataset instance"):
+        probe(
+            tmp_path / "source",
+            dataset,
+            model,
+            output,
+            600,
+            coding=(dataset, dataset, "wrong-task"),
+        )
+    assert not output.exists()
+
+
 def test_terminal_hint_detection_requires_a_valid_nonfinal_action() -> None:
     import json
 
@@ -387,6 +408,7 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
                         for role in ("assistant", "user")
                     ],
                     "stream": False,
+                    "benchmark_session": "A" if generation == 1 else "B",
                 }
             ).encode()
             handler.headers["Content-Length"] = str(len(body))
@@ -398,6 +420,8 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
                 (tmp_path / f"request-{generation:04d}.json").read_text()
             )
             assert observed["hint"]["generation"] == generation
+            assert observed["hint"]["session"] == ("A" if generation == 1 else "B")
+            assert "benchmark_session" not in observed["request"]
             assert observed["acknowledgement"]["decision"] == "disabled"
             assert observed["compaction"]["removed_messages"] == 2
             assert len(observed["request"]["messages"]) == 6
@@ -407,6 +431,9 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
                 <= observed["forwarded_ns"]
             )
         assert len(calls) == 8
+        server.closing = True
+        with pytest.raises(ValueError, match="proxy is closing"):
+            server.generate({})
     finally:
         server.server_close()
 
