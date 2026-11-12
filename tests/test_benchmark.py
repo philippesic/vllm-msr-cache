@@ -11,7 +11,7 @@ def test_release_schedule_preserves_budget_and_comparison_denominators() -> None
     assert len({cell.identity for cell in schedule}) == len(schedule)
     assert describe("release")["counts"] == {
         "functional": 0,
-        "application": 204,
+        "application": 180,
         "trace": 52,
         "soak": 4,
     }
@@ -32,12 +32,11 @@ def test_release_schedule_preserves_budget_and_comparison_denominators() -> None
                     "native-arc",
                     "wait-hint",
                     "lmcache",
-                    "continuum",
                 )
             }
             assert tasks["gpu-only"] == tasks["native-arc"] == tasks["wait-hint"]
             assert len(tasks["wait-hint"]) == 13
-            assert tasks["lmcache"] == tasks["continuum"]
+            assert len(tasks) == 4
             assert len(tasks["lmcache"]) == 6
             assert tasks["lmcache"] <= tasks["wait-hint"]
     assert describe("release")["cell_timeout_sum_seconds"] <= 108000
@@ -45,7 +44,7 @@ def test_release_schedule_preserves_budget_and_comparison_denominators() -> None
 
 def test_compare_is_one_block_and_unknown_profiles_refuse() -> None:
     scheduled = cells("compare")
-    assert len(scheduled) == 15
+    assert len(scheduled) == 12
     assert {cell.block for cell in scheduled} == {0}
     assert {cell.model for cell in scheduled} == {"qwen35-4b-int4"}
     assert describe("compare")["status"] == "unqualified_schedule"
@@ -290,3 +289,225 @@ def test_external_restoration_requires_cpu_reuse_and_fresh_equal_tokens() -> Non
     invalid["fresh"]["choices"][0]["token_ids"] = [43]
     with pytest.raises(ValueError, match="restoration differs"):
         validate_external_restoration(invalid)
+
+
+def test_runtime_patch_requires_exact_source_and_preserves_backup(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import hashlib
+    import json
+    import subprocess
+
+    from tools.benchmarking.patches import apply_runtime_patches
+
+    root = tmp_path / "project"
+    directory = root / "benchmarks/runtime-patches"
+    directory.mkdir(parents=True)
+    runtime = tmp_path / "runtime"
+    runtime.mkdir()
+    target = runtime / "module.py"
+    before, after = b"setting = 1\n", b"setting = 2\n"
+    target.write_bytes(before)
+    (directory / "manifest.json").write_text(
+        json.dumps(
+            [
+                {
+                    "name": "test",
+                    "target": "module.py",
+                    "original_sha256": hashlib.sha256(before).hexdigest(),
+                    "patched_sha256": hashlib.sha256(after).hexdigest(),
+                    "edits": [{"old": before.decode(), "new": after.decode()}],
+                }
+            ]
+        )
+    )
+    monkeypatch.setattr(
+        "tools.benchmarking.patches.subprocess.run",
+        lambda *_args, **_kwargs: subprocess.CompletedProcess([], 0, str(runtime)),
+    )
+    apply_runtime_patches(root, Path("python"), ["test"])
+    assert target.read_bytes() == after
+    assert target.with_suffix(".py.benchmark-original").read_bytes() == before
+    apply_runtime_patches(root, Path("python"), ["test"])
+    target.write_text("unrelated active edits\n")
+    with pytest.raises(ValueError, match="source differs"):
+        apply_runtime_patches(root, Path("python"), ["test"])
+    assert target.read_text() == "unrelated active edits\n"
+
+
+def test_campaign_refuses_unimplemented_coverage_before_acquisition(
+    tmp_path: Path,
+) -> None:
+    import json
+
+    from tools.benchmarking.campaign import run_campaign
+
+    root = tmp_path / "project"
+    (root / "benchmarks").mkdir(parents=True)
+    (root / "benchmarks/workloads.json").write_text(json.dumps({"cases": []}))
+    output = tmp_path / "attempt"
+    with pytest.raises(ValueError, match="not implemented/admitted"):
+        run_campaign(
+            root,
+            "release",
+            {},
+            Path("python"),
+            Path("lmcache"),
+            Path("harness"),
+            Path("dataset"),
+            output,
+            [],
+        )
+    assert not output.exists()
+
+
+def test_v5_lmcache_receipt_cannot_pass_without_external_restore(
+    tmp_path: Path,
+) -> None:
+    import json
+    from typing import Any
+
+    from tools.benchmarking.probe import digest_file, verify_probe
+
+    output = tmp_path / "attempt"
+    (output / "source").mkdir(parents=True)
+    source = output / "source/file.py"
+    source.write_text("value = 1\n")
+    model = tmp_path / "weights"
+    model.write_bytes(b"weights")
+    admission = {
+        "schema": "benchmark-model-probe-v5",
+        "command": [],
+        "source_sha256": {"file.py": digest_file(source)},
+        "budget_seconds": 60,
+        "scope": "model-loading-generation-and-optional-restoration",
+        "system": "lmcache",
+        "model_sha256": {str(model): digest_file(model)},
+        "runtime_packages": {},
+        "runtime_sources": {"module.py": "a" * 64},
+        "coding": None,
+    }
+    (output / "admission.json").write_text(json.dumps(admission))
+    terminal = {
+        "schema": "benchmark-model-terminal-v5",
+        "scope": admission["scope"],
+        "status": "restoration_observed",
+        "elapsed_seconds": 5,
+        "admission_sha256": digest_file(output / "admission.json"),
+        "artifacts_sha256": {},
+        "response": {"choices": [{"message": {"content": "4"}}]},
+    }
+    (output / "terminal.json").write_text(json.dumps(terminal))
+    with pytest.raises(ValueError, match="missing external restoration"):
+        verify_probe(output)
+    response: dict[str, Any] = {
+        "usage": {"prompt_tokens_details": {"cached_tokens": 0}},
+        "choices": [{"text": "answer", "token_ids": [42]}],
+    }
+    import copy
+
+    restored = copy.deepcopy(response)
+    restored["usage"]["prompt_tokens_details"]["cached_tokens"] = 528
+    terminal["external_restore"] = {
+        "fresh": response,
+        "restored": restored,
+        "initial": response,
+    }
+    (output / "terminal.json").write_text(json.dumps(terminal))
+    assert verify_probe(output)["status"] == "restoration_observed"
+
+
+def test_campaign_keeps_failed_cells_in_coverage(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+
+    from tools.benchmarking.campaign import run_campaign, verify_campaign
+    from tools.benchmarking.plan import Cell
+    from tools.benchmarking.probe import digest_file
+
+    root = tmp_path / "project"
+    (root / "benchmarks").mkdir(parents=True)
+    dataset = tmp_path / "dataset.json"
+    dataset.write_text(json.dumps([{"instance_id": "issue"}]))
+    definitions = root / "benchmarks/workloads.json"
+    definitions.write_text(
+        json.dumps(
+            {
+                "dataset_sha256": digest_file(dataset),
+                "cases": [{"id": "C1-1", "instance": "issue"}],
+            }
+        )
+    )
+    binary = tmp_path / "python"
+    binary.touch()
+    model = tmp_path / "model"
+    model.mkdir()
+    roster = tuple(
+        Cell("model", system, "C1-1", 0, "application", 240)
+        for system in ("native-arc", "lmcache")
+    )
+    monkeypatch.setattr("tools.benchmarking.campaign.cells", lambda profile: roster)
+    monkeypatch.setattr(
+        "tools.repo_policy.git_paths", lambda path: [Path("benchmarks/workloads.json")]
+    )
+    monkeypatch.setattr(
+        "tools.benchmarking.campaign.git_paths",
+        lambda path: [Path("benchmarks/workloads.json")],
+    )
+
+    def fake_probe(
+        _root: Path,
+        _python: Path,
+        _model: Path,
+        output: Path,
+        _seconds: int,
+        system: str,
+        coding: tuple[Path, Path, str],
+    ) -> int:
+        output.mkdir()
+        (output / "admission.json").write_text(
+            json.dumps(
+                {
+                    "source_sha256": {
+                        "benchmarks/workloads.json": digest_file(definitions)
+                    },
+                    "system": system,
+                    "command": ["--model", str(model)],
+                    "coding": {
+                        "instance": coding[2],
+                        "dataset_sha256": digest_file(dataset),
+                    },
+                }
+            )
+        )
+        return int(system == "lmcache")
+
+    monkeypatch.setattr("tools.benchmarking.campaign.probe", fake_probe)
+    monkeypatch.setattr("tools.benchmarking.campaign.verify_probe", lambda path: {})
+    output = tmp_path / "campaign"
+    assert (
+        run_campaign(
+            root,
+            "release",
+            {"model": model},
+            binary,
+            binary,
+            binary,
+            dataset,
+            output,
+            ["C1-1"],
+        )
+        == 1
+    )
+    terminal = json.loads((output / "terminal.json").read_text())
+    assert [result["status"] for result in terminal["results"]] == [
+        "complete",
+        "failed",
+    ]
+    with pytest.raises(ValueError, match="cell incomplete"):
+        verify_campaign(output)
+    terminal["results"].pop()
+    (output / "terminal.json").write_text(json.dumps(terminal))
+    with pytest.raises(ValueError, match="coverage incomplete"):
+        verify_campaign(output)

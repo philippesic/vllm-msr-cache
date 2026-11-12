@@ -19,9 +19,10 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   GPU-only displacement and restored versus fresh token IDs. Native ARC and wait-hint
   also require registered readiness. New LMCache probes require external restoration;
   older generation-only receipts remain limited to generation. LMCache on the current
-  WSL host is not qualified: exploratory IPC repair passed startup but actual store
-  failed with a CUDA illegal memory access. See the active benchmark task for evidence.
-- `verify-probe /external/attempt` checks a v3 receipt, frozen source/model hashes,
+  WSL host has one successful Qwen restoration probe using the opt-in VMM/staged-copy
+  compatibility repair; broad model and application qualification remains pending.
+  See the active benchmark task for evidence.
+- `verify-probe /external/attempt` checks a v3/v4/v5 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
 
@@ -80,3 +81,37 @@ New architectures require real restore and failure-path checks; new workloads re
 original validators or a documented executable rubric. Update this guide and the
 system map when a command becomes usable or its meaning changes. Expensive acquisition
 must enforce the reviewed budgets and preserve failed or incomplete attempts.
+
+## Local compatibility patches
+
+`patch-runtime --runtime-python /external/venv/bin/python lmcache-peer lmcache-copy lmcache-allocator`
+applies the LMCache 0.5.6 WSL compatibility repair. `gemma-turing` applies the narrow
+Turing attention tile/stage change to the pinned vLLM. The command checks complete
+original source hashes, preserves `.benchmark-original` backups and refuses source
+that differs. Run only against an idle isolated runtime. Patch definitions are in
+`benchmarks/runtime-patches/manifest.json`.
+
+The LMCache benchmark environment opts into `LMCACHE_WSL_VMM=1` and enables PyTorch expandable
+segments for KV allocation after loading weights. Permission is granted only to the owned receiving child process. LMCache
+uses its existing staged-copy path instead of the failing direct batch-copy path.
+This choice and its extra staging cost belong in comparator configuration reporting.
+New v4/v5 model probes retain hashes of the relevant installed runtime source files;
+older receipts do not retroactively acquire this provenance.
+
+V5 requires an external restoration result for LMCache and reports restoration status.
+Earlier generation-status receipts keep their original meaning even where they retain
+an additional restoration observation.
+
+## Campaign acquisition under implementation
+
+`run --profile release --case C1-1 --model qwen35-4b-int4=/external/qwen
+--model gemma4-12b-int4=/external/gemma --runtime-python /external/core/bin/python
+--lmcache-python /external/lmcache/bin/python --harness-python /external/harness/bin/python
+--dataset /external/swebench-c1/test.json --out /external/new-campaign` executes the
+selected C1 case across the scheduled arms, models and repetitions. Explicit case
+selection always produces a partial campaign. `verify-campaign /external/campaign`
+checks coverage, identities and each child receipt; failed cells stay in coverage.
+Source changes during acquisition refuse further cells. Use a stable checkpoint.
+Only C1 acquisition is currently implemented; full compare/release commands refuse
+missing workloads and traces. Resume and release verdicts remain unimplemented.
+This command is being qualified and does not yet satisfy the complete suite contract.

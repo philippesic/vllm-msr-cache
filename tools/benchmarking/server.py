@@ -67,7 +67,11 @@ def server_command(
                             "lmcache.mp.port": cache_port,
                             "lmcache.mp.autostart": True,
                             "lmcache.mp.mp_transfer_mode": "lmcache_driven",
-                            "lmcache.mp.autostart.server_args": "--l1-size-gb 0.25 --chunk-size "
+                            "lmcache.mp.autostart.server_args": (
+                                "--l1-size-gb 2 --chunk-size "
+                                if gemma
+                                else "--l1-size-gb 0.25 --chunk-size "
+                            )
                             + ("256" if gemma else "528")
                             + " --separate-object-groups --eviction-policy LRU --disable-observability",
                         },
@@ -87,7 +91,7 @@ def server_command(
                         "kv_connector_module_path": "wait_hint_offload.vllm_adapter.connector",
                         "kv_connector_extra_config": {
                             "namespace": namespace,
-                            "cpu_bytes_to_use": 256 * 1024 * 1024,
+                            "cpu_bytes_to_use": (2048 if gemma else 256) * 1024 * 1024,
                             "advice_enabled": system == "wait-hint",
                         },
                     }

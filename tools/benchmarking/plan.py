@@ -4,7 +4,7 @@ from dataclasses import asdict, dataclass
 from typing import Any
 
 CORE = ("gpu-only", "native-arc", "wait-hint")
-EXTERNAL = ("lmcache", "continuum")
+EXTERNAL = ("lmcache",)
 MODELS = ("qwen35-4b-int4", "gemma4-12b-int4")
 TASKS = (
     "C1-1",

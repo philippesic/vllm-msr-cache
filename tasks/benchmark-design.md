@@ -23,9 +23,11 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 ## State
 
 Implementation is active and incomplete. The functional entry point reuses the existing
-GPU gate. Compare/release allocations are encoded (15/204 applications, 52 release
-traces, six hours of soak), but their campaign runners, full workload definitions,
-resumption and release verdicts are not implemented or qualified. Do not confuse the
+GPU gate. Compare/release allocations are encoded (12/180 applications, 52 release
+traces, six hours of soak), but full workload definitions,
+resumption and release verdicts are not implemented or qualified. A partial C1 campaign
+runner and verifier are implemented with explicit coverage/refusal checks; real campaign
+qualification is still pending. Do not confuse the
 bounded feasibility pilots with the agreed suites.
 
 The bounded model/coding probe snapshots source and hashes model artifacts, applies
@@ -66,6 +68,12 @@ original validators, activity contracts and workload cost admission remain unfin
 
 Current authorization and compatibility work:
 
+Philip subsequently fixed the roster to GPU-only, native ARC, wait-hint and LMCache.
+Continuum and the proposed Mooncake replacement are removed from implementation
+scope. Compare has 12 application cells; release has 180 application cells. Existing
+trace/soak allocations remain. Repair LMCache and complete/verify the full suite;
+startup-only qualification is insufficient.
+
 - Philip approved a narrow Gemma runtime kernel compatibility patch. Gemma loads
   with Transformers 5.14.0 in the separate compatibility runtime and fits 8K at
   batch 512 / GPU utilization 0.89, but both tested attention backends exceed
@@ -96,8 +104,32 @@ Separate comparator runtime: wait-hint-lmcache. All reside under the existing ex
 venvs root. No paid compute, remote publication, delegation or 5080 use occurred.
 
 The public functional command passed all three dense GPU tests in 96 seconds and its
-receipt verified (benchmark-functional-01). The portable lane passes 42 CPU tests;
+receipt verified (benchmark-functional-01). The portable lane passes 46 CPU tests;
 full rule-proof acceptance runs at the checkpoint. No owned GPU job remains.
+
+LMCache repair update: attempt benchmark-lmcache-qwen35-12 passed actual CPU
+restore/fresh continuation after disabling the direct batch-copy path while retaining
+LMCache's existing staged-copy implementation, together with process-specific VMM
+sharing permission. Attempt 11 showed pinning the block-ID staging input did not fix
+the fault; the failure occurred after an earlier store. This establishes one Qwen
+functional path, not general stability, Gemma support or benchmark completion.
+The patch is opt-in via LMCACHE_WSL_VMM and is being qualified through maintained
+patch-runtime, with exact original/patched source hashes and backups. Gemma's first
+num_stages-only patch still exceeded shared memory; a smaller KV tile is under test.
+
+Current compatibility qualification: benchmark-gemma4-patched-02 passed native
+restoration; benchmark-functional-02 passed all four GPU cases including the new
+large-head float-reference check. benchmark-lmcache-gemma4-04 passed restoration
+with 3072 cached prompt tokens, zero on fresh computation, and matching continuation
+IDs. Its independent receipt verification passed. Gemma needs a 2 GiB matched DRAM
+budget: 256 MiB/1 GiB pools could not retain the required objects. All three cache
+arms now receive 2 GiB on Gemma, 256 MiB on Qwen. LMCache additionally switches to
+expandable allocation only for KV after weights load; enabling it for the large
+Gemma weight allocations failed. The Qwen LMCache live coding pilot benchmark-lmcache-qwen35-coding-01 resolved
+the issue under the original grader (216.90 seconds acquisition); its receipt/report
+verification is underway. A Gemma LMCache coding pilot is running.
+The maintained patch manifest captures all four changes. These observations do not
+qualify all workloads, fault behavior, long operation or a release.
 
 Next: qualify the approved compatibility repairs and resolve the external replacement;
 continue authentic workload admission and campaign implementation, then exercise the
@@ -387,9 +419,8 @@ primary model to Qwen3.5-4B for memory headroom. Keep one validation repetition 
 two release repetitions. Scope reduction must remove actual execution, not merely
 rename time estimates or silently stop long tasks early.
 
-Validation runs THREE short complete workflows on Qwen, each once on all five admitted
-systems (GPU-only, native ARC, wait-hint, LMCache, Continuum or a reviewed compatible
-replacement): 15 task executions. A model-specific change uses Gemma instead, not both
+Validation runs THREE short complete workflows on Qwen, each once on all four admitted
+systems (GPU-only, native ARC, wait-hint, LMCache): 12 task executions. A model-specific change uses Gemma instead, not both
 by default. The workflows are (1) a small real bug investigation/edit/regression-test/
 revision loop, (2) repository navigation with actual search/read/test tools, and (3)
 grounded document questions. Select bounded development tasks that can complete naturally;
@@ -439,8 +470,8 @@ IDs, source revisions, context policy, validators and limits before acquisition.
 
 Core release: 13 tasks x three systems x two models x two repetitions = 156 task
 executions. Each external system gets six tasks (one from each row) per model per
-repetition: 6 x two external systems x two models x two repetitions = 48 executions.
-Total: 204 application executions. Competitive claims cover those six shared tasks,
+repetition: 6 x one external system x two models x two repetitions = 24 executions.
+Total: 180 application executions. Competitive claims cover those six shared tasks,
 not all 13. Freeze the same six task IDs for every compared system. Assign at least
 one low-opportunity task, one actual CPU-pressure/return task and one mixed
 hinted/unhinted interference schedule within that subset, identically across arms.
@@ -522,14 +553,14 @@ Do not hide inability to fit required work by changing quality gates after resul
 
 | Component | Assumed execution cost, to replace with pilot measurements | Planning time |
 | --- | --- | --- |
-| Validation | Five system runs, 3–6 minutes of short interleaved workflows each, plus 5–10 minutes total startup/report | 20–40 minutes |
+| Validation | Four system runs, 3–6 minutes of short interleaved workflows each, plus 5–10 minutes total startup/report | 20–40 minutes |
 | Release core applications | Twelve 13-task panels, 30–60 minutes each | 6–12 hours |
-| Release external subset | Eight six-task panels, 15–30 minutes each | 2–4 hours |
+| Release external subset | Four six-task panels, 15–30 minutes each | 1–2 hours |
 | Release controlled traces | 36 runs at 2–3 minutes each | 1.2–1.8 hours |
 | Release controls and dense sentinel | 16 allocated runs at 2–3 minutes each; model switches charged to startup allowance | 0.5–0.8 hours |
 | Release sustained exposure | Primary candidate/control two hours each; secondary candidate/control one hour each | 6 hours |
 | Fault checks, startup/report, bounded load probes | Combined planning allowance including at most 30 minutes of load search | 2–3.5 hours |
-| Release total | 204 application executions, 52 trace-runs, sustained/fault checks | Approximately 18–28 hours |
+| Release total | 180 application executions, 52 trace-runs, sustained/fault checks | Approximately 18–28 hours |
 | Optional 5080 precision check | Two coding tasks x three systems x two precisions x two repetitions = 24 task executions | Separately budgeted 1–2 hours |
 
 These forecasts assume cached assets, serial use of one GPU, short validation tasks,

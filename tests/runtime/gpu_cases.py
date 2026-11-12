@@ -438,3 +438,68 @@ def test_real_authenticated_http_registration_and_hint(tmp_path: Any) -> None:
                     child.wait()
             stop_session(child.pid, owner)
             print(log_path.read_text())
+
+
+def test_large_head_attention_matches_float_reference() -> None:
+    from vllm.v1.attention.ops.triton_unified_attention import unified_attention
+
+    generator = torch.Generator(device="cuda").manual_seed(7103)
+    for head_size in (256, 512):
+        keys = torch.randn(
+            (2, 64, 1, head_size),
+            generator=generator,
+            device="cuda",
+            dtype=torch.float16,
+        )
+        values = torch.randn(
+            keys.shape, generator=generator, device="cuda", dtype=torch.float16
+        )
+        for count in (1, 64):
+            queries = torch.randn(
+                (count, 8, head_size),
+                generator=generator,
+                device="cuda",
+                dtype=torch.float16,
+            )
+            for window in (-1, 32):
+                output = torch.empty_like(queries)
+                unified_attention(
+                    queries,
+                    keys,
+                    values,
+                    output,
+                    torch.tensor([0, count], device="cuda", dtype=torch.int32),
+                    count,
+                    torch.tensor([128], device="cuda", dtype=torch.int32),
+                    128,
+                    head_size**-0.5,
+                    True,
+                    (window, window),
+                    torch.tensor([[0, 1]], device="cuda", dtype=torch.int32),
+                    0.0,
+                    None,
+                    None,
+                    None,
+                )
+                scores = (
+                    torch.einsum(
+                        "qhd,khd->qhk",
+                        queries.float(),
+                        keys.reshape(128, 1, head_size).float(),
+                    )
+                    * head_size**-0.5
+                )
+                positions = torch.arange(128, device="cuda")
+                query_positions = torch.arange(128 - count, 128, device="cuda")
+                visible = positions[None, :] <= query_positions[:, None]
+                if window > 0:
+                    visible &= positions[None, :] >= query_positions[:, None] - window
+                scores.masked_fill_(~visible[:, None, :], float("-inf"))
+                expected = torch.einsum(
+                    "qhk,khd->qhd",
+                    scores.softmax(-1),
+                    values.reshape(128, 1, head_size).float(),
+                )
+                torch.testing.assert_close(
+                    output.float(), expected, atol=0.004, rtol=0.004
+                )
