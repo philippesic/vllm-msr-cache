@@ -158,6 +158,10 @@ def probe(
                         result["status"] = "restoration_observed"
                     else:
                         result["status"] = "generation_observed"
+                    if system == "lmcache":
+                        result["external_restore"] = external_restoration(
+                            f"http://127.0.0.1:{port}"
+                        )
                     if coding is not None:
                         from tools.benchmarking.harness import run_swebench
                         from tools.benchmarking.proxy import local_proxy
@@ -299,6 +303,10 @@ def verify_probe(output: Path) -> dict[str, Any]:
             != observation["fresh"]["choices"][0]["text"]
         ):
             raise ValueError("invalid restoration observations")
+    if "external_restore" in terminal:
+        if admission["system"] != "lmcache":
+            raise ValueError("unexpected external restoration")
+        validate_external_restoration(terminal["external_restore"])
     if admission["coding"] is not None:
         coding = admission["coding"]
         if digest_file(Path(coding["dataset"])) != coding["dataset_sha256"] or terminal[
@@ -393,3 +401,37 @@ def restoration(base: str, namespace: dict[str, str], system: str) -> dict[str, 
         "fresh": fresh,
         "scope": "forced-displacement matched continuation; not a natural workload",
     }
+
+
+def external_restoration(base: str) -> dict[str, Any]:
+    parameters = {
+        "model": "qualification",
+        "prompt": list(range(1000, 4168)),
+        "temperature": 0,
+        "max_tokens": 8,
+        "seed": 0,
+        "return_token_ids": True,
+    }
+    initial = request(base + "/v1/completions", parameters)
+    if not request(base + "/reset_prefix_cache", {})["success"]:
+        raise ValueError("external probe GPU displacement refused")
+    restored = request(base + "/v1/completions", parameters)
+    if not request(base + "/reset_prefix_cache?reset_external=true", {})["success"]:
+        raise ValueError("external probe fresh reset refused")
+    fresh = request(base + "/v1/completions", parameters)
+    observation = {"initial": initial, "restored": restored, "fresh": fresh}
+    validate_external_restoration(observation)
+    return observation
+
+
+def validate_external_restoration(observation: dict[str, Any]) -> None:
+    restored = observation["restored"]
+    fresh = observation["fresh"]
+    if (
+        restored["usage"]["prompt_tokens_details"]["cached_tokens"] <= 0
+        or fresh["usage"]["prompt_tokens_details"]["cached_tokens"] != 0
+        or not restored["choices"][0].get("token_ids")
+        or restored["choices"][0]["token_ids"] != fresh["choices"][0]["token_ids"]
+        or restored["choices"][0]["text"] != fresh["choices"][0]["text"]
+    ):
+        raise ValueError("external restoration differs or reuse not exercised")

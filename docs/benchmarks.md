@@ -14,9 +14,13 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
 - `plan --profile functional|compare|release` prints the allocated cases, repetitions
   and budget. The output explicitly says `unqualified_schedule`.
 - `probe-model --runtime-python /external/venv/bin/python --model /external/model
-  --out /external/new-attempt --system gpu-only|native-arc|wait-hint --timeout 900`
+  --out /external/new-attempt --system gpu-only|native-arc|wait-hint|lmcache --timeout 900`
   launches one localhost server, checks generation, and for CPU-offload modes tests
-  registered readiness, GPU-only displacement and restored versus fresh token IDs.
+  GPU-only displacement and restored versus fresh token IDs. Native ARC and wait-hint
+  also require registered readiness. New LMCache probes require external restoration;
+  older generation-only receipts remain limited to generation. LMCache on the current
+  WSL host is not qualified: exploratory IPC repair passed startup but actual store
+  failed with a CUDA illegal memory access. See the active benchmark task for evidence.
 - `verify-probe /external/attempt` checks a v3 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.

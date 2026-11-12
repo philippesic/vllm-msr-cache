@@ -264,3 +264,29 @@ def test_probe_reader_rejects_drift_failed_attempt_and_unobserved_restoration(
     receipt.write_text(json.dumps(terminal))
     with pytest.raises(ValueError, match="original grader"):
         verify_probe(tmp_path)
+
+
+def test_external_restoration_requires_cpu_reuse_and_fresh_equal_tokens() -> None:
+    import copy
+    from typing import Any
+
+    from tools.benchmarking.probe import validate_external_restoration
+
+    response: dict[str, Any] = {
+        "usage": {"prompt_tokens_details": {"cached_tokens": 0}},
+        "choices": [{"token_ids": [42], "text": "answer"}],
+    }
+    observation = {
+        name: copy.deepcopy(response) for name in ("initial", "restored", "fresh")
+    }
+    observation["restored"]["usage"]["prompt_tokens_details"]["cached_tokens"] = 528
+    validate_external_restoration(observation)
+    for name, count in (("restored", 0), ("fresh", 528)):
+        invalid = copy.deepcopy(observation)
+        invalid[name]["usage"]["prompt_tokens_details"]["cached_tokens"] = count
+        with pytest.raises(ValueError, match="reuse not exercised"):
+            validate_external_restoration(invalid)
+    invalid = copy.deepcopy(observation)
+    invalid["fresh"]["choices"][0]["token_ids"] = [43]
+    with pytest.raises(ValueError, match="restoration differs"):
+        validate_external_restoration(invalid)

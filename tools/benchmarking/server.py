@@ -66,7 +66,7 @@ def server_command(
                             "lmcache.mp.host": "tcp://127.0.0.1",
                             "lmcache.mp.port": cache_port,
                             "lmcache.mp.autostart": True,
-                            "lmcache.mp.mp_transfer_mode": "engine_driven",
+                            "lmcache.mp.mp_transfer_mode": "lmcache_driven",
                             "lmcache.mp.autostart.server_args": "--l1-size-gb 0.25 --chunk-size "
                             + ("256" if gemma else "528")
                             + " --separate-object-groups --eviction-policy LRU --disable-observability",
