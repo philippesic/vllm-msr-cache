@@ -28,9 +28,11 @@ and close-results; no new maintenance hooks/skills unless observed failures just
 one. Runtime procedure skills and unattended notifications are deferred until useful.
 Observe effectiveness during ordinary work, not a separate evaluation framework.
 
-Global files and skills have not been changed. Review shared policy ownership and
-sync provenance before changing installed copies; back up personal configuration.
+Global working preferences have been rewritten in the installed AGENTS.md and its
+p-stack source, with a backup. Reusable communication, continuity, maintenance and
+evidence guidance now lives globally; the project retains local mechanics and limits.
+Skills remain unchanged. Other machines must sync p-stack to receive the new policy.
 
 ## Next
-Discuss document simplifications and the global instruction/skill inventory with
-Philip, then implement only the chosen changes.
+Observe ordinary development for recurring instruction failures. Discuss remaining
+document simplifications or skill changes only when useful; benchmark work stays deferred.
