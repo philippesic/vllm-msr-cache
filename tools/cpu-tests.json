@@ -9,6 +9,7 @@
   "tests/test_advice.py::test_schema_refusal_and_config",
   "tests/test_advice.py::test_session_capacity_and_generation",
   "tests/test_advice.py::test_wrong_identity_is_no_action",
+  "tests/test_benchmark.py::test_artifact_snapshot_excludes_ignored_runs_and_preserves_source_boundary",
   "tests/test_benchmark.py::test_campaign_keeps_failed_cells_in_coverage",
   "tests/test_benchmark.py::test_campaign_refuses_unimplemented_coverage_before_acquisition",
   "tests/test_benchmark.py::test_coding_deadline_retains_patch_before_owned_container_cleanup",

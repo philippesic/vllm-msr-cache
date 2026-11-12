@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "efficacy/20261110/trials/handoff-before-2/handoff-A-diff.patch",
+    "sha256": "94e03c18de63a8c0fcfc74c7d45822c3fa109f1657c1f9996f902d0962855748"
+  },
+  "content": "diff --git a/wait_hint_offload/config.py b/wait_hint_offload/config.py\nindex 678b0e1..6950671 100644\n--- a/wait_hint_offload/config.py\n+++ b/wait_hint_offload/config.py\n@@ -48,6 +48,8 @@ class Settings:\n     def mechanisms(self) -> dict[str, object]:\n         return {\n             \"schema\": \"wait-hint-mechanisms-v1\",\n+            \"cpu_bytes_to_use\": self.cpu_bytes_to_use,\n+            \"store_threshold\": self.store_threshold,\n             \"cpu_arc_recency_advice\": self.advice_enabled,\n             \"semantic_scoring\": \"absent\",\n             \"gpu_prefetch\": \"absent\",\n"
+}

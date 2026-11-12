@@ -2,10 +2,17 @@
 
 Use [close-results](../skills/close-results/SKILL.md) when an investigation or
 feature experiment reaches a conclusion, including a negative or unresolved one.
-This tracked copy is the portable source of the shared skill. Install it for local
-Codex discovery by copying its directory to `~/.codex/skills/close-results/`; compare
-existing contents before replacing an installed version. Project-specific choices
-live here, not in the shared skill.
+
+Generate temporary project artifacts under ignored `artifacts/` in this repository.
+After closeout, retain the concise result, useful numeric inputs, supporting source
+reports and implementation identities in Git; delete obsolete raw trees and temporary
+checkouts. Preserve active dependencies until their work finishes. Keeping failed
+outcomes means retaining their evidence and limitations, not every disposable log
+or environment forever. Exact raw replay is not promised after deliberate pruning.
+The tracked skill is the project's portable procedure copy. p-stack maintains the
+shared canonical procedure and installs it at `~/.codex/skills/close-results/`;
+compare revisions before updating this copy. Project-specific choices live here,
+not in the shared skill.
 
 ## Shared organization
 
@@ -77,7 +84,8 @@ source identity, even when only compact measurements are carried into this proje
    question and evidence locations. Produce a result only when it retains a useful lesson.
 3. Present the conclusion, useful chart or table, short interpretation, scope,
    limitations, decision and sources. Retain compact inputs with the result; link
-   large raw runs precisely instead of importing them into Git.
+   large active runs precisely. Before deleting them, retain the measurements and
+   provenance needed to inspect the conclusion; record any loss of exact replay.
 4. Update current topic docs and remove discarded source only within authorized
    scope. Keep the result even when the implementation is removed.
 5. Regenerate and validate the result and FINDINGS, then delete the completed task
@@ -108,8 +116,8 @@ redundant summaries only after their useful conclusions and sources are retained
 
 Remove discarded implementations from active source only within approved scope,
 after ensuring their exact revision and reproduction dependencies remain available.
-Do not delete raw experiments, paused work or reproduction dependencies as routine
-closeout. A historical implementation need not be imported into active source merely
+Delete obsolete raw experiments only after their useful evidence is retained and
+verified. Preserve paused or active work and shared dependencies. A historical implementation need not be imported into active source merely
 to preserve its result.
 
 ## Coverage and recovery
@@ -118,4 +126,4 @@ to preserve its result.
 files and local experiment collections, their result homes and explicit exclusions.
 It is source provenance, not a porting plan or a claim that every raw attempt was
 reanalyzed. [Recovery](recovery.md) distinguishes self-contained report inspection
-from rerunning experiments, which still needs external raw data and runtimes.
+from rerunning experiments, which may require raw data deliberately pruned at closeout.

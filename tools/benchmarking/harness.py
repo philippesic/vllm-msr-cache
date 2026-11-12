@@ -9,7 +9,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-from tools.config import check_environment
+from tools.config import check_environment, output_overwrites_source
 from tools.process import run_owned
 from tools.runtime_verify import write_record
 
@@ -319,8 +319,8 @@ def grade_swebench(
 ) -> dict[str, Any]:
     import hashlib
 
-    if output.resolve().is_relative_to(root.resolve()):
-        raise ValueError("grading requires a new external output directory")
+    if output_overwrites_source(root, output):
+        raise ValueError("grading requires a new artifact output directory")
     if not python.is_file() or not dataset.is_file() or not predictions.is_file():
         raise ValueError("grading requires existing runtime, dataset and predictions")
     rows = json.loads(dataset.read_text())

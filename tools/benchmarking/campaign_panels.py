@@ -20,6 +20,7 @@ from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import digest_file, probe, verify_probe
 from tools.benchmarking.qualification import prepare_functional, verify_functional
 from tools.benchmarking.release_report import read_policy, release_gates
+from tools.config import output_overwrites_source
 from tools.runtime_verify import snapshot, write_record
 
 
@@ -124,8 +125,8 @@ def run_panels(
     selected_cases: list[str],
     resume: bool = False,
 ) -> int:
-    if output.resolve().is_relative_to(root.resolve()):
-        raise ValueError("campaign requires an external output")
+    if output_overwrites_source(root, output):
+        raise ValueError("campaign requires an artifact output")
     if not resume:
         jobs = admitted_jobs(root, profile, assets)
         if selected_cases:

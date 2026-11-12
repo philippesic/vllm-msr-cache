@@ -117,6 +117,10 @@ def main() -> int:
     branching_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if hasattr(args, "out") and not args.out.resolve().is_relative_to(
+        root / "artifacts"
+    ):
+        parser.error("write new project output under artifacts/ in this repository")
     if args.operation == "verify-branching":
         from tools.benchmarking.branching import verify_branching
 
@@ -218,8 +222,6 @@ def main() -> int:
         if args.operation == "functional":
             if not 0 < args.timeout <= 900:
                 raise ValueError("functional budget must be in 1..900 seconds")
-            if args.out.resolve().is_relative_to(root):
-                raise ValueError("functional requires a new external output")
             return run_owned(
                 [
                     str(args.runtime_python.absolute()),

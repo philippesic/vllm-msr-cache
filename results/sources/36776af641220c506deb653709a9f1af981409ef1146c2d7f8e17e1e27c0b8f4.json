@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "efficacy/20261110/suite/rubric.md",
+    "sha256": "36776af641220c506deb653709a9f1af981409ef1146c2d7f8e17e1e27c0b8f4"
+  },
+  "content": "Frozen rubric, all tasks: correctness 0/1 from hidden behavioral checks (question tasks manually evidence judged); safeguards attempted and committed separately; unsupported claims counted from action evidence; unnecessary questions counted; docs required for feature/handoff, regression tests required for bug and features. Existing tests alone do not meet added-test requirement. AFTER open handoff task must follow repository template and be removed when complete; BEFORE durable handoff judged for usable state without imposing AFTER layout. Record portable acceptance independently of correctness. Wall time includes agent work, excludes sync; tool calls from transcript if available. No composite score or causal improvement claim. Read-only questions need no invented edits. GPU CPU-only evidence is optional; full runtime unnecessary. Grade question correctness from final claims checked against files, never self-report execution.\nHandoff A: interrupt after ~90 seconds of active wall time, no advance handoff warning. B prompt only: Continue the unfinished work in this checkout. B receives common resource constraints and checkout path but no original task or parent transcript. If A completed before interruption classify handoff invalid, retain result.\nRepeat twice per arm; arm order interleaved; concurrency up to eight. Same inherited gpt-6.1-sol/high via Codex native fresh agents, fork_turns=none. GPU hiding is an instruction and subprocess environment, not a security boundary. Hidden files not mentioned to agents; same-user access means no enforced concealment.\n"
+}

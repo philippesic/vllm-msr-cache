@@ -1,0 +1,9 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "efficacy/20261110/suite/protocol.json",
+    "sha256": "196fe0b9856418df95cec3d4c398f16ea0c18997e1256ebfb745d4b2a445af68"
+  },
+  "content": "{\n  \"frozen_at\": 1794347362.0357707,\n  \"model\": \"gpt-6.1-sol\",\n  \"effort\": \"high\",\n  \"harness\": \"Codex native spawn_agent fork_turns=none\",\n  \"repeats\": 2,\n  \"arms\": {\n    \"before\": \"8a1acf9\",\n    \"after\": \"bfb4a34\"\n  },\n  \"runtime_read_only\": true\n}"
+}

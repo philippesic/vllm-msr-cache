@@ -11,6 +11,7 @@ different implementation and do not qualify this code. See the [result profile](
 ## Earlier research
 
 - **negative** — [Unrestricted admission filled the CPU cache but slowed serving](results/admission-pressure/result.md)
+- **unresolved** — [Earlier agent trials did not establish an effectiveness improvement](results/agent-workflow-pilot/result.md)
 - **mixed** — [Reducing capture work moved synchronization costs and did not establish a speedup](results/capture-cost/result.md)
 - **negative** — [Continuous semantic machinery imposed overhead even without useful cache activity](results/continuous-semantic-overhead/result.md)
 - **functional** — [The suspected pending-prefetch guard did not delay the observed requests](results/demand-guard/result.md)

@@ -37,6 +37,16 @@ def test_exposure_tracks_source_ancestry_and_retains_failed_admissions(
     admit_exposure(root, assets, second, later)
     assert later[0]["source_group_previously_exposed"]
     assert len(list((assets / "exposure").glob("*.json"))) == 2
+    retained = root / "benchmarks/exposure"
+    retained.mkdir()
+    for receipt in (assets / "exposure").glob("*.json"):
+        (retained / receipt.name).write_bytes(receipt.read_bytes())
+        receipt.unlink()
+    third = tmp_path / "third"
+    third.mkdir()
+    after_pruning = [{"kind": "application", "instance": "org__fresh-3"}]
+    admit_exposure(root, assets, third, after_pruning)
+    assert after_pruning[0]["source_group_previously_exposed"]
 
 
 def test_measurement_controls_detect_injected_delay_and_protected_cohort_harm() -> None:

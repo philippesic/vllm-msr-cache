@@ -3,26 +3,26 @@
 Portable development uses CPython 3.12.3 and uv 0.13.6 with `uv.lock`, and installs
 no vLLM, torch or CUDA. The separate runtime installs one exact vLLM nightly wheel,
 torch 2.13.0 and transformers 5.22.1 from the hash-locked `runtime/requirements.txt`.
-Install it outside the repository, and do not modify an environment while another
+Install it under ignored `artifacts/venvs/`, and do not modify an environment while another
 run uses it.
 
-On DESKTOP-T4JKGJB the installed runtime is
-`/home/philip/.local/share/venvs/wait-hint-offload`.
+The active benchmark task temporarily retains its admitted external environments;
+see its current State before changing runtime paths. New installations use the
+repository-contained paths below.
 
 ```sh
-uv venv --python 3.12.3 /external/venvs/wait-hint
-uv pip install --python /external/venvs/wait-hint/bin/python --require-hashes -r runtime/requirements.txt
-uv pip install --python /external/venvs/wait-hint/bin/python --no-deps -e .
-uv pip check --python /external/venvs/wait-hint/bin/python
-uv run --locked python tools/check.py --runtime-python /external/venvs/wait-hint/bin/python
-uv run --locked python tools/check.py --runtime-python /external/venvs/wait-hint/bin/python --test tests/runtime/test_arc.py
+uv venv --python 3.12.3 artifacts/venvs/wait-hint
+uv pip install --python artifacts/venvs/wait-hint/bin/python --require-hashes -r runtime/requirements.txt
+uv pip install --python artifacts/venvs/wait-hint/bin/python --no-deps -e .
+uv pip check --python artifacts/venvs/wait-hint/bin/python
+uv run --locked python tools/check.py --runtime-python artifacts/venvs/wait-hint/bin/python
+uv run --locked python tools/check.py --runtime-python artifacts/venvs/wait-hint/bin/python --test tests/runtime/test_arc.py
 ```
 
 The first command is the runtime lane. It type-checks the adapter and runtime tests
 against that environment, snapshots inputs, runs real pinned CPU integration with
 CUDA hidden, and prints one verdict line with the record location. Records go to
-`~/.local/share/vllm-semantic-cache-ext-next/attempts/` unless `--out` names another
-new directory outside the repository. It covers real ARC, manager and scheduler
+`artifacts/runs/` unless `--out` names another new directory under `artifacts/`. It covers real ARC, manager and scheduler
 construction, engine RPC and HTTP routing, submission/completion failures and
 computed-token guards. CPU transfer handlers are fakes; real workers need CUDA
 streams and host registration. The second command is fast partial feedback for one
@@ -112,12 +112,12 @@ Before starting, check with `nvidia-smi` that no other process is using the GPU 
 that there is disk headroom for the output.
 
 ```sh
-/external/venvs/wait-hint/bin/python -m tools.runtime_verify --gpu --model /local/model --timeout 600
+artifacts/venvs/wait-hint/bin/python -m tools.runtime_verify --gpu --model /local/model --timeout 600
 ```
 
 This tests FP16 store, CPU eviction and restore byte equality, restored versus fresh
 generation in both modes, and authenticated HTTP-to-engine advice.
-`python -m tools.runtime_verify --verify /external/attempt` validates a retained
+`python -m tools.runtime_verify --verify artifacts/runs/attempt` validates a retained
 receipt, frozen source, model dependencies and artifact hashes without rerunning it.
 Without arguments the verifier exits 2 and asks for an environment and output.
 Unknown schemas, failed attempts, missing observations and changed inputs refuse.

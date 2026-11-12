@@ -16,13 +16,20 @@ def check_environment(root: Path) -> dict[str, str]:
 def proof_environment(root: Path, project: Path) -> dict[str, str]:
     env = check_environment(root)
     env["PYTHONPATH"] = os.pathsep.join([str(root), str(project)])
-    env["MYPY_CACHE_DIR"] = str(root.parent.parent / "mypy-cache")
+    env["MYPY_CACHE_DIR"] = str(project / "artifacts/cache/proofs")
     return env
 
 
 def attempts_root() -> Path:
-    data = os.environ.get("XDG_DATA_HOME") or str(Path.home() / ".local/share")
-    return Path(data) / "vllm-semantic-cache-ext-next/attempts"
+    return Path(__file__).resolve().parents[1] / "artifacts/runs"
+
+
+def output_overwrites_source(root: Path, output: Path) -> bool:
+    destination = output.resolve()
+    project = root.resolve()
+    return destination.is_relative_to(project) and not destination.is_relative_to(
+        project / "artifacts"
+    )
 
 
 def hardware_environment(root: Path, model: Path) -> dict[str, str]:

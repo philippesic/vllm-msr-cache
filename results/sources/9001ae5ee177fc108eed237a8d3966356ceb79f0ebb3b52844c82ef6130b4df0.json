@@ -1,0 +1,15 @@
+{
+  "source": {
+    "repository": "legacy-local",
+    "revision": null,
+    "path": "output/admission-trial/results/admission_trial/capacity-samples.csv",
+    "sha256": "9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0"
+  },
+  "parts": [
+    "parts/9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0/0000.json",
+    "parts/9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0/0001.json",
+    "parts/9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0/0002.json",
+    "parts/9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0/0003.json",
+    "parts/9001ae5ee177fc108eed237a8d3966356ceb79f0ebb3b52844c82ef6130b4df0/0004.json"
+  ]
+}

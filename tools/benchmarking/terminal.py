@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from tools.benchmarking.probe import digest_file
-from tools.config import check_environment
+from tools.config import check_environment, output_overwrites_source
 from tools.process import run_owned
 from tools.runtime_verify import snapshot, write_record
 
@@ -110,8 +110,8 @@ def run_terminal(
     seconds: int,
     agent: str = "terminus-2",
 ) -> dict[str, Any]:
-    if output.resolve().is_relative_to(root.resolve()) or output.exists():
-        raise ValueError("terminal acquisition requires a new external output")
+    if output_overwrites_source(root, output) or output.exists():
+        raise ValueError("terminal acquisition requires a new artifact output")
     if agent not in ("terminus-2", "oracle", "nop") or not 0 < seconds <= 240:
         raise ValueError("invalid terminal agent or acquisition budget")
     if agent == "terminus-2" and not re.fullmatch(

@@ -8,6 +8,7 @@ from typing import Any
 from tools.benchmarking.harness import pin_swebench_image
 from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import digest_file, probe, verify_probe
+from tools.config import output_overwrites_source
 from tools.repo_policy import git_paths
 from tools.runtime_verify import snapshot, write_record
 
@@ -58,8 +59,8 @@ def run_campaign(
     )
     if unsupported:
         raise ValueError(f"campaign cases not implemented/admitted: {unsupported}")
-    if output.resolve().is_relative_to(root.resolve()) or output.exists():
-        raise ValueError("campaign requires a new external output")
+    if output_overwrites_source(root, output) or output.exists():
+        raise ValueError("campaign requires a new artifact output")
     if any(
         cell.model not in models or not models[cell.model].is_dir() for cell in roster
     ):

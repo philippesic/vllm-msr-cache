@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from tools.benchmarking.server import server_command
-from tools.config import benchmark_environment
+from tools.config import benchmark_environment, output_overwrites_source
 from tools.process import process_identity, stop_session
 from tools.runtime_verify import snapshot, write_record
 
@@ -53,8 +53,10 @@ def probe(
 ) -> int:
     if not python.is_file() or not (model / "config.json").is_file():
         raise ValueError("runtime Python and a complete local model are required")
-    if output.is_relative_to(root) or not 0 < seconds <= (108000 if panel else 1800):
-        raise ValueError("new external output and supported bounded timeout required")
+    if output_overwrites_source(root, output) or not 0 < seconds <= (
+        108000 if panel else 1800
+    ):
+        raise ValueError("new artifact output and supported bounded timeout required")
     if panel is not None and coding is not None:
         raise ValueError("use either a panel or a single coding probe")
     if system not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):

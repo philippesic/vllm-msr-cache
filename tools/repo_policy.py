@@ -19,6 +19,7 @@ SKIP_DIRS = {
     ".import_linter_cache",
     "build",
     "dist",
+    "artifacts",
 }
 RAW_DIRS = {
     "output",

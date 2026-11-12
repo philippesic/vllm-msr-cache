@@ -13,6 +13,7 @@ from typing import Any
 from tools.benchmarking.answers import added_json
 from tools.benchmarking.probe import digest_file
 from tools.benchmarking.regression import finish_grade
+from tools.config import output_overwrites_source
 from tools.runtime_verify import write_record
 
 ANSWER_FILE = "benchmark_navigation.json"
@@ -61,8 +62,8 @@ def navigation_observations(output: Path) -> dict[str, Any]:
 def grade_navigation(
     root: Path, dataset: Path, prediction: Path, instance: str, output: Path
 ) -> dict[str, Any]:
-    if output.resolve().is_relative_to(root.resolve()) or output.exists():
-        raise ValueError("navigation grading requires a new external output")
+    if output_overwrites_source(root, output) or output.exists():
+        raise ValueError("navigation grading requires a new artifact output")
     rows = [
         row for row in json.loads(dataset.read_text()) if row["instance_id"] == instance
     ]

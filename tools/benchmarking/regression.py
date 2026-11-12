@@ -12,6 +12,7 @@ from typing import Any
 
 from tools.benchmarking.harness import pin_swebench_image
 from tools.benchmarking.probe import digest_file
+from tools.config import output_overwrites_source
 from tools.runtime_verify import write_record
 
 TEST_FILE = "benchmark_generated_test.py"
@@ -91,8 +92,8 @@ def finish_grade(
 def grade_regression(
     root: Path, dataset: Path, prediction: Path, instance: str, output: Path
 ) -> dict[str, Any]:
-    if output.resolve().is_relative_to(root.resolve()) or output.exists():
-        raise ValueError("regression grading requires a new external output")
+    if output_overwrites_source(root, output) or output.exists():
+        raise ValueError("regression grading requires a new artifact output")
     dataset_bytes = dataset.read_bytes()
     selected = [
         row for row in json.loads(dataset_bytes) if row["instance_id"] == instance
