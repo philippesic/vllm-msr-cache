@@ -124,6 +124,28 @@
       "seconds": 240,
       "exposure": "oracle-and-noop-only",
       "image_id": "sha256:465659245190448c277bb7d753cfd79f19fbf1ef4ef45fb2b2a85eeed5da9d0b"
+    },
+    {
+      "id": "B1-1",
+      "instance": "grounded__queue-shutdown",
+      "dataset": "grounded-b1",
+      "task_kind": "grounded",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-facts-and-citations-v1",
+      "seconds": 240,
+      "exposure": "checker-only",
+      "image_id": "sha256:43db88051593792a9c97630bee2d4f89dd6006c73183f9e9cbb2ed5a2d99dafa"
+    },
+    {
+      "id": "B1-2",
+      "instance": "grounded__http-stale-controls",
+      "dataset": "grounded-b1",
+      "task_kind": "grounded",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-facts-and-citations-v1",
+      "seconds": 240,
+      "exposure": "checker-only",
+      "image_id": "sha256:74ff862f039852af09b7dca1a42e14fa25b872d637216d65450d296f615cdd25"
     }
   ],
   "additional_datasets": {
@@ -143,6 +165,11 @@
       "dataset_sha256": "7ae0b74e613571c821d0be2eecefcd8029a4ad2850c0f26712bff0c846ad06e0",
       "definitions": "benchmarks/workflows/terminal.json",
       "selection": "Original bounded CPU terminal tasks, selected before candidate outputs; independent Git recovery and Python/C build tasks; two task-specific results, not an official Terminal-Bench score"
+    },
+    "grounded-b1": {
+      "dataset_sha256": "fcefac2f2defb05c479ea369978499f9985dfe3260d80e2b7d6d47f5fabc3d27",
+      "definitions": "benchmarks/workflows/grounded.json",
+      "selection": "Immutable public technical documents: independent grounded QA and two-source search/read/compare; sources and rubrics frozen before candidate output"
     }
   }
 }

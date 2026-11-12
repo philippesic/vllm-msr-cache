@@ -25,7 +25,7 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 Implementation is active and incomplete. The functional entry point passed four
 real GPU cases, including full/sliding attention against a float reference for
 256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
-52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring, C3 navigation and C4 terminal acquisition and their readers
+52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring, C3 navigation, C4 terminal and B1 grounded-document acquisition and their readers
 are implemented; mixed-dataset campaign integration is pending. Remaining workload definitions, activity contracts, traces, soak,
 resume and release verdicts still need implementation and real qualification.
 Successful feasibility pilots are not completion of these suites.
@@ -91,7 +91,7 @@ Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
 Isolated runtimes under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
 wait-hint-lmcache and wait-hint-benchmarks-locked. The established wait-hint-offload
 environment was preserved. The previous portable checkpoint passed 53 CPU tests and 105 rule
-proofs. Navigation and terminal behavior checks bring the current CPU count to 57;
+proofs. Navigation, terminal and grounding behavior checks bring the current CPU count to 58;
 combined acceptance is running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
 existing external backups directory. No paid compute, remote publication, automatic
 delegation or 5080 use occurred.
@@ -134,7 +134,24 @@ benchmark-terminal-negative-01. All three original observations/receipts verifie
 The first oracle attempt failed because Docker Compose was absent; the failed
 attempt is preserved. Checksum-verified Compose v5.6.0 is now installed as a local
 CLI plugin. New terminal receipts retain driver snapshots as well as original task
-and validator bytes. Live terminal model acquisition remains unexercised.
+and validator bytes. The first live terminal pilot failed before its agent started because the nested
+driver tried to take a Git snapshot of the existing non-Git source snapshot. The
+failure is retained in benchmark-qwen35-terminal-01. The terminal driver now receives
+the actual immutable controller checkout. Attempt 02 reached 17 captured requests
+but hit the 240-second task deadline. Harbor still ran its original validator and
+recorded reward zero; the probe remains failed, not qualified. The transcript shows
+Git history entering an interactive pager and subsequent recovery attempts. Terminal
+acquisition now sets PAGER/GIT_PAGER to cat, matching the existing coding harness;
+the task, model limits and original validators are unchanged. A new live probe must
+qualify this repair.
+
+B1 defines an independent Python 3.14.0 queue-document task and a shared-source
+RFC 5861/9111 comparison. Source bytes, URLs, structured facts and acceptable evidence
+spans were frozen before candidate output. Known answers passed
+benchmark-grounded-checker-01/02; correct facts with an unrelated citation failed
+benchmark-grounded-checker-negative-01. All three receipts verified. This is a narrow
+fact/citation rubric, not general summary-quality qualification. Live B1 acquisition
+is not yet exercised.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.

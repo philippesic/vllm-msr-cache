@@ -30,7 +30,7 @@ def main() -> int:
     command.add_argument("--instance")
     command.add_argument(
         "--coding-kind",
-        choices=("repair", "regression", "navigation", "terminal"),
+        choices=("repair", "regression", "navigation", "terminal", "grounded"),
         default="repair",
     )
     command.add_argument(
@@ -95,8 +95,27 @@ def main() -> int:
     terminal.add_argument("--out", type=Path, required=True)
     terminal_verify = sub.add_parser("verify-terminal")
     terminal_verify.add_argument("directory", type=Path)
+    grounded = sub.add_parser("grade-grounded")
+    grounded.add_argument("--dataset", type=Path, required=True)
+    grounded.add_argument("--prediction", type=Path, required=True)
+    grounded.add_argument("--instance", required=True)
+    grounded.add_argument("--out", type=Path, required=True)
+    grounded_verify = sub.add_parser("verify-grounded")
+    grounded_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.operation in ("grade-grounded", "verify-grounded"):
+        from tools.benchmarking.grounded import grade_grounded, verify_grounded
+
+        result = (
+            verify_grounded(args.directory)
+            if args.operation == "verify-grounded"
+            else grade_grounded(
+                root, args.dataset, args.prediction, args.instance, args.out
+            )
+        )
+        print(json.dumps(result, indent=2))
+        return 0
     if args.operation in ("terminal", "verify-terminal"):
         from tools.benchmarking.terminal import run_terminal, verify_terminal
 
