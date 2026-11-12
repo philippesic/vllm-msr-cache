@@ -287,6 +287,8 @@ def test_real_authenticated_http_registration_and_hint(tmp_path: Any) -> None:
             "namespace": namespace.mapping(),
             "cpu_bytes_to_use": 4 * 1024 * 1024,
             "advice_enabled": True,
+            "max_sessions": 2,
+            "max_events": 64,
         },
     }
     command = [
@@ -322,122 +324,150 @@ def test_real_authenticated_http_registration_and_hint(tmp_path: Any) -> None:
         "--kv-transfer-config",
         json.dumps(configuration),
     ]
-    log_path = tmp_path / "server.log"
-    with log_path.open("w") as log:
-        child = subprocess.Popen(
-            command,
-            env=server_environment(),
-            stdout=log,
-            stderr=subprocess.STDOUT,
-            start_new_session=True,
-        )
-        owner = process_identity(child.pid)
-        assert owner is not None
-        try:
+    previous_hint: dict[str, Any] | None = None
+    for restart in range(2):
+        log_path = tmp_path / f"server-{restart}.log"
+        with log_path.open("w") as log:
+            child = subprocess.Popen(
+                command,
+                env=server_environment(),
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                start_new_session=True,
+            )
+            owner = process_identity(child.pid)
+            assert owner is not None
+            try:
 
-            async def scenario() -> None:
-                headers = {"Authorization": "Bearer " + key}
-                async with httpx.AsyncClient(
-                    base_url=f"http://127.0.0.1:{port}", timeout=10
-                ) as client:
-                    deadline = time.monotonic() + 120
-                    while True:
-                        if child.poll() is not None:
-                            raise RuntimeError("server startup failed")
-                        try:
-                            models = await client.get("/v1/models", headers=headers)
-                            if (
-                                models.status_code == 200
-                                and models.json()["data"][0]["id"] == name
-                            ):
-                                break
-                        except httpx.TransportError:
-                            pass
-                        if time.monotonic() >= deadline:
-                            raise TimeoutError("server readiness")
-                        await asyncio.sleep(0.1)
-                    registration = {
-                        "schema": "wait-registration-v2",
-                        "scope": "http",
-                        "session": "conversation",
-                        "incarnation": "instance",
-                        "generation": 1,
-                    }
-                    response = await client.post(
-                        "/v1/completions",
-                        headers=headers,
-                        json={
-                            "model": name,
-                            "prompt": list(range(1000, 1096)),
-                            "max_tokens": 1,
-                            "temperature": 0,
-                            "kv_transfer_params": {"wait_hint": registration},
-                        },
-                    )
-                    assert response.status_code == 200, response.text
-                    observed = response.json()["kv_transfer_params"]["wait_hint"]
-                    assert observed["registered"] and observed["boundary"] == 96
-                    now = time.monotonic_ns()
-                    hint = Hint(
-                        "http",
-                        "conversation",
-                        "instance",
-                        1,
-                        "event",
-                        observed["prefix"],
-                        96,
-                        namespace,
-                        observed["observed_ns"],
-                        now,
-                        now + 10_000_000_000,
-                        observed["clock_domain"],
-                    )
-                    denied = await client.post("/v1/wait-hints", json=hint.mapping())
-                    assert denied.status_code == 401
-                    invalid = await client.post(
-                        "/v1/wait-hints",
-                        headers=headers,
-                        json={**hint.mapping(), "schema": "unknown"},
-                    )
-                    assert invalid.status_code == 400
-                    deadline = time.monotonic() + 5
-                    event = 0
-                    while True:
-                        result = await client.post(
+                async def scenario() -> None:
+                    nonlocal previous_hint
+                    headers = {"Authorization": "Bearer " + key}
+                    async with httpx.AsyncClient(
+                        base_url=f"http://127.0.0.1:{port}", timeout=10
+                    ) as client:
+                        deadline = time.monotonic() + 120
+                        while True:
+                            if child.poll() is not None:
+                                raise RuntimeError("server startup failed")
+                            try:
+                                models = await client.get("/v1/models", headers=headers)
+                                if (
+                                    models.status_code == 200
+                                    and models.json()["data"][0]["id"] == name
+                                ):
+                                    break
+                            except httpx.TransportError:
+                                pass
+                            if time.monotonic() >= deadline:
+                                raise TimeoutError("server readiness")
+                            await asyncio.sleep(0.1)
+                        registration = {
+                            "schema": "wait-registration-v2",
+                            "scope": "http",
+                            "session": "conversation",
+                            "incarnation": "instance",
+                            "generation": 1,
+                        }
+                        response = await client.post(
+                            "/v1/completions",
+                            headers=headers,
+                            json={
+                                "model": name,
+                                "prompt": list(range(1000, 1096)),
+                                "max_tokens": 1,
+                                "temperature": 0,
+                                "kv_transfer_params": {"wait_hint": registration},
+                            },
+                        )
+                        assert response.status_code == 200, response.text
+                        observed = response.json()["kv_transfer_params"]["wait_hint"]
+                        assert observed["registered"] and observed["boundary"] == 96
+                        now = time.monotonic_ns()
+                        hint = Hint(
+                            "http",
+                            "conversation",
+                            "instance",
+                            1,
+                            "event",
+                            observed["prefix"],
+                            96,
+                            namespace,
+                            observed["observed_ns"],
+                            now,
+                            now + 10_000_000_000,
+                            observed["clock_domain"],
+                        )
+                        if previous_hint is not None:
+                            stale = await client.post(
+                                "/v1/wait-hints", headers=headers, json=previous_hint
+                            )
+                            assert (
+                                stale.status_code == 200
+                                and stale.json()["decision"] == "clock_or_deadline"
+                            )
+                            print(
+                                json.dumps(
+                                    {"actual_engine_restart_stale_hint_refused": True}
+                                )
+                            )
+                        previous_hint = hint.mapping()
+                        denied = await client.post(
+                            "/v1/wait-hints", json=hint.mapping()
+                        )
+                        assert denied.status_code == 401
+                        invalid = await client.post(
                             "/v1/wait-hints",
                             headers=headers,
-                            json={**hint.mapping(), "event": str(event)},
+                            json={**hint.mapping(), "schema": "unknown"},
                         )
-                        assert result.status_code == 200, result.text
-                        if result.json()["refreshed_keys"] == 6:
-                            break
-                        if time.monotonic() >= deadline:
-                            raise TimeoutError("HTTP advice activation")
-                        event += 1
-                        await asyncio.sleep(0.01)
-                    print(
-                        json.dumps(
-                            {
-                                "mechanism": "HTTP to async engine RPC to scheduler ARC",
-                                "authenticated": True,
-                                "unauthenticated_status": denied.status_code,
-                                "malformed_status": invalid.status_code,
-                                "acknowledgement": result.json(),
-                            }
+                        assert invalid.status_code == 400
+                        deadline = time.monotonic() + 5
+                        event = 0
+                        while True:
+                            result = await client.post(
+                                "/v1/wait-hints",
+                                headers=headers,
+                                json={**hint.mapping(), "event": str(event)},
+                            )
+                            assert result.status_code == 200, result.text
+                            if result.json()["refreshed_keys"] == 6:
+                                break
+                            if time.monotonic() >= deadline:
+                                raise TimeoutError("HTTP advice activation")
+                            event += 1
+                            await asyncio.sleep(0.01)
+                        print(
+                            json.dumps(
+                                {
+                                    "mechanism": "HTTP to async engine RPC to scheduler ARC",
+                                    "authenticated": True,
+                                    "unauthenticated_status": denied.status_code,
+                                    "malformed_status": invalid.status_code,
+                                    "acknowledgement": result.json(),
+                                }
+                            )
                         )
-                    )
+                        from tests.runtime.http_scenarios import lifecycle
 
-            asyncio.run(scenario())
-        finally:
-            if child.poll() is None:
-                signal_owned(child.pid, owner, signal.SIGTERM)
-                try:
-                    child.wait(timeout=15)
-                except subprocess.TimeoutExpired:
-                    stop_session(child.pid, owner)
-                    child.wait()
-            stop_session(child.pid, owner)
-            print(log_path.read_text())
+                        print(
+                            json.dumps(
+                                await lifecycle(
+                                    client, headers, name, namespace.mapping()
+                                )
+                            )
+                        )
+
+                asyncio.run(scenario())
+            finally:
+                if child.poll() is None:
+                    signal_owned(child.pid, owner, signal.SIGTERM)
+                    try:
+                        child.wait(timeout=15)
+                    except subprocess.TimeoutExpired:
+                        stop_session(child.pid, owner)
+                        child.wait()
+                stop_session(child.pid, owner)
+                print(log_path.read_text())
 
 
 def test_large_head_attention_matches_float_reference() -> None:

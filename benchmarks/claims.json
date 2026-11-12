@@ -1,0 +1,9 @@
+{
+  "schema": "benchmark-claim-policy-v1",
+  "latency_ratio_limit": 1.05,
+  "absolute_tolerance_seconds": 0.02,
+  "benefit_ratio_limit": 0.95,
+  "application_usefulness": "both compared arms resolve the named task in both independent blocks",
+  "primary_outcome": "complete application acquisition seconds, conditional on useful task outcomes",
+  "scope": "case-scoped descriptive outcomes on named configurations; no population parity, capacity, tail or lifetime guarantee"
+}

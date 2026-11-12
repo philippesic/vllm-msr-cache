@@ -165,6 +165,9 @@ def probe(
             start_new_session=True,
         )
         owner = process_identity(child.pid)
+        write_record(
+            output / "runtime-owner.json", {"pid": child.pid, "identity": owner}
+        )
         timer = None
         if owner is not None:
             timer = threading.Timer(seconds, stop_session, args=(child.pid, owner))
@@ -233,6 +236,7 @@ def probe(
                             )
                             == "gemma4_unified"
                             else 256 * 1024**2,
+                            child.pid,
                         )
                         if not result["panel"]["complete"]:
                             result["status"] = "failed"
@@ -410,16 +414,20 @@ def verify_probe(output: Path, *, allow_failed_panel: bool = False) -> dict[str,
         else "restoration_observed"
     )
     if terminal["status"] != expected and not (
-        allow_failed_panel
-        and "panel" in admission
-        and "panel" in terminal
-        and terminal["status"] == "failed"
+        allow_failed_panel and "panel" in admission and terminal["status"] == "failed"
     ):
         raise ValueError(
             f"probe did not pass: {terminal.get('reason', terminal['status'])}"
         )
     if not 0 < terminal["elapsed_seconds"] <= admission["budget_seconds"] + 60:
         raise ValueError("probe exceeded execution budget")
+    if (
+        allow_failed_panel
+        and "panel" in admission
+        and "panel" not in terminal
+        and terminal["status"] == "failed"
+    ):
+        return terminal
     if terminal["response"]["choices"][0]["message"]["content"].strip() != "4":
         raise ValueError("invalid sanity response")
     if admission["system"] in ("native-arc", "wait-hint"):

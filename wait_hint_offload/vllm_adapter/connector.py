@@ -59,6 +59,8 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             self.settings.metadata_bytes,
         )
         self.clock_domain = "engine-" + uuid.uuid4().hex
+        self.cpu_chunk_bytes = int(spec.kv_bytes_per_chunk)
+        self.cpu_chunks = int(spec.num_blocks)
 
     def _calc_num_offloadable_tokens(
         self, req_status: Any, num_computed_tokens: int
@@ -151,6 +153,16 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
                 "registered": accepted.accepted,
                 "reason": accepted.decision.value,
                 "session_retired_total": self.observed.retired,
+                "metadata": self.observed.metrics(),
+                "cache_layout": {
+                    "cpu_chunk_bytes": self.cpu_chunk_bytes,
+                    "cpu_chunks": self.cpu_chunks,
+                    "minimum_full_prefix_chunks": sum(
+                        boundary // group.tokens_per_chunk
+                        for group in self.config.kv_group_configs
+                        if group.sliding_window_size_in_chunks is None
+                    ),
+                },
                 "prefix": digest,
                 "boundary": boundary,
                 "observed_ns": observation.observed_ns,
@@ -183,6 +195,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             "decision": result.decision.value,
             "refreshed_keys": result.refreshed_keys,
             "mechanisms": self.settings.mechanisms(),
+            "metadata": self.observed.metrics(),
         }
 
     def update_connector_output(self, connector_output: Any) -> None:

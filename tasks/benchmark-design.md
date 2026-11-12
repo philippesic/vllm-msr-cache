@@ -22,135 +22,70 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 
 ## State
 
-Implementation is active and incomplete. The functional entry point passed four
-real GPU cases, including full/sliding attention against a float reference for
-256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
-52 release traces and six hours of soak. Partial C1 repair, C2 test-authoring, C3 navigation, C4 terminal and B1 grounded-document acquisition and their readers
-are implemented; mixed-dataset campaign integration is pending. Branching acquisition and its two-branch grading are implemented but not yet live-qualified. Shared-server panels, mixed-dataset admission, bounded traces and append-only resume are now implemented but not GPU-qualified. Remaining activity/resource/fault gates and release verdicts still need completion.
-Successful feasibility pilots are not completion of these suites.
-
-The maintained probe snapshots source, hashes local model artifacts and relevant
-installed runtime files, bounds execution, cleans owned processes, captures real
-tool turns and causal hints, and grades saved patches with the original SWE-bench
-4.1.0 grader. Its independent reader checks identities, restored/fresh token IDs,
-artifacts and original grading reports. The report rejects incomplete request
-captures. Context compaction retains system/task instructions and recent complete
-turns. Failures and earlier receipt meanings remain immutable.
+Implementation is active and incomplete. Philip's request remains implementation and
+full end-to-end verification; status questions and read-only consultations do not
+cancel it. No renewed permission is pending.
 
 The authorized roster is GPU-only, native ARC, wait-hint and LMCache. Continuum and
-Mooncake are excluded. Qwen receives 256 MiB of DRAM cache per CPU arm; Gemma receives
-2 GiB per CPU arm because smaller LMCache pools could not retain required objects.
-Physical memory/staging differences remain reportable comparator costs. Serving is
-8K, FP16 eager TP1 on the 11 GiB 2080 Ti. The optional 5080/precision study is deferred.
+Mooncake are excluded. Serving is 8K, FP16 eager TP1 on the 11 GiB 2080 Ti, with
+256 MiB Qwen / 2 GiB Gemma DRAM cache for each CPU arm. Matched cache capacity does
+not imply matched staging/RSS; report those costs. The optional 5080 study is deferred.
 
-Both modern models now load and execute actual CPU restoration. Qwen native ARC and
-wait-hint probes passed group readiness and exact restored/fresh continuations.
-Gemma native restoration passed in benchmark-gemma4-patched-02. LMCache restoration
-passed on Qwen in benchmark-lmcache-qwen35-12 and Gemma in
-benchmark-lmcache-gemma4-04 (3072 cached prompt tokens, zero fresh, equal continuation
-IDs). Independent readers accepted these receipts. Broad hybrid fault, lifecycle and
-performance qualification remains unfinished.
+Four real functional GPU cases passed in benchmark-functional-02. Both modern models
+load and restore real CPU state: native Qwen, native Gemma
+(benchmark-gemma4-patched-02), LMCache Qwen (benchmark-lmcache-qwen35-12) and LMCache
+Gemma (benchmark-lmcache-gemma4-04) produced exact restored/fresh continuation IDs.
+The four narrow approved runtime patches are hash-pinned in
+benchmarks/runtime-patches/manifest.json. These are feasibility results, not benefit.
 
-The approved Gemma Turing compatibility patch uses one pipeline stage and a maximum
-16-token KV tile for 512-wide heads on capability 7.5. A stages-only attempt still
-exceeded shared memory. LMCache 0.5.6 requires three opt-in local repairs on this WSL
-host: permission for its specific receiver child to share VMM memory, expandable
-allocation enabled only for KV after weight loading, and its existing staged-copy
-path instead of the failing direct batch-copy path. No global ptrace setting changed.
-The four exact source patches and hashes are maintained in
-benchmarks/runtime-patches/manifest.json; patch-runtime preserves originals and
-refuses unrelated installed edits. Extra staging cost must be disclosed.
+The isolated mini-swe-agent/Harbor/SWE-bench runtime is hash-locked. C1 repair,
+C2 test authoring, C3 navigation, C4 original Terminal-Bench, C5 isolated branching
+and B1 source-grounded workflows have retained positive/negative validator checks.
+Live pilots include resolved Qwen repair, unresolved test/navigation/grounding tasks,
+failed terminal deadlines and a failed initial branch run. Preserve all attempts.
+Branching now uses the same conda shell as repair; empty patches are checked against
+the original grader's summary. Terminus command envelopes now allow 1024 tokens after
+512 repeatedly truncated JSON. Task wall budgets and original validators are fixed.
+Validation uses 12 turns / 120 seconds, release 32 / 240. Timeouts stay censored.
 
-Real coding feasibility on the exposed Flask issue passed the original grader for
-Qwen native ARC, wait-hint and LMCache. The LMCache pilot
-benchmark-lmcache-qwen35-coding-01 took 216.90 seconds of acquisition, completed 24
-requests, resolved the task and passed receipt/report verification. Native control
-and candidate had equal token/cache counts; these pilots establish neither useful
-retention nor a comparative performance benefit. Gemma LMCache coding attempt 01
-failed because the proxy's 30-second request deadline expired during normal slow
-decode. The common request deadline is now 90 seconds (120 at the harness client),
-within unchanged task/campaign budgets. Attempt 02 completed ten captured requests
-but exceeded the 240-second acquisition limit; it remains incomplete, with no
-cache transfer fault observed. New runs retain incremental trajectories and snapshot
-unfinished patches before owned-container cleanup; a deadline cannot pass even when
-the retained patch grades. Preserve both failed attempts.
+Shared-server v3 campaigns admit mixed datasets and frozen images before GPU work,
+reset between applications, capture causal hints and complete request denominators,
+and preserve failures. Full compare-01 completed from immutable a1dc9d8 in 31.17 minutes: all 12
+applications attempted, four grounding acquisitions complete/unresolved and eight
+repair/navigation acquisitions censored at their deadlines. None of its four controlled
+3K-prefix diagnostics showed saved recomputation after competition. Its controlled native diagnostic observed GPU reuse, CPU restore
+and ready advice under 48 competing prefixes. Its earlier trace schema remains
+readable. It lacks the newer resource/reset evidence and is not release qualification.
 
-The isolated mini-swe-agent 2.4.6 / Harbor 0.25.0 / SWE-bench 4.1.0 environment is
-hash-locked (131 packages) and passes dependency checks. Original SWE-bench 5.0.2
-was incompatible with the classic dataset; the failed run and separate 4.1.0 regrade
-are preserved. Four C1 source tasks are selected, one pilot-exposed. Their downloaded images are
-pinned by complete content IDs; campaign v2 freezes those IDs across cells and
-refuses acquisition/grading drift. A saved Qwen patch passed the original grader
-using its content-addressed image tag. The grader now disables its broad image
-cleanup, which otherwise deleted a concurrently downloaded owned task image; that
-image was restored. Fresh source/task admission, independent validators and cost
-admission remain open.
+New implementation awaiting live qualification includes direct metadata counts,
+resource windows, actual reset records, baseline-only offered-load calibration,
+append-only interruption recovery and paired reports which refuse speed ratios for
+censored pairs. The HTTP functional case covers three small-capacity exhaustion /
+retirement / reset cycles, disconnect recovery and a real engine restart. The expanded four-case GPU gate passed in benchmark-functional-04 (120.39 seconds).
+Attempt 03 retained an incorrect test expectation: a full reset invalidates the old
+clock domain before checking observation presence. The corrected test asserts that
+refusal and zero retained counts; the product contract was unchanged. Runtime CPU acceptance passed 18 tests in
+benchmark-runtime-accounting-01; portable full acceptance most recently passed
+68 CPU tests are now collected; the preceding full checkpoint passed 66 tests and
+105 rule proofs. Run full acceptance on the combined checkpoint.
 
-Raw attempts: /home/philip/.local/share/vllm-semantic-cache-ext-next/attempts.
-Isolated runtimes under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
-wait-hint-lmcache and wait-hint-benchmarks-locked. The established wait-hint-offload
-environment was preserved. The previous portable checkpoint passed 53 CPU tests and 105 rule
-proofs. Navigation, terminal and grounding behavior checks bring the current CPU count to 58;
-the latest full acceptance passed 59 CPU tests and 105 rule proofs. The project is local-only; its verified Git bundle is retained under the
-existing external backups directory. No paid compute, remote publication, automatic
-delegation or 5080 use occurred.
+Release acquisition remains unrun: 180 applications, 52 traces and four bounded
+operating runs totaling six hours. Remaining work is live qualification, complete
+release/report gates, the full campaigns, current workflow guidance and closeout.
+The revised diagnostic separates a 1K pressure-prefix fixture from the retained 3K
+resident/restore and calibrated load probes. Its purpose is distinguishing retention
+policy from a pool unable to hold several long prefixes, not changing application
+traffic to obtain wins. Earlier unfavorable diagnostics remain immutable.
+The fixed recurring budgets remain 45 minutes for compare and 30 hours for release;
+preparation/qualification is charged separately, with native load calibration bounded
+to ten minutes per model. No paid resources or additional machines are authorized.
 
-The content-pinned GPU-only Qwen coding probe benchmark-qwen35-pinned-coding-01
-resolved the exposed Flask task in 205.33 seconds of acquisition, and its complete
-receipt/report verified. It ran from a detached immutable local checkout while
-implementation continued independently.
-
-C2 now has two real Requests issue/fixed-version pairs selected before candidate
-outputs. The maintained regression grader accepted a known fail-before/pass-after
-test in benchmark-regression-checker-02, rejected a test passing on both versions in
-benchmark-regression-checker-negative-01, and graded an empty submission as an
-unsuccessful task in benchmark-regression-checker-empty-01. Its reader verifies
-retained source/patch bytes and derives the verdict from matching JUnit identities.
-The first checker receipt remains readable with its earlier source-provenance limit.
-The second issue also passed its known regression checker in
-benchmark-regression-checker-03. The live Qwen wait-hint C2 pilot
-benchmark-qwen35-regression-01 completed 21 requests in 175.81 seconds of acquisition.
-Its generated test failed after the reference fix and correctly graded unresolved;
-the complete receipt/report verified. That unsuccessful outcome remains in evidence.
-
-C3 now defines two navigation/change-impact tasks on pinned Click and HTTPX source
-revisions. Their images use a content-pinned Python base and hash-locked Python
-dependencies. Matching answers must name the actual implementation/callers and
-current override semantics, identify an affected upstream test, and pass that test
-plus hidden executable behavior checks in a fresh offline container. Known answers
-passed benchmark-navigation-checker-01/02; an incorrect precedence answer was
-rejected in benchmark-navigation-checker-negative-01. All three receipts verified.
-The Gemma/LMCache navigation pilot benchmark-gemma4-navigation-01 completed three
-requests in 66.87 seconds of acquisition; it submitted an empty patch and correctly
-graded unresolved. Its complete receipt/report verified. This is a usable measured
-negative outcome, not evidence of broad agent quality or cache benefit.
-
-C4 integrates the original Terminal-Bench fix-git and polyglot-c-py tasks in Harbor
-0.25.0 with host-side Terminus-2. Prepared images cache verifier dependencies and
-support offline acquisition/verification. Both original oracle solutions passed in
-benchmark-terminal-oracle-02/03, and the no-op Git control correctly failed in
-benchmark-terminal-negative-01. All three original observations/receipts verified.
-The first oracle attempt failed because Docker Compose was absent; the failed
-attempt is preserved. Checksum-verified Compose v5.6.0 is now installed as a local
-CLI plugin. New terminal receipts retain driver snapshots as well as original task
-and validator bytes. The first live terminal pilot failed before its agent started because the nested
-driver tried to take a Git snapshot of the existing non-Git source snapshot. The
-failure is retained in benchmark-qwen35-terminal-01. The terminal driver now receives
-the actual immutable controller checkout. Attempt 02 reached 17 captured requests
-but hit the 240-second task deadline. Harbor still ran its original validator and
-recorded reward zero; the probe remains failed, not qualified. The transcript shows
-Git history entering an interactive pager and subsequent recovery attempts. Terminal
-acquisition now sets PAGER/GIT_PAGER to cat, matching the existing coding harness;
-the task, model limits and original validators are unchanged. Attempt 03 with pagers disabled also hit the task deadline. Preserve it; do not repeatedly rerun the same task to select a success. Qualify the second selected terminal task next, then keep failures in campaign denominators.
-
-B1 defines an independent Python 3.14.0 queue-document task and a shared-source
-RFC 5861/9111 comparison. Source bytes, URLs, structured facts and acceptable evidence
-spans were frozen before candidate output. Known answers passed
-benchmark-grounded-checker-01/02; correct facts with an unrelated citation failed
-benchmark-grounded-checker-negative-01. All three receipts verified. This is a narrow
-fact/citation rubric, not general summary-quality qualification. The live Qwen wait-hint document pilot benchmark-qwen35-grounded-02 completed six requests in 51.37 seconds with an unresolved answer; independent report verification passed. Attempt 01 used an incorrect task identifier and failed before application acquisition; it is preserved. New probe preflight rejects missing tasks before starting a model.
-
-The first branching pilot completed its fixed 12 turns but submitted an empty repair and an out-of-scope test patch. The official grader records empty patches in its aggregate summary rather than a per-case report; the wrapper now preserves and recognizes that unsuccessful outcome. A separate original-grader regrade in benchmark-empty-repair-checker-01 confirmed the repair. Branch acquisition now uses the same conda shell initialization as the other coding harness and allows up to 32 turns within the unchanged 240-second wall budget. Attempt 01 remains failed and immutable.
+Raw attempts and assets live under
+/home/philip/.local/share/vllm-semantic-cache-ext-next. Three isolated environments
+are under /home/philip/.local/share/venvs: wait-hint-benchmark-runtime,
+wait-hint-lmcache and wait-hint-benchmarks-locked. The established runtime was
+preserved. This project is local-only; checkpoint bundles are verified in the
+existing backups/local-results.bundle. Refresh the bundle after the next checkpoint.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.

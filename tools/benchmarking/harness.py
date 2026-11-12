@@ -64,7 +64,7 @@ def pin_swebench_image(
 def coding_config(endpoint: str, seconds: int, label: str) -> dict[str, Any]:
     return {
         "agent": {
-            "step_limit": 32,
+            "step_limit": 12 if seconds <= 120 else 32,
             "wall_time_limit_seconds": seconds,
             "cost_limit": 0,
             "instance_template": "Solve this issue in /testbed: {{task}}\nRead the relevant code, fix it, and run a focused check. Keep explanations concise. Do not change existing tests. Use exactly one mswea_bash_command fenced command per response. To finish, run: printf 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\\n'; git diff --no-ext-diff",
