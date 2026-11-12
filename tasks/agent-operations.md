@@ -1,29 +1,36 @@
 # Agent operations
 
 ## Goal
-Choose repository-specific skills for repeated procedures and support for
-long-running work.
+Improve agent communication, scope discipline, navigation and maintenance through
+small, useful instructions and existing tools.
 
 ## Authorized
-Nothing yet. Philip will revisit this; do not implement any item below until then.
+Review project documentation, global working preferences and global/project skills.
+Maintenance instructions and selective context-loading clarification are authorized
+and implemented. Broader policy/skill changes remain proposals for discussion.
+No benchmark implementation, GPU acquisition, new hooks or delegation is requested.
 
 ## Done when
-Philip has chosen which items to build, and each chosen item is implemented, used once
-on a real task, and documented.
+Philip reviews the remaining instruction and skill recommendations. Agreed changes
+are implemented in their authoritative homes and appropriately verified.
 
 ## State
-Candidate list only; results closeout is already integrated into AGENTS and task
-handoff instructions:
-- Skill: run the runtime CPU lane and report its one-line verdict and record location.
-- Skill: GPU qualification run: confirm authorization, check the GPU is idle and disk
-  headroom, run the hardware lane, record the result as evidence and a finding.
-- Skill: task handoff: create, update and close `tasks/` files correctly.
-- Skill: vLLM repin: the approved procedure for moving to a new vLLM version and
-  requalifying both advice modes.
-- Session start: surface open `tasks/` files and recent FINDINGS automatically.
-- Completion notification for long GPU runs, tested end to end before relying on it.
-Agent effectiveness will be observed during ordinary work over time. No separate
-one-off or recurring evaluation is planned.
+Maintenance guidance is in AGENTS and the system-map, checks, runtime and task guides.
+AGENTS now directs selective reading of relevant tasks/results rather than loading
+all plans. The six topic documents have been reviewed for purpose and overlap;
+checks.md already owns how and when to run checks, so no separate mapping guide is
+needed. Global preferences and custom skills have been inspected for the next discussion.
+
+Settled direction: concise contextual communication, preserve decisions, expose cost
+and scope early, and finish authorized work rather than routinely handing it back.
+Do not add delegation policy; Philip specifies reviews when needed. Keep correct
+and close-results; no new maintenance hooks/skills unless observed failures justify
+one. Runtime procedure skills and unattended notifications are deferred until useful.
+Observe effectiveness during ordinary work, not a separate evaluation framework.
+
+Global files and skills have not been changed. Review shared policy ownership and
+sync provenance before changing installed copies; back up personal configuration.
 
 ## Next
-Philip reviews the candidate list.
+Discuss document simplifications and the global instruction/skill inventory with
+Philip, then implement only the chosen changes.
