@@ -6,6 +6,10 @@ Do not use a successful model probe as release or performance evidence.
 
 The maintained entry point is `uv run --locked python -m tools.benchmark`:
 
+- `functional --runtime-python /external/venv/bin/python --model /external/dense-model
+  --out /external/new-attempt --timeout 600` runs the existing dense GPU gate through
+  the shared benchmark entry point. Its receipt uses the runtime verifier format;
+  verify it with `python -m tools.runtime_verify --verify /external/attempt`.
 - `models` prints immutable model candidates and their qualification state.
 - `plan --profile functional|compare|release` prints the allocated cases, repetitions
   and budget. The output explicitly says `unqualified_schedule`.
@@ -14,13 +18,21 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   launches one localhost server, checks generation, and for CPU-offload modes tests
   registered readiness, GPU-only displacement and restored versus fresh token IDs.
 - `verify-probe /external/attempt` checks a v3 receipt, frozen source/model hashes,
-  retained artifacts and observed outcomes without GPU work. Earlier investigation
+  retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
+
+- `report-probe /external/attempt` verifies first, then summarizes task quality,
+  request counts, context compaction, hint activity and timing. Missing request captures
+  refuse. It makes no comparative performance or release claim.
+- `grade-coding --harness-python /external/harness/bin/python --dataset /external/test.json
+  --predictions /external/preds.json --instance INSTANCE --out /external/new-grade`
+  grades an existing prediction without rerunning generation. It creates a new receipt
+  linked to the original dataset and prediction hashes; never rewrite the original run.
 
 A coding pilot adds `--coding-dataset /external/dataset/test.json`,
 `--harness-python /external/harness/bin/python` and `--instance INSTANCE_ID`.
 It executes mini-swe-agent in a disposable Docker container, captures every completed
-model request and causal tool-wait hint, then invokes SWE-bench's original grader.
+model request and causal tool-wait hint, then invokes SWE-bench 4.1.0's original grader for the classic Verified dataset schema.
 Resolved/unresolved task quality is distinct from whether acquisition and grading
 completed. Per-request timing is engine timing, not client streaming TTFT; the
 application uses non-streaming responses to retain registration acknowledgements.
@@ -39,8 +51,11 @@ The override restores the Transformers configuration interface used by the pinne
 vLLM; it does not fix the Gemma attention kernel limitation on Turing.
 
 [Harness requirements](../benchmarks/harness-requirements.txt) record the isolated
-mini-swe-agent/Harbor/SWE-bench environment. Full hash locking and clean installation
-qualification remain pending. Docker is required for coding tasks; model commands
+mini-swe-agent/Harbor/SWE-bench environment. Install into a separate Python 3.12.3
+venv with `uv pip install --python /external/harness/bin/python --require-hashes
+--no-deps -r benchmarks/harness-requirements.txt`, then `uv pip check --python
+/external/harness/bin/python`. A clean installation and dependency check passed locally.
+Docker is required for coding tasks; model commands
 must execute inside task containers, without host mounts or network access.
 Images, original dataset records and graders must be pinned before confirmation.
 Downloaded datasets and weights live outside Git; authored workload definitions,
@@ -52,7 +67,8 @@ source ancestry, selection rationale and compact evidence belong in Git.
 serving arguments; each arm for a given model must use the same resource limits.
 `probe.py` owns bounded feasibility attempts and verification. `proxy.py` captures
 application requests and tool-wait publication. `harness.py` integrates the original
-coding harness and grader. Keep lifecycle failures and quality failures separate.
+coding harness and grader. `report.py` independently checks capture completeness and
+summarizes verified pilot observations. Keep lifecycle failures and quality failures separate.
 
 Use `tools/check.py --test tests/test_benchmark.py` for focused portable feedback,
 the runtime lane for adapter/group changes, and `--full` before checkpoints.

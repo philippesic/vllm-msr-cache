@@ -4,13 +4,22 @@ import argparse
 import json
 from pathlib import Path
 
+from tools.benchmarking.harness import grade_swebench
 from tools.benchmarking.plan import describe
 from tools.benchmarking.probe import probe, verify_probe
+from tools.benchmarking.report import summarize_probe
+from tools.config import benchmark_environment
+from tools.process import run_owned
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bounded benchmark qualification")
     sub = parser.add_subparsers(dest="operation", required=True)
+    functional = sub.add_parser("functional")
+    functional.add_argument("--runtime-python", type=Path, required=True)
+    functional.add_argument("--model", type=Path, required=True)
+    functional.add_argument("--out", type=Path, required=True)
+    functional.add_argument("--timeout", type=int, default=600)
     command = sub.add_parser("probe-model")
     command.add_argument("--runtime-python", required=True, type=Path)
     command.add_argument("--model", required=True, type=Path)
@@ -34,6 +43,14 @@ def main() -> int:
     sub.add_parser("models")
     verify = sub.add_parser("verify-probe")
     verify.add_argument("directory", type=Path)
+    report = sub.add_parser("report-probe")
+    report.add_argument("directory", type=Path)
+    grade = sub.add_parser("grade-coding")
+    grade.add_argument("--harness-python", type=Path, required=True)
+    grade.add_argument("--dataset", type=Path, required=True)
+    grade.add_argument("--predictions", type=Path, required=True)
+    grade.add_argument("--instance", required=True)
+    grade.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if args.operation == "plan":
@@ -43,6 +60,42 @@ def main() -> int:
         print((root / "benchmarks/models.json").read_text())
         return 0
     try:
+        if args.operation == "functional":
+            if not 0 < args.timeout <= 900:
+                raise ValueError("functional budget must be in 1..900 seconds")
+            if args.out.resolve().is_relative_to(root):
+                raise ValueError("functional requires a new external output")
+            return run_owned(
+                [
+                    str(args.runtime_python.absolute()),
+                    "-m",
+                    "tools.runtime_verify",
+                    "--gpu",
+                    "--model",
+                    str(args.model.resolve()),
+                    "--out",
+                    str(args.out.resolve()),
+                    "--timeout",
+                    str(args.timeout),
+                ],
+                benchmark_environment(root, args.model.resolve(), True),
+                root,
+                args.timeout + 60,
+            )
+        if args.operation == "report-probe":
+            print(json.dumps(summarize_probe(args.directory.resolve()), indent=2))
+            return 0
+        if args.operation == "grade-coding":
+            result = grade_swebench(
+                root,
+                args.harness_python.absolute(),
+                args.dataset.resolve(),
+                args.predictions.resolve(),
+                args.instance,
+                args.out.resolve(),
+            )
+            print(json.dumps(result, indent=2))
+            return 1 if result["quality"] == "ungraded" else 0
         if args.operation == "verify-probe":
             print(json.dumps(verify_probe(args.directory.resolve()), indent=2))
             return 0
