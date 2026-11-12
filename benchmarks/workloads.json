@@ -54,6 +54,39 @@
       "seconds": 240,
       "exposure": "selected-not-executed",
       "image_id": "sha256:744c19afa2b657ef131aea81a85d1c9cf86fe934b50db44443a5fdcdc9ac9649"
+    },
+    {
+      "id": "C2-1",
+      "instance": "psf__requests-1921",
+      "base_commit": "3c88e520da24ae6f736929a750876e7654accc3d",
+      "dataset": "swebench-c2",
+      "task_kind": "regression",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-fail-before-pass-after-v1",
+      "seconds": 240,
+      "exposure": "checker-only",
+      "image_id": "sha256:2ee0a4c706f04d2926a1622ec51b53d4ce6010b80d3ee10d414ea2a276c26cc9"
+    },
+    {
+      "id": "C2-2",
+      "instance": "psf__requests-6028",
+      "base_commit": "0192aac24123735b3eaf9b08df46429bb770c283",
+      "dataset": "swebench-c2",
+      "task_kind": "regression",
+      "harness": "mini-swe-agent-2.4.6",
+      "grader": "project-fail-before-pass-after-v1",
+      "seconds": 240,
+      "exposure": "checker-only",
+      "image_id": "sha256:639088346355ea7076bc6faf2eadb23b1e1f1ed4f34b291e843061b2fc87cbe2"
     }
-  ]
+  ],
+  "additional_datasets": {
+    "swebench-c2": {
+      "dataset_sha256": "1ae04809ca9be78ade6664c0353f52bdfd2cf060e1394950df3002382376b77c",
+      "repository": "princeton-nlp/SWE-bench_Verified",
+      "revision": "c104f840cc67f8b6eec6f759ebc8b2693d585d4a",
+      "split": "test",
+      "selection": "two independent small real Requests issues for fail-before/pass-after test authoring; no candidate output observed during selection"
+    }
+  }
 }

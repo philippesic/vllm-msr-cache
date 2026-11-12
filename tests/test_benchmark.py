@@ -6,6 +6,38 @@ from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import probe
 
 
+@pytest.mark.parametrize(
+    ("before", "after", "quality"),
+    (
+        ("<failure/>", "", "resolved"),
+        ("", "", "unresolved"),
+        ("<failure/>", "<failure/>", "unresolved"),
+        ("<error/>", "", "unresolved"),
+        ("<failure/>", "<skipped/>", "unresolved"),
+    ),
+)
+def test_regression_checker_requires_failure_then_same_test_passes(
+    tmp_path: Path, before: str, after: str, quality: str
+) -> None:
+    from tools.benchmarking.regression import regression_outcome
+
+    for name, status in (("before", before), ("after", after)):
+        (tmp_path / f"{name}.xml").write_text(
+            '<testsuite><testcase classname="regression" name="test_issue">'
+            + status
+            + "</testcase></testsuite>"
+        )
+    assert (
+        regression_outcome(tmp_path / "before.xml", tmp_path / "after.xml")["quality"]
+        == quality
+    )
+    (tmp_path / "after.xml").write_text(
+        '<testsuite><testcase classname="regression" name="different_test"/></testsuite>'
+    )
+    with pytest.raises(ValueError, match="identities changed"):
+        regression_outcome(tmp_path / "before.xml", tmp_path / "after.xml")
+
+
 def test_release_schedule_preserves_budget_and_comparison_denominators() -> None:
     schedule = cells("release")
     assert len({cell.identity for cell in schedule}) == len(schedule)

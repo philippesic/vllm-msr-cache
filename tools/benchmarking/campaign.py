@@ -50,7 +50,18 @@ def run_campaign(
         path.is_file() for path in (python, lmcache_python, harness_python, dataset)
     ):
         raise ValueError("campaign requires existing runtimes and dataset")
-    if digest_file(dataset) != definitions["dataset_sha256"]:
+    chosen_sources = {
+        available[cell.case].get("dataset", "swebench-c1") for cell in roster
+    }
+    if len(chosen_sources) != 1:
+        raise ValueError("mixed-dataset campaign acquisition is not implemented")
+    selected_source = next(iter(chosen_sources))
+    expected_digest = (
+        definitions["dataset_sha256"]
+        if selected_source == "swebench-c1"
+        else definitions["additional_datasets"][selected_source]["dataset_sha256"]
+    )
+    if digest_file(dataset) != expected_digest:
         raise ValueError("campaign dataset differs from admitted source")
     rows = json.loads(dataset.read_text())
     for cell in roster:
@@ -105,15 +116,22 @@ def run_campaign(
                 raise ValueError("campaign source changed during acquisition")
             instance = available[cell.case]["instance"]
             pin_swebench_image(instance, images[instance]["id"])
-            status = probe(
+            arguments = (
                 root,
                 lmcache_python if cell.system == "lmcache" else python,
                 models[cell.model],
                 attempt,
                 min(900, int(remaining)),
                 cell.system,
-                coding=(harness_python, dataset, instance),
             )
+            if available[cell.case].get("task_kind", "repair") == "regression":
+                status = probe(
+                    *arguments,
+                    coding=(harness_python, dataset, instance),
+                    coding_kind="regression",
+                )
+            else:
+                status = probe(*arguments, coding=(harness_python, dataset, instance))
             child_admission = json.loads((attempt / "admission.json").read_text())
             if child_admission["source_sha256"] != sources:
                 raise ValueError("campaign cell used different source")

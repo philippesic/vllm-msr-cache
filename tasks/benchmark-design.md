@@ -25,8 +25,8 @@ Unsupported paths and incomplete measurements cannot count as completion or pass
 Implementation is active and incomplete. The functional entry point passed four
 real GPU cases, including full/sliding attention against a float reference for
 256/512-wide heads. Compare/release schedules are encoded: 12/180 applications,
-52 release traces and six hours of soak. Only partial C1 acquisition and its reader
-are implemented. Remaining workload definitions, activity contracts, traces, soak,
+52 release traces and six hours of soak. Partial C1 repair and C2 test-authoring acquisition and their readers
+are implemented; mixed-dataset campaign integration is pending. Remaining workload definitions, activity contracts, traces, soak,
 resume and release verdicts still need implementation and real qualification.
 Successful feasibility pilots are not completion of these suites.
 
@@ -95,6 +95,22 @@ proofs; the new deadline/image behavior checks bring portable coverage to 48 tes
 with combined acceptance running at the next checkpoint. The project is local-only; its verified Git bundle is retained under the
 existing external backups directory. No paid compute, remote publication, automatic
 delegation or 5080 use occurred.
+
+The content-pinned GPU-only Qwen coding probe benchmark-qwen35-pinned-coding-01
+resolved the exposed Flask task in 205.33 seconds of acquisition, and its complete
+receipt/report verified. It ran from a detached immutable local checkout while
+implementation continued independently.
+
+C2 now has two real Requests issue/fixed-version pairs selected before candidate
+outputs. The maintained regression grader accepted a known fail-before/pass-after
+test in benchmark-regression-checker-02, rejected a test passing on both versions in
+benchmark-regression-checker-negative-01, and graded an empty submission as an
+unsuccessful task in benchmark-regression-checker-empty-01. Its reader verifies
+retained source/patch bytes and derives the verdict from matching JUnit identities.
+The first checker receipt remains readable with its earlier source-provenance limit.
+The second issue also passed its known regression checker in
+benchmark-regression-checker-03. Live model test-authoring acquisition is not yet exercised. Five portable checker
+cases bring the current CPU count to 53; combined acceptance is pending.
 
 The design below is the intended contract. Implementation authorization above
 replaces its original planning-only language; unqualified promises are not results.

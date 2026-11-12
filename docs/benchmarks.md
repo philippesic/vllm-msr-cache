@@ -37,6 +37,11 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
 
 A coding pilot adds `--coding-dataset /external/dataset/test.json`,
 `--harness-python /external/harness/bin/python` and `--instance INSTANCE_ID`.
+The default --coding-kind repair uses the original issue and grader.
+--coding-kind regression instead asks for one new benchmark_generated_test.py,
+keeps the reference fix hidden, and checks the same test before and after that fix.
+It is a project-authored rubric, not an official SWE-bench test-generation score.
+
 It executes mini-swe-agent in a disposable Docker container, captures every completed
 model request and causal tool-wait hint, then invokes SWE-bench 4.1.0's original grader for the classic Verified dataset schema.
 Resolved/unresolved task quality is distinct from whether acquisition and grading
@@ -123,6 +128,27 @@ checks coverage, identities and each child receipt; failed cells stay in coverag
 V2 campaigns freeze task image identities across all cells; older v1 receipts retain
 their earlier provenance scope.
 Source changes during acquisition refuse further cells. Use a stable checkpoint.
-Only C1 acquisition is currently implemented; full compare/release commands refuse
-missing workloads and traces. Resume and release verdicts remain unimplemented.
+C1 repair and C2 test-authoring acquisition are implemented. A partial C2 command
+uses --case C2-1 and its admitted dataset. Mixed-dataset campaigns and full
+compare/release commands still refuse missing integration, workloads and traces. Resume and release verdicts remain unimplemented.
 This command is being qualified and does not yet satisfy the complete suite contract.
+
+## Regression-test grading
+
+`grade-regression --dataset /external/swebench-c2/test.json
+--prediction /external/submitted.patch --instance INSTANCE --out /external/new-grade`
+checks that a submission only adds the designated test file. It runs that exact test
+in the pinned source image before and after applying the hidden reference fix.
+A successful result needs matching nonempty test identities, an assertion failure
+before the fix and all tests passing afterward, with no errors or skips. An empty
+or out-of-scope submission is an unsuccessful task, not a grader infrastructure
+failure. Images run without networking, with one CPU and 2 GiB RAM; grading has a
+165-second bound including cleanup.
+
+`verify-regression /external/grade` checks retained source/patch hashes and recomputes
+the outcome from the JUnit reports. It also independently checks rubric refusals.
+Real checker qualification accepted a known Requests regression and rejected a
+test that passed on both versions, plus an empty submission. This checks the
+instrument; it does not qualify agent performance, broad test usefulness or release
+coverage. The first investigation receipt lacks the later retained full dataset;
+its original limited provenance remains readable.

@@ -114,7 +114,10 @@ def run_swebench(
     endpoint: str,
     output: Path,
     seconds: int,
+    task_kind: str = "repair",
 ) -> dict[str, Any]:
+    if task_kind not in ("repair", "regression"):
+        raise ValueError("unsupported coding task kind")
     output.mkdir(parents=True, exist_ok=False)
     image = pin_swebench_image(instance)
     selected = [
@@ -130,6 +133,16 @@ def run_swebench(
     write_record(output / "image.json", image)
     label = "wait-hint-attempt=" + uuid.uuid4().hex
     configuration = coding_config(endpoint, seconds, label)
+    if task_kind == "regression":
+        configuration["agent"]["instance_template"] = (
+            "Write a regression test in /testbed for this issue: {{task}}\n"
+            "Only add benchmark_generated_test.py. Do not fix production code or change existing tests. "
+            "Exercise the actual API without network access. The test must fail on this checkout "
+            "and pass after the hidden reference fix. Inspect code and run the test. "
+            "Use exactly one mswea_bash_command fenced command per response. "
+            "To submit, run git add -N benchmark_generated_test.py, then "
+            "printf 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\\n'; git diff --no-ext-diff"
+        )
     configuration["agent"]["output_path"] = str(output / "trajectory-live.json")
     write_record(output / "agent.yaml", configuration)
     command = [
@@ -228,6 +241,7 @@ def run_swebench(
         "instance": instance,
         "quality": "ungraded",
         "image": image,
+        "task_kind": task_kind,
     }
     trajectory = output / "agent" / instance / (instance + ".traj.json")
     result["agent_exit"] = (
@@ -242,15 +256,24 @@ def run_swebench(
         result["prediction_origin"] = "deadline-snapshot"
     if predictions.is_file():
         result["prediction"] = json.loads(predictions.read_text()).get(instance)
-        result["grading"] = grade_swebench(
-            root,
-            python,
-            dataset,
-            predictions,
-            instance,
-            output / "grading",
-            image["id"],
-        )
+        if task_kind == "regression":
+            from tools.benchmarking.regression import grade_regression
+
+            patch = output / "submitted.patch"
+            patch.write_text((result["prediction"] or {}).get("model_patch") or "")
+            result["grading"] = grade_regression(
+                root, dataset, patch, instance, output / "grading"
+            )
+        else:
+            result["grading"] = grade_swebench(
+                root,
+                python,
+                dataset,
+                predictions,
+                instance,
+                output / "grading",
+                image["id"],
+            )
         result["quality"] = result["grading"]["quality"]
     write_record(output / "acquisition.json", result)
     return result

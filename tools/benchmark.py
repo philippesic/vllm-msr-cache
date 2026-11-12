@@ -29,6 +29,9 @@ def main() -> int:
     command.add_argument("--harness-python", type=Path)
     command.add_argument("--instance")
     command.add_argument(
+        "--coding-kind", choices=("repair", "regression"), default="repair"
+    )
+    command.add_argument(
         "--backend", choices=("TRITON_ATTN", "FLEX_ATTENTION"), default="TRITON_ATTN"
     )
     command.add_argument(
@@ -65,8 +68,26 @@ def main() -> int:
     campaign.add_argument("--out", type=Path, required=True)
     campaign_verify = sub.add_parser("verify-campaign")
     campaign_verify.add_argument("directory", type=Path)
+    regression = sub.add_parser("grade-regression")
+    regression.add_argument("--dataset", type=Path, required=True)
+    regression.add_argument("--prediction", type=Path, required=True)
+    regression.add_argument("--instance", required=True)
+    regression.add_argument("--out", type=Path, required=True)
+    regression_verify = sub.add_parser("verify-regression")
+    regression_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.operation in ("grade-regression", "verify-regression"):
+        from tools.benchmarking.regression import grade_regression, verify_regression
+
+        if args.operation == "verify-regression":
+            result = verify_regression(args.directory)
+        else:
+            result = grade_regression(
+                root, args.dataset, args.prediction, args.instance, args.out
+            )
+        print(json.dumps(result, indent=2))
+        return int(result["quality"] == "ungraded")
     if args.operation == "run":
         from tools.benchmarking.campaign import run_campaign
 
@@ -164,6 +185,7 @@ def main() -> int:
             args.system,
             args.backend,
             coding,
+            args.coding_kind,
         )
         print(json.dumps({"exit_code": status, "attempt": str(args.out)}))
         return status
