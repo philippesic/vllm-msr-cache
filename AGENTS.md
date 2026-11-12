@@ -70,9 +70,11 @@ Each fact has one home, chosen by how long it stays true:
   agent doing it and deleted when the task completes.
 - Git history: what changed and when. There is no status or history document.
 
-At the start of a task, read FINDINGS and `tasks/`. Do not redo closed work without
-a stated reason. Work on a task file only when asked to work on that task; an open
-task file is context, not an instruction to resume it.
+At the start of a task, scan FINDINGS and the names of open task files, then read
+the task and result details relevant to the request. Do not load every plan or
+historical report by default. Read other task state when it may affect ownership
+or shared resources. Do not redo closed work without a stated reason. An open task
+file is context, not an instruction to resume unrelated work.
 
 # Evidence and reporting
 
