@@ -56,7 +56,7 @@ def probe(
         raise ValueError("new external output and timeout in 1..1800 required")
     if system not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):
         raise ValueError("unsupported system")
-    if coding_kind not in ("repair", "regression", "navigation"):
+    if coding_kind not in ("repair", "regression", "navigation", "terminal"):
         raise ValueError("unsupported coding task kind")
     output.mkdir(parents=True, exist_ok=False)
     identities = snapshot(root, output / "source")
@@ -207,17 +207,33 @@ def probe(
                             system,
                             namespace,
                             output / "requests",
+                            "terminus-json"
+                            if coding_kind == "terminal"
+                            else "mini-swe",
                         ) as endpoint:
-                            result["coding"] = run_swebench(
-                                output / "source",
-                                harness_python,
-                                dataset,
-                                instance,
-                                endpoint,
-                                output / "coding",
-                                240,
-                                coding_kind,
-                            )
+                            if coding_kind == "terminal":
+                                from tools.benchmarking.terminal import run_terminal
+
+                                result["coding"] = run_terminal(
+                                    output / "source",
+                                    harness_python,
+                                    dataset,
+                                    instance,
+                                    endpoint,
+                                    output / "coding",
+                                    240,
+                                )
+                            else:
+                                result["coding"] = run_swebench(
+                                    output / "source",
+                                    harness_python,
+                                    dataset,
+                                    instance,
+                                    endpoint,
+                                    output / "coding",
+                                    240,
+                                    coding_kind,
+                                )
                         if result["coding"]["quality"] == "ungraded":
                             result["status"] = "failed"
                             result["reason"] = (
@@ -371,6 +387,17 @@ def verify_probe(output: Path) -> dict[str, Any]:
         ]["quality"] not in ("resolved", "unresolved"):
             raise ValueError("coding input drift or missing grading")
         acquisition = json.loads((output / "coding/acquisition.json").read_text())
+        if coding.get("kind", "repair") == "terminal":
+            from tools.benchmarking.terminal import verify_terminal
+
+            if (
+                verify_terminal(output / "coding") != acquisition
+                or acquisition != terminal["coding"]
+            ):
+                raise ValueError(
+                    "terminal acquisition differs from original observations"
+                )
+            return terminal
         grading = json.loads((output / "coding/grading/terminal.json").read_text())
         if "image" in acquisition:
             grading_admission = json.loads(

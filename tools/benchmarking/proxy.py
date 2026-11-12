@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import threading
 import time
@@ -14,9 +15,46 @@ from tools.benchmarking.probe import request
 from tools.runtime_verify import write_record
 
 
+def expects_tool_return(text: str, protocol: str) -> bool:
+    if protocol == "mini-swe":
+        actions = re.findall(r"```mswea_bash_command\s*\n(.*?)\n```", text, re.DOTALL)
+        return (
+            len(actions) == 1
+            and "COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT" not in actions[0]
+        )
+    if protocol != "terminus-json":
+        raise ValueError("unsupported tool protocol")
+    try:
+        first, last = text.index("{"), text.rindex("}") + 1
+        parsed = json.loads(text[first:last])
+        commands = parsed["commands"]
+        return (
+            isinstance(parsed["analysis"], str)
+            and isinstance(parsed["plan"], str)
+            and parsed.get("task_complete", False) is False
+            and isinstance(commands, list)
+            and bool(commands)
+            and all(
+                isinstance(command["keystrokes"], str)
+                and bool(command["keystrokes"])
+                and type(command["duration"]) in (int, float)
+                and math.isfinite(command["duration"])
+                and 0 <= command["duration"] <= 60
+                for command in commands
+            )
+        )
+    except (ValueError, KeyError, TypeError):
+        return False
+
+
 class Proxy(ThreadingHTTPServer):
     def __init__(
-        self, upstream: str, system: str, namespace: dict[str, str], output: Path
+        self,
+        upstream: str,
+        system: str,
+        namespace: dict[str, str],
+        output: Path,
+        tool_protocol: str = "mini-swe",
     ) -> None:
         super().__init__(("127.0.0.1", 0), Handler)
         self.upstream = upstream
@@ -25,6 +63,7 @@ class Proxy(ThreadingHTTPServer):
         self.output = output
         self.sequence = 0
         self.serial = threading.Lock()
+        self.tool_protocol = tool_protocol
 
     def generate(self, payload: dict[str, Any]) -> dict[str, Any]:
         with self.serial:
@@ -70,7 +109,8 @@ class Proxy(ThreadingHTTPServer):
             )
             received = time.monotonic_ns()
             record: dict[str, Any] = {
-                "schema": "benchmark-request-v1",
+                "schema": "benchmark-request-v2",
+                "tool_protocol": self.tool_protocol,
                 "request": forwarded,
                 "response": result,
                 "start_ns": start,
@@ -85,13 +125,8 @@ class Proxy(ThreadingHTTPServer):
                 },
             }
             text = result["choices"][0]["message"].get("content") or ""
-            actions = re.findall(
-                r"```mswea_bash_command\s*\n(.*?)\n```", text, re.DOTALL
-            )
-            if (
-                self.system in ("native-arc", "wait-hint")
-                and len(actions) == 1
-                and "COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT" not in actions[0]
+            if self.system in ("native-arc", "wait-hint") and expects_tool_return(
+                text, self.tool_protocol
             ):
                 observed = (result.get("kv_transfer_params") or {}).get("wait_hint", {})
                 if observed.get("registered"):
@@ -156,10 +191,14 @@ class Handler(BaseHTTPRequestHandler):
 
 @contextmanager
 def local_proxy(
-    upstream: str, system: str, namespace: dict[str, str], output: Path
+    upstream: str,
+    system: str,
+    namespace: dict[str, str],
+    output: Path,
+    tool_protocol: str = "mini-swe",
 ) -> Iterator[str]:
     output.mkdir(parents=True, exist_ok=False)
-    server = Proxy(upstream, system, namespace, output)
+    server = Proxy(upstream, system, namespace, output, tool_protocol)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     try:

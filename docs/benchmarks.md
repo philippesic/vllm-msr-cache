@@ -177,3 +177,32 @@ fresh content-addressed image, without network access. `verify-navigation
 outcome again. Known answers for both projects passed the real container checker;
 an incorrect precedence answer was rejected. This qualifies those rubric checks,
 not broad repository-understanding quality.
+
+## Terminal workflows
+
+`probe-model` with `--coding-kind terminal` uses Harbor 0.25.0 and its host-side
+Terminus-2 agent. The task container has no network or host project mounts. The
+original Terminal-Bench instruction and tests are retained byte for byte; the
+derived task changes its image to a prepared content-addressed image and disables
+container networking. All compared systems use the same harness and task limits.
+These two tasks produce task-specific outcomes, not an official Terminal-Bench score.
+
+[Terminal definitions](../benchmarks/workflows/terminal.json) pin every source file
+and the final images. The [preparation Dockerfile](../benchmarks/workflows/terminal.Dockerfile)
+adds tmux and caches the exact pytest invocation used by the original verifier.
+Preparation uses networking; acquisition and original verification run offline.
+Keep the original image and source task recoverable. The external `terminal-c4`
+dataset directory sits beside `harbor/terminal-bench`, matching its relative source
+paths. Docker Compose is required; this host uses the checksum-verified v5.6.0
+plugin installed using [Docker's documented method](https://docs.docker.com/compose/install/linux/).
+
+For CPU instrument qualification, `terminal --harness-python /external/harness/bin/python
+--dataset /external/terminal-c4/test.json --instance INSTANCE --agent oracle|nop
+--out /external/new-attempt` runs the original known solution or no-op control.
+`verify-terminal /external/attempt` checks retained source, original test observations
+and reward agreement. Current v2 receipts also retain the executed driver source;
+earlier v1 instrument receipts keep their earlier provenance scope. Both original
+solutions passed and the Git no-op control failed as expected. Model acquisition
+still requires a live probe. Owned cleanup removes only the trial's containers and
+retains image caches. Terminus JSON tool commands have their own conservative causal
+hint detection; prose, malformed actions and completed-task messages receive no hint.

@@ -30,7 +30,7 @@ def main() -> int:
     command.add_argument("--instance")
     command.add_argument(
         "--coding-kind",
-        choices=("repair", "regression", "navigation"),
+        choices=("repair", "regression", "navigation", "terminal"),
         default="repair",
     )
     command.add_argument(
@@ -84,8 +84,38 @@ def main() -> int:
     navigation.add_argument("--out", type=Path, required=True)
     navigation_verify = sub.add_parser("verify-navigation")
     navigation_verify.add_argument("directory", type=Path)
+    terminal = sub.add_parser("terminal")
+    terminal.add_argument("--harness-python", type=Path, required=True)
+    terminal.add_argument("--dataset", type=Path, required=True)
+    terminal.add_argument("--instance", required=True)
+    terminal.add_argument("--endpoint", default="")
+    terminal.add_argument(
+        "--agent", choices=("terminus-2", "oracle", "nop"), default="terminus-2"
+    )
+    terminal.add_argument("--out", type=Path, required=True)
+    terminal_verify = sub.add_parser("verify-terminal")
+    terminal_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.operation in ("terminal", "verify-terminal"):
+        from tools.benchmarking.terminal import run_terminal, verify_terminal
+
+        result = (
+            verify_terminal(args.directory)
+            if args.operation == "verify-terminal"
+            else run_terminal(
+                root,
+                args.harness_python,
+                args.dataset,
+                args.instance,
+                args.endpoint,
+                args.out.resolve(),
+                240,
+                args.agent,
+            )
+        )
+        print(json.dumps(result, indent=2))
+        return int(result["quality"] == "ungraded")
     if args.operation in ("grade-navigation", "verify-navigation"):
         from tools.benchmarking.navigation import grade_navigation, verify_navigation
 
