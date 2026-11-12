@@ -19,8 +19,9 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   GPU-only displacement and restored versus fresh token IDs. Native ARC and wait-hint
   also require registered readiness. New LMCache probes require external restoration;
   older generation-only receipts remain limited to generation. LMCache on the current
-  WSL host has one successful Qwen restoration probe using the opt-in VMM/staged-copy
-  compatibility repair; broad model and application qualification remains pending.
+  WSL host has successful Qwen and Gemma restoration probes using the opt-in
+  VMM/staged-copy repair, plus one graded Qwen coding pilot. Broader application
+  and reliability qualification remains pending.
   See the active benchmark task for evidence.
 - `verify-probe /external/attempt` checks a v3/v4/v5 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
@@ -41,8 +42,12 @@ model request and causal tool-wait hint, then invokes SWE-bench 4.1.0's original
 Resolved/unresolved task quality is distinct from whether acquisition and grading
 completed. Per-request timing is engine timing, not client streaming TTFT; the
 application uses non-streaming responses to retain registration acknowledgements.
-A single pilot does not establish pressure coverage, competitive benefit or a score
-for the full source benchmark.
+The proxy allows 90 seconds per generation and the harness client 120 seconds;
+these request deadlines do not increase the 240-second task acquisition limit or
+campaign budgets. Deadline cleanup retains the latest available trajectory and
+patch and grades that patch separately from task completion. Timed-out acquisition
+cannot pass. A single pilot does not establish pressure coverage, competitive
+benefit or a score for the full source benchmark.
 
 ## Environments and inputs
 
@@ -62,7 +67,11 @@ venv with `uv pip install --python /external/harness/bin/python --require-hashes
 /external/harness/bin/python`. A clean installation and dependency check passed locally.
 Docker is required for coding tasks; model commands
 must execute inside task containers, without host mounts or network access.
-Images, original dataset records and graders must be pinned before confirmation.
+C1 image IDs are pinned in benchmarks/workloads.json. Acquisition uses the image
+ID, and grading uses a local tag containing the complete image hash; image changes
+between acquisition and grading refuse. The grader retains instance images and
+does not clean unrelated image caches. Other source assets and validators still
+need admission before confirmation.
 Downloaded datasets and weights live outside Git; authored workload definitions,
 source ancestry, selection rationale and compact evidence belong in Git.
 
@@ -111,6 +120,8 @@ an additional restoration observation.
 selected C1 case across the scheduled arms, models and repetitions. Explicit case
 selection always produces a partial campaign. `verify-campaign /external/campaign`
 checks coverage, identities and each child receipt; failed cells stay in coverage.
+V2 campaigns freeze task image identities across all cells; older v1 receipts retain
+their earlier provenance scope.
 Source changes during acquisition refuse further cells. Use a stable checkpoint.
 Only C1 acquisition is currently implemented; full compare/release commands refuse
 missing workloads and traces. Resume and release verdicts remain unimplemented.

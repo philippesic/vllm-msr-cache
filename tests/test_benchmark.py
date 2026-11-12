@@ -61,6 +61,86 @@ def test_model_probe_refuses_missing_assets_before_creating_attempt(
     assert not out.exists()
 
 
+def test_coding_image_drift_refuses_before_tagging(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import json
+    import subprocess
+
+    from tools.benchmarking.harness import pin_swebench_image
+
+    commands: list[list[str]] = []
+
+    def inspect(
+        command: list[str],
+        *,
+        capture_output: bool,
+        text: bool,
+        check: bool,
+        timeout: int,
+    ) -> subprocess.CompletedProcess[str]:
+        assert capture_output and text and check and timeout > 0
+        commands.append(command)
+        return subprocess.CompletedProcess(
+            command, 0, json.dumps([{"Id": "sha256:" + "a" * 64}])
+        )
+
+    monkeypatch.setattr("tools.benchmarking.harness.subprocess.run", inspect)
+    with pytest.raises(ValueError, match="image changed"):
+        pin_swebench_image("pallets__flask-5014", "sha256:" + "b" * 64)
+    assert len(commands) == 1
+    assert "image inspect" in commands[0][-1]
+
+
+def test_coding_deadline_retains_patch_before_owned_container_cleanup(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+    import subprocess
+    from typing import Any
+
+    from tools.benchmarking.harness import run_swebench
+
+    dataset = tmp_path / "test.json"
+    dataset.write_text(json.dumps([{"instance_id": "project__issue"}]))
+    image = {"id": "sha256:" + "a" * 64, "tag": "benchmark-a"}
+    operations: list[str] = []
+
+    def docker(command: list[str], **_kwargs: Any) -> subprocess.CompletedProcess[str]:
+        operations.append(command[-1])
+        value = "owned-container" if " ps " in command[-1] else ""
+        if " exec " in command[-1]:
+            value = "retained patch"
+        return subprocess.CompletedProcess(command, 0, value)
+
+    def grader(*args: Any) -> dict[str, str]:
+        prediction = json.loads(args[3].read_text())
+        assert prediction["project__issue"]["model_patch"] == "retained patch"
+        assert args[-1] == image["id"]
+        return {"quality": "unresolved"}
+
+    monkeypatch.setattr("tools.benchmarking.harness.subprocess.run", docker)
+    monkeypatch.setattr("tools.benchmarking.harness.run_owned", lambda *_args: 124)
+    monkeypatch.setattr(
+        "tools.benchmarking.harness.pin_swebench_image", lambda _: image
+    )
+    monkeypatch.setattr("tools.benchmarking.harness.grade_swebench", grader)
+    result = run_swebench(
+        tmp_path / "source",
+        tmp_path / "python",
+        dataset,
+        "project__issue",
+        "http://local",
+        tmp_path / "attempt",
+        240,
+    )
+    assert result["execution_exit"] == 124
+    assert result["prediction_origin"] == "deadline-snapshot"
+    assert result["quality"] == "unresolved"
+    assert " exec " in operations[-2]
+    assert " rm " in operations[-1]
+
+
 def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -73,13 +153,16 @@ def test_coding_proxy_registers_each_turn_and_only_hints_real_tool_actions(
 
     calls: list[tuple[str, dict[str, Any] | None]] = []
 
-    def upstream(url: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    def upstream(
+        url: str, payload: dict[str, Any] | None = None, timeout: int = 30
+    ) -> dict[str, Any]:
         calls.append((url, payload))
         if url.endswith("/tokenize"):
             assert payload is not None
             return {"count": 9000 if len(payload["messages"]) > 6 else 64}
         if url.endswith("/v1/wait-hints"):
             return {"decision": "disabled", "refreshed_keys": 0}
+        assert timeout == 90
         return {
             "choices": [
                 {"message": {"content": "```mswea_bash_command\ncat app.py\n```"}}
@@ -484,7 +567,14 @@ def test_campaign_keeps_failed_cells_in_coverage(
         return int(system == "lmcache")
 
     monkeypatch.setattr("tools.benchmarking.campaign.probe", fake_probe)
-    monkeypatch.setattr("tools.benchmarking.campaign.verify_probe", lambda path: {})
+    monkeypatch.setattr(
+        "tools.benchmarking.campaign.pin_swebench_image",
+        lambda instance, expected_identity=None: {"id": "sha256:" + "a" * 64},
+    )
+    monkeypatch.setattr(
+        "tools.benchmarking.campaign.verify_probe",
+        lambda path: {"coding": {"image": {"id": "sha256:" + "a" * 64}}},
+    )
     output = tmp_path / "campaign"
     assert (
         run_campaign(

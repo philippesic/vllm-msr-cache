@@ -17,7 +17,9 @@ from tools.process import process_identity, stop_session
 from tools.runtime_verify import snapshot, write_record
 
 
-def request(url: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def request(
+    url: str, payload: dict[str, Any] | None = None, timeout: int = 30
+) -> dict[str, Any]:
     data = None if payload is None else json.dumps(payload).encode()
     call = urllib.request.Request(
         url,
@@ -27,7 +29,7 @@ def request(url: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
             "Authorization": "Bearer local-benchmark",
         },
     )
-    with urllib.request.urlopen(call, timeout=30) as response:
+    with urllib.request.urlopen(call, timeout=timeout) as response:
         result: dict[str, Any] = json.load(response)
     return result
 
@@ -216,6 +218,9 @@ def probe(
                             result["reason"] = (
                                 "coding acquisition or grading incomplete"
                             )
+                        elif result["coding"]["execution_exit"] != 0:
+                            result["status"] = "failed"
+                            result["reason"] = "coding acquisition did not complete"
                     break
                 except (OSError, ValueError, KeyError, TypeError) as error:
                     result["status"] = "failed"
@@ -362,6 +367,20 @@ def verify_probe(output: Path) -> dict[str, Any]:
             raise ValueError("coding input drift or missing grading")
         acquisition = json.loads((output / "coding/acquisition.json").read_text())
         grading = json.loads((output / "coding/grading/terminal.json").read_text())
+        if "image" in acquisition:
+            grading_admission = json.loads(
+                (output / "coding/grading/admission.json").read_text()
+            )
+            pinned = json.loads((output / "coding/dataset/test.json").read_text())
+            if (
+                acquisition["image"] != grading_admission["image"]
+                or json.loads((output / "coding/image.json").read_text())
+                != acquisition["image"]
+                or len(pinned) != 1
+                or pinned[0]["instance_id"] != coding["instance"]
+                or pinned[0]["image_name"] != acquisition["image"]["id"]
+            ):
+                raise ValueError("coding and grader image identities differ")
         reports = list(
             (output / "coding/grading/logs/run_evaluation").rglob("report.json")
         )

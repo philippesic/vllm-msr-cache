@@ -5,6 +5,7 @@ import time
 from pathlib import Path
 from typing import Any
 
+from tools.benchmarking.harness import pin_swebench_image
 from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import digest_file, probe, verify_probe
 from tools.repo_policy import git_paths
@@ -58,11 +59,16 @@ def run_campaign(
             != 1
         ):
             raise ValueError("campaign instance missing or duplicated")
+    selected = {cell.case: available[cell.case] for cell in roster}
+    images = {
+        case["instance"]: pin_swebench_image(case["instance"], case.get("image_id"))
+        for case in selected.values()
+    }
     output.mkdir(parents=True)
     sources = snapshot(root, output / "source")
     budget = describe(profile)["budget_seconds"]
     admission = {
-        "schema": "benchmark-campaign-v1",
+        "schema": "benchmark-campaign-v2",
         "profile": profile,
         "partial": bool(selected_cases),
         "selected_cases": selected_cases,
@@ -70,6 +76,7 @@ def run_campaign(
         "budget_seconds": budget,
         "source_sha256": sources,
         "dataset_sha256": digest_file(dataset),
+        "images": images,
         "cells": [cell.identity for cell in roster],
     }
     write_record(output / "admission.json", admission)
@@ -96,6 +103,8 @@ def run_campaign(
             }
             if current != sources:
                 raise ValueError("campaign source changed during acquisition")
+            instance = available[cell.case]["instance"]
+            pin_swebench_image(instance, images[instance]["id"])
             status = probe(
                 root,
                 lmcache_python if cell.system == "lmcache" else python,
@@ -103,7 +112,7 @@ def run_campaign(
                 attempt,
                 min(900, int(remaining)),
                 cell.system,
-                coding=(harness_python, dataset, available[cell.case]["instance"]),
+                coding=(harness_python, dataset, instance),
             )
             child_admission = json.loads((attempt / "admission.json").read_text())
             if child_admission["source_sha256"] != sources:
@@ -123,7 +132,7 @@ def run_campaign(
         write_record(
             output / "terminal.json",
             {
-                "schema": "benchmark-campaign-terminal-v1",
+                "schema": "benchmark-campaign-terminal-v2",
                 "admission_sha256": digest_file(output / "admission.json"),
                 "elapsed_seconds": time.monotonic() - started,
                 "results": results,
@@ -146,9 +155,11 @@ def run_campaign(
 def verify_campaign(output: Path) -> dict[str, Any]:
     admission = json.loads((output / "admission.json").read_text())
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
-    if (
-        admission["schema"] != "benchmark-campaign-v1"
-        or terminal["schema"] != "benchmark-campaign-terminal-v1"
+    if admission["schema"] not in (
+        "benchmark-campaign-v1",
+        "benchmark-campaign-v2",
+    ) or terminal["schema"] != admission["schema"].replace(
+        "campaign-", "campaign-terminal-"
     ):
         raise ValueError("unsupported campaign receipt")
     if terminal["admission_sha256"] != digest_file(output / "admission.json"):
@@ -179,7 +190,7 @@ def verify_campaign(output: Path) -> dict[str, Any]:
         attempt = (output / result["attempt"]).resolve()
         if not attempt.is_relative_to(output.resolve()):
             raise ValueError("campaign cell path escapes output")
-        verify_probe(attempt)
+        observed = verify_probe(attempt)
         child = json.loads((attempt / "admission.json").read_text())
         _, model, case, system, _ = result["cell"].split("/")
         definitions = json.loads(
@@ -194,6 +205,11 @@ def verify_campaign(output: Path) -> dict[str, Any]:
             or child["coding"]["dataset_sha256"] != admission["dataset_sha256"]
         ):
             raise ValueError("campaign cell identity differs")
+        if (
+            admission["schema"] == "benchmark-campaign-v2"
+            and observed["coding"]["image"] != admission["images"][instance]
+        ):
+            raise ValueError("campaign cell task image differs")
         model_path = admission["models"][model]
         command = child["command"]
         if command[command.index("--model") + 1] != model_path:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shlex
 import subprocess
 import time
@@ -11,6 +12,53 @@ from typing import Any
 from tools.config import check_environment
 from tools.process import run_owned
 from tools.runtime_verify import write_record
+
+
+def pin_swebench_image(
+    instance: str, expected_identity: str | None = None
+) -> dict[str, Any]:
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+__[A-Za-z0-9_.-]+", instance):
+        raise ValueError("unsupported SWE-bench instance identity")
+    repository = (
+        "docker.io/swebench/sweb.eval.x86_64."
+        + instance.replace("__", "_1776_").lower()
+    )
+    inspected = subprocess.run(
+        [
+            "sg",
+            "docker",
+            "-c",
+            shlex.join(["docker", "image", "inspect", repository + ":latest"]),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=30,
+    )
+    records = json.loads(inspected.stdout)
+    if len(records) != 1 or not re.fullmatch(r"sha256:[0-9a-f]{64}", records[0]["Id"]):
+        raise ValueError("invalid local task image identity")
+    identity = records[0]["Id"]
+    if expected_identity is not None and identity != expected_identity:
+        raise ValueError("task image changed between acquisition and grading")
+    tag = "benchmark-" + identity.removeprefix("sha256:")
+    subprocess.run(
+        [
+            "sg",
+            "docker",
+            "-c",
+            shlex.join(["docker", "tag", identity, repository + ":" + tag]),
+        ],
+        capture_output=True,
+        check=True,
+        timeout=30,
+    )
+    return {
+        "id": identity,
+        "reference": repository + ":" + tag,
+        "tag": tag,
+        "repository_digests": records[0].get("RepoDigests", []),
+    }
 
 
 def coding_config(endpoint: str, seconds: int, label: str) -> dict[str, Any]:
@@ -50,7 +98,7 @@ def coding_config(endpoint: str, seconds: int, label: str) -> dict[str, Any]:
                 "api_key": "local-benchmark",
                 "temperature": 0,
                 "max_tokens": 512,
-                "timeout": 60,
+                "timeout": 120,
                 "num_retries": 0,
                 "extra_body": {"chat_template_kwargs": {"enable_thinking": False}},
             },
@@ -68,15 +116,28 @@ def run_swebench(
     seconds: int,
 ) -> dict[str, Any]:
     output.mkdir(parents=True, exist_ok=False)
+    image = pin_swebench_image(instance)
+    selected = [
+        row for row in json.loads(dataset.read_text()) if row["instance_id"] == instance
+    ]
+    if len(selected) != 1:
+        raise ValueError("coding requires exactly one source instance")
+    selected[0]["image_name"] = image["id"]
+    pinned_dataset = output / "dataset"
+    pinned_dataset.mkdir()
+    with (pinned_dataset / "test.json").open("x") as destination:
+        json.dump(selected, destination)
+    write_record(output / "image.json", image)
     label = "wait-hint-attempt=" + uuid.uuid4().hex
     configuration = coding_config(endpoint, seconds, label)
+    configuration["agent"]["output_path"] = str(output / "trajectory-live.json")
     write_record(output / "agent.yaml", configuration)
     command = [
         str(python),
         "-m",
         "minisweagent.run.benchmarks.swebench",
         "--subset",
-        str(dataset.parent),
+        str(pinned_dataset),
         "--split",
         "test",
         "--filter",
@@ -91,6 +152,7 @@ def run_swebench(
         str(output / "agent.yaml"),
     ]
     started = time.monotonic()
+    status = 1
     with (output / "agent.log").open("x") as log:
         try:
             status = run_owned(
@@ -115,6 +177,40 @@ def run_swebench(
             )
             containers = listing.stdout.split()
             if containers:
+                if status == 124 and len(containers) == 1:
+                    saved = subprocess.run(
+                        [
+                            "sg",
+                            "docker",
+                            "-c",
+                            shlex.join(
+                                [
+                                    "docker",
+                                    "exec",
+                                    "-w",
+                                    "/testbed",
+                                    containers[0],
+                                    "git",
+                                    "diff",
+                                    "--no-ext-diff",
+                                ]
+                            ),
+                        ],
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                    )
+                    if saved.returncode == 0:
+                        write_record(
+                            output / "deadline-preds.json",
+                            {
+                                instance: {
+                                    "model_name_or_path": "openai/qualification",
+                                    "instance_id": instance,
+                                    "model_patch": saved.stdout,
+                                }
+                            },
+                        )
                 subprocess.run(
                     [
                         "sg",
@@ -131,6 +227,7 @@ def run_swebench(
         "elapsed_seconds": time.monotonic() - started,
         "instance": instance,
         "quality": "ungraded",
+        "image": image,
     }
     trajectory = output / "agent" / instance / (instance + ".traj.json")
     result["agent_exit"] = (
@@ -139,10 +236,20 @@ def run_swebench(
         else "trajectory_missing"
     )
     predictions = output / "agent/preds.json"
+    result["prediction_origin"] = "agent-submission"
+    if not predictions.is_file() and (output / "deadline-preds.json").is_file():
+        predictions = output / "deadline-preds.json"
+        result["prediction_origin"] = "deadline-snapshot"
     if predictions.is_file():
         result["prediction"] = json.loads(predictions.read_text()).get(instance)
         result["grading"] = grade_swebench(
-            root, python, dataset, predictions, instance, output / "grading"
+            root,
+            python,
+            dataset,
+            predictions,
+            instance,
+            output / "grading",
+            image["id"],
         )
         result["quality"] = result["grading"]["quality"]
     write_record(output / "acquisition.json", result)
@@ -156,6 +263,7 @@ def grade_swebench(
     predictions: Path,
     instance: str,
     output: Path,
+    image_identity: str | None = None,
 ) -> dict[str, Any]:
     import hashlib
 
@@ -167,6 +275,7 @@ def grade_swebench(
     if sum(row.get("instance_id") == instance for row in rows) != 1:
         raise ValueError("grading requires exactly one matching dataset instance")
     output.mkdir(parents=True, exist_ok=False)
+    image = pin_swebench_image(instance, image_identity)
     run_id = "wh-" + uuid.uuid4().hex
     command = [
         str(python),
@@ -184,6 +293,12 @@ def grade_swebench(
         run_id,
         "--timeout",
         "120",
+        "--instance_image_tag",
+        image["tag"],
+        "--cache_level",
+        "instance",
+        "--clean",
+        "False",
     ]
     write_record(
         output / "admission.json",
@@ -195,6 +310,7 @@ def grade_swebench(
             "dataset": str(dataset),
             "dataset_sha256": hashlib.sha256(dataset.read_bytes()).hexdigest(),
             "instance": instance,
+            "image": image,
         },
     )
     with (output / "grading.log").open("x") as log:
