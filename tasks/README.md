@@ -30,3 +30,11 @@ Rewrite this section; do not append a log.
 ## Next
 The next concrete step.
 ```
+
+Update the owned task after a material decision, scope change, blocker or handoff.
+Keep settled constraints and their rationale concise within Authorized or State;
+distinguish user decisions from proposals. Preserve valid authorization across sessions
+and do not treat an unanswered proposal as approval. State should describe the current
+situation, not accumulate a transcript. Continue authorized work through routine
+repairs and maintenance; a blocked handoff is a fallback when further progress needs
+an unavailable resource, consequential decision or additional authorization.

@@ -12,3 +12,17 @@ engine utility RPC → scheduler-owned observation validation → ready native A
 reordering. Registration arrives through `kv_transfer_params.wait_hint` on an
 ordinary completed request. Native workers own transfer bytes; the adapter reports
 completion and failure to the native scheduler. See [architecture](architecture.md).
+
+## Maintenance
+
+When adding, renaming, moving or retiring a supported entry point, update
+`tools/system_map.py` and this table together. Keep commands, target symbols and
+availability accurate; planned commands stay in the active task until implemented.
+Update affected README/topic links and examples in the same change. Internal helpers
+need no table row. When the product's routing or ownership changes, update the flow
+above and its explanation in architecture.md.
+
+Exercise the affected command through its documented entry point within the task's
+authorization, then run the normal checks. The map check validates listed entries;
+the author must also check for missing or obsolete entries. Do not launch a GPU run
+merely to maintain this document; report any qualification that remains pending.

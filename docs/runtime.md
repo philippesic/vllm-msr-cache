@@ -42,6 +42,13 @@ pinned version. If a vLLM upgrade is wanted, it is a separate task Philip approv
 change the lock and the pin together, run the runtime lane, fix what breaks, and
 requalify both advice modes on hardware.
 
+When runtime setup, supported configuration or qualification commands change, update
+this guide and affected setup examples in the same change. Keep the pin, lock files
+and actual compatibility guards consistent. Update tests for changed assumptions and
+report which runtime/hardware paths were exercised. New support must not inherit an
+old qualification claim; update current limitations and relevant result explanations
+through the result correction procedure without rewriting original execution records.
+
 The pinned ARC policy has a characterized fallback limitation: it can refuse
 eviction from an empty preferred queue even when the other queue has an evictable
 block. This can reduce store opportunities in both advice modes.
