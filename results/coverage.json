@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "scope": "Report-level historical knowledge and compact supporting evidence. No new performance measurements. Raw runs, frozen executables and environments are separate reproduction dependencies, not required to read these results.",
+  "scope": "Historical knowledge, compact measurements, byte-exact supporting reports and Git source archives. No new performance measurements. Old raw experiments and environments were deliberately pruned after evidence preservation; exact raw replay is not promised.",
   "snapshots": {
     "local_legacy": "1319f09bafac46bab89df465dd433c67441f4b26",
     "retained_5080": "6bbdbdee7ab8ac8012dc27a2938175477d58fb0f"
@@ -4131,5 +4131,28 @@
     "index_sha256": "175c13c1579faef8320b9904005c72d51ff26a80ec2fada82730de191b0da69a",
     "verified": true,
     "scope": "Ignored historical Python/shell scripts and patch/diff files, including frozen runtime source; inert Git archive, not maintained implementation or an exact environment replay."
+  },
+  "pruned_raw_material": {
+    "source_checkpoint": "98ed848e601116cec08fdb1fec686f21104de6f8",
+    "retained_source_archive": "98a5a1e71fd20664642f41d5e41257a786b8e956",
+    "reports_verified": 616,
+    "removed": [
+      "/home/philip/vllm-semantic-cache-ext/output",
+      "/home/philip/.local/share/vllm-semantic-cache-ext-next/efficacy",
+      "/home/philip/.local/share/wait-hint-port-work",
+      "/home/philip/.local/share/vllm-semantic-cache-ext-next/overhaul-20261110",
+      "/home/philip/.local/share/vllm-semantic-cache-ext-next/readiness-20261110",
+      "/home/philip/.local/share/vllm-semantic-cache-ext-next/maintenance-20261110",
+      "/home/philip/.local/share/vllm-semantic-cache-ext-next/history-audit-20261110"
+    ],
+    "scope": "Inactive old raw experiment output and contaminated agent-trial workdirs; useful reports, numeric exports, trial findings and historical code retained. Exact raw replay deliberately no longer available. Early qualification source and success/failure receipts are archived in Git; old maintenance logs and caches are discarded."
+  },
+  "early_qualification_archive": {
+    "ref": "refs/archive/retained/early-qualification-source",
+    "revision": "a69b5e3bcd39dd16fc47a6a3b827ca68b5235faa",
+    "retained_files": 519,
+    "index_sha256": "9537c23a73a7850fbf0878db626a12709b5bccbec727a3d6b98c958d7dcfc9c0",
+    "verified": true,
+    "scope": "Early runtime/GPU qualification source and admission/observed/terminal receipts, including failed attempts. Environments, wheels and disposable logs are not retained."
   }
 }

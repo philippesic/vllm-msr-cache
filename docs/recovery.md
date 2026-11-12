@@ -17,10 +17,14 @@ caches are dependencies, not the sole home of authored project work or results.
 Existing benchmark acquisition still uses
 `/home/philip/.local/share/vllm-semantic-cache-ext-next/` and isolated runtime
 venvs. Preserve those paths until the active release and queued qualification finish.
-The old checkout still holds about 79 GiB of raw experiments. All 31 output collections
-have curated result homes; [coverage](../results/coverage.json) records what was
-inspected and the supporting reports retained. Neither fact alone authorizes claiming
-that every raw byte has been ported or that active dependencies are safe to delete.
+The old output tree and inactive agent pilot, early qualification, overhaul and
+maintenance directories have been pruned after useful evidence was retained and
+active ownership checked. All 31 old output collections have curated result homes;
+[coverage](../results/coverage.json) records source verification and removed roots.
+Useful ignored experiment code and early success/failure qualification receipts
+remain in Git archive refs. Exact raw experiment replay is deliberately unavailable.
+The active benchmark attempts, assets, checkouts and environments still need their
+final closeout and migration; they are not safe to delete yet.
 The remaining consolidation is tracked in [the open task](../tasks/consolidation.md).
 
 Both original Git histories are being retained inside this repository under
