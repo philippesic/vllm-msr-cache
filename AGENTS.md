@@ -49,6 +49,14 @@ KV, makes a block ready, starts a transfer or permits approximate reuse.
 
 # Documents
 
+Maintaining affected tests, supported entry points, current documentation and task
+state is part of completing a change. Carry authorized work through that upkeep,
+verification and cleanup; do not hand back routine unfinished maintenance. Update
+supporting material in the same coherent change when behavior, commands or ownership
+change. Do not add unrelated edits, new tests or result pages just to satisfy a
+checklist. Follow the topic guides below; passing structural checks does not prove
+that explanations or test coverage are correct.
+
 Each fact has one home, chosen by how long it stays true:
 
 - `AGENTS.md`: rules for every task. Philip owns it; propose changes.

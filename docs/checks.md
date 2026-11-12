@@ -90,3 +90,20 @@ so adding a product test cannot change a proof fixture's imports or dependencies
 Result schemas, archived-source hashes, rendering freshness and index membership
 are checked in the `results` group. Use `--render-results` after editing a result;
 see [results](results.md) for closeout and source recovery.
+
+## Maintaining checks and tests
+
+For a behavior change, inspect the relevant tests and update or add cases where the
+existing coverage cannot demonstrate the intended outcome. Prefer observable behavior
+and meaningful failure cases over tests that repeat the implementation. Existing
+coverage may suffice; documentation-only edits need no new product tests.
+
+When tests are added, renamed or intentionally removed, refresh the affected inventory
+with `--update-tests` and review the additions and removals. Do not accept an inventory
+change merely to hide a missing test. Preserve the runtime/GPU lane boundaries.
+
+When a maintained check, option or diagnostic changes, update its command examples and
+repair guidance here. Project-rule changes also need matching good/bad rule specimens;
+changes to supported entry points follow the system-map maintenance guide. Keep full
+acceptance at coherent checkpoints; the normal commit hook runs it. Passing checks
+does not replace inspecting whether tests cover the changed behavior.
