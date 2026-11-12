@@ -46,11 +46,11 @@ def trial_config(
                 "enable_summarize": False,
                 "model_info": {
                     "max_input_tokens": 8192,
-                    "max_output_tokens": 512,
+                    "max_output_tokens": 1024,
                     "input_cost_per_token": 0,
                     "output_cost_per_token": 0,
                 },
-                "llm_kwargs": {"timeout": 120, "num_retries": 0, "max_tokens": 512},
+                "llm_kwargs": {"timeout": 120, "num_retries": 0, "max_tokens": 1024},
                 "llm_call_kwargs": {
                     "extra_body": {"chat_template_kwargs": {"enable_thinking": False}}
                 },

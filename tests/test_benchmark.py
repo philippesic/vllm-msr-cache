@@ -227,6 +227,20 @@ def test_panel_resume_runs_only_unstarted_work_and_preserves_failure(
     with pytest.raises(ValueError, match="resume source differs"):
         run_panels(*arguments, resume=True)
     assert len(calls) == 2
+    import errno
+
+    def disk_failure(*_args: Any, **_kwargs: Any) -> int:
+        raise OSError(errno.ENOSPC, "injected child receipt write failure")
+
+    monkeypatch.setattr("tools.benchmarking.campaign_panels.probe", disk_failure)
+    broken_arguments: tuple[
+        Path, str, dict[str, Path], Path, Path, Path, Path, Path, list[str]
+    ] = (*arguments[:-2], tmp_path / "disk-failure", [])
+    with pytest.raises(OSError, match="injected child receipt"):
+        run_panels(*broken_arguments)
+    assert run_panels(*broken_arguments, resume=True) == 1
+    failure_report = verify_panels(tmp_path / "disk-failure")
+    assert failure_report["failed"] == 2 and failure_report["not_run"] == []
 
 
 def test_controlled_trace_uses_unique_events_and_detects_restore_corruption(
@@ -287,6 +301,51 @@ def test_controlled_trace_uses_unique_events_and_detects_restore_corruption(
     (output / "terminal.json").write_text(json.dumps(measured))
     with pytest.raises(ValueError, match="restored continuation differs"):
         verify_trace(output)
+    load_output = tmp_path / "load"
+    acquired = acquire_trace(
+        "http://local",
+        {},
+        "wait-hint",
+        "T3",
+        load_output,
+        180,
+        256 * 1024**2,
+        4,
+        load_intervals={"low": 0.001, "near": 0.0005, "overload": 0.0001},
+    )
+    assert verify_trace(load_output) == acquired
+    offers = json.loads((load_output / "load-offers.json").read_text())["offers"]
+    assert len(offers) == 9 and all(offer["status"] == "complete" for offer in offers)
+
+    def failed_request(
+        url: str, payload: dict[str, Any] | None = None, timeout: int = 30
+    ) -> dict[str, Any]:
+        if (
+            payload
+            and payload.get("max_tokens") == 32
+            and payload["prompt"][0] == 52000
+        ):
+            raise TimeoutError("injected arrival failure")
+        return upstream(url, payload, timeout)
+
+    monkeypatch.setattr("tools.benchmarking.traces.request", failed_request)
+    failed_output = tmp_path / "failed-load"
+    failed = acquire_trace(
+        "http://local",
+        {},
+        "wait-hint",
+        "T3",
+        failed_output,
+        180,
+        256 * 1024**2,
+        4,
+        load_intervals={"low": 0.001, "near": 0.0005, "overload": 0.0001},
+    )
+    assert not verify_trace(failed_output)["complete"] and not failed["complete"]
+    offered = json.loads((failed_output / "load-offers.json").read_text())["offers"]
+    assert (
+        len(offered) == 9 and sum(item["status"] == "failed" for item in offered) == 3
+    )
 
 
 def test_terminal_hint_detection_requires_a_valid_nonfinal_action() -> None:
@@ -784,6 +843,27 @@ def test_probe_reader_rejects_drift_failed_attempt_and_unobserved_restoration(
     receipt.write_text(json.dumps(terminal))
     with pytest.raises(ValueError, match="original grader"):
         verify_probe(tmp_path)
+    admission.update(
+        schema="benchmark-model-probe-v6",
+        panel={"jobs": [{"identity": "startup-cell"}]},
+        runtime_sources={"runtime.py": "identity"},
+        coding=None,
+    )
+    (tmp_path / "admission.json").write_text(json.dumps(admission))
+    terminal.update(
+        schema="benchmark-model-terminal-v6",
+        status="failed",
+        reason="server_exited",
+        admission_sha256=digest_file(tmp_path / "admission.json"),
+    )
+    terminal.pop("response")
+    receipt.write_text(json.dumps(terminal))
+    with pytest.raises(ValueError, match="did not pass"):
+        verify_probe(tmp_path)
+    assert verify_probe(tmp_path, allow_failed_panel=True)["reason"] == "server_exited"
+    from tools.benchmarking.campaign_panels import panel_results
+
+    assert panel_results(admission, terminal)[0]["status"] == "failed"
 
 
 def test_external_restoration_requires_cpu_reuse_and_fresh_equal_tokens() -> None:

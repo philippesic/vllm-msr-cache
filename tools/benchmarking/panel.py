@@ -12,6 +12,7 @@ from tools.benchmarking.navigation import verify_navigation
 from tools.benchmarking.probe import digest_file, request
 from tools.benchmarking.proxy import local_proxy
 from tools.benchmarking.regression import verify_regression
+from tools.benchmarking.resources import sample_resources, verify_resources
 from tools.benchmarking.terminal import run_terminal, verify_terminal
 from tools.benchmarking.traces import acquire_trace, verify_trace
 from tools.runtime_verify import write_record
@@ -27,6 +28,7 @@ def acquire_panel(
     output: Path,
     deadline: float,
     cpu_bytes: int,
+    session: int | None = None,
 ) -> dict[str, Any]:
     output.mkdir(parents=True, exist_ok=False)
     write_record(
@@ -38,6 +40,7 @@ def acquire_panel(
             "state_policy": "full GPU/external reset before every application or diagnostic; persistent serving process",
             "deadline_monotonic": deadline,
             "cpu_bytes": cpu_bytes,
+            "owner_session": session,
         },
     )
     started = time.monotonic()
@@ -52,12 +55,20 @@ def acquire_panel(
             }
             results.append(result)
             destination = output / str(index)
-            if deadline - time.monotonic() < job["seconds"] + 180:
+            reserve = (360 if job.get("task_kind") == "branching" else 180) + job.get(
+                "diagnostic_seconds", 0
+            )
+            if deadline - time.monotonic() < job["seconds"] + reserve:
                 result["reason"] = (
                     "panel budget exhausted before complete task admission"
                 )
                 continue
             try:
+                if session is not None:
+                    write_record(
+                        output / f"resource-{index}-before.json",
+                        sample_resources(session),
+                    )
                 if not request(base + "/reset_prefix_cache?reset_external=true", {})[
                     "success"
                 ]:
@@ -72,6 +83,8 @@ def acquire_panel(
                         job["seconds"],
                         cpu_bytes,
                         job.get("pressure_prefixes", 24),
+                        session,
+                        job.get("load_intervals"),
                     )
                     result["status"] = "complete" if measured["complete"] else "failed"
                 elif job["kind"] == "application":
@@ -135,6 +148,7 @@ def acquire_panel(
                             job["diagnostic_seconds"],
                             cpu_bytes,
                             job["pressure_prefixes"],
+                            session,
                         )
                         if not result["diagnostic"]["complete"]:
                             result["status"] = "failed"
@@ -145,6 +159,10 @@ def acquire_panel(
             except (OSError, ValueError, KeyError, TypeError) as error:
                 result["status"] = "failed"
                 result["reason"] = str(error)
+            if session is not None:
+                write_record(
+                    output / f"resource-{index}-after.json", sample_resources(session)
+                )
             write_record(output / f"progress-{index}.json", result)
     finally:
         terminal = {
@@ -265,4 +283,6 @@ def verify_panel(output: Path) -> dict[str, Any]:
             raise ValueError("validation diagnostic differs from observations")
     if terminal["complete"] != complete:
         raise ValueError("panel completion differs from coverage")
+    for path in output.glob("resource-*.json"):
+        verify_resources(path)
     return terminal

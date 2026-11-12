@@ -64,7 +64,7 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "project-fail-before-pass-after-v1",
       "seconds": 240,
-      "exposure": "checker-only",
+      "exposure": "feasibility-pilot",
       "image_id": "sha256:2ee0a4c706f04d2926a1622ec51b53d4ce6010b80d3ee10d414ea2a276c26cc9"
     },
     {
@@ -88,7 +88,7 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "project-navigation-impact-v1",
       "seconds": 240,
-      "exposure": "checker-only",
+      "exposure": "feasibility-pilot",
       "image_id": "sha256:74c39af4d671327ac2fd243a649c6e029a675ac4df5141ee0cda201cbb71fe7d"
     },
     {
@@ -111,7 +111,7 @@
       "harness": "harbor-0.25.0-terminus-2",
       "grader": "terminal-bench-original",
       "seconds": 240,
-      "exposure": "oracle-and-noop-only",
+      "exposure": "feasibility-pilot",
       "image_id": "sha256:598d69b951cb773256f7ed5f16edf0a7779fccfff9d5a1d0a9ec6ccf5a503292"
     },
     {
@@ -122,7 +122,7 @@
       "harness": "harbor-0.25.0-terminus-2",
       "grader": "terminal-bench-original",
       "seconds": 240,
-      "exposure": "oracle-and-noop-only",
+      "exposure": "feasibility-pilot",
       "image_id": "sha256:465659245190448c277bb7d753cfd79f19fbf1ef4ef45fb2b2a85eeed5da9d0b"
     },
     {
@@ -133,7 +133,7 @@
       "harness": "mini-swe-agent-2.4.6",
       "grader": "project-facts-and-citations-v1",
       "seconds": 240,
-      "exposure": "checker-only",
+      "exposure": "feasibility-pilot",
       "image_id": "sha256:43db88051593792a9c97630bee2d4f89dd6006c73183f9e9cbb2ed5a2d99dafa"
     },
     {
@@ -156,7 +156,7 @@
       "harness": "project-transcript-fork-v1",
       "grader": "swebench-4.1.0-and-project-regression-v1",
       "seconds": 240,
-      "exposure": "selected-not-executed",
+      "exposure": "feasibility-pilot",
       "image_id": "sha256:b2733e57feb4cfaeac24ab5ec496d4cb89a37db53bd0ca72eaededdb2ce19d1c"
     },
     {

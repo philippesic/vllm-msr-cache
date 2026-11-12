@@ -51,6 +51,11 @@ Retained observations and events are charged by recursive Python object size plu
 conservative admission budget, not a process RSS limit. Capacity refusals preserve
 existing state and never refresh ARC. Keys are at most 256 bytes and boundaries at
 most one million tokens. Replacement, retirement and reset reclaim the charge. The constructor selects native CPU ARC and full-transcript stores.
+Registration and hint acknowledgements expose exact retained session/event counts,
+charged bytes, configured limits and lifetime retirements. These owner-maintained
+counts distinguish reclaimed records from allocator/RSS behavior. Registration also
+reports native CPU chunk bytes/capacity and the full-attention prefix's minimum
+chunk demand; it does not assert transfer readiness or a performance benefit.
 Unknown keys refuse. The control is this same connector with advice disabled and every
 correctness and failure guard retained.
 

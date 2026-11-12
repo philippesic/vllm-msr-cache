@@ -110,6 +110,7 @@ def test_clock_and_reset() -> None:
     )
     store.clear()
     assert store.charged_bytes == 0
+    assert store.metrics()["sessions"] == store.metrics()["events"] == 0
     assert (
         advise(store, target, hint, 12, "boot", True).decision
         is AdviceDecision.UNOBSERVED
@@ -138,6 +139,8 @@ def test_session_capacity_and_generation() -> None:
     for name in ("second", "third"):
         assert store.register("scope", name, original).accepted
     assert store.retired == 1
+    assert store.metrics()["sessions"] == store.metrics()["max_sessions"] == 2
+    assert store.metrics()["events"] == 0
     assert (
         advise(store, target, hint, 12, "boot", True).decision
         is AdviceDecision.UNOBSERVED
@@ -220,10 +223,14 @@ def test_new_generation_discards_replay_and_reclaims_memory() -> None:
     charge = store.charged_bytes
     advise(store, target, hint, 12, "boot", True)
     assert store.charged_bytes > charge
+    assert store.metrics()["events"] == 1
+    advise(store, target, hint, 12, "boot", True)
+    assert store.metrics()["events"] == 1
     assert store.register(
         hint.scope, hint.session, replace(original, generation=2)
     ).accepted
     assert store.charged_bytes == charge
+    assert store.metrics()["events"] == 0
     assert (
         advise(store, target, hint, 12, "boot", True).decision
         is AdviceDecision.IDENTITY_MISMATCH

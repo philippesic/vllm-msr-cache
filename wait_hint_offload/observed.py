@@ -163,6 +163,18 @@ class ObservedStore:
         self._sessions: OrderedDict[tuple[str, str], Session] = OrderedDict()
         self._charged_bytes = 0
         self._retired = 0
+        self._event_count = 0
+
+    def metrics(self) -> dict[str, int]:
+        return {
+            "sessions": len(self._sessions),
+            "events": self._event_count,
+            "charged_bytes": self._charged_bytes,
+            "retired_total": self._retired,
+            "max_sessions": self._max_sessions,
+            "max_events_per_session": self._max_events,
+            "metadata_bytes_limit": self._budget,
+        }
 
     @property
     def retired(self) -> int:
@@ -197,6 +209,8 @@ class ObservedStore:
         total = self._charged_bytes - (victim.charged_bytes if victim else 0) + charge
         if total > self._budget:
             return RegistrationOutcome(RegistrationDecision.MEMORY_CAPACITY)
+        if victim is not None:
+            self._event_count -= len(victim.events)
         if current is None and victim is not None:
             self._sessions.popitem(last=False)
             self._retired += 1
@@ -261,6 +275,7 @@ class ObservedStore:
         )
         result = AdviceOutcome(decision, count, available)
         session.events[hint.event] = (hint, result)
+        self._event_count += 1
         session.charged_bytes += charge
         self._charged_bytes += charge
         self._sessions.move_to_end((hint.scope, hint.session))
@@ -269,3 +284,4 @@ class ObservedStore:
     def clear(self) -> None:
         self._sessions.clear()
         self._charged_bytes = 0
+        self._event_count = 0

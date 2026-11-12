@@ -57,6 +57,12 @@ campaign budgets. Deadline cleanup retains the latest available trajectory and
 patch and grades that patch separately from task completion. Timed-out acquisition
 cannot pass. A single pilot does not establish pressure coverage, competitive
 benefit or a score for the full source benchmark.
+Validation uses at most 12 tool turns within each 120-second application budget;
+release retains 32 turns within 240 seconds. Reaching the turn cap is a retained
+task outcome. Reaching a wall deadline is censored acquisition. All arms receive
+the same caps. Terminus command responses allow 1024 tokens: the earlier 512-token
+cap repeatedly truncated its JSON command envelopes. Original task validators and
+wall budgets remain fixed.
 
 ## Environments and inputs
 
@@ -117,6 +123,48 @@ Its measurement, release and benefit fields are distinct. Missing operating gate
 fresh confirmation or application evidence block the relevant claim. Neither a
 successful panel nor a report with complete measurements implies a policy benefit.
 Campaign execution, interruption recovery and release reporting remain under qualification.
+A full release first runs the mandatory pinned CPU integration and real GPU
+functional cases, then native-only load calibration. Their proof snapshots must match
+the campaign. This bounded preparation is reported separately from recurring
+acquisition (at most 3 + 10 + 10 minutes plus cleanup).
+
+Each invocation records its owner and admitted launches before acquisition. Recovery
+refuses a live owner; after interruption it retains completed receipts and marks
+incomplete admitted panels interrupted rather than retrying them. Their full admitted
+budgets are charged conservatively. Only never-started work resumes.
+
+Release preparation separately runs bounded native-ARC-only calibration for each
+model. Four cold 3072-token/32-output-token requests establish common low/near/overload
+arrival intervals at 0.3/0.8 times inverse median service time, followed by a four-request burst. Low/near/burst phases offer two/three/four requests respectively. Those intervals
+are frozen before comparator acquisition; every arm receives the same independently
+offered requests, with offer/start/completion accounting and drain/recovery. These
+small probes characterize fixed-load behavior and cannot establish maximum capacity.
+
+Pressure diagnostics use 1K prefixes so multiple independent prefixes can coexist
+inside the small Qwen pool; the resident/restore and offered-load probes retain 3K
+prefixes. Preserve earlier capacity-limited negative results. Admission never
+replaces natural application traffic after observing candidate outcomes.
+
+Each new campaign records source-group exposure in the asset directory and its own
+receipt before acquisition. Previously admitted groups stay exposed even after a
+failure; repeating starts does not create independent source tasks. Initial known
+pilot exposure lives in workloads.json. Copy this small generated exposure registry
+with assets when moving machines; omitting it loses confirmation provenance.
+
+Panels record serving-session RSS and whole-device memory/temperature/power/clocks.
+Traces retain periodic windows and actual cache-reset responses. Summed RSS includes
+shared-page duplication; metadata counts/charged bytes in acknowledgements are the
+logical-state observations. Native chunk layout gives a conservative working-set
+ratio, separate from asynchronously exported native byte counters. Neither readiness
+acknowledgements nor raw cached-token totals alone prove useful retention.
+
+The frozen engineering policy in benchmarks/claims.json uses both-arm task success
+for every claimed application, two independent blocks, at least 5% latency reduction
+above a conservative measured noise allowance, and max(20 ms, 5%) no-op/unhinted
+latency tolerances. These are descriptive engineering gates, not statistical margins.
+The report exposes paired regressions, raw protected-cohort delays and all failed
+cells; fresh confirmation requires a previously unexposed source group. It never
+turns repeated starts into more source tasks or publishes an overall competitor ranking.
 
 ## Extending and checking
 
@@ -154,22 +202,12 @@ V5 requires an external restoration result for LMCache and reports restoration s
 Earlier generation-status receipts keep their original meaning even where they retain
 an additional restoration observation.
 
-## Campaign acquisition under implementation
+## Legacy campaigns
 
-`run --profile release --case C1-1 --model qwen35-4b-int4=/external/qwen
---model gemma4-12b-int4=/external/gemma --runtime-python /external/core/bin/python
---lmcache-python /external/lmcache/bin/python --harness-python /external/harness/bin/python
---dataset /external/swebench-c1/test.json --out /external/new-campaign` executes the
-selected C1 case across the scheduled arms, models and repetitions. Explicit case
-selection always produces a partial campaign. `verify-campaign /external/campaign`
-checks coverage, identities and each child receipt; failed cells stay in coverage.
-V2 campaigns freeze task image identities across all cells; older v1 receipts retain
-their earlier provenance scope.
-Source changes during acquisition refuse further cells. Use a stable checkpoint.
-C1 repair and C2 test-authoring acquisition are implemented. A partial C2 command
-uses --case C2-1 and its admitted dataset. Mixed-dataset campaigns and full
-compare/release commands still refuse missing integration, workloads and traces. Resume and release verdicts remain unimplemented.
-This command is being qualified and does not yet satisfy the complete suite contract.
+Giving `run` a single dataset file selects the older v1/v2 partial reproduction path.
+New work uses the asset directory and shared-server campaigns above. Legacy readers
+preserve their original provenance and measurement meaning; they do not gain the
+new lifecycle, exposure, resource or load guarantees.
 
 ## Regression-test grading
 
