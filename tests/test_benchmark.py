@@ -60,6 +60,235 @@ def test_probe_rejects_missing_task_before_creating_attempt(tmp_path: Path) -> N
     assert not output.exists()
 
 
+def test_empty_repair_is_a_failed_task_only_with_original_grader_evidence(
+    tmp_path: Path,
+) -> None:
+    import json
+
+    from tools.benchmarking.harness import digest_bytes, verify_coding_grade
+
+    predictions = tmp_path / "predictions.json"
+    predictions.write_text(json.dumps({"issue": {"model_patch": ""}}))
+    summary = {
+        "submitted_ids": ["issue"],
+        "empty_patch_ids": ["issue"],
+        "error_ids": [],
+        "completed_ids": [],
+    }
+    (tmp_path / "original-summary.json").write_text(json.dumps(summary))
+    (tmp_path / "admission.json").write_text(
+        json.dumps(
+            {
+                "instance": "issue",
+                "predictions": str(predictions),
+                "predictions_sha256": digest_bytes(predictions.read_bytes()),
+            }
+        )
+    )
+    (tmp_path / "terminal.json").write_text(
+        json.dumps(
+            {"exit_code": 0, "quality": "unresolved", "empty_patch_summary": summary}
+        )
+    )
+    assert verify_coding_grade(tmp_path)["quality"] == "unresolved"
+    (tmp_path / "original-summary.json").write_text("{}")
+    with pytest.raises(ValueError, match="original summary"):
+        verify_coding_grade(tmp_path)
+
+
+def test_panel_cannot_turn_failed_or_missing_cells_into_completion(
+    tmp_path: Path,
+) -> None:
+    import json
+
+    from tools.benchmarking.panel import verify_panel
+    from tools.benchmarking.probe import digest_file
+
+    (tmp_path / "admission.json").write_text(
+        json.dumps(
+            {
+                "schema": "benchmark-panel-v1",
+                "jobs": [{"identity": "failed"}, {"identity": "unstarted"}],
+            }
+        )
+    )
+    terminal = {
+        "schema": "benchmark-panel-terminal-v1",
+        "admission_sha256": digest_file(tmp_path / "admission.json"),
+        "complete": False,
+        "results": [
+            {"identity": "failed", "status": "failed"},
+            {"identity": "unstarted", "status": "not_run"},
+        ],
+    }
+    (tmp_path / "terminal.json").write_text(json.dumps(terminal))
+    assert not verify_panel(tmp_path)["complete"]
+    (tmp_path / "terminal.json").write_text(json.dumps({**terminal, "complete": True}))
+    with pytest.raises(ValueError, match="completion differs"):
+        verify_panel(tmp_path)
+
+
+def test_panel_resume_runs_only_unstarted_work_and_preserves_failure(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+    from typing import Any
+
+    from tools.benchmarking.campaign_panels import run_panels, verify_panels
+    from tools.benchmarking.probe import digest_file
+
+    root = tmp_path / "source"
+    root.mkdir()
+    (root / "source.py").write_text("value = 1\n")
+    model = tmp_path / "model"
+    model.mkdir()
+    python = tmp_path / "python"
+    python.touch()
+    jobs = [
+        {
+            "identity": identity,
+            "case": identity,
+            "model": "model",
+            "system": "native-arc",
+            "block": 0,
+            "seconds": 120,
+        }
+        for identity in ("first", "second")
+    ]
+    calls: list[list[str]] = []
+
+    def snapshot(source: Path, destination: Path) -> dict[str, str]:
+        destination.mkdir()
+        (destination / "source.py").write_bytes((source / "source.py").read_bytes())
+        return {"source.py": digest_file(source / "source.py")}
+
+    def execute(*arguments: Any, panel: tuple[Path, list[dict[str, Any]]]) -> int:
+        output = arguments[3]
+        output.mkdir(parents=True)
+        selected = [job["identity"] for job in panel[1]]
+        calls.append(selected)
+        (output / "admission.json").write_text(
+            json.dumps(
+                {
+                    "source_sha256": {"source.py": digest_file(root / "source.py")},
+                    "panel": {"jobs": panel[1]},
+                    "system": "native-arc",
+                    "command": ["runtime", "--model", str(model.resolve())],
+                }
+            )
+        )
+        records = [
+            {
+                "identity": identity,
+                "status": ("failed" if identity == "first" else "not_run")
+                if len(calls) == 1
+                else "complete",
+            }
+            for identity in selected
+        ]
+        (output / "terminal.json").write_text(
+            json.dumps({"panel": {"results": records}})
+        )
+        return int(len(calls) == 1)
+
+    def read(output: Path, *, allow_failed_panel: bool) -> dict[str, Any]:
+        assert allow_failed_panel
+        result: dict[str, Any] = json.loads((output / "terminal.json").read_text())
+        return result
+
+    monkeypatch.setattr(
+        "tools.benchmarking.campaign_panels.admitted_jobs", lambda *_args: jobs
+    )
+    monkeypatch.setattr("tools.benchmarking.campaign_panels.snapshot", snapshot)
+    monkeypatch.setattr("tools.benchmarking.campaign_panels.probe", execute)
+    monkeypatch.setattr("tools.benchmarking.campaign_panels.verify_probe", read)
+    output = tmp_path / "campaign"
+    arguments: tuple[
+        Path, str, dict[str, Path], Path, Path, Path, Path, Path, list[str]
+    ] = (
+        root,
+        "compare",
+        {"model": model},
+        python,
+        python,
+        python,
+        tmp_path,
+        output,
+        [],
+    )
+    assert run_panels(*arguments) == 1
+    assert run_panels(*arguments, resume=True) == 1
+    assert calls == [["first", "second"], ["second"]]
+    result = verify_panels(output)
+    assert result["failed"] == result["completed"] == 1
+    assert result["not_run"] == []
+    assert len(list(output.glob("terminal-*.json"))) == 2
+    (root / "source.py").write_text("value = 2\n")
+    with pytest.raises(ValueError, match="resume source differs"):
+        run_panels(*arguments, resume=True)
+    assert len(calls) == 2
+
+
+def test_controlled_trace_uses_unique_events_and_detects_restore_corruption(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+    import time
+    from typing import Any
+
+    from tools.benchmarking.probe import digest_file
+    from tools.benchmarking.traces import acquire_trace, verify_trace
+
+    events: list[str] = []
+
+    def upstream(
+        url: str, payload: dict[str, Any] | None = None, timeout: int = 30
+    ) -> dict[str, Any]:
+        assert timeout > 0 and payload is not None
+        if "/reset_prefix_cache" in url:
+            return {"success": True}
+        if url.endswith("/v1/wait-hints"):
+            events.append(payload["event"])
+            return {"decision": "refreshed", "ready_cpu_prefix_keys": 1}
+        result: dict[str, Any] = {
+            "choices": [{"token_ids": [42]}],
+            "usage": {
+                "prompt_tokens": len(payload["prompt"]),
+                "prompt_tokens_details": {"cached_tokens": 0},
+            },
+        }
+        if "kv_transfer_params" in payload:
+            result["kv_transfer_params"] = {
+                "wait_hint": {
+                    "registered": True,
+                    "prefix": "digest",
+                    "boundary": 3072,
+                    "observed_ns": time.monotonic_ns(),
+                    "clock_domain": "engine",
+                }
+            }
+        return result
+
+    monkeypatch.setattr("tools.benchmarking.traces.request", upstream)
+    monkeypatch.setattr("tools.benchmarking.traces.metrics", lambda _base: "")
+    output = tmp_path / "trace"
+    measured = acquire_trace(
+        "http://local", {}, "wait-hint", "T2", output, 180, 256 * 1024**2, 4
+    )
+    assert verify_trace(output) == measured
+    assert measured["competing_prefixes"] == 4
+    assert events.count("tool-wait-0") == 2
+    assert len(set(events)) == 5
+    path = output / "request-003.json"
+    record = json.loads(path.read_text())
+    record["response"]["choices"][0]["token_ids"] = [43]
+    path.write_text(json.dumps(record))
+    measured["artifacts_sha256"][path.name] = digest_file(path)
+    (output / "terminal.json").write_text(json.dumps(measured))
+    with pytest.raises(ValueError, match="restored continuation differs"):
+        verify_trace(output)
+
+
 def test_terminal_hint_detection_requires_a_valid_nonfinal_action() -> None:
     import json
 
@@ -507,7 +736,7 @@ def test_probe_reader_rejects_drift_failed_attempt_and_unobserved_restoration(
     }
     nested = tmp_path / "coding/grading/admission.json"
     nested.parent.mkdir(parents=True)
-    nested.write_text("{}\n")
+    nested.write_text(json.dumps({"instance": "case"}))
     terminal.update(
         status="restoration_observed",
         restore=observation,

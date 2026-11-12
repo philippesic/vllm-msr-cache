@@ -22,7 +22,25 @@ def run_campaign(
     dataset: Path,
     output: Path,
     selected_cases: list[str],
+    resume: bool = False,
 ) -> int:
+    if dataset.is_dir():
+        from tools.benchmarking.campaign_panels import run_panels
+
+        return run_panels(
+            root,
+            profile,
+            models,
+            python,
+            lmcache_python,
+            harness_python,
+            dataset,
+            output,
+            selected_cases,
+            resume,
+        )
+    if resume:
+        raise ValueError("resume requires the maintained mixed-dataset panel format")
     roster = cells(profile)
     if selected_cases:
         unknown = set(selected_cases) - {cell.case for cell in roster}
@@ -172,6 +190,10 @@ def run_campaign(
 
 def verify_campaign(output: Path) -> dict[str, Any]:
     admission = json.loads((output / "admission.json").read_text())
+    if admission["schema"] == "benchmark-campaign-v3":
+        from tools.benchmarking.campaign_panels import verify_panels
+
+        return verify_panels(output)
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
     if admission["schema"] not in (
         "benchmark-campaign-v1",

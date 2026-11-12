@@ -23,7 +23,7 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   VMM/staged-copy repair, plus one graded Qwen coding pilot. Broader application
   and reliability qualification remains pending.
   See the active benchmark task for evidence.
-- `verify-probe /external/attempt` checks a v3/v4/v5 receipt, frozen source/model hashes,
+- `verify-probe /external/attempt` checks a v3/v4/v5/v6 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
 
@@ -91,6 +91,32 @@ are task-specific development images, not serving environments. Do not replace
 an admitted image tag or change the reference checks after observing candidate outputs.
 Downloaded datasets and weights live outside Git; authored workload definitions,
 source ancestry, selection rationale and compact evidence belong in Git.
+
+## Shared-server campaigns
+
+`run --profile compare|release --runtime-python CORE_PY --lmcache-python LMCACHE_PY
+--harness-python HARNESS_PY --dataset ASSET_DIRECTORY --model ID=MODEL_PATH
+--out NEW_EXTERNAL_DIRECTORY` admits every required workload before starting a GPU.
+Repeat `--model` for the pinned model IDs; release also requires `dense-fixture`.
+The asset directory contains the source-specific `swebench-c1`, `swebench-c2`,
+`navigation-c3`, `terminal-c4`, `branching-c5` and `grounded-b1` directories.
+All use retained `test.json` datasets, admitted hashes and content-addressed images.
+
+Current v3 campaigns keep one server per model/comparator/block and reset both GPU
+and external cache state between tasks. Each application keeps its own transcript,
+requests, grading and deadline. Validation adds a separately accounted pressure,
+abandoned-hint and unhinted-return diagnostic to its last application slot.
+`--case ID` selects a labelled partial acquisition; it cannot qualify the full suite.
+The earlier single-dataset runner remains available for old partial reproductions.
+
+`--resume` with the same directory and inputs appends a new acquisition segment;
+completed and failed tasks are retained, while never-started work can continue.
+Source/model/runtime drift refuses. Resume does not restore a server's lost cache.
+`verify-campaign DIRECTORY` checks original observations and full denominators.
+Its measurement, release and benefit fields are distinct. Missing operating gates,
+fresh confirmation or application evidence block the relevant claim. Neither a
+successful panel nor a report with complete measurements implies a policy benefit.
+Campaign execution, interruption recovery and release reporting remain under qualification.
 
 ## Extending and checking
 

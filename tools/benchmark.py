@@ -75,6 +75,7 @@ def main() -> int:
     campaign.add_argument("--model", action="append", required=True)
     campaign.add_argument("--case", action="append", default=[])
     campaign.add_argument("--out", type=Path, required=True)
+    campaign.add_argument("--resume", action="store_true")
     campaign_verify = sub.add_parser("verify-campaign")
     campaign_verify.add_argument("directory", type=Path)
     regression = sub.add_parser("grade-regression")
@@ -191,12 +192,13 @@ def main() -> int:
             args.dataset,
             args.out,
             args.case,
+            args.resume,
         )
     if args.operation == "verify-campaign":
         from tools.benchmarking.campaign import verify_campaign
 
         result = verify_campaign(args.directory)
-        print(json.dumps({"status": result["status"], "cells": len(result["results"])}))
+        print(json.dumps(result, indent=2))
         return 0
     if args.operation == "patch-runtime":
         from tools.benchmarking.patches import apply_runtime_patches
