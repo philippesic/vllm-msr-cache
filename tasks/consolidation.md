@@ -22,57 +22,53 @@ from the old main with the maintained clean tree. The repository and current nam
 are wait-hint-kv, its documented commands pass, and old paths are unnecessary.
 
 ## State
-Main was 77a477e before this work; benchmark acquisition uses separate immutable
-50e53cf/386715e checkouts and external paths. Do not move those paths or runtime
-environments while release-01 or its admitted follow-up queue uses them.
+Instructions and new artifact storage are reconciled in checkpoint 98ed848.
+Project AGENTS.md contains project mechanics and navigation; generic guidance lives
+in p-stack policy/AGENTS.md. Shared reconciliation d028888 is pushed, installed and
+checked; concurrent upstream changes were preserved. The tracked close-results copy
+matches the installed procedure. New commands write under ignored artifacts/ here.
+Portable acceptance passed 70 CPU tests and 105 rule proofs, and pinned runtime CPU
+verification passed strict types and 18 integration tests using an internal output.
+The subsequent real snapshot exposed deptry scanning ignored artifacts; its scope
+now excludes generated artifacts while retaining source dependency enforcement.
 
-All 31 directories in the old output/ have curated result homes. Existing coverage
-inventories 407 historical evidence files and previously verified 594 source reports. Seven
-measurement exports totaling about 28 MiB are now retained byte-exactly as source
-parts. The agent efficacy pilot is curated in results/agent-workflow-pilot with
-15 unique supporting reports/inputs/diffs. Its contaminated trials do not establish
-improved effectiveness. All 616 source archives were rechecked against originals,
-with zero missing or changed bytes. A further ignored-source audit found scripts
-and patches absent from Git: all 16,960 Python/shell/patch/diff files (328 MB before
-Git compression) are now retained under refs/archive/original/ignored-experiment-source,
-commit 98a5a1e, with exact path/blob verification and no credential-shaped content.
-No old raw tree has yet been deleted.
+All 31 old output collections have curated result homes. All 616 supporting archives
+were checked byte-for-byte against original Git/local files before pruning. Seven
+previously excluded numeric exports and the contaminated agent efficacy pilot are
+retained. The pilot does not establish improved agent effectiveness. All 453 original
+Git refs and five retained archive refs were imported and verified, including the
+separate 5080 snapshot. Another 16,960 ignored scripts/patches are retained in
+refs/archive/original/ignored-experiment-source (98a5a1e); 519 early qualification
+source/receipt files are in refs/archive/retained/early-qualification-source (a69b5e3).
+These are inert historical code and receipts, not current entry points.
 
-External project roots: ~/.local/share/vllm-semantic-cache-ext-next (attempts,
-assets, checkouts, legacy archive, bundles, efficacy and maintenance leftovers),
-~/.local/share/wait-hint-port-work, and five old .t3 worktrees. Project-owned runtime
-venvs are under ~/.local/share/venvs. Shared model/package/Docker caches are
-dependencies and must not be deleted as though exclusively owned project results.
+Inactive old output/, efficacy trials, wait-hint-port-work and dated overhaul,
+readiness, maintenance and history-audit roots were deleted after source verification
+and process/reference ownership checks. results/coverage.json records disposition.
+Exact raw replay is deliberately no longer available. Active attempts, assets,
+checkouts and temporary recovery archives/bundles remain under
+~/.local/share/vllm-semantic-cache-ext-next; project runtime environments remain
+under ~/.local/share/venvs. Preserve them until release-01 and its admitted queue
+finish. Shared model/package/Docker caches are dependencies, not exclusively owned
+project work; do not delete them blindly.
 
-All 453 original repository refs have been imported under refs/archive/original/;
-the retained bare archive's five refs are under refs/archive/retained/, including
-the separate 5080 snapshot. Importing refs does not yet integrate main histories.
-Keep the original next main under an archive ref before rebasing; this preserves
-the existing cited commit hashes. Rebase the 52-commit clean history onto original
-main, resolving the root to the exact original clean root tree; verify the final
-tree is unchanged and original main is an ancestor. Do this after acquisition.
-
-Project AGENTS.md is being reconciled at Philip's direct request. The generic
-conditional worktree/integration rule moved to p-stack policy/AGENTS.md, commit
-d028888 after reconciling concurrent upstream changes; pushed to origin/main and
-installed global instructions match. Its 32 tests passed before that upstream
-reconciliation; the installed-policy check passed afterward. The project close-results copy also matches the current p-stack shared procedure.
-No other shared policy changes.
-New commands now use ignored artifacts/ here; active frozen
-benchmark commands keep their existing behavior. Evidence readers must continue
-reading immutable old receipts. No outside raw tree has been deleted yet.
+The benchmark uses frozen 50e53cf/386715e checkouts. History integration and rename
+remain pending: preserve original next main under an archive ref, rebase its clean
+history onto original main, resolve the root to the exact original clean root tree,
+then verify unchanged final tree and original-main ancestry. Preserve cited hashes.
+The existing same-thread continuation now covers both tasks and the latest storage
+policy; no duplicate schedule exists. The active thread's project is still bound to
+the old root; update its workspace binding and schedule paths before removing it.
+The private hosted copy still exists: DELETE returned HTTP 403 despite admin=true.
+Its removal needs effective delete-repository permission; local work can continue.
 
 ## Next
-Full portable acceptance passed 70 CPU tests and 105 rule proofs; the real pinned
-runtime proof passed strict adapter typing and 18 CPU integration tests with output
-inside artifacts/. The old private hosted copy still exists: an authorized deletion
-request returned HTTP 403 despite the credential showing repository admin access.
-Its deletion needs an account credential with effective delete-repository permission.
-Commit verified evidence, then safely prune inactive owned leftovers.
-Let release-01 and the existing qualification queue finish; preserve their results
-before pruning raw runs. Rebuild/relocate project dependencies and assets under the
-final repository without changing immutable historical receipts. Rebase and verify
-both histories, rename the ready checkout/package/current references, update the
-existing same-thread continuation schedule and workspace binding, then remove old
-checkouts and redundant external artifacts. Preserve historical names in immutable
-sources. Delete this task only after actual completion, not at an audit checkpoint.
+Commit the pruning disposition after full acceptance. Let release-01 and its existing
+qualification queue finish; independently verify and curate actual outcomes. Preserve
+adverse evidence before pruning raw runs. Consolidate useful project assets and
+rebuild project environments inside the final repository. Preserve original next
+hashes, rebase/integrate and verify both histories, then rename the checkout and
+current references to wait-hint-kv. Update workspace binding and this same schedule;
+remove old checkouts, duplicate archives/bundles and obsolete external environments
+only after ownership/recovery checks. Keep historical source bytes unchanged.
+Delete this task only after actual completion, not at this checkpoint.
