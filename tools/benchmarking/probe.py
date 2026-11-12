@@ -71,6 +71,25 @@ def probe(
         check=True,
         timeout=30,
     )
+    runtime_sources = subprocess.run(
+        [
+            str(python),
+            "-c",
+            "import sysconfig,pathlib,hashlib,json,sys; base=pathlib.Path(sysconfig.get_path('purelib')); targets=json.loads(sys.argv[1]); print(json.dumps({str(base/t):hashlib.sha256((base/t).read_bytes()).hexdigest() for t in targets if (base/t).is_file()}))",
+            json.dumps(
+                [
+                    record["target"]
+                    for record in json.loads(
+                        (root / "benchmarks/runtime-patches/manifest.json").read_text()
+                    )
+                ]
+            ),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=10,
+    )
     with socket.socket() as listener:
         listener.bind(("127.0.0.1", 0))
         port = listener.getsockname()[1]
@@ -79,7 +98,7 @@ def probe(
     write_record(
         output / "admission.json",
         {
-            "schema": "benchmark-model-probe-v3",
+            "schema": "benchmark-model-probe-v5",
             "command": command,
             "source_sha256": identities,
             "budget_seconds": seconds,
@@ -87,6 +106,7 @@ def probe(
             "system": system,
             "model_sha256": model_identity,
             "runtime_packages": json.loads(runtime.stdout),
+            "runtime_sources": json.loads(runtime_sources.stdout),
             "coding": None
             if coding is None
             else {
@@ -99,7 +119,7 @@ def probe(
     )
     result: dict[str, Any] = {
         "status": "failed",
-        "schema": "benchmark-model-terminal-v3",
+        "schema": "benchmark-model-terminal-v5",
         "scope": "model-loading-generation-and-optional-restoration",
     }
     with (output / "execution.log").open("x") as log:
@@ -107,7 +127,10 @@ def probe(
             command,
             cwd=output / "source",
             env=benchmark_environment(
-                output / "source", model, system in ("native-arc", "wait-hint")
+                output / "source",
+                model,
+                system in ("native-arc", "wait-hint"),
+                system == "lmcache",
             ),
             stdout=log,
             stderr=subprocess.STDOUT,
@@ -162,6 +185,8 @@ def probe(
                         result["external_restore"] = external_restoration(
                             f"http://127.0.0.1:{port}"
                         )
+                        validate_external_restoration(result["external_restore"])
+                        result["status"] = "restoration_observed"
                     if coding is not None:
                         from tools.benchmarking.harness import run_swebench
                         from tools.benchmarking.proxy import local_proxy
@@ -225,12 +250,13 @@ def verify_probe(output: Path) -> dict[str, Any]:
     output = output.resolve()
     admission = json.loads((output / "admission.json").read_text())
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
-    if (
-        admission.get("schema") != "benchmark-model-probe-v3"
-        or terminal.get("schema") != "benchmark-model-terminal-v3"
-    ):
+    if admission.get("schema") not in (
+        "benchmark-model-probe-v3",
+        "benchmark-model-probe-v4",
+        "benchmark-model-probe-v5",
+    ) or terminal.get("schema") != admission["schema"].replace("probe", "terminal"):
         raise ValueError("unsupported probe receipt schema")
-    if set(admission) != {
+    expected_keys = {
         "schema",
         "command",
         "source_sha256",
@@ -240,7 +266,17 @@ def verify_probe(output: Path) -> dict[str, Any]:
         "model_sha256",
         "runtime_packages",
         "coding",
-    } or admission["system"] not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):
+    }
+    if admission["schema"] in ("benchmark-model-probe-v4", "benchmark-model-probe-v5"):
+        expected_keys.add("runtime_sources")
+        if not admission["runtime_sources"]:
+            raise ValueError("missing runtime source identity")
+    if set(admission) != expected_keys or admission["system"] not in (
+        "gpu-only",
+        "native-arc",
+        "wait-hint",
+        "lmcache",
+    ):
         raise ValueError("invalid probe admission")
     if (
         admission["scope"] != "model-loading-generation-and-optional-restoration"
@@ -272,7 +308,12 @@ def verify_probe(output: Path) -> dict[str, Any]:
         raise ValueError("execution artifact drift")
     expected = (
         "generation_observed"
-        if admission["system"] in ("gpu-only", "lmcache")
+        if admission["system"] == "gpu-only"
+        or (
+            admission["system"] == "lmcache"
+            and admission["schema"]
+            in ("benchmark-model-probe-v3", "benchmark-model-probe-v4")
+        )
         else "restoration_observed"
     )
     if terminal["status"] != expected:
@@ -303,6 +344,12 @@ def verify_probe(output: Path) -> dict[str, Any]:
             != observation["fresh"]["choices"][0]["text"]
         ):
             raise ValueError("invalid restoration observations")
+    if (
+        admission["system"] == "lmcache"
+        and admission["schema"] == "benchmark-model-probe-v5"
+        and "external_restore" not in terminal
+    ):
+        raise ValueError("missing external restoration")
     if "external_restore" in terminal:
         if admission["system"] != "lmcache":
             raise ValueError("unexpected external restoration")
@@ -420,7 +467,6 @@ def external_restoration(base: str) -> dict[str, Any]:
         raise ValueError("external probe fresh reset refused")
     fresh = request(base + "/v1/completions", parameters)
     observation = {"initial": initial, "restored": restored, "fresh": fresh}
-    validate_external_restoration(observation)
     return observation
 
 

@@ -51,8 +51,53 @@ def main() -> int:
     grade.add_argument("--predictions", type=Path, required=True)
     grade.add_argument("--instance", required=True)
     grade.add_argument("--out", type=Path, required=True)
+    patch = sub.add_parser("patch-runtime")
+    patch.add_argument("--runtime-python", required=True, type=Path)
+    patch.add_argument("names", nargs="+")
+    campaign = sub.add_parser("run")
+    campaign.add_argument("--profile", choices=("compare", "release"), required=True)
+    campaign.add_argument("--runtime-python", type=Path, required=True)
+    campaign.add_argument("--lmcache-python", type=Path, required=True)
+    campaign.add_argument("--harness-python", type=Path, required=True)
+    campaign.add_argument("--dataset", type=Path, required=True)
+    campaign.add_argument("--model", action="append", required=True)
+    campaign.add_argument("--case", action="append", default=[])
+    campaign.add_argument("--out", type=Path, required=True)
+    campaign_verify = sub.add_parser("verify-campaign")
+    campaign_verify.add_argument("directory", type=Path)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.operation == "run":
+        from tools.benchmarking.campaign import run_campaign
+
+        models = {}
+        for value in args.model:
+            identity, separator, path = value.partition("=")
+            if not separator or identity in models:
+                raise ValueError("models require unique ID=PATH entries")
+            models[identity] = Path(path).resolve()
+        return run_campaign(
+            root,
+            args.profile,
+            models,
+            args.runtime_python,
+            args.lmcache_python,
+            args.harness_python,
+            args.dataset,
+            args.out,
+            args.case,
+        )
+    if args.operation == "verify-campaign":
+        from tools.benchmarking.campaign import verify_campaign
+
+        result = verify_campaign(args.directory)
+        print(json.dumps({"status": result["status"], "cells": len(result["results"])}))
+        return 0
+    if args.operation == "patch-runtime":
+        from tools.benchmarking.patches import apply_runtime_patches
+
+        print(json.dumps(apply_runtime_patches(root, args.runtime_python, args.names)))
+        return 0
     if args.operation == "plan":
         print(json.dumps(describe(args.profile), indent=2))
         return 0

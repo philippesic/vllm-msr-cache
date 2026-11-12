@@ -9,7 +9,7 @@ ENTRY_POINTS = (
         "uv run --locked python -m tools.benchmark",
         "tools/benchmark.py",
         "main",
-        "model/coding probes implemented; comparison campaigns unqualified",
+        "model/coding probes and hash-checked runtime patches implemented; comparison campaigns unqualified",
     ),
     (
         "CPU checks",

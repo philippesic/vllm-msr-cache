@@ -55,9 +55,12 @@ def type_cache(root: Path, runtime_python: Path | None = None) -> Path:
 
 
 def benchmark_environment(
-    root: Path, model: Path, endpoint: bool = False
+    root: Path, model: Path, endpoint: bool = False, lmcache: bool = False
 ) -> dict[str, str]:
     env = hardware_environment(root, model)
     env["VLLM_PLUGINS"] = "wait_hint" if endpoint else ""
+    if lmcache:
+        env["PYTORCH_ALLOC_CONF"] = "expandable_segments:False"
+        env["LMCACHE_WSL_VMM"] = "1"
     env["VLLM_SERVER_DEV_MODE"] = "1"
     return env
