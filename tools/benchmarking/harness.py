@@ -116,7 +116,7 @@ def run_swebench(
     seconds: int,
     task_kind: str = "repair",
 ) -> dict[str, Any]:
-    if task_kind not in ("repair", "regression", "navigation"):
+    if task_kind not in ("repair", "regression", "navigation", "grounded"):
         raise ValueError("unsupported coding task kind")
     output.mkdir(parents=True, exist_ok=False)
     selected = [
@@ -124,7 +124,7 @@ def run_swebench(
     ]
     if len(selected) != 1:
         raise ValueError("coding requires exactly one source instance")
-    if task_kind == "navigation":
+    if task_kind in ("navigation", "grounded"):
         image = {"id": selected[0]["image_name"]}
         if not re.fullmatch(r"sha256:[0-9a-f]{64}", image["id"]):
             raise ValueError("navigation requires a content-addressed image")
@@ -155,6 +155,14 @@ def run_swebench(
             "Only add benchmark_navigation.json with the requested answer. "
             "Use exactly one mswea_bash_command fenced command per response. "
             "To submit, run git add -N benchmark_navigation.json, then "
+            "printf 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\\n'; git diff --no-ext-diff"
+        )
+    elif task_kind == "grounded":
+        configuration["agent"]["instance_template"] = (
+            "Complete this grounded document task in /testbed: {{task}}\n"
+            "Search and read the actual sources. Only add benchmark_grounded.json. "
+            "Use exactly one mswea_bash_command fenced command per response. "
+            "To submit, run git add -N benchmark_grounded.json, then "
             "printf 'COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT\\n'; git diff --no-ext-diff"
         )
     configuration["agent"]["output_path"] = str(output / "trajectory-live.json")
@@ -270,13 +278,18 @@ def run_swebench(
         result["prediction_origin"] = "deadline-snapshot"
     if predictions.is_file():
         result["prediction"] = json.loads(predictions.read_text()).get(instance)
-        if task_kind in ("regression", "navigation"):
+        if task_kind in ("regression", "navigation", "grounded"):
+            from tools.benchmarking.grounded import grade_grounded
             from tools.benchmarking.navigation import grade_navigation
             from tools.benchmarking.regression import grade_regression
 
             patch = output / "submitted.patch"
             patch.write_text((result["prediction"] or {}).get("model_patch") or "")
-            grader = grade_regression if task_kind == "regression" else grade_navigation
+            grader = {
+                "regression": grade_regression,
+                "navigation": grade_navigation,
+                "grounded": grade_grounded,
+            }[task_kind]
             result["grading"] = grader(
                 root, dataset, patch, instance, output / "grading"
             )

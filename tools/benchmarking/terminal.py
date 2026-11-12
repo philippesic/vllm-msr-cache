@@ -66,6 +66,7 @@ def trial_config(
             "delete": False,
             "override_cpus": 1,
             "override_memory_mb": 2048,
+            "env": {"PAGER": "cat", "GIT_PAGER": "cat"},
         },
         "verifier": {"override_timeout_sec": 90, "env": {"UV_OFFLINE": "1"}},
     }

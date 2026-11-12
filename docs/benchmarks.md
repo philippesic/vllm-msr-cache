@@ -206,3 +206,24 @@ solutions passed and the Git no-op control failed as expected. Model acquisition
 still requires a live probe. Owned cleanup removes only the trial's containers and
 retains image caches. Terminus JSON tool commands have their own conservative causal
 hint detection; prose, malformed actions and completed-task messages receive no hint.
+
+## Grounded document workflows
+
+`probe-model --coding-kind grounded` uses the common mini-swe-agent path to search
+and read a frozen document corpus. The independent Python queue task and shared-source
+RFC comparison are defined in [grounded definitions](../benchmarks/workflows/grounded.json).
+Sources are public immutable revisions; their URLs and byte hashes are retained.
+The [document image recipe](../benchmarks/workflows/grounded.Dockerfile) supplies
+search/read tools and a Git checkout of those exact documents, without host mounts
+or network access during acquisition. The external dataset directory contains
+`test.json` beside its admitted document files.
+
+`grade-grounded --dataset /external/grounded-b1/test.json --prediction /external/answer.patch
+--instance INSTANCE --out /external/new-grade` accepts only a newly added
+`benchmark_grounded.json`. The frozen rubric requires correct structured facts and
+supporting one-based source line ranges, with at most 12 lines per citation.
+`verify-grounded /external/grade` derives the outcome from retained document bytes,
+facts and citations. The checker rejects correct facts with unrelated citations.
+Both known answers passed; this evaluates the named tasks, not broad summary quality
+or a general QA benchmark score. Original documents stay in external assets and
+receipts; only authored definitions and provenance are tracked here.

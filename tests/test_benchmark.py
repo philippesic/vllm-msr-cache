@@ -6,6 +6,39 @@ from tools.benchmarking.plan import cells, describe
 from tools.benchmarking.probe import probe
 
 
+def test_grounded_checker_requires_correct_facts_and_supporting_bounded_citations() -> (
+    None
+):
+    from tools.benchmarking.grounded import grounded_observation
+
+    sources = {"guide.txt": "Heading\nThis queue is not thread safe.\nOther text.\n"}
+    rubric = {
+        "answers": {"thread_safe": False},
+        "support": {"thread_safe": [{"file": "guide.txt", "start": 2, "end": 2}]},
+    }
+    citation = {"file": "guide.txt", "start": 2, "end": 2}
+    answer = {"answers": {"thread_safe": False}, "citations": {"thread_safe": citation}}
+    assert grounded_observation(answer, rubric, sources)["quality"] == "resolved"
+    for invalid in (
+        {"file": "guide.txt", "start": 1, "end": 1},
+        {"file": "../private.txt", "start": 1, "end": 1},
+        {"file": "guide.txt", "start": 1, "end": 999},
+        {"file": "guide.txt", "start": True, "end": 2},
+    ):
+        assert (
+            grounded_observation(
+                {**answer, "citations": {"thread_safe": invalid}}, rubric, sources
+            )["quality"]
+            == "unresolved"
+        )
+    assert (
+        grounded_observation(
+            {**answer, "answers": {"thread_safe": 0}}, rubric, sources
+        )["quality"]
+        == "unresolved"
+    )
+
+
 def test_terminal_hint_detection_requires_a_valid_nonfinal_action() -> None:
     import json
 

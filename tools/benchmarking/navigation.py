@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
+from tools.benchmarking.answers import added_json
 from tools.benchmarking.probe import digest_file
 from tools.benchmarking.regression import finish_grade
 from tools.runtime_verify import write_record
@@ -18,36 +19,7 @@ ANSWER_FILE = "benchmark_navigation.json"
 
 
 def navigation_answer(patch: Path) -> dict[str, Any]:
-    checked = subprocess.run(
-        ["git", "apply", "--numstat", str(patch.resolve())],
-        capture_output=True,
-        text=True,
-        timeout=10,
-    )
-    rows = [line.split("\t") for line in checked.stdout.splitlines()]
-    text = patch.read_text()
-    if (
-        checked.returncode
-        or len(rows) != 1
-        or len(rows[0]) != 3
-        or rows[0][2] != ANSWER_FILE
-        or not rows[0][0].isdigit()
-        or rows[0][1] != "0"
-        or "new file mode 100644\n" not in text
-    ):
-        raise ValueError("navigation submission must only add its JSON answer")
-    sections = re.split(r"^@@[^\n]*\n", text, flags=re.MULTILINE)
-    if len(sections) != 2:
-        raise ValueError("navigation answer must be a single added file")
-    lines = sections[1].splitlines()
-    if lines and lines[-1] == "\\ No newline at end of file":
-        lines.pop()
-    if any(not line.startswith("+") for line in lines):
-        raise ValueError("invalid navigation answer patch")
-    answer: dict[str, Any] = json.loads("\n".join(line[1:] for line in lines))
-    if not isinstance(answer, dict):
-        raise ValueError("navigation answer must be an object")
-    return answer
+    return added_json(patch, ANSWER_FILE)
 
 
 def check_answer(answer: dict[str, Any], rubric: dict[str, Any]) -> bool:

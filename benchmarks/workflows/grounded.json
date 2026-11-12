@@ -1,0 +1,136 @@
+{
+  "schema": "benchmark-grounded-definitions-v1",
+  "selection": "One independent Python queue document and one shared-source RFC comparison. Sources and rubrics fixed before candidate outputs; named task outcomes, not a general QA score.",
+  "cases": [
+    {
+      "id": "B1-1",
+      "instance_id": "grounded__queue-shutdown",
+      "problem_statement": "Read the supplied Python 3.14.0 asyncio queue documentation. Produce benchmark_grounded.json with answers and citations. answers keys are thread_safe (boolean), timeout_function (module.function string), immediate_join_proves_processed (boolean: does immediate shutdown unblocking join prove consumers processed every item?). citations maps those same keys to {file,start,end}, inclusive one-based source line numbers with at most 12 lines per citation. Read the source and support each fact. Do not change documents.",
+      "rubric": {
+        "answers": {
+          "thread_safe": false,
+          "timeout_function": "asyncio.wait_for",
+          "immediate_join_proves_processed": false
+        },
+        "support": {
+          "thread_safe": [
+            {
+              "file": "asyncio-queue.rst",
+              "start": 14,
+              "end": 15
+            }
+          ],
+          "timeout_function": [
+            {
+              "file": "asyncio-queue.rst",
+              "start": 17,
+              "end": 19
+            }
+          ],
+          "immediate_join_proves_processed": [
+            {
+              "file": "asyncio-queue.rst",
+              "start": 112,
+              "end": 115
+            },
+            {
+              "file": "asyncio-queue.rst",
+              "start": 132,
+              "end": 133
+            }
+          ]
+        }
+      },
+      "sources_sha256": {
+        "asyncio-queue.rst": "cade81d69e63d07657a5398f6dca26b5be1e4d872a11fc7a5e0af87f7593518e"
+      },
+      "provenance": [
+        {
+          "file": "asyncio-queue.rst",
+          "url": "https://raw.githubusercontent.com/python/cpython/v3.14.0/Doc/library/asyncio-queue.rst",
+          "human_url": "https://docs.python.org/3.14/library/asyncio-queue.html",
+          "sha256": "cade81d69e63d07657a5398f6dca26b5be1e4d872a11fc7a5e0af87f7593518e",
+          "bytes": 6770
+        }
+      ],
+      "image_name": "sha256:43db88051593792a9c97630bee2d4f89dd6006c73183f9e9cbb2ed5a2d99dafa"
+    },
+    {
+      "id": "B1-2",
+      "instance_id": "grounded__http-stale-controls",
+      "problem_statement": "Search and compare RFC 5861 and RFC 9111 in this directory. Produce benchmark_grounded.json with answers and citations. answers keys are swr_hides and sie_hides (each latency or errors), swr_example_total_age_limit_seconds (integer, for max-age=600 with stale-while-revalidate=30 in the source example), sie_http_error_codes (sorted integer list from RFC 5861), must_revalidate_allows_disconnected_stale (boolean from RFC 9111). citations maps each key to {file,start,end}, inclusive one-based line numbers with at most 12 lines per citation. Read both sources and support each fact. Do not change documents.",
+      "rubric": {
+        "answers": {
+          "swr_hides": "latency",
+          "sie_hides": "errors",
+          "swr_example_total_age_limit_seconds": 630,
+          "sie_http_error_codes": [
+            500,
+            502,
+            503,
+            504
+          ],
+          "must_revalidate_allows_disconnected_stale": false
+        },
+        "support": {
+          "swr_hides": [
+            {
+              "file": "rfc5861.txt",
+              "start": 89,
+              "end": 92
+            }
+          ],
+          "sie_hides": [
+            {
+              "file": "rfc5861.txt",
+              "start": 84,
+              "end": 87
+            }
+          ],
+          "swr_example_total_age_limit_seconds": [
+            {
+              "file": "rfc5861.txt",
+              "start": 135,
+              "end": 143
+            }
+          ],
+          "sie_http_error_codes": [
+            {
+              "file": "rfc5861.txt",
+              "start": 184,
+              "end": 185
+            }
+          ],
+          "must_revalidate_allows_disconnected_stale": [
+            {
+              "file": "rfc9111.txt",
+              "start": 1230,
+              "end": 1235
+            }
+          ]
+        }
+      },
+      "sources_sha256": {
+        "rfc5861.txt": "1193f1c8710af162e1b9fb4250d79bc6dd26497df4caeeaaa8bcb2fefdd2529e",
+        "rfc9111.txt": "aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e"
+      },
+      "provenance": [
+        {
+          "file": "rfc5861.txt",
+          "url": "https://www.rfc-editor.org/rfc/rfc5861.txt",
+          "human_url": "https://www.rfc-editor.org/rfc/rfc5861",
+          "sha256": "1193f1c8710af162e1b9fb4250d79bc6dd26497df4caeeaaa8bcb2fefdd2529e",
+          "bytes": 10359
+        },
+        {
+          "file": "rfc9111.txt",
+          "url": "https://www.rfc-editor.org/rfc/rfc9111.txt",
+          "human_url": "https://www.rfc-editor.org/rfc/rfc9111",
+          "sha256": "aeb52adb3279d5f23dae34f68af11bd5cef0a0aff7ffcd014c9ca93c5302cf3e",
+          "bytes": 84477
+        }
+      ],
+      "image_name": "sha256:74ff862f039852af09b7dca1a42e14fa25b872d637216d65450d296f615cdd25"
+    }
+  ]
+}

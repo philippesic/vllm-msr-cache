@@ -56,7 +56,13 @@ def probe(
         raise ValueError("new external output and timeout in 1..1800 required")
     if system not in ("gpu-only", "native-arc", "wait-hint", "lmcache"):
         raise ValueError("unsupported system")
-    if coding_kind not in ("repair", "regression", "navigation", "terminal"):
+    if coding_kind not in (
+        "repair",
+        "regression",
+        "navigation",
+        "terminal",
+        "grounded",
+    ):
         raise ValueError("unsupported coding task kind")
     output.mkdir(parents=True, exist_ok=False)
     identities = snapshot(root, output / "source")
@@ -215,7 +221,7 @@ def probe(
                                 from tools.benchmarking.terminal import run_terminal
 
                                 result["coding"] = run_terminal(
-                                    output / "source",
+                                    root,
                                     harness_python,
                                     dataset,
                                     instance,
@@ -415,15 +421,16 @@ def verify_probe(output: Path) -> dict[str, Any]:
                 raise ValueError("coding and grader image identities differ")
         if acquisition != terminal["coding"] or grading != acquisition["grading"]:
             raise ValueError("coding acquisition differs from grading receipt")
-        if coding.get("kind", "repair") in ("regression", "navigation"):
+        if coding.get("kind", "repair") in ("regression", "navigation", "grounded"):
+            from tools.benchmarking.grounded import verify_grounded
             from tools.benchmarking.navigation import verify_navigation
             from tools.benchmarking.regression import verify_regression
 
-            reader = (
-                verify_regression
-                if coding["kind"] == "regression"
-                else verify_navigation
-            )
+            reader = {
+                "regression": verify_regression,
+                "navigation": verify_navigation,
+                "grounded": verify_grounded,
+            }[coding["kind"]]
             verified = reader(output / "coding/grading")
             if verified["quality"] != acquisition["quality"]:
                 raise ValueError("regression task quality differs from observations")
