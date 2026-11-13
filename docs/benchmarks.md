@@ -55,9 +55,10 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   after a GPU-only reset and clearing the GPU KV memory, every block a CPU restore
   wrote must be byte-identical to a block stored before displacement, and the
   restored output must equal a GPU-resident return at the same cached boundary.
-  On Gemma 2,832 of 2,840 written blocks matched (the rest fit the recomputed
-  tail and decode) and outputs matched; see the
-  [result](../results/promote-hold-advice/result.md).
+  On Gemma every block of the restored 1,536-token prefix matched; the only
+  differing blocks are the partially filled pages holding the recomputed boundary
+  token and decode positions, and outputs matched; see the
+  [settle result](../results/promote-hold-settle/result.md).
 
 - `simulate --runtime-python PY --out artifacts/runs/NEW` replays concurrent
   sessions on the CPU in about a minute and writes `simulation.json`. It re-runs
@@ -131,7 +132,9 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   Pressure definitions set the simulator's `gpu_prefix_reuse` to false because the
   engine's gpu-only arm recomputed nearly every returning prefix on both hybrid
   models; simulator-only fields do not change a model definition's identity.
-  `plan --profile pressure-smoke|pressure-advice|pressure-full [--calibration DIR]`
+  The `settle` profile lists seeds per model; `--seed N` (repeatable) replaces a
+  profile's seeds for one invocation and is recorded in the admission.
+  `plan --profile pressure-smoke|pressure-advice|pressure-settle|pressure-full [--calibration DIR]`
   projects GPU time from measured cell costs.
 - `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures

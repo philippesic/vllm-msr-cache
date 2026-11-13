@@ -41,8 +41,9 @@ retain native policy/source identity, exact prefix-key assumptions, store/touch/
 ordering, expiry, capacity and failed-store accounting. Token counts alone do not
 establish shared-prefix identities or hybrid cache-group bytes. Philip approved
 replacing the recency hint with promotion or bounded protection if it consistently
-wins. The first comparison applied a rule fixed before engine results and did not
-adopt it ([result](../results/promote-hold-advice/result.md)). Report
+wins. Two rounds with rules fixed before engine results did not adopt it
+([first](../results/promote-hold-advice/result.md),
+[settle](../results/promote-hold-settle/result.md)). Report
 unhinted harm and abandoned-hint cost.
 
 ## Correctness, execution and usefulness

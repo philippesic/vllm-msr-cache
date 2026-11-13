@@ -4370,6 +4370,13 @@
       "results": [
         "promote-hold-advice"
       ]
+    },
+    {
+      "sha256": "396dc116d66edd8768cc29c6695395a695ae29e406dceb0c8e62edfdc05c0b51",
+      "path": "results/promote-hold-settle/evidence.json",
+      "results": [
+        "promote-hold-settle"
+      ]
     }
   ]
 }
