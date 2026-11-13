@@ -457,6 +457,61 @@ def test_controlled_trace_uses_unique_events_and_detects_restore_corruption(
     )
 
 
+def test_invariance_diagnostic_separates_cache_conditions_and_preserves_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import json
+    from typing import Any
+
+    from tools.benchmarking.traces import acquire_trace, verify_trace
+
+    gpu: set[tuple[int, ...]] = set()
+    cpu: set[tuple[int, ...]] = set()
+    displaced = False
+
+    def upstream(
+        url: str, payload: dict[str, Any] | None = None, timeout: int = 30
+    ) -> dict[str, Any]:
+        nonlocal displaced
+        assert timeout > 0 and payload is not None
+        if "/reset_prefix_cache" in url:
+            gpu.clear()
+            displaced = "reset_external=true" not in url
+            if not displaced:
+                cpu.clear()
+            return {"success": True}
+        prompt = tuple(payload["prompt"])
+        cached = len(prompt) - 1 if prompt in gpu or prompt in cpu else 0
+        gpu.add(prompt)
+        cpu.add(prompt)
+        token = 43 if displaced and prompt[0] == 5000 else 42
+        return {
+            "choices": [
+                {
+                    "token_ids": [token],
+                    "logprobs": {"top_logprobs": [{str(token): -0.1}]},
+                }
+            ],
+            "usage": {
+                "prompt_tokens": len(prompt),
+                "prompt_tokens_details": {"cached_tokens": cached},
+            },
+        }
+
+    monkeypatch.setattr("tools.benchmarking.traces.request", upstream)
+    monkeypatch.setattr("tools.benchmarking.traces.metrics", lambda _base: "")
+    output = tmp_path / "invariance"
+    measured = acquire_trace("http://local", {}, "native-arc", "I1", output, 180, 2**31)
+    assert measured["complete"]
+    assert measured["invariance"]["fresh-c"]["matches_fresh_b"]
+    assert not measured["invariance"]["restored"]["matches_fresh_b"]
+    assert verify_trace(output) == measured
+    measured["invariance"]["restored"]["matches_fresh_b"] = True
+    (output / "terminal.json").write_text(json.dumps(measured))
+    with pytest.raises(ValueError, match="invariance summary differs"):
+        verify_trace(output)
+
+
 def test_terminal_hint_detection_requires_a_valid_nonfinal_action() -> None:
     import json
 

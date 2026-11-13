@@ -20,6 +20,7 @@
   "tests/test_benchmark.py::test_empty_repair_is_a_failed_task_only_with_original_grader_evidence",
   "tests/test_benchmark.py::test_external_restoration_requires_cpu_reuse_and_fresh_equal_tokens",
   "tests/test_benchmark.py::test_grounded_checker_requires_correct_facts_and_supporting_bounded_citations",
+  "tests/test_benchmark.py::test_invariance_diagnostic_separates_cache_conditions_and_preserves_mismatch",
   "tests/test_benchmark.py::test_model_probe_refuses_missing_assets_before_creating_attempt",
   "tests/test_benchmark.py::test_navigation_answer_refuses_source_edits_and_wrong_override_semantics",
   "tests/test_benchmark.py::test_navigation_reader_rejects_forged_success_and_test_identity_loss",

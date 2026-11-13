@@ -28,7 +28,7 @@ def main() -> int:
     command.add_argument("--coding-dataset", type=Path)
     command.add_argument("--harness-python", type=Path)
     command.add_argument("--instance")
-    command.add_argument("--trace-case", choices=("T1", "T2"))
+    command.add_argument("--trace-case", choices=("T1", "T2", "I1"))
     command.add_argument("--trace-seconds", type=int, default=180)
     command.add_argument("--pressure-prefixes", type=int, default=24)
     command.add_argument(

@@ -48,7 +48,7 @@ def trace_activity(output: Path) -> dict[str, Any]:
     }
     native = admission["system"] in ("native-arc", "wait-hint")
     required = {"cold", "resident", "returning", "cpu-fit-return"}
-    pressure = admission["case"] not in ("T1", "calibration")
+    pressure = admission["case"] not in ("T1", "calibration", "I1")
     if pressure:
         required.update(("abandoned", "after-competition-return", "unhinted-return"))
     result = {
@@ -141,6 +141,7 @@ def acquire_trace(
         generated: int = 8,
         register: bool = False,
         prompt_tokens: int = 3072,
+        logprobs: bool = False,
     ) -> dict[str, Any]:
         remaining = seconds - (time.monotonic() - started)
         if remaining <= 2:
@@ -155,6 +156,8 @@ def acquire_trace(
             "max_tokens": generated,
             "return_token_ids": True,
         }
+        if logprobs:
+            payload["logprobs"] = 5
         if register and system in ("native-arc", "wait-hint"):
             payload["kv_transfer_params"] = {
                 "wait_hint": {
@@ -253,7 +256,19 @@ def acquire_trace(
                 phase: service / load for phase, load in (("low", 0.3), ("near", 0.8))
             }
             trace_result["load_intervals"]["overload"] = 0.0
-        if case not in ("T1", "calibration"):
+        if case == "I1":
+            for label, external in (
+                ("invariance-fresh-a", True),
+                ("invariance-fresh-b", True),
+                ("invariance-resident", None),
+                ("invariance-restored", False),
+                ("invariance-fresh-c", True),
+            ):
+                if external is not None:
+                    reset(external)
+                records.append(generate(label, 4, 32, logprobs=True))
+            trace_result["invariance"] = invariance_observation(records, system)
+        if case not in ("T1", "calibration", "I1"):
             abandoned = generate(
                 "abandoned", 2, register=case != "O1", prompt_tokens=pressure_tokens
             )
@@ -420,6 +435,43 @@ def acquire_trace(
     return trace_result
 
 
+def invariance_observation(
+    records: list[dict[str, Any]], system: str
+) -> dict[str, Any]:
+    selected = {
+        record["label"]: record
+        for record in records
+        if record["label"].startswith("invariance-")
+    }
+    names = ("fresh-a", "fresh-b", "resident", "restored", "fresh-c")
+    if set(selected) != {"invariance-" + name for name in names}:
+        raise ValueError("invariance diagnostic missing a condition")
+    reference = selected["invariance-fresh-b"]
+    result = {}
+    for name in names:
+        record = selected["invariance-" + name]
+        choice = record["response"]["choices"][0]
+        logprobs = choice.get("logprobs") or {}
+        if (
+            record["request"] != reference["request"]
+            or not logprobs.get("top_logprobs")
+            or len(logprobs["top_logprobs"]) != len(choice["token_ids"])
+        ):
+            raise ValueError("invariance parameters or logprobs missing")
+        cached = record["response"]["usage"]["prompt_tokens_details"]["cached_tokens"]
+        expected_cached = name == "resident" or (
+            name == "restored" and system != "gpu-only"
+        )
+        if (cached > 0) != expected_cached:
+            raise ValueError("invariance cache condition not exercised")
+        result[name] = {
+            "cached_tokens": cached,
+            "matches_fresh_b": choice["token_ids"]
+            == reference["response"]["choices"][0]["token_ids"],
+        }
+    return result
+
+
 def verify_trace(output: Path) -> dict[str, Any]:
     admission = json.loads((output / "admission.json").read_text())
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
@@ -450,6 +502,10 @@ def verify_trace(output: Path) -> dict[str, Any]:
         ):
             raise ValueError("trace timing, token accounting or output missing")
     if terminal["complete"]:
+        if admission["case"] == "I1" and terminal.get(
+            "invariance"
+        ) != invariance_observation(records, admission["system"]):
+            raise ValueError("invariance summary differs from observations")
         if not {"cold", "resident", "returning", "cpu-fit-return"} <= labels.keys():
             raise ValueError("trace missing mandatory phases")
         if (

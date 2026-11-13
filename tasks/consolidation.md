@@ -11,7 +11,9 @@ generic guidance to global policy; consolidate project evidence and artifacts;
 rename the ready repository and current references to wait-hint-kv; rebase on the
 old project while retaining both histories; identify and resolve remaining deletion
 dependencies. Preserve the ongoing benchmark objective and its resource limits.
-No new agents, remote creation, additional benchmark matrix or paid resources.
+No new agents, additional benchmark matrix or paid resources. Philip subsequently
+authorized grafting onto original main and pushing to the existing remote. Hold the
+push until his intended remote is relayed; no force-push or visibility changes.
 
 ## Done when
 Project instructions contain project mechanics without stale porting rules or
@@ -54,10 +56,10 @@ under ~/.local/share/venvs. Preserve them until release-01 and its admitted queu
 finish. Shared model/package/Docker caches are dependencies, not exclusively owned
 project work; do not delete them blindly.
 
-The benchmark uses frozen 50e53cf/386715e checkouts. History integration and rename
-remain pending: preserve original next main under an archive ref, rebase its clean
-history onto original main, resolve the root to the exact original clean root tree,
-then verify unchanged final tree and original-main ancestry. Preserve cited hashes.
+The benchmark uses frozen 50e53cf/386715e checkouts. History integration is complete: original main 1319f09 is an ancestor of
+rebased head f99ef6f, whose tree is byte-identical to original-next a064c9ae. Original
+next main is preserved under refs/archive/next/pre-graft-main; all cited hashes remain
+reachable. Connectivity checks passed for 461 archive refs. Rename remains pending.
 A disposable history-integration rehearsal rebased all 54 commits at cdbbebf6 onto
 original main successfully: final tree byte-identical and original main an ancestor.
 It required resolving only the first root commit to the original clean root tree.
@@ -69,8 +71,9 @@ The private hosted copy still exists: DELETE returned HTTP 403 despite admin=tru
 Its removal needs effective delete-repository permission; local work can continue.
 
 ## Next
-The pruning disposition is committed. Let release-01 and its existing
-qualification queue finish; independently verify and curate actual outcomes. Preserve
+The pruning disposition and history graft are complete. Verify the authorized
+panel-boundary stop; the follow-up queue is cancelled and must not run. Independently
+verify and curate actual partial outcomes. Preserve
 adverse evidence before pruning raw runs. Consolidate useful project assets and
 rebuild project environments inside the final repository. Preserve original next
 hashes, rebase/integrate and verify both histories, then rename the checkout and
