@@ -42,13 +42,13 @@ def test_simulator_drives_the_pinned_manager_and_product_advice() -> None:
     assert restored["cohorts"]["hinted"]["recomputed_tokens"] == 48
     pressured = {
         arm: Replay(schedule(), geometry(130), arm, NativeCache).run()
-        for arm in ("native", "recency", "promote-hold", "reachable-hold")
+        for arm in ("native", "reachable-hold")
     }
     assert pressured["native"]["activity"]["cpu_evictions"] > 0
-    assert pressured["promote-hold"]["activity"]["advised_keys"] == 15
+    assert pressured["reachable-hold"]["activity"]["advised_keys"] == 15
     assert (
-        pressured["promote-hold"]["cohorts"]["hinted"]["recomputed_tokens"]
-        < pressured["recency"]["cohorts"]["hinted"]["recomputed_tokens"]
+        pressured["reachable-hold"]["cohorts"]["hinted"]["recomputed_tokens"]
+        < pressured["native"]["cohorts"]["hinted"]["recomputed_tokens"]
     )
     assert set(native_identity()) == {"arc_policy_sha256", "cpu_manager_sha256"}
 

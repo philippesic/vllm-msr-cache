@@ -31,9 +31,9 @@ from wait_hint_offload.vllm_adapter import engine_rpc
 from wait_hint_offload.vllm_adapter.arc import (
     HOLD_SHARE,
     ARCHolds,
-    ARCRecency,
-    GroupARCRecency,
-    HoldTarget,
+    ARCPrefix,
+    GroupARCPrefix,
+    ReachableHold,
 )
 from wait_hint_offload.vllm_adapter.binding import require_runtime
 from wait_hint_offload.vllm_adapter.transfers import TransferMetadata, TransferWorker
@@ -58,7 +58,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             raise ValueError("native CPU manager required")
         if not isinstance(self.manager._policy, ARCCachePolicy):
             raise ValueError("native ARC required")
-        self.recency = ARCRecency(self.manager._policy)
+        self.prefix = ARCPrefix(self.manager._policy)
         self.observed = ObservedStore(
             self.settings.max_sessions,
             self.settings.max_events,
@@ -69,7 +69,6 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             HOLD_SHARE,
             time.monotonic_ns,
             lambda owner: self.observed.observation(*owner),
-            partial=self.settings.advice_mechanism == "reachable-hold",
         )
         self.clock_domain = "engine-" + uuid.uuid4().hex
         self.cpu_chunk_bytes = int(spec.kv_bytes_per_chunk)
@@ -197,21 +196,18 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
     def publish_wait_hint(self, raw: dict[str, Any]) -> dict[str, Any]:
         hint = Hint.parse(raw)
         observation = self.observed.observation(hint.scope, hint.session)
-        recency = (
-            GroupARCRecency(self.recency.policy, observation.groups)
+        prefix = (
+            GroupARCPrefix(self.prefix.policy, observation.groups)
             if observation is not None and observation.groups
-            else self.recency
+            else self.prefix
         )
-        target: ARCRecency | HoldTarget = recency
-        if self.settings.advice_mechanism in ("promote-hold", "reachable-hold"):
-            target = HoldTarget(
-                recency,
-                self.holds,
-                (hint.scope, hint.session),
-                hint.deadline_ns,
-                observation,
-                evict_unreachable=self.settings.advice_mechanism == "reachable-hold",
-            )
+        target = ReachableHold(
+            prefix,
+            self.holds,
+            (hint.scope, hint.session),
+            hint.deadline_ns,
+            observation,
+        )
         result = advise(
             self.observed,
             target,
@@ -228,9 +224,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             "newly_refreshed_keys": 0 if result.replayed else result.refreshed_keys,
             "decision": result.decision.value,
             "refreshed_keys": result.refreshed_keys,
-            "held_keys": target.held
-            if isinstance(target, HoldTarget) and not result.replayed
-            else 0,
+            "held_keys": 0 if result.replayed else target.held,
             "mechanisms": self.settings.mechanisms(),
             "metadata": self.observed.metrics(),
         }

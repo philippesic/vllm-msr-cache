@@ -156,7 +156,7 @@ def main() -> int:
         "mode": mode,
         "gpu": args.gpu,
         "source_sha256": identity,
-        "mechanism": "CPU exact offload with ARC recency advice; disabled control shares correctness guards",
+        "mechanism": "CPU exact offload with reachable-hold advice; disabled control shares correctness guards",
         "limiting_risk": "one pinned dense FP16 TP1 runtime; performance and other hardware unqualified",
         "budget_seconds": args.timeout,
         "retry_limit": 0,

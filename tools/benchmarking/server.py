@@ -12,7 +12,6 @@ def server_command(
     port: int,
     backend: str = "TRITON_ATTN",
     cpu_bytes: int | None = None,
-    mechanism: str = "recency",
     gpu_blocks: int | None = None,
     max_model_len: int = 8192,
 ) -> tuple[list[str], dict[str, str]]:
@@ -102,7 +101,6 @@ def server_command(
                             "namespace": namespace,
                             "cpu_bytes_to_use": pool,
                             "advice_enabled": system == "wait-hint",
-                            "advice_mechanism": mechanism,
                         },
                     }
                 ),

@@ -1,11 +1,10 @@
 # Architecture
 
 The product performs exact native CPU KV offload. A completed transcript may
-register an observed prefix; a later causal wait hint may refresh the ready CPU
-prefix in native ARC. There is no scoring, GPU prefetch, approximate reuse,
-request-priority change or separate eviction policy; the experimental hold
-mechanisms below only promote, temporarily withhold ready keys from native eviction
-and, for reachable-hold, evict a hinted session's unreachable keys first.
+register an observed prefix; a later causal wait hint may protect the ready CPU
+prefix in native ARC. There is no scoring, GPU prefetch, approximate reuse or
+request-priority change; the advice only promotes, temporarily withholds ready keys
+from native eviction and evicts a hinted session's unreachable keys first.
 
 ## Ownership and boundaries
 
@@ -15,7 +14,7 @@ and, for reachable-hold, evict a hinted session's unreachable keys first.
 | `config.py` | Closed product settings and resolved mechanism attribution |
 | `observed.py` | Bounded scheduler-owned observations and replay state |
 | `advice.py` | Causal, identity and replay validation; advice-disabled control |
-| `vllm_adapter/arc.py` | Ready-prefix scan, recency movement, promotion, bounded holds and unreachable-first eviction |
+| `vllm_adapter/arc.py` | Ready-prefix scan, promotion, bounded holds and unreachable-first eviction |
 | `vllm_adapter/replay.py` | Native manager binding for the CPU trace-replay simulator |
 | `vllm_adapter/connector.py` | Native construction, computed-token bounds, registration and scheduler cleanup |
 | `vllm_adapter/transfers.py` | Submission/completion failure reporting and failed-load destinations |
@@ -46,7 +45,7 @@ The connector requires `kv_load_failure_policy="recompute"`. Unsupported
 construction and optimized Python execution refuse explicitly.
 
 Settings are `namespace`, positive `cpu_bytes_to_use`, Boolean `advice_enabled`,
-`advice_mechanism`, bounded positive `max_sessions`/`max_events`, and
+bounded positive `max_sessions`/`max_events`, and
 `metadata_bytes`. Defaults are
 advice disabled, 4096 sessions, 256 events per session and a 64 MiB metadata budget
 (maximum 256 MiB). ARC and unfiltered stores are fixed choices, not settings.
@@ -103,28 +102,26 @@ whitespace. A fixed externally calculated vector is tested. Namespace labels
 organize observations; native exact block keys still determine reuse.
 
 Advice requires the exact server observation timestamp and identity, a live
-deadline for a new event and the matching engine clock. `advice_mechanism` is `recency` (default: move the ready prefix to most recent
-within its existing T1/T2 queue) or `promote-hold`. Promote-hold applies native
-touch semantics to the ready prefix (ready T1 keys move to T2, T2 keys to most
-recent) and then holds those keys out of eviction until the session's next request
-with the same scope/session, the hint deadline, replacement or retirement of its
-observation, or a cache reset. Held keys are capped at half the CPU pool; a hint
-that would exceed the cap promotes without holding. If a native eviction cannot be
-satisfied without held keys, the holds are ignored for that eviction, so holds never
-cause a store failure. `reachable-hold` is promote-hold plus two changes. The
-hint also marks the session's unreachable keys: sliding-window and recurrent-state
-keys before the window its ready boundary needs (for Gemma, local-attention keys
-more than 1,024 tokens back; for Qwen, recurrent checkpoints before the last one).
-A return at that boundary can never use them, and evictions take marked keys that
-are idle and unprotected before asking native ARC for the rest, all or nothing.
-When an eviction cannot be satisfied with holds in place, holds are released one
-at a time, earliest deadline first, instead of all at once. A return at a shorter
-boundary (for example after context compaction) may need marked keys and then
-recomputes. Promote-hold is an opt-in experimental mechanism: its
-first comparison ([result](../results/promote-hold-advice/result.md)) and an
-eight-seed settle round ([result](../results/promote-hold-settle/result.md)) did not
-meet their pre-registered rules: it helped Gemma but not Qwen and had weak seeds in
-tight pools. Recency stays the default and neither path was retired. An exact replay returns
+deadline for a new event and the matching engine clock. The advice mechanism is
+reachable-hold. It applies native touch semantics to the ready prefix (ready T1
+keys move to T2, T2 keys to most recent) and then holds those keys out of eviction
+until the session's next request with the same scope/session, the hint deadline,
+replacement or retirement of its observation, or a cache reset. Held keys are
+capped at half the CPU pool; a hint that would exceed the cap promotes without
+holding. When an eviction cannot be satisfied with holds in place, holds are
+released one at a time, earliest deadline first, so holds never cause a store
+failure. The hint also marks the session's unreachable keys: sliding-window and
+recurrent-state keys before the window its ready boundary needs (for Gemma,
+local-attention keys more than 1,024 tokens back; for Qwen, recurrent checkpoints
+before the last one). A return at that boundary can never use them, so evictions
+take marked keys that are idle and unprotected before asking native ARC for the
+rest, all or nothing. A return at a shorter boundary (for example after context
+compaction) may need marked keys and then recomputes. Reachable-hold replaced the
+earlier recency hint under a rule fixed before its engine runs
+([result](../results/reachable-hold-decide/result.md)); recency and promote-hold were retired after
+promote-hold missed two earlier rules
+([first](../results/promote-hold-advice/result.md),
+[settle](../results/promote-hold-settle/result.md)). An exact replay returns
 its original decision, refreshed count and ready-prefix count even after expiry, with `replayed=true` and zero newly refreshed keys. It
 never mutates ARC again. Changed content for an existing event refuses. This applies
 in both advice modes. Replay state lasts only for the current observation and

@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Any
 
 from tools.benchmarking.pressure import (
-    advice_rule,
     cohort_summary,
     contracts,
     load_definition,
@@ -109,7 +108,7 @@ def test_cohort_summary_uses_aligned_reusable_prefix_and_engine_ttft() -> None:
 
 def test_activity_contracts_detect_advice_off_small_pool_and_no_competition() -> None:
     keys_per_token = 0.0075
-    good = contracts(summary((1000, 100), (500, 50)), ARMS["candidate"], keys_per_token)
+    good = contracts(summary((1000, 100), (500, 50)), ARMS["wait-hint"], keys_per_token)
     assert all(good.values())
     silent = summary(
         (1000, 100),
@@ -121,7 +120,7 @@ def test_activity_contracts_detect_advice_off_small_pool_and_no_competition() ->
             "held_keys": 0,
         },
     )
-    checks = contracts(silent, ARMS["candidate"], keys_per_token)
+    checks = contracts(silent, ARMS["wait-hint"], keys_per_token)
     assert checks["advice_mechanism"] is False
     assert checks["advice_applied"] is False and checks["holds_applied"] is False
     small = contracts(
@@ -173,30 +172,6 @@ def test_controls_fail_closed_without_separation_or_with_noisy_repeat() -> None:
     assert model_controls(invalid, 0.1)["status"] == "controls-missing"
 
 
-def test_advice_rule_requires_every_repetition_and_bounded_unhinted_harm() -> None:
-    def arms(candidate: list[int], unhinted: int = 100) -> dict[str, Any]:
-        return {
-            "native-arc": [
-                summary((1000, 500), (1000, 100), seed) for seed in (1, 2, 3)
-            ],
-            "wait-hint": [
-                summary((1000, 400), (1000, 100), seed) for seed in (1, 2, 3)
-            ],
-            "candidate": [
-                summary((1000, value), (1000, unhinted), seed)
-                for seed, value in zip((1, 2, 3), candidate, strict=True)
-            ],
-        }
-
-    assert advice_rule(arms([200, 300, 400]), 0.03)["met"]
-    assert not advice_rule(arms([200, 300, 401]), 0.03)["met"]
-    assert not advice_rule(arms([400, 400, 400]), 0.03)["met"]
-    assert not advice_rule(arms([200, 200, 200], unhinted=140), 0.03)["met"]
-    two = arms([200, 200, 200])
-    two["candidate"] = two["candidate"][:2]
-    assert advice_rule(two, 0.03)["status"] == "insufficient-repetitions"
-
-
 def write_cell(directory: Path, model: str, arm: str, cell: dict[str, Any]) -> None:
     path = directory / "cells" / model / arm
     path.mkdir(parents=True, exist_ok=True)
@@ -243,7 +218,6 @@ def test_verifier_recomputes_from_raw_requests_and_withholds_blind_comparisons(
         )
     report = verify_pressure(tmp_path)["models"][model]
     assert report["controls"]["status"] == "controls-missing"
-    assert report["advice_rule"]["status"] == "insufficient-repetitions"
     gpu = report["arms"]["gpu-only"]["cells"][0]
     assert gpu["state"] == "unexercised"
     assert gpu["contracts"]["gpu_displacement"] is False
@@ -284,8 +258,8 @@ def test_profile_seeds_cover_every_cohort_before_gpu_work() -> None:
         for profile in DEFINITION["seeds"]:
             seeds = profile_seeds(DEFINITION, profile, model, [])
             assert all(covers_cohorts(DEFINITION, seed, model) for seed in seeds)
-    assert profile_seeds(DEFINITION, "decide", "gemma4-12b-int4", [])[0] == 401
-    assert profile_seeds(DEFINITION, "decide", "gemma4-12b-int4", [312]) == [312]
+    assert profile_seeds(DEFINITION, "full", "gemma4-12b-int4", [])[0] == 305
+    assert profile_seeds(DEFINITION, "full", "gemma4-12b-int4", [312]) == [312]
     assert not covers_cohorts(DEFINITION, 101, "qwen35-4b-int4")
 
 

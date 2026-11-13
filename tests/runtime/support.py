@@ -23,7 +23,7 @@ from wait_hint_offload.vllm_adapter.connector import WaitHintScheduler
 
 
 def native_fixture(
-    enabled: bool = True, mechanism: str = "recency"
+    enabled: bool = True,
 ) -> tuple[CPUOffloadingSpec, Any, KVCacheConfig]:
     cache = KVCacheConfig(
         num_blocks=16,
@@ -46,7 +46,6 @@ def native_fixture(
         },
         "cpu_bytes_to_use": 1024,
         "advice_enabled": enabled,
-        "advice_mechanism": mechanism,
     }
     config = OffloadingConfig(
         groups=(OffloadingGroupConfig(4, ("layer",)),),
@@ -69,8 +68,6 @@ def native_fixture(
     return spec, vllm_config, cache
 
 
-def scheduler_fixture(
-    enabled: bool = True, mechanism: str = "recency"
-) -> WaitHintScheduler:
-    spec, config, cache = native_fixture(enabled, mechanism)
+def scheduler_fixture(enabled: bool = True) -> WaitHintScheduler:
+    spec, config, cache = native_fixture(enabled)
     return WaitHintScheduler(spec, config, cache)

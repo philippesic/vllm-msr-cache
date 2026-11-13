@@ -12,7 +12,7 @@ MAX_EVENTS = 100_000
 DEFAULT_METADATA_BYTES = 64 * 1024 * 1024
 MAX_METADATA_BYTES = 256 * 1024 * 1024
 MAX_CPU_BYTES = 2**50
-MECHANISMS = ("recency", "promote-hold", "reachable-hold")
+ADVICE_MECHANISM = "reachable-hold"
 
 
 @dataclass(frozen=True)
@@ -23,15 +23,12 @@ class Settings:
     max_sessions: int
     max_events: int
     metadata_bytes: int = DEFAULT_METADATA_BYTES
-    advice_mechanism: str = "recency"
 
     def __post_init__(self) -> None:
         if not isinstance(self.namespace, Namespace):
             raise ValueError("namespace")
         if type(self.advice_enabled) is not bool:
             raise ValueError("advice_enabled must be boolean")
-        if self.advice_mechanism not in MECHANISMS:
-            raise ValueError("unknown advice_mechanism")
         for name, maximum in (
             ("cpu_bytes_to_use", MAX_CPU_BYTES),
             ("max_sessions", MAX_SESSIONS),
@@ -49,13 +46,9 @@ class Settings:
             "max_sessions",
             "max_events",
             "metadata_bytes",
-            "advice_mechanism",
         }
         if set(raw) - allowed:
             raise ValueError(f"unknown settings: {sorted(set(raw) - allowed)}")
-        mechanism = raw.get("advice_mechanism", "recency")
-        if not isinstance(mechanism, str) or mechanism not in MECHANISMS:
-            raise ValueError("unknown advice_mechanism")
         enabled = raw.get("advice_enabled", False)
         if type(enabled) is not bool:
             raise ValueError("advice_enabled must be boolean")
@@ -78,11 +71,10 @@ class Settings:
                 "metadata_bytes",
                 MAX_METADATA_BYTES,
             ),
-            mechanism,
         )
 
     def mechanisms(self) -> dict[str, object]:
         return {
             "schema": "wait-hint-mechanisms-v2",
-            "advice": self.advice_mechanism if self.advice_enabled else "disabled",
+            "advice": ADVICE_MECHANISM if self.advice_enabled else "disabled",
         }

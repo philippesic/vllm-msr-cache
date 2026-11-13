@@ -31,7 +31,7 @@ from tests.runtime.kv_probe import KVProbe
 from tests.runtime.support import native_fixture
 from tools.config import hardware_model
 from wait_hint_offload.contracts import Hint, Namespace
-from wait_hint_offload.vllm_adapter.arc import ARCRecency
+from wait_hint_offload.vllm_adapter.arc import ARCPrefix
 from wait_hint_offload.vllm_adapter.engine_rpc import PUBLISH_METHOD
 from wait_hint_offload.vllm_adapter.transfers import TransferWorker
 
@@ -71,7 +71,7 @@ def test_real_fp16_transfer_order_and_byte_equality() -> None:
         )
         assert manager.lookup(first, context) is LookupResult.HIT_PENDING
         manager.complete_store([first, second], context)
-        assert ARCRecency(manager._policy).refresh_prefix((bytes(first),)) == 1
+        assert ARCPrefix(manager._policy).promote_prefix((bytes(first),)) == 1
         replacement = manager.prepare_store([third], context)
         assert replacement is not None and replacement.evicted_keys == [second]
         assert isinstance(replacement.store_spec, CPULoadStoreSpec)

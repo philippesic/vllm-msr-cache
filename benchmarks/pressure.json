@@ -47,29 +47,7 @@
    305,
    308,
    312
-  ],
-  "decide": {
-   "qwen35-4b-int4": [
-    401,
-    402,
-    403,
-    404,
-    405,
-    407,
-    408,
-    412
-   ],
-   "gemma4-12b-int4": [
-    401,
-    402,
-    404,
-    409,
-    411,
-    412,
-    413,
-    416
-   ]
-  }
+  ]
  },
  "models": {
   "qwen35-4b-int4": {
@@ -155,43 +133,31 @@
  "arms": {
   "gpu-only": {
    "system": "gpu-only",
-   "mechanism": "recency",
    "pool": "none",
    "role": "known-worse control"
   },
   "native-arc": {
    "system": "native-arc",
-   "mechanism": "recency",
    "pool": "pressure",
    "role": "advice-disabled control"
   },
   "native-arc-repeat": {
    "system": "native-arc",
-   "mechanism": "recency",
    "pool": "pressure",
    "role": "A/A repeat of native-arc"
   },
   "wait-hint": {
    "system": "wait-hint",
-   "mechanism": "recency",
    "pool": "pressure",
-   "role": "current hint"
-  },
-  "candidate": {
-   "system": "wait-hint",
-   "mechanism": "reachable-hold",
-   "pool": "pressure",
-   "role": "candidate hint"
+   "role": "wait hint (reachable-hold)"
   },
   "lmcache": {
    "system": "lmcache",
-   "mechanism": "recency",
    "pool": "pressure",
    "role": "external comparator, matched nominal DRAM"
   },
   "oracle": {
    "system": "native-arc",
-   "mechanism": "recency",
    "pool": "oracle",
    "role": "known-better control: pool holds every stored token"
   }
@@ -203,7 +169,6 @@
     "native-arc",
     "native-arc-repeat",
     "wait-hint",
-    "candidate",
     "lmcache",
     "oracle"
    ],
@@ -212,8 +177,7 @@
   "advice": {
    "arms": [
     "native-arc",
-    "wait-hint",
-    "candidate"
+    "wait-hint"
    ],
    "cell_seconds": 1500
   },
@@ -223,23 +187,13 @@
     "native-arc",
     "native-arc-repeat",
     "wait-hint",
-    "candidate",
     "lmcache",
     "oracle"
-   ],
-   "cell_seconds": 1500
-  },
-  "decide": {
-   "arms": [
-    "native-arc",
-    "wait-hint",
-    "candidate"
    ],
    "cell_seconds": 1500
   }
  },
  "controls": {
-  "separation": 0.1,
-  "unhinted_tolerance": 0.03
+  "separation": 0.1
  }
 }

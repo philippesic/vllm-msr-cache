@@ -9,8 +9,8 @@ The check enforces these rows against `tools/system_map.py` and the actual targe
 See [checks](checks.md) for check modes and [runtime](runtime.md) for the runtime lane. See [benchmarks](benchmarks.md) for implementation status and model/coding probes.
 
 Product flow: HTTP `/v1/wait-hints` → endpoint authentication and schema validation →
-engine utility RPC → scheduler-owned observation validation → ready native ARC queue
-reordering. Registration arrives through `kv_transfer_params.wait_hint` on an
+engine utility RPC → scheduler-owned observation validation → ready-prefix
+promotion, bounded hold and unreachable-key marking in native ARC. Registration arrives through `kv_transfer_params.wait_hint` on an
 ordinary completed request. Native workers own transfer bytes; the adapter reports
 completion and failure to the native scheduler. See [architecture](architecture.md).
 

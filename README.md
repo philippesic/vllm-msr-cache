@@ -1,9 +1,10 @@
 # vllm-semantic-cache-ext-next
 
 Exact CPU KV offload for vLLM with causal wait-hint advice. A completed request can
-register its prefix; a later hint refreshes that prefix's ready CPU blocks in vLLM's
-native ARC cache. Running with advice disabled is the matched control: same code,
-same safety guards, no reordering.
+register its prefix; a later hint protects that prefix's ready CPU blocks in vLLM's
+native ARC cache until the session returns, and lets keys the return can never use
+go first. Running with advice disabled is the matched control: same code, same
+safety guards, no advice.
 
 What has been tested, and its limits, is in [FINDINGS](FINDINGS.md).
 

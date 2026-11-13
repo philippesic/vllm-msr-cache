@@ -129,9 +129,8 @@ def test_finished_sample_guard_registration_and_actual_store_lifecycle(
         assert not cast(Callable[[], bool], torch.cuda.is_initialized)()
 
 
-@pytest.mark.parametrize("mechanism", ["promote-hold", "reachable-hold"])
-def test_hold_mechanisms_hold_until_return_and_reset(mechanism: str) -> None:
-    scheduler = scheduler_fixture(True, mechanism)
+def test_reachable_hold_holds_until_return_and_reset() -> None:
+    scheduler = scheduler_fixture(True)
     state = finished_request(scheduler)
     scheduler.request_finished(state.req)
     jobs = scheduler._build_store_jobs(
@@ -166,9 +165,9 @@ def test_hold_mechanisms_hold_until_return_and_reset(mechanism: str) -> None:
     )
     acknowledgement = scheduler.publish_wait_hint(hint.mapping())
     assert acknowledgement["schema"] == "wait-hint-ack-v3"
-    assert acknowledgement["mechanisms"]["advice"] == mechanism
+    assert acknowledgement["mechanisms"]["advice"] == "reachable-hold"
     assert acknowledgement["refreshed_keys"] == acknowledgement["held_keys"] == 1
-    policy = scheduler.recency.policy
+    policy = scheduler.prefix.policy
     assert key in policy.t2 and scheduler.holds.active() == {key}
     replay = scheduler.publish_wait_hint(hint.mapping())
     assert replay["replayed"] and replay["held_keys"] == 0

@@ -64,15 +64,14 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   sessions on the CPU in about a minute and writes `simulation.json`. It re-runs
   itself under the runtime interpreter as `simulate-native`, which loads
   `wait_hint_offload/vllm_adapter/replay.py`: the real pinned `CPUOffloadingManager`
-  and ARC policy plus the product's recency, promotion and hold code. The tools-side
+  and ARC policy plus the product's reachable-hold code. The tools-side
   model reproduces the offloading scheduler's call order (lookup, whole-request touch
   at start and after each store, store completion delay, final store at computed
   tokens), a GPU prefix cache that frees a request's tail first, a running-request
   limit and GPU admission. Recurrent-state groups (window of one chunk) store only
   the last chunk of each scheduling step, as the engine checkpoints them; other
   groups store every chunk. Arms are `gpu-only`, `native` (advice disabled),
-  `recency`, `promote`, `hold`, `promote-hold`, `reachable-hold` and `oracle` (hold
-  until return without cap or deadline). It reports recomputed prefix tokens on return for hinted
+  `reachable-hold` and `oracle` (hold until return without cap or deadline). It reports recomputed prefix tokens on return for hinted
   and unhinted cohorts, store failures, evictions, restores, GPU displacement,
   abandoned hints and hold yields, plus working-set ratios. Scenarios live in
   `benchmarks/replay/scenarios.json`; `--scenario NAME` selects some. Session shapes
@@ -86,7 +85,7 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   window, as measured) and whether GPU prefix reuse serves returns
   (`gpu_prefix_reuse`). Attention-style GPU reuse overstated GPU hits for both hybrid
   models in the engine; the `-no-gpu-reuse` scenarios are the calibrated variants.
-- `pressure --profile smoke|advice|decide|full --runtime-python PY --lmcache-python LMPY
+- `pressure --profile smoke|advice|full --runtime-python PY --lmcache-python LMPY
   --model ID=PATH [--model ...] [--arm NAME ...] --out artifacts/runs/NEW` is the
   multi-session pressure benchmark defined in `benchmarks/pressure.json`. Before any
   GPU work it refuses seeds whose schedule lacks hinted, unhinted or abandoned
@@ -107,7 +106,7 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   are about 0.6 of the working set at measured keys per token (Qwen 60 keys of 16.5 MiB, Gemma 2560 MiB);
   LMCache gets the same nominal bytes. Arms: `gpu-only` (known worse),
   `native-arc` and `native-arc-repeat` (advice-disabled control and its A/A repeat),
-  `wait-hint` (current recency), `candidate` (reachable-hold), `lmcache`, and
+  `wait-hint` (reachable-hold), `lmcache`, and
   `oracle` (native ARC with a pool larger than every stored token, the known-better
   control; an engine hold-until-return would need a product-only setting).
   `verify-pressure DIR [DIR ...]` recomputes everything from raw request records.
@@ -124,10 +123,8 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   differ by at least 10 points and the A/A difference is smaller than that gap;
   otherwise comparisons are withheld. Several directories (for example smoke
   controls plus `advice` repetitions) can be verified together if they share one
-  model definition (workload, engine settings, arms, controls). The candidate rule
-  (every repetition no worse than recency, lower total, unhinted within 3 points of
-  the control, no added store failures) is evaluated per model when a `candidate`
-  arm exists. Gemma uses a model workload override (4 sessions, 4000-token
+  model definition (workload, engine settings, arms, controls). Candidate rules are
+  fixed per round in its task file and recorded in its result. Gemma uses a model workload override (4 sessions, 4000-token
   conversations, 2 one-shots) because native offload stores 21 one-MiB keys per 64
   tokens (one full-attention chunk and five sliding-window groups of four 16-token
   chunks), about 336 KiB per token: its pool is 2560 MiB and its oracle pool
@@ -135,9 +132,9 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   Pressure definitions set the simulator's `gpu_prefix_reuse` to false because the
   engine's gpu-only arm recomputed nearly every returning prefix on both hybrid
   models; simulator-only fields do not change a model definition's identity.
-  The `decide` profile lists seeds per model; `--seed N` (repeatable) replaces a
+  A profile lists seeds, optionally per model; `--seed N` (repeatable) replaces a
   profile's seeds for one invocation and is recorded in the admission.
-  `plan --profile pressure-smoke|pressure-advice|pressure-decide|pressure-full [--calibration DIR]`
+  `plan --profile pressure-smoke|pressure-advice|pressure-full [--calibration DIR]`
   projects GPU time from measured cell costs.
 - `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures

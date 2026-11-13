@@ -7,7 +7,7 @@ from wait_hint_offload.contracts import Hint
 from wait_hint_offload.observed import AdviceOutcome, ObservedStore
 
 
-class RecencyTarget(Protocol):
+class AdviceTarget(Protocol):
     def refresh_prefix(self, keys: tuple[bytes, ...]) -> int: ...
 
     def ready_prefix(self, keys: tuple[bytes, ...]) -> Sequence[bytes]: ...
@@ -15,7 +15,7 @@ class RecencyTarget(Protocol):
 
 def advise(
     store: ObservedStore,
-    target: RecencyTarget,
+    target: AdviceTarget,
     hint: Hint,
     now_ns: int,
     clock_domain: str,

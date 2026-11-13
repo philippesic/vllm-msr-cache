@@ -20,11 +20,11 @@ from tools.benchmarking.workload import Session, cohort, schedule
 from tools.config import benchmark_environment
 from tools.process import process_identity, stop_session
 from tools.runtime_verify import snapshot, write_record
+from wait_hint_offload.config import ADVICE_MECHANISM
 
 DEFINITION = Path("benchmarks/pressure.json")
 DEFINITION_SCHEMA = "pressure-definition-v1"
 CELL_SCHEMA = "pressure-cell-v1"
-HOLD_MECHANISMS = ("promote-hold", "reachable-hold")
 REPORT_SCHEMA = "pressure-report-v1"
 TOKEN_RANGE = (1000, 30000)
 PROBE_TOKENS = 2112
@@ -409,7 +409,6 @@ def serve_arm(
         arm["system"],
         port,
         cpu_bytes=pool_bytes(model, arm["pool"]) or None,
-        mechanism=arm["mechanism"],
         gpu_blocks=model["gpu_blocks"],
         max_model_len=MAX_MODEL_LEN,
     )
@@ -791,7 +790,7 @@ def contracts(
         <= summary["pool_keys"]
     )
     if arm["system"] in ENDPOINT_ARMS:
-        expected = arm["mechanism"] if arm["system"] == "wait-hint" else "disabled"
+        expected = ADVICE_MECHANISM if arm["system"] == "wait-hint" else "disabled"
         mechanisms = advice["mechanisms"]
         checks["hints_acknowledged"] = (
             advice["hints_published"] == advice["hints_wanted"] > 0
@@ -799,7 +798,6 @@ def contracts(
         checks["advice_mechanism"] = bool(mechanisms) and set(mechanisms) == {expected}
         if arm["system"] == "wait-hint":
             checks["advice_applied"] = advice["decisions"].get("refreshed", 0) > 0
-        if arm["mechanism"] in HOLD_MECHANISMS and arm["system"] == "wait-hint":
             checks["holds_applied"] = advice["held_keys"] > 0
     return checks
 
@@ -833,54 +831,6 @@ def model_controls(
         "required_separation": separation,
         "aa_difference": round(aa, 4),
     }
-
-
-def advice_rule(
-    arms: dict[str, list[dict[str, Any]]], tolerance: float
-) -> dict[str, Any]:
-    names = ("native-arc", "wait-hint", "candidate")
-    valid = {name: [s for s in arms.get(name, []) if s["valid"]] for name in names}
-    if any(len(valid[name]) < 3 for name in names):
-        return {
-            "status": "insufficient-repetitions",
-            "valid": {k: len(v) for k, v in valid.items()},
-        }
-    reference = {s["seed"]: s for s in valid["wait-hint"]}
-    paired = [
-        (
-            s["cohorts"]["hinted"]["recomputed_tokens"],
-            reference[s["seed"]]["cohorts"]["hinted"]["recomputed_tokens"],
-        )
-        for s in valid["candidate"]
-        if s["seed"] in reference
-    ]
-    harm = (pooled(valid["candidate"], "unhinted") or 0.0) - (
-        pooled(valid["native-arc"], "unhinted") or 0.0
-    )
-    failures = sum(s["store_failures"] for s in valid["candidate"])
-    control_failures = sum(s["store_failures"] for s in valid["native-arc"])
-    rule = {
-        "paired_hinted_recomputed": paired,
-        "every_repetition_no_worse": len(paired) >= 3
-        and all(a <= b for a, b in paired),
-        "total_lower": sum(a for a, _ in paired) < sum(b for _, b in paired),
-        "unhinted_share_change": round(harm, 4),
-        "unhinted_within_tolerance": harm <= tolerance,
-        "candidate_store_failures": failures,
-        "control_store_failures": control_failures,
-        "no_added_store_failures": failures <= control_failures,
-    }
-    rule["met"] = all(
-        rule[key]
-        for key in (
-            "every_repetition_no_worse",
-            "total_lower",
-            "unhinted_within_tolerance",
-            "no_added_store_failures",
-        )
-    )
-    rule["status"] = "evaluated"
-    return rule
 
 
 def verify_pressure(*directories: Path) -> dict[str, Any]:
@@ -940,11 +890,6 @@ def verify_pressure(*directories: Path) -> dict[str, Any]:
                 }
                 for name, summaries in sorted(arms.items())
             },
-            "advice_rule": advice_rule(
-                arms, definition["controls"]["unhinted_tolerance"]
-            )
-            if controls["status"] != "non-discriminating"
-            else {"status": "withheld: non-discriminating controls"},
         }
     return report
 

@@ -25,16 +25,7 @@ from tools.process import run_owned
 from tools.runtime_verify import write_record
 from wait_hint_offload.observed import ObservedGroup
 
-ARMS = (
-    "gpu-only",
-    "native",
-    "recency",
-    "promote",
-    "hold",
-    "promote-hold",
-    "reachable-hold",
-    "oracle",
-)
+ARMS = ("gpu-only", "native", "reachable-hold", "oracle")
 COHORTS = ("hinted", "unhinted")
 
 
@@ -577,7 +568,7 @@ def load_scenarios(path: Path, names: Sequence[str] = ()) -> list[dict[str, Any]
 def compare(
     scenarios: Sequence[dict[str, Any]],
     candidate: str = "reachable-hold",
-    reference: str = "recency",
+    reference: str = "native",
     control: str = "native",
 ) -> dict[str, Any]:
     rows = []

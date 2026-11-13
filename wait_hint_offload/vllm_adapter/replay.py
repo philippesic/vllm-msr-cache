@@ -12,10 +12,10 @@ from vllm.v1.kv_offload.cpu.policies import arc as native_arc
 from wait_hint_offload.observed import ObservedGroup
 from wait_hint_offload.vllm_adapter.arc import (
     ARCHolds,
-    ARCRecency,
-    GroupARCRecency,
-    HoldTarget,
+    ARCPrefix,
+    GroupARCPrefix,
     Owner,
+    ReachableHold,
 )
 
 NANOSECONDS = 1_000_000_000
@@ -34,13 +34,6 @@ class NativeCache:
         self.tokens: dict[Owner, object] = {}
         self.holds = ARCHolds(
             policy, hold_share, lambda: int(self.now * NANOSECONDS), self.tokens.get
-        )
-        self.partial = ARCHolds(
-            policy,
-            hold_share,
-            lambda: int(self.now * NANOSECONDS),
-            self.tokens.get,
-            partial=True,
         )
         self.oracle = ARCHolds(policy, 1.0, lambda: 0, self.tokens.get)
         self.unreachable = 0
@@ -70,38 +63,26 @@ class NativeCache:
         deadline: float,
     ) -> tuple[int, int]:
         full = groups[0]
-        recency = (
-            GroupARCRecency(self.policy, tuple(groups))
+        prefix = (
+            GroupARCPrefix(self.policy, tuple(groups))
             if len(groups) > 1
-            else ARCRecency(self.policy)
+            else ARCPrefix(self.policy)
         )
         anchor = set(full.keys)
-        ready = sum(key in anchor for key in recency.ready_prefix(full.keys))
+        ready = sum(key in anchor for key in prefix.ready_prefix(full.keys))
         identity = ("replay", owner)
         token = object()
         self.tokens[identity] = token
-        if arm == "recency":
-            applied = recency.refresh_prefix(full.keys)
-        elif arm == "promote":
-            applied = recency.promote_prefix(full.keys)
-        elif arm in ("promote-hold", "reachable-hold"):
-            reachable = arm == "reachable-hold"
-            target = HoldTarget(
-                recency,
-                self.partial if reachable else self.holds,
-                identity,
-                int(deadline * NANOSECONDS),
-                token,
-                evict_unreachable=reachable,
+        if arm == "reachable-hold":
+            target = ReachableHold(
+                prefix, self.holds, identity, int(deadline * NANOSECONDS), token
             )
             target.refresh_prefix(full.keys)
             applied = target.held
             self.unreachable += target.unreachable
-        elif arm in ("hold", "oracle"):
-            holds = self.oracle if arm == "oracle" else self.holds
-            limit = UNBOUNDED_NS if arm == "oracle" else int(deadline * NANOSECONDS)
-            applied = holds.hold(
-                identity, recency.ready_prefix(full.keys), limit, token
+        elif arm == "oracle":
+            applied = self.oracle.hold(
+                identity, prefix.ready_prefix(full.keys), UNBOUNDED_NS, token
             )
         else:
             raise ValueError("unknown advice arm")
@@ -110,16 +91,13 @@ class NativeCache:
     def release(self, owner: str) -> None:
         self.tokens.pop(("replay", owner), None)
         self.holds.release(("replay", owner))
-        self.partial.release(("replay", owner))
         self.oracle.release(("replay", owner))
 
     def counters(self) -> dict[str, int]:
         return {
-            "hold_yields": self.holds.yielded
-            + self.partial.yielded
-            + self.oracle.yielded,
+            "hold_yields": self.holds.yielded + self.oracle.yielded,
             "unreachable_marked": self.unreachable,
-            "unreachable_evicted": self.partial.dead_evicted,
+            "unreachable_evicted": self.holds.dead_evicted,
         }
 
 

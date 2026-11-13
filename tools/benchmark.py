@@ -60,7 +60,6 @@ def main() -> int:
             "release",
             "pressure-smoke",
             "pressure-advice",
-            "pressure-decide",
             "pressure-full",
         ),
         required=True,
@@ -68,7 +67,7 @@ def main() -> int:
     plan.add_argument("--calibration", type=Path, action="append", default=[])
     pressure = sub.add_parser("pressure")
     pressure.add_argument(
-        "--profile", choices=("smoke", "advice", "decide", "full"), required=True
+        "--profile", choices=("smoke", "advice", "full"), required=True
     )
     pressure.add_argument("--runtime-python", type=Path, required=True)
     pressure.add_argument("--lmcache-python", type=Path)

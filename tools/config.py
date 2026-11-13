@@ -39,6 +39,7 @@ def hardware_environment(root: Path, model: Path) -> dict[str, str]:
     env["WAIT_HINT_TEST_MODEL"] = str(model.resolve())
     env["VLLM_PLUGINS"] = "wait_hint"
     env["VLLM_WSL2_ENABLE_PIN_MEMORY"] = "1"
+    env["VLLM_SERVER_DEV_MODE"] = "1"
     return env
 
 
@@ -69,5 +70,4 @@ def benchmark_environment(
     if lmcache:
         env["PYTORCH_ALLOC_CONF"] = "expandable_segments:False"
         env["LMCACHE_WSL_VMM"] = "1"
-    env["VLLM_SERVER_DEV_MODE"] = "1"
     return env

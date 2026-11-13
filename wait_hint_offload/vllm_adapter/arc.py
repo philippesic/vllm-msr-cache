@@ -9,7 +9,7 @@ from vllm.v1.kv_offload.cpu.policies.base import BlockStatus
 from wait_hint_offload.observed import ObservedGroup
 
 
-class ARCRecency:
+class ARCPrefix:
     def __init__(self, policy: ARCCachePolicy) -> None:
         self.policy = policy
 
@@ -23,13 +23,6 @@ class ARCRecency:
             eligible.append(key)
         return eligible
 
-    def refresh_prefix(self, keys: tuple[bytes, ...]) -> int:
-        eligible = self.ready_prefix(keys)
-        for key in reversed(eligible):
-            queue = self.policy.t1 if key in self.policy.t1 else self.policy.t2
-            queue.move_to_end(key)
-        return len(eligible)
-
     def promote_prefix(self, keys: tuple[bytes, ...]) -> int:
         eligible = self.ready_prefix(keys)
         self.policy.touch(eligible, ReqContext(req_id="wait-hint"))
@@ -39,7 +32,7 @@ class ARCRecency:
         return []
 
 
-class GroupARCRecency(ARCRecency):
+class GroupARCPrefix(ARCPrefix):
     def __init__(
         self, policy: ARCCachePolicy, groups: tuple[ObservedGroup, ...]
     ) -> None:
@@ -110,7 +103,6 @@ class ARCHolds:
         share: float,
         clock: Callable[[], int],
         current: Callable[[Owner], object | None],
-        partial: bool = False,
     ) -> None:
         self.policy = policy
         self.limit = int(policy.cache_capacity * share)
@@ -128,8 +120,6 @@ class ARCHolds:
                 if result is not None:
                     return result
                 self.yielded += 1
-                if not partial:
-                    break
                 del self.holds[min(self.holds, key=lambda o: self.holds[o][1])]
             return self.evict_dead_first(native, n, protected)
 
@@ -203,33 +193,30 @@ class ARCHolds:
         self.dead.clear()
 
 
-class HoldTarget:
+class ReachableHold:
     def __init__(
         self,
-        recency: ARCRecency,
+        prefix: ARCPrefix,
         holds: ARCHolds,
         owner: Owner,
         deadline: int,
         token: object,
-        evict_unreachable: bool = False,
     ) -> None:
-        self.recency = recency
+        self.prefix = prefix
         self.holds = holds
         self.owner = owner
         self.deadline = deadline
         self.token = token
-        self.evict_unreachable = evict_unreachable
         self.held = 0
         self.unreachable = 0
 
     def ready_prefix(self, keys: tuple[bytes, ...]) -> list[OffloadKey]:
-        return self.recency.ready_prefix(keys)
+        return self.prefix.ready_prefix(keys)
 
     def refresh_prefix(self, keys: tuple[bytes, ...]) -> int:
-        promoted = self.recency.promote_prefix(keys)
+        promoted = self.prefix.promote_prefix(keys)
         self.held = self.holds.hold(
             self.owner, self.ready_prefix(keys), self.deadline, self.token
         )
-        if self.evict_unreachable:
-            self.unreachable = self.holds.mark_dead(self.recency.unreachable(keys))
+        self.unreachable = self.holds.mark_dead(self.prefix.unreachable(keys))
         return promoted

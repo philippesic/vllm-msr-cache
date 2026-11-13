@@ -249,7 +249,7 @@ def test_comparison_applies_every_clause_of_the_decision_rule() -> None:
         "worse",
         native=arm(500, 300),
         recency=arm(450, 300),
-        **{"reachable-hold": arm(460, 300)},
+        **{"reachable-hold": arm(510, 300)},
     )
     assert not compare([good, worse])["simulated_rule_met"]
     harm = scenario(
@@ -270,7 +270,7 @@ def test_comparison_applies_every_clause_of_the_decision_rule() -> None:
         "close",
         native=arm(500, 300),
         recency=arm(450, 300),
-        **{"reachable-hold": arm(440, 300)},
+        **{"reachable-hold": arm(460, 300)},
     )
     assert not compare([close])["simulated_rule_met"]
     blind: dict[str, Any] = {

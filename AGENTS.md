@@ -1,9 +1,11 @@
 # vllm-semantic-cache-ext-next
 
-Exact CPU KV offload for vLLM with causal wait-hint advice. A client hint marks a
-session's ready CPU prefix as recently used in vLLM's native ARC cache. Advice only
-reorders the cache; exact native block keys alone decide KV reuse. A hint never pins
-KV, makes a block ready, starts a transfer or permits approximate reuse.
+Exact CPU KV offload for vLLM with causal wait-hint advice. A client hint promotes a
+session's ready CPU prefix in vLLM's native ARC cache, holds it out of eviction
+until the session returns or the hint expires (bounded, and yielding before any
+store would fail), and lets its unreachable window keys be evicted first. Exact
+native block keys alone decide KV reuse. A hint never makes a block ready, starts a
+transfer or permits approximate reuse.
 
 # Where things are
 

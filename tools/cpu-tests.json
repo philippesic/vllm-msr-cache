@@ -66,7 +66,6 @@
   "tests/test_operation.py::test_stale_control_does_not_signal_current_process",
   "tests/test_operation.py::test_type_caches_separate_portable_and_runtime_environments",
   "tests/test_pressure.py::test_activity_contracts_detect_advice_off_small_pool_and_no_competition",
-  "tests/test_pressure.py::test_advice_rule_requires_every_repetition_and_bounded_unhinted_harm",
   "tests/test_pressure.py::test_cohort_summary_uses_aligned_reusable_prefix_and_engine_ttft",
   "tests/test_pressure.py::test_controls_fail_closed_without_separation_or_with_noisy_repeat",
   "tests/test_pressure.py::test_plan_projects_cost_from_measured_cells",
