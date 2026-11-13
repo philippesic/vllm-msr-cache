@@ -1,0 +1,677 @@
+{
+ "schema": "reachable-hold-campaign-evidence-v1",
+ "question": "How does the adopted reachable-hold wait hint compare with no offload, native ARC CPU offload, LMCache and an unbounded-hold oracle under the full pressure profile?",
+ "code_revision": "01740159 (reachable-hold adopted)",
+ "seeds": [
+  305,
+  308,
+  312
+ ],
+ "profile": "full",
+ "runs": {
+  "qwen35-4b-int4/gpu-only": "artifacts/runs/campaign-qwen35-4b-int4-gpu-only",
+  "qwen35-4b-int4/native-arc": "artifacts/runs/campaign-qwen35-4b-int4-native-arc",
+  "qwen35-4b-int4/native-arc-repeat": "artifacts/runs/campaign-qwen35-4b-int4-native-arc-repeat",
+  "qwen35-4b-int4/wait-hint": "artifacts/runs/campaign-qwen35-4b-int4-wait-hint",
+  "qwen35-4b-int4/lmcache": "artifacts/runs/campaign-qwen35-4b-int4-lmcache",
+  "qwen35-4b-int4/oracle": "artifacts/runs/campaign-qwen35-4b-int4-oracle",
+  "gemma4-12b-int4/gpu-only": "artifacts/runs/campaign-gemma4-12b-int4-gpu-only",
+  "gemma4-12b-int4/native-arc": "artifacts/runs/campaign-gemma4-12b-int4-native-arc",
+  "gemma4-12b-int4/native-arc-repeat": "artifacts/runs/campaign-gemma4-12b-int4-native-arc-repeat",
+  "gemma4-12b-int4/wait-hint": "artifacts/runs/campaign-gemma4-12b-int4-wait-hint",
+  "gemma4-12b-int4/lmcache": "artifacts/runs/campaign-gemma4-12b-int4-lmcache",
+  "gemma4-12b-int4/oracle": "artifacts/runs/campaign-gemma4-12b-int4-oracle"
+ },
+ "models": {
+  "qwen35-4b-int4": {
+   "pooled": {
+    "gpu-only": {
+     "hinted_recomputed": 75504,
+     "hinted_reusable": 87648,
+     "hinted_share": 0.8614,
+     "unhinted_recomputed": 60720,
+     "unhinted_reusable": 66000,
+     "unhinted_share": 0.92,
+     "mean_hinted_ttft_ms": 1461.7,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "native-arc": {
+     "hinted_recomputed": 26400,
+     "hinted_reusable": 87648,
+     "hinted_share": 0.3012,
+     "unhinted_recomputed": 21648,
+     "unhinted_reusable": 66000,
+     "unhinted_share": 0.328,
+     "mean_hinted_ttft_ms": 980.0,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "native-arc-repeat": {
+     "hinted_recomputed": 33792,
+     "hinted_reusable": 87648,
+     "hinted_share": 0.3855,
+     "unhinted_recomputed": 27984,
+     "unhinted_reusable": 66000,
+     "unhinted_share": 0.424,
+     "mean_hinted_ttft_ms": 1219.8,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "wait-hint": {
+     "hinted_recomputed": 9504,
+     "hinted_reusable": 87648,
+     "hinted_share": 0.1084,
+     "unhinted_recomputed": 23232,
+     "unhinted_reusable": 66000,
+     "unhinted_share": 0.352,
+     "mean_hinted_ttft_ms": 704.8,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "lmcache": {
+     "hinted_recomputed": 53856,
+     "hinted_reusable": 87648,
+     "hinted_share": 0.6145,
+     "unhinted_recomputed": 40656,
+     "unhinted_reusable": 66000,
+     "unhinted_share": 0.616,
+     "mean_hinted_ttft_ms": 1580.5,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "oracle": {
+     "hinted_recomputed": 13728,
+     "hinted_reusable": 87648,
+     "hinted_share": 0.1566,
+     "unhinted_recomputed": 11088,
+     "unhinted_reusable": 66000,
+     "unhinted_share": 0.168,
+     "mean_hinted_ttft_ms": 735.9,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    }
+   },
+   "per_seed": {
+    "305": {
+     "gpu-only": {
+      "hinted": [
+       21120,
+       23232
+      ],
+      "unhinted": [
+       21648,
+       25344
+      ],
+      "mean_hinted_ttft_ms": 1704.54,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc": {
+      "hinted": [
+       7920,
+       23232
+      ],
+      "unhinted": [
+       15840,
+       25344
+      ],
+      "mean_hinted_ttft_ms": 1002.61,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc-repeat": {
+      "hinted": [
+       10560,
+       23232
+      ],
+      "unhinted": [
+       16368,
+       25344
+      ],
+      "mean_hinted_ttft_ms": 1129.6,
+      "state": "valid",
+      "valid": true
+     },
+     "wait-hint": {
+      "hinted": [
+       5808,
+       23232
+      ],
+      "unhinted": [
+       9504,
+       25344
+      ],
+      "mean_hinted_ttft_ms": 861.9,
+      "state": "valid",
+      "valid": true
+     },
+     "lmcache": {
+      "hinted": [
+       15312,
+       23232
+      ],
+      "unhinted": [
+       14256,
+       25344
+      ],
+      "mean_hinted_ttft_ms": 1734.49,
+      "state": "valid",
+      "valid": true
+     },
+     "oracle": {
+      "hinted": [
+       5280,
+       23232
+      ],
+      "unhinted": [
+       2640,
+       25344
+      ],
+      "mean_hinted_ttft_ms": 993.91,
+      "state": "valid",
+      "valid": true
+     }
+    },
+    "308": {
+     "gpu-only": {
+      "hinted": [
+       19536,
+       27984
+      ],
+      "unhinted": [
+       22176,
+       22176
+      ],
+      "mean_hinted_ttft_ms": 969.88,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc": {
+      "hinted": [
+       3168,
+       27984
+      ],
+      "unhinted": [
+       1056,
+       22176
+      ],
+      "mean_hinted_ttft_ms": 482.52,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc-repeat": {
+      "hinted": [
+       5808,
+       27984
+      ],
+      "unhinted": [
+       6864,
+       22176
+      ],
+      "mean_hinted_ttft_ms": 1011.23,
+      "state": "valid",
+      "valid": true
+     },
+     "wait-hint": {
+      "hinted": [
+       2112,
+       27984
+      ],
+      "unhinted": [
+       5808,
+       22176
+      ],
+      "mean_hinted_ttft_ms": 473.23,
+      "state": "valid",
+      "valid": true
+     },
+     "lmcache": {
+      "hinted": [
+       16896,
+       27984
+      ],
+      "unhinted": [
+       15840,
+       22176
+      ],
+      "mean_hinted_ttft_ms": 868.18,
+      "state": "valid",
+      "valid": true
+     },
+     "oracle": {
+      "hinted": [
+       6336,
+       27984
+      ],
+      "unhinted": [
+       2112,
+       22176
+      ],
+      "mean_hinted_ttft_ms": 607.51,
+      "state": "valid",
+      "valid": true
+     }
+    },
+    "312": {
+     "gpu-only": {
+      "hinted": [
+       34848,
+       36432
+      ],
+      "unhinted": [
+       16896,
+       18480
+      ],
+      "mean_hinted_ttft_ms": 1710.72,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc": {
+      "hinted": [
+       15312,
+       36432
+      ],
+      "unhinted": [
+       4752,
+       18480
+      ],
+      "mean_hinted_ttft_ms": 1454.8,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc-repeat": {
+      "hinted": [
+       17424,
+       36432
+      ],
+      "unhinted": [
+       4752,
+       18480
+      ],
+      "mean_hinted_ttft_ms": 1518.64,
+      "state": "valid",
+      "valid": true
+     },
+     "wait-hint": {
+      "hinted": [
+       1584,
+       36432
+      ],
+      "unhinted": [
+       7920,
+       18480
+      ],
+      "mean_hinted_ttft_ms": 779.16,
+      "state": "valid",
+      "valid": true
+     },
+     "lmcache": {
+      "hinted": [
+       21648,
+       36432
+      ],
+      "unhinted": [
+       10560,
+       18480
+      ],
+      "mean_hinted_ttft_ms": 2138.69,
+      "state": "valid",
+      "valid": true
+     },
+     "oracle": {
+      "hinted": [
+       2112,
+       36432
+      ],
+      "unhinted": [
+       6336,
+       18480
+      ],
+      "mean_hinted_ttft_ms": 606.41,
+      "state": "valid",
+      "valid": true
+     }
+    }
+   }
+  },
+  "gemma4-12b-int4": {
+   "pooled": {
+    "gpu-only": {
+     "hinted_recomputed": 63424,
+     "hinted_reusable": 68224,
+     "hinted_share": 0.9296,
+     "unhinted_recomputed": 19904,
+     "unhinted_reusable": 23424,
+     "unhinted_share": 0.8497,
+     "mean_hinted_ttft_ms": 3369.2,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "native-arc": {
+     "hinted_recomputed": 50896,
+     "hinted_reusable": 68224,
+     "hinted_share": 0.746,
+     "unhinted_recomputed": 15168,
+     "unhinted_reusable": 23424,
+     "unhinted_share": 0.6475,
+     "mean_hinted_ttft_ms": 2914.7,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "native-arc-repeat": {
+     "hinted_recomputed": 50896,
+     "hinted_reusable": 68224,
+     "hinted_share": 0.746,
+     "unhinted_recomputed": 15168,
+     "unhinted_reusable": 23424,
+     "unhinted_share": 0.6475,
+     "mean_hinted_ttft_ms": 2909.9,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "wait-hint": {
+     "hinted_recomputed": 2496,
+     "hinted_reusable": 68224,
+     "hinted_share": 0.0366,
+     "unhinted_recomputed": 768,
+     "unhinted_reusable": 23424,
+     "unhinted_share": 0.0328,
+     "mean_hinted_ttft_ms": 1121.2,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "lmcache": {
+     "hinted_recomputed": 52416,
+     "hinted_reusable": 68224,
+     "hinted_share": 0.7683,
+     "unhinted_recomputed": 22656,
+     "unhinted_reusable": 23424,
+     "unhinted_share": 0.9672,
+     "mean_hinted_ttft_ms": 5217.1,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    },
+    "oracle": {
+     "hinted_recomputed": 0,
+     "hinted_reusable": 68224,
+     "hinted_share": 0.0,
+     "unhinted_recomputed": 0,
+     "unhinted_reusable": 23424,
+     "unhinted_share": 0.0,
+     "mean_hinted_ttft_ms": 1055.0,
+     "store_failures": 0,
+     "cells": 3,
+     "invalid_cells": 0
+    }
+   },
+   "per_seed": {
+    "305": {
+     "gpu-only": {
+      "hinted": [
+       18240,
+       21376
+      ],
+      "unhinted": [
+       7808,
+       7808
+      ],
+      "mean_hinted_ttft_ms": 3570.77,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc": {
+      "hinted": [
+       16656,
+       21376
+      ],
+      "unhinted": [
+       5632,
+       7808
+      ],
+      "mean_hinted_ttft_ms": 3439.2,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc-repeat": {
+      "hinted": [
+       16656,
+       21376
+      ],
+      "unhinted": [
+       5632,
+       7808
+      ],
+      "mean_hinted_ttft_ms": 3438.79,
+      "state": "valid",
+      "valid": true
+     },
+     "wait-hint": {
+      "hinted": [
+       1280,
+       21376
+      ],
+      "unhinted": [
+       192,
+       7808
+      ],
+      "mean_hinted_ttft_ms": 1260.0,
+      "state": "valid",
+      "valid": true
+     },
+     "lmcache": {
+      "hinted": [
+       16192,
+       21376
+      ],
+      "unhinted": [
+       7808,
+       7808
+      ],
+      "mean_hinted_ttft_ms": 5731.65,
+      "state": "valid",
+      "valid": true
+     },
+     "oracle": {
+      "hinted": [
+       0,
+       21376
+      ],
+      "unhinted": [
+       0,
+       7808
+      ],
+      "mean_hinted_ttft_ms": 1080.27,
+      "state": "valid",
+      "valid": true
+     }
+    },
+    "308": {
+     "gpu-only": {
+      "hinted": [
+       19456,
+       21120
+      ],
+      "unhinted": [
+       5376,
+       8896
+      ],
+      "mean_hinted_ttft_ms": 3002.79,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc": {
+      "hinted": [
+       14592,
+       21120
+      ],
+      "unhinted": [
+       5376,
+       8896
+      ],
+      "mean_hinted_ttft_ms": 2429.0,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc-repeat": {
+      "hinted": [
+       14592,
+       21120
+      ],
+      "unhinted": [
+       5376,
+       8896
+      ],
+      "mean_hinted_ttft_ms": 2416.99,
+      "state": "valid",
+      "valid": true
+     },
+     "wait-hint": {
+      "hinted": [
+       640,
+       21120
+      ],
+      "unhinted": [
+       0,
+       8896
+      ],
+      "mean_hinted_ttft_ms": 1146.92,
+      "state": "valid",
+      "valid": true
+     },
+     "lmcache": {
+      "hinted": [
+       17152,
+       21120
+      ],
+      "unhinted": [
+       8896,
+       8896
+      ],
+      "mean_hinted_ttft_ms": 4811.48,
+      "state": "valid",
+      "valid": true
+     },
+     "oracle": {
+      "hinted": [
+       0,
+       21120
+      ],
+      "unhinted": [
+       0,
+       8896
+      ],
+      "mean_hinted_ttft_ms": 1105.88,
+      "state": "valid",
+      "valid": true
+     }
+    },
+    "312": {
+     "gpu-only": {
+      "hinted": [
+       25728,
+       25728
+      ],
+      "unhinted": [
+       6720,
+       6720
+      ],
+      "mean_hinted_ttft_ms": 3533.94,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc": {
+      "hinted": [
+       19648,
+       25728
+      ],
+      "unhinted": [
+       4160,
+       6720
+      ],
+      "mean_hinted_ttft_ms": 2876.04,
+      "state": "valid",
+      "valid": true
+     },
+     "native-arc-repeat": {
+      "hinted": [
+       19648,
+       25728
+      ],
+      "unhinted": [
+       4160,
+       6720
+      ],
+      "mean_hinted_ttft_ms": 2873.96,
+      "state": "valid",
+      "valid": true
+     },
+     "wait-hint": {
+      "hinted": [
+       576,
+       25728
+      ],
+      "unhinted": [
+       576,
+       6720
+      ],
+      "mean_hinted_ttft_ms": 956.81,
+      "state": "valid",
+      "valid": true
+     },
+     "lmcache": {
+      "hinted": [
+       19072,
+       25728
+      ],
+      "unhinted": [
+       5952,
+       6720
+      ],
+      "mean_hinted_ttft_ms": 5108.07,
+      "state": "valid",
+      "valid": true
+     },
+     "oracle": {
+      "hinted": [
+       0,
+       25728
+      ],
+      "unhinted": [
+       0,
+       6720
+      ],
+      "mean_hinted_ttft_ms": 978.81,
+      "state": "valid",
+      "valid": true
+     }
+    }
+   }
+  }
+ },
+ "verification": "verify-pressure exit 0 on all 12 directories; 36 of 36 cells valid; no store failures; every invocation exited 0",
+ "conditions": {
+  "gpu": "RTX 2080 Ti, about 292 MiB held by a virtual display",
+  "gemma_gpu_kv_tokens": 9676,
+  "qwen_pool_keys": 60,
+  "gemma_pool_mib": 2560,
+  "gpu_minutes": 80,
+  "precheck": "simulated_rule_met true for both models before GPU use"
+ },
+ "lmcache": "LMCache restore and eviction counters are unobservable through its interface; its cells are judged by the contracts it can satisfy (cpu_evictions and pool_holds_one_conversation are null).",
+ "notes": {
+  "aa_noise": "Qwen advice-off and its identical repeat differed by 8.4 points pooled hinted (30.1% versus 38.6%) and by 6 to 11 points per seed; Gemma repeat matched exactly.",
+  "oracle": "The oracle arm (native ARC with a pool larger than every stored token, so nothing is evicted) reached 0% on Gemma but 15.7% on Qwen, above reachable-hold at 10.8%. Qwen oracle losses are therefore not evictions; they fit the pinned vLLM hybrid lookup effect found in the decide round, where a quick return with a GPU full-attention hit lacking Mamba state discards a complete CPU copy. Per seed reachable-hold was 25, 8 and 4% against the oracle 23, 23 and 6%; the seed-308 gap (15 points) exceeds that seed A/A difference (10 points) and is unexplained, so the oracle is not an upper bound for Qwen in this setup."
+ }
+}
