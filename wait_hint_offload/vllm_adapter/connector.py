@@ -69,6 +69,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             HOLD_SHARE,
             time.monotonic_ns,
             lambda owner: self.observed.observation(*owner),
+            partial=self.settings.advice_mechanism == "reachable-hold",
         )
         self.clock_domain = "engine-" + uuid.uuid4().hex
         self.cpu_chunk_bytes = int(spec.kv_bytes_per_chunk)
@@ -202,13 +203,14 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             else self.recency
         )
         target: ARCRecency | HoldTarget = recency
-        if self.settings.advice_mechanism == "promote-hold":
+        if self.settings.advice_mechanism in ("promote-hold", "reachable-hold"):
             target = HoldTarget(
                 recency,
                 self.holds,
                 (hint.scope, hint.session),
                 hint.deadline_ns,
                 observation,
+                evict_unreachable=self.settings.advice_mechanism == "reachable-hold",
             )
         result = advise(
             self.observed,

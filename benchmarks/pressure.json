@@ -48,26 +48,26 @@
    308,
    312
   ],
-  "settle": {
+  "decide": {
    "qwen35-4b-int4": [
-    301,
-    303,
-    305,
-    308,
-    312,
-    313,
-    314,
-    315
+    401,
+    402,
+    403,
+    404,
+    405,
+    407,
+    408,
+    412
    ],
    "gemma4-12b-int4": [
-    302,
-    304,
-    305,
-    307,
-    308,
-    309,
-    310,
-    311
+    401,
+    402,
+    404,
+    409,
+    411,
+    412,
+    413,
+    416
    ]
   }
  },
@@ -93,7 +93,7 @@
     ]
    ],
    "gpu_blocks": 36,
-   "cpu_bytes": 1730150400,
+   "cpu_bytes": 1038090240,
    "oracle_cpu_bytes": 4498391040,
    "batch_tokens": 2048,
    "prefill_tokens_per_second": 4000.0,
@@ -179,7 +179,7 @@
   },
   "candidate": {
    "system": "wait-hint",
-   "mechanism": "promote-hold",
+   "mechanism": "reachable-hold",
    "pool": "pressure",
    "role": "candidate hint"
   },
@@ -229,7 +229,7 @@
    ],
    "cell_seconds": 1500
   },
-  "settle": {
+  "decide": {
    "arms": [
     "native-arc",
     "wait-hint",

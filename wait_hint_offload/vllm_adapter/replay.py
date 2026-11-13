@@ -35,7 +35,15 @@ class NativeCache:
         self.holds = ARCHolds(
             policy, hold_share, lambda: int(self.now * NANOSECONDS), self.tokens.get
         )
+        self.partial = ARCHolds(
+            policy,
+            hold_share,
+            lambda: int(self.now * NANOSECONDS),
+            self.tokens.get,
+            partial=True,
+        )
         self.oracle = ARCHolds(policy, 1.0, lambda: 0, self.tokens.get)
+        self.unreachable = 0
 
     def ready(self, key: bytes) -> bool:
         return self.manager.lookup(OffloadKey(key), self.context) is LookupResult.HIT
@@ -76,12 +84,19 @@ class NativeCache:
             applied = recency.refresh_prefix(full.keys)
         elif arm == "promote":
             applied = recency.promote_prefix(full.keys)
-        elif arm == "promote-hold":
+        elif arm in ("promote-hold", "reachable-hold"):
+            reachable = arm == "reachable-hold"
             target = HoldTarget(
-                recency, self.holds, identity, int(deadline * NANOSECONDS), token
+                recency,
+                self.partial if reachable else self.holds,
+                identity,
+                int(deadline * NANOSECONDS),
+                token,
+                evict_unreachable=reachable,
             )
             target.refresh_prefix(full.keys)
             applied = target.held
+            self.unreachable += target.unreachable
         elif arm in ("hold", "oracle"):
             holds = self.oracle if arm == "oracle" else self.holds
             limit = UNBOUNDED_NS if arm == "oracle" else int(deadline * NANOSECONDS)
@@ -95,10 +110,17 @@ class NativeCache:
     def release(self, owner: str) -> None:
         self.tokens.pop(("replay", owner), None)
         self.holds.release(("replay", owner))
+        self.partial.release(("replay", owner))
         self.oracle.release(("replay", owner))
 
     def counters(self) -> dict[str, int]:
-        return {"hold_yields": self.holds.yielded + self.oracle.yielded}
+        return {
+            "hold_yields": self.holds.yielded
+            + self.partial.yielded
+            + self.oracle.yielded,
+            "unreachable_marked": self.unreachable,
+            "unreachable_evicted": self.partial.dead_evicted,
+        }
 
 
 def native_identity() -> dict[str, str]:

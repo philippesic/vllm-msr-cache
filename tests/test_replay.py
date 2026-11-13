@@ -241,7 +241,7 @@ def test_comparison_applies_every_clause_of_the_decision_rule() -> None:
         "good",
         native=arm(500, 300, 2),
         recency=arm(450, 300),
-        **{"promote-hold": arm(200, 320, 2)},
+        **{"reachable-hold": arm(200, 320, 2)},
     )
     assert good["discrimination"]["status"] == "discriminating"
     assert compare([good])["simulated_rule_met"]
@@ -249,28 +249,28 @@ def test_comparison_applies_every_clause_of_the_decision_rule() -> None:
         "worse",
         native=arm(500, 300),
         recency=arm(450, 300),
-        **{"promote-hold": arm(460, 300)},
+        **{"reachable-hold": arm(460, 300)},
     )
     assert not compare([good, worse])["simulated_rule_met"]
     harm = scenario(
         "harm",
         native=arm(500, 300),
         recency=arm(450, 300),
-        **{"promote-hold": arm(200, 340)},
+        **{"reachable-hold": arm(200, 340)},
     )
     assert not compare([harm])["simulated_rule_met"]
     failing = scenario(
         "failing",
         native=arm(500, 300, 1),
         recency=arm(450, 300),
-        **{"promote-hold": arm(200, 300, 2)},
+        **{"reachable-hold": arm(200, 300, 2)},
     )
     assert not compare([failing])["simulated_rule_met"]
     close = scenario(
         "close",
         native=arm(500, 300),
         recency=arm(450, 300),
-        **{"promote-hold": arm(440, 300)},
+        **{"reachable-hold": arm(440, 300)},
     )
     assert not compare([close])["simulated_rule_met"]
     blind: dict[str, Any] = {
@@ -278,7 +278,7 @@ def test_comparison_applies_every_clause_of_the_decision_rule() -> None:
         "oracle": arm(100, 100),
         "native": arm(100, 100),
         "recency": arm(100, 100),
-        "promote-hold": arm(100, 100),
+        "reachable-hold": arm(100, 100),
     }
     flat: dict[str, Any] = {
         "name": "flat",

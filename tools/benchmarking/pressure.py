@@ -24,6 +24,7 @@ from tools.runtime_verify import snapshot, write_record
 DEFINITION = Path("benchmarks/pressure.json")
 DEFINITION_SCHEMA = "pressure-definition-v1"
 CELL_SCHEMA = "pressure-cell-v1"
+HOLD_MECHANISMS = ("promote-hold", "reachable-hold")
 REPORT_SCHEMA = "pressure-report-v1"
 TOKEN_RANGE = (1000, 30000)
 PROBE_TOKENS = 2112
@@ -126,7 +127,7 @@ def replay_scenario(
             "gpu_prefix_reuse": model["gpu_prefix_reuse"],
         },
         "schedule": {**workload_for(definition, model_id), "seed": seeds[0]},
-        "seeds": len(seeds),
+        "seeds": list(seeds),
     }
 
 
@@ -798,7 +799,7 @@ def contracts(
         checks["advice_mechanism"] = bool(mechanisms) and set(mechanisms) == {expected}
         if arm["system"] == "wait-hint":
             checks["advice_applied"] = advice["decisions"].get("refreshed", 0) > 0
-        if arm["mechanism"] == "promote-hold" and arm["system"] == "wait-hint":
+        if arm["mechanism"] in HOLD_MECHANISMS and arm["system"] == "wait-hint":
             checks["holds_applied"] = advice["held_keys"] > 0
     return checks
 

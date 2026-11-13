@@ -162,10 +162,10 @@ def test_schema_refusal_and_config() -> None:
             "namespace": namespace.mapping(),
             "cpu_bytes_to_use": 1024,
             "advice_enabled": True,
-            "advice_mechanism": "promote-hold",
+            "advice_mechanism": "reachable-hold",
         }
     )
-    assert candidate.mechanisms()["advice"] == "promote-hold"
+    assert candidate.mechanisms()["advice"] == "reachable-hold"
     for mechanism in ("lru", 1):
         with pytest.raises(ValueError, match="advice_mechanism"):
             Settings.parse(

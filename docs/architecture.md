@@ -3,9 +3,9 @@
 The product performs exact native CPU KV offload. A completed transcript may
 register an observed prefix; a later causal wait hint may refresh the ready CPU
 prefix in native ARC. There is no scoring, GPU prefetch, approximate reuse,
-request-priority change or separate eviction policy; the experimental promote-hold
-mechanism below only promotes and temporarily withholds ready keys from native
-eviction.
+request-priority change or separate eviction policy; the experimental hold
+mechanisms below only promote, temporarily withhold ready keys from native eviction
+and, for reachable-hold, evict a hinted session's unreachable keys first.
 
 ## Ownership and boundaries
 
@@ -15,7 +15,7 @@ eviction.
 | `config.py` | Closed product settings and resolved mechanism attribution |
 | `observed.py` | Bounded scheduler-owned observations and replay state |
 | `advice.py` | Causal, identity and replay validation; advice-disabled control |
-| `vllm_adapter/arc.py` | Ready-prefix scan, recency movement, promotion and bounded holds |
+| `vllm_adapter/arc.py` | Ready-prefix scan, recency movement, promotion, bounded holds and unreachable-first eviction |
 | `vllm_adapter/replay.py` | Native manager binding for the CPU trace-replay simulator |
 | `vllm_adapter/connector.py` | Native construction, computed-token bounds, registration and scheduler cleanup |
 | `vllm_adapter/transfers.py` | Submission/completion failure reporting and failed-load destinations |
@@ -111,7 +111,16 @@ with the same scope/session, the hint deadline, replacement or retirement of its
 observation, or a cache reset. Held keys are capped at half the CPU pool; a hint
 that would exceed the cap promotes without holding. If a native eviction cannot be
 satisfied without held keys, the holds are ignored for that eviction, so holds never
-cause a store failure. Promote-hold is an opt-in experimental mechanism: its
+cause a store failure. `reachable-hold` is promote-hold plus two changes. The
+hint also marks the session's unreachable keys: sliding-window and recurrent-state
+keys before the window its ready boundary needs (for Gemma, local-attention keys
+more than 1,024 tokens back; for Qwen, recurrent checkpoints before the last one).
+A return at that boundary can never use them, and evictions take marked keys that
+are idle and unprotected before asking native ARC for the rest, all or nothing.
+When an eviction cannot be satisfied with holds in place, holds are released one
+at a time, earliest deadline first, instead of all at once. A return at a shorter
+boundary (for example after context compaction) may need marked keys and then
+recomputes. Promote-hold is an opt-in experimental mechanism: its
 first comparison ([result](../results/promote-hold-advice/result.md)) and an
 eight-seed settle round ([result](../results/promote-hold-settle/result.md)) did not
 meet their pre-registered rules: it helped Gemma but not Qwen and had weak seeds in

@@ -71,7 +71,7 @@ def summary(
             "hints_published": 3,
             "abandoned_hints": 1,
             "decisions": {"refreshed": 3},
-            "mechanisms": {"promote-hold": 3},
+            "mechanisms": {"reachable-hold": 3},
             "held_keys": 12,
             "refreshed_keys": 12,
         },
@@ -284,8 +284,8 @@ def test_profile_seeds_cover_every_cohort_before_gpu_work() -> None:
         for profile in DEFINITION["seeds"]:
             seeds = profile_seeds(DEFINITION, profile, model, [])
             assert all(covers_cohorts(DEFINITION, seed, model) for seed in seeds)
-    assert profile_seeds(DEFINITION, "settle", "gemma4-12b-int4", [])[0] == 302
-    assert profile_seeds(DEFINITION, "settle", "gemma4-12b-int4", [312]) == [312]
+    assert profile_seeds(DEFINITION, "decide", "gemma4-12b-int4", [])[0] == 401
+    assert profile_seeds(DEFINITION, "decide", "gemma4-12b-int4", [312]) == [312]
     assert not covers_cohorts(DEFINITION, 101, "qwen35-4b-int4")
 
 

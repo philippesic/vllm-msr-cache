@@ -12,7 +12,7 @@ MAX_EVENTS = 100_000
 DEFAULT_METADATA_BYTES = 64 * 1024 * 1024
 MAX_METADATA_BYTES = 256 * 1024 * 1024
 MAX_CPU_BYTES = 2**50
-MECHANISMS = ("recency", "promote-hold")
+MECHANISMS = ("recency", "promote-hold", "reachable-hold")
 
 
 @dataclass(frozen=True)

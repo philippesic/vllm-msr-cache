@@ -42,7 +42,7 @@ def test_simulator_drives_the_pinned_manager_and_product_advice() -> None:
     assert restored["cohorts"]["hinted"]["recomputed_tokens"] == 48
     pressured = {
         arm: Replay(schedule(), geometry(130), arm, NativeCache).run()
-        for arm in ("native", "recency", "promote-hold")
+        for arm in ("native", "recency", "promote-hold", "reachable-hold")
     }
     assert pressured["native"]["activity"]["cpu_evictions"] > 0
     assert pressured["promote-hold"]["activity"]["advised_keys"] == 15
@@ -51,3 +51,24 @@ def test_simulator_drives_the_pinned_manager_and_product_advice() -> None:
         < pressured["recency"]["cohorts"]["hinted"]["recomputed_tokens"]
     )
     assert set(native_identity()) == {"arc_policy_sha256", "cpu_manager_sha256"}
+
+
+def test_recurrent_groups_store_only_scheduling_step_checkpoints() -> None:
+    hybrid = Geometry(
+        16,
+        ((64, None), (64, 1)),
+        512,
+        1000,
+        1,
+        256,
+        4000.0,
+        0.01,
+        0.01,
+        0.01,
+        60.0,
+        0.5,
+        False,
+    )
+    sessions = [Session("a", 0.0, (Turn(1024, 1, 0, 0.0),), False, False)]
+    result = Replay(sessions, hybrid, "native", NativeCache).run()
+    assert result["activity"]["cpu_stored_keys"] == 16 + 4

@@ -25,7 +25,16 @@ from tools.process import run_owned
 from tools.runtime_verify import write_record
 from wait_hint_offload.observed import ObservedGroup
 
-ARMS = ("gpu-only", "native", "recency", "promote", "hold", "promote-hold", "oracle")
+ARMS = (
+    "gpu-only",
+    "native",
+    "recency",
+    "promote",
+    "hold",
+    "promote-hold",
+    "reachable-hold",
+    "oracle",
+)
 COHORTS = ("hinted", "unhinted")
 
 
@@ -332,7 +341,11 @@ class Replay:
         candidates = [
             key
             for index, group in enumerate(keys)
-            for key in group[running.stored[index] :]
+            for key in (
+                group[running.stored[index] :][-1:]
+                if self.geometry.groups[index][1] == 1
+                else group[running.stored[index] :]
+            )
         ]
         if not candidates:
             return
@@ -444,8 +457,7 @@ def evaluate(
         cohorts = {name: Counter[str]() for name in COHORTS}
         activity: Counter[str] = Counter()
         per_seed = []
-        base = scenario["schedule"].get("seed", 0)
-        for seed in range(base, base + scenario["seeds"]):
+        for seed in seed_list(scenario):
             sessions = schedule({**scenario["schedule"], "seed": seed}, shapes)
             run_result = Replay(sessions, geometry, arm, factory).run()
             for name in COHORTS:
@@ -470,6 +482,14 @@ def evaluate(
         "arms": results,
         "discrimination": discrimination(results),
     }
+
+
+def seed_list(scenario: dict[str, Any]) -> list[int]:
+    seeds = scenario["seeds"]
+    if isinstance(seeds, list):
+        return [int(seed) for seed in seeds]
+    base = scenario["schedule"].get("seed", 0)
+    return list(range(base, base + int(seeds)))
 
 
 def recomputed_share(result: dict[str, Any], name: str = "hinted") -> float:
@@ -556,7 +576,7 @@ def load_scenarios(path: Path, names: Sequence[str] = ()) -> list[dict[str, Any]
 
 def compare(
     scenarios: Sequence[dict[str, Any]],
-    candidate: str = "promote-hold",
+    candidate: str = "reachable-hold",
     reference: str = "recency",
     control: str = "native",
 ) -> dict[str, Any]:
