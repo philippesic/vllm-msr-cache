@@ -2,7 +2,7 @@
 
 The benchmark suite is under implementation in [the active task](../tasks/benchmark-design.md).
 The [evidence contract](benchmark-contract.md) defines the decisions and validity requirements.
-release-01 is being stopped at Philip's requested panel boundary; its existing queue
+release-01 stopped after panel 0/7 at Philip's requested boundary; its existing queue
 is cancelled. Do not resume or launch the old schedule. Compare and release
 acquisition are not qualified.
 Do not use a successful model probe as release or performance evidence.
@@ -36,12 +36,17 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   mechanism evidence, not a replacement for a complete application campaign.
 - `probe-model --trace-case I1 --trace-seconds 180` is a bounded continuation
   diagnostic. It uses the failed Gemma prompt (token IDs 5000 through 8071, 32 output
-  tokens), recording three fresh executions, a GPU-resident return and a CPU-restored
-  return, all with the same parameters and top-five logprobs. The reader checks actual
+  tokens), recording three fresh executions, a GPU-resident return and a return after
+  GPU displacement, all with the same parameters and top-five logprobs. CPU arms
+  require restored reuse; the GPU-only displaced control requires zero cached tokens.
+  The reader checks actual
   cache conditions and recomputes token comparisons. A completed diagnostic can report
   unequal tokens; that is an observed correctness question, not a passing invariance
-  gate. It does not repeat or replace the failed operating cell. Live qualification
-  remains pending until the stopped campaign releases the GPU.
+  gate. It does not repeat or replace the failed operating cell. Native and GPU-only
+  diagnostics completed and were independently verified: fresh outputs were stable,
+  while GPU-resident outputs differed even without CPU offload. Native restoration
+  also reproduced the final-token mismatch. Correctness qualification remains
+  unresolved; commands, attempt paths and scope are in the active task.
 
 - `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures

@@ -16,7 +16,7 @@ caches are dependencies, not the sole home of authored project work or results.
 
 Existing benchmark acquisition still uses
 `/home/philip/.local/share/vllm-semantic-cache-ext-next/` and isolated runtime
-venvs. release-01 is stopping at a panel boundary and its follow-up is cancelled.
+venvs. release-01 stopped after panel 0/7 and its follow-up is cancelled.
 Preserve the attempts, frozen checkouts and required environments for verification
 and possible explicitly authorized resume; do not launch the cancelled queue.
 The old output tree and inactive agent pilot, early qualification, overhaul and

@@ -62,13 +62,12 @@ The benchmark uses frozen 50e53cf/386715e checkouts. History integration is comp
 rebased head f99ef6f, whose tree is byte-identical to original-next a064c9ae. Original
 next main is preserved under refs/archive/next/pre-graft-main; all cited hashes remain
 reachable. Connectivity checks passed for 461 archive refs. Rename remains pending.
-A disposable history-integration rehearsal rebased all 54 commits at cdbbebf6 onto
-original main successfully: final tree byte-identical and original main an ancestor.
-It required resolving only the first root commit to the original clean root tree.
-The scratch checkout was removed; the maintained branch remains unchanged.
-The existing same-thread continuation now covers both tasks and the latest storage
-policy; no duplicate schedule exists. The active thread's project is still bound to
-the old root; update its workspace binding and schedule paths before removing it.
+Ownership of the remaining fixes has transferred to Philip's separately delegated
+agent. This thread's continuation is disabled and must not compete for the checkout
+or GPU. Public main and the sole next-pre-graft-main preservation tag were pushed
+and verified at 91d8121a; other archive refs remain local. The active thread's project
+is still bound to the old root; update its workspace binding before removing it.
+This thread's schedule must remain disabled.
 The private hosted copy still exists: DELETE returned HTTP 403 despite admin=true.
 Its removal needs effective delete-repository permission; local work can continue.
 
@@ -79,8 +78,8 @@ verify and curate actual partial outcomes. Preserve
 adverse evidence before pruning raw runs. Consolidate useful project assets and
 rebuild project environments inside the final repository. Preserve original next
 hashes and the verified old-main ancestry through the checkout/reference rename to
-wait-hint-kv. Update workspace binding and this same schedule;
-push only main and next-pre-graft-main to the approved public remote after acceptance;
+wait-hint-kv. Update workspace binding;
+keep publication limited to main and next-pre-graft-main on the approved public remote;
 remove old checkouts, duplicate archives/bundles and obsolete external environments
 only after ownership/recovery checks. Keep historical source bytes unchanged.
 Delete this task only after actual completion, not at this checkpoint.
