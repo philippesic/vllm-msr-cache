@@ -27,6 +27,7 @@ from vllm.v1.kv_offload.cpu.common import CPULoadStoreSpec
 from vllm.v1.kv_offload.cpu.manager import CPUOffloadingManager
 from vllm.v1.kv_offload.cpu.policies.arc import ARCCachePolicy
 
+from tests.runtime.kv_probe import KVProbe
 from tests.runtime.support import native_fixture
 from tools.config import hardware_model
 from wait_hint_offload.contracts import Hint, Namespace
@@ -535,59 +536,6 @@ def test_large_head_attention_matches_float_reference() -> None:
                 )
 
 
-def kv_storages(worker: Any) -> dict[int, torch.Tensor]:
-    runner = worker.model_runner
-    blocks = int(runner.kv_cache_config.num_blocks)
-    stores: dict[int, torch.Tensor] = {}
-    for tensor in runner.kv_caches:
-        storage = tensor.untyped_storage()
-        if storage.data_ptr() not in stores:
-            raw = torch.empty(0, dtype=torch.uint8, device=tensor.device)
-            stores[storage.data_ptr()] = raw.set_(storage).view(blocks, -1)
-    return stores
-
-
-def snapshot_kv(worker: Any) -> int:
-    worker.kv_snapshot = {
-        pointer: rows.cpu() for pointer, rows in kv_storages(worker).items()
-    }
-    return len(worker.kv_snapshot)
-
-
-def clear_kv(worker: Any) -> int:
-    stores = kv_storages(worker)
-    for rows in stores.values():
-        rows.zero_()
-    torch.cuda.synchronize()
-    return len(stores)
-
-
-def compare_kv(worker: Any) -> dict[str, int]:
-    import hashlib
-
-    written = matched = 0
-    for pointer, rows in kv_storages(worker).items():
-        before = worker.kv_snapshot[pointer]
-        after = rows.cpu()
-        stored: dict[bytes, int] = {}
-        for block in range(before.shape[0]):
-            digest = hashlib.blake2b(before[block].numpy().tobytes()).digest()
-            stored.setdefault(digest, block)
-        for block in torch.nonzero(after.any(dim=1)).flatten().tolist():
-            written += 1
-            source = stored.get(
-                hashlib.blake2b(after[block].numpy().tobytes()).digest()
-            )
-            matched += int(
-                source is not None and torch.equal(before[source], after[block])
-            )
-    del worker.kv_snapshot
-    return {
-        "blocks_written_after_clear": written,
-        "written_blocks_identical_to_a_stored_block": matched,
-    }
-
-
 def generate_once(llm: LLM, prompt: list[int], params: SamplingParams) -> Any:
     return llm.generate(
         [TokensPrompt(prompt_token_ids=prompt)], params, use_tqdm=False
@@ -623,6 +571,7 @@ def test_restored_kv_bytes_match_stored_and_resident_boundary_output() -> None:
                 "advice_enabled": False,
             },
         ),
+        worker_extension_cls="tests.runtime.kv_probe.KVProbe",
         **options,
     )
     params = SamplingParams(temperature=0, max_tokens=32, ignore_eos=True)
@@ -631,15 +580,14 @@ def test_restored_kv_bytes_match_stored_and_resident_boundary_output() -> None:
         resident = generate_once(llm, prompt, params)
         generate_once(llm, prompt, params)
         generate_once(llm, prompt, params)
-        llm.collective_rpc(snapshot_kv)
+        llm.collective_rpc(KVProbe.snapshot_kv.__name__)
         assert llm.reset_prefix_cache(reset_connector=False)
-        llm.collective_rpc(clear_kv)
+        llm.collective_rpc(KVProbe.clear_kv.__name__)
         restored = generate_once(llm, prompt, params)
-        comparison = llm.collective_rpc(compare_kv)[0]
+        comparison: dict[str, int] = llm.collective_rpc(KVProbe.compare_kv.__name__)[0]
         boundary = 64 * 24
         assert resident.num_cached_tokens == restored.num_cached_tokens == boundary
-        assert comparison["changed_blocks"] > 0
-        assert comparison["restored_blocks_matching_stored_bytes"] > 0, comparison
+        assert comparison["written_blocks_identical_to_a_stored_block"] > 0
         same_boundary = list(restored.outputs[0].token_ids) == list(
             resident.outputs[0].token_ids
         )
