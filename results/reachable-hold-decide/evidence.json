@@ -1,0 +1,890 @@
+{
+ "schema": "reachable-hold-decide-evidence-v1",
+ "question": "Does reachable-hold (promote, bounded hold yielding earliest deadline first, unreachable window keys evicted first) beat the recency wait hint under the pooled rule fixed in commit 20b56941?",
+ "rule_commit": "20b56941 (tasks/reachable-hold-round.md, fixed before any run of this round)",
+ "runs": {
+  "qwen35-4b-int4/native-arc": "artifacts/runs/decide-qwen35-4b-int4-native-arc",
+  "qwen35-4b-int4/wait-hint": "artifacts/runs/decide-qwen35-4b-int4-wait-hint",
+  "qwen35-4b-int4/candidate": "artifacts/runs/decide-qwen35-4b-int4-candidate",
+  "qwen35-4b-int4/native-arc-repeat": "artifacts/runs/decide-qwen35-4b-int4-native-arc-repeat",
+  "gemma4-12b-int4/native-arc": "artifacts/runs/decide-gemma4-12b-int4-native-arc",
+  "gemma4-12b-int4/wait-hint": "artifacts/runs/decide-gemma4-12b-int4-wait-hint",
+  "gemma4-12b-int4/candidate": "artifacts/runs/decide-gemma4-12b-int4-candidate",
+  "gemma4-12b-int4/native-arc-repeat": "artifacts/runs/decide-gemma4-12b-int4-native-arc-repeat"
+ },
+ "models": {
+  "qwen35-4b-int4": {
+   "pooled": {
+    "advice-off": {
+     "hinted_recomputed": 107712,
+     "hinted_reusable": 242880,
+     "hinted_share": 0.4435,
+     "unhinted_recomputed": 86592,
+     "unhinted_reusable": 191136,
+     "unhinted_share": 0.453,
+     "mean_hinted_ttft_ms": 1057.8,
+     "store_failures": 0,
+     "cell_states": [
+      "valid"
+     ]
+    },
+    "recency": {
+     "hinted_recomputed": 75504,
+     "hinted_reusable": 242880,
+     "hinted_share": 0.3109,
+     "unhinted_recomputed": 86064,
+     "unhinted_reusable": 191136,
+     "unhinted_share": 0.4503,
+     "mean_hinted_ttft_ms": 939.6,
+     "store_failures": 0,
+     "cell_states": [
+      "valid"
+     ]
+    },
+    "reachable-hold": {
+     "hinted_recomputed": 42240,
+     "hinted_reusable": 242880,
+     "hinted_share": 0.1739,
+     "unhinted_recomputed": 69696,
+     "unhinted_reusable": 191136,
+     "unhinted_share": 0.3646,
+     "mean_hinted_ttft_ms": 778.5,
+     "store_failures": 0,
+     "cell_states": [
+      "valid"
+     ]
+    }
+   },
+   "per_seed": [
+    {
+     "seed": 401,
+     "advice-off": {
+      "hinted": [
+       12144,
+       23232
+      ],
+      "unhinted": [
+       14256,
+       32736
+      ],
+      "mean_hinted_ttft_ms": 1039.42,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       11616,
+       23232
+      ],
+      "unhinted": [
+       14256,
+       32736
+      ],
+      "mean_hinted_ttft_ms": 1586.28,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       8448,
+       23232
+      ],
+      "unhinted": [
+       14256,
+       32736
+      ],
+      "mean_hinted_ttft_ms": 928.52,
+      "valid": true
+     }
+    },
+    {
+     "seed": 402,
+     "advice-off": {
+      "hinted": [
+       20592,
+       31680
+      ],
+      "unhinted": [
+       14784,
+       24288
+      ],
+      "mean_hinted_ttft_ms": 1062.24,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       6864,
+       31680
+      ],
+      "unhinted": [
+       9504,
+       24288
+      ],
+      "mean_hinted_ttft_ms": 623.18,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       7920,
+       31680
+      ],
+      "unhinted": [
+       7920,
+       24288
+      ],
+      "mean_hinted_ttft_ms": 648.99,
+      "valid": true
+     }
+    },
+    {
+     "seed": 403,
+     "advice-off": {
+      "hinted": [
+       12672,
+       31152
+      ],
+      "unhinted": [
+       6336,
+       17424
+      ],
+      "mean_hinted_ttft_ms": 1407.39,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       6336,
+       31152
+      ],
+      "unhinted": [
+       2640,
+       17424
+      ],
+      "mean_hinted_ttft_ms": 657.01,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       3168,
+       31152
+      ],
+      "unhinted": [
+       2112,
+       17424
+      ],
+      "mean_hinted_ttft_ms": 590.62,
+      "valid": true
+     }
+    },
+    {
+     "seed": 404,
+     "advice-off": {
+      "hinted": [
+       9504,
+       23232
+      ],
+      "unhinted": [
+       13200,
+       23760
+      ],
+      "mean_hinted_ttft_ms": 1024.69,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       9504,
+       23232
+      ],
+      "unhinted": [
+       13200,
+       23760
+      ],
+      "mean_hinted_ttft_ms": 1028.84,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       2112,
+       23232
+      ],
+      "unhinted": [
+       8976,
+       23760
+      ],
+      "mean_hinted_ttft_ms": 1185.4,
+      "valid": true
+     }
+    },
+    {
+     "seed": 405,
+     "advice-off": {
+      "hinted": [
+       3696,
+       28512
+      ],
+      "unhinted": [
+       4752,
+       24288
+      ],
+      "mean_hinted_ttft_ms": 678.75,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       8448,
+       28512
+      ],
+      "unhinted": [
+       12144,
+       24288
+      ],
+      "mean_hinted_ttft_ms": 819.3,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       6336,
+       28512
+      ],
+      "unhinted": [
+       10560,
+       24288
+      ],
+      "mean_hinted_ttft_ms": 741.11,
+      "valid": true
+     }
+    },
+    {
+     "seed": 407,
+     "advice-off": {
+      "hinted": [
+       23760,
+       40128
+      ],
+      "unhinted": [
+       13200,
+       17424
+      ],
+      "mean_hinted_ttft_ms": 1160.64,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       10560,
+       40128
+      ],
+      "unhinted": [
+       14256,
+       17424
+      ],
+      "mean_hinted_ttft_ms": 958.31,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       5808,
+       40128
+      ],
+      "unhinted": [
+       528,
+       17424
+      ],
+      "mean_hinted_ttft_ms": 1026.49,
+      "valid": true
+     }
+    },
+    {
+     "seed": 408,
+     "advice-off": {
+      "hinted": [
+       15312,
+       35904
+      ],
+      "unhinted": [
+       12144,
+       24816
+      ],
+      "mean_hinted_ttft_ms": 1102.03,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       9504,
+       35904
+      ],
+      "unhinted": [
+       11616,
+       24816
+      ],
+      "mean_hinted_ttft_ms": 703.31,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       4224,
+       35904
+      ],
+      "unhinted": [
+       15312,
+       24816
+      ],
+      "mean_hinted_ttft_ms": 556.83,
+      "valid": true
+     }
+    },
+    {
+     "seed": 412,
+     "advice-off": {
+      "hinted": [
+       10032,
+       29040
+      ],
+      "unhinted": [
+       7920,
+       26400
+      ],
+      "mean_hinted_ttft_ms": 987.21,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       12672,
+       29040
+      ],
+      "unhinted": [
+       8448,
+       26400
+      ],
+      "mean_hinted_ttft_ms": 1140.26,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       4224,
+       29040
+      ],
+      "unhinted": [
+       10032,
+       26400
+      ],
+      "mean_hinted_ttft_ms": 550.02,
+      "valid": true
+     }
+    }
+   ]
+  },
+  "gemma4-12b-int4": {
+   "pooled": {
+    "advice-off": {
+     "hinted_recomputed": 96160,
+     "hinted_reusable": 178944,
+     "hinted_share": 0.5374,
+     "unhinted_recomputed": 44864,
+     "unhinted_reusable": 78400,
+     "unhinted_share": 0.5722,
+     "mean_hinted_ttft_ms": 2269.6,
+     "store_failures": 0,
+     "cell_states": [
+      "valid"
+     ]
+    },
+    "recency": {
+     "hinted_recomputed": 73808,
+     "hinted_reusable": 178944,
+     "hinted_share": 0.4125,
+     "unhinted_recomputed": 47360,
+     "unhinted_reusable": 78400,
+     "unhinted_share": 0.6041,
+     "mean_hinted_ttft_ms": 1909.9,
+     "store_failures": 0,
+     "cell_states": [
+      "valid"
+     ]
+    },
+    "reachable-hold": {
+     "hinted_recomputed": 11728,
+     "hinted_reusable": 178944,
+     "hinted_share": 0.0655,
+     "unhinted_recomputed": 35344,
+     "unhinted_reusable": 78400,
+     "unhinted_share": 0.4508,
+     "mean_hinted_ttft_ms": 1054.4,
+     "store_failures": 0,
+     "cell_states": [
+      "valid"
+     ]
+    }
+   },
+   "per_seed": [
+    {
+     "seed": 401,
+     "advice-off": {
+      "hinted": [
+       8864,
+       27200
+      ],
+      "unhinted": [
+       2880,
+       2880
+      ],
+      "mean_hinted_ttft_ms": 2158.19,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       7360,
+       27200
+      ],
+      "unhinted": [
+       2880,
+       2880
+      ],
+      "mean_hinted_ttft_ms": 1609.26,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       5568,
+       27200
+      ],
+      "unhinted": [
+       2880,
+       2880
+      ],
+      "mean_hinted_ttft_ms": 1453.05,
+      "valid": true
+     }
+    },
+    {
+     "seed": 402,
+     "advice-off": {
+      "hinted": [
+       9040,
+       28224
+      ],
+      "unhinted": [
+       3648,
+       11840
+      ],
+      "mean_hinted_ttft_ms": 1539.12,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       2176,
+       28224
+      ],
+      "unhinted": [
+       3152,
+       11840
+      ],
+      "mean_hinted_ttft_ms": 1013.93,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       1296,
+       28224
+      ],
+      "unhinted": [
+       2048,
+       11840
+      ],
+      "mean_hinted_ttft_ms": 970.91,
+      "valid": true
+     }
+    },
+    {
+     "seed": 404,
+     "advice-off": {
+      "hinted": [
+       6736,
+       10368
+      ],
+      "unhinted": [
+       8576,
+       11840
+      ],
+      "mean_hinted_ttft_ms": 2123.04,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       7168,
+       10368
+      ],
+      "unhinted": [
+       11440,
+       11840
+      ],
+      "mean_hinted_ttft_ms": 2080.28,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       768,
+       10368
+      ],
+      "unhinted": [
+       9024,
+       11840
+      ],
+      "mean_hinted_ttft_ms": 919.78,
+      "valid": true
+     }
+    },
+    {
+     "seed": 409,
+     "advice-off": {
+      "hinted": [
+       14192,
+       17600
+      ],
+      "unhinted": [
+       10496,
+       15488
+      ],
+      "mean_hinted_ttft_ms": 3201.5,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       10368,
+       17600
+      ],
+      "unhinted": [
+       13312,
+       15488
+      ],
+      "mean_hinted_ttft_ms": 2516.38,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       0,
+       17600
+      ],
+      "unhinted": [
+       6080,
+       15488
+      ],
+      "mean_hinted_ttft_ms": 1012.37,
+      "valid": true
+     }
+    },
+    {
+     "seed": 411,
+     "advice-off": {
+      "hinted": [
+       15984,
+       33856
+      ],
+      "unhinted": [
+       5312,
+       7936
+      ],
+      "mean_hinted_ttft_ms": 1967.39,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       12032,
+       33856
+      ],
+      "unhinted": [
+       5312,
+       7936
+      ],
+      "mean_hinted_ttft_ms": 1581.82,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       1792,
+       33856
+      ],
+      "unhinted": [
+       5312,
+       7936
+      ],
+      "mean_hinted_ttft_ms": 935.78,
+      "valid": true
+     }
+    },
+    {
+     "seed": 412,
+     "advice-off": {
+      "hinted": [
+       5760,
+       16320
+      ],
+      "unhinted": [
+       2576,
+       15680
+      ],
+      "mean_hinted_ttft_ms": 1521.94,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       5440,
+       16320
+      ],
+      "unhinted": [
+       2576,
+       15680
+      ],
+      "mean_hinted_ttft_ms": 1516.88,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       1152,
+       16320
+      ],
+      "unhinted": [
+       7248,
+       15680
+      ],
+      "mean_hinted_ttft_ms": 905.28,
+      "valid": true
+     }
+    },
+    {
+     "seed": 413,
+     "advice-off": {
+      "hinted": [
+       19520,
+       24896
+      ],
+      "unhinted": [
+       5232,
+       6592
+      ],
+      "mean_hinted_ttft_ms": 2714.69,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       13184,
+       24896
+      ],
+      "unhinted": [
+       2544,
+       6592
+      ],
+      "mean_hinted_ttft_ms": 2035.14,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       576,
+       24896
+      ],
+      "unhinted": [
+       0,
+       6592
+      ],
+      "mean_hinted_ttft_ms": 1090.97,
+      "valid": true
+     }
+    },
+    {
+     "seed": 416,
+     "advice-off": {
+      "hinted": [
+       16064,
+       20480
+      ],
+      "unhinted": [
+       6144,
+       6144
+      ],
+      "mean_hinted_ttft_ms": 2930.63,
+      "valid": true
+     },
+     "recency": {
+      "hinted": [
+       16080,
+       20480
+      ],
+      "unhinted": [
+       6144,
+       6144
+      ],
+      "mean_hinted_ttft_ms": 2925.37,
+      "valid": true
+     },
+     "reachable-hold": {
+      "hinted": [
+       576,
+       20480
+      ],
+      "unhinted": [
+       2752,
+       6144
+      ],
+      "mean_hinted_ttft_ms": 1146.72,
+      "valid": true
+     }
+    }
+   ]
+  }
+ },
+ "aa_repeats": {
+  "qwen35-4b-int4": {
+   "401": {
+    "hinted": [
+     12144,
+     12144,
+     23232
+    ],
+    "unhinted": [
+     14256,
+     14256,
+     32736
+    ]
+   },
+   "402": {
+    "hinted": [
+     20592,
+     20592,
+     31680
+    ],
+    "unhinted": [
+     14784,
+     14784,
+     24288
+    ]
+   }
+  },
+  "gemma4-12b-int4": {
+   "401": {
+    "hinted": [
+     8864,
+     16160,
+     27200
+    ],
+    "unhinted": [
+     2880,
+     2880,
+     2880
+    ]
+   },
+   "402": {
+    "hinted": [
+     9040,
+     9040,
+     28224
+    ],
+    "unhinted": [
+     3648,
+     3648,
+     11840
+    ]
+   }
+  }
+ },
+ "outcome": {
+  "qwen35-4b-int4": {
+   "R1_ratio": 0.559,
+   "R1_not_worse": "7/8",
+   "R2_worst_points": 3.3,
+   "R3_unhinted_vs_off_points": -8.8,
+   "R3_unhinted_vs_recency_points": -8.6,
+   "R4_store_failures": [
+    0,
+    0
+   ],
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true
+  },
+  "gemma4-12b-int4": {
+   "R1_ratio": 0.159,
+   "R1_not_worse": "8/8",
+   "R2_worst_points": -3.1,
+   "R3_unhinted_vs_off_points": -12.1,
+   "R3_unhinted_vs_recency_points": -15.3,
+   "R4_store_failures": [
+    0,
+    0
+   ],
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true
+  },
+  "R5": "runtime CPU lane 28/28 and dense GPU functional lane 5/5 (artifacts/runs/functional-gpu-05) on the adopted code; functional-gpu-04 failed only because the lane relied on the caller exporting VLLM_SERVER_DEV_MODE for its cache reset, now set by the lane",
+  "decision": "adopt reachable-hold; retire recency and promote-hold"
+ },
+ "conditions": {
+  "gemma_gpu_kv_tokens": 9676,
+  "qwen_pool_keys": 60,
+  "gemma_pool_keys": 2560,
+  "gpu_minutes": {
+   "diagnostics": 17,
+   "round": 120,
+   "functional_lanes": 5
+  },
+  "precheck": "simulated the exact seed list; simulated_rule_met true for both models",
+  "builtin_verifier_rule": "verify-pressure still reported the superseded first-round rule (every repetition no worse); it marked Qwen not met because seed 402 was 1,056 tokens worse. That rule was replaced before the settle round; this round is judged by R1-R5. The built-in rule was removed with the candidate arm."
+ },
+ "qwen_diagnosis": {
+  "run": "artifacts/runs/diag-qwen-lookup-03 (seed 301, promote-hold, old 100-key pool, targeted lookup logging)",
+  "finding": "Every full loss on a return whose complete prefix was ready in CPU was the pinned vLLM hybrid lookup: a quick return still had full-attention blocks on GPU without matching Mamba state, the scheduler asked the connector only for tokens beyond that GPU hit, got zero, and then fell back to the boundary all groups agree on (often zero), discarding the CPU copy. Remaining losses were compaction returns whose 528-token Mamba checkpoint is never stored and partial hits at earlier checkpoints. None were evictions.",
+  "pool": "The engine stores about 2.5 keys per 528-token Qwen chunk (Mamba state only at scheduling-step ends), not 4, so the 100-key pool held the whole working set and eviction rarely touched returning sessions. This round used 60 keys (0.6 of the working set), as the benchmark documents intended.",
+  "joined": [
+   {
+    "request": "s2 t1",
+    "gpu_hit": 2112,
+    "connector_tokens": 0,
+    "cached": 0
+   },
+   {
+    "request": "s0 t2",
+    "gpu_hit": 3168,
+    "connector_tokens": 0,
+    "cached": 0
+   },
+   {
+    "request": "s0 t5",
+    "gpu_hit": 1584,
+    "connector_tokens": 0,
+    "cached": 0
+   },
+   {
+    "request": "s2 t5",
+    "gpu_hit": 4224,
+    "connector_tokens": 0,
+    "cached": 0
+   },
+   {
+    "request": "s0 t7",
+    "gpu_hit": 528,
+    "connector_tokens": 0,
+    "cached": 0
+   },
+   {
+    "request": "s3 t6",
+    "gpu_hit": 4224,
+    "connector_tokens": 0,
+    "cached": 4224
+   }
+  ]
+ },
+ "gemma_promote_hold_failure": "Settle seed 305: the session s1 t3 hint found no ready prefix (its keys were evicted during its own run) while abandoned sessions s0 and s2 held 759 of 2,560 keys until their 60 s deadlines; about 70% of each long Gemma conversation's stored keys are sliding-window keys a return at its boundary cannot use.",
+ "simulator": {
+  "settle_seeds": "artifacts/runs/sim-v3-settle",
+  "decide_seeds": "artifacts/runs/sim-decide",
+  "explored": "Moving unreachable keys to the T1 front alone (demote) caused store failures and mixed Gemma results; unreachable-first eviction with holds was best on both models; partial yield never triggered in simulation.",
+  "decide_prediction_hinted_share": {
+   "qwen35-4b-int4": {
+    "recency": 0.209,
+    "reachable-hold": 0.041
+   },
+   "gemma4-12b-int4": {
+    "recency": 0.38,
+    "reachable-hold": 0.059
+   }
+  }
+ }
+}
