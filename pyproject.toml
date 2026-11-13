@@ -3,7 +3,7 @@ requires = ["hatchling==1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
-name = "vllm-semantic-cache-ext-next"
+name = "wait-hint-kv"
 version = "0.0.0"
 description = "Exact CPU KV offload with wait-hint ARC recency advice"
 requires-python = "==3.12.3"

@@ -1,4 +1,4 @@
-# vllm-semantic-cache-ext-next
+# wait-hint-kv
 
 Exact CPU KV offload for vLLM with causal wait-hint advice. A completed request can
 register its prefix; a later hint protects that prefix's ready CPU blocks in vLLM's
