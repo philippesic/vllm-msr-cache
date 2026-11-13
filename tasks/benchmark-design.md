@@ -63,15 +63,28 @@ their maintenance reports): fresh outputs match; GPU-resident reuse alters outpu
 even without CPU offload; native restore differs only at token 32. Keep both
 original Gemma soaks failed; exactness remains unresolved.
 
-Pressure benchmark (`python -m tools.benchmark pressure`, benchmarks/pressure.json) is
-implemented with controls, activity contracts, cohort-covering seeds, a pre-GPU
-simulator check and CPU fixture/mutation tests. Its pre-check predicted, before any
-engine comparison, that on the Qwen engine workload the candidate cuts hinted
-recomputation but raises unhinted recomputation about 9 points (rule 2 fails in
-simulation there); Gemma is predicted to pass. The first smoke attempt
-(pressure-smoke-01) failed at Qwen startup (20 GPU blocks cannot hold one hybrid
-request); pressure cells now use 36 blocks and max length 6144.
+Pressure benchmark (`python -m tools.benchmark pressure`, benchmarks/pressure.json)
+is implemented with controls, activity contracts, cohort-covering seeds, a pre-GPU
+simulator check and CPU fixture/mutation tests. Smoke pressure-smoke-03: all seven
+Qwen cells valid and discriminating (gpu-only 100% vs oracle 1.1% hinted recomputed,
+A/A 11 points at seed 102). Gemma was stopped after three cells: native offload stores
+21 one-MiB keys per 64 tokens, so the 1400 MiB pool held less than one conversation
+and the contracts marked native-arc unexercised. Engine gpu-only recomputed about all
+returning prefixes on both hybrid models, so the simulator gained a calibrated
+`gpu_prefix_reuse: false` option (pressure definitions and four added tracked
+scenarios); the tracked set still meets the rule in all 13 discriminating scenarios.
+Gemma now has its own workload override (4 sessions, 4000 tokens, 2.5 GiB pool,
+7.5 GiB oracle pool). Calibrated pre-check predicts the candidate fails rule 2 on the
+Qwen engine workload (+6 points unhinted) and passes on Gemma.
+
+Qwen engine (smoke seed 102 plus advice seeds 201/209/216, pressure-advice-qwen-01):
+all 16 cells valid. Hinted recomputed tokens native/current/candidate: 2640/13200/528,
+9504/7920/7920, 9504/8448/8448, 1584/1584/1584. Candidate unhinted share is 2.7 points
+below native. Rule satisfied by its letter on Qwen, but three of four repetitions are
+exact ties and the gain comes from one seed with large A/A noise.
+Philip asked (2026-11-12, 21:44) that the audit thread be told when the 2080 Ti is
+free; it was told at 21:50. Check idle before every later GPU run and wait if busy.
 
 ## Next
-Finish smoke pressure-smoke-03, then run the `advice` profile (3 seeds, native-arc,
-wait-hint, candidate, both models), apply the rule, then the Gemma KV byte case.
+Gemma smoke and advice profiles (idle GPU only), apply the rule per model, dense
+functional GPU lane with the candidate, Gemma KV byte case, then close out.

@@ -134,6 +134,10 @@ def test_activity_contracts_detect_advice_off_small_pool_and_no_competition() ->
         keys_per_token,
     )
     assert quiet["cpu_evictions"] is False and quiet["cpu_restores"] is False
+    oracle = contracts(summary((1000, 0), (500, 0)), ARMS["oracle"], keys_per_token)
+    assert oracle["oracle_pool_never_full"] is False and "cpu_evictions" not in oracle
+    roomy = summary((1000, 0), (500, 0), pool_keys=400)
+    assert contracts(roomy, ARMS["oracle"], keys_per_token)["oracle_pool_never_full"]
     idle = contracts(summary((1000, 0), (500, 0)), ARMS["gpu-only"], None)
     assert idle["gpu_displacement"] is False
     lmcache = contracts(summary((1000, 100), (500, 50)), ARMS["lmcache"], None)
@@ -202,11 +206,9 @@ def write_cell(directory: Path, model: str, arm: str, cell: dict[str, Any]) -> N
 def test_verifier_recomputes_from_raw_requests_and_withholds_blind_comparisons(
     tmp_path: Path,
 ) -> None:
-    (tmp_path / "admission.json").write_text(
-        json.dumps({"definition": DEFINITION, "definition_sha256": "fixture"})
-    )
+    (tmp_path / "admission.json").write_text(json.dumps({"definition": DEFINITION}))
     seed = DEFINITION["seeds"]["smoke"][0]
-    sessions = sessions_for(DEFINITION, seed)
+    sessions = sessions_for(DEFINITION, seed, "qwen35-4b-int4")
     model = "qwen35-4b-int4"
     for arm in ("gpu-only", "native-arc", "native-arc-repeat", "oracle"):
         rows = [
@@ -278,9 +280,10 @@ def test_release_01_evidence_is_rejected_as_unexercised() -> None:
 def test_profile_seeds_cover_every_cohort_before_gpu_work() -> None:
     from tools.benchmarking.pressure import covers_cohorts
 
-    for seeds in DEFINITION["seeds"].values():
-        assert all(covers_cohorts(DEFINITION, seed) for seed in seeds)
-    assert not covers_cohorts(DEFINITION, 101)
+    for model in DEFINITION["models"]:
+        for seeds in DEFINITION["seeds"].values():
+            assert all(covers_cohorts(DEFINITION, seed, model) for seed in seeds)
+    assert not covers_cohorts(DEFINITION, 101, "qwen35-4b-int4")
 
 
 def test_plan_projects_cost_from_measured_cells(tmp_path: Path) -> None:

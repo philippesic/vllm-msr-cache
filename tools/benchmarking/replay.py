@@ -63,6 +63,7 @@ class Geometry:
     hint_delay_seconds: float
     hint_deadline_seconds: float
     hold_share: float
+    gpu_prefix_reuse: bool
 
     def __post_init__(self) -> None:
         if (
@@ -260,7 +261,11 @@ class Replay:
         blocks.extend(
             next(self.ids) for _ in range(shape.prompt // block - len(blocks))
         )
-        gpu_tokens = self.gpu.hit(blocks, (shape.prompt - 1) // block) * block
+        gpu_tokens = (
+            self.gpu.hit(blocks, (shape.prompt - 1) // block) * block
+            if geometry.gpu_prefix_reuse
+            else 0
+        )
         hit_tokens = gpu_tokens
         keys = self.keys(session.name, shape.prompt)
         stored = [0] * len(geometry.groups)

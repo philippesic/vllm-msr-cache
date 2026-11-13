@@ -19,6 +19,7 @@ def geometry(cpu_keys: int) -> Geometry:
         0.01,
         60.0,
         0.5,
+        True,
     )
 
 

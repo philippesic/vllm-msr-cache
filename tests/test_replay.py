@@ -92,6 +92,7 @@ def geometry(**changes: Any) -> Geometry:
         "hint_delay_seconds": 0.01,
         "hint_deadline_seconds": 60.0,
         "hold_share": 0.5,
+        "gpu_prefix_reuse": True,
     }
     return Geometry(**{**values, **changes})
 

@@ -40,13 +40,13 @@
   ],
   "advice": [
    201,
-   202,
-   204
+   209,
+   216
   ],
   "full": [
-   301,
-   303,
-   305
+   305,
+   308,
+   312
   ]
  },
  "models": {
@@ -78,7 +78,8 @@
    "decode_seconds_per_token": 0.065,
    "cpu_chunk_bytes": 17301504,
    "gpu_tokens": 12672,
-   "hit_alignment": 528
+   "hit_alignment": 528,
+   "gpu_prefix_reuse": false
   },
   "gemma4-12b-int4": {
    "block_tokens": 16,
@@ -88,39 +89,45 @@
      null
     ],
     [
-     64,
-     null
+     16,
+     64
     ],
     [
-     64,
-     16
+     16,
+     64
     ],
     [
-     64,
-     16
+     16,
+     64
     ],
     [
-     64,
-     16
+     16,
+     64
     ],
     [
-     64,
-     16
-    ],
-    [
-     64,
-     16
+     16,
+     64
     ]
    ],
    "gpu_blocks": null,
-   "cpu_bytes": 1468006400,
-   "oracle_cpu_bytes": 3774873600,
+   "cpu_bytes": 2684354560,
+   "oracle_cpu_bytes": 8053063680,
    "batch_tokens": 512,
    "prefill_tokens_per_second": 1500.0,
    "decode_seconds_per_token": 0.1,
    "cpu_chunk_bytes": 1048576,
    "gpu_tokens": 12352,
-   "hit_alignment": 64
+   "hit_alignment": 64,
+   "workload": {
+    "sessions": 4,
+    "one_shot": 2,
+    "one_shot_prompt": [
+     1500,
+     2500
+    ],
+    "max_context": 4000
+   },
+   "gpu_prefix_reuse": false
   }
  },
  "arms": {

@@ -30,7 +30,8 @@
    "store_seconds": 0.02,
    "hint_delay_seconds": 0.02,
    "hint_deadline_seconds": 60.0,
-   "hold_share": 0.5
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": true
   },
   "qwen-pressure": {
    "block_tokens": 528,
@@ -61,7 +62,8 @@
    "store_seconds": 0.02,
    "hint_delay_seconds": 0.02,
    "hint_deadline_seconds": 60.0,
-   "hold_share": 0.5
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": true
   },
   "qwen-pressure-r4": {
    "block_tokens": 528,
@@ -92,7 +94,8 @@
    "store_seconds": 0.02,
    "hint_delay_seconds": 0.02,
    "hint_deadline_seconds": 60.0,
-   "hold_share": 0.5
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": true
   },
   "gemma-release-01": {
    "block_tokens": 16,
@@ -135,7 +138,8 @@
    "store_seconds": 0.02,
    "hint_delay_seconds": 0.02,
    "hint_deadline_seconds": 60.0,
-   "hold_share": 0.5
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": true
   },
   "gemma-small-pool": {
    "block_tokens": 16,
@@ -178,7 +182,84 @@
    "store_seconds": 0.02,
    "hint_delay_seconds": 0.02,
    "hint_deadline_seconds": 60.0,
-   "hold_share": 0.5
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": true
+  },
+  "qwen-pressure-no-gpu-reuse": {
+   "block_tokens": 528,
+   "groups": [
+    [
+     528,
+     null
+    ],
+    [
+     528,
+     1
+    ],
+    [
+     528,
+     1
+    ],
+    [
+     528,
+     1
+    ]
+   ],
+   "gpu_blocks": 32,
+   "cpu_keys": 160,
+   "max_running": 2,
+   "batch_tokens": 2048,
+   "prefill_tokens_per_second": 4000.0,
+   "decode_seconds_per_token": 0.065,
+   "store_seconds": 0.02,
+   "hint_delay_seconds": 0.02,
+   "hint_deadline_seconds": 60.0,
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": false
+  },
+  "gemma-release-01-no-gpu-reuse": {
+   "block_tokens": 16,
+   "groups": [
+    [
+     64,
+     null
+    ],
+    [
+     64,
+     null
+    ],
+    [
+     64,
+     16
+    ],
+    [
+     64,
+     16
+    ],
+    [
+     64,
+     16
+    ],
+    [
+     64,
+     16
+    ],
+    [
+     64,
+     16
+    ]
+   ],
+   "gpu_blocks": 772,
+   "cpu_keys": 2048,
+   "max_running": 2,
+   "batch_tokens": 512,
+   "prefill_tokens_per_second": 1500.0,
+   "decode_seconds_per_token": 0.1,
+   "store_seconds": 0.02,
+   "hint_delay_seconds": 0.02,
+   "hint_deadline_seconds": 60.0,
+   "hold_share": 0.5,
+   "gpu_prefix_reuse": false
   }
  },
  "schedules": {
@@ -449,6 +530,34 @@
    "name": "gemma-small-pool",
    "model": "gemma4-12b-int4",
    "geometry": "gemma-small-pool",
+   "schedule": "synthetic-10s",
+   "seeds": 4
+  },
+  {
+   "name": "qwen-recorded-no-gpu-reuse",
+   "model": "qwen35-4b-int4",
+   "geometry": "qwen-pressure-no-gpu-reuse",
+   "schedule": "qwen-recorded",
+   "seeds": 6
+  },
+  {
+   "name": "qwen-10s-waits-no-gpu-reuse",
+   "model": "qwen35-4b-int4",
+   "geometry": "qwen-pressure-no-gpu-reuse",
+   "schedule": "synthetic-10s",
+   "seeds": 6
+  },
+  {
+   "name": "qwen-one-shot-no-gpu-reuse",
+   "model": "qwen35-4b-int4",
+   "geometry": "qwen-pressure-no-gpu-reuse",
+   "schedule": "synthetic-one-shot",
+   "seeds": 6
+  },
+  {
+   "name": "gemma-10s-waits-no-gpu-reuse",
+   "model": "gemma4-12b-int4",
+   "geometry": "gemma-release-01-no-gpu-reuse",
    "schedule": "synthetic-10s",
    "seeds": 4
   }

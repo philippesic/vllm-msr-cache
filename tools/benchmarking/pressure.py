@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import socket
@@ -28,6 +29,14 @@ TOKEN_RANGE = (1000, 30000)
 PROBE_TOKENS = 2112
 ENDPOINT_ARMS = ("native-arc", "wait-hint")
 MAX_MODEL_LEN = 6144
+SIMULATOR_FIELDS = {
+    "groups",
+    "batch_tokens",
+    "prefill_tokens_per_second",
+    "decode_seconds_per_token",
+    "gpu_tokens",
+    "gpu_prefix_reuse",
+}
 
 
 def load_definition(root: Path) -> dict[str, Any]:
@@ -41,12 +50,33 @@ def load_definition(root: Path) -> dict[str, Any]:
     return raw
 
 
-def sessions_for(definition: dict[str, Any], seed: int) -> list[Session]:
-    return schedule({**definition["workload"], "seed": seed})
+def workload_for(definition: dict[str, Any], model: str) -> dict[str, Any]:
+    override = definition["models"][model].get("workload", {})
+    if set(override) - set(definition["workload"]):
+        raise ValueError("model workload override names unknown fields")
+    return {**definition["workload"], **override}
 
 
-def covers_cohorts(definition: dict[str, Any], seed: int) -> bool:
-    returning = [s for s in sessions_for(definition, seed) if len(s.turns) > 1]
+def model_identity(definition: dict[str, Any], model: str) -> str:
+    material = {
+        "workload": workload_for(definition, model),
+        "model": {
+            key: value
+            for key, value in definition["models"][model].items()
+            if key not in SIMULATOR_FIELDS
+        },
+        "arms": definition["arms"],
+        "controls": definition["controls"],
+    }
+    return hashlib.sha256(json.dumps(material, sort_keys=True).encode()).hexdigest()
+
+
+def sessions_for(definition: dict[str, Any], seed: int, model: str) -> list[Session]:
+    return schedule({**workload_for(definition, model), "seed": seed})
+
+
+def covers_cohorts(definition: dict[str, Any], seed: int, model: str) -> bool:
+    returning = [s for s in sessions_for(definition, seed, model) if len(s.turns) > 1]
     return (
         sum(s.hinted for s in returning) >= 2
         and any(not s.hinted for s in returning)
@@ -84,8 +114,9 @@ def replay_scenario(
             "hint_delay_seconds": 0.02,
             "hint_deadline_seconds": 60.0,
             "hold_share": 0.5,
+            "gpu_prefix_reuse": model["gpu_prefix_reuse"],
         },
-        "schedule": {**definition["workload"], "seed": seeds[0]},
+        "schedule": {**workload_for(definition, model_id), "seed": seeds[0]},
         "seeds": len(seeds),
     }
 
@@ -343,13 +374,14 @@ def serve_arm(
     output: Path,
     python: Path,
     model_path: Path,
-    model: dict[str, Any],
+    model_id: str,
     arm_name: str,
     arm: dict[str, Any],
     definition: dict[str, Any],
     seeds: list[int],
     cell_seconds: int,
 ) -> list[dict[str, Any]]:
+    model = definition["models"][model_id]
     idle = gpu_idle()
     for _ in range(30):
         if idle["idle"]:
@@ -413,7 +445,7 @@ def serve_arm(
                         else restoration_check(base, arm, model)
                     )
                     before = offload_metrics(base)
-                    sessions = sessions_for(definition, seed)
+                    sessions = sessions_for(definition, seed, model_id)
                     rows, errors = replay_sessions(
                         base,
                         arm,
@@ -547,9 +579,10 @@ def run_pressure(
     if "lmcache" in selected and lmcache_python is None:
         raise ValueError("lmcache arm requires --lmcache-python")
     uncovered = [
-        seed
+        (model, seed)
+        for model in models
         for seed in definition["seeds"][profile]
-        if not covers_cohorts(definition, seed)
+        if not covers_cohorts(definition, seed, model)
     ]
     if uncovered:
         raise ValueError(
@@ -594,7 +627,7 @@ def run_pressure(
                 output / "cells" / model_id / arm_name,
                 python,
                 path,
-                definition["models"][model_id],
+                model_id,
                 arm_name,
                 arm,
                 definition,
@@ -659,10 +692,11 @@ def advice_activity(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def cell_summary(
-    cell: dict[str, Any], model: dict[str, Any], definition: dict[str, Any]
+    cell: dict[str, Any], model_id: str, definition: dict[str, Any]
 ) -> dict[str, Any]:
+    model = definition["models"][model_id]
     rows = cell.get("requests", [])
-    sessions = sessions_for(definition, cell["seed"])
+    sessions = sessions_for(definition, cell["seed"], model_id)
     finals = {(s.name, len(s.turns) - 1) for s in sessions}
     rows = [{**row, "final": (row["session"], row["turn"]) in finals} for row in rows]
     before, after = cell.get("metrics_before", {}), cell.get("metrics_after", {})
@@ -724,6 +758,11 @@ def contracts(
             None
             if keys_per_token is None
             else summary["distinct_tokens"] * keys_per_token > summary["pool_keys"]
+        )
+    elif arm["pool"] == "oracle":
+        checks["cpu_restores"] = summary["loaded_bytes"] > 0
+        checks["oracle_pool_never_full"] = (
+            summary["stored_keys"] <= summary["pool_keys"]
         )
     else:
         checks["cpu_restores"] = summary["loaded_bytes"] > 0
@@ -829,19 +868,21 @@ def advice_rule(
 
 def verify_pressure(*directories: Path) -> dict[str, Any]:
     cells: dict[str, dict[str, list[dict[str, Any]]]] = {}
-    definitions = set()
+    identities: dict[str, set[str]] = {}
     definition: dict[str, Any] = {}
     for directory in directories:
         admission = json.loads((directory / "admission.json").read_text())
-        definitions.add(admission["definition_sha256"])
         definition = admission["definition"]
         for path in sorted(directory.glob("cells/*/*/cell-*.json")):
             model_id, arm_name = path.parent.parent.name, path.parent.name
+            identities.setdefault(model_id, set()).add(
+                model_identity(definition, model_id)
+            )
             cell = json.loads(path.read_text())
-            summary = cell_summary(cell, definition["models"][model_id], definition)
+            summary = cell_summary(cell, model_id, definition)
             cells.setdefault(model_id, {}).setdefault(arm_name, []).append(summary)
-    if len(definitions) != 1:
-        raise ValueError("pressure directories use different definitions")
+    if any(len(found) != 1 for found in identities.values()):
+        raise ValueError("pressure directories use different model definitions")
     report: dict[str, Any] = {"schema": REPORT_SCHEMA, "models": {}}
     for model_id, arms in cells.items():
         rates = [
