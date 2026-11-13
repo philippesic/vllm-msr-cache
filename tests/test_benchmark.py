@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -404,10 +405,14 @@ def test_controlled_trace_uses_unique_events_and_detects_restore_corruption(
     (sustained_output / "admission.json").write_text(json.dumps(specification))
     original = json.loads((sustained_output / "request-000.json").read_text())
     original["label"] = "soak-1"
-    returned = json.loads(json.dumps(original))
+    resident = json.loads(json.dumps(original))
+    resident["label"] = "soak-resident-1"
+    resident["request"].pop("kv_transfer_params", None)
+    resident["response"]["usage"]["prompt_tokens_details"]["cached_tokens"] = 64
+    resident["response"]["choices"][0]["token_ids"] = [7]
+    returned = json.loads(json.dumps(resident))
     returned["label"] = "soak-return-1"
-    returned["request"].pop("kv_transfer_params", None)
-    for index, entry in enumerate((original, returned), 1000):
+    for index, entry in enumerate((original, returned, resident), 1000):
         (sustained_output / f"request-{index}.json").write_text(json.dumps(entry))
     sustained = json.loads((sustained_output / "terminal.json").read_text())
     sustained["admission_sha256"] = digest_file(sustained_output / "admission.json")
@@ -1283,3 +1288,20 @@ def test_campaign_keeps_failed_cells_in_coverage(
     (output / "terminal.json").write_text(json.dumps(terminal))
     with pytest.raises(ValueError, match="coverage incomplete"):
         verify_campaign(output)
+
+
+def test_sustained_check_compares_restored_with_resident_at_same_boundary() -> None:
+    from tools.benchmarking.traces import same_boundary_mismatch
+
+    def record(cached: int, tokens: list[int]) -> dict[str, Any]:
+        return {
+            "response": {
+                "usage": {"prompt_tokens_details": {"cached_tokens": cached}},
+                "choices": [{"token_ids": tokens}],
+            }
+        }
+
+    assert same_boundary_mismatch(record(3072, [1, 2]), record(3072, [1, 3]))
+    assert not same_boundary_mismatch(record(3072, [1, 2]), record(3072, [1, 2]))
+    assert not same_boundary_mismatch(record(3008, [1, 2]), record(3071, [1, 3]))
+    assert not same_boundary_mismatch(record(0, [1, 2]), record(0, [1, 3]))

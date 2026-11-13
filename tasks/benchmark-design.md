@@ -63,7 +63,15 @@ their maintenance reports): fresh outputs match; GPU-resident reuse alters outpu
 even without CPU offload; native restore differs only at token 32. Keep both
 original Gemma soaks failed; exactness remains unresolved.
 
+Pressure benchmark (`python -m tools.benchmark pressure`, benchmarks/pressure.json) is
+implemented with controls, activity contracts, cohort-covering seeds, a pre-GPU
+simulator check and CPU fixture/mutation tests. Its pre-check predicted, before any
+engine comparison, that on the Qwen engine workload the candidate cuts hinted
+recomputation but raises unhinted recomputation about 9 points (rule 2 fails in
+simulation there); Gemma is predicted to pass. The first smoke attempt
+(pressure-smoke-01) failed at Qwen startup (20 GPU blocks cannot hold one hybrid
+request); pressure cells now use 36 blocks and max length 6144.
+
 ## Next
-Add simulator tests and commit. Implement the pressure workload runner with controls,
-activity contracts and pre-GPU check; run the smoke profile and engine comparison;
-then Gemma restored-KV byte comparison.
+Finish smoke pressure-smoke-03, then run the `advice` profile (3 seeds, native-arc,
+wait-hint, candidate, both models), apply the rule, then the Gemma KV byte case.

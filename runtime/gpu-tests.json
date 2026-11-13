@@ -2,5 +2,6 @@
   "tests/runtime/gpu_cases.py::test_large_head_attention_matches_float_reference",
   "tests/runtime/gpu_cases.py::test_real_authenticated_http_registration_and_hint",
   "tests/runtime/gpu_cases.py::test_real_fp16_transfer_order_and_byte_equality",
+  "tests/runtime/gpu_cases.py::test_restored_kv_bytes_match_stored_and_resident_boundary_output",
   "tests/runtime/gpu_cases.py::test_serving_restore_matches_fresh_in_both_advice_modes"
 ]

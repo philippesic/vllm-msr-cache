@@ -53,8 +53,29 @@ def main() -> int:
     )
     plan = sub.add_parser("plan")
     plan.add_argument(
-        "--profile", choices=("functional", "compare", "release"), required=True
+        "--profile",
+        choices=(
+            "functional",
+            "compare",
+            "release",
+            "pressure-smoke",
+            "pressure-advice",
+            "pressure-full",
+        ),
+        required=True,
     )
+    plan.add_argument("--calibration", type=Path, action="append", default=[])
+    pressure = sub.add_parser("pressure")
+    pressure.add_argument(
+        "--profile", choices=("smoke", "advice", "full"), required=True
+    )
+    pressure.add_argument("--runtime-python", type=Path, required=True)
+    pressure.add_argument("--lmcache-python", type=Path)
+    pressure.add_argument("--model", action="append", required=True)
+    pressure.add_argument("--arm", action="append", default=[])
+    pressure.add_argument("--out", type=Path, required=True)
+    pressure_verify = sub.add_parser("verify-pressure")
+    pressure_verify.add_argument("directory", type=Path, nargs="+")
     sub.add_parser("models")
     verify = sub.add_parser("verify-probe")
     verify.add_argument("directory", type=Path)
@@ -253,7 +274,50 @@ def main() -> int:
         print(json.dumps(apply_runtime_patches(root, args.runtime_python, args.names)))
         return 0
     if args.operation == "plan":
+        if args.profile.startswith("pressure-"):
+            from tools.benchmarking.pressure import projection
+
+            print(
+                json.dumps(
+                    projection(
+                        root, args.profile.removeprefix("pressure-"), args.calibration
+                    ),
+                    indent=2,
+                )
+            )
+            return 0
         print(json.dumps(describe(args.profile), indent=2))
+        return 0
+    if args.operation == "pressure":
+        from tools.benchmarking.pressure import run_pressure
+
+        models = {}
+        for value in args.model:
+            identity, separator, path = value.partition("=")
+            if not separator or identity in models:
+                raise ValueError("models require unique ID=PATH entries")
+            models[identity] = Path(path).resolve()
+        summary = run_pressure(
+            root,
+            args.profile,
+            models,
+            args.runtime_python.absolute(),
+            args.lmcache_python.absolute() if args.lmcache_python else None,
+            args.out.resolve(),
+            args.arm,
+        )
+        write = args.out.resolve() / "report.json"
+        write.write_text(json.dumps(summary, indent=2) + "\n")
+        print(json.dumps({"report": str(write)}))
+        return 0
+    if args.operation == "verify-pressure":
+        from tools.benchmarking.pressure import verify_pressure
+
+        print(
+            json.dumps(
+                verify_pressure(*(path.resolve() for path in args.directory)), indent=2
+            )
+        )
         return 0
     if args.operation == "models":
         print((root / "benchmarks/models.json").read_text())

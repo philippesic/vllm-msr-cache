@@ -29,6 +29,12 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
 - `verify-probe artifacts/runs/attempt` checks a v3/v4/v5/v6 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
+- New traces use `benchmark-trace-v3`: the sustained operating check sends each
+  returning prompt (1025, 3073 or 6145 tokens) once more while it is GPU-resident,
+  displaces the GPU cache and compares the CPU-restored return with that resident
+  return when both reused the same number of cached tokens. A fresh run is not the
+  reference, because GPU prefix reuse alone changes Gemma's output. v1/v2 receipts
+  keep their original fresh-run comparison.
 - A focused controlled probe adds `--trace-case T1|T2 --trace-seconds 180
   --pressure-prefixes 24` to `probe-model`. T1 checks resident/restored continuation;
   T2 adds competition, abandoned advice and unhinted return. Use 48 pressure prefixes
@@ -69,6 +75,46 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   comparison. Results are simulated direction: arrival times are arm-independent,
   loads are instantaneous, and Gemma's cache-group layout (two full groups and five
   1024-token sliding groups at 64-token chunks) is inferred from observed CPU usage.
+- `pressure --profile smoke|advice|full --runtime-python PY --lmcache-python LMPY
+  --model ID=PATH [--model ...] [--arm NAME ...] --out artifacts/runs/NEW` is the
+  multi-session pressure benchmark defined in `benchmarks/pressure.json`. Before any
+  GPU work it refuses seeds whose schedule lacks hinted, unhinted or abandoned
+  sessions, and runs each model's workload through the simulator (`precheck.json`):
+  a model whose `gpu-only` and oracle-pool hinted recomputed shares differ by less
+  than 10 points is refused. Each model/arm gets one server; repetitions reuse it
+  after a full cache reset. A cell first restores a separate 2112-token prefix
+  after a GPU-only reset (the measured sessions are never pre-promoted), measures
+  CPU keys per token from native store bytes, then replays the seeded schedule:
+  five concurrent sessions as token-ID prompts (each turn reuses the previous
+  prompt and actual output tokens up to the declared shared prefix), four one-shot
+  competitors, real gaps, `ignore_eos` fixed-length outputs, and one hint per wait
+  published at completion (abandoning sessions hint after their last turn). Pressure
+  cells use `--max-model-len 6144`, conversations of at most 5000 tokens, two
+  running requests, Qwen's GPU cache limited to 36 blocks (12,288 tokens) and
+  Gemma's native 12,352 tokens, against a working set near 21K tokens. CPU pools
+  are about 0.6 of the working set (Qwen 100 keys of 16.5 MiB, Gemma 1400 MiB);
+  LMCache gets the same nominal bytes. Arms: `gpu-only` (known worse),
+  `native-arc` and `native-arc-repeat` (advice-disabled control and its A/A repeat),
+  `wait-hint` (current recency), `candidate` (promote-hold), `lmcache`, and
+  `oracle` (native ARC with a pool larger than every stored token, the known-better
+  control; an engine hold-until-return would need a product-only setting).
+  `verify-pressure DIR [DIR ...]` recomputes everything from raw request records.
+  Recomputed tokens on return are the shared prefix floored to the model's hit
+  alignment (528 Qwen, 64 Gemma) minus cached tokens; TTFT is the engine's.
+  A cell is `valid` only if its activity contracts hold: hinted and unhinted
+  returns and an abandoned hint exist; the separate-prefix restore worked; native
+  store volume exceeded the pool (evictions) and load bytes were nonzero (restores);
+  the pool holds the largest conversation at the measured keys per token; advice
+  arms acknowledged every hint with the expected mechanism and applied it; the
+  gpu-only arm shows displaced returns. Otherwise the cell is `unexercised`
+  (LMCache eviction/restore counters are not observable and are left unknown).
+  A model is `discriminating` only if valid known-worse and known-better controls
+  differ by at least 10 points and the A/A difference is smaller than that gap;
+  otherwise comparisons are withheld. Several directories (for example smoke
+  controls plus `advice` repetitions) can be verified together if they share one
+  definition. The advice rule from the active task is evaluated per model.
+  `plan --profile pressure-smoke|pressure-advice|pressure-full [--calibration DIR]`
+  projects GPU time from measured cell costs.
 - `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures
   refuse. It makes no comparative performance or release claim.

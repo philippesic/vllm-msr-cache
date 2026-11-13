@@ -533,3 +533,137 @@ def test_large_head_attention_matches_float_reference() -> None:
                 torch.testing.assert_close(
                     output.float(), expected, atol=0.004, rtol=0.004
                 )
+
+
+def kv_storages(worker: Any) -> dict[int, torch.Tensor]:
+    runner = worker.model_runner
+    blocks = int(runner.kv_cache_config.num_blocks)
+    stores: dict[int, torch.Tensor] = {}
+    for tensor in runner.kv_caches:
+        storage = tensor.untyped_storage()
+        if storage.data_ptr() not in stores:
+            raw = torch.empty(0, dtype=torch.uint8, device=tensor.device)
+            stores[storage.data_ptr()] = raw.set_(storage).view(blocks, -1)
+    return stores
+
+
+def snapshot_kv(worker: Any) -> int:
+    worker.kv_snapshot = {
+        pointer: rows.cpu() for pointer, rows in kv_storages(worker).items()
+    }
+    return len(worker.kv_snapshot)
+
+
+def clear_kv(worker: Any) -> int:
+    stores = kv_storages(worker)
+    for rows in stores.values():
+        rows.zero_()
+    torch.cuda.synchronize()
+    return len(stores)
+
+
+def compare_kv(worker: Any) -> dict[str, int]:
+    import hashlib
+
+    written = matched = 0
+    for pointer, rows in kv_storages(worker).items():
+        before = worker.kv_snapshot[pointer]
+        after = rows.cpu()
+        stored: dict[bytes, int] = {}
+        for block in range(before.shape[0]):
+            digest = hashlib.blake2b(before[block].numpy().tobytes()).digest()
+            stored.setdefault(digest, block)
+        for block in torch.nonzero(after.any(dim=1)).flatten().tolist():
+            written += 1
+            source = stored.get(
+                hashlib.blake2b(after[block].numpy().tobytes()).digest()
+            )
+            matched += int(
+                source is not None and torch.equal(before[source], after[block])
+            )
+    del worker.kv_snapshot
+    return {
+        "blocks_written_after_clear": written,
+        "written_blocks_identical_to_a_stored_block": matched,
+    }
+
+
+def generate_once(llm: LLM, prompt: list[int], params: SamplingParams) -> Any:
+    return llm.generate(
+        [TokensPrompt(prompt_token_ids=prompt)], params, use_tqdm=False
+    )[0]
+
+
+def test_restored_kv_bytes_match_stored_and_resident_boundary_output() -> None:
+    model = hardware_model()
+    gemma = json.loads((model / "config.json").read_text()).get("model_type") == (
+        "gemma4_unified"
+    )
+    namespace = Namespace(str(model), str(model), "none", "native-fp16-tp1")
+    prompt = list(range(5000, 5000 + 64 * 24 + 1))
+    options: dict[str, Any] = {"language_model_only": True} if gemma else {}
+    llm = LLM(
+        model=str(model),
+        dtype="float16",
+        enforce_eager=True,
+        max_model_len=4096,
+        max_num_seqs=1,
+        max_num_batched_tokens=512 if gemma else 2048,
+        gpu_memory_utilization=0.89 if gemma else 0.4,
+        enable_prefix_caching=True,
+        attention_config={"backend": "TRITON_ATTN"},
+        kv_transfer_config=KVTransferConfig(
+            kv_connector="WaitHintConnector",
+            kv_role="kv_both",
+            kv_load_failure_policy="recompute",
+            kv_connector_module_path="wait_hint_offload.vllm_adapter.connector",
+            kv_connector_extra_config={
+                "namespace": namespace.mapping(),
+                "cpu_bytes_to_use": 1024 * 1024 * 1024,
+                "advice_enabled": False,
+            },
+        ),
+        **options,
+    )
+    params = SamplingParams(temperature=0, max_tokens=32, ignore_eos=True)
+    try:
+        fresh = generate_once(llm, prompt, params)
+        resident = generate_once(llm, prompt, params)
+        generate_once(llm, prompt, params)
+        generate_once(llm, prompt, params)
+        llm.collective_rpc(snapshot_kv)
+        assert llm.reset_prefix_cache(reset_connector=False)
+        llm.collective_rpc(clear_kv)
+        restored = generate_once(llm, prompt, params)
+        comparison = llm.collective_rpc(compare_kv)[0]
+        boundary = 64 * 24
+        assert resident.num_cached_tokens == restored.num_cached_tokens == boundary
+        assert comparison["changed_blocks"] > 0
+        assert comparison["restored_blocks_matching_stored_bytes"] > 0, comparison
+        same_boundary = list(restored.outputs[0].token_ids) == list(
+            resident.outputs[0].token_ids
+        )
+        print(
+            json.dumps(
+                {
+                    "model": model.name,
+                    "boundary_tokens": boundary,
+                    "fresh_cached_tokens": fresh.num_cached_tokens,
+                    "resident_cached_tokens": resident.num_cached_tokens,
+                    "restored_cached_tokens": restored.num_cached_tokens,
+                    **comparison,
+                    "restored_matches_resident_at_boundary": same_boundary,
+                    "restored_matches_fresh": list(restored.outputs[0].token_ids)
+                    == list(fresh.outputs[0].token_ids),
+                    "fresh": list(fresh.outputs[0].token_ids),
+                    "resident": list(resident.outputs[0].token_ids),
+                    "restored": list(restored.outputs[0].token_ids),
+                }
+            )
+        )
+        assert same_boundary
+    finally:
+        llm.llm_engine.engine_core.shutdown()
+        del llm
+        gc.collect()
+        torch.cuda.empty_cache()

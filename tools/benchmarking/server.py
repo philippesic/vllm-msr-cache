@@ -6,7 +6,15 @@ from pathlib import Path
 
 
 def server_command(
-    python: Path, model: Path, system: str, port: int, backend: str = "TRITON_ATTN"
+    python: Path,
+    model: Path,
+    system: str,
+    port: int,
+    backend: str = "TRITON_ATTN",
+    cpu_bytes: int | None = None,
+    mechanism: str = "recency",
+    gpu_blocks: int | None = None,
+    max_model_len: int = 8192,
 ) -> tuple[list[str], dict[str, str]]:
     gemma = (
         json.loads((model / "config.json").read_text()).get("model_type")
@@ -30,7 +38,7 @@ def server_command(
         "--attention-backend",
         backend,
         "--max-model-len",
-        "8192",
+        str(max_model_len),
         "--max-num-seqs",
         "2",
         "--gpu-memory-utilization",
@@ -44,6 +52,9 @@ def server_command(
         "--enable-prompt-tokens-details",
         "--enable-per-request-metrics",
     ]
+    if gpu_blocks is not None:
+        command.extend(["--num-gpu-blocks-override", str(gpu_blocks)])
+    pool = cpu_bytes or (2048 if gemma else 256) * 1024 * 1024
     namespace = {
         "model_revision": model.name,
         "tokenizer_revision": model.name,
@@ -68,9 +79,7 @@ def server_command(
                             "lmcache.mp.autostart": True,
                             "lmcache.mp.mp_transfer_mode": "lmcache_driven",
                             "lmcache.mp.autostart.server_args": (
-                                "--l1-size-gb 2 --chunk-size "
-                                if gemma
-                                else "--l1-size-gb 0.25 --chunk-size "
+                                f"--l1-size-gb {pool / 1024**3:g} --chunk-size "
                             )
                             + ("256" if gemma else "528")
                             + " --separate-object-groups --eviction-policy LRU --disable-observability",
@@ -91,8 +100,9 @@ def server_command(
                         "kv_connector_module_path": "wait_hint_offload.vllm_adapter.connector",
                         "kv_connector_extra_config": {
                             "namespace": namespace,
-                            "cpu_bytes_to_use": (2048 if gemma else 256) * 1024 * 1024,
+                            "cpu_bytes_to_use": pool,
                             "advice_enabled": system == "wait-hint",
+                            "advice_mechanism": mechanism,
                         },
                     }
                 ),

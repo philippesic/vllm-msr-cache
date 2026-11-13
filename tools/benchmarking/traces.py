@@ -30,6 +30,19 @@ def metric_total(text: str, name: str) -> float:
     )
 
 
+def cached_tokens(record: dict[str, Any]) -> int:
+    cached: int = record["response"]["usage"]["prompt_tokens_details"]["cached_tokens"]
+    return cached
+
+
+def same_boundary_mismatch(resident: dict[str, Any], restored: dict[str, Any]) -> bool:
+    return (
+        cached_tokens(resident) == cached_tokens(restored) > 0
+        and resident["response"]["choices"][0]["token_ids"]
+        != restored["response"]["choices"][0]["token_ids"]
+    )
+
+
 def trace_activity(output: Path) -> dict[str, Any]:
     admission = json.loads((output / "admission.json").read_text())
     records = [
@@ -39,7 +52,7 @@ def trace_activity(output: Path) -> dict[str, Any]:
     events = json.loads((output / "hints.json").read_text())["events"]
     resets = (
         json.loads((output / "resets.json").read_text())["events"]
-        if admission["schema"] == "benchmark-trace-v2"
+        if admission["schema"] != "benchmark-trace-v1"
         else []
     )
     cached = {
@@ -105,7 +118,7 @@ def acquire_trace(
     sample_count = 0
     incarnation = digest_file(Path(__file__))[:16] + output.parent.name[-16:]
     specification: dict[str, Any] = {
-        "schema": "benchmark-trace-v2",
+        "schema": "benchmark-trace-v3",
         "case": case,
         "system": system,
         "seconds": seconds,
@@ -119,6 +132,7 @@ def acquire_trace(
         "timing": "fixed-work completion; offered/started/completed times retained, no capacity claim",
         "load_intervals": load_intervals,
         "load_phase_requests": {"low": 2, "near": 3, "overload": 4},
+        "sustained_reference": "GPU-resident return at the same cached boundary",
     }
     write_record(output / "admission.json", specification)
 
@@ -357,7 +371,7 @@ def acquire_trace(
         if case == "sustained":
             index = 0
             while seconds - (time.monotonic() - started) > 60:
-                prompt_tokens = (1024, 3072, 6144)[index % 3]
+                prompt_tokens = (1025, 3073, 6145)[index % 3]
                 generated = (8, 32, 64)[index % 3]
                 seed = index % 40 + 40 * ((index // 128) % 2)
                 entry = generate(
@@ -365,8 +379,18 @@ def acquire_trace(
                 )
                 records.append(entry)
                 publish(entry, 0)
+                will_return = index % 5 != 0
+                if will_return and seconds - (time.monotonic() - started) > 30:
+                    records.append(
+                        generate(
+                            "soak-resident-" + str(index),
+                            seed,
+                            generated,
+                            prompt_tokens=prompt_tokens,
+                        )
+                    )
                 reset(False)
-                if index % 5 != 0 and seconds - (time.monotonic() - started) > 30:
+                if will_return and seconds - (time.monotonic() - started) > 30:
                     returned = generate(
                         "soak-return-" + str(index),
                         seed,
@@ -374,10 +398,7 @@ def acquire_trace(
                         prompt_tokens=prompt_tokens,
                     )
                     records.append(returned)
-                    if (
-                        entry["response"]["choices"][0]["token_ids"]
-                        != returned["response"]["choices"][0]["token_ids"]
-                    ):
+                    if same_boundary_mismatch(records[-2], returned):
                         raise ValueError("sustained restored continuation differs")
                 index += 1
                 if session is not None and time.monotonic() - sampled >= 30:
@@ -476,7 +497,8 @@ def verify_trace(output: Path) -> dict[str, Any]:
     admission = json.loads((output / "admission.json").read_text())
     terminal: dict[str, Any] = json.loads((output / "terminal.json").read_text())
     if (
-        admission["schema"] not in ("benchmark-trace-v1", "benchmark-trace-v2")
+        admission["schema"]
+        not in ("benchmark-trace-v1", "benchmark-trace-v2", "benchmark-trace-v3")
         or digest_file(output / "admission.json") != terminal["admission_sha256"]
         or {
             path.name: digest_file(path)
@@ -523,19 +545,34 @@ def verify_trace(output: Path) -> dict[str, Any]:
             ]
             if not returns:
                 raise ValueError("sustained trace missing restored continuations")
+            compared = 0
             for returned in returns:
-                original = labels[returned["label"].replace("soak-return-", "soak-")]
+                prefix = (
+                    "soak-resident-"
+                    if admission["schema"] == "benchmark-trace-v3"
+                    else "soak-"
+                )
+                original = labels[returned["label"].replace("soak-return-", prefix)]
                 parameters = {
                     key: value
                     for key, value in original["request"].items()
                     if key != "kv_transfer_params"
                 }
-                if (
-                    parameters != returned["request"]
-                    or original["response"]["choices"][0]["token_ids"]
-                    != returned["response"]["choices"][0]["token_ids"]
-                ):
+                if parameters != returned["request"]:
+                    raise ValueError("sustained return parameters differ")
+                if prefix == "soak-":
+                    if (
+                        original["response"]["choices"][0]["token_ids"]
+                        != returned["response"]["choices"][0]["token_ids"]
+                    ):
+                        raise ValueError("sustained restored continuation differs")
+                    compared += 1
+                    continue
+                if same_boundary_mismatch(original, returned):
                     raise ValueError("sustained restored continuation differs")
+                compared += int(cached_tokens(original) == cached_tokens(returned))
+            if not compared:
+                raise ValueError("sustained trace has no same-boundary comparison")
         if admission["case"] == "calibration":
             service = statistics.median(
                 (
@@ -553,7 +590,7 @@ def verify_trace(output: Path) -> dict[str, Any]:
                 "overload": 0.0,
             }:
                 raise ValueError("load calibration differs from native observations")
-        if admission["schema"] == "benchmark-trace-v2" and admission["case"] in (
+        if admission["schema"] != "benchmark-trace-v1" and admission["case"] in (
             "T3",
             "R1",
             "A1",

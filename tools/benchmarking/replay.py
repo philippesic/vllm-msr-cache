@@ -439,7 +439,8 @@ def evaluate(
         cohorts = {name: Counter[str]() for name in COHORTS}
         activity: Counter[str] = Counter()
         per_seed = []
-        for seed in range(scenario["seeds"]):
+        base = scenario["schedule"].get("seed", 0)
+        for seed in range(base, base + scenario["seeds"]):
             sessions = schedule({**scenario["schedule"], "seed": seed}, shapes)
             run_result = Replay(sessions, geometry, arm, factory).run()
             for name in COHORTS:
@@ -492,7 +493,9 @@ def working_set(
     shapes: dict[str, list[list[Turn]]],
     geometry: Geometry,
 ) -> dict[str, float]:
-    sessions = schedule({**scenario["schedule"], "seed": 0}, shapes)
+    sessions = schedule(
+        {**scenario["schedule"], "seed": scenario["schedule"].get("seed", 0)}, shapes
+    )
     peaks = [
         max(turn.prompt + turn.generated for turn in session.turns)
         for session in sessions

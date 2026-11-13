@@ -133,6 +133,7 @@ SCHEDULE_FIELDS = {
     "one_shot",
     "one_shot_prompt",
     "one_shot_interval",
+    "max_context",
 }
 
 
@@ -154,7 +155,7 @@ def synthetic_turns(rng: random.Random, spec: dict[str, Any]) -> list[Turn]:
         else:
             shared = context - 1
             prompt = context + rng.randint(*spec["growth"])
-        if prompt + generated > MAX_SEQUENCE_TOKENS:
+        if prompt + generated > spec["max_context"]:
             break
         gap = lognormal(rng, spec["gap_median"], spec["gap_sigma"]) if index else 0.0
         turns.append(Turn(prompt, generated, shared, round(gap, 3)))
@@ -169,6 +170,8 @@ def schedule(
         raise ValueError(
             f"schedule fields differ: {sorted(set(spec) ^ SCHEDULE_FIELDS)}"
         )
+    if not 0 < spec["max_context"] <= MAX_SEQUENCE_TOKENS:
+        raise ValueError("max_context outside the supported sequence length")
     rng = random.Random(spec["seed"])
     sessions: list[Session] = []
     pool = (
@@ -191,6 +194,10 @@ def schedule(
                 for position, turn in enumerate(recorded)
             ]
             turns = turns[: rng.randint(*spec["turns"])] if spec["turns"] else turns
+            for position, turn in enumerate(turns):
+                if turn.prompt + turn.generated > spec["max_context"]:
+                    turns = turns[:position]
+                    break
         else:
             turns = synthetic_turns(rng, spec)
         if len(turns) < 2:
