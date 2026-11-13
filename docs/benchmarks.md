@@ -78,7 +78,12 @@ runtime, then applies the three hash-pinned packages in
 `uv pip install --python artifacts/venvs/runtime/bin/python --no-deps --require-hashes -r benchmarks/runtime-overrides.txt`.
 This is a separate environment: do not alter a runtime used by active work.
 The override restores the Transformers configuration interface used by the pinned
-vLLM; it does not fix the Gemma attention kernel limitation on Turing.
+vLLM. The separately applied, hash-pinned `gemma-turing` patch addresses the attention
+kernel's shared-memory limit on Turing. Loading and initial restored/fresh probes
+passed, but the first Gemma native-ARC sustained check stopped after a continuation
+token mismatch. This remains an unresolved correctness/operating qualification
+failure; it does not count as one hour of exposure. Preserve the failed cell and
+diagnose it after the existing queue, without replacing its result.
 
 [Harness requirements](../benchmarks/harness-requirements.txt) record the isolated
 mini-swe-agent/Harbor/SWE-bench environment. Install into a separate Python 3.12.3

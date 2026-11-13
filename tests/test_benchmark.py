@@ -395,6 +395,37 @@ def test_controlled_trace_uses_unique_events_and_detects_restore_corruption(
     offers = json.loads((load_output / "load-offers.json").read_text())["offers"]
     assert len(offers) == 9 and all(offer["status"] == "complete" for offer in offers)
 
+    import shutil
+
+    sustained_output = tmp_path / "sustained"
+    shutil.copytree(load_output, sustained_output)
+    specification = json.loads((sustained_output / "admission.json").read_text())
+    specification["case"] = "sustained"
+    (sustained_output / "admission.json").write_text(json.dumps(specification))
+    original = json.loads((sustained_output / "request-000.json").read_text())
+    original["label"] = "soak-1"
+    returned = json.loads(json.dumps(original))
+    returned["label"] = "soak-return-1"
+    returned["request"].pop("kv_transfer_params", None)
+    for index, entry in enumerate((original, returned), 1000):
+        (sustained_output / f"request-{index}.json").write_text(json.dumps(entry))
+    sustained = json.loads((sustained_output / "terminal.json").read_text())
+    sustained["admission_sha256"] = digest_file(sustained_output / "admission.json")
+    sustained["artifacts_sha256"] = {
+        path.name: digest_file(path)
+        for path in sustained_output.iterdir()
+        if path.name not in ("admission.json", "terminal.json")
+    }
+    (sustained_output / "terminal.json").write_text(json.dumps(sustained))
+    assert verify_trace(sustained_output)["complete"]
+    returned["response"]["choices"][0]["token_ids"] = [43]
+    changed = sustained_output / "request-1001.json"
+    changed.write_text(json.dumps(returned))
+    sustained["artifacts_sha256"][changed.name] = digest_file(changed)
+    (sustained_output / "terminal.json").write_text(json.dumps(sustained))
+    with pytest.raises(ValueError, match="sustained restored continuation differs"):
+        verify_trace(sustained_output)
+
     def failed_request(
         url: str, payload: dict[str, Any] | None = None, timeout: int = 30
     ) -> dict[str, Any]:

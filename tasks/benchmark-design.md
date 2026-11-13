@@ -85,6 +85,22 @@ Disable this same schedule after actual completion or a genuine consequential bl
 not after an intermediate checkpoint. Do not create a duplicate.
 Remaining work is inspecting actual campaign outcomes, repairing actionable defects,
 current workflow guidance and closeout.
+The first Gemma native-ARC sustained cell (sessions/0/5/panel/17) failed after
+93.36 seconds: soak-4 and soak-return-4 have identical generation parameters apart
+from registration, but their final token differs (236771 versus 236764). Their first
+31 tokens match; the return reports 3071 cached prompt tokens. The preceding 1K and
+6K return pairs matched. Preserve this failure; it blocks the Gemma operating and
+exact-continuation claim and does not count as the planned one-hour exposure.
+The cause is unresolved: output sensitivity to cached computation and incorrect
+restoration must be distinguished. After the admitted queue releases the GPU, use a
+bounded maintained diagnostic comparing repeated fresh, GPU-resident and CPU-restored
+execution of this exact prompt, retaining token/logprob evidence. Do not rerun the
+failed campaign cell or change its frozen inputs. [Upstream reproducibility guidance](https://docs.vllm.ai/en/stable/usage/reproducibility/)
+does not guarantee server output invariance; that possibility does not excuse an
+unexplained divergence. The independent trace reader now checks every sustained
+return pair instead of relying on acquisition's success flag. Offline verification
+with that reader accepted both retained two-hour Qwen operating cells and preserved
+the Gemma cell as failed. The remaining frozen acquisition continues unchanged.
 The live release snapshot predates explicit LMCache pressure diagnostics. Four
 focused T2 probes (two models/two starts) must supplement it after acquisition; do
 not change its frozen source or pretend the diagnostics ran inside that campaign.

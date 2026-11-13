@@ -459,6 +459,27 @@ def verify_trace(output: Path) -> dict[str, Any]:
             raise ValueError("trace restored continuation differs")
         if terminal["elapsed_seconds"] > admission["seconds"] + 15:
             raise ValueError("trace exceeded its bound")
+        if admission["case"] == "sustained":
+            returns = [
+                record
+                for label, record in labels.items()
+                if label.startswith("soak-return-")
+            ]
+            if not returns:
+                raise ValueError("sustained trace missing restored continuations")
+            for returned in returns:
+                original = labels[returned["label"].replace("soak-return-", "soak-")]
+                parameters = {
+                    key: value
+                    for key, value in original["request"].items()
+                    if key != "kv_transfer_params"
+                }
+                if (
+                    parameters != returned["request"]
+                    or original["response"]["choices"][0]["token_ids"]
+                    != returned["response"]["choices"][0]["token_ids"]
+                ):
+                    raise ValueError("sustained restored continuation differs")
         if admission["case"] == "calibration":
             service = statistics.median(
                 (

@@ -69,7 +69,7 @@ The private hosted copy still exists: DELETE returned HTTP 403 despite admin=tru
 Its removal needs effective delete-repository permission; local work can continue.
 
 ## Next
-Commit the pruning disposition after full acceptance. Let release-01 and its existing
+The pruning disposition is committed. Let release-01 and its existing
 qualification queue finish; independently verify and curate actual outcomes. Preserve
 adverse evidence before pruning raw runs. Consolidate useful project assets and
 rebuild project environments inside the final repository. Preserve original next

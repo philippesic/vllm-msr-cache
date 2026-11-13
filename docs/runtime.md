@@ -71,10 +71,13 @@ session it created.
 The supported target is dense full-attention FP16, TP1, HND, eager execution with
 TRITON_ATTN. The benchmark implementation additionally accepts FP16 full/sliding
 cache groups and aligned recurrent checkpoints, with at least one full-attention group.
-Qwen3.5 has an initial restored-continuation probe; this does not yet qualify broad
-hybrid correctness or performance. Gemma4 cannot start the tested attention kernels on
-the 2080 Ti. See [benchmark qualification](benchmarks.md) for the isolated compatibility
-environment. BF16 on Turing, speculative decoding, LoRA and parallel execution remain
+Both modern benchmark models have initial restored-continuation probes; these do not
+qualify broad hybrid correctness or performance. Gemma4 starts on the 2080 Ti only
+with the hash-pinned `gemma-turing` compatibility patch. Its first native-ARC sustained
+check found a continuation-token mismatch and stopped early; operating qualification
+remains blocked pending diagnosis. See [benchmark qualification](benchmarks.md) and
+the active benchmark task for the isolated environment and retained failure.
+BF16 on Turing, speculative decoding, LoRA and parallel execution remain
 unsupported. Use an ordinary vLLM serving
 command with `--dtype float16`, `--enforce-eager`, `--attention-backend TRITON_ATTN`,
 prefix caching, an explicit API key, and this `--kv-transfer-config`:
