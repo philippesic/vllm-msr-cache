@@ -12,8 +12,10 @@ rename the ready repository and current references to wait-hint-kv; rebase on th
 old project while retaining both histories; identify and resolve remaining deletion
 dependencies. Preserve the ongoing benchmark objective and its resource limits.
 No new agents, additional benchmark matrix or paid resources. Philip subsequently
-authorized grafting onto original main and pushing to the existing remote. Hold the
-push until his intended remote is relayed; no force-push or visibility changes.
+authorized grafting onto original main and publishing main to the public existing
+git@github.com:philippesic/vllm-msr-cache.git remote, plus one tag preserving original
+NEXT main. Other archive refs must remain local. Full acceptance and secret checks
+precede a normal fast-forward push; no force-push or visibility changes.
 
 ## Done when
 Project instructions contain project mechanics without stale porting rules or
@@ -52,9 +54,9 @@ intentionally shows deleted tracked output files; their Git history is retained.
 Do not restore these pruned working copies. Active attempts, assets,
 checkouts and temporary recovery archives/bundles remain under
 ~/.local/share/vllm-semantic-cache-ext-next; project runtime environments remain
-under ~/.local/share/venvs. Preserve them until release-01 and its admitted queue
-finish. Shared model/package/Docker caches are dependencies, not exclusively owned
-project work; do not delete them blindly.
+under ~/.local/share/venvs. Preserve them until release-01 reaches a verified stopped
+disposition; its follow-up queue is cancelled. Shared model/package/Docker caches
+are dependencies, not exclusively owned project work; do not delete them blindly.
 
 The benchmark uses frozen 50e53cf/386715e checkouts. History integration is complete: original main 1319f09 is an ancestor of
 rebased head f99ef6f, whose tree is byte-identical to original-next a064c9ae. Original
@@ -76,8 +78,9 @@ panel-boundary stop; the follow-up queue is cancelled and must not run. Independ
 verify and curate actual partial outcomes. Preserve
 adverse evidence before pruning raw runs. Consolidate useful project assets and
 rebuild project environments inside the final repository. Preserve original next
-hashes, rebase/integrate and verify both histories, then rename the checkout and
-current references to wait-hint-kv. Update workspace binding and this same schedule;
+hashes and the verified old-main ancestry through the checkout/reference rename to
+wait-hint-kv. Update workspace binding and this same schedule;
+push only main and next-pre-graft-main to the approved public remote after acceptance;
 remove old checkouts, duplicate archives/bundles and obsolete external environments
 only after ownership/recovery checks. Keep historical source bytes unchanged.
 Delete this task only after actual completion, not at this checkpoint.

@@ -16,7 +16,9 @@ caches are dependencies, not the sole home of authored project work or results.
 
 Existing benchmark acquisition still uses
 `/home/philip/.local/share/vllm-semantic-cache-ext-next/` and isolated runtime
-venvs. Preserve those paths until the active release and queued qualification finish.
+venvs. release-01 is stopping at a panel boundary and its follow-up is cancelled.
+Preserve the attempts, frozen checkouts and required environments for verification
+and possible explicitly authorized resume; do not launch the cancelled queue.
 The old output tree and inactive agent pilot, early qualification, overhaul and
 maintenance directories have been pruned after useful evidence was retained and
 active ownership checked. All 31 old output collections have curated result homes;
@@ -32,8 +34,9 @@ Both original Git histories are being retained inside this repository under
 snapshot. Ignored historical scripts and patches are preserved under
 `refs/archive/original/ignored-experiment-source`; the exact commit and file-count
 verification live in coverage.json. They are inert historical code, not maintained
-entry points or a promise of exact environment replay. Final history integration and the `wait-hint-kv` directory/package rename
-follow acquisition and evidence closeout. Historical hashes, source labels and
+entry points or a promise of exact environment replay. History integration is verified:
+original main 1319f09 is an ancestor and the graft retained the maintained tree exactly.
+The `wait-hint-kv` directory/package rename follows evidence closeout. Historical hashes, source labels and
 immutable report bytes retain their original names; changing them would break provenance.
 
 ## Verify recovery
@@ -45,9 +48,16 @@ bytes, use `uv run --locked python tools/check.py --verify-result-sources .`.
 Archived local-only reports are verified directly by result checks. Structural
 validation does not establish scientific truth or missing hardware qualification.
 
-The project has no configured remote. The prior verified local bundle is a temporary
-migration recovery copy, not an off-machine backup; remove redundant external copies
-after the integrated repository is verified. No new hosted repository is authorized.
+The established public remote is `git@github.com:philippesic/vllm-msr-cache.git`.
+Philip explicitly authorized publishing the grafted main, benchmark tooling and result
+pages there. Push only main as a normal fast-forward and the single lightweight tag
+`next-pre-graft-main`, sourced from local `refs/archive/next/pre-graft-main`. That tag
+retains original NEXT hashes cited in receipts. Do not push other archive refs: ignored
+experiment source, old checkpoint refs and early qualification receipts remain local
+unless separately authorized. No force-push or visibility change is authorized.
+
+The prior verified local bundle is a temporary migration recovery copy, not an
+off-machine backup; remove redundant external copies after integrated Git is verified.
 The earlier hosted `philippesic/vllm-semantic-cache-ext-next` copy was requested for
 deletion; prior credentials lacked deletion scope. Its removal is separate from
 preserving local data.

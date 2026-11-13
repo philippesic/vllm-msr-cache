@@ -14,7 +14,9 @@ traffic comparing native/current/promote/bounded-protect advice, then one real
 multi-session pressure benchmark. Promotion/protection are experimental simulator
 variants; adopting either in the product requires Philip's contract decision.
 Compare remains one repetition within 45 minutes; release remains two within 30 hours,
-but the stopped campaign is not authorized to resume. Push is held for remote choice.
+but the stopped campaign is not authorized to resume. Philip authorized publishing
+grafted main and one original-NEXT tag to public philippesic/vllm-msr-cache; other
+archive refs remain local. See tasks/consolidation.md.
 
 ## Done when
 Retained acquisition has an independently verified partial disposition. Gemma's

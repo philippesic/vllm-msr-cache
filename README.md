@@ -37,8 +37,10 @@ uses a GPU unless explicitly requested.
 - [Agent working rules](AGENTS.md)
 
 Temporary runs and execution snapshots live under ignored `artifacts/` until curated
-into tracked results and pruned. This checkout has no configured
-remote. Source, result pages, chart inputs and archived reports are retained locally;
-see [recovery](docs/recovery.md) for the local recovery bundle.
+into tracked results and pruned. The public upstream is
+[`philippesic/vllm-msr-cache`](https://github.com/philippesic/vllm-msr-cache).
+The grafted main retains the original project history; `next-pre-graft-main` preserves
+the original NEXT history. Other local archive refs remain local. See
+[recovery](docs/recovery.md) for retention and verification.
 
 Benchmark implementation and bounded feasibility commands: [benchmark guide](docs/benchmarks.md). Comparison campaigns remain unqualified.
