@@ -115,12 +115,52 @@ def main() -> int:
     grounded_verify.add_argument("directory", type=Path)
     branching_verify = sub.add_parser("verify-branching")
     branching_verify.add_argument("directory", type=Path)
+    for name in ("simulate", "simulate-native"):
+        simulation = sub.add_parser(name)
+        if name == "simulate":
+            simulation.add_argument("--runtime-python", type=Path, required=True)
+        simulation.add_argument(
+            "--scenarios", type=Path, default=Path("benchmarks/replay/scenarios.json")
+        )
+        simulation.add_argument(
+            "--shapes",
+            type=Path,
+            default=Path("benchmarks/replay/release-01-shapes.json"),
+        )
+        simulation.add_argument("--scenario", action="append", default=[])
+        simulation.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if hasattr(args, "out") and not args.out.resolve().is_relative_to(
         root / "artifacts"
     ):
         parser.error("write new project output under artifacts/ in this repository")
+    if args.operation == "simulate":
+        from tools.benchmarking.replay import simulate
+
+        return simulate(
+            root,
+            args.runtime_python.absolute(),
+            args.scenarios,
+            args.shapes,
+            args.scenario,
+            args.out,
+        )
+    if args.operation == "simulate-native":
+        from tools.benchmarking.replay import simulate_native
+
+        print(
+            json.dumps(
+                simulate_native(
+                    args.scenarios.resolve(),
+                    args.shapes.resolve(),
+                    args.scenario,
+                    args.out.resolve(),
+                ),
+                indent=2,
+            )
+        )
+        return 0
     if args.operation == "verify-branching":
         from tools.benchmarking.branching import verify_branching
 

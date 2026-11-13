@@ -56,7 +56,7 @@ class WaitHintEndpoint:
             raise HTTPException(
                 status_code=502, detail=f"engine rejected hint RPC: {error}"
             ) from error
-        if not isinstance(result, dict) or result.get("schema") != "wait-hint-ack-v2":
+        if not isinstance(result, dict) or result.get("schema") != "wait-hint-ack-v3":
             raise HTTPException(
                 status_code=502, detail="invalid engine acknowledgement"
             )

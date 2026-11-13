@@ -1,7 +1,9 @@
 import math
+from collections.abc import Callable
 
-from vllm.v1.kv_offload.base import OffloadKey
+from vllm.v1.kv_offload.base import OffloadKey, ReqContext
 from vllm.v1.kv_offload.cpu.policies.arc import ARCCachePolicy
+from vllm.v1.kv_offload.cpu.policies.base import BlockStatus
 
 from wait_hint_offload.observed import ObservedGroup
 
@@ -25,6 +27,11 @@ class ARCRecency:
         for key in reversed(eligible):
             queue = self.policy.t1 if key in self.policy.t1 else self.policy.t2
             queue.move_to_end(key)
+        return len(eligible)
+
+    def promote_prefix(self, keys: tuple[bytes, ...]) -> int:
+        eligible = self.ready_prefix(keys)
+        self.policy.touch(eligible, ReqContext(req_id="wait-hint"))
         return len(eligible)
 
 
@@ -64,3 +71,84 @@ class GroupARCRecency(ARCRecency):
                 return list(dict.fromkeys(required))
             boundary -= alignment
         return []
+
+
+HOLD_SHARE = 0.5
+Owner = tuple[str, str]
+Eviction = list[tuple[OffloadKey, BlockStatus]] | None
+
+
+class ARCHolds:
+    def __init__(
+        self,
+        policy: ARCCachePolicy,
+        share: float,
+        clock: Callable[[], int],
+        current: Callable[[Owner], object | None],
+    ) -> None:
+        self.limit = int(policy.cache_capacity * share)
+        self.clock = clock
+        self.current = current
+        self.holds: dict[Owner, tuple[frozenset[OffloadKey], int, object]] = {}
+        self.yielded = 0
+        native = policy.evict
+
+        def evict(n: int, protected: set[OffloadKey]) -> Eviction:
+            held = self.active()
+            if held:
+                result = native(n, protected | held)
+                if result is not None:
+                    return result
+                self.yielded += 1
+            return native(n, protected)
+
+        setattr(policy, "evict", evict)
+
+    def active(self) -> set[OffloadKey]:
+        now = self.clock()
+        for owner, (_, deadline, token) in list(self.holds.items()):
+            if now >= deadline or self.current(owner) is not token:
+                del self.holds[owner]
+        return {key for keys, _, _ in self.holds.values() for key in keys}
+
+    def hold(
+        self, owner: Owner, keys: list[OffloadKey], deadline: int, token: object
+    ) -> int:
+        self.holds.pop(owner, None)
+        if not keys or len(self.active()) + len(keys) > self.limit:
+            return 0
+        self.holds[owner] = (frozenset(keys), deadline, token)
+        return len(keys)
+
+    def release(self, owner: Owner) -> None:
+        self.holds.pop(owner, None)
+
+    def clear(self) -> None:
+        self.holds.clear()
+
+
+class HoldTarget:
+    def __init__(
+        self,
+        recency: ARCRecency,
+        holds: ARCHolds,
+        owner: Owner,
+        deadline: int,
+        token: object,
+    ) -> None:
+        self.recency = recency
+        self.holds = holds
+        self.owner = owner
+        self.deadline = deadline
+        self.token = token
+        self.held = 0
+
+    def ready_prefix(self, keys: tuple[bytes, ...]) -> list[OffloadKey]:
+        return self.recency.ready_prefix(keys)
+
+    def refresh_prefix(self, keys: tuple[bytes, ...]) -> int:
+        promoted = self.recency.promote_prefix(keys)
+        self.held = self.holds.hold(
+            self.owner, self.ready_prefix(keys), self.deadline, self.token
+        )
+        return promoted

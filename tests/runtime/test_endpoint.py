@@ -112,7 +112,7 @@ def test_authenticated_endpoint_and_actual_rpc_method_chain() -> None:
             assert utility.calls == 1
             assert set(okay.json()["mechanisms"]) == {
                 "schema",
-                "cpu_arc_recency_advice",
+                "advice",
             }
             foreign = await client.post(
                 "/v1/wait-hints",

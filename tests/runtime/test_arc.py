@@ -3,7 +3,13 @@ from vllm.v1.kv_offload.cpu.policies.arc import ARCCachePolicy
 from vllm.v1.kv_offload.cpu.policies.base import BlockStatus
 
 from wait_hint_offload.observed import ObservedGroup
-from wait_hint_offload.vllm_adapter.arc import ARCRecency, GroupARCRecency
+from wait_hint_offload.vllm_adapter.arc import (
+    ARCHolds,
+    ARCRecency,
+    GroupARCRecency,
+    HoldTarget,
+    Owner,
+)
 
 
 def test_actual_arc_prefix_order_references_and_pending_boundary() -> None:
@@ -67,3 +73,68 @@ def test_group_advice_requires_aligned_ready_window_and_checkpoint() -> None:
     assert recency.refresh_prefix(full) == 7
     assert set(policy.t1) == set(before)
     assert not policy.t2
+
+
+def ready_policy(count: int, capacity: int = 8) -> tuple[ARCCachePolicy, list[bytes]]:
+    policy = ARCCachePolicy(capacity)
+    keys = [bytes([i]) for i in range(1, count + 1)]
+    for i, raw in enumerate(keys):
+        block = BlockStatus(i)
+        block.ref_cnt = 0
+        policy.insert(OffloadKey(raw), block)
+    return policy, keys
+
+
+def test_promotion_moves_only_the_ready_prefix_to_the_frequent_queue() -> None:
+    policy, keys = ready_policy(4)
+    policy.t1[OffloadKey(keys[2])].ref_cnt = -1
+    assert ARCRecency(policy).promote_prefix(tuple(keys)) == 2
+    assert list(policy.t2) == [keys[1], keys[0]]
+    assert list(policy.t1) == [keys[2], keys[3]]
+    assert policy.target_t1_size == 0
+
+
+def test_holds_are_bounded_expire_and_yield_rather_than_fail_a_store() -> None:
+    policy, keys = ready_policy(4, capacity=4)
+    now = [0]
+    owners: dict[Owner, object] = {}
+    holds = ARCHolds(policy, 0.5, lambda: now[0], owners.get)
+    first, second = ("scope", "a"), ("scope", "b")
+    owners[first] = owners[second] = token = object()
+    held = [OffloadKey(keys[0]), OffloadKey(keys[1])]
+    assert holds.hold(first, held, 10, token) == 2
+    assert holds.hold(second, [OffloadKey(keys[2])], 10, token) == 0
+    victims = policy.evict(1, set())
+    assert victims is not None and [key for key, _ in victims] == [keys[2]]
+    victims = policy.evict(2, set())
+    assert victims is not None and {key for key, _ in victims} == {keys[0], keys[1]}
+    assert holds.yielded == 1
+    policy, keys = ready_policy(2)
+    holds = ARCHolds(policy, 1.0, lambda: now[0], owners.get)
+    assert holds.hold(first, [OffloadKey(keys[0])], 10, token) == 1
+    owners[first] = object()
+    assert holds.active() == set()
+    owners[first] = token
+    assert holds.hold(first, [OffloadKey(keys[0])], 10, token) == 1
+    now[0] = 10
+    assert holds.active() == set()
+    now[0] = 0
+    assert holds.hold(first, [OffloadKey(keys[0])], 10, token) == 1
+    holds.release(first)
+    assert holds.active() == set()
+    assert holds.hold(first, [OffloadKey(keys[0])], 10, token) == 1
+    holds.clear()
+    assert holds.active() == set()
+
+
+def test_hold_target_promotes_then_holds_the_ready_prefix() -> None:
+    policy, keys = ready_policy(3)
+    policy.t1[OffloadKey(keys[2])].ref_cnt = -1
+    owner: Owner = ("scope", "session")
+    token = object()
+    holds = ARCHolds(policy, 0.5, lambda: 0, {owner: token}.get)
+    target = HoldTarget(ARCRecency(policy), holds, owner, 5, token)
+    assert target.refresh_prefix(tuple(keys)) == 2
+    assert target.held == 2
+    assert list(policy.t2) == [keys[1], keys[0]]
+    assert holds.active() == {keys[0], keys[1]}

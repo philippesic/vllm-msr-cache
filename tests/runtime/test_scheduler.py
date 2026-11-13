@@ -129,6 +129,60 @@ def test_finished_sample_guard_registration_and_actual_store_lifecycle(
         assert not cast(Callable[[], bool], torch.cuda.is_initialized)()
 
 
+def test_promote_hold_holds_until_return_and_reset() -> None:
+    scheduler = scheduler_fixture(True, "promote-hold")
+    state = finished_request(scheduler)
+    scheduler.request_finished(state.req)
+    jobs = scheduler._build_store_jobs(
+        cast(
+            Any, SimpleNamespace(num_scheduled_tokens={}, finished_req_ids={"request"})
+        )
+    )
+    scheduler.update_connector_output(
+        KVConnectorOutput(
+            kv_connector_worker_meta=TransferMetadata(
+                completed_jobs=dict.fromkeys(jobs, 1)
+            )
+        )
+    )
+    key = state.group_states[0].offload_keys[0]
+    observation = scheduler.observed.observation("client", "conversation")
+    assert observation is not None
+    now = time.monotonic_ns()
+    hint = Hint(
+        "client",
+        "conversation",
+        "instance",
+        1,
+        "event",
+        observation.prefix,
+        4,
+        observation.namespace,
+        observation.observed_ns,
+        now,
+        now + 1_000_000_000,
+        scheduler.clock_domain,
+    )
+    acknowledgement = scheduler.publish_wait_hint(hint.mapping())
+    assert acknowledgement["schema"] == "wait-hint-ack-v3"
+    assert acknowledgement["mechanisms"]["advice"] == "promote-hold"
+    assert acknowledgement["refreshed_keys"] == acknowledgement["held_keys"] == 1
+    policy = scheduler.recency.policy
+    assert key in policy.t2 and scheduler.holds.active() == {key}
+    replay = scheduler.publish_wait_hint(hint.mapping())
+    assert replay["replayed"] and replay["held_keys"] == 0
+    scheduler.get_num_new_matched_tokens(state.req, 0)
+    assert scheduler.holds.active() == set()
+    second = scheduler.publish_wait_hint(replace(hint, event="second").mapping())
+    assert second["held_keys"] == 1
+    victims = policy.evict(1, set())
+    assert victims is not None and [victim for victim, _ in victims] == [key]
+    assert scheduler.holds.yielded == 1
+    scheduler.publish_wait_hint(replace(hint, event="third").mapping())
+    scheduler.reset_cache()
+    assert scheduler.holds.active() == set()
+
+
 def test_failed_native_store_releases_slot_without_readiness() -> None:
     scheduler = scheduler_fixture()
     state = finished_request(scheduler)

@@ -48,6 +48,27 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   also reproduced the final-token mismatch. Correctness qualification remains
   unresolved; commands, attempt paths and scope are in the active task.
 
+- `simulate --runtime-python PY --out artifacts/runs/NEW` replays concurrent
+  sessions on the CPU in about a minute and writes `simulation.json`. It re-runs
+  itself under the runtime interpreter as `simulate-native`, which loads
+  `wait_hint_offload/vllm_adapter/replay.py`: the real pinned `CPUOffloadingManager`
+  and ARC policy plus the product's recency, promotion and hold code. The tools-side
+  model reproduces the offloading scheduler's call order (lookup, whole-request touch
+  at start and after each store, store completion delay, final store at computed
+  tokens), a GPU prefix cache that frees a request's tail first, a running-request
+  limit and GPU admission. Arms are `gpu-only`, `native` (advice disabled),
+  `recency`, `promote`, `hold`, `promote-hold` and `oracle` (hold until return
+  without cap or deadline). It reports recomputed prefix tokens on return for hinted
+  and unhinted cohorts, store failures, evictions, restores, GPU displacement,
+  abandoned hints and hold yields, plus working-set ratios. Scenarios live in
+  `benchmarks/replay/scenarios.json`; `--scenario NAME` selects some. Session shapes
+  in `benchmarks/replay/release-01-shapes.json` come from release-01 block-0
+  application requests (prompt, generated, unpressured cached tokens as the shared
+  prefix, and gaps). A scenario whose `gpu-only` and `oracle` hinted recomputed shares
+  differ by less than 10 points is reported `non-discriminating` and excluded from
+  comparison. Results are simulated direction: arrival times are arm-independent,
+  loads are instantaneous, and Gemma's cache-group layout (two full groups and five
+  1024-token sliding groups at 64-token chunks) is inferred from observed CPU usage.
 - `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
   request counts, context compaction, hint activity and timing. Missing request captures
   refuse. It makes no comparative performance or release claim.

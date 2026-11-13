@@ -3,7 +3,9 @@
 The product performs exact native CPU KV offload. A completed transcript may
 register an observed prefix; a later causal wait hint may refresh the ready CPU
 prefix in native ARC. There is no scoring, GPU prefetch, approximate reuse,
-request-priority change or separate eviction policy.
+request-priority change or separate eviction policy; the experimental promote-hold
+mechanism below only promotes and temporarily withholds ready keys from native
+eviction.
 
 ## Ownership and boundaries
 
@@ -13,7 +15,8 @@ request-priority change or separate eviction policy.
 | `config.py` | Closed product settings and resolved mechanism attribution |
 | `observed.py` | Bounded scheduler-owned observations and replay state |
 | `advice.py` | Causal, identity and replay validation; advice-disabled control |
-| `vllm_adapter/arc.py` | Ready-prefix scan and most-recent movement within each existing ARC queue |
+| `vllm_adapter/arc.py` | Ready-prefix scan, recency movement, promotion and bounded holds |
+| `vllm_adapter/replay.py` | Native manager binding for the CPU trace-replay simulator |
 | `vllm_adapter/connector.py` | Native construction, computed-token bounds, registration and scheduler cleanup |
 | `vllm_adapter/transfers.py` | Submission/completion failure reporting and failed-load destinations |
 | `vllm_adapter/endpoint.py` | Authenticated HTTP boundary into engine RPC |
@@ -43,7 +46,8 @@ The connector requires `kv_load_failure_policy="recompute"`. Unsupported
 construction and optimized Python execution refuse explicitly.
 
 Settings are `namespace`, positive `cpu_bytes_to_use`, Boolean `advice_enabled`,
-bounded positive `max_sessions`/`max_events`, and `metadata_bytes`. Defaults are
+`advice_mechanism`, bounded positive `max_sessions`/`max_events`, and
+`metadata_bytes`. Defaults are
 advice disabled, 4096 sessions, 256 events per session and a 64 MiB metadata budget
 (maximum 256 MiB). ARC and unfiltered stores are fixed choices, not settings.
 Retained observations and events are charged by recursive Python object size plus
@@ -99,7 +103,16 @@ whitespace. A fixed externally calculated vector is tested. Namespace labels
 organize observations; native exact block keys still determine reuse.
 
 Advice requires the exact server observation timestamp and identity, a live
-deadline for a new event and the matching engine clock. An exact replay returns
+deadline for a new event and the matching engine clock. `advice_mechanism` is `recency` (default: move the ready prefix to most recent
+within its existing T1/T2 queue) or `promote-hold`. Promote-hold applies native
+touch semantics to the ready prefix (ready T1 keys move to T2, T2 keys to most
+recent) and then holds those keys out of eviction until the session's next request
+with the same scope/session, the hint deadline, replacement or retirement of its
+observation, or a cache reset. Held keys are capped at half the CPU pool; a hint
+that would exceed the cap promotes without holding. If a native eviction cannot be
+satisfied without held keys, the holds are ignored for that eviction, so holds never
+cause a store failure. The setting exists only for the engine comparison in the
+active benchmark task; the losing mechanism is deleted afterwards. An exact replay returns
 its original decision, refreshed count and ready-prefix count even after expiry, with `replayed=true` and zero newly refreshed keys. It
 never mutates ARC again. Changed content for an existing event refuses. This applies
 in both advice modes. Replay state lasts only for the current observation and
@@ -112,12 +125,13 @@ replay state.
 POST hints to `/v1/wait-hints`. The endpoint requires explicit server API keys and
 refuses startup without them; `VLLM_PLUGINS=wait_hint` enables the installed entry.
 It authenticates before parsing and routes through the engine owner. Acknowledgements
-include ready CPU prefix length, acknowledged and newly refreshed counts, replay
-flag, decision and resolved mechanisms. API keys define one trusted operator, not
+(`wait-hint-ack-v3`) include ready CPU prefix length, acknowledged and newly
+refreshed counts, held keys, replay flag, decision and resolved mechanisms
+(`wait-hint-mechanisms-v2`, field `advice`). API keys define one trusted operator, not
 separate tenants.
 
 Supported schema readers are `wait-registration-v2`, `wait-hint-v2`,
-`wait-hint-ack-v2`, `functional-admission-v1`, `functional-terminal-v1` and
+`wait-hint-ack-v3`, `functional-admission-v1`, `functional-terminal-v1` and
 `runtime-observation-v1`. Unknown versions refuse. A future migration creates a new
 artifact with lineage and keeps its source.
 

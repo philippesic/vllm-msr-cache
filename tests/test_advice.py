@@ -154,9 +154,27 @@ def test_schema_refusal_and_config() -> None:
     )
     assert settings.cpu_bytes_to_use == 1024
     assert settings.mechanisms() == {
-        "schema": "wait-hint-mechanisms-v1",
-        "cpu_arc_recency_advice": False,
+        "schema": "wait-hint-mechanisms-v2",
+        "advice": "disabled",
     }
+    candidate = Settings.parse(
+        {
+            "namespace": namespace.mapping(),
+            "cpu_bytes_to_use": 1024,
+            "advice_enabled": True,
+            "advice_mechanism": "promote-hold",
+        }
+    )
+    assert candidate.mechanisms()["advice"] == "promote-hold"
+    for mechanism in ("lru", 1):
+        with pytest.raises(ValueError, match="advice_mechanism"):
+            Settings.parse(
+                {
+                    "namespace": namespace.mapping(),
+                    "cpu_bytes_to_use": 1024,
+                    "advice_mechanism": mechanism,
+                }
+            )
     for key in (
         "wait_hint_publish_at_lookup",
         "scoring_mode",

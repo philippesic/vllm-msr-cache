@@ -28,7 +28,13 @@ from wait_hint_offload.config import Settings
 from wait_hint_offload.contracts import MAX_BOUNDARY, Hint, Registration, prefix_digest
 from wait_hint_offload.observed import Observation, ObservedGroup, ObservedStore
 from wait_hint_offload.vllm_adapter import engine_rpc
-from wait_hint_offload.vllm_adapter.arc import ARCRecency, GroupARCRecency
+from wait_hint_offload.vllm_adapter.arc import (
+    HOLD_SHARE,
+    ARCHolds,
+    ARCRecency,
+    GroupARCRecency,
+    HoldTarget,
+)
 from wait_hint_offload.vllm_adapter.binding import require_runtime
 from wait_hint_offload.vllm_adapter.transfers import TransferMetadata, TransferWorker
 
@@ -58,6 +64,12 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             self.settings.max_events,
             self.settings.metadata_bytes,
         )
+        self.holds = ARCHolds(
+            self.manager._policy,
+            HOLD_SHARE,
+            time.monotonic_ns,
+            lambda owner: self.observed.observation(*owner),
+        )
         self.clock_domain = "engine-" + uuid.uuid4().hex
         self.cpu_chunk_bytes = int(spec.kv_bytes_per_chunk)
         self.cpu_chunks = int(spec.num_blocks)
@@ -79,6 +91,17 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
         return int(
             super()._calc_num_offloadable_tokens(req_status, num_computed_tokens)
         )
+
+    def get_num_new_matched_tokens(
+        self, request: Any, num_computed_tokens: int
+    ) -> tuple[int | None, bool]:
+        result = super().get_num_new_matched_tokens(request, num_computed_tokens)
+        registration = (request.kv_transfer_params or {}).get("wait_hint")
+        if isinstance(registration, dict):
+            scope, session = registration.get("scope"), registration.get("session")
+            if isinstance(scope, str) and isinstance(session, str):
+                self.holds.release((scope, session))
+        return result
 
     def request_finished(self, request: Any) -> tuple[bool, dict[str, Any] | None]:
         status = self._req_status.get(request.request_id)
@@ -173,11 +196,20 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
     def publish_wait_hint(self, raw: dict[str, Any]) -> dict[str, Any]:
         hint = Hint.parse(raw)
         observation = self.observed.observation(hint.scope, hint.session)
-        target = (
+        recency = (
             GroupARCRecency(self.recency.policy, observation.groups)
             if observation is not None and observation.groups
             else self.recency
         )
+        target: ARCRecency | HoldTarget = recency
+        if self.settings.advice_mechanism == "promote-hold":
+            target = HoldTarget(
+                recency,
+                self.holds,
+                (hint.scope, hint.session),
+                hint.deadline_ns,
+                observation,
+            )
         result = advise(
             self.observed,
             target,
@@ -187,13 +219,16 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
             self.settings.advice_enabled,
         )
         return {
-            "schema": "wait-hint-ack-v2",
+            "schema": "wait-hint-ack-v3",
             "ready_cpu_prefix_keys": result.ready_cpu_prefix_keys,
             "event": hint.event,
             "replayed": result.replayed,
             "newly_refreshed_keys": 0 if result.replayed else result.refreshed_keys,
             "decision": result.decision.value,
             "refreshed_keys": result.refreshed_keys,
+            "held_keys": target.held
+            if isinstance(target, HoldTarget) and not result.replayed
+            else 0,
             "mechanisms": self.settings.mechanisms(),
             "metadata": self.observed.metrics(),
         }
@@ -242,6 +277,7 @@ class WaitHintScheduler(OffloadingConnectorScheduler):
     def reset_cache(self) -> None:
         super().reset_cache()
         self.observed.clear()
+        self.holds.clear()
         self.clock_domain = "engine-" + uuid.uuid4().hex
 
 

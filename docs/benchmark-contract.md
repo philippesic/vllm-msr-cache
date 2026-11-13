@@ -39,9 +39,10 @@ assumptions occur in practice. A CPU trace replay can compare policy directions 
 seconds using a declared concurrent-session schedule, but is a simulation. It must
 retain native policy/source identity, exact prefix-key assumptions, store/touch/ready
 ordering, expiry, capacity and failed-store accounting. Token counts alone do not
-establish shared-prefix identities or hybrid cache-group bytes. Promotion to ARC's
-frequent queue and bounded protection are simulator variants until Philip approves
-changing the current product contract. Report unhinted harm and abandoned-hint cost.
+establish shared-prefix identities or hybrid cache-group bytes. Philip approved
+replacing the recency hint with promotion or bounded protection if it consistently
+wins; the decision rule is fixed in the active task before engine results. Report
+unhinted harm and abandoned-hint cost.
 
 ## Correctness, execution and usefulness
 
