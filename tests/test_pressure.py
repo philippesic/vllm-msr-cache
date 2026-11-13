@@ -278,11 +278,14 @@ def test_release_01_evidence_is_rejected_as_unexercised() -> None:
 
 
 def test_profile_seeds_cover_every_cohort_before_gpu_work() -> None:
-    from tools.benchmarking.pressure import covers_cohorts
+    from tools.benchmarking.pressure import covers_cohorts, profile_seeds
 
     for model in DEFINITION["models"]:
-        for seeds in DEFINITION["seeds"].values():
+        for profile in DEFINITION["seeds"]:
+            seeds = profile_seeds(DEFINITION, profile, model, [])
             assert all(covers_cohorts(DEFINITION, seed, model) for seed in seeds)
+    assert profile_seeds(DEFINITION, "settle", "gemma4-12b-int4", [])[0] == 302
+    assert profile_seeds(DEFINITION, "settle", "gemma4-12b-int4", [312]) == [312]
     assert not covers_cohorts(DEFINITION, 101, "qwen35-4b-int4")
 
 

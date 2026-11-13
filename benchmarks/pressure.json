@@ -47,7 +47,29 @@
    305,
    308,
    312
-  ]
+  ],
+  "settle": {
+   "qwen35-4b-int4": [
+    301,
+    303,
+    305,
+    308,
+    312,
+    313,
+    314,
+    315
+   ],
+   "gemma4-12b-int4": [
+    302,
+    304,
+    305,
+    307,
+    308,
+    309,
+    310,
+    311
+   ]
+  }
  },
  "models": {
   "qwen35-4b-int4": {
@@ -204,6 +226,14 @@
     "candidate",
     "lmcache",
     "oracle"
+   ],
+   "cell_seconds": 1500
+  },
+  "settle": {
+   "arms": [
+    "native-arc",
+    "wait-hint",
+    "candidate"
    ],
    "cell_seconds": 1500
   }

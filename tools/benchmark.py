@@ -60,6 +60,7 @@ def main() -> int:
             "release",
             "pressure-smoke",
             "pressure-advice",
+            "pressure-settle",
             "pressure-full",
         ),
         required=True,
@@ -67,12 +68,13 @@ def main() -> int:
     plan.add_argument("--calibration", type=Path, action="append", default=[])
     pressure = sub.add_parser("pressure")
     pressure.add_argument(
-        "--profile", choices=("smoke", "advice", "full"), required=True
+        "--profile", choices=("smoke", "advice", "settle", "full"), required=True
     )
     pressure.add_argument("--runtime-python", type=Path, required=True)
     pressure.add_argument("--lmcache-python", type=Path)
     pressure.add_argument("--model", action="append", required=True)
     pressure.add_argument("--arm", action="append", default=[])
+    pressure.add_argument("--seed", type=int, action="append", default=[])
     pressure.add_argument("--out", type=Path, required=True)
     pressure_verify = sub.add_parser("verify-pressure")
     pressure_verify.add_argument("directory", type=Path, nargs="+")
@@ -305,6 +307,7 @@ def main() -> int:
             args.lmcache_python.absolute() if args.lmcache_python else None,
             args.out.resolve(),
             args.arm,
+            args.seed,
         )
         write = args.out.resolve() / "report.json"
         write.write_text(json.dumps(summary, indent=2) + "\n")

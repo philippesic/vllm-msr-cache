@@ -84,6 +84,15 @@ def covers_cohorts(definition: dict[str, Any], seed: int, model: str) -> bool:
     )
 
 
+def profile_seeds(
+    definition: dict[str, Any], profile: str, model: str, chosen: list[int]
+) -> list[int]:
+    if chosen:
+        return chosen
+    seeds = definition["seeds"][profile]
+    return list(seeds[model] if isinstance(seeds, dict) else seeds)
+
+
 def pool_bytes(model: dict[str, Any], pool: str) -> int:
     if pool == "none":
         return 0
@@ -485,12 +494,15 @@ def precheck(
     definition: dict[str, Any],
     output: Path,
     profile: str,
+    chosen: list[int],
 ) -> dict[str, Any]:
     from tools.benchmarking.replay import simulate
 
-    seeds = definition["seeds"][profile]
     pressure = [
-        replay_scenario(definition, model, seeds) for model in definition["models"]
+        replay_scenario(
+            definition, model, profile_seeds(definition, profile, model, chosen)
+        )
+        for model in definition["models"]
     ]
     oracle = []
     for scenario in pressure:
@@ -567,6 +579,7 @@ def run_pressure(
     lmcache_python: Path | None,
     output: Path,
     arms: list[str],
+    seeds: list[int],
 ) -> dict[str, Any]:
     definition = load_definition(root)
     if profile not in definition["profiles"] or output.exists():
@@ -581,7 +594,7 @@ def run_pressure(
     uncovered = [
         (model, seed)
         for model in models
-        for seed in definition["seeds"][profile]
+        for seed in profile_seeds(definition, profile, model, seeds)
         if not covers_cohorts(definition, seed, model)
     ]
     if uncovered:
@@ -596,6 +609,10 @@ def run_pressure(
             "schema": "pressure-admission-v1",
             "profile": profile,
             "arms": selected,
+            "seeds": {
+                model: profile_seeds(definition, profile, model, seeds)
+                for model in models
+            },
             "definition": definition,
             "definition_sha256": digest_file(root / DEFINITION),
             "models": {
@@ -610,12 +627,11 @@ def run_pressure(
             "lmcache_python": str(lmcache_python) if lmcache_python else None,
         },
     )
-    verdicts = precheck(root, runtime_python, definition, output, profile)
+    verdicts = precheck(root, runtime_python, definition, output, profile, seeds)
     write_record(output / "precheck.json", verdicts)
     refused = [name for name, v in verdicts.items() if v["status"] != "discriminating"]
     if refused:
         raise ValueError(f"pre-GPU check predicts non-discriminating cells: {refused}")
-    seeds = definition["seeds"][profile]
     seconds = definition["profiles"][profile]["cell_seconds"]
     for model_id, path in models.items():
         for arm_name in selected:
@@ -631,7 +647,7 @@ def run_pressure(
                 arm_name,
                 arm,
                 definition,
-                seeds,
+                profile_seeds(definition, profile, model_id, seeds),
                 seconds,
             )
     return verify_pressure(output)
@@ -935,7 +951,6 @@ def verify_pressure(*directories: Path) -> dict[str, Any]:
 def projection(root: Path, profile: str, calibration: list[Path]) -> dict[str, Any]:
     definition = load_definition(root)
     arms = definition["profiles"][profile]["arms"]
-    seeds = definition["seeds"][profile]
     measured: dict[tuple[str, str], tuple[float, float]] = {}
     for directory in calibration:
         for path in directory.glob("cells/*/*/cell-*.json"):
@@ -952,6 +967,7 @@ def projection(root: Path, profile: str, calibration: list[Path]) -> dict[str, A
                 (model, arm),
                 (420.0, float(definition["profiles"][profile]["cell_seconds"])),
             )
+            seeds = profile_seeds(definition, profile, model, [])
             seconds = startup + 30 + len(seeds) * workload
             total += seconds
             rows.append(
