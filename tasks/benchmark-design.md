@@ -83,7 +83,9 @@ all 16 cells valid. Hinted recomputed tokens native/current/candidate: 2640/1320
 below native. Rule satisfied by its letter on Qwen, but three of four repetitions are
 exact ties and the gain comes from one seed with large A/A noise.
 Philip asked (2026-11-12, 21:44) that the audit thread be told when the 2080 Ti is
-free; it was told at 21:50. Check idle before every later GPU run and wait if busy.
+free; it was told at 21:50. That thread then began work on the same machine (display
+driver install, ShaderLOD GPU work). All GPU work here is held until it messages this
+thread that it is done. GPU used so far: about 75 minutes.
 
 ## Next
 Gemma smoke and advice profiles (idle GPU only), apply the rule per model, dense
