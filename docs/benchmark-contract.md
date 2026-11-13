@@ -41,7 +41,8 @@ retain native policy/source identity, exact prefix-key assumptions, store/touch/
 ordering, expiry, capacity and failed-store accounting. Token counts alone do not
 establish shared-prefix identities or hybrid cache-group bytes. Philip approved
 replacing the recency hint with promotion or bounded protection if it consistently
-wins; the decision rule is fixed in the active task before engine results. Report
+wins. The first comparison applied a rule fixed before engine results and did not
+adopt it ([result](../results/promote-hold-advice/result.md)). Report
 unhinted harm and abandoned-hint cost.
 
 ## Correctness, execution and usefulness
@@ -75,6 +76,7 @@ reported separately. Do not launch a full matrix to test a runner edit.
 The old release-01 schedule is stopped by Philip's audit decision. Its retained data
 can support observed overhead, individual outcomes and completed correctness checks;
 it cannot establish release eligibility, competitive superiority or broad benefit.
-The exact next diagnostic/pressure run is owned by the active task. Maintained
+A full pressure run needs Philip's decision; its projected cost is in the result
+above. Maintained
 commands are in [the benchmark guide](benchmarks.md); durable conclusions follow
 [the result profile](results.md).

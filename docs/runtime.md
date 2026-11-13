@@ -6,9 +6,10 @@ torch 2.13.0 and transformers 5.22.1 from the hash-locked `runtime/requirements.
 Install it under ignored `artifacts/venvs/`, and do not modify an environment while another
 run uses it.
 
-The active benchmark task temporarily retains its admitted external environments;
-see its current State before changing runtime paths. New installations use the
-repository-contained paths below.
+Benchmark attempts so far used admitted environments outside the repository (the
+benchmark runtime with the Gemma overrides and patch, and a separate LMCache
+environment); their receipts record the exact interpreter. Do not modify them while
+a run uses them. New installations use the repository-contained paths below.
 
 ```sh
 uv venv --python 3.12.3 artifacts/venvs/wait-hint
@@ -74,9 +75,13 @@ cache groups and aligned recurrent checkpoints, with at least one full-attention
 Both modern benchmark models have initial restored-continuation probes; these do not
 qualify broad hybrid correctness or performance. Gemma4 starts on the 2080 Ti only
 with the hash-pinned `gemma-turing` compatibility patch. Its first native-ARC sustained
-check found a continuation-token mismatch and stopped early; operating qualification
-remains blocked pending diagnosis. See [benchmark qualification](benchmarks.md) and
-the active benchmark task for the isolated environment and retained failure.
+check found a continuation-token mismatch against a fresh run and stopped early; that
+failed cell is retained. The GPU byte case later showed CPU-restored Gemma KV is
+byte-identical to the stored blocks and the restored return equals a GPU-resident
+return at the same boundary, so the mismatch reflects different cached boundaries,
+not a faulty restore. Sustained operating checks now use that same-boundary
+reference; a new Gemma operating check has not been run. See
+[benchmark qualification](benchmarks.md).
 BF16 on Turing, speculative decoding, LoRA and parallel execution remain
 unsupported. Use an ordinary vLLM serving
 command with `--dtype float16`, `--enforce-eager`, `--attention-backend TRITON_ATTN`,

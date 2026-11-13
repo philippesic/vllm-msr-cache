@@ -111,8 +111,10 @@ with the same scope/session, the hint deadline, replacement or retirement of its
 observation, or a cache reset. Held keys are capped at half the CPU pool; a hint
 that would exceed the cap promotes without holding. If a native eviction cannot be
 satisfied without held keys, the holds are ignored for that eviction, so holds never
-cause a store failure. The setting exists only for the engine comparison in the
-active benchmark task; the losing mechanism is deleted afterwards. An exact replay returns
+cause a store failure. Promote-hold is an opt-in experimental mechanism: its
+pre-registered comparison ([result](../results/promote-hold-advice/result.md)) cut
+recomputation sharply in aggregate but was worse than recency in one Gemma
+repetition, so recency stays the default and neither path was retired. An exact replay returns
 its original decision, refreshed count and ready-prefix count even after expiry, with `replayed=true` and zero newly refreshed keys. It
 never mutates ARC again. Changed content for an existing event refuses. This applies
 in both advice modes. Replay state lasts only for the current observation and

@@ -7,6 +7,7 @@ different implementation and do not qualify this code. See the [result profile](
 ## Current code
 
 - **functional** — [Exact offload and hint delivery pass the current functional checks](results/current-functionality/result.md)
+- **mixed** — [Promote-hold wait advice cut recomputation in aggregate but missed its pre-registered rule](results/promote-hold-advice/result.md)
 
 ## Earlier research
 

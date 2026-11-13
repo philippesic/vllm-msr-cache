@@ -1,6 +1,5 @@
 # Benchmark implementation
 
-The benchmark suite is under implementation in [the active task](../tasks/benchmark-design.md).
 The [evidence contract](benchmark-contract.md) defines the decisions and validity requirements.
 release-01 stopped after panel 0/7 at Philip's requested boundary; its existing queue
 is cancelled. Do not resume or launch the old schedule. Compare and release
@@ -25,7 +24,6 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   WSL host has successful Qwen and Gemma restoration probes using the opt-in
   VMM/staged-copy repair, plus one graded Qwen coding pilot. Broader application
   and reliability qualification remains pending.
-  See the active benchmark task for evidence.
 - `verify-probe artifacts/runs/attempt` checks a v3/v4/v5/v6 receipt, frozen source/model hashes,
   retained artifacts, token equality and original grader outcomes without GPU work. Earlier investigation
   attempts retain their original schemas; this reader does not silently upgrade them.
@@ -52,7 +50,14 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   diagnostics completed and were independently verified: fresh outputs were stable,
   while GPU-resident outputs differed even without CPU offload. Native restoration
   also reproduced the final-token mismatch. Correctness qualification remains
-  unresolved; commands, attempt paths and scope are in the active task.
+  unresolved by fresh-run comparison. The GPU lane case
+  `test_restored_kv_bytes_match_stored_and_resident_boundary_output` settles it:
+  after a GPU-only reset and clearing the GPU KV memory, every block a CPU restore
+  wrote must be byte-identical to a block stored before displacement, and the
+  restored output must equal a GPU-resident return at the same cached boundary.
+  On Gemma 2,832 of 2,840 written blocks matched (the rest fit the recomputed
+  tail and decode) and outputs matched; see the
+  [result](../results/promote-hold-advice/result.md).
 
 - `simulate --runtime-python PY --out artifacts/runs/NEW` replays concurrent
   sessions on the CPU in about a minute and writes `simulation.json`. It re-runs
@@ -72,9 +77,12 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   application requests (prompt, generated, unpressured cached tokens as the shared
   prefix, and gaps). A scenario whose `gpu-only` and `oracle` hinted recomputed shares
   differ by less than 10 points is reported `non-discriminating` and excluded from
-  comparison. Results are simulated direction: arrival times are arm-independent,
-  loads are instantaneous, and Gemma's cache-group layout (two full groups and five
-  1024-token sliding groups at 64-token chunks) is inferred from observed CPU usage.
+  comparison. Results are simulated direction: arrival times are arm-independent and
+  loads are instantaneous. Geometries declare cache groups (Gemma: one 64-token
+  full-attention group and five sliding groups of 16-token chunks with a 64-chunk
+  window, as measured) and whether GPU prefix reuse serves returns
+  (`gpu_prefix_reuse`). Attention-style GPU reuse overstated GPU hits for both hybrid
+  models in the engine; the `-no-gpu-reuse` scenarios are the calibrated variants.
 - `pressure --profile smoke|advice|full --runtime-python PY --lmcache-python LMPY
   --model ID=PATH [--model ...] [--arm NAME ...] --out artifacts/runs/NEW` is the
   multi-session pressure benchmark defined in `benchmarks/pressure.json`. Before any
@@ -112,7 +120,17 @@ The maintained entry point is `uv run --locked python -m tools.benchmark`:
   differ by at least 10 points and the A/A difference is smaller than that gap;
   otherwise comparisons are withheld. Several directories (for example smoke
   controls plus `advice` repetitions) can be verified together if they share one
-  definition. The advice rule from the active task is evaluated per model.
+  model definition (workload, engine settings, arms, controls). The candidate rule
+  (every repetition no worse than recency, lower total, unhinted within 3 points of
+  the control, no added store failures) is evaluated per model when a `candidate`
+  arm exists. Gemma uses a model workload override (4 sessions, 4000-token
+  conversations, 2 one-shots) because native offload stores 21 one-MiB keys per 64
+  tokens (one full-attention chunk and five sliding-window groups of four 16-token
+  chunks), about 336 KiB per token: its pool is 2560 MiB and its oracle pool
+  7680 MiB. The oracle checks that its pool never filled instead of evictions.
+  Pressure definitions set the simulator's `gpu_prefix_reuse` to false because the
+  engine's gpu-only arm recomputed nearly every returning prefix on both hybrid
+  models; simulator-only fields do not change a model definition's identity.
   `plan --profile pressure-smoke|pressure-advice|pressure-full [--calibration DIR]`
   projects GPU time from measured cell costs.
 - `report-probe artifacts/runs/attempt` verifies first, then summarizes task quality,
