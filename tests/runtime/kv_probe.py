@@ -33,9 +33,10 @@ class KVProbe:
         torch.cuda.synchronize()
         return len(stores)
 
-    def compare_kv(self) -> dict[str, int]:
+    def compare_kv(self) -> dict[str, Any]:
         written = matched = 0
-        for pointer, rows in self.kv_storages().items():
+        unmatched: list[dict[str, float]] = []
+        for ordinal, (pointer, rows) in enumerate(self.kv_storages().items()):
             before = self.kv_snapshot[pointer]
             after = rows.cpu()
             stored: dict[bytes, int] = {}
@@ -46,11 +47,23 @@ class KVProbe:
                 written += 1
                 digest = hashlib.blake2b(after[block].numpy().tobytes()).digest()
                 source = stored.get(digest)
-                matched += int(
-                    source is not None and torch.equal(before[source], after[block])
+                if source is not None and torch.equal(before[source], after[block]):
+                    matched += 1
+                    continue
+                same = (before == after[block]).float().mean(dim=1)
+                unmatched.append(
+                    {
+                        "storage": ordinal,
+                        "block": block,
+                        "nonzero_bytes": float((after[block] != 0).float().mean()),
+                        "closest_stored_block": int(same.argmax()),
+                        "closest_identical_fraction": float(same.max()),
+                        "same_block_identical_fraction": float(same[block]),
+                    }
                 )
         self.kv_snapshot = {}
         return {
             "blocks_written_after_clear": written,
             "written_blocks_identical_to_a_stored_block": matched,
+            "unmatched": unmatched,
         }

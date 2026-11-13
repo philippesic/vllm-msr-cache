@@ -584,7 +584,7 @@ def test_restored_kv_bytes_match_stored_and_resident_boundary_output() -> None:
         assert llm.reset_prefix_cache(reset_connector=False)
         llm.collective_rpc(KVProbe.clear_kv.__name__)
         restored = generate_once(llm, prompt, params)
-        comparison: dict[str, int] = llm.collective_rpc(KVProbe.compare_kv.__name__)[0]
+        comparison: dict[str, Any] = llm.collective_rpc(KVProbe.compare_kv.__name__)[0]
         boundary = 64 * 24
         assert resident.num_cached_tokens == restored.num_cached_tokens == boundary
         assert comparison["written_blocks_identical_to_a_stored_block"] > 0

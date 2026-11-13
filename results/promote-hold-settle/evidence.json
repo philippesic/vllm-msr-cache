@@ -1,0 +1,1271 @@
+{
+ "aa_repeats": {
+  "gemma4-12b-int4": {
+   "302": {
+    "hinted": [
+     13760,
+     13760,
+     13760
+    ],
+    "unhinted": [
+     13040,
+     10864,
+     14656
+    ]
+   },
+   "304": {
+    "hinted": [
+     10512,
+     10512,
+     19008
+    ],
+    "unhinted": [
+     7920,
+     7920,
+     22464
+    ]
+   }
+  },
+  "qwen35-4b-int4": {
+   "301": {
+    "hinted": [
+     7920,
+     6336,
+     25344
+    ],
+    "unhinted": [
+     3696,
+     4752,
+     34320
+    ]
+   },
+   "303": {
+    "hinted": [
+     7392,
+     8448,
+     21648
+    ],
+    "unhinted": [
+     4224,
+     4224,
+     41184
+    ]
+   }
+  }
+ },
+ "conditions": {
+  "gemma_gpu_kv_tokens": 9676,
+  "gpu_minutes": 111,
+  "precheck": "simulates contiguous seeds from each model's first seed, as in round one"
+ },
+ "gemma_seed_201_first_round": "Three promote-hold holds pinned about 1,040 of 2,560 keys (each Gemma hold covers the full-attention prefix plus five 1024-token sliding windows, 315-370 keys) while two running requests held about 1,050 pending store keys each. Newly finished prefixes were evicted before their own hints (4 no_ready_prefix versus 1 for recency) and the unhinted session lost every CPU hit; holds yielded so no store failed. A real weakness of a 50% cap that ignores in-flight store demand in a tight pool, not an artifact.",
+ "kv_attribution": {
+  "note": "Gemma, 1536-token restore boundary, 8 KV storages",
+  "one_output_token": {
+   "blocks_written_after_clear": 2800,
+   "identical": 2784,
+   "restored_matches_resident_at_boundary": true,
+   "unmatched": [
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 0
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 0
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 1
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 1
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 2
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 2
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 3
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 3
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 4
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 4
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 5
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 5
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 6
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 6
+    },
+    {
+     "block": 849,
+     "closest_identical_fraction": 0.9922,
+     "closest_stored_block": 510,
+     "nonzero_bytes": 0.0624,
+     "same_block_identical_fraction": 0.9376,
+     "storage": 7
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.9844,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.0156,
+     "same_block_identical_fraction": 0.9844,
+     "storage": 7
+    }
+   ]
+  },
+  "thirty_two_output_tokens": {
+   "blocks_written_after_clear": 2840,
+   "identical": 2832,
+   "restored_matches_resident_at_boundary": true,
+   "unmatched": [
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.5011,
+     "closest_stored_block": 515,
+     "nonzero_bytes": 0.4992,
+     "same_block_identical_fraction": 0.5008,
+     "storage": 0
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.501,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.499,
+     "same_block_identical_fraction": 0.501,
+     "storage": 1
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.501,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.499,
+     "same_block_identical_fraction": 0.501,
+     "storage": 2
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.501,
+     "closest_stored_block": 515,
+     "nonzero_bytes": 0.499,
+     "same_block_identical_fraction": 0.501,
+     "storage": 3
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.501,
+     "closest_stored_block": 0,
+     "nonzero_bytes": 0.499,
+     "same_block_identical_fraction": 0.501,
+     "storage": 4
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.5012,
+     "closest_stored_block": 515,
+     "nonzero_bytes": 0.4992,
+     "same_block_identical_fraction": 0.5008,
+     "storage": 5
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.501,
+     "closest_stored_block": 515,
+     "nonzero_bytes": 0.499,
+     "same_block_identical_fraction": 0.501,
+     "storage": 6
+    },
+    {
+     "block": 854,
+     "closest_identical_fraction": 0.5011,
+     "closest_stored_block": 515,
+     "nonzero_bytes": 0.4991,
+     "same_block_identical_fraction": 0.5009,
+     "storage": 7
+    }
+   ]
+  }
+ },
+ "models": {
+  "gemma4-12b-int4": {
+   "rows": [
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       128,
+       13760,
+       1053.8
+      ],
+      "native-arc": [
+       13760,
+       13760,
+       4158.75
+      ],
+      "wait-hint": [
+       13344,
+       13760,
+       4152.57
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 2
+     },
+     "reserve": false,
+     "seed": 302,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       11360,
+       14656
+      ],
+      "native-arc": [
+       13040,
+       14656
+      ],
+      "wait-hint": [
+       13632,
+       14656
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       5568,
+       19008,
+       1561.84
+      ],
+      "native-arc": [
+       10512,
+       19008,
+       2313.18
+      ],
+      "wait-hint": [
+       10512,
+       19008,
+       2311.28
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 2,
+      "wait-hint": 1
+     },
+     "reserve": false,
+     "seed": 304,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       13392,
+       22464
+      ],
+      "native-arc": [
+       7920,
+       22464
+      ],
+      "wait-hint": [
+       7920,
+       22464
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       4480,
+       21376,
+       1765.53
+      ],
+      "native-arc": [
+       16656,
+       21376,
+       3529.66
+      ],
+      "wait-hint": [
+       1344,
+       21376,
+       1326.28
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 1,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 305,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3200,
+       7808
+      ],
+      "native-arc": [
+       5632,
+       7808
+      ],
+      "wait-hint": [
+       3200,
+       7808
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       3200,
+       19264,
+       1692.96
+      ],
+      "native-arc": [
+       14592,
+       19264,
+       3352.81
+      ],
+      "wait-hint": [
+       14592,
+       19264,
+       3355.06
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 1,
+      "wait-hint": 1
+     },
+     "reserve": false,
+     "seed": 307,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3888,
+       7616
+      ],
+      "native-arc": [
+       5104,
+       7616
+      ],
+      "wait-hint": [
+       5104,
+       7616
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       1088,
+       21120,
+       1220.3
+      ],
+      "native-arc": [
+       14592,
+       21120,
+       2496.32
+      ],
+      "wait-hint": [
+       9984,
+       21120,
+       2078.94
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 1,
+      "wait-hint": 2
+     },
+     "reserve": false,
+     "seed": 308,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3152,
+       8896
+      ],
+      "native-arc": [
+       5376,
+       8896
+      ],
+      "wait-hint": [
+       5376,
+       8896
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       48,
+       13760,
+       1128.01
+      ],
+      "native-arc": [
+       48,
+       13760,
+       1114.68
+      ],
+      "wait-hint": [
+       48,
+       13760,
+       1121.55
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 309,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3776,
+       14080
+      ],
+      "native-arc": [
+       1920,
+       14080
+      ],
+      "wait-hint": [
+       1920,
+       14080
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       1984,
+       24320,
+       1069.71
+      ],
+      "native-arc": [
+       18320,
+       24320,
+       2771.04
+      ],
+      "wait-hint": [
+       5440,
+       24320,
+       1449.56
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 1,
+      "wait-hint": 1
+     },
+     "reserve": false,
+     "seed": 310,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       5952,
+       5952
+      ],
+      "native-arc": [
+       5952,
+       5952
+      ],
+      "wait-hint": [
+       5952,
+       5952
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       12032,
+       26752,
+       2214.57
+      ],
+      "native-arc": [
+       20096,
+       26752,
+       3165.49
+      ],
+      "wait-hint": [
+       14272,
+       26752,
+       2415.16
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 3,
+      "wait-hint": 1
+     },
+     "reserve": false,
+     "seed": 311,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3008,
+       3008
+      ],
+      "native-arc": [
+       3008,
+       3008
+      ],
+      "wait-hint": [
+       3008,
+       3008
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    }
+   ],
+   "rule": {
+    "R1": {
+     "candidate_total": 28528,
+     "holds": true,
+     "not_worse": "7/8",
+     "ratio": 0.4103,
+     "recency_total": 69536
+    },
+    "R2": {
+     "holds": false,
+     "worst_seed_gap": [
+      305,
+      0.1467
+     ]
+    },
+    "R3": {
+     "holds": true,
+     "vs_native_points": -0.27,
+     "vs_recency_points": 1.91
+    },
+    "R4": {
+     "candidate_failures": 0,
+     "holds": true,
+     "native_failures": 0
+    },
+    "controls_or_invalid_other": [],
+    "counted_seeds_candidate_vs_native": [
+     302,
+     304,
+     305,
+     307,
+     308,
+     309,
+     310,
+     311
+    ],
+    "counted_seeds_candidate_vs_recency": [
+     302,
+     304,
+     305,
+     307,
+     308,
+     309,
+     310,
+     311
+    ],
+    "keys_per_token": 0.328125,
+    "native_invalid_cells": []
+   }
+  },
+  "qwen35-4b-int4": {
+   "rows": [
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       7920,
+       25344,
+       683.46
+      ],
+      "native-arc": [
+       7920,
+       25344,
+       620.33
+      ],
+      "wait-hint": [
+       6336,
+       25344,
+       648.45
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 1,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 301,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       8448,
+       34320
+      ],
+      "native-arc": [
+       3696,
+       34320
+      ],
+      "wait-hint": [
+       4752,
+       34320
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       6864,
+       21648,
+       804.55
+      ],
+      "native-arc": [
+       7392,
+       21648,
+       861.35
+      ],
+      "wait-hint": [
+       7392,
+       21648,
+       871.04
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 303,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       8976,
+       41184
+      ],
+      "native-arc": [
+       4224,
+       41184
+      ],
+      "wait-hint": [
+       4224,
+       41184
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       8448,
+       23232,
+       1125.56
+      ],
+      "native-arc": [
+       8448,
+       23232,
+       1118.32
+      ],
+      "wait-hint": [
+       8448,
+       23232,
+       1123.17
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 305,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3696,
+       25344
+      ],
+      "native-arc": [
+       3696,
+       25344
+      ],
+      "wait-hint": [
+       3696,
+       25344
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       6336,
+       27984,
+       599.27
+      ],
+      "native-arc": [
+       6336,
+       27984,
+       606.73
+      ],
+      "wait-hint": [
+       6336,
+       27984,
+       626.39
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 308,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       3168,
+       22176
+      ],
+      "native-arc": [
+       2112,
+       22176
+      ],
+      "wait-hint": [
+       2112,
+       22176
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       528,
+       36432,
+       529.0
+      ],
+      "native-arc": [
+       1056,
+       36432,
+       651.68
+      ],
+      "wait-hint": [
+       1056,
+       36432,
+       548.28
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 312,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       8448,
+       18480
+      ],
+      "native-arc": [
+       7920,
+       18480
+      ],
+      "wait-hint": [
+       8448,
+       18480
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       5280,
+       40656,
+       1183.07
+      ],
+      "native-arc": [
+       5280,
+       40656,
+       1398.6
+      ],
+      "wait-hint": [
+       5808,
+       40656,
+       1221.86
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 313,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       528,
+       31152
+      ],
+      "native-arc": [
+       528,
+       31152
+      ],
+      "wait-hint": [
+       528,
+       31152
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       3168,
+       21648,
+       672.83
+      ],
+      "native-arc": [
+       3168,
+       21648,
+       681.82
+      ],
+      "wait-hint": [
+       3168,
+       21648,
+       713.54
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 314,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       5280,
+       36960
+      ],
+      "native-arc": [
+       5280,
+       36960
+      ],
+      "wait-hint": [
+       5280,
+       36960
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    },
+    {
+     "failed_contracts": {
+      "candidate": [],
+      "native-arc": [],
+      "wait-hint": []
+     },
+     "hinted": {
+      "candidate": [
+       6864,
+       25344,
+       558.05
+      ],
+      "native-arc": [
+       6864,
+       25344,
+       556.92
+      ],
+      "wait-hint": [
+       6864,
+       25344,
+       555.22
+      ]
+     },
+     "no_ready_prefix": {
+      "candidate": 0,
+      "wait-hint": 0
+     },
+     "reserve": false,
+     "seed": 315,
+     "store_failures": {
+      "candidate": 0,
+      "native-arc": 0,
+      "wait-hint": 0
+     },
+     "unhinted": {
+      "candidate": [
+       1056,
+       26400
+      ],
+      "native-arc": [
+       1056,
+       26400
+      ],
+      "wait-hint": [
+       1056,
+       26400
+      ]
+     },
+     "valid": {
+      "candidate": "valid",
+      "native-arc": "valid",
+      "wait-hint": "valid"
+     }
+    }
+   ],
+   "rule": {
+    "R1": {
+     "candidate_total": 45408,
+     "holds": false,
+     "not_worse": "7/8",
+     "ratio": 1.0,
+     "recency_total": 45408
+    },
+    "R2": {
+     "holds": true,
+     "worst_seed_gap": [
+      301,
+      0.0625
+     ]
+    },
+    "R3": {
+     "holds": false,
+     "vs_native_points": 4.7,
+     "vs_recency_points": 4.03
+    },
+    "R4": {
+     "candidate_failures": 0,
+     "holds": true,
+     "native_failures": 0
+    },
+    "controls_or_invalid_other": [],
+    "counted_seeds_candidate_vs_native": [
+     301,
+     303,
+     305,
+     308,
+     312,
+     313,
+     314,
+     315
+    ],
+    "counted_seeds_candidate_vs_recency": [
+     301,
+     303,
+     305,
+     308,
+     312,
+     313,
+     314,
+     315
+    ],
+    "keys_per_token": 0.004713326446280992,
+    "native_invalid_cells": []
+   }
+  }
+ },
+ "outcome": {
+  "R5": true,
+  "decision": "keep recency",
+  "gemma4-12b-int4": {
+   "R1": true,
+   "R2": false,
+   "R3": true,
+   "R4": true
+  },
+  "qwen35-4b-int4": {
+   "R1": false,
+   "R2": true,
+   "R3": false,
+   "R4": true
+  }
+ },
+ "rule_commit": "1273751e (tasks/settle-promote-hold.md, fixed before any run of this round)",
+ "runs": {
+  "gemma4-12b-int4/candidate": "artifacts/runs/settle-gemma4-12b-int4-candidate",
+  "gemma4-12b-int4/native-arc": "artifacts/runs/settle-gemma4-12b-int4-native-arc",
+  "gemma4-12b-int4/native-arc-repeat": "artifacts/runs/settle-gemma4-12b-int4-native-arc-repeat",
+  "gemma4-12b-int4/wait-hint": "artifacts/runs/settle-gemma4-12b-int4-wait-hint",
+  "qwen35-4b-int4/candidate": "artifacts/runs/settle-qwen35-4b-int4-candidate",
+  "qwen35-4b-int4/native-arc": "artifacts/runs/settle-qwen35-4b-int4-native-arc",
+  "qwen35-4b-int4/native-arc-repeat": "artifacts/runs/settle-qwen35-4b-int4-native-arc-repeat",
+  "qwen35-4b-int4/wait-hint": "artifacts/runs/settle-qwen35-4b-int4-wait-hint"
+ },
+ "schema": "promote-hold-settle-evidence-v1"
+}
