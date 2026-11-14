@@ -7,7 +7,8 @@ Philip's authorization; see [the task](../tasks/pr-evidence.md). Initially revie
 GPT-6 Astra and Claude Fable 5.2, the concrete workloads, models, comparators and
 machine tiers (Part C) by GPT-6 Astra and GPT-6.1 Sol. Every reviewer explicitly
 accepted that revision. A later debate between GPT-6 Astra and GPT-6.1 Sol reviewed
-the dual delivery-route revision; its acceptance status is recorded in the task. Part B lists interpretation rules. Part C owns concrete execution
+the dual delivery-route revision; both explicitly accepted it at 9a8e0acf as a staged
+planning document, with Philip's harm limit and the named freeze gates as caveats. Part B lists interpretation rules. Part C owns concrete execution
 settings; missing admission/protocol details must be frozen before dependent runs.
 
 Background facts verified against upstream vLLM:

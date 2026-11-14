@@ -47,6 +47,12 @@ version (results/reachable-hold-decide): server busy time x1.03 Qwen (noise leve
 and x1.15 Gemma versus that ARC baseline. The WSL instance on the 2080 Ti machine
 sees about 15 GB RAM, capping CPU pools near 4 GiB there.
 
+Both hint delivery routes are now planned (A4t request TTL as a pure plugin, A4p
+post-response with a hashed core patch and its patched control A3p), with
+independent route verdicts. GPT-6 Astra and GPT-6.1 Sol debated the plan on
+2026-11-13 and both accepted it at 9a8e0acf, adding a route contract, an automatic
+hold comparator, claim scoping, harm-cohort sizing and a cost drop order.
+
 ## Next
 Resolve the pending harm decision; prepare a bounded Stage 1 implementation
 estimate. Then, only if authorized, begin the CPU-only feasibility work on frozen
