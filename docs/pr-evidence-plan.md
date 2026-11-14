@@ -40,9 +40,10 @@ Freeze one upstream commit. Answer in writing, with CPU tests:
    identify tool calls, which the API layer parses, so (c) reduces to (b)). Both
    routes are built and compared: (a) as the pure plugin (arm A4t, request TTL)
    and (b) as the plugin plus a minimal, hashed core patch (arm A4p,
-   post-response, the current product's delivery shape). Their gap is a reported finding for the RFC: it tells maintainers
-   what a core hook would add, and keeps a TTL failure from being read as evidence
-   that holding does not help.
+      post-response, the current product's delivery shape). Their whole-route
+   difference (information, timing, abandoned holds and patch overhead together) is
+   a reported finding for the RFC, and keeps a TTL failure from being read as
+   evidence that holding does not help.
 2. Plugin sufficiency. Can an out-of-tree CachePolicy see what it needs: session
    identity (via hint payload), the session's key chain across requests, chunks that
    hit the GPU prefix cache and are never observed by the policy, shared-prefix chunks
@@ -84,7 +85,7 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
 
 ### Stage 2. Feasibility screen on the 2080 Ti (needs authorization; proposed cap ~4-5 GPU h, a resource limit, not an evidence requirement)
 - Runtime: frozen upstream commit + our plugin; A4p additionally applies the hashed
-  delivery patch, and every other arm runs unpatched.
+  delivery patch, as does its control A3p; every other arm runs unpatched.
 - Models and priority: D8 dense first, then the admitted Mamba and sliding-window
   hybrids, as in Part C. Failed admission is reported as not run; a missing D8 screen
   does not qualify the later D8 primary comparison.
@@ -139,11 +140,12 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   >= 0.15 and its CI lower bound > 0; recompute change CI upper bound < 0; for every
   harm metric the point estimate <= its guardrail margin and the CI upper bound
   <= twice the margin; zero added store failures; hint-off identity holds.
-  STOP for efficacy only if cells are valid and hint-off identity holds, and on the
-  admitted target-workload case (T) with
-  opportunity present, the TTFT benefit CI upper bound is below 0.15 on every model
-  run, for both A4t and A4p. If only A4t meets this, the TTL route stops and the
-  post-response route continues under its own verdict. A STOP applies only at the screened scale (2080 Ti, contexts <= 6k tokens)
+  STOP for efficacy, per feasible route, only if that route's cells are valid and
+  its hint-off identity holds (A3 for A4t, A3p for A4p), and on the admitted
+  target-workload case (T) with opportunity present, its TTFT benefit CI upper bound
+  is below 0.15 on every model run. Each route's verdict is independent: either route
+  may STOP while the other is CONTINUE, INCONCLUSIVE or infeasible; the idea as a
+  whole stops only when every feasible route stops. A STOP applies only at the screened scale (2080 Ti, contexts <= 6k tokens)
   and is reported that way.
   INCONCLUSIVE otherwise, including failure to meet CONTINUE, insufficient
   precision, absent opportunity, or no admitted case T. Precedence: a correctness
@@ -224,8 +226,11 @@ maintainer endorsement nor authorizes the next stage.
   sensitivity for the same pooled ratio in Part B.3. Better baseline = lower primary miss
   share in calibration, fixed before confirmation. SUPPORTED if the CI upper bound of the SLO-miss ratio
   is below 0.75 and guardrails hold; NEGATIVE if the CI lower bound is above 0.75
-  (a 25% miss reduction ruled out); otherwise INCONCLUSIVE. A guardrail failure
-  makes the result NOT SUPPORTED regardless of the primary, reported as harm.
+  (a 25% miss reduction ruled out); otherwise INCONCLUSIVE. Guardrails, regardless
+  of the primary: a point estimate beyond the approved margin, or any added store
+  failure, resource exhaustion or error, is demonstrated harm (NOT SUPPORTED); an
+  upper bound beyond the margin with the point estimate within it is unestablished
+  safety (INCONCLUSIVE). Neither permits release.
   Seeds: pilot variance sets the count, minimum 8 for primary cells, 3 for curves;
   maximum budget stated; held-out trace groups.
 - Traffic: Poisson session arrivals; within a session the next turn is sent at
@@ -306,10 +311,12 @@ Earlier review caveats, reconciled with Part C and the final review:
 3. Eight seeds may give unstable intervals: report a sensitivity interval for the
    same estimand beside BCa. For pooled ratios (miss ratio, TTFT benefit) it is a
    seed-clustered delta-method interval on the log of the pooled ratio, weighting
-   seeds by their counted sessions or returns; for absolute changes, the paired
-   t-interval on seed differences. Disagreement on a decision threshold =>
-   INCONCLUSIVE. A geometric mean of per-seed ratios is a different estimand: report
-   it only as a labelled secondary, never as a veto. Predeclare the exact
+   seeds by their counted sessions or returns; for pooled absolute changes (e.g.
+   recompute share in points) it is a seed-clustered delta-method interval for the
+   same pooled difference, with each share's numerator and denominator summed over
+   seeds. Disagreement on a decision threshold => INCONCLUSIVE. A geometric mean of
+   per-seed ratios or an unweighted mean of per-seed differences is a different
+   estimand: report it only as a labelled secondary, never as a veto. Predeclare the exact
    computation and behavior for zero misses, undefined ratios, degenerate bootstrap
    or jackknife samples, and missing observations; no post-result method switching
    or silent pseudocounts. Undefined required evidence cannot establish support.
@@ -595,8 +602,12 @@ Stage 3a/3b (protocol and 2080 Ti pilot):
   demand excluding gaps), expand geometrically until baseline success falls below 85%,
   then bisect 3 times; central = success nearest 85%; also 0.5x and 1.25x central
   ("high load"; "overload" only when measured backlog growth shows it).
-- Measured count per run N = max(200, ceil(20 / pilot baseline miss share)) sessions,
-  separate from warm-up arrivals.
+- Measured count per run N, separate from warm-up arrivals, is the largest of:
+  200; ceil(20 / pilot baseline miss share); and, for each required harm cohort
+  (unhinted returns, one-shots; TTFT p95 and ITL), the sessions or run duration the
+  frozen sizing algorithm needs for that cohort's interval to meet its precision
+  ceiling at the pilot variance. The efficacy formula is a floor, not the sizing
+  rule.
 - Paired schedule: before a block runs, one seeded schedule per tested load (session
   IDs, task assignments, arrival times, gap draws, hint adoption, one-shot arrivals)
   is generated at that load's actual arrival rate and replayed identically for every
@@ -619,7 +630,7 @@ Stage 3a/3b (protocol and 2080 Ti pilot):
   counting as stable, with no monotone growth across three windows.
 - Common cutoff = the latest stabilization point among the block's core arms (A1, A2,
   A3, A4) on the shared schedule clock, applied unchanged to secondary arms so adding
-  a comparator cannot move the primary cohort; bounded by the 6-window deadline; if any arm has not stabilized by
+  a comparator cannot move the primary cohort; bounded by the 6-window deadline; if any core arm has not stabilized by
   then, the cutoff is the deadline and the block is labelled non-stationary and
   retained. There is no restart: if the first eviction in any arm occurs after the
   cutoff, the block is labelled late-pressure, its eviction time is recorded, and the
