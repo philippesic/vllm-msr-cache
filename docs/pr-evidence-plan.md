@@ -1,7 +1,9 @@
 # Evidence plan for a vLLM wait-hint pull request
 
 Status: accepted plan, authorized by Philip on 2026-11-13 for Stage 1 and the local
-2080 Ti phase only (1 hour admission, 8 hours screen maximum). Execution is testing private-state feasibility after the CPU callback diagnostic; see [the execution boundary](pr-evidence-execution.md).
+2080 Ti phase only (1 hour admission, 8 hours screen maximum). CPU feasibility passes for both routes; [the Stage 1 exit](pr-evidence-screen.md)
+freezes their implementation and the bounded screening procedure. GPU admission is
+pending; see [the execution boundary](pr-evidence-execution.md).
 Later stages remain unauthorized. Historical proposed caps below are estimates;
 Philip's explicit authorization supersedes those estimates, not the decision rules.
 Initially reviewed on

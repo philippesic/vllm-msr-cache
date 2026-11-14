@@ -79,4 +79,12 @@ def pr_evidence_environment(root: Path, model: Path) -> dict[str, str]:
     env["CUDA_VISIBLE_DEVICES"] = "0"
     env["HF_HUB_OFFLINE"] = "1"
     env["TOKENIZERS_PARALLELISM"] = "false"
+    cache = attempts_root().parent / "cache/pr-evidence"
+    for variable, name in (
+        ("VLLM_CACHE_ROOT", "vllm"),
+        ("TRITON_CACHE_DIR", "triton"),
+        ("TORCHINDUCTOR_CACHE_DIR", "inductor"),
+        ("CUDA_CACHE_PATH", "cuda"),
+    ):
+        env[variable] = str(cache / name)
     return env

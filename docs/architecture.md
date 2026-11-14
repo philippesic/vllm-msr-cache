@@ -157,5 +157,6 @@ Its CPU diagnostic found missing request-arrival notification and incomplete pub
 finish key lists for GPU-hit prefixes. Read-only private scheduler access now passes
 CPU key/return/readiness tests for both routes. The common evidence observer delegates
 native manager and connector operations and logs their results separately from the
-hold mechanism; hardware acquisition still requires the remaining Stage 1 gate. See [the execution boundary](pr-evidence-execution.md)
+hold mechanism; the [Stage 1 exit](pr-evidence-screen.md) admits bounded model
+qualification. GPU correctness and efficacy remain separate gates. See [the execution boundary](pr-evidence-execution.md)
 for the private-state alternative and precise qualification limits.

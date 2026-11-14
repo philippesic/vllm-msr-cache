@@ -295,6 +295,40 @@ def run_gpu_job(
     freeze = root / "benchmarks/pr-evidence/stage1-freeze.json"
     if not freeze.is_file() or json.loads(freeze.read_text())["stage1_exit"] != "go":
         raise ValueError("committed Stage 1 exit required before GPU")
+    frozen = json.loads(freeze.read_text())
+    frozen_paths = frozen["mechanism_sha256"] | {
+        "benchmarks/pr-evidence/w1-freeze.json": frozen["w1_freeze_sha256"],
+        "runtime/pr-evidence-requirements.txt": frozen["runtime_dependencies_sha256"],
+        frozen["protocol"]: frozen["protocol_sha256"],
+    }
+    if any(digest_file(root / path) != digest for path, digest in frozen_paths.items()):
+        raise ValueError("Stage 1 mechanism or protocol freeze drift")
+    if schedule is not None:
+        from tools.benchmarking.pr_workload import validate_schedule
+
+        planned = json.loads(schedule.read_text())
+        validate_schedule(planned)
+        if (
+            planned["manifest_sha256"] != frozen["w1_manifest_sha256"]
+            or planned["model"] != label
+        ):
+            raise ValueError(
+                "GPU schedule differs from admitted model or trace manifest"
+            )
+        if planned["partition"] == "pilot":
+            calibration = json.loads(
+                (
+                    root / "benchmarks/pr-evidence/calibration" / (label + ".json")
+                ).read_text()
+            )
+            if (
+                any(
+                    planned[key] != calibration[key]
+                    for key in ("arrival_rate", "one_shot_rate", "horizon_seconds")
+                )
+                or pool_gib != calibration["pool_gib"]
+            ):
+                raise ValueError("decision settings differ from committed calibration")
     if subprocess.check_output(
         ["git", "status", "--porcelain"], cwd=root, text=True
     ).strip():

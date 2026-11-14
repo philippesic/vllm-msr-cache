@@ -57,13 +57,13 @@ notification. Releasing at request finish is too late; sending a cancellation at
 return changes A4t's request-only delivery and adds behavior beyond A4p's
 post-response-only patch. Monkey-patching the manager changes the core contract.
 
-Neither route has yet been ruled infeasible. The initial interpretation that both
-needed a revised interface was too narrow: the accepted plan permits a pinned
-out-of-tree policy, including private state reads. The next qualification tests
-read-only scheduler access to recover complete key/group information and release
-holds before eviction on a session return. Polling cost and tiering behavior must
-be measured, rather than assuming this path fails. No GPU acquisition is admitted
-until these and the other Stage 1 requirements pass.
+Both routes pass the CPU feasibility gate. The original public-callback-only stop
+interpretation was too narrow: the accepted plan permits pinned private state reads.
+The qualified policy recovers complete keys/group geometry and releases returned
+sessions before eviction through read-only scheduler inspection. CPU lifecycle,
+identity, geometry, tiering and bookkeeping evidence is described below. The
+[Stage 1 exit and screening procedure](pr-evidence-screen.md) freezes hold-only and
+admits GPU model qualification; it does not yet qualify any GPU model.
 
 The [diagnostic result](../results/pr-evidence-feasibility/result.md) records the
 observations and explicitly corrects the initial stop interpretation. Its original
@@ -88,8 +88,7 @@ charges for observations/actions and leases. Shared keys count once against phys
 capacity. Duplicate action content replays; changed content refuses. The closed
 session/action schemas live in `policy_protocol.py`; request TTL is carried in a
 KvHintsEnvelope and registration in `kv_transfer_params.wait_hint_policy`.
-All limits and route behavior still need the complete Stage 1 tests and cost
-measurements before freezing for GPU.
+The Stage 1 exit now freezes these limits and route behavior before GPU acquisition.
 
 `pr-feasibility --hold-policy` exercises native ARC/LRU policies, disabled controls
 and the post-response policy method through the same receipt lifecycle. It is not a

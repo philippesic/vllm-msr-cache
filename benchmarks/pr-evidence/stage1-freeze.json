@@ -1,0 +1,99 @@
+{
+  "A3p": {
+    "cost_scope": "CPU utility dispatch; network/serving overhead unqualified",
+    "cpu_identity_receipt": "pr-post-feasibility-01",
+    "fresh_disabled_dispatch_p50_us": 62,
+    "fresh_disabled_dispatch_p99_us": 123,
+    "messages": "same post-response envelopes as A4p",
+    "policy": "AdviceOffARC",
+    "runtime": "same delivery patch as A4p"
+  },
+  "cpu_evidence": {
+    "pr-bookkeeping-01": {
+      "admission.json": "19d876eb5de4d0b2747c0f28e33eb846bd9d43af7b76412ced609e992299bf74",
+      "terminal.json": "51b7795718f68b0036c12c138166dcf8efb0bfff6f71138a3c1cfa9661d1df0d"
+    },
+    "pr-instrument-10": {
+      "admission.json": "caf999f75b02e6c5c4f8ba6539ceda79531e631b79f464211235cd2eb4cef8a1",
+      "terminal.json": "16ea6ee1318074d2421a94b2d413d2b7db9df4bbf97b7004069aa95d802c3e89"
+    },
+    "pr-policy-feasibility-11": {
+      "admission.json": "158aa6f688fcd0a5f44ce9012fa3da2990b3ad4e58fb386ede5015a6c07a773d",
+      "terminal.json": "54e72ab788ee2e457d2764c234e4f252d4e87ef04146db42e6b2df8c6d99cb51"
+    },
+    "pr-post-feasibility-01": {
+      "admission.json": "bc8456e50c382eee3ac5320725573e7e8820c46531f3e6b26e50a7090eb3231b",
+      "terminal.json": "5a861d65907f6b1cb2b28bb7d2c56a2904d1f652df4f0817006457660de87b2b"
+    },
+    "pr-w1-admission-01": {
+      "admission.json": "c1f282537582afe4c31e3f1b2a6c6a59088499bea6b7233f6e9c6254eb5609c5",
+      "terminal.json": "0ce2bfc0530ada5fda42f1dafda8be08caac00402c83901de8e7310d513b1544"
+    }
+  },
+  "dead_first": false,
+  "gpu_admission": "pending; no model qualified by this CPU exit",
+  "gpu_budget_seconds": {
+    "admission": 3600,
+    "screen": 28800
+  },
+  "implementation_checkpoint": "4168264f25b0e602132a79879c1b1aa9dfd806f6",
+  "limits": {
+    "actions_per_envelope_or_observation": 256,
+    "hold_charged_metadata_bytes": 33554432,
+    "observation_charged_metadata_bytes": 33554432,
+    "physical_hold_share": 0.5,
+    "sessions": 4096,
+    "ttl_clamp_ms": 60000
+  },
+  "lmcache": "candidate0.5.6 incompatible; no competitor comparison in Stage2",
+  "mechanism": "hold-only",
+  "mechanism_sha256": {
+    "wait_hint_offload/policy_holds.py": "6bd0501d5c7375fa90b2faea9aac8910763cec12b647d420c44d7348392d1a18",
+    "wait_hint_offload/policy_protocol.py": "739592878476419805ff55cc2950ce9cf4c4fd8c943289f03afcb77c03e7a401",
+    "wait_hint_offload/vllm_adapter/evidence_endpoint.py": "c3e73ad1d491f77fcbfc43820c65e7e77d2ef2bac39df064bfebba065abc0b89",
+    "wait_hint_offload/vllm_adapter/policy.py": "21c3bd0ed960464d7b8a74d86a3869835e87e3ab380dc3e236580115d7102e34",
+    "wait_hint_offload/vllm_adapter/policy_context.py": "ab8775c6b47af3dca5d4a44e045a9bf5fd04df3b06ce8ce8467222b4e643f3b0"
+  },
+  "models": {
+    "D8": "4da05a8edb55c6046cce958586c33b61da07bb79",
+    "HM": "d3e78b50c727b1f34802f440ca84b25781625352",
+    "HS": "7c781be42ce8d29d0975b857f6d0c0b2558d9b63"
+  },
+  "patches": {
+    "gemma-turing-main": {
+      "original_sha256": "1c68d8aedfa8907b55f71f9ca87c0dd18a3905b06c33559c390325e7bdebf015",
+      "patched_sha256": "ad963a2c366a00b529979704ab11d6b758242e6569ce4695511bcccefaf66b1c",
+      "target": "vllm/v1/attention/ops/triton_unified_attention.py"
+    },
+    "pr-post-response": {
+      "original_sha256": "0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e8",
+      "patched_sha256": "d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb",
+      "target": "vllm/v1/engine/core.py"
+    }
+  },
+  "promotion": false,
+  "protocol": "docs/pr-evidence-screen.md",
+  "protocol_sha256": "79e67e315d2a98c1396964d60f59096122722a3679c312f57e46e84a2b9e918c",
+  "routes": {
+    "A4p": {
+      "core_delivery_patch": true,
+      "deadline_origin": "engine acceptance",
+      "delivery": "post-response nonterminal recorded tool action",
+      "feasibility": "feasible",
+      "policy": "PostResponseARC"
+    },
+    "A4t": {
+      "core_delivery_patch": false,
+      "deadline_origin": "native request finish",
+      "delivery": "request TTL",
+      "feasibility": "feasible",
+      "policy": "RequestTTLARC"
+    }
+  },
+  "runtime_dependencies_sha256": "fe648df3667db8bf7aaff060ecdad92157fe7722b6c3233139dc58b51bfca96e",
+  "schema": "pr-stage1-freeze-v1",
+  "stage1_exit": "go",
+  "upstream_revision": "e9281bd939d4ade90d6aacf4b2319aa89ea46c39",
+  "w1_freeze_sha256": "5fae081793af413b96c0e248ef22e9cdbe779f9befc07f596dda8757ab7df903",
+  "w1_manifest_sha256": "d993b516214bd534e198c7122fe470407b011f974c080a42bb8cc650cd0d40da"
+}

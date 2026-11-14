@@ -31,7 +31,8 @@ ready/late-ready/shared/GPU-only prefixes, return/expiry/cancel/reset, failed-tr
 and failed-eviction atomicity, yield before store failure, all-group partial-tail and
 window geometry, forks and primary-tier lifecycle. New 36-case native matrix covers
 1/2/16/1024 chunks and 0/0.25/0.5 shares for ARC/LRU/post policies. Neither route is
-infeasible. Hold-only remains the CPU-qualified candidate; final Stage1 freeze pending.
+infeasible. Hold-only is frozen for both routes in benchmarks/pr-evidence/stage1-freeze.json;
+Stage 1 exit is go for bounded GPU model admission.
 
 The 18-cell production-size bookkeeping matrix pr-bookkeeping-01 found adversarial
 1M-chunk/1k-session eviction p99 14.9ms ARC /81.5ms LRU, ~18.2MB owned metadata.
@@ -66,7 +67,7 @@ no native env dependency changes, no competitor lane in Stage2. Replacement must
 verified/frozen before a future comparison.
 
 The paired W1 client, full capacity matrix, closed hint acknowledgements and deeper
-instrument qualification pass full acceptance (114 portable tests plus105 rule
+instrument qualification pass full acceptance (114 portable tests plus 105 rule
 proofs) and the old-runtime lane (28 tests). Test inventories added cases only.
 The real-corpus CPU schedule is retained at pr-evidence-runtime-02/schedule-cpu-01.json;
 its illustrative rates are not performance-calibrated settings.
@@ -85,7 +86,16 @@ regression. Actual process-tree interruption cleanup and cumulative failed-attem
 budget accounting have CPU tests. Working-set accounting counts current native
 reachable key unions, independent of readiness; no future-turn content enters.
 
+The complete runner/metrics checkpoint 4168264f passes full acceptance (123 portable
+checks plus 105 rule proofs) and 28 old-runtime CPU tests. Native instrument 10 passes
+server arguments, byte detector, end-to-end failure/metric regeneration and current
+working-set helper. Stage 1 freeze and the predeclared screen procedure are prepared
+for commit; no GPU benefit numbers have been observed.
+
+Admission healthcheck scheduled every five minutes: scheduled-task:
+6b7e19e4-2836-413e-b106-6119e6418aed, bound to this thread. Delete at phase end.
+
 ## Next
-Finish qualification of the complete runner/metrics checkpoint and the predeclared
-calibration/statistical edge-case protocol. Freeze and commit Stage1 exit inputs,
-then idle-check and execute authorized 2080 Ti admission/screen. No GPU runs yet.
+Commit/push the Stage 1 freeze, idle-check and execute bounded D8/HM/HS hardware
+admission. Then run baseline sizing/calibration and complete paired screen blocks
+under the frozen procedure and remaining budget. No GPU runs yet.
