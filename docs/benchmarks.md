@@ -503,7 +503,9 @@ Frozen-main job entry points:
   committed Stage 1 go record. Screen jobs add `--phase screen --schedule FILE`.
   The command enforces the authorized device, fresh idle observation, model/runtime
   identities and cumulative admission/screen budgets. It keeps all attempts and
-  refuses to pass an unfinished prior attempt.
+  refuses to pass an unfinished prior attempt. The captured-source client writes
+  inside its own `artifacts/`; cleanup moves that capture into the job’s retained
+  `client/` directory before hashing the terminal receipt.
 - `verify-pr-gpu-job DIRECTORY` validates the immutable receipt, including failed
   attempts; receipt integrity alone does not establish model admission.
 - `verify-pr-model-admission DIRECTORY` additionally checks poisoned-destination

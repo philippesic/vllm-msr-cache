@@ -70,6 +70,13 @@ wsl.exe -d Ubuntu-24.04 -u root (same verified boot); sudo requires a password.
 Five-minute acquisition healthcheck: scheduled-task:b9d30075-3c8f-4060-93da-acb406cfb8d2.
 Delete it when acquisition ends.
 
+D8/A2-04 under the repaired environment loaded the model and became ready with no
+new swap and at least 10 GiB available RAM. Its client was refused by the output
+path guard because the captured source expects output under its own artifacts/.
+The runner now captures there and moves the retained client directory before
+terminal hashing. Attempt04 remains charged (69.943233535 seconds); admission total
+is 256.404735586 seconds, leaving 3,343.595264414. No generation or screen yet.
+
 CPU reporting work now implements pooled post-stratified BCa and analytic clustered
 sensitivity intervals, the paired whole-route gap, calibration arithmetic and the
 per-route/model decision rules. Tests preserve censoring, reject duplicate seed

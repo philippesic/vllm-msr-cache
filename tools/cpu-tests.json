@@ -92,6 +92,7 @@
   "tests/test_pr_events.py::test_event_journal_detects_missing_record_clock_regression_and_truncation",
   "tests/test_pr_events.py::test_process_tree_measurement_includes_shared_pss_faults_swap_and_outside_activity",
   "tests/test_pr_feasibility.py::test_receipt_rejects_tampering_and_unsupported_inferences",
+  "tests/test_pr_jobs.py::test_captured_client_command_passes_real_output_guard",
   "tests/test_pr_jobs.py::test_gpu_budget_retains_failed_attempt_and_blocks_unfinished_job",
   "tests/test_pr_jobs.py::test_interruption_cleans_owned_server_and_descendant",
   "tests/test_pr_jobs.py::test_model_checksum_cache_release_preserves_exact_bytes",

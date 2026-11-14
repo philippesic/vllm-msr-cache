@@ -37,6 +37,26 @@ MODEL_REVISIONS = {
 CAPS = {"admission": 3600.0, "screen": 28800.0}
 
 
+def client_command(
+    python: Path, output: Path, arm: str, port: int, schedule: Path | None
+) -> list[str]:
+    command = [
+        str(python),
+        "-m",
+        "tools.benchmark",
+        "pr-client-native" if schedule else "pr-admission-native",
+        "--url",
+        f"http://127.0.0.1:{port}",
+        "--arm",
+        arm,
+        "--out",
+        str(output / "source/artifacts/client"),
+    ]
+    if schedule:
+        command += ["--schedule", str(output / "schedule.json")]
+    return command
+
+
 def screen_server_command(
     python: Path,
     model: Path,
@@ -406,6 +426,8 @@ def run_gpu_job(
     }
     write_record(output / "admission.json", admission)
     environment = pr_evidence_environment(output / "source", model)
+    captured_client = output / "source/artifacts/client"
+    captured_client.parent.mkdir()
     owned: list[tuple[subprocess.Popen[str], tuple[str, int, int, int] | None]] = []
     client: subprocess.Popen[str] | None = None
     status, detail = "failed", "server did not become ready"
@@ -460,27 +482,9 @@ def run_gpu_job(
                     except (urllib.error.URLError, TimeoutError, ConnectionError):
                         time.sleep(0.5)
                         continue
-                    operation = (
-                        "pr-admission-native"
-                        if phase == "admission"
-                        else "pr-client-native"
-                    )
-                    client_command = [
-                        str(python),
-                        "-m",
-                        "tools.benchmark",
-                        operation,
-                        "--url",
-                        f"http://127.0.0.1:{port}",
-                        "--arm",
-                        arm,
-                        "--out",
-                        str(output / "client"),
-                    ]
-                    if schedule:
-                        client_command += ["--schedule", str(output / "schedule.json")]
+                    command_client = client_command(python, output, arm, port, schedule)
                     client = subprocess.Popen(
-                        client_command,
+                        command_client,
                         cwd=output / "source",
                         env=environment,
                         stdout=client_log,
@@ -495,7 +499,7 @@ def run_gpu_job(
                         {
                             "pid": client.pid,
                             "identity": client_owner,
-                            "command": client_command,
+                            "command": command_client,
                         },
                     )
                 elif client.poll() is not None:
@@ -515,6 +519,9 @@ def run_gpu_job(
     finally:
         for child, owner in reversed(owned):
             _stop(child, owner)
+        if captured_client.exists():
+            captured_client.rename(output / "client")
+        captured_client.parent.rmdir()
         signal.signal(signal.SIGTERM, previous_term)
         ended = time.monotonic_ns()
         terminal = {

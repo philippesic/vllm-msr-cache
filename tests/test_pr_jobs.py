@@ -11,6 +11,7 @@ import pytest
 
 from tools.benchmarking.pr_jobs import (
     _stop,
+    client_command,
     model_digest,
     screen_server_command,
     spent_seconds,
@@ -112,3 +113,33 @@ def test_model_checksum_cache_release_preserves_exact_bytes(tmp_path: Path) -> N
     model.write_bytes(data)
     assert model_digest(model) == hashlib.sha256(data).hexdigest()
     assert model.read_bytes() == data
+
+
+def test_captured_client_command_passes_real_output_guard(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import tools.benchmark
+    import tools.benchmarking.pr_admission
+
+    captured = tmp_path / "source/artifacts/client"
+    captured.parent.mkdir(parents=True)
+
+    async def admission(url: str, arm: str, directory: Path) -> dict[str, bool]:
+        assert url == "http://127.0.0.1:8000" and arm == "A2"
+        directory.mkdir()
+        (directory / "partial.json").write_text('{"retained":true}')
+        return {"fixture": True}
+
+    monkeypatch.setattr(
+        tools.benchmarking.pr_admission, "admission_requests", admission
+    )
+    monkeypatch.setattr(
+        tools.benchmark, "__file__", str(tmp_path / "source/tools/benchmark.py")
+    )
+    command = client_command(Path(sys.executable), tmp_path, "A2", 8000, None)
+    monkeypatch.setattr(sys, "argv", ["benchmark.py", *command[3:]])
+    assert tools.benchmark.main() == 0
+    captured.rename(tmp_path / "client")
+    assert json.loads((tmp_path / "client/partial.json").read_text()) == {
+        "retained": True
+    }
