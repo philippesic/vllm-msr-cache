@@ -1,0 +1,389 @@
+{
+  "admission_receipt_sha256": "c1f282537582afe4c31e3f1b2a6c6a59088499bea6b7233f6e9c6254eb5609c5",
+  "admitted": {
+    "D8": {
+      "calibration": {
+        "admitted_tasks": 2048,
+        "capped_outputs": 371,
+        "eligible_tasks": 2679,
+        "endings": {
+          "context_limit": 1880,
+          "natural": 19,
+          "turn_limit": 149
+        },
+        "repositories": 30,
+        "resolved_tasks": 917,
+        "selection_sha256": "d5726e96af8947f0be45032da67a929b4f939202087d27ea98b4e9b2d3165ab2",
+        "stratum_counts": {
+          "0-2048": 459,
+          "2049-4096": 603,
+          "4097-6144": 986
+        },
+        "stratum_weight_denominator": 2048,
+        "turn_count_distribution": {
+          "2": 710,
+          "3": 610,
+          "4": 252,
+          "5": 141,
+          "6": 101,
+          "7": 78,
+          "8": 156
+        },
+        "turns": 7363
+      },
+      "confirmation": {
+        "admitted_tasks": 2048,
+        "capped_outputs": 400,
+        "eligible_tasks": 5278,
+        "endings": {
+          "context_limit": 1838,
+          "natural": 26,
+          "turn_limit": 184
+        },
+        "repositories": 70,
+        "resolved_tasks": 848,
+        "selection_sha256": "b2ea5de8bc932d221b4e38f0e76f19335f2fbd79867868a13b7a7f012f3c028c",
+        "stratum_counts": {
+          "0-2048": 384,
+          "2049-4096": 531,
+          "4097-6144": 1133
+        },
+        "stratum_weight_denominator": 2048,
+        "turn_count_distribution": {
+          "2": 604,
+          "3": 536,
+          "4": 316,
+          "5": 168,
+          "6": 123,
+          "7": 104,
+          "8": 197
+        },
+        "turns": 7962
+      },
+      "pilot": {
+        "admitted_tasks": 1691,
+        "capped_outputs": 380,
+        "eligible_tasks": 1691,
+        "endings": {
+          "context_limit": 1476,
+          "natural": 30,
+          "turn_limit": 185
+        },
+        "repositories": 28,
+        "resolved_tasks": 823,
+        "selection_sha256": "9cbe17b12857fff5d1f34863e11f9125f50999f739cb0a48311e6ab0ef5d4626",
+        "stratum_counts": {
+          "0-2048": 380,
+          "2049-4096": 383,
+          "4097-6144": 928
+        },
+        "stratum_weight_denominator": 1691,
+        "turn_count_distribution": {
+          "2": 476,
+          "3": 450,
+          "4": 247,
+          "5": 138,
+          "6": 92,
+          "7": 90,
+          "8": 198
+        },
+        "turns": 6746
+      }
+    },
+    "HM": {
+      "calibration": {
+        "admitted_tasks": 2048,
+        "capped_outputs": 345,
+        "eligible_tasks": 2679,
+        "endings": {
+          "context_limit": 1897,
+          "natural": 19,
+          "turn_limit": 132
+        },
+        "repositories": 30,
+        "resolved_tasks": 917,
+        "selection_sha256": "d5726e96af8947f0be45032da67a929b4f939202087d27ea98b4e9b2d3165ab2",
+        "stratum_counts": {
+          "0-2048": 446,
+          "2049-4096": 677,
+          "4097-6144": 925
+        },
+        "stratum_weight_denominator": 2048,
+        "turn_count_distribution": {
+          "2": 765,
+          "3": 621,
+          "4": 243,
+          "5": 123,
+          "6": 99,
+          "7": 58,
+          "8": 139
+        },
+        "turns": 7092
+      },
+      "confirmation": {
+        "admitted_tasks": 2048,
+        "capped_outputs": 376,
+        "eligible_tasks": 5272,
+        "endings": {
+          "context_limit": 1872,
+          "natural": 24,
+          "turn_limit": 152
+        },
+        "repositories": 70,
+        "resolved_tasks": 850,
+        "selection_sha256": "db03eedbb9caf4eb3769605d4f9e91c8b833fb19922dd6ac8def2e09f6a9f5ab",
+        "stratum_counts": {
+          "0-2048": 407,
+          "2049-4096": 565,
+          "4097-6144": 1076
+        },
+        "stratum_weight_denominator": 2048,
+        "turn_count_distribution": {
+          "2": 673,
+          "3": 542,
+          "4": 313,
+          "5": 147,
+          "6": 118,
+          "7": 91,
+          "8": 164
+        },
+        "turns": 7616
+      },
+      "pilot": {
+        "admitted_tasks": 1689,
+        "capped_outputs": 368,
+        "eligible_tasks": 1689,
+        "endings": {
+          "context_limit": 1512,
+          "natural": 27,
+          "turn_limit": 150
+        },
+        "repositories": 28,
+        "resolved_tasks": 823,
+        "selection_sha256": "f7f16aece04222796404feb3b8782fa0749ef8df04d32dfb4ebb6ad132ddac91",
+        "stratum_counts": {
+          "0-2048": 350,
+          "2049-4096": 428,
+          "4097-6144": 911
+        },
+        "stratum_weight_denominator": 1689,
+        "turn_count_distribution": {
+          "2": 505,
+          "3": 469,
+          "4": 246,
+          "5": 139,
+          "6": 80,
+          "7": 87,
+          "8": 163
+        },
+        "turns": 6489
+      }
+    },
+    "HS": {
+      "calibration": {
+        "admitted_tasks": 2048,
+        "capped_outputs": 256,
+        "eligible_tasks": 2608,
+        "endings": {
+          "context_limit": 1952,
+          "natural": 11,
+          "turn_limit": 85
+        },
+        "repositories": 30,
+        "resolved_tasks": 918,
+        "selection_sha256": "5ad0c02c1790df4ee06afa744744e2dfabcbc6918d6870813f4eb962b3fb9be7",
+        "stratum_counts": {
+          "0-2048": 401,
+          "2049-4096": 775,
+          "4097-6144": 872
+        },
+        "stratum_weight_denominator": 2048,
+        "turn_count_distribution": {
+          "2": 955,
+          "3": 603,
+          "4": 180,
+          "5": 111,
+          "6": 63,
+          "7": 47,
+          "8": 89
+        },
+        "turns": 6413
+      },
+      "confirmation": {
+        "admitted_tasks": 2048,
+        "capped_outputs": 287,
+        "eligible_tasks": 5135,
+        "endings": {
+          "context_limit": 1931,
+          "natural": 18,
+          "turn_limit": 99
+        },
+        "repositories": 70,
+        "resolved_tasks": 856,
+        "selection_sha256": "0a898262d1b2455ca715e0549497bf792cc11382c4c7e24b6477c4afcc44b870",
+        "stratum_counts": {
+          "0-2048": 389,
+          "2049-4096": 667,
+          "4097-6144": 992
+        },
+        "stratum_weight_denominator": 2048,
+        "turn_count_distribution": {
+          "2": 827,
+          "3": 575,
+          "4": 257,
+          "5": 138,
+          "6": 84,
+          "7": 60,
+          "8": 107
+        },
+        "turns": 6877
+      },
+      "pilot": {
+        "admitted_tasks": 1562,
+        "capped_outputs": 278,
+        "eligible_tasks": 1562,
+        "endings": {
+          "context_limit": 1429,
+          "natural": 17,
+          "turn_limit": 116
+        },
+        "repositories": 28,
+        "resolved_tasks": 787,
+        "selection_sha256": "321223f405c7cb985a0cbb0ebacd296bace9e7d77a22d3121431d1f93bfc1492",
+        "stratum_counts": {
+          "0-2048": 230,
+          "2049-4096": 597,
+          "4097-6144": 735
+        },
+        "stratum_weight_denominator": 1562,
+        "turn_count_distribution": {
+          "2": 551,
+          "3": 469,
+          "4": 208,
+          "5": 110,
+          "6": 49,
+          "7": 48,
+          "8": 127
+        },
+        "turns": 5537
+      }
+    }
+  },
+  "data_sha256": {
+    "deduplicated.json": "c2da4e2c110c1a1184792d507644a4e43e6f2f45e225b26afd3845123ff44291",
+    "episodes.sqlite": "872b5149d5e53cf51b9f8ab16fadf0aed141ce0357c5d5496c54c38b03ebc72e"
+  },
+  "deduplicated_tasks": 10637,
+  "dependencies": {
+    "pyarrow": "26.0.1",
+    "tokenizers": "0.23.3",
+    "transformers": "5.22.2"
+  },
+  "exclusion_counts": {
+    "D8": {
+      "calibration:fewer_than_two_turns:context_limit": 59,
+      "confirmation:fewer_than_two_turns:context_limit": 873,
+      "pilot:fewer_than_two_turns:context_limit": 57
+    },
+    "HM": {
+      "calibration:fewer_than_two_turns:context_limit": 59,
+      "confirmation:fewer_than_two_turns:context_limit": 879,
+      "pilot:fewer_than_two_turns:context_limit": 59
+    },
+    "HS": {
+      "calibration:fewer_than_two_turns:context_limit": 130,
+      "confirmation:fewer_than_two_turns:context_limit": 1016,
+      "pilot:fewer_than_two_turns:context_limit": 186
+    }
+  },
+  "exclusions_sha256": "3632f6675e8034fdfa264e3b684408b91115b1de809add17a937e88bc5a17247",
+  "manifest_sha256": "d993b516214bd534e198c7122fe470407b011f974c080a42bb8cc650cd0d40da",
+  "models": {
+    "D8": {
+      "files": {
+        "config.json": "7457674d8044143cd4159e47deecf28fd6698a9826569094b60d7bead8f351ee",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model.safetensors.index.json": "ad18bc45a440aea0a3298ddfd41d01c48eb9afbd94345f6176c4290e1b524175",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "revision": "4da05a8edb55c6046cce958586c33b61da07bb79",
+      "tokenizer_class": "Qwen2Tokenizer"
+    },
+    "HM": {
+      "files": {
+        "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+        "config.json": "6ab1e4f1d1695f687accde679fee33835b848b1825f1948a3d558c1a399bb7dc",
+        "generation_config.json": "a33e6e9d6ec02519266a2b1d6eb573cb2bd83e46a021a6d59ab605f86aecaf3a",
+        "merges.txt": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+        "model.safetensors.index.json": "bb34e4b964f43d96d97866f7f438019315359784721a44886d7d2e7737317114",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+        "tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8",
+        "video_preprocessor_config.json": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "revision": "d3e78b50c727b1f34802f440ca84b25781625352",
+      "tokenizer_class": "Qwen3_5Tokenizer"
+    },
+    "HS": {
+      "files": {
+        "chat_template.jinja": "ae53464bf3be25802b3a5b37def7fd89667067d7577049b3b2d74c4d8de4c6d4",
+        "config.json": "c958697472fa10ba5fab27259fba11517a879bf6fdf2eee3fe7e0c9e87202912",
+        "generation_config.json": "a8349d9bd64cc5841297fcb5002f0fdc4749c473c8f1b10ea337f9ce4ee7014e",
+        "processor_config.json": "6b938e76555b3e9946890770e1abcd442a4718f34041a58e8139dc8ad34545c9",
+        "tokenizer.json": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f",
+        "tokenizer_config.json": "a62f4e85a47c0c136edaaa3a4f591fd6783717299a9def47e5ad03a49f6a5eb9"
+      },
+      "revision": "7c781be42ce8d29d0975b857f6d0c0b2558d9b63",
+      "tokenizer_class": "GemmaTokenizer"
+    }
+  },
+  "partition_tasks": {
+    "calibration": 2738,
+    "confirmation": 6151,
+    "pilot": 1748
+  },
+  "recipe": {
+    "deduplication": "minimum (SHA256 trajectory ID, trajectory ID, shard, row) per instance_id",
+    "episodes": "chronological first 2-8 assistant turns, stop at first prompt+requested-output >6144; no middle removal",
+    "messages": "text parts concatenated; original content and tool calls/results preserved; duplicate thought/action and trace-only metadata omitted; JSON tool arguments decoded",
+    "output_length": "completed-transcript tokens after token LCP with request rendering, minimum 1; cap 256; mismatch at generation prefix recorded",
+    "partition": "integer SHA256(repository) mod 10: 0-1 calibration, 2-3 pilot, 4-9 confirmation",
+    "repository": "instance_id prefix before .hexcommit.; first __ becomes /",
+    "reuse": "maximum exact token LCP with earlier request prompts; group alignment deferred to admitted native layout",
+    "sampling": "first 2048 eligible distinct tasks per model/partition sorted by SHA256 trajectory ID then task; no success filter",
+    "strata": "peak prompt+requested-output <=2048, <=4096, <=6144; inclusion-share weights",
+    "template": "pinned native tokenizer chat template; enable_thinking=False; add_generation_prompt=True for requests; no additional special tokens",
+    "timing": "source has no usable tool gaps; declared seeded lognormal median4s sigma0.8 clamp300s; causal TTL12s clamp60s",
+    "tool_schema": "none supplied by source, none invented; terminal function name exactly submit"
+  },
+  "repository_mapping_sha256": "8037174437a3cf7703f11ba232535b4228da294aaf1ae153ef1eb99a1f410a78",
+  "schema": "pr-w1-freeze-v1",
+  "scope": "content admission only; confirmation partition remains unexposed to performance development; hardware model admission remains pending",
+  "source": {
+    "dataset": "SWE-bench/SWE-smith-trajectories",
+    "files": {
+      "tool-00000-of-00008.parquet": "ac76e9efe75978f83d4daec98a55604587dd58b0f1509364893b8778cbf5b487",
+      "tool-00001-of-00008.parquet": "2d3a4fcdb89bf4ec4485a1abc41d92645a446d115705cbe882dd5fe148afec3a",
+      "tool-00002-of-00008.parquet": "13a95587cfc2fac8e2d6130b25167c02362add1cf969888574328a49dc8ad319",
+      "tool-00003-of-00008.parquet": "677831f640fb14e5b7bc02fd2aa729c05cd2068750777eaf877084de03157594",
+      "tool-00004-of-00008.parquet": "e41ffbd3f9d1571917ac5b9f4d0108ded4799d9776f597a054203467135a5715",
+      "tool-00005-of-00008.parquet": "487a3a6bc8d00c4d2e6ace23da10a82c03349ada8b0f6758d5abf8c7f7fa61d4",
+      "tool-00006-of-00008.parquet": "c20d2fc45e67af5d5c6d4c91ca7dfeac69cbaf40442bc2bfe7bac528a99e4b59",
+      "tool-00007-of-00008.parquet": "29b684a990ec25345e9c7ade1b8287a6e41fa7fbabd4734f45420ed29280c868"
+    },
+    "revision": "08e109b4a59eaeebf80e4675cd125d42e7ac99a4",
+    "split": "tool"
+  },
+  "source_repositories": 129,
+  "source_repositories_per_partition": {
+    "calibration": 30,
+    "confirmation": 71,
+    "pilot": 28
+  },
+  "source_resolved_rows": 9427,
+  "source_rows": 24100
+}

@@ -45,6 +45,15 @@ class PolicySession:
             generation_number(raw["generation"]),
         )
 
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema": "wait-hint-policy-session-v1",
+            "scope": self.scope,
+            "session": self.session,
+            "incarnation": self.incarnation,
+            "generation": self.generation,
+        }
+
 
 @dataclass(frozen=True)
 class PolicyAction:
@@ -79,13 +88,7 @@ class PolicyAction:
         return {
             "schema": "wait-hint-policy-action-v1",
             "action_id": self.action_id,
-            "session": {
-                "schema": "wait-hint-policy-session-v1",
-                "scope": self.session.scope,
-                "session": self.session.session,
-                "incarnation": self.session.incarnation,
-                "generation": self.session.generation,
-            },
+            "session": self.session.to_dict(),
             "kind": self.kind,
             "ttl_ms": self.ttl_ms,
         }

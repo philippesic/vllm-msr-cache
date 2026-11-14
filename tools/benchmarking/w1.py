@@ -511,3 +511,103 @@ def verify(out: Path) -> dict[str, Any]:
             for model, parts in manifest["admitted"].items()
         },
     }
+
+
+def freeze(admission_path: Path, out: Path) -> dict[str, Any]:
+    verification = verify(admission_path)
+    manifest = json.loads((admission_path / "data/manifest.json").read_text())
+    selected = json.loads((admission_path / "data/deduplicated.json").read_text())
+    out.mkdir(parents=True, exist_ok=False)
+    connection = sqlite3.connect(
+        f"file:{admission_path / 'data/episodes.sqlite'}?mode=ro", uri=True
+    )
+    exclusions: dict[str, list[dict[str, str]]] = {}
+    summaries: dict[str, Any] = {}
+    try:
+        for model, parts in manifest["admitted"].items():
+            eligible = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT task FROM episodes WHERE model=?", (model,)
+                )
+            }
+            exclusions[model] = []
+            for task in sorted(set(selected) - eligible):
+                part = selected[task]["partition"]
+                reasons = [
+                    key
+                    for key in manifest["exclusions"][model]
+                    if key.startswith(part + ":")
+                ]
+                if len(reasons) != 1:
+                    raise ValueError(
+                        "per-task exclusion reason cannot be reconstructed uniquely"
+                    )
+                exclusions[model].append(
+                    {"task": task, "partition": part, "reason": reasons[0]}
+                )
+            if len(exclusions[model]) != sum(manifest["exclusions"][model].values()):
+                raise ValueError("exclusion accounting does not reconcile")
+            summaries[model] = {}
+            for part, group in parts.items():
+                entries = group["entries"]
+                turn_counts = Counter(str(entry["turns"]) for entry in entries)
+                endings = Counter(entry["ending"] for entry in entries)
+                turns = sum(entry["turns"] for entry in entries)
+                summaries[model][part] = {
+                    "eligible_tasks": group["eligible_tasks"],
+                    "admitted_tasks": len(entries),
+                    "repositories": group["repositories"],
+                    "stratum_counts": group["stratum_counts"],
+                    "stratum_weight_denominator": len(entries),
+                    "turn_count_distribution": turn_counts,
+                    "endings": endings,
+                    "turns": turns,
+                    "capped_outputs": sum(entry["capped_outputs"] for entry in entries),
+                    "resolved_tasks": sum(entry["resolved"] for entry in entries),
+                    "selection_sha256": text_digest(
+                        json.dumps(
+                            [entry["trajectory"] for entry in entries],
+                            separators=(",", ":"),
+                        )
+                    ),
+                }
+    finally:
+        connection.close()
+    write_record(out / "exclusions.json", exclusions)
+    frozen = {
+        "schema": "pr-w1-freeze-v1",
+        "manifest_sha256": verification["manifest_sha256"],
+        "admission_receipt_sha256": digest(admission_path / "admission.json"),
+        "source": manifest["source"],
+        "recipe": manifest["recipe"],
+        "models": manifest["models"],
+        "dependencies": manifest["dependencies"],
+        "source_rows": manifest["source_rows"],
+        "source_repositories": len(manifest["source_repositories"]),
+        "source_resolved_rows": sum(
+            row.get("True", 0) for row in manifest["source_repositories"].values()
+        ),
+        "deduplicated_tasks": manifest["deduplicated_tasks"],
+        "partition_tasks": manifest["partition_tasks"],
+        "source_repositories_per_partition": dict(
+            Counter(manifest["repository_partition"].values())
+        ),
+        "repository_mapping_sha256": text_digest(
+            json.dumps(
+                manifest["repository_partition"], sort_keys=True, separators=(",", ":")
+            )
+        ),
+        "admitted": summaries,
+        "exclusion_counts": manifest["exclusions"],
+        "exclusions_sha256": digest(out / "exclusions.json"),
+        "data_sha256": manifest["output_sha256"],
+        "scope": "content admission only; confirmation partition remains unexposed to performance development; hardware model admission remains pending",
+    }
+    write_record(out / "freeze.json", frozen)
+    return {
+        "schema": "pr-w1-freeze-summary-v1",
+        "manifest_sha256": verification["manifest_sha256"],
+        "freeze_sha256": digest(out / "freeze.json"),
+        "admitted": summaries,
+    }

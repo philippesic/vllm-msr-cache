@@ -39,6 +39,9 @@ def main() -> int:
         workload.add_argument("--dataset", type=Path, required=True)
         workload.add_argument("--model", action="append", required=True)
         workload.add_argument("--out", type=Path, required=True)
+    workload_freeze = sub.add_parser("pr-freeze-w1")
+    workload_freeze.add_argument("directory", type=Path)
+    workload_freeze.add_argument("--out", type=Path, required=True)
     workload_verify = sub.add_parser("verify-pr-w1")
     workload_verify.add_argument("directory", type=Path)
     functional = sub.add_parser("functional")
@@ -183,7 +186,12 @@ def main() -> int:
         root / "artifacts"
     ):
         parser.error("write new project output under artifacts/ in this repository")
-    if args.operation in {"pr-admit-w1", "pr-w1-native", "verify-pr-w1"}:
+    if args.operation in {
+        "pr-admit-w1",
+        "pr-w1-native",
+        "verify-pr-w1",
+        "pr-freeze-w1",
+    }:
         from tools.benchmarking import w1
 
         if args.operation == "pr-w1-native":
@@ -192,6 +200,8 @@ def main() -> int:
         result = (
             w1.admit(args.runtime_python, args.dataset, args.model, args.out)
             if args.operation == "pr-admit-w1"
+            else w1.freeze(args.directory, args.out)
+            if args.operation == "pr-freeze-w1"
             else w1.verify(args.directory)
         )
         print(json.dumps(result, indent=2))

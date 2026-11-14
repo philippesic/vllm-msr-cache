@@ -467,3 +467,7 @@ Admit the pinned semi-synthetic W1 corpus with `pr-admit-w1 --runtime-python ENV
 receipts, selected rows and stored token episodes. The source definition is
 `benchmarks/pr-evidence/w1-source.json`; model revisions and the rendering recipe are
 fixed in the admission implementation before any GPU benefit is measured.
+
+`pr-freeze-w1 ADMISSION --out artifacts/runs/NEW` verifies a W1 admission and writes
+its compact freeze plus explicit excluded task IDs. The tracked W1 freeze identifies
+the full immutable manifest, token data, recipe, source mix and stratum weights.

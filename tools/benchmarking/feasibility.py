@@ -237,6 +237,8 @@ def verify(directory: Path) -> dict[str, Any]:
         if observations.get("schema") in {
             "pr-policy-observation-v2",
             "pr-policy-observation-v3",
+            "pr-policy-observation-v4",
+            "pr-policy-observation-v5",
         }:
             extended = observations.get("extended", {})
             identities = extended.get("identity_sequences", {})
@@ -270,7 +272,11 @@ def verify(directory: Path) -> dict[str, Any]:
                 "schema": "pr-policy-observation-v1",
                 "cases": expected,
             }
-        if observations.get("schema") == "pr-policy-observation-v3":
+        if observations.get("schema") in {
+            "pr-policy-observation-v3",
+            "pr-policy-observation-v4",
+            "pr-policy-observation-v5",
+        }:
             expected_observation["geometry"] = {
                 "partial_tail_requires_every_group_ready": True,
                 "partial_boundary_matches_native_lookup": True,
@@ -281,6 +287,27 @@ def verify(directory: Path) -> dict[str, Any]:
                 "primary_tier_preserves_scheduler_context": True,
                 "late_store_after_finish_joins_hold": True,
                 "return_releases_and_reset_clears": True,
+            }
+        if observations.get("schema") in {
+            "pr-policy-observation-v4",
+            "pr-policy-observation-v5",
+        }:
+            expected_observation["diverged_lookup"] = {
+                "scope": "native offloading scheduler and CPU manager; supplied local-hit boundary, no GPU block-manager execution",
+                "ready_cpu_prefix_tokens": 512,
+                "external_hit_with_zero_local_tokens": 512,
+                "external_hit_with_512_local_tokens": 0,
+                "complete_cpu_copy_remains_ready": True,
+                "inference": "core schedule reconciles a diverged local hit when external tokens are zero without retrying the CPU lookup at the reconciled boundary",
+            }
+        if observations.get("schema") == "pr-policy-observation-v5":
+            expected_observation["diverged_lookup"]["supplied_local_tokens"] = 512
+            expected_observation["endpoint"] = {
+                "route_registration": True,
+                "token_ids_pass_through_without_chat_rerendering": True,
+                "request_ttl_and_registration_reach_engine": True,
+                "delta_stream_distinguishes_metadata_tokens_and_done": True,
+                "disconnect_aborts_owned_request": True,
             }
         if observations != expected_observation:
             raise ValueError("hold policy observation changed")

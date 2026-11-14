@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from types import SimpleNamespace
 from typing import Any
 
@@ -9,6 +10,7 @@ from vllm.v1.kv_offload import base
 from vllm.v1.kv_offload.cpu import manager
 
 from wait_hint_offload.policy_protocol import PolicyAction
+from wait_hint_offload.vllm_adapter.evidence_checks import observe_endpoint
 from wait_hint_offload.vllm_adapter.policy import (
     AdviceOffARC,
     AdviceOffLRU,
@@ -168,11 +170,13 @@ def observe_hold_policy() -> dict[str, Any]:
             "reset_cleared_metadata": True,
         }
     return {
-        "schema": "pr-policy-observation-v3",
+        "schema": "pr-policy-observation-v5",
         "cases": observed,
         "extended": extended_hold_checks(),
         "geometry": geometry_checks(),
         "tiering": tiering_checks(),
+        "diverged_lookup": diverged_lookup_check(),
+        "endpoint": asyncio.run(observe_endpoint()),
     }
 
 
@@ -193,7 +197,9 @@ def _identity_sequence(name: str) -> list[list[str]]:
     for index, hashes in enumerate(
         ([b"a", b"b"], [b"b", b"c"], [b"d", b"e"], [b"a", b"f"], [b"c", b"g"])
     ):
-        context, _ = request_fixture(owner, str(index), str(index), 1, hashes, False)
+        context, _ = request_fixture(
+            owner, str(index), str(index), 1, hashes, index % 2 == 0
+        )
         native.on_new_request(context)
         keys = [base.make_offload_key(key, 0) for key in hashes]
         output = native.prepare_store(
@@ -415,4 +421,57 @@ def tiering_checks() -> dict[str, bool]:
         "primary_tier_preserves_scheduler_context": True,
         "late_store_after_finish_joins_hold": True,
         "return_releases_and_reset_clears": True,
+    }
+
+
+def diverged_lookup_check() -> dict[str, Any]:
+    native, fixture = policy_fixture("AdviceOffARC", 16)
+    groups = tuple(
+        SimpleNamespace(
+            group_idx=index,
+            tokens_per_chunk=256,
+            hashes_per_chunk=1,
+            sliding_window_size_in_chunks=window,
+            manager_config=SimpleNamespace(params=None),
+            is_eagle_group=False,
+            load_window_size_in_chunks=lambda boundary, window=window: window,
+        )
+        for index, window in enumerate((None, 1))
+    )
+    owner: Any = object.__new__(getattr(scheduler, "OffloadingConnectorScheduler"))
+    vars(owner).update(
+        config=fixture.config._replace(kv_group_configs=groups, alignment_tokens=256),
+        manager=native,
+        _req_status={},
+        _sliding_window_groups=(1,),
+        _full_attention_groups=(0,),
+        _lookup_groups=(0, 1),
+        _mamba_align_size=256,
+        _chunks_being_loaded=set(),
+        _events_tracker=SimpleNamespace(record_lookup=lambda *args: None),
+    )
+    context, _ = request_fixture(owner, "lookup", "lookup", 1, [b"a", b"b"], False)
+    native.on_new_request(context)
+    keys = [base.make_offload_key(key, 0) for key in (b"a", b"b")]
+    keys.append(base.make_offload_key(b"b", 1))
+    trigger = getattr(base, "StoreTrigger").ON_COMPUTE
+    assert native.prepare_store(keys, context, trigger=trigger) is not None
+    native.complete_store(keys, context, trigger=trigger)
+    state = owner._req_status[context.req_id]
+    state.num_locally_computed_tokens = 0
+    no_gpu = owner._lookup(state)
+    state.num_locally_computed_tokens = 512
+    deeper_gpu = owner._lookup(state)
+    assert no_gpu == 512 and deeper_gpu == 0
+    assert all(
+        native.lookup(key, context) is getattr(base, "LookupResult").HIT for key in keys
+    )
+    return {
+        "scope": "native offloading scheduler and CPU manager; supplied local-hit boundary, no GPU block-manager execution",
+        "ready_cpu_prefix_tokens": 512,
+        "supplied_local_tokens": state.num_locally_computed_tokens,
+        "external_hit_with_zero_local_tokens": no_gpu,
+        "external_hit_with_512_local_tokens": deeper_gpu,
+        "complete_cpu_copy_remains_ready": True,
+        "inference": "core schedule reconciles a diverged local hit when external tokens are zero without retrying the CPU lookup at the reconciled boundary",
     }

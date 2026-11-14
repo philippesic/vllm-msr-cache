@@ -43,17 +43,23 @@ original remains 0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e
 Native utility dispatch/MessagePack test pr-post-feasibility-01 passes A3p/A3
 identity, acceptance-origin deadline, late readiness, replay, refusal and cancel.
 Its 1,000 fresh disabled messages cost p50 62 us / p99 123 us; no network/process
-transport included yet. Endpoint/streaming and instrument remain pending.
-All eight W1 tool shards are downloaded and SHA-256 verified. Source row inspection
-found 24,100 rows, 10,637 tasks and 129 repositories; both success/failure retained.
-W1 admission is actively running (CPU only) in artifacts/runs/pr-w1-admission-01,
-using a source snapshot, three pinned model tokenizers and the closed 6k/256/2-8-turn
-recipe. Log reports 3,000 tasks processed; 12 GiB available, swap unchanged at116 MiB.
-Healthcheck every10 min: scheduled-task:dddd647a-0134-4c9f-9bc2-5ac0a4f6a03b, bound
-here; delete it when admission ends. No manifest is frozen yet. New W1 tests pass;
-post-change fast checks pass, full/runtime checks due before commit.
+transport included yet. Streaming endpoint and client now preserve token IDs, ignore metadata for TTFT,
+separate token/chunk ITL, retain partial failures and abort disconnected requests.
+Native CPU endpoint/lookup tests pass in pr-policy-feasibility-08; old-runtime CPU
+lane passes 28 tests. New streaming tests pass. Socket and per-group instrument
+qualification remain pending. Qwen diverged-local-hit component lookup reproduces:
+external hits are zero at the supplied GPU boundary despite a ready lower checkpoint;
+full scheduler reconciliation is source-inspected, not GPU-qualified. No public filing.
+W1 admission completed and verified in artifacts/runs/pr-w1-admission-01 (2071 s CPU).
+Its healthcheck was deleted. All eight source shards, 24,100 rows/10,637 tasks/129
+repositories are retained with both source successes and failures. Frozen manifest
+SHA-256 d993b516214bd534e198c7122fe470407b011f974c080a42bb8cc650cd0d40da;
+compact identity/recipe/counts in benchmarks/pr-evidence/w1-freeze.json, explicit
+excluded IDs in artifacts/runs/pr-w1-freeze-01/exclusions.json. Pilot admitted tasks:
+D8 1691, HM 1689, HS 1562. Roughly 98% are benchmark-truncated rather than natural
+ends; this bounds route/abandoned-hold interpretations. Stage 1 gate remains open.
 
 ## Next
-Finish W1 admission/verification and freeze its manifest; implement streaming
-endpoint/load generator and per-group instrument; complete Qwen lookup/kernel checks;
+Qualify streaming over real sockets; implement open-loop schedules and per-group
+instrument; complete kernel/compatibility checks;
 then finish Stage 1 freezes/instrument before GPU admission.

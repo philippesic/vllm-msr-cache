@@ -170,4 +170,39 @@ and partition, ordered by SHA-256. SQLite retains all eligible tokenized episode
 the manifest identifies the admitted rows, exclusions, source success mix,
 repository counts and stratum inclusion shares. Confirmation repositories may be
 processed for content admission but remain held out from performance development.
-The resulting manifest is not yet frozen for GPU use.
+The admitted content is frozen by [the compact identity](../benchmarks/pr-evidence/w1-freeze.json).
+The immutable manifest SHA-256 is
+`d993b516214bd534e198c7122fe470407b011f974c080a42bb8cc650cd0d40da`.
+`pr-freeze-w1` verifies the admission before deriving compact counts and explicit
+excluded task IDs. Pilot pools contain D8 1,691, HM 1,689 and HS 1,562 tasks from
+28 repositories. Only 30, 27 and 17 respectively end naturally; all other ends are
+context/turn truncations. This is a major limit on whole-route/abandoned-hold claims.
+No source-success filter was applied. Performance confirmation remains held out.
+
+## Streaming measurement candidate
+
+The common `pr_evidence` endpoint plugin accepts closed, bounded token-ID requests,
+uses native delta output, and exposes authenticated generation, hints, reset and
+cache-group metadata routes. It passes registrations and request TTL through native
+AsyncLLM arguments; post-response uses only the hashed utility method. It performs
+no chat rerendering and aborts its own unfinished request on disconnect. This is a
+benchmark injection interface, not Stage 4 public-interface qualification.
+
+The client timestamps actual token-bearing frames separately from acceptance/empty
+metadata. It retains exact output IDs, chunk sizes, partial streams, submission
+lateness and both submission- and schedule-origin TTFT. Native generation timing
+provides mean per-token ITL; client per-token and per-chunk intervals are separate
+measurements, since several tokens may arrive together. Engine early completion is
+a treatment failure. Invalid frame identities, clock regression or contradictory
+instrument counts are capture failures. Independent async requests have no client
+semaphore. Real-socket fault tests and instrument overhead remain pending.
+
+Native CPU probe `pr-policy-feasibility-08` qualifies endpoint registration, exact
+token passthrough, request TTL delivery, metadata/token separation and cancellation.
+It also reproduces the Qwen lookup component boundary: a ready full-attention plus
+recurrent checkpoint yields 512 external tokens from zero local hits, but zero
+external tokens when supplied the later 512-token local boundary. The core scheduler
+then reconciles diverged local groups without repeating external lookup at the lower
+boundary (source inspection). This caps Qwen interpretation; it does not establish
+full GPU behavior. Public bug filing is deferred because Stage 2b posting is not
+authorized.
