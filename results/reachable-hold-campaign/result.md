@@ -14,11 +14,15 @@ Profile full, seeds 305, 308 and 312, one server per model and arm (gpu-only, na
 
 ## Limits
 
-Three seeds and single observations per arm, no intervals. Qwen's advice-off A/A repeat differed by 8.4 points pooled and up to 11 points per seed, so Qwen gaps smaller than that are noise; Gemma's repeat matched exactly. The no-eviction oracle reached 0% on Gemma but 15.7% on Qwen, above the wait hint, because Qwen losses are mostly the pinned vLLM hybrid lookup discarding complete CPU copies rather than evictions; one Qwen seed's gap to the oracle is unexplained. LMCache restore and eviction counters are unobservable, so its cells are judged only by the contracts it can satisfy. One synthetic multi-session workload on one GPU; no application-task quality is measured.
+Not a fresh confirmation: the campaign seeds overlap the promote-hold settle round whose results shaped reachable-hold (Qwen 305, 308 and 312; Gemma 305 and 308), so the fresh evidence is the reachable-hold decide round. Three seeds and single observations per arm, no intervals. Qwen's advice-off A/A repeat differed by 8.4 points pooled and up to 11 points per seed, so Qwen gaps smaller than that are noise; Gemma's repeat matched exactly. The no-eviction oracle reached 0% on Gemma but 15.7% on Qwen, above the wait hint, because Qwen losses are mostly the pinned vLLM hybrid lookup discarding complete CPU copies rather than evictions; one Qwen seed's gap to the oracle is unexplained. LMCache restore and eviction counters are unobservable, so its cells are judged only by the contracts it can satisfy. One synthetic multi-session workload on one GPU; no application-task quality is measured. The baseline is the pinned vLLM of 2026-07-29; upstream changed prefix_cache_retention_interval to default 0 on 2026-08-17, so upstream no longer stores most unreachable sliding-window and recurrent chunks, and the Gemma gain over native ARC, including unhinted returns, may not hold against current vLLM. The native-arc baseline was the project's WaitHintConnector with advice disabled, which forces ARC and offload_prompt_only=False, not stock vLLM's OffloadingConnector, whose defaults are LRU eviction and prompt-only storage; no stock-default baseline was measured.
 
 ## Decision
 
 Keep reachable-hold as the only wait-hint mechanism. No change to product or benchmark code. Further Qwen gains would require the pinned vLLM hybrid lookup to consult the connector for a CPU copy beyond a diverged GPU hit, which is outside this extension.
+
+## Correction
+
+2026-11-13: added that the campaign seeds overlap the settle round used during design, that upstream vLLM has since changed the native baseline (vllm-project/vllm #52216), and that the native-arc arm was the project's connector with advice disabled rather than stock vLLM defaults (wait_hint_offload/vllm_adapter/connector.py).
 
 ## Sources
 
