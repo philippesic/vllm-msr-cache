@@ -36,19 +36,27 @@ Freeze one upstream commit. Answer in writing, with CPU tests:
    release and measured by the abandoned-hint cases; same shape as Anthropic/Dynamo
    cache_control TTL; (b) a hint-only request/endpoint carrying a KvHintsEnvelope
    after the response (true post-response delivery); (c) a minimal core hook (e.g.
-   finish reason in ReqContext, making (a) conditional). Default: (a) for the pure
-   plugin; (b)/(c) are RFC refinements, not prerequisites.
+   finish reason in ReqContext, making (a) conditional; engine finish reasons do not
+   identify tool calls, which the API layer parses, so (c) reduces to (b)). Both
+   routes are built and compared: (a) as the pure plugin (arm A4t, request TTL)
+   and (b) as the plugin plus a minimal, hashed core patch (arm A4p,
+   post-response, the current product's delivery shape). Their gap is a reported finding for the RFC: it tells maintainers
+   what a core hook would add, and keeps a TTL failure from being read as evidence
+   that holding does not help.
 2. Plugin sufficiency. Can an out-of-tree CachePolicy see what it needs: session
    identity (via hint payload), the session's key chain across requests, chunks that
    hit the GPU prefix cache and are never observed by the policy, shared-prefix chunks
-   stored by other sessions, window geometry per group? Decide explicitly: pure
-   plugin, or plugin plus a minimal core patch; every later result states which.
+   stored by other sessions, window geometry per group? A4t must work as a pure
+   plugin; A4p adds only the post-response delivery patch. Any further core change
+   applies to both arms and every later result states it.
 3. Replacing removed `touch`: show the promote step preserves intended ARC semantics.
 4. Make the hold policy-agnostic if feasible (LRU+hint as well as ARC+hint); if not,
    the claim states the hint requires ARC.
 5. Hint-off identity: on a recorded schedule, the plugin with hints disabled produces
    the same eviction sequence as stock ARC (and LRU if applicable).
-6. Port the replay simulator to main's manager; it is used only after GPU rank
+6. Port the replay simulator to main's manager. Before GPU, run A4t, A4p and the
+   perfect-information reference on the same pilot traces to estimate the delivery
+   gap (diagnostic only, never a claim); otherwise it is used only after GPU rank
    agreement is shown (Stage 3).
 7. Qwen diverged-GPU-hit lookup: deterministic reproduction on main (scheduler-level
    CPU test if possible, else a tiny GPU probe charged to Stage 2). If it persists,
@@ -65,17 +73,21 @@ Freeze one upstream commit. Answer in writing, with CPU tests:
    distribution (Part C), labelled
    semi-synthetic; it may serve as the admitted target-workload case only with that
    label carried into every claim.
-Exit: a written go/no-go for Stage 2 with the chosen plugin/patch shape. Missing
+Exit: a written go/no-go for Stage 2 with both delivery arms' shapes and the
+patch hash. Missing
 trace admission, feasible models or runtime blocks the runs that depend on them.
 
 ### Stage 2. Feasibility screen on the 2080 Ti (needs authorization; proposed cap ~4-5 GPU h, a resource limit, not an evidence requirement)
-- Runtime: frozen upstream commit + our plugin (or plugin + minimal patch).
+- Runtime: frozen upstream commit + our plugin; A4p additionally applies the hashed
+  delivery patch, and every other arm runs unpatched.
 - Models and priority: D8 dense first, then the admitted Mamba and sliding-window
   hybrids, as in Part C. Failed admission is reported as not run; a missing D8 screen
   does not qualify the later D8 primary comparison.
 - Arms: LRU (default), ARC, ARC+plugin with hints off (doubles as the A/A arm and the
-  GPU hint-off identity check), ARC+plugin (and LRU+plugin if Stage 1 makes the hold
-  policy-agnostic). Pools follow the three-seed calibration rule in Part C; calibration
+  GPU hint-off identity check), ARC+plugin with request-TTL hints (A4t),
+  ARC+plugin with post-response hints (A4p) (and LRU+plugin if Stage 1 makes the
+  hold policy-agnostic). A4t and A4p use the same mechanism variant, hold cap and
+  adoption; only delivery differs. Pools follow the three-seed calibration rule in Part C; calibration
   seeds never decide efficacy; budgets are reported in GiB and as working-set ratio.
 - Workloads: (T) W1 first, then (S) the existing closed-loop W2 pressure screen.
   Target eight fresh paired seeds per admitted model/workload, subject to the cap;
@@ -86,10 +98,14 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   resamples, BCa intervals):
   - better baseline = whichever of LRU and ARC has lower pooled hinted recompute
     share over the calibration seeds (fixed before decision seeds run);
-  - TTFT benefit = 1 - (mean hinted-return TTFT with ARC+plugin) / (same with the
-    better baseline); positive is better;
-  - recompute change = pooled hinted recompute share with ARC+plugin minus the
+  - every benefit and harm statistic is computed separately for each hinted arm
+    (A4t, A4p) against the better baseline;
+  - TTFT benefit = 1 - (mean hinted-return TTFT with the hinted arm) / (same with
+    the better baseline); positive is better;
+  - recompute change = pooled hinted recompute share with the hinted arm minus the
     better baseline, in absolute points; negative is better;
+  - delivery gap = TTFT benefit of A4p minus that of A4t, with its paired interval;
+    descriptive, reported for the RFC, never a decision input;
   - harm metrics (guardrails): unhinted recompute share (absolute points),
     unhinted and one-shot mean TTFT and mean ITL (relative change, positive is
     worse);
@@ -102,7 +118,8 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   - minimum worthwhile benefit (MWB) = TTFT benefit of 0.15;
   - opportunity = under the better baseline at least 20% of hinted returns' reusable
     prefix tokens are recomputed.
-- Outcomes:
+- Outcomes, evaluated separately for A4t and A4p and reported per delivery route
+  (an A4p-only CONTINUE is labelled "requires a core delivery hook"):
   CONTINUE if on at least one model and workload: TTFT benefit point estimate
   >= 0.15 and its CI lower bound > 0; recompute change CI upper bound < 0; for every
   harm metric the point estimate <= its guardrail margin and the CI upper bound
@@ -110,14 +127,15 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   STOP for efficacy only if cells are valid and hint-off identity holds, and on the
   admitted target-workload case (T) with
   opportunity present, the TTFT benefit CI upper bound is below 0.15 on every model
-  run. A STOP applies only at the screened scale (2080 Ti, contexts <= 6k tokens)
+  run, for both A4t and A4p. If only A4t meets this, the TTL route stops and the
+  post-response route continues under its own verdict. A STOP applies only at the screened scale (2080 Ti, contexts <= 6k tokens)
   and is reported that way.
   INCONCLUSIVE otherwise, including failure to meet CONTINUE, insufficient
   precision, absent opportunity, or no admitted case T. INCONCLUSIVE goes to the RFC
   with the evidence as it is and a decision by Philip.
   A stop for budget or time is reported as a resource decision, not as evidence of
-  ineffectiveness. Multiple models/workloads raise the false-CONTINUE rate; accepted
-  for a screen and stated with the result.
+  ineffectiveness. Multiple models/workloads and two delivery arms raise the
+  false-CONTINUE rate; accepted for a screen and stated with the result.
 - Run priority and complete paired blocks follow Part C. Runs never started because
   of the cap are reported as not run.
 - Measurement validity, treatment failures and opportunity follow Part C.4. An
@@ -125,8 +143,9 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   discard the cell.
 
 ### Stage 2b. Early RFC (no compute)
-Right after Stage 2 (if CONTINUE or INCONCLUSIVE): short vLLM issue/RFC on the hint
-action semantics, aligned with TTL `cache_control` semantics (Anthropic/Dynamo) so one
+Right after Stage 2 (if CONTINUE or INCONCLUSIVE): short vLLM issue/RFC presenting
+both delivery routes and the measured delivery gap (does a post-response hook earn
+a core change over request TTL?), the hint action semantics, aligned with TTL `cache_control` semantics (Anthropic/Dynamo) so one
 hint could drive GPU pinning and CPU hold; validation, expiry, idempotency,
 tenant/session ownership, best-effort behavior, server-side deadline clamp; whether
 maintainers want an upstream policy or an external plugin/example. Maintainer feedback
@@ -139,8 +158,14 @@ maintainer endorsement nor authorizes the next stage.
 
 ### Stage 3. PR-grade benchmark (protocol written and committed before any run)
 3a. Protocol document (committed by hash before confirmation runs) containing:
+- Primary treatment: A4, which is A4t or A4p, chosen after Stage 2b from the Stage 2
+  route verdicts and maintainer feedback (A4p only if a core delivery hook is an
+  acceptable upstream route) and frozen in the protocol before any Stage 3
+  calibration. The other delivery arm runs at the central point as a secondary
+  with the same seeds as the primary; their paired gap is a reported finding, not a
+  second chance at support.
 - Primary outcome: SLO-miss ratio = (share of sessions missing the SLO with
-  ARC+plugin) / (share missing it with the better of LRU/ARC), at the central load,
+  A4) / (share missing it with the better of LRU/ARC), at the central load,
   50% hint adoption, causal hints. A session misses if any return turn exceeds the
   TTFT SLO or it errors/times out; misses stay in denominators. SLO = 2x the median
   return-turn TTFT of the large-pool arm at low load in calibration, frozen before
@@ -188,13 +213,13 @@ maintainer endorsement nor authorizes the next stage.
   mechanism) synthetic pressure workload; (W3, neutral control) vLLM's own multi-turn
   benchmark without hints. Inactive/no-opportunity cases are retained.
 - Core matrix: 3 models (dense, sliding-window hybrid, Mamba hybrid) x arms {LRU, ARC,
-  ARC+plugin hints off (A/A and identity), ARC+plugin} x W1 at central load (8 seeds) + W1 at low and overload
+  ARC+plugin hints off (A/A and identity), A4} x W1 at central load (8 seeds) + W1 at low and overload
   (3 seeds) + W2 at central load (3 seeds). This is an outline, not an admitted
   schedule or cost quote; Part C fixes model priority and requires a full costed manifest.
 - Secondary comparisons at the central point only (3 seeds): no offload, large-pool
   control (not an oracle), GPU TTL pin (Continuum code if it runs, else labelled "our
   implementation"), pin+hold combined, claim-scoped LMCache, perfect-information
-  hint reference. Their cost is included in the manifest, not a separate assumed allowance.
+  hint reference; the other delivery arm uses all primary seeds. Their cost is included in the manifest, not a separate assumed allowance.
 - Ablations (promote-only, hold-only, dead-first-only, promote+hold), pool sweep
   (0.25-2x) and adoption sweep (0/50/100%) and the hint-free head-chunk-aging idea:
   run in the ported simulator, used for prioritization only after rank agreement
@@ -220,7 +245,9 @@ maintainer endorsement nor authorizes the next stage.
 - Stage 2 supports an RFC or explicitly experimental draft. A performance-backed
   wait-hint PR requires the scoped Stage 3 result, tests, documentation, reproducible
   commands through the maintained entry point, and a results table including failures.
-  Use an external plugin/example if that is the agreed delivery route.
+  Use an external plugin/example if that is the agreed delivery route. A4p-based
+  claims require the core delivery hook to be proposed with the feature; a pure-plugin
+  claim rests on A4t only.
 - Before a supported release, qualify the actual client-to-engine hint path, server
   opt-in, validation, tenant/session ownership, expiry, cancellation, resource limits,
   disable/rollback behavior and bounded sustained churn/abandonment recovery. A
@@ -252,7 +279,7 @@ Earlier review caveats, reconciled with Part C and the final review:
    computation and behavior for zero misses, undefined ratios, degenerate bootstrap
    or jackknife samples, and missing observations; no post-result method switching
    or silent pseudocounts. Undefined required evidence cannot establish support.
-4. Harm metrics compare ARC+plugin with the better baseline; A/A band measured against
+4. Harm metrics compare each hinted arm with the better baseline; A/A band measured against
    ARC even when LRU is better (state it).
 5. Report benefit against both LRU and ARC, not only the selected better baseline.
 6. Schedule Stage 2 in complete paired-seed blocks; re-quote after the first block.
@@ -372,8 +399,10 @@ integration/control only, not a capacity benchmark.
 ### 2. Arms and comparators
 Core (every primary cell; offload_prompt_only=True explicitly for A1-A4, the main
 default, whereas the old connector forced False): A1 stock OffloadingConnector LRU;
-A2 stock ARC; A3 ARC+plugin hints off (A/A and identity); A4 ARC+plugin with exactly
-one mechanism variant (hold-only, promote+hold, or promote+hold+dead-first) frozen at
+A2 stock ARC; A3 ARC+plugin hints off (A/A and identity); A4t ARC+plugin with
+request-TTL hints (pure plugin); A4p ARC+plugin with post-response hints (plugin plus
+the hashed delivery patch). Stage 2 runs both; Stage 3 names one as A4 (Part A) and
+runs the other at the central point. Both use exactly one mechanism variant (hold-only, promote+hold, or promote+hold+dead-first) frozen at
 the end of Stage 1 from feasibility and CPU results only, never selected after GPU
 benefits are seen. Preserve the current 50% CPU hold cap for the primary, counting
 the union of ready physical chunks once, with earliest-deadline yield before a store
@@ -435,7 +464,8 @@ Stage 1 (CPU only; no GPU use):
   accounting (GPU vs CPU) replace inferred eviction and aggregate cached tokens;
   process-tree PSS, page faults, swap and transfer bandwidth sampling.
 - Admit the W1 manifest, LMCache candidate and compatibility tuple (CPU-checkable
-  parts), and freeze the A4 mechanism variant.
+  parts), freeze the shared A4t/A4p mechanism variant, and hash the A4p delivery
+  patch.
 - Produce a staged implementation estimate before building: distinguish the minimum
   end-to-end screen path from simulator/competitor/full-matrix work. Extend
   tools.benchmark and the current receipt/verification lifecycle; add no independent
@@ -466,7 +496,8 @@ Stage 2 (2080 Ti screen; Part A rules and Part B caveats):
   choose the smaller. Freeze it across arms. If any arm cannot fit, report that
   failure and rerun the complete paired comparison at the next qualifying budget; if
   none qualifies, report resource infeasibility.
-- Arms A1-A4 (+A5 if feasible). Seeds: calibration 12001-12003; decision 12101-12108,
+- Arms A1-A3, A4t, A4p (+A5 if feasible); A4p adds one arm per block, so the cap
+  covers fewer seeds or models, re-quoted after the first block. Seeds: calibration 12001-12003; decision 12101-12108,
   checked against the exposure ledger; complete paired blocks, randomized arm order;
   re-quote after the first block; 4-5 GPU h cap.
 Stage 3a/3b (protocol and 2080 Ti pilot):
@@ -557,7 +588,7 @@ Stage 3c (RTX 5080):
   probe fails.
 - Pools 2/4/8 GiB conditional on host headroom; chosen by the same paired rule with
   platform-local calibration.
-- Order: W1 central with A1-A4 (primary), GPU TTL and pin+hold, required comparators,
+- Order: W1 central with A1-A4 (primary) and the other delivery arm, GPU TTL and pin+hold, required comparators,
   then curves, robustness variants, W2 long-context, W3.
 Stage 3d (rented, only if 3c is SUPPORTED, or Philip explicitly chooses to explore a
 positive but INCONCLUSIVE result; firm quote first):
@@ -577,7 +608,7 @@ attempt is retained.
 Treatment outcomes (always evidence, never invalidating): store failures, resource
 exhaustion (OOM, swap, allocation failure), timeouts and errors caused by an arm count
 in its results; any added store failure, resource exhaustion or error rate above the
-baseline caused by A4 fails the guardrail and prevents a positive verdict. Hint
+baseline caused by a hinted arm fails the guardrail and prevents a positive verdict. Hint
 acceptance vs effective held bytes, restored-byte and same-boundary continuation checks
 are reported per arm; a correctness failure in an arm is a blocking result for that
 arm.
