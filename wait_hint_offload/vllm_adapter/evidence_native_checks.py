@@ -135,3 +135,119 @@ def observe_events(directory: Path) -> dict[str, Any]:
         "loads_per_trace": 160,
         "factory_preserves_manager_and_lock": True,
     }
+
+
+def observe_bytes(directory: Path) -> dict[str, bool]:
+    from types import SimpleNamespace
+
+    import torch
+
+    from wait_hint_offload.vllm_adapter.evidence_bytes import AdmissionByteProbe
+
+    flags = {}
+    for mode in ("exact", "missing_copy", "cpu_corruption"):
+        gpu = [
+            torch.arange(32, dtype=torch.int8).reshape(4, 8),
+            torch.arange(16, dtype=torch.int8).reshape(4, 4),
+        ]
+        cpu = [
+            torch.zeros((3, 16), dtype=torch.int8),
+            torch.zeros((3, 8), dtype=torch.int8),
+        ]
+        pointers = SimpleNamespace(
+            group_block_counts=(3, 2),
+            group_data_ref_counts=(1, 1),
+            block_indices=(1, 0),
+            ptrs=[gpu[0][index].data_ptr() for index in range(3)]
+            + [gpu[1][index].data_ptr() for index in range(2)],
+            sizes=[8, 8, 8, 4, 4],
+        )
+        spec = SimpleNamespace(block_ids=[0, 1, 2])
+
+        class Native:
+            def __init__(self) -> None:
+                self._store_handler = SimpleNamespace(
+                    blocks_per_chunk=2,
+                    cpu_tensors=cpu,
+                    layer_refs_per_group=[
+                        [SimpleNamespace(tensor_idx=0, page_size_bytes=8)],
+                        [SimpleNamespace(tensor_idx=1, page_size_bytes=4)],
+                    ],
+                )
+
+            def submit_store(
+                self, job_id: int, device_ptrs: Any, dst_spec: Any
+            ) -> bool:
+                assert job_id == 1 and device_ptrs is pointers and dst_spec is spec
+                cpu[0][0, 8:].copy_(gpu[0][0])
+                cpu[0][1, :8].copy_(gpu[0][1])
+                cpu[0][1, 8:].copy_(gpu[0][2])
+                cpu[1][2, :4].copy_(gpu[1][0])
+                cpu[1][2, 4:].copy_(gpu[1][1])
+                return True
+
+            def submit_load(
+                self,
+                job_id: int,
+                src_spec: Any,
+                device_ptrs: Any,
+                expedited: bool = False,
+            ) -> bool:
+                assert (
+                    job_id == 2
+                    and src_spec is spec
+                    and device_ptrs is pointers
+                    and expedited
+                )
+                assert all(
+                    torch.all(values[:count] == 85)
+                    for values, count in zip(gpu, (3, 2), strict=True)
+                )
+                gpu[0][0].copy_(cpu[0][0, 8:])
+                gpu[0][1].copy_(cpu[0][1, :8])
+                gpu[0][2].copy_(cpu[0][1, 8:])
+                gpu[1][0].copy_(cpu[1][2, :4])
+                if mode != "missing_copy":
+                    gpu[1][1].copy_(cpu[1][2, 4:])
+                return True
+
+            def wait(self, job_ids: set[int]) -> None:
+                assert job_ids in ({1}, {2})
+
+            def shutdown(self) -> None:
+                return None
+
+        probe = AdmissionByteProbe(
+            Native(),
+            SimpleNamespace(tensors=[SimpleNamespace(tensor=value) for value in gpu]),
+            (4, 9),
+            directory / mode,
+            synchronize=lambda: None,
+        )
+        assert probe.submit_store(1, pointers, spec)
+        assert torch.equal(cpu[0][1, 8:], torch.arange(16, 24, dtype=torch.int8))
+        if mode == "cpu_corruption":
+            cpu[0][0, 8] += 1
+        detected = False
+        try:
+            probe.submit_load(2, spec, pointers, expedited=True)
+        except RuntimeError as error:
+            assert "restore or provenance mismatch" in str(error)
+            detected = True
+        finally:
+            probe.shutdown()
+        assert detected == (mode != "exact")
+        records = read_journal(probe.journal.path)
+        restored = next(
+            record["data"]["regions"]
+            for record in records
+            if record["event"] == "load_bytes"
+        )
+        assert {region["group"] for region in restored} == {4, 9}
+        assert sum(region["bytes"] for region in restored) == 32
+        assert all(
+            region["bytes_different_from_poison"] == region["bytes"]
+            for region in restored
+        )
+        flags[mode] = True
+    return flags

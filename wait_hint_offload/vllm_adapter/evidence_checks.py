@@ -9,6 +9,9 @@ from typing import Any
 
 from fastapi import FastAPI
 from vllm.sampling_params import RequestOutputKind
+from vllm.v1.engine import EngineCoreRequest
+from vllm.v1.engine.input_processor import InputProcessor
+from vllm.v1.request import Request as NativeRequest
 
 from wait_hint_offload.evidence_protocol import EvidenceRequest
 from wait_hint_offload.policy_protocol import PolicySession
@@ -101,6 +104,27 @@ async def observe_endpoint() -> dict[str, bool]:
         == request.session.to_dict()
     )
     assert captured["kv_hints"].actions[0].payload["ttl_ms"] == 12000
+    core_request: Any = EngineCoreRequest(
+        request_id=request.request_id,
+        prompt_token_ids=list(request.prompt_token_ids),
+        mm_features=None,
+        sampling_params=captured["sampling"],
+        pooling_params=None,
+        arrival_time=time.monotonic(),
+        lora_request=None,
+        cache_salt=None,
+        data_parallel_rank=None,
+    )
+    core_request.kv_hints = captured["kv_hints"]
+    getattr(InputProcessor, "assign_request_id")(core_request)
+    assert core_request.external_req_id == request.request_id
+    assert core_request.request_id != request.request_id
+    native = NativeRequest.from_engine_core_request(core_request, None)
+    assert native.kv_transfer_params == {
+        "wait_hint_policy": request.session.to_dict(),
+        "pr_evidence_request_id": request.request_id,
+    }
+    assert getattr(native, "kv_hints") == captured["kv_hints"]
     assert not engine.aborted
     stream = endpoint.stream(
         engine, EvidenceRequest("cancel", (1, 2, 3), 3, request.session, None)

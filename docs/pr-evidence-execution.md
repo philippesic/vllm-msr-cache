@@ -311,3 +311,33 @@ streams independently regenerate their metrics. This qualifies transport/schedul
 logic on a CPU fixture, not model execution. Native `pr-policy-feasibility-09` adds
 the full 36-case matrix of ARC/LRU/post policies, capacities 1/2/16/1024 and hold
 shares 0/0.25/0.5, including shared unions and pressure/failed-store behavior.
+
+
+## Restore probe and event reconciliation
+
+The admission-only worker proxy snapshots actual source regions, delegates native
+copies and compares every destination byte. Before each restore it fills the owned
+GPU destination with a known byte pattern, then verifies both the copy and its
+provenance from an observed successful store. It covers every native group, tensor,
+CPU slot and partial chunk. A missing copy cannot pass because of stale matching
+GPU contents. This synchronous probe changes transfer timing and is disabled in
+performance cells; it currently admits only the direct TP1 layout.
+
+CPU instrument attempts 06/07 exercise exact copies, an omitted region and CPU
+corruption. They qualify the detector, not CUDA execution. Policy attempt 10 failed
+because the new native request-construction fixture omitted its required null
+block-hasher argument; attempt 11 fixes that fixture and passes. All attempts remain.
+The endpoint carries a separate client request ID in transfer metadata; vLLM keeps
+its normal internal-ID randomization. The native request conversion test verifies
+that session registration, TTL envelope and client identity survive this boundary.
+
+`pr-reconcile-events` checks the scheduler's CPU-slot lifecycle, readiness, load
+references, eviction capacity and the worker's TP1 job acknowledgements. It retains
+store refusals, failed transfers, pending jobs and stream-close state. Token-source
+accounting uses actual scheduled compute intervals and successful allocated CPU
+loads. Later computation takes precedence over an earlier restore; repeated prompt
+computation is reported separately. Failed or unfinished requests retain unobserved
+tokens rather than assigning them to GPU reuse. Per-group restored ranges accompany
+the reconciled global prefix counts. Hand-verifiable fixtures inject wrong slots,
+unready stores and duplicate acknowledgements; each is detected. Live model/event
+reconciliation remains part of GPU admission.

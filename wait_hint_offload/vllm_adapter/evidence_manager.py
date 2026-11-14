@@ -8,6 +8,7 @@ from vllm.v1.kv_offload import base
 from vllm.v1.kv_offload.cpu.spec import CPUOffloadingSpec
 
 from wait_hint_offload.evidence_events import EventJournal
+from wait_hint_offload.vllm_adapter.evidence_bytes import AdmissionByteProbe
 from wait_hint_offload.vllm_adapter.policy_context import prefix_from_context
 
 
@@ -181,3 +182,20 @@ class ObservedCPUOffloadingSpec(CPUOffloadingSpec):
                 },
             )
         return observed
+
+    def get_worker(self, kv_caches: Any) -> Any:
+        native = super().get_worker(kv_caches)
+        if not self.extra_config.get("evidence_byte_probe", False):
+            return native
+        if getattr(self.config, "canonical_layout", False):
+            raise ValueError("admission byte probe is scoped to the direct TP1 layout")
+        probe = getattr(self, "_evidence_byte_probe", None)
+        if probe is None:
+            probe = AdmissionByteProbe(
+                native,
+                kv_caches,
+                tuple(getattr(group, "group_id") for group in self.config.groups),
+                Path(self.extra_config["evidence_directory"]),
+            )
+            self._evidence_byte_probe = probe
+        return probe

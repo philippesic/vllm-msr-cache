@@ -6,6 +6,7 @@ from typing import Any
 from vllm.distributed.kv_transfer.kv_connector.v1.offloading_connector import (
     OffloadingConnector,
 )
+from vllm.v1.kv_offload.base import make_offload_key
 
 from wait_hint_offload.evidence_events import EventJournal
 from wait_hint_offload.vllm_adapter.evidence_manager import ObservedManager, key_records
@@ -28,12 +29,22 @@ class EvidenceConnector(OffloadingConnector):
                     "tokens_per_hash": config.tokens_per_hash,
                     "blocks_per_chunk": config.blocks_per_chunk,
                     "partial_tail": config.supports_partial_tail,
+                    "cache_hit_alignment_tokens": config.cache_hit_alignment_tokens,
                     "groups": [
                         {
                             "group": group.group_idx,
                             "tokens_per_block": group.tokens_per_block,
                             "tokens_per_chunk": group.tokens_per_chunk,
                             "window_chunks": group.sliding_window_size_in_chunks,
+                            "window_tokens": (
+                                group.manager_config.params.sliding_window
+                                - 1
+                                + group.manager_config.params.extra_retained_tokens
+                                if hasattr(
+                                    group.manager_config.params, "sliding_window"
+                                )
+                                else None
+                            ),
                             "manager": group.manager_cls.__name__,
                             "layers": list(
                                 kv_cache_config.kv_cache_groups[
@@ -63,10 +74,19 @@ class EvidenceConnector(OffloadingConnector):
             "request_new",
             {
                 "request_id": request.request_id,
+                "external_request_id": (request.kv_transfer_params or {}).get(
+                    "pr_evidence_request_id"
+                ),
                 "prompt_tokens": request.num_prompt_tokens,
                 "session": (request.kv_transfer_params or {}).get("wait_hint_policy"),
                 "groups": [
-                    key_records(group.offload_keys) for group in state.group_states
+                    key_records(
+                        make_offload_key(key, group.group_idx)
+                        for key in request.block_hashes[
+                            group.hashes_per_chunk - 1 :: group.hashes_per_chunk
+                        ]
+                    )
+                    for group in state.config.kv_group_configs
                 ],
                 "block_hashes": [key.hex() for key in request.block_hashes],
             },
@@ -96,6 +116,7 @@ class EvidenceConnector(OffloadingConnector):
             {
                 "request_id": request.request_id,
                 "cpu_tokens": num_external_tokens,
+                "load_jobs": sorted(state.transfer_jobs) if num_external_tokens else [],
                 "supplied_gpu_tokens": state.num_locally_computed_tokens,
                 "load_ranges": [
                     {"start": lo, "end": hi, **key_records([key])[0]}

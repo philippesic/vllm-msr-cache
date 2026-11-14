@@ -469,10 +469,14 @@ async def _loadgen_http(directory: Path) -> dict[str, Any]:
 
 
 def observe_instrument(directory: Path) -> dict[str, Any]:
-    from wait_hint_offload.vllm_adapter.evidence_native_checks import observe_events
+    from wait_hint_offload.vllm_adapter.evidence_native_checks import (
+        observe_bytes,
+        observe_events,
+    )
 
     directory.mkdir(parents=True, exist_ok=False)
     events = observe_events(directory / "events")
+    byte_probe = observe_bytes(directory / "bytes")
     sockets = asyncio.run(_sockets())
     endpoint = asyncio.run(_endpoint_http())
     loadgen = asyncio.run(_loadgen_http(directory / "loadgen"))
@@ -483,9 +487,10 @@ def observe_instrument(directory: Path) -> dict[str, Any]:
         for path in sorted(directory.rglob("*.jsonl"))
     }
     return {
-        "schema": "pr-instrument-observation-v4",
+        "schema": "pr-instrument-observation-v5",
         "scope": "CPU native manager and real loopback HTTP; no GPU transfer qualification",
         "events": events,
+        "byte_probe": byte_probe,
         "sockets": sockets,
         "endpoint": endpoint,
         "loadgen": loadgen,
@@ -507,17 +512,31 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         "pr-instrument-observation-v2",
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
+        "pr-instrument-observation-v5",
     }:
         fields.add("endpoint")
-    if schema in {"pr-instrument-observation-v3", "pr-instrument-observation-v4"}:
+    if schema in {
+        "pr-instrument-observation-v3",
+        "pr-instrument-observation-v4",
+        "pr-instrument-observation-v5",
+    }:
         fields.add("loadgen")
-    if schema == "pr-instrument-observation-v4":
+    if schema in {"pr-instrument-observation-v4", "pr-instrument-observation-v5"}:
         fields.add("files")
+    if schema == "pr-instrument-observation-v5":
+        fields.add("byte_probe")
+        if observed["byte_probe"] != {
+            "exact": True,
+            "missing_copy": True,
+            "cpu_corruption": True,
+        }:
+            raise ValueError("byte probe failed to detect injected corruption")
     if set(observed) != fields or schema not in {
         "pr-instrument-observation-v1",
         "pr-instrument-observation-v2",
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
+        "pr-instrument-observation-v5",
     }:
         raise ValueError("unknown instrument observation")
     if {cell["policy"] for cell in observed["events"]["cells"]} != {
@@ -532,7 +551,9 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
     if any(not cell["eviction_identity"] for cell in observed["events"]["cells"]):
         raise ValueError("observer changed eviction identity")
     for relative, digest in (
-        observed["files"] if schema == "pr-instrument-observation-v4" else {}
+        observed["files"]
+        if schema in {"pr-instrument-observation-v4", "pr-instrument-observation-v5"}
+        else {}
     ).items():
         path = directory / relative
         if (
@@ -556,6 +577,7 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         "pr-instrument-observation-v2",
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
+        "pr-instrument-observation-v5",
     }:
         endpoint = observed["endpoint"]
         verify_stream(endpoint["capture"])
@@ -586,7 +608,11 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         raise ValueError("socket fault outcomes do not reconcile")
     if not observed["sockets"]["blocked_reader_did_not_block_neighbor"]:
         raise ValueError("streaming instrument serialized neighbors")
-    if schema in {"pr-instrument-observation-v3", "pr-instrument-observation-v4"}:
+    if schema in {
+        "pr-instrument-observation-v3",
+        "pr-instrument-observation-v4",
+        "pr-instrument-observation-v5",
+    }:
         from tools.benchmarking.pr_workload import ARMS
 
         cells = observed["loadgen"]["cells"]

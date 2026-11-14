@@ -16,6 +16,9 @@ from tools.runtime_verify import write_record
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bounded benchmark qualification")
     sub = parser.add_subparsers(dest="operation", required=True)
+    pr_events = sub.add_parser("pr-reconcile-events")
+    pr_events.add_argument("directory", type=Path)
+    pr_events.add_argument("--out", type=Path, required=True)
     feasibility = sub.add_parser("pr-feasibility")
     feasibility.add_argument("--runtime-python", type=Path, required=True)
     feasibility.add_argument("--upstream", type=Path, required=True)
@@ -229,6 +232,11 @@ def main() -> int:
                 }
             )
         )
+        return 0
+    if args.operation == "pr-reconcile-events":
+        from tools.benchmarking.pr_events import reconcile_events
+
+        write_record(args.out, reconcile_events(args.directory))
         return 0
     if args.operation == "pr-client-native":
         import asyncio

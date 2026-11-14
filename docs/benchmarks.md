@@ -486,3 +486,10 @@ CPU fixture schedules do not freeze performance settings. `pr-client-native
 is the bounded internal streaming client. Starting a GPU server still requires the
 hardware admission, authorization, idle check and budget lifecycle; this client
 alone does not certify a campaign.
+
+
+`pr-reconcile-events EVENTS --out artifacts/runs/FILE.json` reconstructs native
+CPU residency, evictions and transfer acknowledgements from the common observer.
+It refuses inconsistent lifecycle records; an unclosed stream remains explicitly
+partial. Request token-source counts additionally require the paired schedule and
+client completion state, so this journal command alone is not an efficacy report.

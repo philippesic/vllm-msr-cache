@@ -71,8 +71,15 @@ proofs) and the old-runtime lane (28 tests). Test inventories added cases only.
 The real-corpus CPU schedule is retained at pr-evidence-runtime-02/schedule-cpu-01.json;
 its illustrative rates are not performance-calibrated settings.
 
+The admission-only byte detector passes CPU exact/missing-copy/corruption fixtures
+in pr-instrument-06/07. Native request-ID randomization is preserved with an explicit
+client mapping; pr-policy-feasibility-11 passes that conversion. Attempt10 had a
+fixture-constructor error and remains retained. Offline event reconciliation now
+checks slot/readiness/load/eviction lifecycle and successful transfer attribution;
+hand traces catch corrupted accounting. Live GPU qualification is still pending.
+
 ## Next
-Finish offline group/cache-source accounting, server/admission runner with restored
+Finish cell metrics and server/admission runner with restored
 bytes and same-boundary continuation, budget/receipt/interruption lifecycle,
 calibration/statistical edge-case protocol. Freeze and commit Stage1 exit inputs,
 then idle-check and execute authorized 2080 Ti admission/screen. No GPU runs yet.

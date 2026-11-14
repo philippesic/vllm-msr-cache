@@ -1,5 +1,6 @@
 {
   "fastapi": "fastapi",
   "msgspec": "msgspec",
+  "torch": "torch",
   "vllm": "vllm"
 }

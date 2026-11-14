@@ -109,7 +109,10 @@ class EvidenceEndpoint:
             output_kind=RequestOutputKind.DELTA,
             skip_special_tokens=False,
             extra_args={
-                "kv_transfer_params": {"wait_hint_policy": request.session.to_dict()}
+                "kv_transfer_params": {
+                    "wait_hint_policy": request.session.to_dict(),
+                    "pr_evidence_request_id": request.request_id,
+                }
             },
         )
         yield _frame(
