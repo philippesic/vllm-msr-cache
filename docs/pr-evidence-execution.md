@@ -68,3 +68,32 @@ until these and the other Stage 1 requirements pass.
 The [diagnostic result](../results/pr-evidence-feasibility/result.md) records the
 observations and explicitly corrects the initial stop interpretation. Its original
 source record remains immutable. The active work is in [the task](../tasks/pr-evidence.md).
+
+## Hold-only prototype
+
+The candidate out-of-tree policies live in `vllm_adapter/policy.py` and load through
+native CachePolicyFactory. They require the exact new runtime and delegate native
+readiness, references and storage. Private scheduler state is read only. Holds
+release lazily before eviction when a newer registered generation is visible;
+older pending requests cannot release newer holds. A read-only membership union
+avoids rebuilding the held-key set for each eviction. Failed native evictions first
+check whether the unheld request could succeed before releasing leases; feasible
+pressure releases earliest deadlines and prevents later readiness from silently
+reinstating a yielded lease.
+
+This is a CPU-tested prototype, not the Stage 1 freeze or hardware qualification.
+Current candidate limits are half the physical chunks, 4096 observations, 256 action
+IDs per observation, a 60-second deadline clamp, and separate 32 MiB conservative
+charges for observations/actions and leases. Shared keys count once against physical
+capacity. Duplicate action content replays; changed content refuses. The closed
+session/action schemas live in `policy_protocol.py`; request TTL is carried in a
+KvHintsEnvelope and registration in `kv_transfer_params.wait_hint_policy`.
+All limits and route behavior still need the complete Stage 1 tests and cost
+measurements before freezing for GPU.
+
+`pr-feasibility --hold-policy` exercises native ARC/LRU policies, disabled controls
+and the post-response policy method through the same receipt lifecycle. It is not a
+client-to-engine post-response test. The retained probe checks late readiness,
+shared GPU-only prefixes, action replay/cancellation/expiry, yield before store
+failure, failed-store cleanup, reset and disabled-policy eviction identity. The
+full geometry, fault, tiering and performance-cost matrix remains pending.

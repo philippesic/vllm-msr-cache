@@ -45,7 +45,7 @@ def prefix_from_context(context: Any) -> PolicyPrefix:
 
 
 def returned_sessions(scheduler: Any, held_generations: dict[str, int]) -> set[str]:
-    returned = set()
+    returned: set[str] = set()
     if not held_generations:
         return returned
     for state in scheduler._req_status.values():

@@ -446,3 +446,8 @@ Add `--private-state` to `pr-feasibility` for the separate concrete-context
 probe. It uses real frozen context/state methods with CPU request/scheduler fixtures
 to test complete group-key access and return detection, without claiming serving
 or hold-policy qualification. The verifier distinguishes its receipt schema.
+
+Add `--hold-policy` instead of `--private-state` for the native hold prototype CPU
+probe. It also compares registered, advice-disabled eviction sequences against stock
+LRU/ARC. Successful policy-method injection is not qualification of the pending
+post-response delivery patch.

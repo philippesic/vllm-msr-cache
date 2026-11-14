@@ -30,8 +30,15 @@ def _sha(path: Path) -> str:
 
 
 def qualify(
-    runtime_python: Path, upstream: Path, out: Path, *, private_state: bool = False
+    runtime_python: Path,
+    upstream: Path,
+    out: Path,
+    *,
+    private_state: bool = False,
+    hold_policy: bool = False,
 ) -> dict[str, Any]:
+    if private_state and hold_policy:
+        raise ValueError("select one feasibility mode")
     root = Path(__file__).resolve().parents[2]
     out = out.resolve()
     if not out.is_relative_to(root / "artifacts"):
@@ -62,7 +69,9 @@ def qualify(
     write_record(
         out / "admission.json",
         {
-            "schema": "pr-private-feasibility-admission-v1"
+            "schema": "pr-policy-feasibility-admission-v1"
+            if hold_policy
+            else "pr-private-feasibility-admission-v1"
             if private_state
             else "pr-feasibility-admission-v1",
             "upstream_revision": revision,
@@ -89,6 +98,8 @@ def qualify(
     ]
     if private_state:
         command.append("--private-state")
+    if hold_policy:
+        command.append("--hold-policy")
     start = time.monotonic()
     with (out / "execution.log").open("x") as log:
         code = run_owned(command, environment, source, 120, log)
@@ -131,7 +142,11 @@ def verify(directory: Path) -> dict[str, Any]:
         raise ValueError("unknown receipt fields")
     if (
         admission.get("schema")
-        not in {"pr-feasibility-admission-v1", "pr-private-feasibility-admission-v1"}
+        not in {
+            "pr-feasibility-admission-v1",
+            "pr-private-feasibility-admission-v1",
+            "pr-policy-feasibility-admission-v1",
+        }
         or terminal.get("schema") != "pr-feasibility-terminal-v1"
         or admission["upstream_revision"] != UPSTREAM
         or set(admission["upstream_sha256"]) != set(SOURCE_PATHS)
@@ -152,6 +167,63 @@ def verify(directory: Path) -> dict[str, Any]:
     if _sha(directory / "observed.json") != terminal["observed_sha256"]:
         raise ValueError("observation drift")
     observations = json.loads((directory / "observed.json").read_text())
+    if admission["schema"] == "pr-policy-feasibility-admission-v1":
+        expected = {}
+        for name in (
+            "RequestTTLARC",
+            "RequestTTLLRU",
+            "PostResponseARC",
+            "AdviceOffARC",
+            "AdviceOffLRU",
+        ):
+            expected[name] = {
+                "pending_not_held": True,
+                "late_ready_hold_keys": 0 if name.startswith("AdviceOff") else 2,
+                "duplicate_replayed": True,
+                "changed_action_refused": True,
+                "impossible_eviction_preserved_holds": True,
+                "return_released_before_eviction": True,
+                "reset_cleared_metadata": True,
+            }
+        if observations.get("schema") == "pr-policy-observation-v2":
+            extended = observations.get("extended", {})
+            identities = extended.get("identity_sequences", {})
+            flags = {
+                "gpu_only_shared_prefix_hold",
+                "shared_union_counted_once",
+                "cancellation_preserves_other_owner",
+                "expiry_and_duplicate_do_not_rehold",
+                "failed_eviction_preserves_holds",
+                "yield_prevents_added_store_failure",
+                "failed_store_never_ready_or_held",
+            }
+            if set(extended) != flags | {"identity_sequences"} or any(
+                extended[key] is not True for key in flags
+            ):
+                raise ValueError("missing extended hold evidence")
+            if set(identities) != {"arc", "lru"} or any(
+                set(value) != {"disabled", "stock"}
+                or len(value["stock"]) != 5
+                or value["disabled"] != value["stock"]
+                for value in identities.values()
+            ):
+                raise ValueError("hint-off eviction identity failed")
+            expected_observation = {
+                "schema": "pr-policy-observation-v2",
+                "cases": expected,
+                "extended": extended,
+            }
+        else:
+            expected_observation = {
+                "schema": "pr-policy-observation-v1",
+                "cases": expected,
+            }
+        if observations != expected_observation:
+            raise ValueError("hold policy observation changed")
+        return {
+            "schema": "pr-policy-feasibility-verification-v1",
+            "observations": observations,
+        }
     if admission["schema"] == "pr-private-feasibility-admission-v1":
         if observations != {
             "schema": "pr-private-context-observation-v1",

@@ -29,8 +29,14 @@ does not restrict the plugin to public callbacks. A result correction records th
 immutable observations/attempts remain. The private read-only probe passed at artifacts/runs/pr-private-feasibility-01:
 complete group keys and newer-return detection are available. The prototype uses
 fixture session/generation parameters, not the final closed wire schema. Old runtime CPU lane: 28 passed; portable: 87 tests,
-105 rule proofs. No hold implementation, W1 admission or GPU instrument yet.
+105 rule proofs. Hold-only prototype and pure ledger tests now exist. Native lifecycle probe
+artifacts/runs/pr-policy-feasibility-03 passed, including advice-off stock eviction
+identity, shared GPU-only keys, cancellation/expiry, yield and failed-store cleanup.
+Post-response policy-method injection is not the delivery patch. W1 first parquet
+shard is downloaded under artifacts/assets/pr-evidence-w1; pyarrow 26.0.1 installed
+in the isolated new runtime for admission. Full W1 admission/instrument pending.
 
 ## Next
-Implement hold-only shared machinery, bounded metadata/action state and
-deterministic lifecycle tests; measure private scheduler polling cost. Then finish Stage 1 freezes/instrument before GPU admission.
+Complete native geometry/tiering/fault matrix and bookkeeping/polling microbenchmark;
+implement W1 admission and streaming instrument; build post-response delivery patch;
+then finish Stage 1 freezes/instrument before GPU admission.
