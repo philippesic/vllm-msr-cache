@@ -21,13 +21,15 @@ recording route/model/workload verdicts, harms, opportunity, exclusions and not-
 work. Findings and current docs are updated; coherent commits are pushed.
 
 ## State
-Owned by the active agent on main. Initial checkout clean at 3a43529d. Plan and
-required context read. No GPU time used. Existing runtime and runner target the old
-pin and do not qualify the new plan. Feasibility inspection comes before building
-runtime and acquisition machinery. Release harm limit remains Philip's Stage 3
-decision; it does not block the authorized Stage 2 screening rule.
+Stage 1 reached its interface stop gate. Both A4t and A4p need a revised lifecycle
+interface; the final CPU receipt is artifacts/runs/pr-feasibility-08. Exact upstream
+wheel installed separately; no local CUDA build or GPU qualification. Neither route
+has an efficacy verdict. D8/HM/HS admission and W1/W2 screens are not run; GPU hours
+used: zero. Private scheduler polling is a possible different integration, not a
+qualified pure CachePolicy route. The compact evidence and execution boundary
+record all attempts, alternatives and unrun work. Closing the bounded phase under
+the plan's stop rule; later interface revision requires Philip's decision.
 
 ## Next
-Record the staged estimate, inspect the frozen CachePolicy interface and test the
-route feasibility gates. Continue implementation for feasible routes, then freeze
-Stage 1 inputs before hardware admission.
+Finish validation and close-results, push coherent checkpoints, remove this completed
+bounded task, then verify the GPU is free and send Philip's exact handoff message.

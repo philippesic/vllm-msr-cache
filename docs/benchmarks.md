@@ -428,3 +428,16 @@ The original SWE-bench grader evaluates the repair; the regression test must fai
 before and pass after the hidden reference fix. `verify-branching DIRECTORY` checks
 branch isolation, executed transcripts, patch/input/image identities and both graders.
 The live path and required compaction activity remain unqualified.
+
+## Frozen-main feasibility
+
+`pr-feasibility --runtime-python artifacts/venvs/pr-evidence/bin/python
+--upstream artifacts/checkouts/vllm-pr-evidence --out artifacts/runs/NEW`
+runs the CPU callback reproduction against the frozen-main source. It snapshots
+project inputs, compares installed upstream files with the exact checkout, hides
+CUDA and uses a bounded owned process. `verify-pr-feasibility artifacts/runs/NEW`
+checks retained hashes and observations. The internal `pr-feasibility-native`
+operation is used by that wrapper. This diagnoses interface feasibility only;
+observer identity is not hold-plugin identity or an efficacy result. See
+[the execution boundary](pr-evidence-execution.md). The 2080 Ti screen is not
+admitted when neither planned route meets its lifecycle contract.

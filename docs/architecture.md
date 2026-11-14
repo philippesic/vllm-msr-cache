@@ -151,3 +151,9 @@ without retrying eligible T1 entries. Upstream fixed this in
 [vllm#55461](https://github.com/vllm-project/vllm/pull/55461). It is deliberately
 retained in both modes and pinned by a regression test. Fixing or repinning needs
 a new runtime identity and requalification of both modes.
+
+The frozen-main CachePolicy experiment is separate from this supported connector.
+Its CPU diagnostic found missing request-arrival notification and incomplete public
+finish key lists for GPU-hit prefixes; both planned routes require a revised
+interface before hardware acquisition. See [the execution boundary](pr-evidence-execution.md)
+for the private-state alternative and precise qualification limits.

@@ -107,3 +107,8 @@ repair guidance here. Project-rule changes also need matching good/bad rule spec
 changes to supported entry points follow the system-map maintenance guide. Keep full
 acceptance at coherent checkpoints; the normal commit hook runs it. Passing checks
 does not replace inspecting whether tests cover the changed behavior.
+
+The frozen-main `tools.benchmark pr-feasibility` and `verify-pr-feasibility`
+commands are a separate CPU interface diagnostic, documented in
+[benchmarks](benchmarks.md). They do not replace the supported-runtime CPU lane or
+qualify the new runtime for serving.

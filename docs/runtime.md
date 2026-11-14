@@ -134,3 +134,11 @@ Current GPU evidence covers only the RTX 2080 Ti/WSL2 cases in [FINDINGS](../FIN
 The RTX 5080/sm_120 is a separate, unqualified gate. Adding owned C++/CUDA source
 requires build and diagnostic recipes plus sm_75/sm_120 acceptance in
 `tools/native.json`.
+
+## Frozen-main feasibility environment
+
+The separate `artifacts/venvs/pr-evidence` installs the exact upstream wheel
+`0.34.0rc1.dev465+ge9281bd93` for the CPU interface reproduction described in
+[the execution boundary](pr-evidence-execution.md). This does not repin the product
+or qualify that wheel on hardware. The CachePolicy-only lifecycle needs a revised
+interface before either planned route can enter GPU admission.

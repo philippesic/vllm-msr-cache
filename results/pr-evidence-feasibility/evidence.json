@@ -1,0 +1,609 @@
+{
+  "alternatives": "Private key-position enumeration and scheduler polling could be explored under a revised integration contract. REQUEST_LEVEL changes store behavior and lacks arrival notification; cancel-on-return adds a route message. Prefer explicit arrival and complete key/group callbacks shared consistently across arms.",
+  "attempts": [
+    {
+      "attempt": "runtime-01",
+      "outcome": "Dependency resolution failed: wheel-only index lacked lm-format-enforcer; no persistent install log was captured. Original tool output retained in conversation."
+    },
+    {
+      "attempt": "pr-evidence-runtime-02",
+      "outcome": "Exact upstream wheel installed after adding PyPI dependency fallback. Preliminary direct CPU probe passed; this was not a receipt-backed qualification."
+    },
+    {
+      "attempt": "pr-feasibility-01",
+      "outcome": "Wrapper failed before admission: resolving interpreter symlink discarded venv identity. Source snapshot retained; no terminal receipt was produced."
+    },
+    {
+      "attempt": "pr-feasibility-02",
+      "outcome": "Failed, exit 2: output guard refused path outside the snapshot artifacts directory. Admission, terminal and execution log retained."
+    },
+    {
+      "attempt": "pr-feasibility-03",
+      "outcome": "Manager/policy CPU reproduction passed; preliminary, before actual store-handler alternative and stock sequence evidence were added."
+    },
+    {
+      "attempt": "pr-feasibility-04",
+      "outcome": "Added actual upstream CHUNK_LEVEL versus REQUEST_LEVEL handler check; passed. Superseded for closeout by 05; preserved unchanged."
+    },
+    {
+      "attempt": "pr-feasibility-05",
+      "outcome": "CPU diagnostic passed; dynamic module loading later rejected by repository boundary check. Retained as preliminary evidence; no GPU."
+    },
+    {
+      "attempt": "pr-feasibility-06",
+      "outcome": "Exit 1: static-import conversion left an undefined module-loader reference. Failed terminal and log retained."
+    },
+    {
+      "attempt": "pr-feasibility-07",
+      "outcome": "Static-import CPU diagnostic passed; subsequent runtime type check found a list variance error in helper annotation."
+    },
+    {
+      "attempt": "pr-feasibility-08",
+      "outcome": "Final static-import CPU diagnostic passed after helper accepted Sequence. Source-checked receipt verified. Session labels are in kv_transfer_params with an empty real KvHintsEnvelope; no wire delivery or hold contract is qualified."
+    }
+  ],
+  "executed_source_sha256": {
+    "pyproject.toml": "7a5fa3e1dca85a53a9e5b033f2ea65ac39a9495a03539d5934edb654dee55060",
+    "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/agent_policy.py": "4c4406c07242cbe73ec0df671372b88e8c1c43f0ccad28f341fa79ea056214cd",
+    "tools/benchmark.py": "92c1430434974fb46987eb78208af3223c08291955994e3481d23f74db52fe5d",
+    "tools/benchmarking/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/benchmarking/answers.py": "374408294c78aaabf412515d92dede88a8299d64c29dda7e39308a591f84ce4d",
+    "tools/benchmarking/branching.py": "09ff3d1bfbc3e0b0435a8f59186779b9378b1cf86ccabe23cef1d631bc73ce9b",
+    "tools/benchmarking/campaign.py": "0ab5cf05676a6d1d50eb43f4efbb326d3f7afac63b571abeca8328a993f9d283",
+    "tools/benchmarking/campaign_panels.py": "34b420c0fad9040ab6e9a0b77fa1c25f2046c731e606cb3fe79da923f7583c8c",
+    "tools/benchmarking/campaign_recovery.py": "a5ca2a2b42179d602e7cfbc715488a4297a86b81aad37c0b7fb5d24e85fbb1c3",
+    "tools/benchmarking/exposure.py": "a1b052a743744c8510770e7ee61cc46c6ba0e6569f139fc020ea85d0adc9d6a9",
+    "tools/benchmarking/feasibility.py": "54b34b9384ca41f6429b813a27d8f08653878d2612cfea8582884660dff0fe09",
+    "tools/benchmarking/grounded.py": "8964ce00d427862cdf6866376aee31ee235697a21ed68058dd7b896f37aec978",
+    "tools/benchmarking/harness.py": "1599423e627a07547b0c2873555635cffdb41761b4db57f296909d61eb0a2ffd",
+    "tools/benchmarking/load_calibration.py": "a323e74e5becc87445e61d58817a6f652fd5cb4f32a41439c6167bfb10b3afa6",
+    "tools/benchmarking/measurement_controls.py": "dbe444e1323f29bcaf3a0e39bae3b5633ba191c6474592bbf293584b24c3402b",
+    "tools/benchmarking/navigation.py": "77379a6af7bf1302af546eb04136100633d11bd3ed982302bf174246da9617c2",
+    "tools/benchmarking/panel.py": "a25ed1f21772d94467d5b6c56efbf0954d85d6c2134f0143a627ba2b7cb8c526",
+    "tools/benchmarking/panel_report.py": "65ccf009988b49d498b77ee4ce1da0aedcdec99cd38eae092d906bb8ad848714",
+    "tools/benchmarking/patches.py": "ae1a7b61bf4477b5b96c2896fe50d6180c3668e984b41f22f82e8c47ee3b0c45",
+    "tools/benchmarking/plan.py": "ebed7291f3bf5362dba933b81c1e7291fb9316c45432b07db683865a6242462a",
+    "tools/benchmarking/pressure.py": "1735c20e5ad3b05b3e9416a7b88668bafd3600c1773a90301bbe36df11e3627c",
+    "tools/benchmarking/probe.py": "f142cead38527ff3e684538e64b000f7e89f57af4abe4d7e28a627f2368fb211",
+    "tools/benchmarking/proxy.py": "e852e2a9df7b22a48c859747e1a4669d0f15cec8cf1a46787cd55d8ae56e6b7f",
+    "tools/benchmarking/qualification.py": "e1f577a7210ce037bc93e974a37911c3e0db499cc420f5493ef57e13d69b23ab",
+    "tools/benchmarking/regression.py": "d251d595132f96609e221508cd56aea1d892a81669912115b35e9452ce4f65ab",
+    "tools/benchmarking/release_report.py": "57556a017736da962faef3ce938b3a4f9e661bba250da670f08791123eb2e791",
+    "tools/benchmarking/replay.py": "564f171937a16770b34d2562691bb817b66f2d2e5c8965b5b9b126109c3a431e",
+    "tools/benchmarking/report.py": "1744c1f417884431c2ac9dd9eb0ba347deda4ffac24b95c9460951fa53bf7bd9",
+    "tools/benchmarking/resources.py": "f1276674bf6a6e9391701b9e99d97fce1866b4520a93eafe594194a59c132b70",
+    "tools/benchmarking/server.py": "6264582dc6b31627df92baadb446ab36669e1e21118f83a23b7c86ea60bee23b",
+    "tools/benchmarking/terminal.py": "7c9b2a575fb043ae5e4124da811b1f6e6d08a30aba47c49e772937956b7efe12",
+    "tools/benchmarking/traces.py": "d208c894293f9a070169ca38ba68e657859e8f93846622251ef676bf6834d1bd",
+    "tools/benchmarking/workload.py": "386b027d48eea67598498d2a315c3ee87f8220179c272de5d4e5fea0e308de90",
+    "tools/bootstrap-uv.txt": "6f14229a095de2b3bfe47274e890c5ca8ff2eeaaebd291f587e085458cf64cef",
+    "tools/check-cases.json": "c1568dd64531fa0b322e6044bf5eab3775c0a1071e46d747c116528ff995e53e",
+    "tools/check.py": "7977f42736d6fb6921e7b5f788eba0c1e56223dc16b18462241a26f6d5c6be7e",
+    "tools/config.py": "f8ac0e07922df682ef58a0f4a296cf454551b9082ad52fd21510f3dd7f802f53",
+    "tools/cpu-tests.json": "dee530500b7e41af9e9c18d0c0e3ad8097cd437b9f15f8dcf01c8e7f2dcd5606",
+    "tools/exceptions.toml": "6c44e58e1a0b2a54721ae3de8d2ffb66a990f0c81dde2835fcc19f91b86f576d",
+    "tools/native.json": "d7a7abb098a9e47fae17048d0a6777380fdffde0c330c8d1e98d5c80d87c5f5d",
+    "tools/native.py": "64e0682dd979b42cf8cdf359c1e672d1facc9e83e234c2e1f6309d10e2c5291c",
+    "tools/process.py": "4cd3b8e40244f3f60f4bacac12438c8b57b4667f67a39fc5abfb8d9b76632b48",
+    "tools/pytest_gate.py": "b99c897dfa7da9fded33e06a1c9010eb9ee17afc42d5ce4ccd873c5c9e588a91",
+    "tools/repo_policy.py": "6a189a9ec6d4e721beb707c4c5744c00dac03b0f2660d5609ae11c6f994af437",
+    "tools/results.py": "919ccf73a1ae7e568169d5d709bcff98ec6793509cff8fc0d1e728181739cf2a",
+    "tools/rules.json": "f6816e014bb8089b700436ee647082873fb89db4e73473fa26e4d9f7e4775040",
+    "tools/runtime_capture.py": "6d818093f4be3e055fae52988464f677b3b3cb364b0cc4f704f6a0145d0c40e7",
+    "tools/runtime_policy.py": "0213d0f03da9b14e5ea72f82e9e8c8c5fa35473326539cfb91b56418c7688d9e",
+    "tools/runtime_verify.py": "695ee55fea2ff4e0434579d286f61f4e988ecbb7aaaf33aa8427ce49038b3713",
+    "tools/self-tests.json": "96d0b7c97c77b669cb8e2703f849484d466197388bc524077a6165173cdc3584",
+    "tools/system_map.py": "322d5d822024af7694341bbff1e36a4b2dc6cfc6dfb7934188589425544420ac",
+    "tools/unused.py": "072327f76f8783160bfeb83131aee7963fbaa720c67b180afb2e8f86cc83ab7b",
+    "uv.lock": "6306dabb6dcedef21c48f8d5c82d1203236a4e502caf5d59ec73d671b22f9db2",
+    "wait_hint_offload/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wait_hint_offload/advice.py": "c8fd6b22568f78f9504aae64c61218fac883eb1f82ed3f04281d94c0f33c01fa",
+    "wait_hint_offload/config.py": "c7463a4ef74c12a70072fcaa5836ce8cea3e7754f7e4d74fe7c9bf783c57c83f",
+    "wait_hint_offload/contracts.py": "006ee3092ed356868dfc47c1ba6903876fb4c78fce82079677de89841d4c4efd",
+    "wait_hint_offload/observed.py": "b977b20ed484e28f5bd368b723f58d06260e85985635783ef9fa565f7e879586",
+    "wait_hint_offload/runtime_pin.py": "bbb1b74e665a04b0c886b40d91fd3c6d7926e4c1e2d689a8c4c2a86e1884a2c0",
+    "wait_hint_offload/vllm_adapter/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wait_hint_offload/vllm_adapter/arc.py": "793121da3917fcb82db5a3399688ba93049d8fe2fd973a73cbfa5fbee091d7aa",
+    "wait_hint_offload/vllm_adapter/binding.py": "bbc5b4e2acabdbb647ae3691545b8e32b064eec44fbaa5a32d7b2cfca2674a35",
+    "wait_hint_offload/vllm_adapter/connector.py": "31e81869a35f0bf5e524a1b6561fbae5e89d9d6a97b208de8165a73dbac22a1b",
+    "wait_hint_offload/vllm_adapter/endpoint.py": "7b04f7e13d6e74ec514c92520f4f92374933fe0e891df78a724047ac099f2e82",
+    "wait_hint_offload/vllm_adapter/engine_rpc.py": "5e5c6a144505dd05e0e61fdd7ef062f9f8b56469f2ca8880a8a4914a2fb0ee68",
+    "wait_hint_offload/vllm_adapter/feasibility.py": "3531cd458b5b608717cd57e5fa82422f684a951acb1b772a3bd98e5fc1063e36",
+    "wait_hint_offload/vllm_adapter/replay.py": "b41308095a108d357f1b63919dc140dd9d5c25dcd09405876afd81fec201946d",
+    "wait_hint_offload/vllm_adapter/transfers.py": "c81ad9cf596e20fa3975c1e80618f84f63ab31ed27df0727e963ed160a958db8"
+  },
+  "full_source_identity": "Full snapshot hashes remain in the retained admission receipt; this compact record selects executable product/tool/package inputs.",
+  "gpu_hours": {
+    "admission": 0,
+    "screen": 0,
+    "total": 0
+  },
+  "harm_metrics": "Not measured: no GPU cells; absence of added failures in a screen was not established.",
+  "identity_scope": "Observer wrapper matched stock LRU/ARC on five CPU request schedules each. This is not A3/A3p hold-plugin identity.",
+  "model_workload_verdicts": [
+    {
+      "A4p": "NOT RUN: Stage 1 interface gate",
+      "A4t": "NOT RUN: Stage 1 interface gate",
+      "admitted": false,
+      "efficacy_verdict": null,
+      "model": "D8",
+      "opportunity": "UNMEASURED",
+      "workload": "W1"
+    },
+    {
+      "A4p": "NOT RUN: Stage 1 interface gate",
+      "A4t": "NOT RUN: Stage 1 interface gate",
+      "admitted": false,
+      "efficacy_verdict": null,
+      "model": "D8",
+      "opportunity": "UNMEASURED",
+      "workload": "W2"
+    },
+    {
+      "A4p": "NOT RUN: Stage 1 interface gate",
+      "A4t": "NOT RUN: Stage 1 interface gate",
+      "admitted": false,
+      "efficacy_verdict": null,
+      "model": "HM",
+      "opportunity": "UNMEASURED",
+      "workload": "W1"
+    },
+    {
+      "A4p": "NOT RUN: Stage 1 interface gate",
+      "A4t": "NOT RUN: Stage 1 interface gate",
+      "admitted": false,
+      "efficacy_verdict": null,
+      "model": "HM",
+      "opportunity": "UNMEASURED",
+      "workload": "W2"
+    },
+    {
+      "A4p": "NOT RUN: Stage 1 interface gate",
+      "A4t": "NOT RUN: Stage 1 interface gate",
+      "admitted": false,
+      "efficacy_verdict": null,
+      "model": "HS",
+      "opportunity": "UNMEASURED",
+      "workload": "W1"
+    },
+    {
+      "A4p": "NOT RUN: Stage 1 interface gate",
+      "A4t": "NOT RUN: Stage 1 interface gate",
+      "admitted": false,
+      "efficacy_verdict": null,
+      "model": "HS",
+      "opportunity": "UNMEASURED",
+      "workload": "W2"
+    }
+  ],
+  "not_run": [
+    "local source/CUDA build and sm_75 kernel qualification",
+    "hold policy and full deterministic lifecycle suite",
+    "production-scale bookkeeping microbenchmark",
+    "Qwen diverged-GPU-hit reproduction",
+    "TieringOffloadingSpec lifecycle",
+    "W1 content/tokenizer/manifest admission",
+    "LMCache compatibility admission",
+    "streaming load generator and per-group event instrumentation qualification",
+    "mechanism/limits/patch/A3p freeze",
+    "D8/HM/HS GPU admission and restore correctness",
+    "calibration and every paired screen block",
+    "first-block cost re-quote (no first block)",
+    "all benefit/harm/opportunity/route-difference statistics",
+    "Stage 2b posting",
+    "Stage 3 including 2080 Ti pilot",
+    "RTX 5080 and rented compute"
+  ],
+  "observations": {
+    "arc": {
+      "callback_trace": [
+        [
+          "get",
+          null,
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "store_miss",
+          "first",
+          [
+            "0100000000",
+            "0200000000"
+          ]
+        ],
+        [
+          "access",
+          "first",
+          [
+            "0100000000",
+            "0200000000"
+          ]
+        ],
+        [
+          "insert",
+          "first",
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "insert",
+          "first",
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "ready",
+          null,
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "ready",
+          null,
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "finish",
+          "first",
+          [
+            "0100000000",
+            "0200000000"
+          ]
+        ],
+        [
+          "finish",
+          "return",
+          []
+        ],
+        [
+          "finish",
+          "shared",
+          []
+        ],
+        [
+          "get",
+          null,
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "store_miss",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "access",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "insert",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "finish",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "ready",
+          null,
+          [
+            "6c61746500000000"
+          ]
+        ]
+      ],
+      "callbacks_at_return": [],
+      "gpu_hit_finish_groups": [],
+      "late_store_readiness_callback": true,
+      "observer_identity_evictions": [
+        [],
+        [],
+        [
+          "0100000000"
+        ],
+        [
+          "0300000000",
+          "0500000000"
+        ],
+        [
+          "0400000000",
+          "0600000000"
+        ]
+      ],
+      "positions_available_privately": 2,
+      "ready_cpu_keys_present": [
+        "0100000000",
+        "0200000000"
+      ],
+      "request_level_alternative_start": 0,
+      "scheduler_gpu_hit_chunks_skipped": 2,
+      "shared_gpu_hit_finish_groups": [],
+      "stock_identity_evictions": [
+        [],
+        [],
+        [
+          "0100000000"
+        ],
+        [
+          "0300000000",
+          "0500000000"
+        ],
+        [
+          "0400000000",
+          "0600000000"
+        ]
+      ]
+    },
+    "lru": {
+      "callback_trace": [
+        [
+          "get",
+          null,
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "store_miss",
+          "first",
+          [
+            "0100000000",
+            "0200000000"
+          ]
+        ],
+        [
+          "access",
+          "first",
+          [
+            "0100000000",
+            "0200000000"
+          ]
+        ],
+        [
+          "insert",
+          "first",
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "insert",
+          "first",
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "ready",
+          null,
+          [
+            "0100000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "ready",
+          null,
+          [
+            "0200000000"
+          ]
+        ],
+        [
+          "finish",
+          "first",
+          [
+            "0100000000",
+            "0200000000"
+          ]
+        ],
+        [
+          "finish",
+          "return",
+          []
+        ],
+        [
+          "finish",
+          "shared",
+          []
+        ],
+        [
+          "get",
+          null,
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "store_miss",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "access",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "insert",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "finish",
+          "delayed",
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "get",
+          null,
+          [
+            "6c61746500000000"
+          ]
+        ],
+        [
+          "ready",
+          null,
+          [
+            "6c61746500000000"
+          ]
+        ]
+      ],
+      "callbacks_at_return": [],
+      "gpu_hit_finish_groups": [],
+      "late_store_readiness_callback": true,
+      "observer_identity_evictions": [
+        [],
+        [],
+        [
+          "0100000000"
+        ],
+        [
+          "0300000000",
+          "0200000000"
+        ],
+        [
+          "0500000000",
+          "0400000000"
+        ]
+      ],
+      "positions_available_privately": 2,
+      "ready_cpu_keys_present": [
+        "0100000000",
+        "0200000000"
+      ],
+      "request_level_alternative_start": 0,
+      "scheduler_gpu_hit_chunks_skipped": 2,
+      "shared_gpu_hit_finish_groups": [],
+      "stock_identity_evictions": [
+        [],
+        [],
+        [
+          "0100000000"
+        ],
+        [
+          "0300000000",
+          "0200000000"
+        ],
+        [
+          "0500000000",
+          "0400000000"
+        ]
+      ]
+    }
+  },
+  "question": "Can the two accepted delivery routes implement the required lifecycle through the frozen CachePolicy interface?",
+  "receipt_path": "artifacts/runs/pr-feasibility-08",
+  "receipt_sha256": {
+    "admission.json": "e5e9640047c841b74339d4514cf584f7c7e2cf186eaca663492352550b4de441",
+    "execution.log": "a66c50d7d5ee5678c7b511fc116696cd78baf4f58fbe1de6d458406c010240ee",
+    "observed.json": "da87390b259e8966a9e4b96d4c9a532de324037c3b20ece2a58a9c079a8e863d",
+    "terminal.json": "4a21f0dbe0e3955f39dcb3fc2aa5e6c9f7ac2d773f50b8c1a9d7bd195ad0e3e9"
+  },
+  "retention": "All created attempts, environment and upstream checkout retained under artifacts. Failed checks remain in logs; no raw attempt was deleted. Runtime-01 is documented from tool output, not represented as a complete receipt.",
+  "route_classification": {
+    "A4p": "needs_revised_interface",
+    "A4t": "needs_revised_interface"
+  },
+  "stop_rule": "Stage 1: neither planned route feasible within the CachePolicy plus delivery-only interface; stop before GPU. No efficacy STOP/CONTINUE/INCONCLUSIVE inferred.",
+  "terminal": {
+    "execution_sha256": "a66c50d7d5ee5678c7b511fc116696cd78baf4f58fbe1de6d458406c010240ee",
+    "exit_code": 0,
+    "observed_sha256": "da87390b259e8966a9e4b96d4c9a532de324037c3b20ece2a58a9c079a8e863d",
+    "schema": "pr-feasibility-terminal-v1",
+    "wall_seconds": 8.572572467004647
+  },
+  "upstream_revision": "e9281bd939d4ade90d6aacf4b2319aa89ea46c39",
+  "upstream_source_sha256": {
+    "vllm/distributed/kv_transfer/kv_connector/v1/offloading/scheduler.py": "25af23e424845bf7ffbc882bba12fc9ff680c2b529bf7c90dfb384be2d0d059f",
+    "vllm/distributed/kv_transfer/kv_connector/v1/offloading/state.py": "bf496d779f69d282d8703391d247638a2cf0277a54e125e44afef9cb68d027da",
+    "vllm/distributed/kv_transfer/kv_connector/v1/offloading/store_triggers/on_compute.py": "6399966e699e426680dbb2c6d86eb83ca058eabab6e110117986bedb49dc6fe1",
+    "vllm/v1/kv_offload/base.py": "fe699ae0c15995b8f91bfa810badf74d66f2391c5ba6933a04cea605a1c71036",
+    "vllm/v1/kv_offload/cpu/manager.py": "d3620be463cd418a1b9c28260fb705257893dcd2e7457b14e0780e915f6287ce",
+    "vllm/v1/kv_offload/cpu/policies/arc.py": "05fbb128bffb218feca0015d004897b12272430cf779e13d610e73c9344734c3",
+    "vllm/v1/kv_offload/cpu/policies/base.py": "9cedb9a6d840cf1332730e875bd5b65cf0b7914a6684f34f08639d733809ad42",
+    "vllm/v1/kv_offload/cpu/policies/factory.py": "a0a220303b863538c948b26407918612369749972c50fc2a7d5c8acc3c537f3e",
+    "vllm/v1/kv_offload/cpu/policies/lru.py": "e9da7f44785969de105dcb0a2a88d382db572e7b53b612d58e8c64b05ceb8d9e"
+  },
+  "validation": {
+    "failed_checks": "Initial fast check caught import-name collision and unused dynamic class; initial full check caught unsorted imports and five dependent rule-proof failures. Causes fixed; checks not weakened. Logs retained under artifacts/runs/pr-evidence-runtime-02. Additional checks rejected dynamic adapter imports, an oversized full-source-hash copy, and a list variance annotation. Static imports, a compact selected hash record and a Sequence annotation fixed the causes; no exceptions added.",
+    "old_runtime": "28 CPU tests passed; strict types passed on 18 files; artifacts/runs/runtime-cpu-20261114T074102Z",
+    "receipt_verification": "verify-pr-feasibility artifacts/runs/pr-feasibility-08 passed",
+    "test_inventory": "One portable receipt-tamper test added; zero removals."
+  },
+  "wheel_version": "0.34.0rc1.dev465+ge9281bd93",
+  "whole_route_difference": "Not measured; no delivery patch or treatment acquired."
+}

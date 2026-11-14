@@ -1,8 +1,11 @@
 # Evidence plan for a vLLM wait-hint pull request
 
-Status: planning only; final review identified execution gates and pending release
-decisions in Part C.5. Not authorized for implementation or compute. Each stage needs
-Philip's authorization; see [the task](../tasks/pr-evidence.md). Initially reviewed on
+Status: accepted plan, authorized by Philip on 2026-11-13 for Stage 1 and the local
+2080 Ti phase only (1 hour admission, 8 hours screen maximum). Execution stopped
+at the Stage 1 interface gate; see [the execution boundary](pr-evidence-execution.md).
+Later stages remain unauthorized. Historical proposed caps below are estimates;
+Philip's explicit authorization supersedes those estimates, not the decision rules.
+Initially reviewed on
 2026-11-13 through two structured reviews: the stages and decision rules (Part A) by
 GPT-6 Astra and Claude Fable 5.2, the concrete workloads, models, comparators and
 machine tiers (Part C) by GPT-6 Astra and GPT-6.1 Sol. Every reviewer explicitly
@@ -757,9 +760,9 @@ recorded per platform; passing on the 2080 Ti does not qualify the 5080 or H100.
   been accepted yet.
 - WSL memory limit (~15 GB) caps CPU pools at a few GiB on Machine A; raising it is a
   Windows-side change only Philip can approve. Without it, Stage 2 pools stay <= 4 GiB.
-- Stage authorizations and budgets remain separate. The next possible authorization
-  is the bounded CPU-only feasibility work, after its implementation estimate; no
-  GPU, paid compute, memory-limit change or external posting is authorized here.
+- Stage authorizations and budgets remain separate. The bounded Stage 1/2080 Ti
+  authorization is recorded at the top of this document. No later GPU platform,
+  paid compute, memory-limit change or external posting is authorized.
 
 Final-review source checks: [frozen vLLM CPU spec](https://github.com/vllm-project/vllm/blob/e9281bd939d4ade90d6aacf4b2319aa89ea46c39/vllm/v1/kv_offload/cpu/spec.py)
 confirms the LRU default and configurable policy module; the

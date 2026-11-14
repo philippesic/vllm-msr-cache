@@ -10,11 +10,20 @@ from tools.benchmarking.probe import probe, verify_probe
 from tools.benchmarking.report import summarize_probe
 from tools.config import benchmark_environment
 from tools.process import run_owned
+from tools.runtime_verify import write_record
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bounded benchmark qualification")
     sub = parser.add_subparsers(dest="operation", required=True)
+    feasibility = sub.add_parser("pr-feasibility")
+    feasibility.add_argument("--runtime-python", type=Path, required=True)
+    feasibility.add_argument("--upstream", type=Path, required=True)
+    feasibility.add_argument("--out", type=Path, required=True)
+    feasibility_native = sub.add_parser("pr-feasibility-native")
+    feasibility_native.add_argument("--out", type=Path, required=True)
+    feasibility_verify = sub.add_parser("verify-pr-feasibility")
+    feasibility_verify.add_argument("directory", type=Path)
     functional = sub.add_parser("functional")
     functional.add_argument("--runtime-python", type=Path, required=True)
     functional.add_argument("--model", type=Path, required=True)
@@ -157,6 +166,22 @@ def main() -> int:
         root / "artifacts"
     ):
         parser.error("write new project output under artifacts/ in this repository")
+    if args.operation == "pr-feasibility-native":
+        from wait_hint_offload.vllm_adapter.feasibility import observe_interfaces
+
+        write_record(args.out, observe_interfaces())
+        return 0
+    if args.operation in {"pr-feasibility", "verify-pr-feasibility"}:
+        from tools.benchmarking.feasibility import qualify
+        from tools.benchmarking.feasibility import verify as verify_feasibility
+
+        result = (
+            qualify(args.runtime_python, args.upstream, args.out)
+            if args.operation == "pr-feasibility"
+            else verify_feasibility(args.directory)
+        )
+        print(json.dumps(result, indent=2))
+        return 0
     if args.operation == "simulate":
         from tools.benchmarking.replay import simulate
 
