@@ -6,8 +6,8 @@ Philip's authorization; see [the task](../tasks/pr-evidence.md). Initially revie
 2026-11-13 through two structured reviews: the stages and decision rules (Part A) by
 GPT-6 Astra and Claude Fable 5.2, the concrete workloads, models, comparators and
 machine tiers (Part C) by GPT-6 Astra and GPT-6.1 Sol. Every reviewer explicitly
-accepted that revision. The final review below does not imply their acceptance of
-later edits. Part B lists interpretation rules. Part C owns concrete execution
+accepted that revision. A later debate between GPT-6 Astra and GPT-6.1 Sol reviewed
+the dual delivery-route revision; its acceptance status is recorded in the task. Part B lists interpretation rules. Part C owns concrete execution
 settings; missing admission/protocol details must be frozen before dependent runs.
 
 Background facts verified against upstream vLLM:
@@ -47,16 +47,21 @@ Freeze one upstream commit. Answer in writing, with CPU tests:
    identity (via hint payload), the session's key chain across requests, chunks that
    hit the GPU prefix cache and are never observed by the policy, shared-prefix chunks
    stored by other sessions, window geometry per group? A4t must work as a pure
-   plugin; A4p adds only the post-response delivery patch. Any further core change
-   applies to both arms and every later result states it.
+   plugin; A4p adds only the post-response delivery patch. At Stage 1 exit each
+   route is classified independently as feasible, infeasible, or needing a revised
+   interface. An infeasible route gets no efficacy verdict and is reported as not
+   run. If A4t needs any core change it loses the pure-plugin label and the protocol
+   is revised before GPU; a core change needed by both routes applies to both and
+   every later result states it.
 3. Replacing removed `touch`: show the promote step preserves intended ARC semantics.
 4. Make the hold policy-agnostic if feasible (LRU+hint as well as ARC+hint); if not,
    the claim states the hint requires ARC.
 5. Hint-off identity: on a recorded schedule, the plugin with hints disabled produces
    the same eviction sequence as stock ARC (and LRU if applicable).
-6. Port the replay simulator to main's manager. Before GPU, run A4t, A4p and the
-   perfect-information reference on the same pilot traces to estimate the delivery
-   gap (diagnostic only, never a claim); otherwise it is used only after GPU rank
+6. Replay simulator: port it to main's manager only if the Stage 1 estimate shows it
+   costs less than the GPU work it would replace; it is not required evidence. If
+   built, it may estimate the A4t/A4p/perfect-information gap on pilot traces before
+   GPU (diagnostic only, never a claim) and is otherwise used only after GPU rank
    agreement is shown (Stage 3).
 7. Qwen diverged-GPU-hit lookup: deterministic reproduction on main (scheduler-level
    CPU test if possible, else a tiny GPU probe charged to Stage 2). If it persists,
@@ -73,8 +78,8 @@ Freeze one upstream commit. Answer in writing, with CPU tests:
    distribution (Part C), labelled
    semi-synthetic; it may serve as the admitted target-workload case only with that
    label carried into every claim.
-Exit: a written go/no-go for Stage 2 with both delivery arms' shapes and the
-patch hash. Missing
+Exit: a written go/no-go for Stage 2 with each route's feasibility class, the
+route contract (Part C.1), the patch hash and patched-control identity/overhead. Missing
 trace admission, feasible models or runtime blocks the runs that depend on them.
 
 ### Stage 2. Feasibility screen on the 2080 Ti (needs authorization; proposed cap ~4-5 GPU h, a resource limit, not an evidence requirement)
@@ -87,7 +92,10 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   GPU hint-off identity check), ARC+plugin with request-TTL hints (A4t),
   ARC+plugin with post-response hints (A4p) (and LRU+plugin if Stage 1 makes the
   hold policy-agnostic). A4t and A4p use the same mechanism variant, hold cap and
-  adoption; only delivery differs. Pools follow the three-seed calibration rule in Part C; calibration
+  preassigned adopting sessions; they differ in delivery and the information each
+  route may use (Part C.1). A3p, the patched runtime receiving the same
+  post-response messages with advice disabled, controls A4p's patch: it supplies
+  A4p's A/A band and hint-off identity, and runs in every block that runs A4p. Pools follow the three-seed calibration rule in Part C; calibration
   seeds never decide efficacy; budgets are reported in GiB and as working-set ratio.
 - Workloads: (T) W1 first, then (S) the existing closed-loop W2 pressure screen.
   Target eight fresh paired seeds per admitted model/workload, subject to the cap;
@@ -104,13 +112,16 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
     the better baseline); positive is better;
   - recompute change = pooled hinted recompute share with the hinted arm minus the
     better baseline, in absolute points; negative is better;
-  - delivery gap = TTFT benefit of A4p minus that of A4t, with its paired interval;
-    descriptive, reported for the RFC, never a decision input;
+  - route difference = TTFT benefit of A4p minus that of A4t, with its paired
+    interval: the whole-route difference (information, timing, abandoned holds and
+    patch overhead), not an isolated estimate of a core hook's benefit; descriptive,
+    reported for the RFC, never a decision input;
   - harm metrics (guardrails): unhinted recompute share (absolute points),
     unhinted and one-shot mean TTFT and mean ITL (relative change, positive is
     worse);
   - A/A band, per metric (including each harm metric) = the 95% CI half-width of
-    ARC+plugin(hints off) minus ARC, in that metric's units. CPU eviction identity is
+    ARC+plugin(hints off) minus ARC, in that metric's units (A3 for A4t; A3p for
+    A4p, whose patch overhead A3p minus A3 is reported). CPU eviction identity is
     required; a GPU interval excluding zero triggers diagnosis under Part B.2,
     rather than automatically proving an identity defect;
   - guardrail margin per harm metric = max(A/A band, 5% relative for TTFT/ITL or
@@ -119,8 +130,12 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   - opportunity = under the better baseline at least 20% of hinted returns' reusable
     prefix tokens are recomputed.
 - Outcomes, evaluated separately for A4t and A4p and reported per delivery route
-  (an A4p-only CONTINUE is labelled "requires a core delivery hook"):
-  CONTINUE if on at least one model and workload: TTFT benefit point estimate
+  (an A4p-only CONTINUE is labelled "requires a core delivery hook"). Each route
+  gets a target-workload verdict from W1 and a separate mechanism verdict from W2.
+  Progression follows the W1 verdict only: W2 success shows mechanism potential and
+  cannot override a W1 STOP without Philip's explicit scope-change decision; W2
+  never turns a W1 INCONCLUSIVE into CONTINUE.
+  CONTINUE (per workload) if on at least one model: TTFT benefit point estimate
   >= 0.15 and its CI lower bound > 0; recompute change CI upper bound < 0; for every
   harm metric the point estimate <= its guardrail margin and the CI upper bound
   <= twice the margin; zero added store failures; hint-off identity holds.
@@ -131,7 +146,9 @@ trace admission, feasible models or runtime blocks the runs that depend on them.
   post-response route continues under its own verdict. A STOP applies only at the screened scale (2080 Ti, contexts <= 6k tokens)
   and is reported that way.
   INCONCLUSIVE otherwise, including failure to meet CONTINUE, insufficient
-  precision, absent opportunity, or no admitted case T. INCONCLUSIVE goes to the RFC
+  precision, absent opportunity, or no admitted case T. Precedence: a correctness
+  failure or added store failure/resource exhaustion in the route blocks it; then
+  STOP; then CONTINUE; else INCONCLUSIVE. INCONCLUSIVE goes to the RFC
   with the evidence as it is and a decision by Philip.
   A stop for budget or time is reported as a resource decision, not as evidence of
   ineffectiveness. Multiple models/workloads and two delivery arms raise the
@@ -162,8 +179,13 @@ maintainer endorsement nor authorizes the next stage.
   route verdicts and maintainer feedback (A4p only if a core delivery hook is an
   acceptable upstream route) and frozen in the protocol before any Stage 3
   calibration. The other delivery arm runs at the central point as a secondary
-  with the same seeds as the primary; their paired gap is a reported finding, not a
-  second chance at support.
+  with the same seeds as the primary (with A3p whenever A4p runs); their paired
+  whole-route difference is a reported finding, not a second chance at support.
+- Claim scope: SUPPORTED means A4 improves the specified native CPU-offload
+  configuration. Claims beyond it (better than GPU-only serving, than a tuned
+  admission filter, or than an automatic hold) need primary-grade paired evidence
+  (primary seeds and decision rule) against that comparator; three-seed comparisons
+  are descriptive.
 - Primary outcome: SLO-miss ratio = (share of sessions missing the SLO with
   A4) / (share missing it with the better of LRU/ARC), at the central load,
   50% hint adoption, causal hints. A session misses if any return turn exceeds the
@@ -174,26 +196,32 @@ maintainer endorsement nor authorizes the next stage.
   per hour meeting the SLO) is reported beside it with its ceiling
   (1 / baseline success share) stated.
 - Minimum counted sessions: each run counts at least the number of post-warm-up
-  sessions needed for an expected 20 baseline misses (set from the pilot); run
-  length and GPU hours are re-estimated from that (expect a multiple of the sizing
-  below; the pilot re-quotes before the 5080 and rented stages).
+  sessions needed for an expected 20 baseline misses (set from the pilot), and
+  enough observations in every harm cohort (unhinted returns, one-shots) to meet the
+  frozen harm precision; the larger requirement wins. Run length and GPU hours are
+  re-estimated from that (expect a multiple of the sizing below; the pilot re-quotes
+  before the 5080 and rented stages).
 - Dilution diagnostic: report the share of baseline misses associated with hinted
   evicted prefixes, without treating it as a causal attribution or hard floor;
   reduced queueing can benefit other sessions. The 0.75 target remains fixed, and
   the hinted-cohort miss ratio is a key secondary.
-- Key secondaries: maximum sustainable arrival rate (>= 90% success and bounded
-  backlog), p50/p95 return TTFT, session completion time, recomputed tokens split into
+- Key secondaries: highest tested sustainable arrival rate (>= 90% success and
+  bounded backlog; not a located maximum), p50/p95 return TTFT, session completion time, recomputed tokens split into
   GPU reuse / CPU reuse / evicted / never stored, transfer bytes, restore GB/s and
   prefill tokens/s per platform (break-even), iso-latency memory (pool LRU/ARC need to
-  match ARC+plugin; full pool curve including where gain is zero).
+  match ARC+plugin; full pool curve including where gain is zero), host CPU time,
+  metadata bytes and hint traffic per arm, actual hinted request and token shares
+  beside the 50% session adoption.
 - Guardrails: unhinted and one-shot p95 TTFT and mean ITL, zero added store failures,
   and 0% adoption identity (CPU identity test + GPU A/A). The previous proposed harm
   rule and the pending fixed-margin alternative are in Part C.5; resolve before the
-  protocol is frozen. Failure and correctness rules are in Part C.4.
+  protocol is frozen. Demonstrated harm (the point estimate beyond the margin) and
+  unestablished safety (only the upper bound beyond it) are reported distinctly;
+  neither supports release. Failure and correctness rules are in Part C.4.
 - Decision: replication unit = workload seed/trace sample paired across arms; the
   miss ratio is the ratio of pooled miss shares, its 95% interval from a paired
-  bootstrap over seeds with BCa correction, with the paired log-ratio t-interval
-  sensitivity in Part B.3. Better baseline = lower primary miss
+  bootstrap over seeds with BCa correction, with the seed-clustered delta-method
+  sensitivity for the same pooled ratio in Part B.3. Better baseline = lower primary miss
   share in calibration, fixed before confirmation. SUPPORTED if the CI upper bound of the SLO-miss ratio
   is below 0.75 and guardrails hold; NEGATIVE if the CI lower bound is above 0.75
   (a 25% miss reduction ruled out); otherwise INCONCLUSIVE. A guardrail failure
@@ -218,13 +246,15 @@ maintainer endorsement nor authorizes the next stage.
   schedule or cost quote; Part C fixes model priority and requires a full costed manifest.
 - Secondary comparisons at the central point only (3 seeds): no offload, large-pool
   control (not an oracle), GPU TTL pin (Continuum code if it runs, else labelled "our
-  implementation"), pin+hold combined, claim-scoped LMCache, perfect-information
-  hint reference; the other delivery arm uses all primary seeds. Their cost is included in the manifest, not a separate assumed allowance.
-- Ablations (promote-only, hold-only, dead-first-only, promote+hold), pool sweep
-  (0.25-2x) and adoption sweep (0/50/100%) and the hint-free head-chunk-aging idea:
-  run in the ported simulator, used for prioritization only after rank agreement
-  with GPU on >= 16 pre-chosen cells; any reported ablation or sweep conclusion
-  needs GPU confirmation of the selected points.
+  implementation"), claim-scoped LMCache, perfect-information hint reference. With
+  all primary seeds: the other delivery arm (and A3p), and the automatic hold
+  (Part C.2). Their cost is included in the manifest, not a separate assumed allowance.
+- Ablations: only those needed to substantiate the selected mechanism (Part C.2).
+  Pool sweep (0.25-2x) and adoption sweep (0/50/100%) run on GPU at their listed
+  points; the simulator, if built, may prioritize further points only after rank
+  agreement with GPU on >= 16 pre-chosen cells, and any reported conclusion needs
+  GPU confirmation. Hint-free policy ideas stay outside this feature's readiness
+  gate (Stage 4).
 - Abuse: greedy-tenant test with a pre-set bound on harm to honest unhinted traffic;
   server deadline clamp; behavior under TieringOffloadingSpec stated.
 - Threats tracked: tuned pressure band (publish full curves), hinted gain taken from
@@ -273,9 +303,13 @@ Earlier review caveats, reconciled with Part C and the final review:
 2. A/A-CI-includes-0 identity check is multiplicity-prone across ~6-7 metrics: treat an
    exclusion as a trigger to re-verify the Stage 1 CPU identity and inspect, not an
    automatic defect.
-3. Eight seeds may give unstable intervals: report a paired t-interval beside BCa
-   (log ratios for latency/miss ratios, paired differences for absolute changes).
-   Disagreement on a decision threshold => INCONCLUSIVE. Predeclare the exact
+3. Eight seeds may give unstable intervals: report a sensitivity interval for the
+   same estimand beside BCa. For pooled ratios (miss ratio, TTFT benefit) it is a
+   seed-clustered delta-method interval on the log of the pooled ratio, weighting
+   seeds by their counted sessions or returns; for absolute changes, the paired
+   t-interval on seed differences. Disagreement on a decision threshold =>
+   INCONCLUSIVE. A geometric mean of per-seed ratios is a different estimand: report
+   it only as a labelled secondary, never as a veto. Predeclare the exact
    computation and behavior for zero misses, undefined ratios, degenerate bootstrap
    or jackknife samples, and missing observations; no post-result method switching
    or silent pseudocounts. Undefined required evidence cannot establish support.
@@ -367,7 +401,7 @@ W1 (primary, semi-synthetic agent replay):
   is not fed back; reuse is measured as the exact token LCP with the session's
   previous requests and the group-aligned eligible boundary; lost reusable suffix
   reported. A live mini-swe-agent lane on the 4 SWE-bench tasks is an application
-  sanity check only. Freeze its task IDs, graders, budgets, pairing and treatment of
+  sanity check only, deferred from the minimum PR package. Freeze its task IDs, graders, budgets, pairing and treatment of
   quality regressions before running it. Replay supports serving-latency claims on
   recorded prompts, not faster problem solving or unchanged application quality.
 - Episodes: chronological; 2080 Ti: first turns until prompt+output > 6144, stop at
@@ -375,11 +409,36 @@ W1 (primary, semi-synthetic agent replay):
   rented only); never delete transcript middles.
 - Gaps (declared, not production): min(300, LogNormal(ln 4 s, 0.8)), drawn per turn
   from a seeded stream independent of arms; sensitivities median 0.5 s and 30 s.
-- Hints (causal): per-session adoption 50% primary (0/100 sensitivities); every
-  request in an opted-in session, including the final one, carries a fixed TTL of 12 s
-  (3x the declared median gap); sensitivities 2 s and 60 s;
-  server clamp 60 s. Perfect-information hint (TTL = true gap) is a labelled oracle
-  reference, secondary only (not assumed to be an upper bound).
+- Hints (causal): per-session adoption 50% primary (0/100 sensitivities); adopting
+  sessions are preassigned by seed and identical for A4t, A4p and their controls,
+  whatever hints are accepted. TTL fixed at 12 s (3x the declared median gap) in
+  every cell, including the gap sensitivities, so those test robustness, not
+  retuning; TTL sensitivities 2 s and 60 s; server clamp 60 s.
+  Perfect-information hint (TTL = true gap) is a labelled oracle reference,
+  secondary only (not assumed to be an upper bound).
+- Route contract, frozen at Stage 1 exit:
+
+  | | A4t (request TTL) | A4p (post-response) |
+  |---|---|---|
+  | Information | Session adoption only | Plus the current recorded assistant turn |
+  | Eligible | Every request of an adopting session, final included | Turns whose recorded assistant message contains a tool action other than a declared terminal action (e.g. submit) |
+  | Published | With the request | After the client receives the response's last token, plus measured transport delay |
+  | Deadline origin | Engine request finish | Engine hint acceptance |
+  | Stores finishing later | Join the hold when ready, until the deadline | Same |
+
+  Neither route may use whether another recorded turn exists, the next prompt or the
+  true gap. Replay discards generated text, so A4p's signal comes from the recorded
+  turn, not live tool-call parsing; benchmark injection of either route does not
+  qualify the public interface (Stage 4).
+- Episode ends: report natural trajectory completion, benchmark truncation
+  (context/turn limits) and injected abandonment separately, because truncated
+  ends become abandoned holds for both routes. Robustness abandonment percentages are
+  additional abandonment on top of these. The route difference is claimed only for
+  the admitted (truncated) population; the 5080 strata include longer, more often
+  complete episodes as a sensitivity.
+- Gap/TTL sensitivities (0.5 s and 30 s median gaps; 2 s and 60 s TTL) are required
+  at the central point with 3 seeds on the primary model for any claim beyond the
+  4 s distribution; otherwise the claim is limited to that distribution.
 - Robustness variants (separate cells, never mixed into the primary): abandonment
   0/34/75%, 10% duplicate hints, 10% cancellations, late returns (gap > TTL forced),
   greedy tenant sending 90% of hints, +1,024-token common-prefix variant.
@@ -402,26 +461,36 @@ default, whereas the old connector forced False): A1 stock OffloadingConnector L
 A2 stock ARC; A3 ARC+plugin hints off (A/A and identity); A4t ARC+plugin with
 request-TTL hints (pure plugin); A4p ARC+plugin with post-response hints (plugin plus
 the hashed delivery patch). Stage 2 runs both; Stage 3 names one as A4 (Part A) and
-runs the other at the central point. Both use exactly one mechanism variant (hold-only, promote+hold, or promote+hold+dead-first) frozen at
+runs the other at the central point. A3p: patched runtime with matched
+post-response messages and advice disabled (patch control; eviction identity with
+A3 on CPU, overhead measured). Both hinted arms use exactly one mechanism variant (hold-only, promote+hold, or promote+hold+dead-first) frozen at
 the end of Stage 1 from feasibility and CPU results only, never selected after GPU
 benefits are seen. Preserve the current 50% CPU hold cap for the primary, counting
 the union of ready physical chunks once, with earliest-deadline yield before a store
 would fail. Freeze metadata/session/action limits, overflow/rejection behavior and
 tenant accounting at Stage 1 exit; cap sweeps are separate secondary cells.
 A5 LRU+plugin if Stage 1
-shows the hold is policy-agnostic; otherwise the claim is stated as ARC-dependent.
+shows the hold is policy-agnostic, with central-point coverage at primary seeds
+because LRU is the default; otherwise the claim is stated as ARC-dependent.
+A6 automatic hold (primary seeds, central point): the same mechanism, TTL, physical
+cap and release rules applied by the server after every request, without client
+advice. It tests whether client information earns a new interface; a matched hold
+budget diagnostic may separate selectivity from resource use.
 Required at the central point (3 seeds unless noted):
 - No CPU offload (GPU prefix cache only).
 - Hint-free admission: A1 and A2 with store_threshold=2, max_tracker_size=64,000.
 - Matched all-False sensitivity: offload_prompt_only=False for A1, A2 and A4 together.
 - Large-pool capacity control and the pool curve (0.25/0.5/1/2x frozen working set,
   where RAM permits).
-- Ablations: promote-only, hold-only, promote+hold (dead-first only if claimed).
+- Ablations: only those that isolate components of the selected mechanism
+  (hold-only always; promote and dead-first only if selected or claimed). If
+  dead-first is selected, add a small compaction/branch-return sensitivity.
 - GPU TTL pin ("our GPU TTL implementation", patch hashed; Continuum fork
   Hanchenli/vllm-continuum@316a58794a6ff86b216e579b74fd56ed0c5a911f inspected first,
-  never called Continuum): same causal hint, resident pages only, cap 50% of GPU KV
-  (sweep 10/25/50%), release on return/expiry, earliest-deadline yield under
-  allocation pressure; and GPU pin + CPU hold. Run before the full matrix.
+  never called Continuum): same causal hint, resident pages only, cap 50% of GPU KV,
+  release on return/expiry, earliest-deadline yield under allocation pressure. Run
+  before the full matrix. Cap sweep and GPU pin + CPU hold are deferred unless the
+  RFC makes them consequential.
 Claim-scoped (required only for the claims named):
 - LMCache (any superiority claim over LMCache): LMCacheMPConnector, lmcache_driven,
   kv_both, CPU-only L1, LRU, separate object groups, no disk/remote/compression/
@@ -464,8 +533,9 @@ Stage 1 (CPU only; no GPU use):
   accounting (GPU vs CPU) replace inferred eviction and aggregate cached tokens;
   process-tree PSS, page faults, swap and transfer bandwidth sampling.
 - Admit the W1 manifest, LMCache candidate and compatibility tuple (CPU-checkable
-  parts), freeze the shared A4t/A4p mechanism variant, and hash the A4p delivery
-  patch.
+  parts), freeze the shared A4t/A4p mechanism variant and route contract, hash the
+  A4p delivery patch, and show A3p's eviction sequence equals A3's on recorded
+  schedules with its overhead measured.
 - Produce a staged implementation estimate before building: distinguish the minimum
   end-to-end screen path from simulator/competitor/full-matrix work. Extend
   tools.benchmark and the current receipt/verification lifecycle; add no independent
@@ -496,8 +566,8 @@ Stage 2 (2080 Ti screen; Part A rules and Part B caveats):
   choose the smaller. Freeze it across arms. If any arm cannot fit, report that
   failure and rerun the complete paired comparison at the next qualifying budget; if
   none qualifies, report resource infeasibility.
-- Arms A1-A3, A4t, A4p (+A5 if feasible); A4p adds one arm per block, so the cap
-  covers fewer seeds or models, re-quoted after the first block. Seeds: calibration 12001-12003; decision 12101-12108,
+- Arms A1-A3, A4t, A3p, A4p (+A5 if feasible); the A4p route adds two arms per
+  block, so the cap covers fewer seeds or models, re-quoted after the first block. Seeds: calibration 12001-12003; decision 12101-12108,
   checked against the exposure ledger; complete paired blocks, randomized arm order;
   re-quote after the first block; 4-5 GPU h cap.
 Stage 3a/3b (protocol and 2080 Ti pilot):
@@ -536,7 +606,9 @@ Stage 3a/3b (protocol and 2080 Ti pilot):
   plus the drain timeout, which is the common endpoint for every arm. Sessions other
   than the measured cohort run but are not counted. If the run budget cannot cover the
   whole schedule, the attempt is retained and the comparison is INCONCLUSIVE; the
-  cohort is never shortened.
+  cohort is never shortened. Only acquisition interruption or insufficient authorized
+  run time counts as resource incompleteness; sessions unfinished at the scheduled
+  endpoint of a run that reached it are failures of their arm.
 - Warm-up and measured cohort: windows of max(120 s, 3x pilot mean session duration).
   Stability between two consecutive windows requires all of: CPU-pool occupancy changes
   by < 2% of capacity (absolute, so an empty pool is stable); median return TTFT changes
@@ -545,8 +617,9 @@ Stage 3a/3b (protocol and 2080 Ti pilot):
   when it offers >= 10 but fewer complete, the criterion is unmet); backlog (queued +
   running requests) changes by < max(10%, 2 requests), zero backlog in both windows
   counting as stable, with no monotone growth across three windows.
-- Common cutoff = the latest stabilization point among the block's arms on the shared
-  schedule clock, bounded by the 6-window deadline; if any arm has not stabilized by
+- Common cutoff = the latest stabilization point among the block's core arms (A1, A2,
+  A3, A4) on the shared schedule clock, applied unchanged to secondary arms so adding
+  a comparator cannot move the primary cohort; bounded by the 6-window deadline; if any arm has not stabilized by
   then, the cutoff is the deadline and the block is labelled non-stationary and
   retained. There is no restart: if the first eviction in any arm occurs after the
   cutoff, the block is labelled late-pressure, its eviction time is recorded, and the
@@ -554,8 +627,8 @@ Stage 3a/3b (protocol and 2080 Ti pilot):
 - The measured cohort = the first N scheduled sessions arriving after the cutoff,
   identical session IDs for every arm. Drain timeout after the last measured arrival =
   max(600 s, 3x pilot p95 session duration); unfinished measured sessions are
-  failures. If the cohort cannot be completed within the run budget, the attempt is
-  retained and the comparison is INCONCLUSIVE; the cohort is never shortened and no
+  failures. If acquisition is interrupted or authorized run time runs out before the
+  scheduled endpoint, the attempt is retained and the comparison is INCONCLUSIVE; the cohort is never shortened and no
   arm is omitted. No-pressure is labelled by absence of evictions in the measured
   cohort.
 - Harm margin and A/A band frozen from calibration with a precision ceiling: if the
@@ -573,7 +646,11 @@ Stage 3a/3b (protocol and 2080 Ti pilot):
   least 22 minutes plus arrival time per arm, before startup/calibration. Retire the
   old six-minute-run estimate. Quote the complete prioritized cell manifest, warm-up,
   arrivals, drain, startup, admission, calibration, diagnostics and contingency before
-  authorizing each platform. Under a cap, run complete paired blocks and retain
+  authorizing each platform; map every required cell to the claim it protects and
+  predeclare the drop order (claim-scoped and optional cells first, then curves,
+  never the primary cohort, its controls or harm cohorts) for when the budget cannot
+  reach primary precision. The outlined core matrix alone exceeds 70 GPU hours at
+  the minimum run length. Under a cap, run complete paired blocks and retain
   incomplete attempts; reduce optional scope before confirmation, never its cohort
   after seeing results. Hours-long acquisition needs a progress healthcheck automation
   at a declared cadence, stopped when the job ends, as required by AGENTS.md.
@@ -588,7 +665,8 @@ Stage 3c (RTX 5080):
   probe fails.
 - Pools 2/4/8 GiB conditional on host headroom; chosen by the same paired rule with
   platform-local calibration.
-- Order: W1 central with A1-A4 (primary) and the other delivery arm, GPU TTL and pin+hold, required comparators,
+- Order: W1 central with A1-A4 (primary), the other delivery arm (and A3p), A5 and
+  A6, GPU TTL pin, gap/TTL sensitivities, required comparators,
   then curves, robustness variants, W2 long-context, W3.
 Stage 3d (rented, only if 3c is SUPPORTED, or Philip explicitly chooses to explore a
 positive but INCONCLUSIVE result; firm quote first):
@@ -653,8 +731,9 @@ recorded per platform; passing on the 2080 Ti does not qualify the 5080 or H100.
   TTFT precision ceiling it can allow 10% measured harm and 20% upper uncertainty.
   Recommend a fixed 5% margin for unhinted/one-shot p95 TTFT and mean ITL, requiring
   the upper confidence bound to stay within it. Insufficient precision would be
-  INCONCLUSIVE. This recommendation is pending, not an approved change; resolve it
-  before Stage 3 calibration and sample sizing.
+  INCONCLUSIVE. Noise sets the evidence required, not the harm tolerated. The
+  final reviewers (GPT-6 Astra, GPT-6.1 Sol) both support the fixed limit. Pending
+  Philip's decision; resolve it before Stage 3 calibration and sample sizing.
 - Why protect unhinted traffic: server opt-in and per-session hints do not partition
   the shared CPU cache or GPU execution queue. Protecting one session can evict
   another session's prefix and add recomputation/queueing. Yield-before-store-failure
