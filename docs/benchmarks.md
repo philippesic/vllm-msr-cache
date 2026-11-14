@@ -441,3 +441,8 @@ operation is used by that wrapper. This diagnoses interface feasibility only;
 observer identity is not hold-plugin identity or an efficacy result. See
 [the execution boundary](pr-evidence-execution.md). The 2080 Ti screen is not
 admitted when neither planned route meets its lifecycle contract.
+
+Add `--private-state` to `pr-feasibility` for the separate concrete-context
+probe. It uses real frozen context/state methods with CPU request/scheduler fixtures
+to test complete group-key access and return detection, without claiming serving
+or hold-policy qualification. The verifier distinguishes its receipt schema.

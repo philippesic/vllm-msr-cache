@@ -20,8 +20,10 @@ def main() -> int:
     feasibility.add_argument("--runtime-python", type=Path, required=True)
     feasibility.add_argument("--upstream", type=Path, required=True)
     feasibility.add_argument("--out", type=Path, required=True)
+    feasibility.add_argument("--private-state", action="store_true")
     feasibility_native = sub.add_parser("pr-feasibility-native")
     feasibility_native.add_argument("--out", type=Path, required=True)
+    feasibility_native.add_argument("--private-state", action="store_true")
     feasibility_verify = sub.add_parser("verify-pr-feasibility")
     feasibility_verify.add_argument("directory", type=Path)
     functional = sub.add_parser("functional")
@@ -167,16 +169,27 @@ def main() -> int:
     ):
         parser.error("write new project output under artifacts/ in this repository")
     if args.operation == "pr-feasibility-native":
-        from wait_hint_offload.vllm_adapter.feasibility import observe_interfaces
+        from wait_hint_offload.vllm_adapter.feasibility import (
+            observe_interfaces,
+            observe_private_context,
+        )
 
-        write_record(args.out, observe_interfaces())
+        write_record(
+            args.out,
+            observe_private_context() if args.private_state else observe_interfaces(),
+        )
         return 0
     if args.operation in {"pr-feasibility", "verify-pr-feasibility"}:
         from tools.benchmarking.feasibility import qualify
         from tools.benchmarking.feasibility import verify as verify_feasibility
 
         result = (
-            qualify(args.runtime_python, args.upstream, args.out)
+            qualify(
+                args.runtime_python,
+                args.upstream,
+                args.out,
+                private_state=args.private_state,
+            )
             if args.operation == "pr-feasibility"
             else verify_feasibility(args.directory)
         )

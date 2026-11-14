@@ -212,3 +212,65 @@ def observe_interfaces() -> dict[str, Any]:
             ],
         }
     return observations
+
+
+def observe_private_context() -> dict[str, Any]:
+    from wait_hint_offload.vllm_adapter.policy_context import (
+        prefix_from_context,
+        returned_sessions,
+    )
+
+    groups = [
+        SimpleNamespace(
+            group_idx=index,
+            tokens_per_chunk=256,
+            hashes_per_chunk=1,
+            load_window_size_in_chunks=lambda boundary, window=window: window,
+        )
+        for index, window in enumerate((None, 1))
+    ]
+    owner = SimpleNamespace(
+        config=SimpleNamespace(kv_group_configs=groups), _req_status={}
+    )
+    req = SimpleNamespace(
+        request_id="first",
+        kv_transfer_params={"session": "s", "generation": 1},
+        kv_hints=None,
+        block_hashes=[b"a", b"b"],
+        num_computed_tokens=513,
+        num_in_flight_tokens=0,
+        num_prompt_tokens=513,
+        num_tokens=514,
+    )
+    context = getattr(scheduler, "_create_req_context")(req, owner)
+    state = getattr(scheduler, "RequestOffloadState")(
+        config=owner.config,
+        req=req,
+        req_context=context,
+        offloading_context=getattr(base, "RequestOffloadingContext")(),
+    )
+    owner._req_status[req.request_id] = state
+    state.update_offload_keys()
+    snapshot = prefix_from_context(context)
+    assert snapshot.complete_tokens == 513
+    assert [group.group_id for group in snapshot.groups] == [0, 1]
+    assert [len(group.keys) for group in snapshot.groups] == [2, 2]
+    assert [group.window_chunks for group in snapshot.groups] == [None, 1]
+    assert returned_sessions(owner, {"s": 1}) == set()
+    newer = SimpleNamespace(req_context=_context("return", "s"))
+    newer.req_context.kv_transfer_params["generation"] = 2
+    owner._req_status["return"] = newer
+    assert returned_sessions(owner, {"s": 1}) == {"s"}
+    assert returned_sessions(owner, {"s": 2}) == set()
+    assert returned_sessions(owner, {"other": 1}) == set()
+    return {
+        "schema": "pr-private-context-observation-v1",
+        "native_context_class": type(context).__name__,
+        "native_state_class": type(state).__name__,
+        "full_gpu_hit_keys_per_group": [len(group.keys) for group in snapshot.groups],
+        "windows": [group.window_chunks for group in snapshot.groups],
+        "newer_return_detected_before_policy_callback": True,
+        "older_inflight_request_does_not_release_newer_hold": True,
+        "unrelated_session_unchanged": True,
+        "scope": "real context/state methods with CPU scheduler/request fixtures; no serving or hold qualification",
+    }

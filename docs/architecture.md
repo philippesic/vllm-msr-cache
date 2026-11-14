@@ -154,6 +154,6 @@ a new runtime identity and requalification of both modes.
 
 The frozen-main CachePolicy experiment is separate from this supported connector.
 Its CPU diagnostic found missing request-arrival notification and incomplete public
-finish key lists for GPU-hit prefixes; both planned routes require a revised
-interface before hardware acquisition. See [the execution boundary](pr-evidence-execution.md)
+finish key lists for GPU-hit prefixes; private scheduler reads remain under investigation for both routes before
+hardware acquisition. See [the execution boundary](pr-evidence-execution.md)
 for the private-state alternative and precise qualification limits.

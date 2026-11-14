@@ -1,8 +1,8 @@
-# Both frozen-main wait-hint routes need a lifecycle interface revision before GPU screening
+# Frozen policy callbacks omit arrival and GPU-hit keys; private-state feasibility remains open
 
 2026-11-13 · current · unresolved
 
-Stage 1 stopped before GPU under the accepted feasibility gate. A4t (request TTL) and A4p (post-response with a delivery-only patch) both need a revised interface. On frozen vLLM e9281bd939d4ade90d6aacf4b2319aa89ea46c39, real LRU/ARC policy observers receive no callback at request arrival and empty finish key lists for GPU-hit prefixes, including shared CPU-resident keys. A post-response-only patch does not fix the arrival gap. This is an interface result, not an efficacy STOP.
+CPU tests on frozen vLLM confirmed missing request-arrival policy callbacks and empty policy finish key lists for GPU-hit prefixes. This does not establish route infeasibility: the concrete request context exposes private scheduler state, and the accepted plan does not restrict a pinned plugin to public callbacks. The earlier stop interpretation was too narrow. Stage 1 continues; no GPU has run.
 
 ## Scope
 
@@ -22,7 +22,11 @@ Private context state contains the full key-position map and can reach the sched
 
 ## Decision
 
-Close this bounded phase at its Stage 1 gate and do not promote to the RTX 5080 yet. Recommend explicit request-start notification and complete key/group information, preserving native store behavior; that requires a revised shared core interface and drops the pure-plugin claim. A private-scheduler approach trades fewer upstream changes for tighter version coupling and polling qualification. Philip chooses the revised contract before reopening. The Stage 3 release harm limit remains undecided (fixed 5% upper-confidence bound recommended); Stage 2 screening rules were unchanged. Stage 2b public posting, Stage 3/pilot, 5080 and rented compute were not performed or authorized. All raw attempts and the isolated environment/checkout remain under artifacts; no GPU healthcheck was needed because no GPU acquisition started.
+Continue authorized Stage 1 by testing private scheduler reads for complete key/group information and release-before-eviction on returns, including bounded cost. Do not treat this diagnostic as a Stage 1 stop, efficacy verdict or approval to promote to the 5080. Stage 2 remains authorized within the original 1-hour admission and 8-hour screen limits once its gates pass. The handoff message has not been sent. Later-stage publication, harm-limit and hardware decisions remain Philip's.
+
+## Correction
+
+2026-11-13: retracted the Stage 1 stop interpretation. Missing public callbacks do not rule out the private scheduler access available to an out-of-tree plugin on this frozen runtime; the plan did not require public-only access. Original CPU observations and immutable attempts are unchanged. The source evidence's route_classification and stop_rule fields record the superseded interpretation, not the current decision.
 
 ## Sources
 

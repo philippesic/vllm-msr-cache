@@ -29,7 +29,9 @@ def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def qualify(runtime_python: Path, upstream: Path, out: Path) -> dict[str, Any]:
+def qualify(
+    runtime_python: Path, upstream: Path, out: Path, *, private_state: bool = False
+) -> dict[str, Any]:
     root = Path(__file__).resolve().parents[2]
     out = out.resolve()
     if not out.is_relative_to(root / "artifacts"):
@@ -60,7 +62,9 @@ def qualify(runtime_python: Path, upstream: Path, out: Path) -> dict[str, Any]:
     write_record(
         out / "admission.json",
         {
-            "schema": "pr-feasibility-admission-v1",
+            "schema": "pr-private-feasibility-admission-v1"
+            if private_state
+            else "pr-feasibility-admission-v1",
             "upstream_revision": revision,
             "upstream_sha256": upstream_hashes,
             "installed_sha256": installed_hashes,
@@ -83,6 +87,8 @@ def qualify(runtime_python: Path, upstream: Path, out: Path) -> dict[str, Any]:
         "--out",
         str(captured),
     ]
+    if private_state:
+        command.append("--private-state")
     start = time.monotonic()
     with (out / "execution.log").open("x") as log:
         code = run_owned(command, environment, source, 120, log)
@@ -124,7 +130,8 @@ def verify(directory: Path) -> dict[str, Any]:
     }:
         raise ValueError("unknown receipt fields")
     if (
-        admission.get("schema") != "pr-feasibility-admission-v1"
+        admission.get("schema")
+        not in {"pr-feasibility-admission-v1", "pr-private-feasibility-admission-v1"}
         or terminal.get("schema") != "pr-feasibility-terminal-v1"
         or admission["upstream_revision"] != UPSTREAM
         or set(admission["upstream_sha256"]) != set(SOURCE_PATHS)
@@ -145,6 +152,23 @@ def verify(directory: Path) -> dict[str, Any]:
     if _sha(directory / "observed.json") != terminal["observed_sha256"]:
         raise ValueError("observation drift")
     observations = json.loads((directory / "observed.json").read_text())
+    if admission["schema"] == "pr-private-feasibility-admission-v1":
+        if observations != {
+            "schema": "pr-private-context-observation-v1",
+            "native_context_class": "_VllmReqContext",
+            "native_state_class": "RequestOffloadState",
+            "full_gpu_hit_keys_per_group": [2, 2],
+            "windows": [None, 1],
+            "newer_return_detected_before_policy_callback": True,
+            "older_inflight_request_does_not_release_newer_hold": True,
+            "unrelated_session_unchanged": True,
+            "scope": "real context/state methods with CPU scheduler/request fixtures; no serving or hold qualification",
+        }:
+            raise ValueError("private context observation changed")
+        return {
+            "schema": "pr-private-feasibility-verification-v1",
+            "observations": observations,
+        }
     if set(observations) != {"arc", "lru"}:
         raise ValueError("missing policy observations")
     for observed in observations.values():

@@ -7,7 +7,7 @@ different implementation and do not qualify this code. See the [result profile](
 ## Current code
 
 - **functional** — [Exact offload and hint delivery pass the current functional checks](results/current-functionality/result.md)
-- **unresolved** — [Both frozen-main wait-hint routes need a lifecycle interface revision before GPU screening](results/pr-evidence-feasibility/result.md)
+- **unresolved** — [Frozen policy callbacks omit arrival and GPU-hit keys; private-state feasibility remains open](results/pr-evidence-feasibility/result.md)
 - **mixed** — [Promote-hold wait advice cut recomputation in aggregate but missed its pre-registered rule](results/promote-hold-advice/result.md)
 - **negative** — [Eight more seeds per model kept the recency wait hint: promote-hold gained on Gemma but not on Qwen](results/promote-hold-settle/result.md)
 - **supported** — [In the full pressure campaign the reachable-hold wait hint beat native CPU offload and LMCache on both models](results/reachable-hold-campaign/result.md)

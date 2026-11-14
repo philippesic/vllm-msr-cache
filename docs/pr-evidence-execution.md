@@ -57,18 +57,14 @@ notification. Releasing at request finish is too late; sending a cancellation at
 return changes A4t's request-only delivery and adds behavior beyond A4p's
 post-response-only patch. Monkey-patching the manager changes the core contract.
 
-Both routes therefore need a revised interface under the accepted route boundary:
-A4t cannot meet the lifecycle using CachePolicy callbacks alone; A4p's delivery-only
-patch does not fix the same arrival gap. This triggers the Stage 1 stop before GPU.
-It is not an efficacy STOP. No mechanism, hold limits, W1 manifest, delivery patch
-or A3p identity was frozen for acquisition. No dependent GPU run is admitted.
+Neither route has yet been ruled infeasible. The initial interpretation that both
+needed a revised interface was too narrow: the accepted plan permits a pinned
+out-of-tree policy, including private state reads. The next qualification tests
+read-only scheduler access to recover complete key/group information and release
+holds before eviction on a session return. Polling cost and tiering behavior must
+be measured, rather than assuming this path fails. No GPU acquisition is admitted
+until these and the other Stage 1 requirements pass.
 
-Recommended revision: a manager-to-policy request-start notification and a complete,
-group-described key snapshot at finish, preserving native storage decisions. Apply
-any shared core change consistently to controls and treatments and explicitly
-retire the pure-plugin label. A private-scheduler integration is an alternative
-with greater version coupling and a separate CPU cost/lifecycle qualification.
-Philip must choose the revised route contract before reopening this phase.
-
-The [closed result](../results/pr-evidence-feasibility/result.md) retains per-model
-not-run verdicts, all attempts and the remaining decisions.
+The [diagnostic result](../results/pr-evidence-feasibility/result.md) records the
+observations and explicitly corrects the initial stop interpretation. Its original
+source record remains immutable. The active work is in [the task](../tasks/pr-evidence.md).
