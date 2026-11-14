@@ -100,3 +100,12 @@ observer. Read actual scheduled boundaries and per-group loads, rather than trea
 an offered hybrid GPU boundary or aggregate cached tokens as a cache-source count.
 Recompute stream summaries from retained raw frames. A dead server's partial records
 remain treatment evidence; they cannot be discarded merely for lacking a clean close.
+
+Screen statistics use paired seeds and the frozen population shares. The maintained
+comparison command recomputes post-stratified pooled numerators and denominators in
+each bootstrap draw; it does not average seed ratios or drop undefined replicates.
+Its whole-route contrast retains the common baseline in every draw. The verdict
+calculator implements the accepted thresholds but cannot infer attribution or
+identity from a number: its explicit qualification inputs still need receipt review.
+Calibration calculators likewise do not authorize a resource-failed pool or a
+partial paired block. The [frozen procedure](pr-evidence-screen.md) owns those gates.

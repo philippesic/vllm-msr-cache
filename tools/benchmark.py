@@ -16,6 +16,34 @@ from tools.runtime_verify import write_record
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bounded benchmark qualification")
     sub = parser.add_subparsers(dest="operation", required=True)
+    pr_verdict = sub.add_parser("pr-screen-verdict")
+    pr_verdict.add_argument("evidence", type=Path)
+    pr_verdict.add_argument("--out", type=Path, required=True)
+    pr_calibration = sub.add_parser("pr-calibration")
+    pr_calibration.add_argument("input", type=Path)
+    pr_calibration.add_argument(
+        "--step", choices=("sizing", "pools", "baseline", "quote"), required=True
+    )
+    pr_calibration.add_argument("--out", type=Path, required=True)
+    pr_compare = sub.add_parser("pr-compare-cells")
+    pr_compare.add_argument("--treatment", type=Path, action="append", required=True)
+    pr_compare.add_argument("--baseline", type=Path, action="append", required=True)
+    pr_compare.add_argument("--cohort", required=True)
+    pr_compare.add_argument(
+        "--metric", choices=("ttft_ns", "client_itl_ns", "recompute"), required=True
+    )
+    pr_compare.add_argument(
+        "--contrast",
+        choices=("benefit", "relative_harm", "absolute_change"),
+        required=True,
+    )
+    pr_compare.add_argument("--label", required=True)
+    pr_compare.add_argument("--out", type=Path, required=True)
+    pr_gap = sub.add_parser("pr-route-difference")
+    for name in ("post", "ttl", "baseline"):
+        pr_gap.add_argument("--" + name, type=Path, action="append", required=True)
+    pr_gap.add_argument("--label", required=True)
+    pr_gap.add_argument("--out", type=Path, required=True)
     pr_metrics = sub.add_parser("pr-measure-cell")
     pr_metrics.add_argument("directory", type=Path)
     pr_metrics.add_argument("--out", type=Path, required=True)
@@ -253,6 +281,80 @@ def main() -> int:
                     "one_shots": len(result["one_shots"]),
                 }
             )
+        )
+        return 0
+    if args.operation == "pr-calibration":
+        from tools.benchmarking.pr_calibration import (
+            block_quote,
+            rank_pools,
+            select_baseline,
+            sizing_settings,
+        )
+
+        data = json.loads(args.input.read_text())
+        if args.step == "sizing":
+            result = sizing_settings(data)
+        elif args.step == "pools":
+            result = rank_pools(
+                data["working_sets_bytes"], data["largest_conversation_bytes"]
+            )
+        elif args.step == "baseline":
+            result = select_baseline(data)
+        else:
+            result = block_quote(
+                data["horizon_seconds"],
+                data["startup_cleanup_seconds"],
+                data["remaining_screen_seconds"],
+            )
+        write_record(args.out, result)
+        return 0
+    if args.operation == "pr-screen-verdict":
+        from tools.benchmarking.pr_verdict import screen_verdict
+
+        write_record(args.out, screen_verdict(json.loads(args.evidence.read_text())))
+        return 0
+    if args.operation == "pr-route-difference":
+        from tools.benchmarking.pr_statistics import (
+            route_difference,
+            summarize_cohort,
+            validate_pairs,
+        )
+
+        groups = [
+            [json.loads(path.read_text()) for path in paths]
+            for paths in (args.post, args.ttl, args.baseline)
+        ]
+        validate_pairs(*groups)
+        summaries = [
+            [summarize_cohort(cell, "hinted_return", "ttft_ns") for cell in group]
+            for group in groups
+        ]
+        write_record(
+            args.out,
+            route_difference(summaries[0], summaries[1], summaries[2], args.label),
+        )
+        return 0
+    if args.operation == "pr-compare-cells":
+        from tools.benchmarking.pr_statistics import (
+            compare,
+            summarize_cohort,
+            validate_pairs,
+        )
+
+        treatment = [json.loads(path.read_text()) for path in args.treatment]
+        baseline = [json.loads(path.read_text()) for path in args.baseline]
+        validate_pairs(treatment, baseline)
+        write_record(
+            args.out,
+            compare(
+                [
+                    summarize_cohort(cell, args.cohort, args.metric)
+                    for cell in treatment
+                ],
+                [summarize_cohort(cell, args.cohort, args.metric) for cell in baseline],
+                args.contrast,
+                args.label,
+            ),
         )
         return 0
     if args.operation == "pr-measure-cell":

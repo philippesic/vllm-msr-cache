@@ -512,6 +512,36 @@ Frozen-main job entry points:
 - `pr-measure-cell DIRECTORY --out artifacts/runs/FILE.json` joins the paired W1
   schedule, raw streaming captures and native events. It retains failed sessions,
   unoffered turns, censored latency and unknown cache-source counts.
+- `pr-compare-cells --treatment METRICS --baseline METRICS --cohort hinted_return
+  --metric ttft_ns --contrast benefit --label MODEL-WORKLOAD-STATISTIC --out FILE`
+  accepts repeated ordered treatment/baseline pairs. It refuses duplicate seeds or
+  mixed model/partition inputs, recomputes the population-weighted pooled statistic
+  inside 10,000 paired seed resamples, and reports BCa plus clustered delta intervals.
+  Other metrics are `client_itl_ns` and `recompute`; other contrasts are
+  `relative_harm` and `absolute_change`. Undefined/censored/degenerate evidence stays
+  unqualified. Raw counts, unweighted and weighted complete-response descriptions
+  retain failure counts alongside inference. Use one deterministic label per
+  reported model/workload/statistic.
+- `pr-route-difference --post METRICS --ttl METRICS --baseline METRICS --label LABEL
+  --out FILE` takes the same repeated paired seeds and reports post-response benefit
+  minus TTL benefit, using their common baseline. This whole-route contrast is
+  descriptive and cannot isolate the delivery hook.
+- `pr-calibration INPUT --step sizing|pools|baseline|quote --out FILE` calculates the
+  frozen sizing settings, pool ranking, better baseline or complete-block quote.
+  Sizing takes the three A2 metric records from the 240-second/no-one-shot pass;
+  baseline selection takes all 21 calibration cells. Pool inputs are
+  `working_sets_bytes` (three observations) and `largest_conversation_bytes` from
+  admitted native geometry. Quote inputs are `horizon_seconds`,
+  `startup_cleanup_seconds` and `remaining_screen_seconds`. These calculations do
+  not replace receipt/resource validation or the committed calibration freeze.
+- `pr-screen-verdict EVIDENCE --out FILE` applies the frozen per-route/model/workload
+  rule to `pr-screen-decision-input-v1`: benefit, recomputation, five harm and A/A
+  estimates, opportunity and explicit validity/identity/diagnosis qualifications.
+  Estimates contain `point`, `interval` and `delta_interval`; missing values are
+  null. Blocking reasons take precedence, followed by efficacy STOP, CONTINUE and
+  INCONCLUSIVE. Interval-method threshold disagreement is INCONCLUSIVE. This is
+  decision arithmetic, not automatic certification of supplied qualifications;
+  review the linked evidence before adopting its conclusion.
 
 The admission driver uses a fixed 4,097-token prefix and 32 generated tokens, with
 prime, GPU-resident and CPU-restored requests. The synchronous byte detector is

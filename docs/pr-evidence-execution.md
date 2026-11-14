@@ -81,8 +81,8 @@ check whether the unheld request could succeed before releasing leases; feasible
 pressure releases earliest deadlines and prevents later readiness from silently
 reinstating a yielded lease.
 
-This is a CPU-tested prototype, not the Stage 1 freeze or hardware qualification.
-Current candidate limits are half the physical chunks, 4096 observations, 256 action
+This CPU-tested implementation is frozen at Stage 1 exit; hardware qualification
+is separate. Limits are half the physical chunks, 4096 observations, 256 action
 IDs per observation, a 60-second deadline clamp, and separate 32 MiB conservative
 charges for observations/actions and leases. Shared keys count once against physical
 capacity. Duplicate action content replays; changed content refuses. The closed

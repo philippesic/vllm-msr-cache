@@ -246,7 +246,7 @@ def verify_gpu_job(directory: Path) -> dict[str, Any]:
         if digest_file(directory / "source" / relative) != digest:
             raise ValueError("GPU job source drift")
     for relative, digest in admission["model_sha256"].items():
-        if digest_file(Path(admission["model_path"]) / relative) != digest:
+        if model_digest(Path(admission["model_path"]) / relative) != digest:
             raise ValueError("GPU model drift")
     for relative, digest in terminal["artifacts_sha256"].items():
         if (
