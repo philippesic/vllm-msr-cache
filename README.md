@@ -39,7 +39,7 @@ uses a GPU unless explicitly requested.
 
 Temporary runs and execution snapshots live under ignored `artifacts/` until curated
 into tracked results and pruned. The public upstream is
-[`philippesic/vllm-msr-cache`](https://github.com/philippesic/vllm-msr-cache).
+[`philippesic/wait-hint-kv`](https://github.com/philippesic/wait-hint-kv).
 The grafted main retains the original project history; `next-pre-graft-main` preserves
 the original NEXT history. Other local archive refs remain local. See
 [recovery](docs/recovery.md) for retention and verification.

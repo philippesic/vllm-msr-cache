@@ -480,10 +480,10 @@
     "id": "docs.immutable",
     "component": "policy",
     "good": {
-      "README.md": "[frozen](https://github.com/philippesic/vllm-msr-cache/blob/1319f09bafac46bab89df465dd433c67441f4b26/README.md)\n"
+      "README.md": "[frozen](https://github.com/philippesic/wait-hint-kv/blob/1319f09bafac46bab89df465dd433c67441f4b26/README.md)\n"
     },
     "bad": {
-      "README.md": "[mutable](https://github.com/philippesic/vllm-msr-cache/blob/main/README.md)\n"
+      "README.md": "[mutable](https://github.com/philippesic/wait-hint-kv/blob/main/README.md)\n"
     },
     "diagnostic": "docs.immutable:"
   },

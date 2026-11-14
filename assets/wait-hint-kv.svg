@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>wait-hint-kv</title>
+  <defs>
+    <linearGradient id="tile" x1="8" y1="2" x2="56" y2="62" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#231c4d"/>
+      <stop offset="1" stop-color="#0d0b20"/>
+    </linearGradient>
+    <linearGradient id="held" x1="34" y1="22" x2="44" y2="33" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffe29a"/>
+      <stop offset="1" stop-color="#ffb648"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="15" fill="url(#tile)"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" stroke="#a99cff" stroke-opacity=".2"/>
+  <rect x="28" y="5.5" width="8" height="4" rx="2" fill="#ffc861"/>
+  <rect x="30.5" y="8" width="3" height="4" fill="#ffc861"/>
+  <circle cx="32" cy="35" r="20" stroke="#3a3274" stroke-width="5"/>
+  <circle cx="32" cy="35" r="20" stroke="#ffc861" stroke-width="5" stroke-linecap="round" stroke-dasharray="88 126" transform="rotate(-90 32 35)"/>
+  <rect x="21.5" y="24.5" width="9" height="9" rx="2.5" fill="#8f86f0"/>
+  <rect x="33.5" y="24.5" width="9" height="9" rx="2.5" fill="url(#held)"/>
+  <rect x="21.5" y="36.5" width="9" height="9" rx="2.5" fill="#6d63d6"/>
+  <rect x="33.5" y="36.5" width="9" height="9" rx="2.5" fill="#4b43a8"/>
+</svg>

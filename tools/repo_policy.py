@@ -174,7 +174,10 @@ def check(root: Path) -> list[str]:
             )
         if path.suffix == ".md":
             for target in re.findall(r"\[[^\]]*\]\(([^)]+)\)", text):
-                if target.startswith("https://github.com/philippesic/vllm-msr-cache/"):
+                if re.match(
+                    r"https://github\.com/philippesic/(?:wait-hint-kv|vllm-msr-cache)/",
+                    target,
+                ):
                     if not re.search(r"/(?:blob|tree)/[0-9a-f]{40}/", target):
                         errors.append(f"docs.immutable: {label}")
                 elif not re.match(r"[a-z]+://", target) and not target.startswith("#"):

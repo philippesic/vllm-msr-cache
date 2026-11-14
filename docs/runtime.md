@@ -6,10 +6,10 @@ torch 2.13.0 and transformers 5.22.1 from the hash-locked `runtime/requirements.
 Install it under ignored `artifacts/venvs/`, and do not modify an environment while another
 run uses it.
 
-Benchmark attempts so far used admitted environments outside the repository (the
-benchmark runtime with the Gemma overrides and patch, and a separate LMCache
-environment); their receipts record the exact interpreter. Do not modify them while
-a run uses them. New installations use the repository-contained paths below.
+The admitted environments are `artifacts/venvs/runtime` (benchmark runtime with the
+Gemma overrides and patch), `artifacts/venvs/wait-hint`, `artifacts/venvs/lmcache` and
+`artifacts/venvs/harness`. Receipts before 2026-11-13 record their former paths outside
+the repository. Do not modify an environment while a run uses it.
 
 ```sh
 uv venv --python 3.12.3 artifacts/venvs/wait-hint

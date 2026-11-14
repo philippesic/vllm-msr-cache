@@ -7,27 +7,29 @@ one repository named wait-hint-kv, with obsolete external copies removed.
 ## Authorized
 Philip on 2026-11-12: consolidate evidence and artifacts, graft onto the old project
 keeping both histories, publish main and the next-pre-graft-main tag to the public
-philippesic/vllm-msr-cache remote, and rename the repository and current references
-to wait-hint-kv. Relayed again on 2026-11-13 ("execute all 3 of its plan"): the
-rename, deleting the frozen checkouts and the stale private hosted copy. No
-force-push, remote or visibility change.
+remote, and rename the repository and current references to wait-hint-kv. On
+2026-11-13: delete the frozen checkouts and stale copies, move all work to the 2080 Ti
+checkout with everything contained in it, delete the old 2080 and Mac checkouts once
+ported, leave a .git-only Mac folder, add a favicon and reconcile T3 projects.
+Philip renamed the GitHub repository to wait-hint-kv. No force-push or visibility
+change.
 
 ## Done when
-The checkout, package and data directory are wait-hint-kv and the documented checks
-pass from there; obsolete checkouts and the stale hosted copy are gone.
+The checkout, package, environments and legacy data live in ~/wait-hint-kv on the
+2080 Ti and the documented checks pass there; old checkouts and retired hosted
+repositories are gone.
 
 ## State
-History graft, evidence curation and publication are done (see docs/recovery.md).
-On 2026-11-13 the ten frozen benchmark checkouts were deleted after every HEAD was
-confirmed reachable here; the only dirty change, in benchmark-coding-05, already
-exists in main. Attempts, archives, backups and benchmark assets were kept as
-inert history. The checkout moved to ~/wait-hint-kv, the data directory to
-~/.local/share/wait-hint-kv, and the package is named wait-hint-kv.
+On 2026-11-13 the old checkout ~/vllm-semantic-cache-ext, its T3 worktrees and old
+venvs were deleted after every ref was confirmed present here (30 newer T3 checkpoint
+refs were archived first). Environments moved to artifacts/venvs and legacy data to
+artifacts/legacy (see docs/recovery.md). The vLLM fork's own commits are archived in
+refs/archive/vllm-fork/patches. The remote is philippesic/wait-hint-kv.
 
-The stale private hosted copy philippesic/vllm-semantic-cache-ext-next still
-exists: deletion returned 403 because the token lacks the delete_repo scope.
+Two retired hosted repositories remain: philippesic/vllm-semantic-cache-ext-next and
+philippesic/vllm-semantic-cache. Deletion needs the delete_repo scope, which the
+token lacks.
 
 ## Next
-Philip deletes the hosted copy (gh auth refresh -s delete_repo, then gh repo delete
-philippesic/vllm-semantic-cache-ext-next, or the repository settings page). Then
-delete this task.
+Philip deletes both hosted repositories (gh auth refresh -s delete_repo, then gh repo
+delete for each, or the repository settings pages). Then delete this task.
