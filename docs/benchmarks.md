@@ -456,3 +456,14 @@ The same frozen-main CPU receipt command accepts `--bookkeeping` for the full
 ARC/LRU chunk/session cost matrix. It runs with CUDA hidden, retains raw latency
 samples and verifies all 18 cells. See [execution details](pr-evidence-execution.md)
 for the workload and its adversarial oldest-key limitation.
+
+`pr-feasibility --post-response` requires the separately patched runtime and checks
+its delivery hash, native engine dispatch, lifecycle and A3p/A3 identity. It retains
+raw CPU delivery-cost samples; this is not network/serving qualification.
+
+Admit the pinned semi-synthetic W1 corpus with `pr-admit-w1 --runtime-python ENV/bin/python
+--dataset artifacts/assets/pr-evidence-w1 --model D8=SNAPSHOT [--model HM=SNAPSHOT
+--model HS=SNAPSHOT] --out artifacts/runs/NEW`. `verify-pr-w1 DIRECTORY` validates its
+receipts, selected rows and stored token episodes. The source definition is
+`benchmarks/pr-evidence/w1-source.json`; model revisions and the rendering recipe are
+fixed in the admission implementation before any GPU benefit is measured.

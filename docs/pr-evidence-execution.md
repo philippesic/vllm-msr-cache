@@ -122,3 +122,52 @@ avoids a rebuilt held-key union, but native eviction still scans past protected
 oldest keys; LRU additionally pops and reinserts skipped heap entries. Retain this
 cost as a scale limitation. The plan has no CPU latency cutoff; Stage 2 guardrails
 must still measure the whole serving cost at its stated scale.
+
+
+## Post-response delivery candidate
+
+`pr-post-response` in the runtime patch manifest adds one EngineCore utility method.
+It locates the existing offload manager, enters that manager's lock, and calls the
+primary policy's `publish_envelope`. It does not alter request scheduling, keys,
+readiness, transfer, or eviction. The patched file hash is
+`d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb`; the original is
+`0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e8`.
+Both runtime environments have identical dependency versions. A3p sends the same
+post-response envelopes to AdviceOffARC; A4p uses PostResponseARC.
+
+The closed envelope uses native KvHintsEnvelope v1 fields and 1-256 unique actions,
+with `wait_hint.post_response` v1 carrying the closed policy action. Action IDs,
+not message IDs, establish idempotency. Unknown fields/versions, repeated IDs
+within a message and inconsistent inner/outer IDs refuse the complete envelope
+before publication. The engine records one monotonic acceptance timestamp for
+its actions. Duplicate actions replay their original decision without renewing
+the deadline. Request-TTL actions must match their own request registration.
+
+`artifacts/runs/pr-post-feasibility-01` exercises the actual utility dispatcher and
+MessagePack argument encoding with fixture scheduler state. A3p and A3 eviction
+sequences match. Acceptance-origin deadlines, late readiness, cancellation and
+invalid-message refusal pass. Incremental CPU dispatch/policy cost for 1,000 fresh
+disabled messages was p50 62 us / p99 123 us. Socket/interprocess transport and
+serving overhead are outside that CPU measurement and remain to be qualified.
+
+## W1 admission recipe
+
+`pr-admit-w1` validates the eight pinned parquet hashes, inspects all source rows,
+deduplicates each task by the lowest SHA-256 trajectory ID (with deterministic
+ID/shard/row tie-breaks), and partitions by the repository hash. It renders the
+original text, tool calls and observations with each pinned native tokenizer;
+trace-only duplicate thought/action fields are omitted. Tool arguments become JSON
+objects, tool-result IDs are retained, and no missing tool schema is invented.
+Thinking is disabled consistently. A post-response signal uses only the current
+recorded assistant's tool-call names; exactly `submit` is terminal.
+
+Each request is the chronological recorded prefix. Output length is the rendered
+completed transcript's token suffix after its LCP with the request rendering,
+capped at 256; generation-prefix differences are recorded. The first context
+overflow ends the episode, as does the eight-turn cap; fewer than two turns is
+ineligible. Selected tasks are the first 2,048 eligible trajectory IDs per model
+and partition, ordered by SHA-256. SQLite retains all eligible tokenized episodes;
+the manifest identifies the admitted rows, exclusions, source success mix,
+repository counts and stratum inclusion shares. Confirmation repositories may be
+processed for content admission but remain held out from performance development.
+The resulting manifest is not yet frozen for GPU use.

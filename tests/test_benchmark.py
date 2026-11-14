@@ -1078,6 +1078,8 @@ def test_runtime_patch_requires_exact_source_and_preserves_backup(
     target = runtime / "module.py"
     before, after = b"setting = 1\n", b"setting = 2\n"
     target.write_bytes(before)
+    sibling = runtime / "shared-cache.py"
+    sibling.hardlink_to(target)
     (directory / "manifest.json").write_text(
         json.dumps(
             [
@@ -1097,6 +1099,7 @@ def test_runtime_patch_requires_exact_source_and_preserves_backup(
     )
     apply_runtime_patches(root, Path("python"), ["test"])
     assert target.read_bytes() == after
+    assert sibling.read_bytes() == before
     assert target.with_suffix(".py.benchmark-original").read_bytes() == before
     apply_runtime_patches(root, Path("python"), ["test"])
     target.write_text("unrelated active edits\n")

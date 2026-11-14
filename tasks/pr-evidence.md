@@ -36,14 +36,24 @@ retained. Old runtime remains compatible (28 tests). The full 18-cell CPU cost
 matrix passed in artifacts/runs/pr-bookkeeping-01; at 1M chunks/1k held sessions,
 adversarial oldest-key holds cost p99 ~14.9 ms ARC / 81.5 ms LRU per one-chunk eviction,
 with ~18.2 MB owned Python metadata. This is a limitation, not a GPU efficacy result.
-Post-response policy-method injection is not the delivery patch. All eight W1 tool
-shards are downloaded and SHA-256 verified under artifacts/assets/pr-evidence-w1;
-pyarrow 26.0.1 is installed in the isolated runtime. W1 admission and instrument
-remain pending. Request-action identity validation also passes native rerun
-pr-policy-feasibility-06. Source row inspection found 24,100 rows, 10,637 tasks and
-129 repositories; no admission or success filter has been applied.
+Post-response delivery now has a separate runtime at artifacts/venvs/pr-evidence-post,
+with the same installed versions as the unpatched runtime and a hashed 13-line
+EngineCore utility method. Patched core SHA-256 d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb;
+original remains 0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e8.
+Native utility dispatch/MessagePack test pr-post-feasibility-01 passes A3p/A3
+identity, acceptance-origin deadline, late readiness, replay, refusal and cancel.
+Its 1,000 fresh disabled messages cost p50 62 us / p99 123 us; no network/process
+transport included yet. Endpoint/streaming and instrument remain pending.
+All eight W1 tool shards are downloaded and SHA-256 verified. Source row inspection
+found 24,100 rows, 10,637 tasks and 129 repositories; both success/failure retained.
+W1 admission is actively running (CPU only) in artifacts/runs/pr-w1-admission-01,
+using a source snapshot, three pinned model tokenizers and the closed 6k/256/2-8-turn
+recipe. Log reports 3,000 tasks processed; 12 GiB available, swap unchanged at116 MiB.
+Healthcheck every10 min: scheduled-task:dddd647a-0134-4c9f-9bc2-5ac0a4f6a03b, bound
+here; delete it when admission ends. No manifest is frozen yet. New W1 tests pass;
+post-change fast checks pass, full/runtime checks due before commit.
 
 ## Next
-Complete remaining fault/lookup cases; implement W1 admission and streaming
-instrument; build post-response delivery patch;
+Finish W1 admission/verification and freeze its manifest; implement streaming
+endpoint/load generator and per-group instrument; complete Qwen lookup/kernel checks;
 then finish Stage 1 freezes/instrument before GPU admission.

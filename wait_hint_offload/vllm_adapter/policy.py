@@ -11,7 +11,11 @@ from vllm.v1.kv_offload.cpu.policies import arc, lru
 from vllm.v1.kv_offload.cpu.policies.base import CachePolicy
 
 from wait_hint_offload.policy_holds import HoldLedger
-from wait_hint_offload.policy_protocol import PolicyAction, PolicySession
+from wait_hint_offload.policy_protocol import (
+    PolicyAction,
+    PolicyEnvelope,
+    PolicySession,
+)
 from wait_hint_offload.vllm_adapter.policy_context import (
     PolicyPrefix,
     prefix_from_context,
@@ -287,6 +291,20 @@ class WaitHoldPolicy:
         self.observation_bytes += action_charge
         self._count(decision)
         return {"decision": decision, "replayed": False}
+
+    def publish_envelope(self, raw: object) -> dict[str, Any]:
+        envelope = PolicyEnvelope.parse(raw)
+        accepted_ns = self.clock()
+        return {
+            "schema": "wait-hint-policy-envelope-ack-v1",
+            "message_id": envelope.message_id,
+            "accepted_ns": accepted_ns,
+            "actions": [
+                {"action_id": action.action_id}
+                | self.publish(action.to_dict(), deadline_origin_ns=accepted_ns)
+                for action in envelope.actions
+            ],
+        }
 
     def mark_evictable(self, key: bytes) -> None:
         self.native.mark_evictable(key)

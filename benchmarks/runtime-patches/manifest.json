@@ -50,5 +50,17 @@
         "new": "        elif self.role == KVConnectorRole.WORKER:\n            import os\n            if os.environ.get(\"LMCACHE_WSL_VMM\") == \"1\":\n                torch.cuda.memory._set_allocator_settings(\"expandable_segments:True\")\n"
       }
     ]
+  },
+  {
+    "name": "pr-post-response",
+    "target": "vllm/v1/engine/core.py",
+    "original_sha256": "0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e8",
+    "patched_sha256": "d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb",
+    "edits": [
+      {
+        "old": "    def get_kv_cache_group_metadata(self) -> list[dict[str, int | str | None]]:\n",
+        "new": "    def publish_kv_cache_hints(self, envelope: dict[str, Any]) -> dict[str, Any]:\n        connector = self.scheduler.get_kv_connector()\n        offloading = getattr(connector, \"connector_scheduler\", None)\n        manager = getattr(offloading, \"manager\", None)\n        if manager is None:\n            raise ValueError(\"offloading manager unavailable\")\n        with manager.lock:\n            primary = getattr(manager, \"primary_tier\", manager)\n            publish = getattr(getattr(primary, \"_policy\", None), \"publish_envelope\", None)\n            if not callable(publish):\n                raise ValueError(\"cache policy does not accept post-response hints\")\n            return publish(envelope)\n\n    def get_kv_cache_group_metadata(self) -> list[dict[str, int | str | None]]:\n"
+      }
+    ]
   }
 ]

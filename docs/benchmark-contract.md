@@ -82,3 +82,15 @@ A full pressure run needs Philip's decision; its projected cost is in the result
 above. Maintained
 commands are in [the benchmark guide](benchmarks.md); durable conclusions follow
 [the result profile](results.md).
+
+
+The frozen-main PR plan has its own CPU admission receipts, external policy and
+post-response patch/control. It does not reuse the old release qualification.
+For W1, retain the exact source-row and tokenizer identities, success/failure
+selection, repository-held-out partitions, chronological truncation, output caps,
+actual token LCP and template-induced lost suffix. Its declared tool gaps make it
+semi-synthetic, and transcript replay supports serving-latency claims only. Request
+TTL deliberately includes final turns; post-response eligibility is determined
+only from the current recorded nonterminal tool action. The route comparison
+therefore measures their whole delivery/information difference. Stage 1 CPU policy
+and dispatch tests do not qualify GPU restores or network instrumentation.

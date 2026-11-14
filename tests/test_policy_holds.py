@@ -61,7 +61,11 @@ def test_metadata_refusal_and_replacement_churn_are_bounded() -> None:
 
 
 def test_policy_wire_contracts_refuse_unknown_fields_and_boolean_numbers() -> None:
-    from wait_hint_offload.policy_protocol import PolicyAction, PolicySession
+    from wait_hint_offload.policy_protocol import (
+        PolicyAction,
+        PolicyEnvelope,
+        PolicySession,
+    )
 
     session = {
         "schema": "wait-hint-policy-session-v1",
@@ -95,3 +99,16 @@ def test_policy_wire_contracts_refuse_unknown_fields_and_boolean_numbers() -> No
             PolicyAction.parse(changed)
     unicode_session = PolicySession.parse(session | {"scope": "猫" * 128})
     assert len(unicode_session.owner) < 512
+
+    envelope = PolicyEnvelope("message", (PolicyAction.parse(action),)).to_dict()
+    assert PolicyEnvelope.parse(envelope).to_dict() == envelope
+    for changed in (
+        envelope | {"future": True},
+        envelope | {"protocol_version": "v2"},
+        envelope | {"actions": []},
+        envelope | {"actions": envelope["actions"] * 2},
+        envelope | {"actions": [envelope["actions"][0] | {"action_id": "mismatch"}]},
+        envelope | {"actions": [envelope["actions"][0] | {"action_type": "unknown"}]},
+    ):
+        with pytest.raises(ValueError):
+            PolicyEnvelope.parse(changed)

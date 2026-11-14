@@ -142,3 +142,26 @@ The separate `artifacts/venvs/pr-evidence` installs the exact upstream wheel
 [the execution boundary](pr-evidence-execution.md). This does not repin the product
 or qualify that wheel on hardware. Private scheduler access is being tested to fill the missing policy callbacks;
 neither planned route is yet qualified for GPU admission.
+
+## Frozen-main PR evidence runtime
+
+The active [PR evidence plan](pr-evidence-plan.md) uses an isolated runtime, separate
+from the supported product runtime above. Its exact upstream revision is
+`e9281bd939d4ade90d6aacf4b2319aa89ea46c39`, supplied by wheel
+`vllm==0.34.0rc1.dev465+ge9281bd93`. The complete installed dependency versions are
+in [the evidence requirements](../runtime/pr-evidence-requirements.txt).
+
+Create a Python 3.12.3 environment under `artifacts/venvs/`, then install that file
+with `uv pip install --python ENV/bin/python --extra-index-url
+https://wheels.vllm.ai/e9281bd939d4ade90d6aacf4b2319aa89ea46c39 -r
+runtime/pr-evidence-requirements.txt`. The clean frozen upstream checkout belongs
+under `artifacts/checkouts/`. This installs the upstream wheel; it does not claim a
+local source compilation or hardware qualification.
+
+Keep separate installations for unpatched and post-response arms. Apply only the
+named delivery patch to the latter using `python -m tools.benchmark patch-runtime
+--runtime-python ENV/bin/python pr-post-response`. Patch application verifies both
+file hashes, preserves the original, and atomically replaces the target so another
+environment or wheel cache sharing its hardlink stays unchanged. `pr-feasibility
+--post-response` checks the installed patch and exercises real engine utility
+dispatch with CPU scheduler fixtures. Hardware admission remains required.

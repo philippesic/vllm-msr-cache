@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -49,5 +51,16 @@ def apply_runtime_patches(
         backup = path.with_suffix(path.suffix + ".benchmark-original")
         if not backup.exists():
             backup.write_bytes(data)
-        path.write_bytes(patched)
+        if path.read_bytes() != data:
+            raise ValueError("runtime source changed during patch preparation")
+        temporary: Path | None = None
+        try:
+            with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as stream:
+                temporary = Path(stream.name)
+                stream.write(patched)
+            os.chmod(temporary, path.stat().st_mode)
+            temporary.replace(path)
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
     return selected

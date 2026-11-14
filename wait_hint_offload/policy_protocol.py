@@ -89,3 +89,59 @@ class PolicyAction:
             "kind": self.kind,
             "ttl_ms": self.ttl_ms,
         }
+
+
+@dataclass(frozen=True)
+class PolicyEnvelope:
+    message_id: str
+    actions: tuple[PolicyAction, ...]
+
+    @classmethod
+    def parse(cls, raw: object) -> PolicyEnvelope:
+        if not isinstance(raw, dict) or set(raw) != {
+            "protocol_version",
+            "message_id",
+            "actions",
+        }:
+            raise ValueError("closed native hint envelope required")
+        if raw["protocol_version"] != "v1":
+            raise ValueError("unsupported hint envelope version")
+        message_id = bounded_name(raw["message_id"], "message_id")
+        if not isinstance(raw["actions"], list) or not 1 <= len(raw["actions"]) <= 256:
+            raise ValueError("hint envelope needs 1-256 actions")
+        actions = []
+        ids: set[str] = set()
+        for item in raw["actions"]:
+            if not isinstance(item, dict) or set(item) != {
+                "action_id",
+                "action_type",
+                "action_version",
+                "payload",
+            }:
+                raise ValueError("closed native hint action required")
+            if (
+                item["action_type"] != "wait_hint.post_response"
+                or item["action_version"] != "v1"
+            ):
+                raise ValueError("unsupported post-response action")
+            action = PolicyAction.parse(item["payload"])
+            if action.action_id != item["action_id"] or action.action_id in ids:
+                raise ValueError("inconsistent or repeated action identity")
+            ids.add(action.action_id)
+            actions.append(action)
+        return cls(message_id, tuple(actions))
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "protocol_version": "v1",
+            "message_id": self.message_id,
+            "actions": [
+                {
+                    "action_id": action.action_id,
+                    "action_type": "wait_hint.post_response",
+                    "action_version": "v1",
+                    "payload": action.to_dict(),
+                }
+                for action in self.actions
+            ],
+        }

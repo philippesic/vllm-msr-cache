@@ -23,13 +23,24 @@ def main() -> int:
     feasibility.add_argument("--private-state", action="store_true")
     feasibility.add_argument("--hold-policy", action="store_true")
     feasibility.add_argument("--bookkeeping", action="store_true")
+    feasibility.add_argument("--post-response", action="store_true")
     feasibility_native = sub.add_parser("pr-feasibility-native")
     feasibility_native.add_argument("--out", type=Path, required=True)
     feasibility_native.add_argument("--private-state", action="store_true")
     feasibility_native.add_argument("--hold-policy", action="store_true")
     feasibility_native.add_argument("--bookkeeping", action="store_true")
+    feasibility_native.add_argument("--post-response", action="store_true")
     feasibility_verify = sub.add_parser("verify-pr-feasibility")
     feasibility_verify.add_argument("directory", type=Path)
+    for operation in ("pr-admit-w1", "pr-w1-native"):
+        workload = sub.add_parser(operation)
+        if operation == "pr-admit-w1":
+            workload.add_argument("--runtime-python", type=Path, required=True)
+        workload.add_argument("--dataset", type=Path, required=True)
+        workload.add_argument("--model", action="append", required=True)
+        workload.add_argument("--out", type=Path, required=True)
+    workload_verify = sub.add_parser("verify-pr-w1")
+    workload_verify.add_argument("directory", type=Path)
     functional = sub.add_parser("functional")
     functional.add_argument("--runtime-python", type=Path, required=True)
     functional.add_argument("--model", type=Path, required=True)
@@ -172,6 +183,26 @@ def main() -> int:
         root / "artifacts"
     ):
         parser.error("write new project output under artifacts/ in this repository")
+    if args.operation in {"pr-admit-w1", "pr-w1-native", "verify-pr-w1"}:
+        from tools.benchmarking import w1
+
+        if args.operation == "pr-w1-native":
+            w1.admit_native(args.dataset, args.model, args.out)
+            return 0
+        result = (
+            w1.admit(args.runtime_python, args.dataset, args.model, args.out)
+            if args.operation == "pr-admit-w1"
+            else w1.verify(args.directory)
+        )
+        print(json.dumps(result, indent=2))
+        return 0
+    if args.operation == "pr-feasibility-native" and args.post_response:
+        from wait_hint_offload.vllm_adapter.policy_delivery_checks import (
+            observe_delivery,
+        )
+
+        write_record(args.out, observe_delivery())
+        return 0
     if args.operation == "pr-feasibility-native" and args.bookkeeping:
         from wait_hint_offload.vllm_adapter.policy_benchmark import observe_bookkeeping
 
@@ -217,6 +248,7 @@ def main() -> int:
                 private_state=args.private_state,
                 hold_policy=args.hold_policy,
                 bookkeeping=args.bookkeeping,
+                post_response=args.post_response,
             )
             if args.operation == "pr-feasibility"
             else verify_feasibility(args.directory)

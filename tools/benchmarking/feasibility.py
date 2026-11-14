@@ -38,8 +38,9 @@ def qualify(
     private_state: bool = False,
     hold_policy: bool = False,
     bookkeeping: bool = False,
+    post_response: bool = False,
 ) -> dict[str, Any]:
-    if sum((private_state, hold_policy, bookkeeping)) > 1:
+    if sum((private_state, hold_policy, bookkeeping, post_response)) > 1:
         raise ValueError("select one feasibility mode")
     root = Path(__file__).resolve().parents[2]
     out = out.resolve()
@@ -66,12 +67,30 @@ def qualify(
             text=True,
         ).strip()
     ).parent.parent
-    upstream_hashes = {path: _sha(upstream / path) for path in SOURCE_PATHS}
-    installed_hashes = {path: _sha(installed / path) for path in SOURCE_PATHS}
+    paths: tuple[str, ...] = SOURCE_PATHS
+    patch = None
+    if post_response:
+        patch = next(
+            record
+            for record in json.loads(
+                (root / "benchmarks/runtime-patches/manifest.json").read_text()
+            )
+            if record["name"] == "pr-post-response"
+        )
+        paths = (*paths, patch["target"])
+    upstream_hashes = {path: _sha(upstream / path) for path in paths}
+    installed_hashes = {path: _sha(installed / path) for path in paths}
+    expected_hashes = dict(upstream_hashes)
+    if patch is not None:
+        if upstream_hashes[patch["target"]] != patch["original_sha256"]:
+            raise ValueError("patch does not match frozen upstream")
+        expected_hashes[patch["target"]] = patch["patched_sha256"]
     write_record(
         out / "admission.json",
         {
-            "schema": "pr-bookkeeping-admission-v1"
+            "schema": "pr-post-feasibility-admission-v1"
+            if post_response
+            else "pr-bookkeeping-admission-v1"
             if bookkeeping
             else "pr-policy-feasibility-admission-v1"
             if hold_policy
@@ -87,7 +106,7 @@ def qualify(
             "scope": "CPU policy-interface reproduction, not full runtime qualification",
         },
     )
-    if installed_hashes != upstream_hashes:
+    if installed_hashes != expected_hashes:
         write_record(out / "terminal.json", {"error": "installed source mismatch"})
         raise ValueError("installed source does not match upstream")
     captured = source / "artifacts/observed.json"
@@ -106,6 +125,8 @@ def qualify(
         command.append("--hold-policy")
     if bookkeeping:
         command.append("--bookkeeping")
+    if post_response:
+        command.append("--post-response")
     start = time.monotonic()
     with (out / "execution.log").open("x") as log:
         code = run_owned(command, environment, source, 900 if bookkeeping else 120, log)
@@ -146,6 +167,22 @@ def verify(directory: Path) -> dict[str, Any]:
         "observed_sha256",
     }:
         raise ValueError("unknown receipt fields")
+    expected_hashes = dict(admission["upstream_sha256"])
+    expected_paths = set(SOURCE_PATHS)
+    if admission["schema"] == "pr-post-feasibility-admission-v1":
+        patch = next(
+            record
+            for record in json.loads(
+                (
+                    directory / "source/benchmarks/runtime-patches/manifest.json"
+                ).read_text()
+            )
+            if record["name"] == "pr-post-response"
+        )
+        expected_paths.add(patch["target"])
+        if expected_hashes.get(patch["target"]) != patch["original_sha256"]:
+            raise ValueError("patch upstream identity mismatch")
+        expected_hashes[patch["target"]] = patch["patched_sha256"]
     if (
         admission.get("schema")
         not in {
@@ -153,11 +190,12 @@ def verify(directory: Path) -> dict[str, Any]:
             "pr-private-feasibility-admission-v1",
             "pr-policy-feasibility-admission-v1",
             "pr-bookkeeping-admission-v1",
+            "pr-post-feasibility-admission-v1",
         }
         or terminal.get("schema") != "pr-feasibility-terminal-v1"
         or admission["upstream_revision"] != UPSTREAM
-        or set(admission["upstream_sha256"]) != set(SOURCE_PATHS)
-        or admission["upstream_sha256"] != admission["installed_sha256"]
+        or set(admission["upstream_sha256"]) != expected_paths
+        or expected_hashes != admission["installed_sha256"]
         or admission["gpu_exposure_seconds"] != 0
         or terminal["exit_code"] != 0
     ):
@@ -174,6 +212,8 @@ def verify(directory: Path) -> dict[str, Any]:
     if _sha(directory / "observed.json") != terminal["observed_sha256"]:
         raise ValueError("observation drift")
     observations = json.loads((directory / "observed.json").read_text())
+    if admission["schema"] == "pr-post-feasibility-admission-v1":
+        return verify_delivery(observations)
     if admission["schema"] == "pr-bookkeeping-admission-v1":
         return verify_bookkeeping(observations)
     if admission["schema"] == "pr-policy-feasibility-admission-v1":
@@ -368,3 +408,46 @@ def verify_bookkeeping(observations: dict[str, Any]) -> dict[str, Any]:
     if actual != expected:
         raise ValueError("incomplete bookkeeping matrix")
     return {"schema": "pr-bookkeeping-verification-v1", "observations": observations}
+
+
+def verify_delivery(observed: dict[str, Any]) -> dict[str, Any]:
+    flags = {
+        "engine_utility_dispatch_exercised",
+        "deadline_origin_is_acceptance",
+        "late_ready_joined",
+        "duplicate_replayed",
+        "closed_schema_refused_without_mutation",
+        "cancellation_released",
+    }
+    if set(observed) != flags | {
+        "schema",
+        "identity_sequences",
+        "control_delivery_ns",
+        "control_delivery_p50_ns",
+        "control_delivery_p99_ns",
+        "scope",
+    }:
+        raise ValueError("unknown post-response observation fields")
+    if observed["schema"] != "pr-delivery-observation-v1" or any(
+        observed[flag] is not True for flag in flags
+    ):
+        raise ValueError("failed post-response lifecycle")
+    identities = observed["identity_sequences"]
+    if (
+        set(identities) != {"A3", "A3p"}
+        or len(identities["A3"]) != 5
+        or identities["A3"] != identities["A3p"]
+    ):
+        raise ValueError("patched-control identity failed")
+    values = observed["control_delivery_ns"]
+    if len(values) != 1000 or any(
+        type(value) is not int or value < 0 for value in values
+    ):
+        raise ValueError("incomplete delivery cost samples")
+    for quantile, suffix in ((0.5, "p50_ns"), (0.99, "p99_ns")):
+        if (
+            observed["control_delivery_" + suffix]
+            != sorted(values)[math.ceil(len(values) * quantile) - 1]
+        ):
+            raise ValueError("delivery cost summary mismatch")
+    return {"schema": "pr-delivery-verification-v1", "observations": observed}
