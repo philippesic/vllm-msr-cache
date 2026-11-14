@@ -11,6 +11,10 @@ Both routes are feasible on the frozen runtime. A4t is an out-of-tree CachePolic
 using read-only private scheduler state; it needs no delivery core change. A4p uses
 the same policy mechanism plus the single hashed delivery utility. The common Gemma
 Turing patch and common benchmark endpoint/observer apply as recorded to every arm.
+GPU admission additionally exposed the native registered-mmap address failure;
+the matched `pr-mapped-host-pointer` compatibility patch applies to every arm in
+both runtimes, before any efficacy observation. It translates pinned CPU addresses
+to their CUDA device aliases without changing keys, policies or transfer ordering.
 Private-state dependence limits portability to this exact vLLM revision. Neither
 CPU feasibility nor the upstream wheel installation admits a model on the GPU.
 

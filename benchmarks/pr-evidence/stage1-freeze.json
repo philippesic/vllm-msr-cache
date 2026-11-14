@@ -65,6 +65,11 @@
       "patched_sha256": "ad963a2c366a00b529979704ab11d6b758242e6569ce4695511bcccefaf66b1c",
       "target": "vllm/v1/attention/ops/triton_unified_attention.py"
     },
+    "pr-mapped-host-pointer": {
+      "original_sha256": "4791ba53822fa9640a1ff3e2c7abf4e840b6a77c2461b6c76141596c368cad94",
+      "patched_sha256": "94274f1007acecd5c67d5bffe417ee8c40d4ee62c1f8c89e9a4b01ea53617275",
+      "target": "vllm/v1/kv_offload/cpu/gpu_worker.py"
+    },
     "pr-post-response": {
       "original_sha256": "0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e8",
       "patched_sha256": "d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb",
@@ -73,7 +78,7 @@
   },
   "promotion": false,
   "protocol": "docs/pr-evidence-screen.md",
-  "protocol_sha256": "79e67e315d2a98c1396964d60f59096122722a3679c312f57e46e84a2b9e918c",
+  "protocol_sha256": "62169038fe12508a2c7d0be227b3da93ab8a8bedc07cdbd37718c4606d88bf52",
   "routes": {
     "A4p": {
       "core_delivery_patch": true,

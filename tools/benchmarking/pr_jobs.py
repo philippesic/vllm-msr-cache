@@ -226,7 +226,7 @@ def runtime_identity(root: Path, python: Path, arm: str) -> dict[str, Any]:
         (root / "benchmarks/runtime-patches/manifest.json").read_text()
     )
     for patch in patches:
-        if patch["name"] == "gemma-turing-main":
+        if patch["name"] in {"gemma-turing-main", "pr-mapped-host-pointer"}:
             paths[patch["target"]] = patch["patched_sha256"]
         elif patch["name"] == "pr-post-response":
             paths[patch["target"]] = (

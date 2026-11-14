@@ -12,6 +12,17 @@ repair on 2026-11-14. This changes no memory limit, headroom requirement, no-swa
 guard or decision threshold. Earlier failures retain their original source and
 environment, and remain charged to the same authorization ledger.
 
+D8/A2-05 reached its first native CPU store and failed with illegal CUDA access.
+The frozen worker still populated copy descriptors with registered mmap host
+addresses, matching the previously isolated device-alias failure in
+[mapped memory](../results/mapped-memory/result.md). The `pr-mapped-host-pointer`
+runtime patch queries each pinned tensor’s CUDA device alias once at allocation
+and uses it as the descriptor base. It applies identically to both runtimes and
+every arm. Its exact original/patched hashes are in the patch manifest and Stage 1
+freeze. This is an additional common runtime compatibility patch, not part of
+either hint route, and precedes all efficacy observations. Native transfers still
+require the current GPU byte/provenance and continuation admission checks.
+
 ## Implementation estimate before building
 
 These are engineering estimates, not measured runtime or commitments of GPU time.

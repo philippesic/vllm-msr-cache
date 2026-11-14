@@ -77,6 +77,15 @@ The runner now captures there and moves the retained client directory before
 terminal hashing. Attempt04 remains charged (69.943233535 seconds); admission total
 is 256.404735586 seconds, leaving 3,343.595264414. No generation or screen yet.
 
+D8/A2-05 reached generation but failed its first native CPU store with illegal
+CUDA access (52.760869116 seconds). The frozen worker still uses mmap CPU virtual
+addresses, matching the retained mapped-memory diagnosis. The common
+pr-mapped-host-pointer patch is applied to both runtimes and all arms, with
+exact hashes added to the freeze before further GPU. No hint mechanism changes.
+CPU descriptor checks pass for direct and partial sub-block pointers without CUDA
+initialization (mapped-pointer-cpu-01.log); GPU byte admission must still pass.
+Admission total is 309.165604702 seconds; 3,290.834395298 seconds remain. No screen.
+
 CPU reporting work now implements pooled post-stratified BCa and analytic clustered
 sensitivity intervals, the paired whole-route gap, calibration arithmetic and the
 per-route/model decision rules. Tests preserve censoring, reject duplicate seed
