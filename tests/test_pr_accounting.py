@@ -4,6 +4,7 @@ from typing import Any
 import pytest
 
 from tools.benchmarking.pr_events import reconcile_events, request_sources
+from tools.benchmarking.pr_metrics import working_set
 from wait_hint_offload.evidence_events import EventJournal
 
 
@@ -166,3 +167,38 @@ def test_native_event_reconciliation_detects_corruption(
     )
     assert result["cpu_reused_tokens"] == 8
     assert result["per_group_restored_tokens"] == {"0": 8, "1": 8}
+
+
+def test_working_set_counts_shared_keys_once_and_forgets_finished_sessions() -> None:
+    report = {
+        "started_ns": 0,
+        "scheduled_end_ns": 10,
+        "sessions": [
+            {
+                "session_id": "a",
+                "ended_ns": 8,
+                "requests": [{"request_id": "a1"}, {"request_id": "a2"}],
+            },
+            {"session_id": "b", "ended_ns": 6, "requests": [{"request_id": "b1"}]},
+        ],
+    }
+    observed = {
+        "cpu_config": {"kv_bytes_per_chunk": 32},
+        "requests": {
+            request: {
+                "external_request_id": request,
+                "started_ns": started,
+                "reachable_keys": [{"key": key} for key in keys],
+            }
+            for request, started, keys in (
+                ("a1", 0, ["x", "y"]),
+                ("b1", 2, ["y", "z"]),
+                ("a2", 4, ["x", "w"]),
+            )
+        },
+    }
+    measured = working_set(observed, report)
+    assert measured["mean_unique_reachable_bytes"] == pytest.approx(70.4)
+    assert measured["peak_unique_reachable_bytes"] == 128
+    assert measured["largest_observed_conversation_bytes"] == 64
+    assert measured["mean_active_prefixes"] == pytest.approx(1.2)

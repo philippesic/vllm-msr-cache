@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Any
 
@@ -10,6 +11,41 @@ from vllm.v1.kv_offload.base import make_offload_key
 
 from wait_hint_offload.evidence_events import EventJournal
 from wait_hint_offload.vllm_adapter.evidence_manager import ObservedManager, key_records
+from wait_hint_offload.vllm_adapter.policy_context import PolicyGroup
+
+
+def reachable_keys(request: Any, config: Any) -> list[dict[str, Any]]:
+    alignment = math.lcm(*(group.tokens_per_chunk for group in config.kv_group_configs))
+    step = config.tokens_per_hash if config.supports_partial_tail else alignment
+    boundary = max(0, request.num_prompt_tokens - 1) // step * step
+    if boundary == 0:
+        return []
+    keys: list[bytes] = []
+    for group in config.kv_group_configs:
+        params = group.manager_config.params
+        geometry = PolicyGroup(
+            group.group_idx,
+            group.tokens_per_chunk,
+            group.sliding_window_size_in_chunks,
+            params.sliding_window - 1 + params.extra_retained_tokens
+            if hasattr(params, "sliding_window")
+            else None,
+            tuple(
+                make_offload_key(key, group.group_idx)
+                for key in request.block_hashes[
+                    group.hashes_per_chunk - 1 :: group.hashes_per_chunk
+                ]
+            ),
+            tuple(
+                make_offload_key(key, group.group_idx) for key in request.block_hashes
+            ),
+        )
+        keys.extend(
+            geometry.required_keys(
+                boundary, boundary % alignment != 0, config.tokens_per_hash
+            )
+        )
+    return key_records(keys)
 
 
 class EvidenceConnector(OffloadingConnector):
@@ -78,6 +114,7 @@ class EvidenceConnector(OffloadingConnector):
                     "pr_evidence_request_id"
                 ),
                 "prompt_tokens": request.num_prompt_tokens,
+                "reachable_keys": reachable_keys(request, state.config),
                 "session": (request.kv_transfer_params or {}).get("wait_hint_policy"),
                 "groups": [
                     key_records(

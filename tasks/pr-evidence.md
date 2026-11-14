@@ -78,8 +78,14 @@ fixture-constructor error and remains retained. Offline event reconciliation now
 checks slot/readiness/load/eviction lifecycle and successful transfer attribution;
 hand traces catch corrupted accounting. Live GPU qualification is still pending.
 
+The bounded job runner and model byte/continuation verifier are implemented. All 21
+server configurations pass the frozen native parser (instrument08); instrument09
+regenerates seven-arm cell metrics and detects an injected 28-token recomputation
+regression. Actual process-tree interruption cleanup and cumulative failed-attempt
+budget accounting have CPU tests. Working-set accounting counts current native
+reachable key unions, independent of readiness; no future-turn content enters.
+
 ## Next
-Finish cell metrics and server/admission runner with restored
-bytes and same-boundary continuation, budget/receipt/interruption lifecycle,
+Finish qualification of the complete runner/metrics checkpoint and the predeclared
 calibration/statistical edge-case protocol. Freeze and commit Stage1 exit inputs,
 then idle-check and execute authorized 2080 Ti admission/screen. No GPU runs yet.

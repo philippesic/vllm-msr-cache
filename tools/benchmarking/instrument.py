@@ -447,6 +447,7 @@ async def _loadgen_http(directory: Path) -> dict[str, Any]:
             assert ttl_messages == (14 if arm in {"A3", "A4t", "A5"} else 0)
             assert len(envelopes) == (12 if arm in {"A3p", "A4p"} else 0)
             assert all(hint["outcome"] == "accepted" for hint in report["hints"])
+            _qualify_cell_metrics(schedule, arm, directory / arm, arrivals)
             cells.append(
                 {
                     "arm": arm,
@@ -468,6 +469,106 @@ async def _loadgen_http(directory: Path) -> dict[str, Any]:
     }
 
 
+def _qualify_cell_metrics(
+    schedule: dict[str, Any], arm: str, directory: Path, arrivals: list[dict[str, Any]]
+) -> None:
+    from tools.benchmarking.pr_metrics import measure_cell
+    from tools.runtime_verify import write_record
+    from wait_hint_offload.evidence_events import EventJournal
+
+    write_record(directory / "schedule.json", schedule)
+    scheduler = EventJournal(directory / "events", "scheduler")
+    worker = EventJournal(directory / "events", "worker")
+    scheduler.emit("cpu_config", {"num_chunks": 8, "kv_bytes_per_chunk": 32})
+    scheduler.emit(
+        "group_config",
+        {
+            "tokens_per_hash": 1,
+            "partial_tail": False,
+            "groups": [{"tokens_per_chunk": 1}],
+        },
+    )
+    for payload in arrivals:
+        identity = payload["request_id"]
+        capture = json.loads(
+            (directory / "requests" / (identity + ".json")).read_text()
+        )
+        if capture["outcome"] != "complete":
+            continue
+        scheduler.emit(
+            "request_new",
+            {
+                "request_id": identity + "-internal",
+                "external_request_id": identity,
+                "prompt_tokens": len(payload["prompt_token_ids"]),
+                "reachable_keys": [],
+                "groups": [[]],
+            },
+        )
+        start = 2 if identity.endswith("-t01") and arm != "A4t" else 0
+        scheduler.emit(
+            "scheduled",
+            {
+                "requests": [
+                    {
+                        "request_id": identity + "-internal",
+                        "start": start,
+                        "tokens": len(payload["prompt_token_ids"]) - start,
+                    }
+                ],
+                "load_jobs": {},
+                "store_jobs": {},
+            },
+        )
+    scheduler.close()
+    worker.close()
+    metrics = measure_cell(schedule, directory, directory / "events")
+    returns = [
+        row
+        for row in metrics["requests"]
+        if row["cohort"] in {"hinted_return", "unhinted_return"}
+        and row["outcome"] == "complete"
+    ]
+    assert sum(row["sources"]["recomputed_tokens"] for row in returns) == (
+        28 if arm == "A4t" else 0
+    )
+    assert sum(row["sources"]["gpu_reused_tokens"] for row in returns) == (
+        0 if arm == "A4t" else 28
+    )
+    assert metrics["session_failures"] == 2
+    assert sum(row["outcome"] == "not_offered" for row in metrics["requests"]) == 2
+    write_record(directory / "metrics.json", metrics)
+
+
+def _server_configuration(directory: Path) -> dict[str, Any]:
+    from tools.benchmarking.pr_jobs import screen_server_command
+    from tools.benchmarking.pr_workload import ARMS
+
+    cli = importlib.import_module("vllm.entrypoints.common.cli_args")
+    argument_parser = importlib.import_module("vllm.utils.argparse_utils")
+    parser = cli.make_arg_parser(argument_parser.FlexibleArgumentParser())
+    admitted = []
+    for model in ("D8", "HM", "HS"):
+        for arm in ARMS:
+            command = screen_server_command(
+                Path("python"),
+                directory,
+                model,
+                arm,
+                8000,
+                1,
+                directory / "events",
+                True,
+            )
+            args = parser.parse_args(command[3:])
+            cli.validate_parsed_serve_args(args)
+            assert args.dtype == "float16" and args.max_model_len == 6144
+            assert args.mamba_cache_dtype == args.mamba_ssm_cache_dtype == "float16"
+            assert args.num_gpu_blocks_override is None and args.max_num_seqs == 16
+            admitted.append([model, arm])
+    return {"native_argument_validation": admitted, "cuda_execution": False}
+
+
 def observe_instrument(directory: Path) -> dict[str, Any]:
     from wait_hint_offload.vllm_adapter.evidence_native_checks import (
         observe_bytes,
@@ -477,6 +578,7 @@ def observe_instrument(directory: Path) -> dict[str, Any]:
     directory.mkdir(parents=True, exist_ok=False)
     events = observe_events(directory / "events")
     byte_probe = observe_bytes(directory / "bytes")
+    server_configuration = _server_configuration(directory)
     sockets = asyncio.run(_sockets())
     endpoint = asyncio.run(_endpoint_http())
     loadgen = asyncio.run(_loadgen_http(directory / "loadgen"))
@@ -487,10 +589,11 @@ def observe_instrument(directory: Path) -> dict[str, Any]:
         for path in sorted(directory.rglob("*.jsonl"))
     }
     return {
-        "schema": "pr-instrument-observation-v5",
+        "schema": "pr-instrument-observation-v7",
         "scope": "CPU native manager and real loopback HTTP; no GPU transfer qualification",
         "events": events,
         "byte_probe": byte_probe,
+        "server_configuration": server_configuration,
         "sockets": sockets,
         "endpoint": endpoint,
         "loadgen": loadgen,
@@ -513,17 +616,30 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
         "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
     }:
         fields.add("endpoint")
     if schema in {
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
         "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
     }:
         fields.add("loadgen")
-    if schema in {"pr-instrument-observation-v4", "pr-instrument-observation-v5"}:
+    if schema in {
+        "pr-instrument-observation-v4",
+        "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
+    }:
         fields.add("files")
-    if schema == "pr-instrument-observation-v5":
+    if schema in {
+        "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
+    }:
         fields.add("byte_probe")
         if observed["byte_probe"] != {
             "exact": True,
@@ -531,12 +647,25 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
             "cpu_corruption": True,
         }:
             raise ValueError("byte probe failed to detect injected corruption")
+    if schema in {"pr-instrument-observation-v6", "pr-instrument-observation-v7"}:
+        from tools.benchmarking.pr_workload import ARMS
+
+        fields.add("server_configuration")
+        if observed["server_configuration"] != {
+            "native_argument_validation": [
+                [model, arm] for model in ("D8", "HM", "HS") for arm in ARMS
+            ],
+            "cuda_execution": False,
+        }:
+            raise ValueError("native server configuration qualification failed")
     if set(observed) != fields or schema not in {
         "pr-instrument-observation-v1",
         "pr-instrument-observation-v2",
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
         "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
     }:
         raise ValueError("unknown instrument observation")
     if {cell["policy"] for cell in observed["events"]["cells"]} != {
@@ -552,7 +681,13 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         raise ValueError("observer changed eviction identity")
     for relative, digest in (
         observed["files"]
-        if schema in {"pr-instrument-observation-v4", "pr-instrument-observation-v5"}
+        if schema
+        in {
+            "pr-instrument-observation-v4",
+            "pr-instrument-observation-v5",
+            "pr-instrument-observation-v6",
+            "pr-instrument-observation-v7",
+        }
         else {}
     ).items():
         path = directory / relative
@@ -578,6 +713,8 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
         "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
     }:
         endpoint = observed["endpoint"]
         verify_stream(endpoint["capture"])
@@ -612,6 +749,8 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         "pr-instrument-observation-v3",
         "pr-instrument-observation-v4",
         "pr-instrument-observation-v5",
+        "pr-instrument-observation-v6",
+        "pr-instrument-observation-v7",
     }:
         from tools.benchmarking.pr_workload import ARMS
 
@@ -633,4 +772,15 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
             raise ValueError("load generator outcomes do not reconcile")
         for path in directory.glob("loadgen/*/requests/*.json"):
             verify_stream(json.loads(path.read_text()))
+    if schema == "pr-instrument-observation-v7":
+        from tools.benchmarking.pr_metrics import measure_cell
+
+        for cell in directory.glob("loadgen/*"):
+            schedule = json.loads((cell / "schedule.json").read_text())
+            if measure_cell(schedule, cell, cell / "events") != json.loads(
+                (cell / "metrics.json").read_text()
+            ):
+                raise ValueError(
+                    "cell metrics disagree with retained scheduler and stream evidence"
+                )
     return {"schema": "pr-instrument-verification-v1", "observations": observed}

@@ -8,7 +8,10 @@ from vllm.v1.kv_offload import base
 from vllm.v1.kv_offload.cpu import manager
 
 from wait_hint_offload.evidence_events import EventJournal, read_journal
-from wait_hint_offload.vllm_adapter.evidence_connector import EvidenceConnector
+from wait_hint_offload.vllm_adapter.evidence_connector import (
+    EvidenceConnector,
+    reachable_keys,
+)
 from wait_hint_offload.vllm_adapter.evidence_manager import (
     ObservedCPUOffloadingSpec,
     ObservedManager,
@@ -55,6 +58,12 @@ def observe_events(directory: Path) -> dict[str, Any]:
                     ttl=True,
                 )
                 keys = [base.make_offload_key(index.to_bytes(4, "big"), 0)]
+                assert [
+                    entry["key"]
+                    for entry in reachable_keys(
+                        owner._req_status[str(index)].req, owner.config
+                    )
+                ] == [key.hex() for key in keys]
                 active.on_new_request(context)
                 started = time.monotonic_ns()
                 result = active.prepare_store(keys, context, trigger=trigger)

@@ -16,6 +16,28 @@ from tools.runtime_verify import write_record
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bounded benchmark qualification")
     sub = parser.add_subparsers(dest="operation", required=True)
+    pr_metrics = sub.add_parser("pr-measure-cell")
+    pr_metrics.add_argument("directory", type=Path)
+    pr_metrics.add_argument("--out", type=Path, required=True)
+    pr_job = sub.add_parser("pr-gpu-job")
+    pr_job.add_argument("--campaign", type=Path, required=True)
+    pr_job.add_argument("--name", required=True)
+    pr_job.add_argument("--runtime-python", type=Path, required=True)
+    pr_job.add_argument("--model-path", type=Path, required=True)
+    pr_job.add_argument("--model", choices=("D8", "HM", "HS"), required=True)
+    pr_job.add_argument("--arm", required=True)
+    pr_job.add_argument("--phase", choices=("admission", "screen"), required=True)
+    pr_job.add_argument("--pool-gib", type=int, required=True)
+    pr_job.add_argument("--seconds", type=int, required=True)
+    pr_job.add_argument("--schedule", type=Path)
+    pr_model_verify = sub.add_parser("verify-pr-model-admission")
+    pr_model_verify.add_argument("directory", type=Path)
+    pr_job_verify = sub.add_parser("verify-pr-gpu-job")
+    pr_job_verify.add_argument("directory", type=Path)
+    pr_admission = sub.add_parser("pr-admission-native")
+    pr_admission.add_argument("--url", required=True)
+    pr_admission.add_argument("--arm", required=True)
+    pr_admission.add_argument("--out", type=Path, required=True)
     pr_events = sub.add_parser("pr-reconcile-events")
     pr_events.add_argument("directory", type=Path)
     pr_events.add_argument("--out", type=Path, required=True)
@@ -232,6 +254,56 @@ def main() -> int:
                 }
             )
         )
+        return 0
+    if args.operation == "pr-measure-cell":
+        from tools.benchmarking.pr_metrics import measure_cell
+
+        write_record(
+            args.out,
+            measure_cell(
+                json.loads((args.directory / "schedule.json").read_text()),
+                args.directory / "client",
+                args.directory / "events",
+            ),
+        )
+        return 0
+    if args.operation == "pr-gpu-job":
+        from tools.benchmarking.pr_jobs import run_gpu_job
+
+        print(
+            json.dumps(
+                run_gpu_job(
+                    args.campaign,
+                    args.name,
+                    args.runtime_python,
+                    args.model_path,
+                    args.model,
+                    args.arm,
+                    args.phase,
+                    args.pool_gib,
+                    args.seconds,
+                    args.schedule,
+                ),
+                indent=2,
+            )
+        )
+        return 0
+    if args.operation == "verify-pr-model-admission":
+        from tools.benchmarking.pr_admission import verify_model_admission
+
+        print(json.dumps(verify_model_admission(args.directory), indent=2))
+        return 0
+    if args.operation == "verify-pr-gpu-job":
+        from tools.benchmarking.pr_jobs import verify_gpu_job
+
+        print(json.dumps(verify_gpu_job(args.directory), indent=2))
+        return 0
+    if args.operation == "pr-admission-native":
+        import asyncio
+
+        from tools.benchmarking.pr_admission import admission_requests
+
+        asyncio.run(admission_requests(args.url, args.arm, args.out))
         return 0
     if args.operation == "pr-reconcile-events":
         from tools.benchmarking.pr_events import reconcile_events

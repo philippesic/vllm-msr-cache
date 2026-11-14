@@ -341,3 +341,46 @@ tokens rather than assigning them to GPU reuse. Per-group restored ranges accomp
 the reconciled global prefix counts. Hand-verifiable fixtures inject wrong slots,
 unready stores and duplicate acknowledgements; each is detected. Live model/event
 reconciliation remains part of GPU admission.
+
+
+## Bounded job and cell measurement
+
+The job runner hashes all model files, all 201 installed distributions and eleven
+native source/patch targets before launch. It uses a clean source snapshot and an
+exclusive new attempt directory. One fixed campaign directory owns the 3,600-second
+admission and 28,800-second screen accounting. Every launch reserves its maximum
+wall time plus 60 seconds for cleanup against the remaining ceiling; actual startup
+through process cleanup is charged, including unsuccessful attempts. A fresh
+`nvidia-smi` observation must show the sole local RTX 2080 Ti with no compute
+processes. Busy observations retain a zero-exposure deferral. There is no reservation
+system. Missing terminal receipts block another launch until reconciled.
+
+The runner owns process identities and sessions, samples process-tree PSS, faults,
+CPU counters, swap and available RAM, and samples GPU processes and device state.
+It stops on its deadline, server exit, available RAM below 2 GiB or additional swap.
+Failed-resource observations remain outcomes. SIGINT/SIGTERM enters owned cleanup;
+a CPU test exercises actual parent/descendant termination using process descriptors.
+A receipt verifier checks hashes and time accounting independently of the model
+correctness verdict. Abrupt machine loss still requires explicit orphan/receipt
+reconciliation; it is not permission to reset the budget.
+
+All arms use FP16 activations, unquantized FP16 attention cache and explicit FP16
+convolution/recurrent state, eager execution, 0.85 utilization, 6,144 context and
+sixteen concurrent sequences. Batched-token limits are 2,048 for D8/HM and 512 for
+HS. Native argument validation covers all 21 combinations in pr-instrument-08.
+No W1 GPU-block override is allowed. The same observer and endpoint serve every arm;
+post arms alone use the hashed delivery patch.
+
+The cell reader keeps every planned request, including unoffered later turns and
+failed one-shots. It joins external IDs to native randomized IDs and derives reuse
+from scheduled computation and successful copies. Eligibility is the exact earlier
+request LCP, capped below the current prompt's last token, rounded down to the native
+common group boundary (hash boundary when partial-tail reuse is supported). Lost
+alignment suffixes remain explicit. It counts current submitted prefixes' reachable
+native keys, respecting window/recurrent geometry, as logical working-set demand
+independent of readiness; no future turn contributes before submission. Shared
+keys count once while their sessions overlap. CPU allocator chunk bytes supply the
+common unit for comparison with physical pool budgets. Cache residency is reported
+separately. pr-instrument-09 joins the full seven-arm HTTP failure fixture to hand
+traces and detects an injected 28-token recomputation regression, preserving both
+failed sessions and both unoffered returns.

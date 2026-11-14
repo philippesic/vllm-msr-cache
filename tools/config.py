@@ -71,3 +71,12 @@ def benchmark_environment(
         env["PYTORCH_ALLOC_CONF"] = "expandable_segments:False"
         env["LMCACHE_WSL_VMM"] = "1"
     return env
+
+
+def pr_evidence_environment(root: Path, model: Path) -> dict[str, str]:
+    env = hardware_environment(root, model)
+    env["VLLM_PLUGINS"] = "pr_evidence"
+    env["CUDA_VISIBLE_DEVICES"] = "0"
+    env["HF_HUB_OFFLINE"] = "1"
+    env["TOKENIZERS_PARALLELISM"] = "false"
+    return env

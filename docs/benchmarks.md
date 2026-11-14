@@ -493,3 +493,26 @@ CPU residency, evictions and transfer acknowledgements from the common observer.
 It refuses inconsistent lifecycle records; an unclosed stream remains explicitly
 partial. Request token-source counts additionally require the paired schedule and
 client completion state, so this journal command alone is not an efficacy report.
+
+
+Frozen-main job entry points:
+
+- `pr-gpu-job --campaign artifacts/runs/pr-evidence-2080ti --name UNIQUE
+  --runtime-python ENV/bin/python --model-path SNAPSHOT --model D8 --arm A2
+  --phase admission --pool-gib 1 --seconds 600` requires a clean source and the
+  committed Stage 1 go record. Screen jobs add `--phase screen --schedule FILE`.
+  The command enforces the authorized device, fresh idle observation, model/runtime
+  identities and cumulative admission/screen budgets. It keeps all attempts and
+  refuses to pass an unfinished prior attempt.
+- `verify-pr-gpu-job DIRECTORY` validates the immutable receipt, including failed
+  attempts; receipt integrity alone does not establish model admission.
+- `verify-pr-model-admission DIRECTORY` additionally checks poisoned-destination
+  restored bytes in every group and identical deterministic continuation at the
+  same actual cached boundary. Fresh-versus-cached differences remain diagnostic.
+- `pr-measure-cell DIRECTORY --out artifacts/runs/FILE.json` joins the paired W1
+  schedule, raw streaming captures and native events. It retains failed sessions,
+  unoffered turns, censored latency and unknown cache-source counts.
+
+The admission driver uses a fixed 4,097-token prefix and 32 generated tokens, with
+prime, GPU-resident and CPU-restored requests. The synchronous byte detector is
+admission-only. Performance cells use normal asynchronous native copies.
