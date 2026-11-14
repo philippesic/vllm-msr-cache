@@ -69,3 +69,6 @@ any shared core change consistently to controls and treatments and explicitly
 retire the pure-plugin label. A private-scheduler integration is an alternative
 with greater version coupling and a separate CPU cost/lifecycle qualification.
 Philip must choose the revised route contract before reopening this phase.
+
+The [closed result](../results/pr-evidence-feasibility/result.md) retains per-model
+not-run verdicts, all attempts and the remaining decisions.

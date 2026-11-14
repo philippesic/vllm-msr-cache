@@ -1,0 +1,31 @@
+# Both frozen-main wait-hint routes need a lifecycle interface revision before GPU screening
+
+2026-11-13 · current · unresolved
+
+Stage 1 stopped before GPU under the accepted feasibility gate. A4t (request TTL) and A4p (post-response with a delivery-only patch) both need a revised interface. On frozen vLLM e9281bd939d4ade90d6aacf4b2319aa89ea46c39, real LRU/ARC policy observers receive no callback at request arrival and empty finish key lists for GPU-hit prefixes, including shared CPU-resident keys. A post-response-only patch does not fix the arrival gap. This is an interface result, not an efficacy STOP.
+
+## Scope
+
+CPU reproduction using the exact upstream wheel, with nine installed source files checked against the frozen checkout; actual CHUNK_LEVEL store-handler skipping and REQUEST_LEVEL alternative exercised. Late-store readiness callbacks work. Observer eviction sequences match stock on five CPU request schedules per policy; this does not qualify an unbuilt hold plugin or A3p. Final attempt: artifacts/runs/pr-feasibility-08.
+
+| Model | A4t W1 / W2 | A4p W1 / W2 | Admission / opportunity |
+| --- | --- | --- | --- |
+| D8 | Not run / not run | Not run / not run | Not admitted / unmeasured |
+| HM | Not run / not run | Not run / not run | Not admitted / unmeasured |
+| HS | Not run / not run | Not run / not run | Not admitted / unmeasured |
+
+GPU hours: 0 admission + 0 screen. All benefit, harm and whole-route differences are unmeasured. Full acceptance passed: 87 portable tests and 105 rule proofs. The original supported-runtime CPU lane also passed 28 tests and strict types; latest record artifacts/runs/runtime-cpu-20261114T074503Z.
+
+## Limits
+
+Private context state contains the full key-position map and can reach the scheduler; polling it could support a different integration. These tests do not prove all out-of-tree Python approaches impossible. They qualify neither public hint delivery nor serving correctness. No local CUDA build, model admission, full hold lifecycle suite, million-chunk microbenchmark, Qwen diverged-hit reproduction, tiering lifecycle, W1 manifest, streaming/event instrument, patch/control freeze, calibration or performance cell was completed. The retained evidence lists every attempt and all work not run. Initial setup, wrapper, import, size and type failures are retained; no check was weakened. No efficacy verdict or safety inference is available.
+
+## Decision
+
+Close this bounded phase at its Stage 1 gate and do not promote to the RTX 5080 yet. Recommend explicit request-start notification and complete key/group information, preserving native store behavior; that requires a revised shared core interface and drops the pure-plugin claim. A private-scheduler approach trades fewer upstream changes for tighter version coupling and polling qualification. Philip chooses the revised contract before reopening. The Stage 3 release harm limit remains undecided (fixed 5% upper-confidence bound recommended); Stage 2 screening rules were unchanged. Stage 2b public posting, Stage 3/pilot, 5080 and rented compute were not performed or authorized. All raw attempts and the isolated environment/checkout remain under artifacts; no GPU healthcheck was needed because no GPU acquisition started.
+
+## Sources
+
+- [results/pr-evidence-feasibility/evidence.json](../sources/8cf5b5d355cb4cbccbea29edf1c4ae434cc672cd229d4356e263642ed9b4abc3.json)
+
+Exact source hashes and figure inputs: [result.json](result.json).
