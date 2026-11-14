@@ -383,3 +383,15 @@ common unit for comparison with physical pool budgets. Cache residency is report
 separately. pr-instrument-09 joins the full seven-arm HTTP failure fixture to hand
 traces and detects an injected 28-token recomputation regression, preserving both
 failed sessions and both unoffered returns.
+
+
+Admission attempts D8/A2-01 and -02 stopped at the unchanged swap guard during
+Python startup, before model execution. Charged time was 16.9305 and 6.1462 seconds.
+Both had over 12 GiB available RAM and zero owned swapped pages; global swap-out
+increased by 31 and 170 pages. Preflight hashing had promoted about 6 GiB of model
+weight pages into file cache. An advisory release of those exact read-only file
+pages increased free RAM from about 3 GiB to 9 GiB without changing file bytes,
+MemAvailable, the swap guard or OS settings. The checksum reader now releases each
+safetensors file's clean cache pages after hashing. This is startup input hygiene,
+not a policy/threshold change. The two failed attempts remain immutable; a new
+attempt must establish whether this removes the interference.

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -149,6 +150,14 @@ def spent_seconds(campaign: Path) -> dict[str, float]:
             raise ValueError("invalid GPU budget receipt")
         spent[admission["phase"]] += seconds
     return spent
+
+
+def model_digest(path: Path) -> str:
+    with path.open("rb") as source:
+        digest = hashlib.file_digest(source, "sha256").hexdigest()
+        if path.suffix == ".safetensors":
+            os.posix_fadvise(source.fileno(), 0, 0, os.POSIX_FADV_DONTNEED)
+    return digest
 
 
 def runtime_identity(root: Path, python: Path, arm: str) -> dict[str, Any]:
@@ -338,7 +347,7 @@ def run_gpu_job(
         raise ValueError("complete job plus cleanup does not fit remaining GPU budget")
     runtime = runtime_identity(root, python, arm)
     model_hashes = {
-        str(path.relative_to(model)): digest_file(path)
+        str(path.relative_to(model)): model_digest(path)
         for path in sorted(model.rglob("*"))
         if path.is_file()
     }

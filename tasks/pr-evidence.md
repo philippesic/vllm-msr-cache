@@ -19,7 +19,7 @@ with close-results, per-route/model verdicts, harms, opportunity and not-run cov
 updated docs/findings and pushed commits. Then send the GPU handoff.
 
 ## State
-Active owner: current agent on main. GPU exposure: zero. Exact wheel
+Active owner: current agent on main. GPU charged time: 23.076670123 seconds admission; zero screen. Exact wheel
 0.34.0rc1.dev465+ge9281bd93 / torch2.14+cu130 in artifacts/venvs/pr-evidence;
 matched post runtime in pr-evidence-post. Clean frozen checkout in
 artifacts/checkouts/vllm-pr-evidence. Supported old runtime remains unchanged.
@@ -89,13 +89,16 @@ reachable key unions, independent of readiness; no future-turn content enters.
 The complete runner/metrics checkpoint 4168264f passes full acceptance (123 portable
 checks plus 105 rule proofs) and 28 old-runtime CPU tests. Native instrument 10 passes
 server arguments, byte detector, end-to-end failure/metric regeneration and current
-working-set helper. Stage 1 freeze and the predeclared screen procedure are prepared
-for commit; no GPU benefit numbers have been observed.
+working-set helper. Stage 1 freeze and the procedure are committed/pushed at 0b41d6a4. No GPU benefit
+numbers have been observed. D8/A2 attempts01/02 stopped on global swap-out during
+startup (owned swap zero, available RAM >12GiB). Model checksumming promoted6GiB
+of clean weight pages into file cache. Advisory release raised free RAM3→9GiB;
+checksum cleanup is being added with all resource guards unchanged. Attempts retained.
 
 Admission healthcheck scheduled every five minutes: scheduled-task:
 6b7e19e4-2836-413e-b106-6119e6418aed, bound to this thread. Delete at phase end.
 
 ## Next
-Commit/push the Stage 1 freeze, idle-check and execute bounded D8/HM/HS hardware
-admission. Then run baseline sizing/calibration and complete paired screen blocks
-under the frozen procedure and remaining budget. No GPU runs yet.
+Qualify/commit the checksum-cache cleanup, then retry D8 and continue bounded
+HM/HS hardware admission. Then run baseline sizing/calibration and complete paired screen blocks
+under the frozen procedure and remaining budget. No model has reached execution/admission yet.

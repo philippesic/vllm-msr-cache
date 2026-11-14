@@ -9,7 +9,12 @@ from pathlib import Path
 
 import pytest
 
-from tools.benchmarking.pr_jobs import _stop, screen_server_command, spent_seconds
+from tools.benchmarking.pr_jobs import (
+    _stop,
+    model_digest,
+    screen_server_command,
+    spent_seconds,
+)
 from tools.process import process_identity
 
 
@@ -97,3 +102,13 @@ def test_interruption_cleans_owned_server_and_descendant() -> None:
         assert select.select([descriptor], [], [], 5)[0]
     finally:
         os.close(descriptor)
+
+
+def test_model_checksum_cache_release_preserves_exact_bytes(tmp_path: Path) -> None:
+    import hashlib
+
+    model = tmp_path / "fixture.safetensors"
+    data = bytes(range(256)) * 1024
+    model.write_bytes(data)
+    assert model_digest(model) == hashlib.sha256(data).hexdigest()
+    assert model.read_bytes() == data

@@ -91,6 +91,7 @@
   "tests/test_pr_feasibility.py::test_receipt_rejects_tampering_and_unsupported_inferences",
   "tests/test_pr_jobs.py::test_gpu_budget_retains_failed_attempt_and_blocks_unfinished_job",
   "tests/test_pr_jobs.py::test_interruption_cleans_owned_server_and_descendant",
+  "tests/test_pr_jobs.py::test_model_checksum_cache_release_preserves_exact_bytes",
   "tests/test_pr_jobs.py::test_screen_commands_keep_platform_and_route_controls_matched",
   "tests/test_pr_schedule.py::test_schedule_is_paired_open_loop_and_reuses_tasks_without_changing_adoption",
   "tests/test_pr_streaming.py::test_early_engine_finish_is_treatment_failure_not_invalid_capture",
