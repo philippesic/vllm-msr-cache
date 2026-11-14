@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from tools.benchmarking.streaming import CaptureError, StreamCapture
+from tools.benchmarking.streaming import CaptureError, StreamCapture, verify_stream
 from wait_hint_offload.evidence_protocol import EvidenceRequest
 from wait_hint_offload.policy_protocol import PolicySession
 
@@ -51,6 +51,11 @@ def test_stream_ttft_ignores_metadata_and_separates_token_chunk_itl() -> None:
     assert result["coalesced_chunks"] == 1
     assert result["token_ids"] == [1, 2, 3, 4]
     assert result["rejected_frame"] is None
+    verify_stream(result)
+    with pytest.raises(CaptureError, match="summary"):
+        verify_stream(result | {"ttft_submitted_ns": 0})
+    with pytest.raises(CaptureError, match="clock"):
+        verify_stream(result | {"ended_ns": 99})
 
 
 def test_stream_retains_partial_outcome_and_rejects_clock_and_count_errors() -> None:

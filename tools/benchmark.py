@@ -24,12 +24,14 @@ def main() -> int:
     feasibility.add_argument("--hold-policy", action="store_true")
     feasibility.add_argument("--bookkeeping", action="store_true")
     feasibility.add_argument("--post-response", action="store_true")
+    feasibility.add_argument("--instrument", action="store_true")
     feasibility_native = sub.add_parser("pr-feasibility-native")
     feasibility_native.add_argument("--out", type=Path, required=True)
     feasibility_native.add_argument("--private-state", action="store_true")
     feasibility_native.add_argument("--hold-policy", action="store_true")
     feasibility_native.add_argument("--bookkeeping", action="store_true")
     feasibility_native.add_argument("--post-response", action="store_true")
+    feasibility_native.add_argument("--instrument", action="store_true")
     feasibility_verify = sub.add_parser("verify-pr-feasibility")
     feasibility_verify.add_argument("directory", type=Path)
     for operation in ("pr-admit-w1", "pr-w1-native"):
@@ -206,6 +208,11 @@ def main() -> int:
         )
         print(json.dumps(result, indent=2))
         return 0
+    if args.operation == "pr-feasibility-native" and args.instrument:
+        from tools.benchmarking.instrument import observe_instrument
+
+        write_record(args.out, observe_instrument(args.out.parent / "instrument"))
+        return 0
     if args.operation == "pr-feasibility-native" and args.post_response:
         from wait_hint_offload.vllm_adapter.policy_delivery_checks import (
             observe_delivery,
@@ -259,6 +266,7 @@ def main() -> int:
                 hold_policy=args.hold_policy,
                 bookkeeping=args.bookkeeping,
                 post_response=args.post_response,
+                instrument=args.instrument,
             )
             if args.operation == "pr-feasibility"
             else verify_feasibility(args.directory)

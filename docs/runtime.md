@@ -158,10 +158,16 @@ runtime/pr-evidence-requirements.txt`. The clean frozen upstream checkout belong
 under `artifacts/checkouts/`. This installs the upstream wheel; it does not claim a
 local source compilation or hardware qualification.
 
-Keep separate installations for unpatched and post-response arms. Apply only the
+Keep separate installations for delivery-unpatched and post-response arms. Apply the
 named delivery patch to the latter using `python -m tools.benchmark patch-runtime
 --runtime-python ENV/bin/python pr-post-response`. Patch application verifies both
 file hashes, preserves the original, and atomically replaces the target so another
 environment or wheel cache sharing its hardlink stays unchanged. `pr-feasibility
 --post-response` checks the installed patch and exercises real engine utility
 dispatch with CPU scheduler fixtures. Hardware admission remains required.
+
+For this sm_75 screen, both evidence environments also carry `gemma-turing-main`,
+the frozen adaptation of the head-size-512 tile/stage patch. Its applicability and
+hashes are in [the execution boundary](pr-evidence-execution.md). It is common to
+all arms, including the stock policy controls. The benchmark endpoint requires the
+project installed in each environment and explicit API keys.

@@ -471,3 +471,8 @@ fixed in the admission implementation before any GPU benefit is measured.
 `pr-freeze-w1 ADMISSION --out artifacts/runs/NEW` verifies a W1 admission and writes
 its compact freeze plus explicit excluded task IDs. The tracked W1 freeze identifies
 the full immutable manifest, token data, recipe, source mix and stratum weights.
+
+`pr-feasibility --instrument` runs CPU native-manager identity/cost checks plus real
+loopback streaming fault and endpoint checks. `verify-pr-feasibility` checks its
+source/log hashes, event journals and stream-derived metrics. This is instrument
+qualification, not GPU model admission. Keep all failed and corrected attempts.

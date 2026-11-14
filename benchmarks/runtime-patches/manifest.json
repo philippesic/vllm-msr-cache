@@ -62,5 +62,21 @@
         "new": "    def publish_kv_cache_hints(self, envelope: dict[str, Any]) -> dict[str, Any]:\n        connector = self.scheduler.get_kv_connector()\n        offloading = getattr(connector, \"connector_scheduler\", None)\n        manager = getattr(offloading, \"manager\", None)\n        if manager is None:\n            raise ValueError(\"offloading manager unavailable\")\n        with manager.lock:\n            primary = getattr(manager, \"primary_tier\", manager)\n            publish = getattr(getattr(primary, \"_policy\", None), \"publish_envelope\", None)\n            if not callable(publish):\n                raise ValueError(\"cache policy does not accept post-response hints\")\n            return publish(envelope)\n\n    def get_kv_cache_group_metadata(self) -> list[dict[str, int | str | None]]:\n"
       }
     ]
+  },
+  {
+    "name": "gemma-turing-main",
+    "target": "vllm/v1/attention/ops/triton_unified_attention.py",
+    "original_sha256": "1c68d8aedfa8907b55f71f9ca87c0dd18a3905b06c33559c390325e7bdebf015",
+    "patched_sha256": "ad963a2c366a00b529979704ab11d6b758242e6569ce4695511bcccefaf66b1c",
+    "edits": [
+      {
+        "old": "    launch_num_stages: int | None = None\n",
+        "new": "    launch_num_stages: int | None = None\n    if head_size == 512 and current_platform.is_device_capability(75):\n        launch_num_stages = 1\n"
+      },
+      {
+        "old": "    TILE_SIZE_DECODE = _get_tile_size(\n        head_size, sliding_window_val, q.element_size(), is_prefill=False\n    )\n",
+        "new": "    TILE_SIZE_DECODE = _get_tile_size(\n        head_size, sliding_window_val, q.element_size(), is_prefill=False\n    )\n    if head_size == 512 and current_platform.is_device_capability(75):\n        TILE_SIZE_PREFILL = min(TILE_SIZE_PREFILL, 16)\n        TILE_SIZE_DECODE = min(TILE_SIZE_DECODE, 16)\n"
+      }
+    ]
   }
 ]

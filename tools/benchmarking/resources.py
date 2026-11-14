@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import time
 from pathlib import Path
@@ -76,3 +77,88 @@ def verify_resources(path: Path) -> dict[str, Any]:
     ):
         raise ValueError("invalid resource observations")
     return record
+
+
+def _kilobytes(path: Path) -> dict[str, int]:
+    values = {}
+    for line in path.read_text().splitlines():
+        fields = line.split()
+        if len(fields) == 3 and fields[2] == "kB":
+            values[fields[0].rstrip(":")] = int(fields[1]) * 1024
+    return values
+
+
+def process_stat(text: str) -> dict[str, int]:
+    fields = text[text.rindex(")") + 2 :].split()
+    return {
+        "parent": int(fields[1]),
+        "minor_faults": int(fields[7]),
+        "major_faults": int(fields[9]),
+        "user_ticks": int(fields[11]),
+        "system_ticks": int(fields[12]),
+        "start_ticks": int(fields[19]),
+    }
+
+
+def sample_process_tree(root_pid: int, proc: Path = Path("/proc")) -> dict[str, Any]:
+    started = time.monotonic_ns()
+    stats: dict[int, dict[str, int]] = {}
+    for directory in proc.iterdir():
+        if directory.name.isdecimal():
+            try:
+                stats[int(directory.name)] = process_stat(
+                    (directory / "stat").read_text()
+                )
+            except (FileNotFoundError, ProcessLookupError):
+                continue
+    descendants = {root_pid}
+    while True:
+        expanded = descendants | {
+            pid for pid, stat in stats.items() if stat["parent"] in descendants
+        }
+        if expanded == descendants:
+            break
+        descendants = expanded
+    processes: dict[str, dict[str, int]] = {}
+    vanished = []
+    for pid in sorted(descendants & stats.keys()):
+        try:
+            memory = _kilobytes(proc / str(pid) / "smaps_rollup")
+            processes[str(pid)] = stats[pid] | {
+                "pss_bytes": memory["Pss"],
+                "rss_bytes": memory["Rss"],
+                "swap_bytes": memory["Swap"],
+                "swap_pss_bytes": memory["SwapPss"],
+            }
+        except (FileNotFoundError, ProcessLookupError):
+            vanished.append(pid)
+    memory = _kilobytes(proc / "meminfo")
+    vm = {
+        parts[0]: int(parts[1])
+        for line in (proc / "vmstat").read_text().splitlines()
+        if len(parts := line.split()) == 2
+    }
+    return {
+        "schema": "pr-resources-v1",
+        "monotonic_ns": started,
+        "sample_duration_ns": time.monotonic_ns() - started,
+        "root_pid": root_pid,
+        "clock_ticks_per_second": os.sysconf("SC_CLK_TCK"),
+        "processes": processes,
+        "vanished_during_sample": vanished,
+        "outside_process_ticks": {
+            str(pid): {
+                "start_ticks": stat["start_ticks"],
+                "cpu_ticks": stat["user_ticks"] + stat["system_ticks"],
+            }
+            for pid, stat in stats.items()
+            if pid not in descendants
+        },
+        "pss_bytes": sum(value["pss_bytes"] for value in processes.values()),
+        "swap_bytes": sum(value["swap_bytes"] for value in processes.values()),
+        "available_bytes": memory["MemAvailable"],
+        "host_swap_used_bytes": memory["SwapTotal"] - memory["SwapFree"],
+        "host_swap_in_pages": vm["pswpin"],
+        "host_swap_out_pages": vm["pswpout"],
+        "host_major_faults": vm["pgmajfault"],
+    }

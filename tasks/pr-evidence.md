@@ -46,8 +46,14 @@ Its 1,000 fresh disabled messages cost p50 62 us / p99 123 us; no network/proces
 transport included yet. Streaming endpoint and client now preserve token IDs, ignore metadata for TTFT,
 separate token/chunk ITL, retain partial failures and abort disconnected requests.
 Native CPU endpoint/lookup tests pass in pr-policy-feasibility-08; old-runtime CPU
-lane passes 28 tests. New streaming tests pass. Socket and per-group instrument
-qualification remain pending. Qwen diverged-local-hit component lookup reproduces:
+lane passes 28 tests. New streaming tests pass. Real loopback and native-manager observer qualification passes at pr-instrument-03
+with the corrected reader (new schema field omission fixed without altering raw run).
+Attempt 01 failed an incorrect no-op lock identity assertion; 02 passes lower scope.
+Observer p50 small-lifecycle overhead ~70–140 us; raw samples retained. Common event
+journals preserve actual store/load/eviction keys, scheduled boundaries and worker
+transfer stats. Full acceptance passes (112 portable tests plus rule proofs); old-runtime CPU lane
+passes 28 tests.
+Live scheduler reconciliation and transfer correctness remain admission work. Qwen diverged-local-hit component lookup reproduces:
 external hits are zero at the supplied GPU boundary despite a ready lower checkpoint;
 full scheduler reconciliation is source-inspected, not GPU-qualified. No public filing.
 W1 admission completed and verified in artifacts/runs/pr-w1-admission-01 (2071 s CPU).
@@ -60,6 +66,9 @@ D8 1691, HM 1689, HS 1562. Roughly 98% are benchmark-truncated rather than natur
 ends; this bounds route/abandoned-hold interpretations. Stage 1 gate remains open.
 
 ## Next
-Qualify streaming over real sockets; implement open-loop schedules and per-group
-instrument; complete kernel/compatibility checks;
-then finish Stage 1 freezes/instrument before GPU admission.
+Implement frozen open-loop schedules/acquisition and offline group accounting;
+complete Stage 1 remaining tests and protocol. Kernel source inspection passes:
+AutoAWQ/Marlin min capability75; gemma-turing-main applied identically to both runtimes.
+LMCache0.5.6 fails joint resolution against frozen vLLM from incompatible OpenTelemetry
+requirements, retained log; no competitor comparison in Stage2. Finish Stage 1
+freezes/instrument before GPU admission.

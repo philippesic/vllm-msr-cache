@@ -39,8 +39,9 @@ def qualify(
     hold_policy: bool = False,
     bookkeeping: bool = False,
     post_response: bool = False,
+    instrument: bool = False,
 ) -> dict[str, Any]:
-    if sum((private_state, hold_policy, bookkeeping, post_response)) > 1:
+    if sum((private_state, hold_policy, bookkeeping, post_response, instrument)) > 1:
         raise ValueError("select one feasibility mode")
     root = Path(__file__).resolve().parents[2]
     out = out.resolve()
@@ -88,7 +89,9 @@ def qualify(
     write_record(
         out / "admission.json",
         {
-            "schema": "pr-post-feasibility-admission-v1"
+            "schema": "pr-instrument-admission-v1"
+            if instrument
+            else "pr-post-feasibility-admission-v1"
             if post_response
             else "pr-bookkeeping-admission-v1"
             if bookkeeping
@@ -127,6 +130,8 @@ def qualify(
         command.append("--bookkeeping")
     if post_response:
         command.append("--post-response")
+    if instrument:
+        command.append("--instrument")
     start = time.monotonic()
     with (out / "execution.log").open("x") as log:
         code = run_owned(command, environment, source, 900 if bookkeeping else 120, log)
@@ -191,6 +196,7 @@ def verify(directory: Path) -> dict[str, Any]:
             "pr-policy-feasibility-admission-v1",
             "pr-bookkeeping-admission-v1",
             "pr-post-feasibility-admission-v1",
+            "pr-instrument-admission-v1",
         }
         or terminal.get("schema") != "pr-feasibility-terminal-v1"
         or admission["upstream_revision"] != UPSTREAM
@@ -212,6 +218,12 @@ def verify(directory: Path) -> dict[str, Any]:
     if _sha(directory / "observed.json") != terminal["observed_sha256"]:
         raise ValueError("observation drift")
     observations = json.loads((directory / "observed.json").read_text())
+    if admission["schema"] == "pr-instrument-admission-v1":
+        from tools.benchmarking.instrument import verify_instrument
+
+        return verify_instrument(
+            observations, directory / "source/artifacts/instrument"
+        )
     if admission["schema"] == "pr-post-feasibility-admission-v1":
         return verify_delivery(observations)
     if admission["schema"] == "pr-bookkeeping-admission-v1":

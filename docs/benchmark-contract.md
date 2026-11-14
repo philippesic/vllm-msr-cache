@@ -93,4 +93,10 @@ semi-synthetic, and transcript replay supports serving-latency claims only. Requ
 TTL deliberately includes final turns; post-response eligibility is determined
 only from the current recorded nonterminal tool action. The route comparison
 therefore measures their whole delivery/information difference. Stage 1 CPU policy
-and dispatch tests do not qualify GPU restores or network instrumentation.
+and dispatch tests do not qualify GPU restores. The separate CPU loopback instrument
+qualification covers network capture with a fixture engine; live scheduler/GPU
+accounting remains an admission requirement. All arms use the same delegating event
+observer. Read actual scheduled boundaries and per-group loads, rather than treating
+an offered hybrid GPU boundary or aggregate cached tokens as a cache-source count.
+Recompute stream summaries from retained raw frames. A dead server's partial records
+remain treatment evidence; they cannot be discarded merely for lacking a clean close.

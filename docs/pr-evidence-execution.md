@@ -195,7 +195,12 @@ provides mean per-token ITL; client per-token and per-chunk intervals are separa
 measurements, since several tokens may arrive together. Engine early completion is
 a treatment failure. Invalid frame identities, clock regression or contradictory
 instrument counts are capture failures. Independent async requests have no client
-semaphore. Real-socket fault tests and instrument overhead remain pending.
+semaphore. The real loopback qualification now covers scheduled/submitted timestamps, ignored
+empty metadata, coalesced tokens, a 40 ms injected delay, clock/count corruption,
+truncation, cancellation, timeout and connection death. A blocked 32 MiB reader does
+not stop its neighboring request. A second loopback uses the actual authenticated
+FastAPI endpoint and native SamplingParams with a CPU fixture engine. Raw frames
+regenerate the reported metrics during verification.
 
 Native CPU probe `pr-policy-feasibility-08` qualifies endpoint registration, exact
 token passthrough, request TTL delivery, metadata/token separation and cancellation.
@@ -206,3 +211,60 @@ then reconciles diverged local groups without repeating external lookup at the l
 boundary (source inspection). This caps Qwen interpretation; it does not establish
 full GPU behavior. Public bug filing is deferred because Stage 2b posting is not
 authorized.
+
+
+## Common measurement observer
+
+`EvidenceConnector` delegates to the frozen native OffloadingConnector;
+`ObservedCPUOffloadingSpec` obtains the native CPU manager and exposes a delegating
+observer. Both are common benchmark instruments for every arm. They do not supply
+hold lifecycle callbacks, mutate scheduler state or change policy decisions. A4t's
+mechanism remains the independently tested CachePolicy plugin. The observer logs
+actual offered/stored/evicted keys, readiness and failure at manager operations,
+per-group restore ranges at allocation, native scheduled prompt boundaries,
+preemptions and worker-reported transfer bytes/time. Lookup's proposed GPU boundary
+is recorded separately from the scheduled boundary; the former can be reconciled
+by the hybrid scheduler and must never substitute for an actual GPU hit count.
+
+Each process has an exclusive line-flushed journal with sequence numbers and a
+monotonic clock. The reader rejects dropped/reordered/truncated records. It keeps
+incomplete journals from dead servers as failure evidence; a missing close alone
+is not permission to discard an arm failure. Policy snapshots record acceptance
+outcomes, physical held-key unions, per-session leases, yields and metadata only
+when state changes. No observer calls policy maintenance merely to sample it.
+Process-tree sampling adds proportional set size (shared pages divided among their
+users), per-process page faults and swap, host available memory/swap counters and
+outside-process CPU counters. Sampling misses peaks between samples; native worker
+transfer timings are separate from end-to-end request delay.
+
+`pr-feasibility --instrument` snapshots and qualifies this CPU/network path.
+Attempt `pr-instrument-01` exposed an incorrect fixture assumption that a no-op lock
+property returns the same object on each access; its failure is retained. Attempt
+02 passes six policy variants with identical observed/unobserved eviction sequences,
+40 failed stores and 160 loads per 200-request trace. Attempt 03 adds the actual HTTP
+endpoint. Its native run passed; the first reader rejected the new endpoint field,
+then the corrected version-aware reader verified the unchanged record. The measured
+median small-lifecycle capture increment is roughly 70–140 us, with raw samples
+retained; these fixed-order CPU timings are descriptive, not a serving overhead
+bound. GPU transfer correctness and live scheduler accounting still need admission.
+
+## CPU compatibility inspection
+
+Frozen-main AutoAWQConfig and MarlinLinearKernel declare minimum CUDA capability
+7.5. This source check and the wheel's compiled architecture list do not replace
+sm_75 execution. The prior Gemma head-size-512 Turing tile/stage adjustment still
+matches the frozen source uniquely. `gemma-turing-main` hashes that adaptation:
+original `1c68d8aedfa8907b55f71f9ca87c0dd18a3905b06c33559c390325e7bdebf015`,
+patched `ad963a2c366a00b529979704ab11d6b758242e6569ce4695511bcccefaf66b1c`.
+It is installed identically in both evidence runtimes, applies only to head size
+512 on sm_75, and is a common platform patch separate from post-response delivery.
+No performance data were used to select it.
+
+LMCache 0.5.6 at `3e11e10812b448142c6cdb177a3058652bd826fa` fails CPU dependency
+admission with this vLLM: its OpenTelemetry API maximum is 1.40.0, while the frozen
+vLLM wheel requires at least 1.45.1. The isolated resolver failure is retained in
+`artifacts/runs/pr-evidence-runtime-02/lmcache-install-01.log`; neither native runtime
+was changed to force compatibility. A dry-run against an existing environment had
+proposed dependency downgrades without jointly resolving vLLM, so it is not evidence
+of compatibility. No LMCache comparison is in the Stage 2 core screen; a replacement
+compatible revision/tuple must be verified and frozen before any later comparison.

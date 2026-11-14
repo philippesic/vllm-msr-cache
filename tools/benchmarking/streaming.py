@@ -252,3 +252,59 @@ async def request_stream(
         status = "transport_error" if transport else "capture_error"
         detail = f"{type(error).__name__}: {error}"
     return capture.result(status, time.monotonic_ns(), detail)
+
+
+def verify_stream(record: dict[str, Any]) -> None:
+    if record.get("schema") != "pr-stream-capture-v1" or record.get("outcome") not in {
+        "complete",
+        "http_error",
+        "timeout",
+        "cancelled",
+        "stream_error",
+        "transport_error",
+        "capture_error",
+        "engine_error",
+    }:
+        raise CaptureError("unknown capture outcome")
+    if any(
+        type(record.get(name)) is not int
+        for name in ("expected_tokens", "scheduled_ns", "submitted_ns", "ended_ns")
+    ):
+        raise CaptureError("invalid capture counts or times")
+    if (
+        not 1 <= record["expected_tokens"] <= 256
+        or not 0
+        <= record["scheduled_ns"]
+        <= record["submitted_ns"]
+        <= record["ended_ns"]
+    ):
+        raise CaptureError("capture clock or output budget outside bounds")
+    replay = StreamCapture(
+        record["request_id"],
+        record["expected_tokens"],
+        record["scheduled_ns"],
+        record["submitted_ns"],
+    )
+    for frame in record["frames"]:
+        if (
+            set(frame) != {"received_ns", "frame"}
+            or frame["received_ns"] > record["ended_ns"]
+        ):
+            raise CaptureError("unknown frame wrapper or late frame")
+        replay.accept(frame["frame"], frame["received_ns"])
+    rejected = record["rejected_frame"]
+    if rejected is not None:
+        if record["outcome"] != "capture_error" or set(rejected) != {
+            "received_ns",
+            "frame",
+        }:
+            raise CaptureError("unreconciled rejected frame")
+        try:
+            replay.accept(rejected["frame"], rejected["received_ns"])
+        except CaptureError:
+            pass
+        else:
+            raise CaptureError("rejected frame was valid")
+    regenerated = replay.result(record["outcome"], record["ended_ns"], record["detail"])
+    if regenerated != record:
+        raise CaptureError("capture summary differs from raw frames")
