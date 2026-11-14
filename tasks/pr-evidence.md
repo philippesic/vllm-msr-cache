@@ -19,56 +19,60 @@ with close-results, per-route/model verdicts, harms, opportunity and not-run cov
 updated docs/findings and pushed commits. Then send the GPU handoff.
 
 ## State
-Active owner: current agent on main. GPU exposure: zero. Isolated exact upstream
-wheel installed at artifacts/venvs/pr-evidence; checkout at
-artifacts/checkouts/vllm-pr-evidence, pin e9281bd939d4ade90d6aacf4b2319aa89ea46c39.
-Final callback diagnostic artifacts/runs/pr-feasibility-08 passes; actual callbacks
-omit request arrival and GPU-hit keys. The earlier stop interpretation was incorrect:
-private ReqContext._scheduler and _offload_key_positions are available, and the plan
-does not restrict the plugin to public callbacks. A result correction records this;
-immutable observations/attempts remain. The private read-only probe passed at artifacts/runs/pr-private-feasibility-01:
-complete group keys and newer-return detection are available. The hold prototype now uses closed session/action schemas and private read-only
-scheduler state. Native geometry/tiering checks passed in
-artifacts/runs/pr-policy-feasibility-05: partial-tail readiness across all groups,
-shared anchors and distinct forks, selected-boundary sliding windows, primary-tier
-finish/late-store/return/reset. Attempt 04 failed from an incomplete test fixture;
-retained. Old runtime remains compatible (28 tests). The full 18-cell CPU cost
-matrix passed in artifacts/runs/pr-bookkeeping-01; at 1M chunks/1k held sessions,
-adversarial oldest-key holds cost p99 ~14.9 ms ARC / 81.5 ms LRU per one-chunk eviction,
-with ~18.2 MB owned Python metadata. This is a limitation, not a GPU efficacy result.
-Post-response delivery now has a separate runtime at artifacts/venvs/pr-evidence-post,
-with the same installed versions as the unpatched runtime and a hashed 13-line
-EngineCore utility method. Patched core SHA-256 d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb;
-original remains 0fc5c97fdf9082b77501492d244d7c4dd0c8848532ce8438d2f082bbf73757e8.
-Native utility dispatch/MessagePack test pr-post-feasibility-01 passes A3p/A3
-identity, acceptance-origin deadline, late readiness, replay, refusal and cancel.
-Its 1,000 fresh disabled messages cost p50 62 us / p99 123 us; no network/process
-transport included yet. Streaming endpoint and client now preserve token IDs, ignore metadata for TTFT,
-separate token/chunk ITL, retain partial failures and abort disconnected requests.
-Native CPU endpoint/lookup tests pass in pr-policy-feasibility-08; old-runtime CPU
-lane passes 28 tests. New streaming tests pass. Real loopback and native-manager observer qualification passes at pr-instrument-03
-with the corrected reader (new schema field omission fixed without altering raw run).
-Attempt 01 failed an incorrect no-op lock identity assertion; 02 passes lower scope.
-Observer p50 small-lifecycle overhead ~70–140 us; raw samples retained. Common event
-journals preserve actual store/load/eviction keys, scheduled boundaries and worker
-transfer stats. Full acceptance passes (112 portable tests plus rule proofs); old-runtime CPU lane
-passes 28 tests.
-Live scheduler reconciliation and transfer correctness remain admission work. Qwen diverged-local-hit component lookup reproduces:
-external hits are zero at the supplied GPU boundary despite a ready lower checkpoint;
-full scheduler reconciliation is source-inspected, not GPU-qualified. No public filing.
-W1 admission completed and verified in artifacts/runs/pr-w1-admission-01 (2071 s CPU).
-Its healthcheck was deleted. All eight source shards, 24,100 rows/10,637 tasks/129
-repositories are retained with both source successes and failures. Frozen manifest
-SHA-256 d993b516214bd534e198c7122fe470407b011f974c080a42bb8cc650cd0d40da;
-compact identity/recipe/counts in benchmarks/pr-evidence/w1-freeze.json, explicit
-excluded IDs in artifacts/runs/pr-w1-freeze-01/exclusions.json. Pilot admitted tasks:
-D8 1691, HM 1689, HS 1562. Roughly 98% are benchmark-truncated rather than natural
-ends; this bounds route/abandoned-hold interpretations. Stage 1 gate remains open.
+Active owner: current agent on main. GPU exposure: zero. Exact wheel
+0.34.0rc1.dev465+ge9281bd93 / torch2.14+cu130 in artifacts/venvs/pr-evidence;
+matched post runtime in pr-evidence-post. Clean frozen checkout in
+artifacts/checkouts/vllm-pr-evidence. Supported old runtime remains unchanged.
+
+The original public-callback-only stop interpretation was wrong and explicitly
+retracted in results/pr-evidence-feasibility. Private read-only scheduler access is
+allowed by the plan and works. Native policy probe pr-policy-feasibility-09 passes:
+ready/late-ready/shared/GPU-only prefixes, return/expiry/cancel/reset, failed-transfer
+and failed-eviction atomicity, yield before store failure, all-group partial-tail and
+window geometry, forks and primary-tier lifecycle. New 36-case native matrix covers
+1/2/16/1024 chunks and 0/0.25/0.5 shares for ARC/LRU/post policies. Neither route is
+infeasible. Hold-only remains the CPU-qualified candidate; final Stage1 freeze pending.
+
+The 18-cell production-size bookkeeping matrix pr-bookkeeping-01 found adversarial
+1M-chunk/1k-session eviction p99 14.9ms ARC /81.5ms LRU, ~18.2MB owned metadata.
+Retained limitation, not GPU efficacy. Post utility patch SHA
+ d33ae4c099f20bcb6b3e1dca4cbde2038988519ab5bc6f5ef50ec26b5b103ddb
+passes native MessagePack dispatch/control identity in pr-post-feasibility-01;
+p50/p99 fresh disabled dispatch 62/123us excluding network/process transport.
+
+W1 admission pr-w1-admission-01 completed/verified (2071s CPU); healthcheck deleted.
+Frozen manifest d993b516214bd534e198c7122fe470407b011f974c080a42bb8cc650cd0d40da,
+tracked compact recipe/identities/counts in benchmarks/pr-evidence/w1-freeze.json.
+Pilot D8/HM/HS tasks 1691/1689/1562 across28 repos; natural ends30/27/17, remaining
+ends truncated. No success filter; source 24,100 rows/10,637 tasks/129repos. Confirmation
+performance remains held out. All assets/exclusions/failed attempts retained.
+
+Common delegating manager/connector observer records actual per-group store/load/
+eviction keys, scheduled boundaries and native transfer stats; process-tree PSS,
+faults, swap/available RAM and outside CPU counters implemented. pr-instrument-05
+passes all seven arms through real HTTP with deadline/failure accounting, independent
+arrivals and post-hint ack barriers; both failure sessions and unoffered later turns
+retained. Raw capture metrics regenerate independently; files/journals are hashed.
+Earlier instrument failures:01 incorrect no-op-lock fixture identity;03 reader
+omitted newly added endpoint field, corrected without changing raw successful run.
+Capture p50 lifecycle overhead ~70–140us in fixture; serving overhead unqualified.
+
+Qwen diverged-local-hit component behavior persists; core reconciliation inspected,
+full GPU scheduler behavior pending admission. Public filing deferred (unauthorized).
+AutoAWQ/Marlin source minimum capability75; Gemma Turing adaptation applied identically
+to both new runtimes as gemma-turing-main (hashes in manifest). LMCache0.5.6 joint
+resolution fails due OpenTelemetry<=1.40 vs vLLM>=1.45.1; retained isolated install log,
+no native env dependency changes, no competitor lane in Stage2. Replacement must be
+verified/frozen before a future comparison.
+
+The paired W1 client, full capacity matrix, closed hint acknowledgements and deeper
+instrument qualification pass full acceptance (114 portable tests plus105 rule
+proofs) and the old-runtime lane (28 tests). Test inventories added cases only.
+The real-corpus CPU schedule is retained at pr-evidence-runtime-02/schedule-cpu-01.json;
+its illustrative rates are not performance-calibrated settings.
 
 ## Next
-Implement frozen open-loop schedules/acquisition and offline group accounting;
-complete Stage 1 remaining tests and protocol. Kernel source inspection passes:
-AutoAWQ/Marlin min capability75; gemma-turing-main applied identically to both runtimes.
-LMCache0.5.6 fails joint resolution against frozen vLLM from incompatible OpenTelemetry
-requirements, retained log; no competitor comparison in Stage2. Finish Stage 1
-freezes/instrument before GPU admission.
+Finish offline group/cache-source accounting, server/admission runner with restored
+bytes and same-boundary continuation, budget/receipt/interruption lifecycle,
+calibration/statistical edge-case protocol. Freeze and commit Stage1 exit inputs,
+then idle-check and execute authorized 2080 Ti admission/screen. No GPU runs yet.

@@ -476,3 +476,13 @@ the full immutable manifest, token data, recipe, source mix and stratum weights.
 loopback streaming fault and endpoint checks. `verify-pr-feasibility` checks its
 source/log hashes, event journals and stream-derived metrics. This is instrument
 qualification, not GPU model admission. Keep all failed and corrected attempts.
+
+`pr-plan-w1 --data ADMISSION/data --model D8 --partition pilot --seed 12101
+--arrival-rate RATE --one-shot-rate RATE --horizon SECONDS --out artifacts/runs/FILE.json`
+creates a paired content/arrival schedule after verifying the frozen corpus. Rates
+and horizon must come from the Stage 2 calibration protocol for real acquisition;
+CPU fixture schedules do not freeze performance settings. `pr-client-native
+--schedule FILE --arm ARM --url http://127.0.0.1:PORT --out artifacts/runs/NEW`
+is the bounded internal streaming client. Starting a GPU server still requires the
+hardware admission, authorization, idle check and budget lifecycle; this client
+alone does not certify a campaign.

@@ -297,6 +297,177 @@ async def _endpoint_http() -> dict[str, Any]:
         listener.close()
 
 
+async def _loadgen_http(directory: Path) -> dict[str, Any]:
+    from tools.benchmarking.pr_client import run_schedule
+    from tools.benchmarking.pr_workload import ARMS, seeded_order
+
+    aiohttp_web = importlib.import_module("aiohttp.web")
+    returned = asyncio.Event()
+    arrivals: list[dict[str, Any]] = []
+    envelopes: list[dict[str, Any]] = []
+    second_turns: set[str] = set()
+
+    async def generate(request: Any) -> Any:
+        payload = await request.json()
+        identity = payload["request_id"]
+        arrivals.append(payload)
+        if identity.endswith("-t01"):
+            second_turns.add(identity)
+            if len(second_turns) == 14:
+                returned.set()
+        response = aiohttp_web.StreamResponse(
+            headers={"Content-Type": "text/event-stream"}
+        )
+        await response.prepare(request)
+        await response.write(
+            _frame(identity, "accepted", server_accepted_ns=time.monotonic_ns())
+        )
+        if identity == "s12101-0000-t00":
+            request.transport.abort()
+            return response
+        count = 1 if identity == "s12101-0001-t00" else payload["output_tokens"]
+        await response.write(
+            _token(identity, list(range(10, 10 + count)), count, finished=True)
+        )
+        await response.write(
+            _frame(identity, "done", server_emitted_ns=time.monotonic_ns())
+        )
+        await response.write_eof()
+        return response
+
+    async def publish(request: Any) -> Any:
+        envelope = await request.json()
+        envelopes.append(envelope)
+        await returned.wait()
+        return aiohttp_web.json_response(
+            {
+                "schema": "wait-hint-policy-envelope-ack-v1",
+                "message_id": envelope["message_id"],
+                "accepted_ns": time.monotonic_ns(),
+                "actions": [
+                    {
+                        "action_id": action["action_id"],
+                        "decision": "disabled",
+                        "replayed": False,
+                    }
+                    for action in envelope["actions"]
+                ],
+            }
+        )
+
+    turn = {
+        "message_index": 1,
+        "prompt_tokens": [1, 2, 3],
+        "recorded_output_tokens": 4,
+        "requested_output_tokens": 4,
+        "output_template_prefix_changed_tokens": 0,
+        "previous_request_lcp_tokens": 0,
+        "previous_request_lost_suffix_tokens": 0,
+        "post_response_eligible": True,
+        "gap_seconds": 0.005,
+    }
+    schedule = {
+        "schema": "pr-w1-schedule-v1",
+        "model": "D8",
+        "partition": "pilot",
+        "seed": 12101,
+        "manifest_sha256": "CPU fixture, no model execution",
+        "arrival_rate": 1.0,
+        "one_shot_rate": 0.1,
+        "horizon_seconds": 1.5,
+        "request_deadline_seconds": 120.0,
+        "session_deadline_seconds": 1.5,
+        "ttl_ms": 12000,
+        "sessions": [
+            {
+                "session_id": f"s12101-{index:04d}",
+                "task": str(index),
+                "repository": "fixture/repo",
+                "trajectory": str(index),
+                "source_resolved": False,
+                "stratum": "0-2048",
+                "ending": "context_limit",
+                "arrival_seconds": 0.001 * (index + 1),
+                "adopter": index < 8,
+                "task_occurrence": 1,
+                "turns": [
+                    turn,
+                    turn | {"message_index": 3, "previous_request_lcp_tokens": 3},
+                ],
+            }
+            for index in range(16)
+        ],
+        "one_shots": [
+            {
+                "session_id": f"o12101-{index:06d}",
+                "arrival_seconds": 0.01 + index * 0.01,
+                "prompt_tokens": [4] * 2048,
+                "requested_output_tokens": 128,
+            }
+            for index in range(2)
+        ],
+        "arm_order": sorted(
+            ARMS, key=lambda arm: seeded_order(12101, "arm-order", arm)
+        ),
+        "stratum_weights": {"0-2048": 16},
+        "task_reuses": 0,
+    }
+    app = aiohttp_web.Application()
+    app.router.add_post("/v1/pr-evidence/generate", generate)
+    app.router.add_post("/v1/pr-evidence/hints", publish)
+    runner = aiohttp_web.AppRunner(app, access_log=None)
+    await runner.setup()
+    site = aiohttp_web.TCPSite(runner, "127.0.0.1", 0)
+    await site.start()
+    url = f"http://127.0.0.1:{site._server.sockets[0].getsockname()[1]}"
+    cells = []
+    try:
+        for arm in ARMS:
+            returned.clear()
+            arrivals.clear()
+            envelopes.clear()
+            second_turns.clear()
+            report = await run_schedule(url, schedule, arm, directory / arm)
+            assert returned.is_set()
+            assert report["ended_ns"] >= report["scheduled_end_ns"]
+            assert len(report["sessions"]) == 18
+            assert (
+                sum(session["outcome"] == "failed" for session in report["sessions"])
+                == 2
+            )
+            assert (
+                sum(
+                    session["not_offered_after_failure_or_deadline"]
+                    for session in report["sessions"]
+                )
+                == 2
+            )
+            assert len(arrivals) == 32
+            ttl_messages = sum(request["ttl_ms"] is not None for request in arrivals)
+            assert ttl_messages == (14 if arm in {"A3", "A4t", "A5"} else 0)
+            assert len(envelopes) == (12 if arm in {"A3p", "A4p"} else 0)
+            assert all(hint["outcome"] == "accepted" for hint in report["hints"])
+            cells.append(
+                {
+                    "arm": arm,
+                    "failed_sessions": 2,
+                    "offered_requests": len(arrivals),
+                    "unoffered_later_turns": 2,
+                    "ttl_messages": ttl_messages,
+                    "post_messages": len(envelopes),
+                    "fixed_horizon_reached": True,
+                    "returns_did_not_wait_for_hint_ack": True,
+                }
+            )
+    finally:
+        returned.set()
+        await runner.cleanup()
+    return {
+        "cells": cells,
+        "scope": "hand-defined CPU fixture; synthetic transport and engine failures remain in session denominators",
+    }
+
+
 def observe_instrument(directory: Path) -> dict[str, Any]:
     from wait_hint_offload.vllm_adapter.evidence_native_checks import observe_events
 
@@ -304,6 +475,7 @@ def observe_instrument(directory: Path) -> dict[str, Any]:
     events = observe_events(directory / "events")
     sockets = asyncio.run(_sockets())
     endpoint = asyncio.run(_endpoint_http())
+    loadgen = asyncio.run(_loadgen_http(directory / "loadgen"))
     resources = sample_process_tree(os.getpid())
     assert str(os.getpid()) in resources["processes"] and resources["pss_bytes"] > 0
     paths = {
@@ -311,24 +483,41 @@ def observe_instrument(directory: Path) -> dict[str, Any]:
         for path in sorted(directory.rglob("*.jsonl"))
     }
     return {
-        "schema": "pr-instrument-observation-v2",
+        "schema": "pr-instrument-observation-v4",
         "scope": "CPU native manager and real loopback HTTP; no GPU transfer qualification",
         "events": events,
         "sockets": sockets,
         "endpoint": endpoint,
+        "loadgen": loadgen,
         "resources": resources,
         "journals": paths,
+        "files": {
+            str(path.relative_to(directory)): hashlib.sha256(
+                path.read_bytes()
+            ).hexdigest()
+            for path in sorted(directory.rglob("*.json"))
+        },
     }
 
 
 def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, Any]:
     schema = observed.get("schema")
     fields = {"schema", "scope", "events", "sockets", "resources", "journals"}
-    if schema == "pr-instrument-observation-v2":
+    if schema in {
+        "pr-instrument-observation-v2",
+        "pr-instrument-observation-v3",
+        "pr-instrument-observation-v4",
+    }:
         fields.add("endpoint")
+    if schema in {"pr-instrument-observation-v3", "pr-instrument-observation-v4"}:
+        fields.add("loadgen")
+    if schema == "pr-instrument-observation-v4":
+        fields.add("files")
     if set(observed) != fields or schema not in {
         "pr-instrument-observation-v1",
         "pr-instrument-observation-v2",
+        "pr-instrument-observation-v3",
+        "pr-instrument-observation-v4",
     }:
         raise ValueError("unknown instrument observation")
     if {cell["policy"] for cell in observed["events"]["cells"]} != {
@@ -342,6 +531,16 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         raise ValueError("missing policy instrument qualification")
     if any(not cell["eviction_identity"] for cell in observed["events"]["cells"]):
         raise ValueError("observer changed eviction identity")
+    for relative, digest in (
+        observed["files"] if schema == "pr-instrument-observation-v4" else {}
+    ).items():
+        path = directory / relative
+        if (
+            Path(relative).is_absolute()
+            or ".." in Path(relative).parts
+            or hashlib.sha256(path.read_bytes()).hexdigest() != digest
+        ):
+            raise ValueError("instrument capture file identity drift")
     for relative, digest in observed["journals"].items():
         path = directory / relative
         if (
@@ -353,7 +552,11 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         records = read_journal(path)
         if records[-1]["event"] != "close":
             raise ValueError("instrument qualification journal not closed")
-    if schema == "pr-instrument-observation-v2":
+    if schema in {
+        "pr-instrument-observation-v2",
+        "pr-instrument-observation-v3",
+        "pr-instrument-observation-v4",
+    }:
         endpoint = observed["endpoint"]
         verify_stream(endpoint["capture"])
         if endpoint["capture"]["outcome"] != "complete" or any(
@@ -383,4 +586,25 @@ def verify_instrument(observed: dict[str, Any], directory: Path) -> dict[str, An
         raise ValueError("socket fault outcomes do not reconcile")
     if not observed["sockets"]["blocked_reader_did_not_block_neighbor"]:
         raise ValueError("streaming instrument serialized neighbors")
+    if schema in {"pr-instrument-observation-v3", "pr-instrument-observation-v4"}:
+        from tools.benchmarking.pr_workload import ARMS
+
+        cells = observed["loadgen"]["cells"]
+        expected_cells = [
+            {
+                "arm": arm,
+                "failed_sessions": 2,
+                "offered_requests": 32,
+                "unoffered_later_turns": 2,
+                "ttl_messages": 14 if arm in {"A3", "A4t", "A5"} else 0,
+                "post_messages": 12 if arm in {"A3p", "A4p"} else 0,
+                "fixed_horizon_reached": True,
+                "returns_did_not_wait_for_hint_ack": True,
+            }
+            for arm in ARMS
+        ]
+        if cells != expected_cells:
+            raise ValueError("load generator outcomes do not reconcile")
+        for path in directory.glob("loadgen/*/requests/*.json"):
+            verify_stream(json.loads(path.read_text()))
     return {"schema": "pr-instrument-verification-v1", "observations": observed}

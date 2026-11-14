@@ -167,3 +167,45 @@ def test_open_loop_requests_do_not_wait_for_other_responses() -> None:
     assert max(record["submitted_ns"] for record in observed) < min(
         record["frames"][0]["received_ns"] for record in observed
     )
+
+
+def test_hint_acknowledgement_binds_all_actions_and_refuses_future_fields() -> None:
+    from wait_hint_offload.policy_protocol import (
+        PolicyAction,
+        PolicyEnvelope,
+        validate_policy_acknowledgement,
+    )
+
+    envelope = PolicyEnvelope(
+        "message",
+        (
+            PolicyAction(
+                "action", PolicySession("scope", "session", "i", 1), "hold", 12000
+            ),
+        ),
+    )
+    raw = {
+        "schema": "wait-hint-policy-envelope-ack-v1",
+        "message_id": "message",
+        "accepted_ns": 5,
+        "actions": [
+            {"action_id": "action", "decision": "physical_limit", "replayed": False}
+        ],
+    }
+    assert validate_policy_acknowledgement(raw, envelope) == raw
+    for altered in (
+        raw | {"message_id": "other"},
+        raw | {"accepted_ns": True},
+        raw | {"actions": []},
+        raw | {"future": 1},
+        raw
+        | {
+            "actions": [
+                {"action_id": "action", "decision": "new_decision", "replayed": False}
+            ]
+        },
+        raw
+        | {"actions": [{"action_id": "other", "decision": "held", "replayed": False}]},
+    ):
+        with pytest.raises(ValueError):
+            validate_policy_acknowledgement(altered, envelope)

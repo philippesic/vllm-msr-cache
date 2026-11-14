@@ -46,6 +46,24 @@ def main() -> int:
     workload_freeze.add_argument("--out", type=Path, required=True)
     workload_verify = sub.add_parser("verify-pr-w1")
     workload_verify.add_argument("directory", type=Path)
+    pr_schedule = sub.add_parser("pr-plan-w1")
+    pr_schedule.add_argument("--data", type=Path, required=True)
+    pr_schedule.add_argument("--model", choices=("D8", "HM", "HS"), required=True)
+    pr_schedule.add_argument(
+        "--partition", choices=("calibration", "pilot"), required=True
+    )
+    pr_schedule.add_argument("--seed", type=int, required=True)
+    pr_schedule.add_argument("--arrival-rate", type=float, required=True)
+    pr_schedule.add_argument("--one-shot-rate", type=float, required=True)
+    pr_schedule.add_argument("--horizon", type=float, required=True)
+    pr_schedule.add_argument("--out", type=Path, required=True)
+    pr_client = sub.add_parser("pr-client-native")
+    pr_client.add_argument("--schedule", type=Path, required=True)
+    pr_client.add_argument(
+        "--arm", choices=("A1", "A2", "A3", "A4t", "A3p", "A4p", "A5"), required=True
+    )
+    pr_client.add_argument("--url", required=True)
+    pr_client.add_argument("--out", type=Path, required=True)
     functional = sub.add_parser("functional")
     functional.add_argument("--runtime-python", type=Path, required=True)
     functional.add_argument("--model", type=Path, required=True)
@@ -188,6 +206,41 @@ def main() -> int:
         root / "artifacts"
     ):
         parser.error("write new project output under artifacts/ in this repository")
+    if args.operation == "pr-plan-w1":
+        from tools.benchmarking.pr_workload import validate_schedule, w1_schedule
+
+        result = w1_schedule(
+            args.data,
+            args.model,
+            args.partition,
+            args.seed,
+            args.arrival_rate,
+            args.one_shot_rate,
+            args.horizon,
+        )
+        validate_schedule(result)
+        write_record(args.out, result)
+        print(
+            json.dumps(
+                {
+                    "schedule": str(args.out),
+                    "sessions": len(result["sessions"]),
+                    "one_shots": len(result["one_shots"]),
+                }
+            )
+        )
+        return 0
+    if args.operation == "pr-client-native":
+        import asyncio
+
+        from tools.benchmarking.pr_client import run_schedule
+
+        asyncio.run(
+            run_schedule(
+                args.url, json.loads(args.schedule.read_text()), args.arm, args.out
+            )
+        )
+        return 0
     if args.operation in {
         "pr-admit-w1",
         "pr-w1-native",

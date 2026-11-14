@@ -251,6 +251,7 @@ def verify(directory: Path) -> dict[str, Any]:
             "pr-policy-observation-v3",
             "pr-policy-observation-v4",
             "pr-policy-observation-v5",
+            "pr-policy-observation-v6",
         }:
             extended = observations.get("extended", {})
             identities = extended.get("identity_sequences", {})
@@ -288,6 +289,7 @@ def verify(directory: Path) -> dict[str, Any]:
             "pr-policy-observation-v3",
             "pr-policy-observation-v4",
             "pr-policy-observation-v5",
+            "pr-policy-observation-v6",
         }:
             expected_observation["geometry"] = {
                 "partial_tail_requires_every_group_ready": True,
@@ -303,6 +305,7 @@ def verify(directory: Path) -> dict[str, Any]:
         if observations.get("schema") in {
             "pr-policy-observation-v4",
             "pr-policy-observation-v5",
+            "pr-policy-observation-v6",
         }:
             expected_observation["diverged_lookup"] = {
                 "scope": "native offloading scheduler and CPU manager; supplied local-hit boundary, no GPU block-manager execution",
@@ -312,7 +315,10 @@ def verify(directory: Path) -> dict[str, Any]:
                 "complete_cpu_copy_remains_ready": True,
                 "inference": "core schedule reconciles a diverged local hit when external tokens are zero without retrying the CPU lookup at the reconciled boundary",
             }
-        if observations.get("schema") == "pr-policy-observation-v5":
+        if observations.get("schema") in {
+            "pr-policy-observation-v5",
+            "pr-policy-observation-v6",
+        }:
             expected_observation["diverged_lookup"]["supplied_local_tokens"] = 512
             expected_observation["endpoint"] = {
                 "route_registration": True,
@@ -321,6 +327,22 @@ def verify(directory: Path) -> dict[str, Any]:
                 "delta_stream_distinguishes_metadata_tokens_and_done": True,
                 "disconnect_aborts_owned_request": True,
             }
+        if observations.get("schema") == "pr-policy-observation-v6":
+            expected_observation["capacity_matrix"] = [
+                {
+                    "policy": name,
+                    "capacity": capacity,
+                    "share": share,
+                    "shared_held_union": int(capacity * share),
+                    "failed_store_preserved_holds": True,
+                    "feasible_store_succeeded_after_yield": True,
+                    "late_ready_did_not_rehold": True,
+                    "reset_cleared": True,
+                }
+                for name in ("RequestTTLARC", "RequestTTLLRU", "PostResponseARC")
+                for capacity in (1, 2, 16, 1024)
+                for share in (0.0, 0.25, 0.5)
+            ]
         if observations != expected_observation:
             raise ValueError("hold policy observation changed")
         return {

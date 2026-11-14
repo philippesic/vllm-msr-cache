@@ -9,6 +9,7 @@ from vllm.distributed.kv_transfer.kv_connector.v1.offloading import scheduler
 from vllm.v1.kv_offload import base
 from vllm.v1.kv_offload.cpu import manager
 
+from wait_hint_offload.policy_holds import HoldLedger
 from wait_hint_offload.policy_protocol import PolicyAction
 from wait_hint_offload.vllm_adapter.evidence_checks import observe_endpoint
 from wait_hint_offload.vllm_adapter.policy import (
@@ -170,13 +171,14 @@ def observe_hold_policy() -> dict[str, Any]:
             "reset_cleared_metadata": True,
         }
     return {
-        "schema": "pr-policy-observation-v5",
+        "schema": "pr-policy-observation-v6",
         "cases": observed,
         "extended": extended_hold_checks(),
         "geometry": geometry_checks(),
         "tiering": tiering_checks(),
         "diverged_lookup": diverged_lookup_check(),
         "endpoint": asyncio.run(observe_endpoint()),
+        "capacity_matrix": capacity_checks(),
     }
 
 
@@ -475,3 +477,74 @@ def diverged_lookup_check() -> dict[str, Any]:
         "complete_cpu_copy_remains_ready": True,
         "inference": "core schedule reconciles a diverged local hit when external tokens are zero without retrying the CPU lookup at the reconciled boundary",
     }
+
+
+def capacity_checks() -> list[dict[str, Any]]:
+    rows = []
+    trigger = getattr(base, "StoreTrigger").ON_COMPUTE
+    for name in ("RequestTTLARC", "RequestTTLLRU", "PostResponseARC"):
+        for capacity in (1, 2, 16, 1024):
+            for share in (0.0, 0.25, 0.5):
+                native, owner = policy_fixture(name, capacity)
+                policy = native._policy
+                policy.book = HoldLedger(capacity, share=share)
+                policy.clock = lambda: 1_000_000_000
+                hashes = [index.to_bytes(4, "big") for index in range(capacity)]
+                context, _ = request_fixture(owner, "fill", "fill", 1, hashes, False)
+                native.on_new_request(context)
+                _store_keys(native, context, hashes)
+                native.on_request_finished(context)
+                limit = int(capacity * share)
+                for identity in ("hold", "shared"):
+                    context, action = request_fixture(
+                        owner, identity, identity, 1, hashes[: max(1, limit)]
+                    )
+                    native.on_new_request(context)
+                    native.on_request_finished(context)
+                    if not policy.request_ttl:
+                        policy.publish(action)
+                assert len(policy.book.references) == limit
+                if limit:
+                    assert set(policy.book.references.values()) == {2}
+                before = dict(policy.book.references)
+                context, _ = request_fixture(
+                    owner,
+                    "pressure",
+                    "pressure",
+                    1,
+                    [b"new" + key for key in hashes] + [b"overflow"],
+                    False,
+                )
+                native.on_new_request(context)
+                keys = [base.make_offload_key(b"new" + key, 0) for key in hashes]
+                assert (
+                    native.prepare_store(
+                        keys + [base.make_offload_key(b"overflow", 0)],
+                        context,
+                        trigger=trigger,
+                    )
+                    is None
+                )
+                assert policy.book.references == before
+                result = native.prepare_store(keys, context, trigger=trigger)
+                assert result is not None and len(result.keys_to_store) == capacity
+                assert len(result.evicted_keys) == capacity
+                assert not policy.book.references
+                assert policy.book.yields == (2 if limit else 0)
+                native.complete_store(result.keys_to_store, context, trigger=trigger)
+                assert not policy.book.references
+                native.reset_cache()
+                assert not policy.book.references and not policy.observations
+                rows.append(
+                    {
+                        "policy": name,
+                        "capacity": capacity,
+                        "share": share,
+                        "shared_held_union": limit,
+                        "failed_store_preserved_holds": True,
+                        "feasible_store_succeeded_after_yield": True,
+                        "late_ready_did_not_rehold": True,
+                        "reset_cleared": True,
+                    }
+                )
+    return rows

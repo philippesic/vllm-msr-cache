@@ -148,3 +148,52 @@ class PolicyEnvelope:
                 for action in self.actions
             ],
         }
+
+
+def validate_policy_acknowledgement(
+    raw: object, envelope: PolicyEnvelope
+) -> dict[str, Any]:
+    if not isinstance(raw, dict) or set(raw) != {
+        "schema",
+        "message_id",
+        "accepted_ns",
+        "actions",
+    }:
+        raise ValueError("closed policy acknowledgement required")
+    if (
+        raw["schema"] != "wait-hint-policy-envelope-ack-v1"
+        or raw["message_id"] != envelope.message_id
+        or type(raw["accepted_ns"]) is not int
+        or raw["accepted_ns"] < 0
+    ):
+        raise ValueError("invalid policy acknowledgement identity or time")
+    actions = raw["actions"]
+    if not isinstance(actions, list) or len(actions) != len(envelope.actions):
+        raise ValueError("policy acknowledgement action count mismatch")
+    decisions = {
+        "invalid_action",
+        "unobserved",
+        "action_conflict",
+        "action_limit",
+        "action_metadata_limit",
+        "disabled",
+        "cancelled",
+        "inactive",
+        "held",
+        "expired",
+        "stale",
+        "physical_limit",
+        "metadata_limit",
+        "session_limit",
+    }
+    for action, expected in zip(actions, envelope.actions, strict=True):
+        if (
+            not isinstance(action, dict)
+            or set(action) != {"action_id", "decision", "replayed"}
+            or action["action_id"] != expected.action_id
+            or not isinstance(action["decision"], str)
+            or action["decision"] not in decisions
+            or type(action["replayed"]) is not bool
+        ):
+            raise ValueError("invalid policy action acknowledgement")
+    return dict(raw)

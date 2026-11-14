@@ -268,3 +268,46 @@ was changed to force compatibility. A dry-run against an existing environment ha
 proposed dependency downgrades without jointly resolving vLLM, so it is not evidence
 of compatibility. No LMCache comparison is in the Stage 2 core screen; a replacement
 compatible revision/tuple must be verified and frozen before any later comparison.
+
+
+## Paired client schedule
+
+The W1 planner verifies the committed manifest and token-database hashes, then orders
+admitted partition tasks by SHA-256 of `[seed,"task",task_id]`. It cycles only if
+more sessions than distinct tasks are needed, preserving task occurrence counts.
+Independent seeded streams own Poisson session arrivals, lognormal gaps and Poisson
+one-shots. Eight of sixteen sessions are preassigned adopters by a separate hash;
+arm order uses its own hash. Changing an arrival rate cannot redraw gaps, tasks,
+adoption or the independently fixed one-shot stream. Confirmation partitions and
+seeds outside 12001–12003 / 12101–12108 refuse in the Stage 2 client.
+
+The client runs every session independently with unlimited HTTP connections. A
+return is scheduled at response completion plus its predrawn gap. Post-response
+publication is a separate task: a slow acknowledgement cannot postpone the return.
+TTL attaches to all adopting requests, including final turns. Post eligibility uses
+only the current recorded tool action, also including eligible truncated final turns.
+A3/A4t/A5 carry matched TTL messages; A3p/A4p carry matched post-response messages.
+One-shots receive no hints. All planned one-shots before the common fixed horizon
+belong to the harm cohort. Even an arm that finishes its sixteen sessions early
+continues through that horizon.
+
+Requests have a 120-second deadline from their scheduled submission, additionally
+bounded by the cell end. Sessions have the same absolute cell-end deadline (at most
+900 seconds including drain). A request failure terminates later turns, whose IDs
+remain explicitly recorded as unoffered after failure/deadline. All sixteen sessions
+stay in the denominator. Hint delivery has a ten-second bound, also capped by cell
+end; refused/ineffective hints remain outcomes. Capture failures remain distinct
+from engine/transport treatment failures. These are finite-horizon screen settings;
+arrival rates, one-shot rates and the common horizon still require baseline-only
+calibration under a frozen algorithm before decision runs.
+
+`pr-instrument-05` exercises all seven client arms over real loopback HTTP with two
+injected failed sessions, two one-shots and an acknowledgement barrier that cannot
+release until all fourteen surviving sessions return. Every arm offers 32 requests,
+retains two failed sessions and accounts for two unoffered later turns. TTL arms
+send 14 messages and post arms send 12, including eligible final turns. All reach
+the common horizon. The receipt hashes every request/report and journal; retained
+streams independently regenerate their metrics. This qualifies transport/scheduling
+logic on a CPU fixture, not model execution. Native `pr-policy-feasibility-09` adds
+the full 36-case matrix of ARC/LRU/post policies, capacities 1/2/16/1024 and hold
+shares 0/0.25/0.5, including shared unions and pressure/failed-store behavior.

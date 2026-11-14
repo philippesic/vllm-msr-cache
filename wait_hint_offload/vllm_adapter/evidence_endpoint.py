@@ -14,7 +14,11 @@ from vllm.sampling_params import RequestOutputKind
 from vllm.v1.kv_offload import base
 
 from wait_hint_offload.evidence_protocol import EvidenceRequest
-from wait_hint_offload.policy_protocol import PolicyAction, PolicyEnvelope
+from wait_hint_offload.policy_protocol import (
+    PolicyAction,
+    PolicyEnvelope,
+    validate_policy_acknowledgement,
+)
 
 
 def _frame(value: dict[str, Any]) -> str:
@@ -177,14 +181,10 @@ class EvidenceEndpoint:
         result = await engine.engine_core.call_utility_async(
             "publish_kv_cache_hints", envelope.to_dict()
         )
-        if (
-            not isinstance(result, dict)
-            or result.get("schema") != "wait-hint-policy-envelope-ack-v1"
-        ):
-            raise HTTPException(
-                status_code=502, detail="invalid delivery acknowledgement"
-            )
-        return dict(result)
+        try:
+            return validate_policy_acknowledgement(result, envelope)
+        except (TypeError, ValueError) as error:
+            raise HTTPException(status_code=502, detail=str(error)) from error
 
     async def reset(self, request: Request) -> dict[str, Any]:
         engine = _client(request)
