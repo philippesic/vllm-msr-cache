@@ -60,10 +60,15 @@ artifacts/runs/pr-evidence-2080ti. Logs/CPU checks are in pr-evidence-runtime-02
 The checksum cache release raised free RAM but did not remove host-level swap-out.
 The GPU is idle and admission healthcheck 6b7e19e4-2836-413e-b106-6119e6418aed was deleted.
 
-A user decision remains pending through the question tool: permission to temporarily
-set machine-wide vm.swappiness from 60 to 0 and restore 60 after acquisition, keeping
-the WSL memory limit, 2 GiB headroom and every no-swap/decision rule. No OS setting
-has changed. Do not repeat identical GPU attempts while this condition is unresolved.
+Philip approved the temporary machine-setting repair on 2026-11-14 and corrected
+the unnecessary approval stop: routine reversible repairs should proceed autonomously.
+vm.swappiness is now 0; the original 60 and boot identity are backed up in
+pr-evidence-runtime-02/swappiness-original.json. Restore 60 after acquisition.
+The committed 2080ti-environment.json identifies subsequent attempts; WSL memory,
+headroom, swap guards and decision rules stay unchanged. Root access works through
+wsl.exe -d Ubuntu-24.04 -u root (same verified boot); sudo requires a password.
+Five-minute acquisition healthcheck: scheduled-task:b9d30075-3c8f-4060-93da-acb406cfb8d2.
+Delete it when acquisition ends.
 
 CPU reporting work now implements pooled post-stratified BCa and analytic clustered
 sensitivity intervals, the paired whole-route gap, calibration arithmetic and the
@@ -76,10 +81,7 @@ and remove none. The earlier old-runtime lane passed 28 CPU tests; this reportin
 checkpoint changes no adapter behavior.
 
 ## Next
-Await Philip’s machine-setting answer; useful independent CPU reporting work is
-complete. If approved, back up the
-original setting, record/freeze the environment change before dependent runs, retry
-admission within the remaining budget, and restore the setting after acquisition.
-Recreate a healthcheck for resumed long acquisition. If refused, preserve the common
-environment blockage and resolve the authorized phase under the plan’s admission
-rules; do not call it a failure of holding or silently weaken the swap guard.
+Commit/push the environment identity and resume admission within the remaining
+3,413.5385 seconds. Recreate the acquisition healthcheck. Continue the authorized
+screen when models qualify, retaining all failures. Restore vm.swappiness to 60
+after acquisition, close results under the plan, then send the exact GPU handoff.

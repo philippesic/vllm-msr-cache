@@ -1,0 +1,9 @@
+{
+  "schema": "pr-screen-host-environment-v1",
+  "vm_swappiness": 0,
+  "original_vm_swappiness": 60,
+  "authorization": "Philip approved temporary machine-setting repair on 2026-11-14; restore the original value after acquisition",
+  "original_backup": "artifacts/runs/pr-evidence-runtime-02/swappiness-original.json",
+  "scope": "subsequent attempts only; earlier resource-stopped attempts remain in the cumulative budget ledger",
+  "unchanged_gates": ["available host RAM at least 2 GiB", "no new host swap-out or owned process swap", "unchanged WSL memory limit", "1 hour admission and 8 hours screen"]
+}

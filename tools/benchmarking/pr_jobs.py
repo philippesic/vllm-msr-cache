@@ -346,6 +346,14 @@ def run_gpu_job(
     if spent[phase] + maximum_seconds + 60 > CAPS[phase]:
         raise ValueError("complete job plus cleanup does not fit remaining GPU budget")
     runtime = runtime_identity(root, python, arm)
+    host_environment = json.loads(
+        (root / "benchmarks/pr-evidence/2080ti-environment.json").read_text()
+    )
+    if (
+        int(Path("/proc/sys/vm/swappiness").read_text())
+        != host_environment["vm_swappiness"]
+    ):
+        raise ValueError("host swap setting differs from the committed environment")
     model_hashes = {
         str(path.relative_to(model)): model_digest(path)
         for path in sorted(model.rglob("*"))
@@ -388,6 +396,7 @@ def run_gpu_job(
         "started_ns": started,
         "source_sha256": identities,
         "runtime": runtime,
+        "host_environment": host_environment,
         "model_path": str(model),
         "model_sha256": model_hashes,
         "command": command,

@@ -4,6 +4,14 @@ The accepted [plan](pr-evidence-plan.md) owns the decision rules. Philip authori
 Stage 1 and the local 2080 Ti admission/screen on 2026-11-13, with a 1-hour admission
 and 8-hour screen ceiling. Later stages and public posting remain unauthorized.
 
+The first five admission attempts stopped during startup on host swap-out while
+owned process swap stayed zero. Subsequent attempts use the committed
+`benchmarks/pr-evidence/2080ti-environment.json`: temporary `vm.swappiness=0`, with
+the original 60 backed up and restored after acquisition. Philip authorized the
+repair on 2026-11-14. This changes no memory limit, headroom requirement, no-swap
+guard or decision threshold. Earlier failures retain their original source and
+environment, and remain charged to the same authorization ledger.
+
 ## Implementation estimate before building
 
 These are engineering estimates, not measured runtime or commitments of GPU time.
