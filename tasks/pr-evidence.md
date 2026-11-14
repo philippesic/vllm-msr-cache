@@ -27,16 +27,23 @@ omit request arrival and GPU-hit keys. The earlier stop interpretation was incor
 private ReqContext._scheduler and _offload_key_positions are available, and the plan
 does not restrict the plugin to public callbacks. A result correction records this;
 immutable observations/attempts remain. The private read-only probe passed at artifacts/runs/pr-private-feasibility-01:
-complete group keys and newer-return detection are available. The prototype uses
-fixture session/generation parameters, not the final closed wire schema. Old runtime CPU lane: 28 passed; portable: 87 tests,
-105 rule proofs. Hold-only prototype and pure ledger tests now exist. Native lifecycle probe
-artifacts/runs/pr-policy-feasibility-03 passed, including advice-off stock eviction
-identity, shared GPU-only keys, cancellation/expiry, yield and failed-store cleanup.
-Post-response policy-method injection is not the delivery patch. W1 first parquet
-shard is downloaded under artifacts/assets/pr-evidence-w1; pyarrow 26.0.1 installed
-in the isolated new runtime for admission. Full W1 admission/instrument pending.
+complete group keys and newer-return detection are available. The hold prototype now uses closed session/action schemas and private read-only
+scheduler state. Native geometry/tiering checks passed in
+artifacts/runs/pr-policy-feasibility-05: partial-tail readiness across all groups,
+shared anchors and distinct forks, selected-boundary sliding windows, primary-tier
+finish/late-store/return/reset. Attempt 04 failed from an incomplete test fixture;
+retained. Old runtime remains compatible (28 tests). The full 18-cell CPU cost
+matrix passed in artifacts/runs/pr-bookkeeping-01; at 1M chunks/1k held sessions,
+adversarial oldest-key holds cost p99 ~14.9 ms ARC / 81.5 ms LRU per one-chunk eviction,
+with ~18.2 MB owned Python metadata. This is a limitation, not a GPU efficacy result.
+Post-response policy-method injection is not the delivery patch. All eight W1 tool
+shards are downloaded and SHA-256 verified under artifacts/assets/pr-evidence-w1;
+pyarrow 26.0.1 is installed in the isolated runtime. W1 admission and instrument
+remain pending. Request-action identity validation also passes native rerun
+pr-policy-feasibility-06. Source row inspection found 24,100 rows, 10,637 tasks and
+129 repositories; no admission or success filter has been applied.
 
 ## Next
-Complete native geometry/tiering/fault matrix and bookkeeping/polling microbenchmark;
-implement W1 admission and streaming instrument; build post-response delivery patch;
+Complete remaining fault/lookup cases; implement W1 admission and streaming
+instrument; build post-response delivery patch;
 then finish Stage 1 freezes/instrument before GPU admission.

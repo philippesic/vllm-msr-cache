@@ -50,7 +50,7 @@ keys and group geometry. Detecting returns without a callback would additionally
 require retaining that scheduler reference and polling its active-request state
 before eviction. This is a possible different integration, not an impossibility
 proof about all Python plugins. It does not establish the proposed CachePolicy
-lifecycle contract, especially for tiering contexts without that scheduler.
+lifecycle contract, especially for tier-originated contexts without that scheduler.
 Changing to REQUEST_LEVEL offers GPU-hit chunks again but changes storage behavior,
 is controlled by the manager rather than the policy, and still lacks arrival
 notification. Releasing at request finish is too late; sending a cancellation at
@@ -95,5 +95,30 @@ measurements before freezing for GPU.
 and the post-response policy method through the same receipt lifecycle. It is not a
 client-to-engine post-response test. The retained probe checks late readiness,
 shared GPU-only prefixes, action replay/cancellation/expiry, yield before store
-failure, failed-store cleanup, reset and disabled-policy eviction identity. The
-full geometry, fault, tiering and performance-cost matrix remains pending.
+failure, failed-store cleanup, reset and disabled-policy eviction identity. CPU geometry checks now include full attention plus recurrent partial-tail
+checkpoints, sliding windows at the selected reusable boundary, shared anchors and
+branch-specific state. The snapshot derives partial-tail keys from the existing
+native block hashes; it never registers keys or changes scheduler state. Every
+required group must be ready. Speculative groups and unsupported partial-tail
+alignment refuse advice. Tiering's primary CPU manager preserves the concrete
+scheduler context for ordinary engine requests; its finish/late-store/return/reset
+lifecycle passes. Tier-originated requests without scheduler/session registration
+receive no hold. Remote tiers and threaded transfer races are not qualified.
+
+`pr-feasibility --bookkeeping` retains a fixed matrix of 10k/100k/1M chunks by
+0/100/1,000 held sessions for ARC and LRU. It measures 200 one-chunk evictions per
+cell, all raw samples, nearest-rank p50/p99, finish/hold cost and recursively counted
+Python metadata. Up to 32 distinct keys per session occupy the oldest cache entries;
+the 10k/1k case uses five keys each to respect the 50% physical cap. Sixteen unrelated
+active registrations exercise return polling. Logical time is fixed so TTL expiry
+cannot silently shrink the measured holds. Native chunk storage and the read-only
+scheduler are excluded from plugin metadata. This is an adversarial bookkeeping
+measurement, not a serving-throughput claim.
+
+The first complete matrix (`artifacts/runs/pr-bookkeeping-01`) found p99 eviction
+latency at 1M chunks/1k sessions of 14.9 ms ARC and 81.5 ms LRU, versus 7.6 and 27.0
+microseconds with no holds. Owned Python metadata was 18.2 MB. Membership checking
+avoids a rebuilt held-key union, but native eviction still scans past protected
+oldest keys; LRU additionally pops and reinserts skipped heap entries. Retain this
+cost as a scale limitation. The plan has no CPU latency cutoff; Stage 2 guardrails
+must still measure the whole serving cost at its stated scale.

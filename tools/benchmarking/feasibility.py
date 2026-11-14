@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import subprocess
 import time
 from pathlib import Path
@@ -36,8 +37,9 @@ def qualify(
     *,
     private_state: bool = False,
     hold_policy: bool = False,
+    bookkeeping: bool = False,
 ) -> dict[str, Any]:
-    if private_state and hold_policy:
+    if sum((private_state, hold_policy, bookkeeping)) > 1:
         raise ValueError("select one feasibility mode")
     root = Path(__file__).resolve().parents[2]
     out = out.resolve()
@@ -69,7 +71,9 @@ def qualify(
     write_record(
         out / "admission.json",
         {
-            "schema": "pr-policy-feasibility-admission-v1"
+            "schema": "pr-bookkeeping-admission-v1"
+            if bookkeeping
+            else "pr-policy-feasibility-admission-v1"
             if hold_policy
             else "pr-private-feasibility-admission-v1"
             if private_state
@@ -100,9 +104,11 @@ def qualify(
         command.append("--private-state")
     if hold_policy:
         command.append("--hold-policy")
+    if bookkeeping:
+        command.append("--bookkeeping")
     start = time.monotonic()
     with (out / "execution.log").open("x") as log:
-        code = run_owned(command, environment, source, 120, log)
+        code = run_owned(command, environment, source, 900 if bookkeeping else 120, log)
     if captured.exists():
         (out / "observed.json").write_bytes(captured.read_bytes())
     write_record(
@@ -146,6 +152,7 @@ def verify(directory: Path) -> dict[str, Any]:
             "pr-feasibility-admission-v1",
             "pr-private-feasibility-admission-v1",
             "pr-policy-feasibility-admission-v1",
+            "pr-bookkeeping-admission-v1",
         }
         or terminal.get("schema") != "pr-feasibility-terminal-v1"
         or admission["upstream_revision"] != UPSTREAM
@@ -167,6 +174,8 @@ def verify(directory: Path) -> dict[str, Any]:
     if _sha(directory / "observed.json") != terminal["observed_sha256"]:
         raise ValueError("observation drift")
     observations = json.loads((directory / "observed.json").read_text())
+    if admission["schema"] == "pr-bookkeeping-admission-v1":
+        return verify_bookkeeping(observations)
     if admission["schema"] == "pr-policy-feasibility-admission-v1":
         expected = {}
         for name in (
@@ -185,7 +194,10 @@ def verify(directory: Path) -> dict[str, Any]:
                 "return_released_before_eviction": True,
                 "reset_cleared_metadata": True,
             }
-        if observations.get("schema") == "pr-policy-observation-v2":
+        if observations.get("schema") in {
+            "pr-policy-observation-v2",
+            "pr-policy-observation-v3",
+        }:
             extended = observations.get("extended", {})
             identities = extended.get("identity_sequences", {})
             flags = {
@@ -209,7 +221,7 @@ def verify(directory: Path) -> dict[str, Any]:
             ):
                 raise ValueError("hint-off eviction identity failed")
             expected_observation = {
-                "schema": "pr-policy-observation-v2",
+                "schema": observations["schema"],
                 "cases": expected,
                 "extended": extended,
             }
@@ -217,6 +229,18 @@ def verify(directory: Path) -> dict[str, Any]:
             expected_observation = {
                 "schema": "pr-policy-observation-v1",
                 "cases": expected,
+            }
+        if observations.get("schema") == "pr-policy-observation-v3":
+            expected_observation["geometry"] = {
+                "partial_tail_requires_every_group_ready": True,
+                "partial_boundary_matches_native_lookup": True,
+                "forks_preserve_shared_anchor_and_distinct_checkpoints": True,
+                "window_uses_selected_boundary_not_unaligned_finish": True,
+            }
+            expected_observation["tiering"] = {
+                "primary_tier_preserves_scheduler_context": True,
+                "late_store_after_finish_joins_hold": True,
+                "return_releases_and_reset_clears": True,
             }
         if observations != expected_observation:
             raise ValueError("hold policy observation changed")
@@ -279,3 +303,68 @@ def verify(directory: Path) -> dict[str, Any]:
         "scope": "CPU manager/policy callbacks only; no GPU or efficacy qualification",
         "observations": observations,
     }
+
+
+def verify_bookkeeping(observations: dict[str, Any]) -> dict[str, Any]:
+    if set(observations) != {"schema", "scope", "percentile", "metadata", "cells"}:
+        raise ValueError("unknown bookkeeping fields")
+    if observations["schema"] != "pr-bookkeeping-observation-v1":
+        raise ValueError("unknown bookkeeping version")
+    expected = {
+        (policy, capacity, sessions)
+        for policy in ("RequestTTLARC", "RequestTTLLRU")
+        for capacity in (10000, 100000, 1000000)
+        for sessions in (0, 100, 1000)
+    }
+    actual = set()
+    for cell in observations["cells"]:
+        if set(cell) != {
+            "policy",
+            "chunks",
+            "held_sessions",
+            "keys_per_held_session",
+            "held_physical_keys",
+            "active_requests",
+            "evict_n",
+            "evict_ns",
+            "evict_p50_ns",
+            "evict_p99_ns",
+            "hold_finish_ns",
+            "hold_finish_p50_ns",
+            "hold_finish_p99_ns",
+            "owned_metadata_bytes",
+            "charged_metadata_bytes",
+        }:
+            raise ValueError("unknown bookkeeping cell fields")
+        identity = (cell["policy"], cell["chunks"], cell["held_sessions"])
+        if identity in actual or identity not in expected:
+            raise ValueError("unexpected bookkeeping cell")
+        actual.add(identity)
+        if cell["active_requests"] != 16 or cell["evict_n"] != 1:
+            raise ValueError("unexpected bookkeeping workload")
+        sessions = cell["held_sessions"]
+        per_session = min(32, cell["chunks"] // 2 // sessions) if sessions else 0
+        if (
+            cell["keys_per_held_session"] != per_session
+            or cell["held_physical_keys"] != sessions * per_session
+        ):
+            raise ValueError("hold workload mismatch")
+        for metric, count in (("evict", 200), ("hold_finish", sessions)):
+            values = cell[metric + "_ns"]
+            if len(values) != count or any(
+                type(value) is not int or value < 0 for value in values
+            ):
+                raise ValueError("missing timing samples")
+            for suffix, quantile in (("p50_ns", 0.5), ("p99_ns", 0.99)):
+                value = (
+                    sorted(values)[math.ceil(len(values) * quantile) - 1]
+                    if values
+                    else None
+                )
+                if cell[metric + "_" + suffix] != value:
+                    raise ValueError("incorrect timing summary")
+        if cell["owned_metadata_bytes"] <= 0 or cell["charged_metadata_bytes"] < 0:
+            raise ValueError("missing metadata accounting")
+    if actual != expected:
+        raise ValueError("incomplete bookkeeping matrix")
+    return {"schema": "pr-bookkeeping-verification-v1", "observations": observations}

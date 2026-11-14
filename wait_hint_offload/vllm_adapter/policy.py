@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import importlib.metadata
-import math
 import time
 from collections import OrderedDict
 from collections.abc import Iterable, Sequence
@@ -103,7 +102,7 @@ class WaitHoldPolicy:
             return
         self.observation_bytes -= observation.charge
         for group in observation.prefix.groups:
-            for key in group.keys:
+            for key in group.all_keys():
                 owners = self.key_owners.get(key)
                 if owners is not None:
                     owners.discard(owner)
@@ -117,7 +116,7 @@ class WaitHoldPolicy:
             if observation.expires_ns <= now:
                 self._retire(owner)
         if self.scheduler is not None and self.observations:
-            for state in self.scheduler._req_status.values():
+            for state in tuple(self.scheduler._req_status.values()):
                 self._notice_return(state.req_context)
 
     def on_request_finished(
@@ -142,7 +141,7 @@ class WaitHoldPolicy:
         if previous is not None and session.generation <= previous.session.generation:
             self._count("stale_generation")
             return
-        for state in self.scheduler._req_status.values():
+        for state in tuple(self.scheduler._req_status.values()):
             active = self._session(state.req_context)
             if (
                 active is not None
@@ -157,7 +156,7 @@ class WaitHoldPolicy:
             self._count("unavailable_prefix")
             return
         charge = 4096 + sum(
-            256 + len(key) for group in prefix.groups for key in group.keys
+            256 + len(key) for group in prefix.groups for key in group.all_keys()
         )
         old_charge = previous.charge if previous is not None else 0
         if self.observation_bytes - old_charge + charge > 32 * 1024 * 1024:
@@ -174,7 +173,7 @@ class WaitHoldPolicy:
         self.observations[session.owner] = observation
         self.observation_bytes += charge
         for group in prefix.groups:
-            for key in group.keys:
+            for key in group.all_keys():
                 self.key_owners.setdefault(key, set()).add(session.owner)
         if self.request_ttl:
             envelope = req_context.kv_hints
@@ -182,19 +181,32 @@ class WaitHoldPolicy:
                 if envelope.protocol_version != "v1":
                     self._count("unsupported_envelope")
                     return
+                if len(envelope.actions) > 256:
+                    self._count("envelope_action_limit")
+                    return
                 for action in envelope.actions:
+                    if action.action_type != "wait_hint.request_ttl":
+                        continue
+                    if action.action_version != "v1":
+                        self._count("unsupported_action_version")
+                        continue
+                    try:
+                        parsed = PolicyAction.parse(action.payload)
+                    except (TypeError, ValueError):
+                        self._count("invalid_action")
+                        continue
                     if (
-                        action.action_type == "wait_hint.request_ttl"
-                        and action.action_version == "v1"
+                        parsed.session != session
+                        or parsed.action_id != action.action_id
                     ):
-                        self.publish(action.payload, deadline_origin_ns=now)
+                        self._count("request_action_identity_mismatch")
+                        continue
+                    self.publish(action.payload, deadline_origin_ns=now)
 
     def _ready_keys(self, prefix: PolicyPrefix) -> frozenset[bytes]:
-        alignment = math.lcm(*(group.tokens_per_chunk for group in prefix.groups))
-        boundary = min(
-            prefix.complete_tokens,
-            *(len(group.keys) * group.tokens_per_chunk for group in prefix.groups),
-        )
+        alignment = prefix.alignment_tokens
+        step = prefix.tokens_per_hash if prefix.partial_tail else alignment
+        boundary = prefix.complete_tokens
         for group in prefix.groups:
             if group.window_chunks is None:
                 count = 0
@@ -203,24 +215,24 @@ class WaitHoldPolicy:
                     if chunk is None or not chunk.is_ready:
                         break
                     count += 1
-                boundary = min(boundary, count * group.tokens_per_chunk)
-        boundary = boundary // alignment * alignment
+                extra = alignment - 1 if prefix.partial_tail else 0
+                boundary = min(boundary, count * group.tokens_per_chunk + extra)
+        boundary = boundary // step * step
         while boundary > 0:
-            keys: list[bytes] = []
-            for group in prefix.groups:
-                end = boundary // group.tokens_per_chunk
-                start = (
-                    0
-                    if group.window_chunks is None
-                    else max(0, end - group.window_chunks)
+            partial = boundary % alignment != 0
+            keys = tuple(
+                key
+                for group in prefix.groups
+                for key in group.required_keys(
+                    boundary, partial, prefix.tokens_per_hash
                 )
-                keys.extend(group.keys[start:end])
+            )
             if all(
                 (chunk := self.native.get(key)) is not None and chunk.is_ready
                 for key in keys
             ):
                 return frozenset(keys)
-            boundary -= alignment
+            boundary -= step
         return frozenset()
 
     def _refresh(self, observation: PolicyObservation) -> str:

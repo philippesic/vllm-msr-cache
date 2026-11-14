@@ -451,3 +451,8 @@ Add `--hold-policy` instead of `--private-state` for the native hold prototype C
 probe. It also compares registered, advice-disabled eviction sequences against stock
 LRU/ARC. Successful policy-method injection is not qualification of the pending
 post-response delivery patch.
+
+The same frozen-main CPU receipt command accepts `--bookkeeping` for the full
+ARC/LRU chunk/session cost matrix. It runs with CUDA hidden, retains raw latency
+samples and verifies all 18 cells. See [execution details](pr-evidence-execution.md)
+for the workload and its adversarial oldest-key limitation.

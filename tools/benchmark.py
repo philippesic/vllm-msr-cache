@@ -22,10 +22,12 @@ def main() -> int:
     feasibility.add_argument("--out", type=Path, required=True)
     feasibility.add_argument("--private-state", action="store_true")
     feasibility.add_argument("--hold-policy", action="store_true")
+    feasibility.add_argument("--bookkeeping", action="store_true")
     feasibility_native = sub.add_parser("pr-feasibility-native")
     feasibility_native.add_argument("--out", type=Path, required=True)
     feasibility_native.add_argument("--private-state", action="store_true")
     feasibility_native.add_argument("--hold-policy", action="store_true")
+    feasibility_native.add_argument("--bookkeeping", action="store_true")
     feasibility_verify = sub.add_parser("verify-pr-feasibility")
     feasibility_verify.add_argument("directory", type=Path)
     functional = sub.add_parser("functional")
@@ -170,6 +172,23 @@ def main() -> int:
         root / "artifacts"
     ):
         parser.error("write new project output under artifacts/ in this repository")
+    if args.operation == "pr-feasibility-native" and args.bookkeeping:
+        from wait_hint_offload.vllm_adapter.policy_benchmark import observe_bookkeeping
+
+        write_record(
+            args.out,
+            observe_bookkeeping(
+                lambda cell: print(
+                    cell["policy"],
+                    cell["chunks"],
+                    cell["held_sessions"],
+                    cell["evict_p99_ns"],
+                    cell["owned_metadata_bytes"],
+                    flush=True,
+                )
+            ),
+        )
+        return 0
     if args.operation == "pr-feasibility-native" and args.hold_policy:
         from wait_hint_offload.vllm_adapter.policy_checks import observe_hold_policy
 
@@ -197,6 +216,7 @@ def main() -> int:
                 args.out,
                 private_state=args.private_state,
                 hold_policy=args.hold_policy,
+                bookkeeping=args.bookkeeping,
             )
             if args.operation == "pr-feasibility"
             else verify_feasibility(args.directory)

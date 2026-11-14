@@ -225,12 +225,16 @@ def observe_private_context() -> dict[str, Any]:
             group_idx=index,
             tokens_per_chunk=256,
             hashes_per_chunk=1,
-            load_window_size_in_chunks=lambda boundary, window=window: window,
+            sliding_window_size_in_chunks=window,
+            manager_config=SimpleNamespace(params=None),
         )
         for index, window in enumerate((None, 1))
     ]
     owner = SimpleNamespace(
-        config=SimpleNamespace(kv_group_configs=groups), _req_status={}
+        config=SimpleNamespace(
+            kv_group_configs=groups, supports_partial_tail=False, tokens_per_hash=256
+        ),
+        _req_status={},
     )
     req = SimpleNamespace(
         request_id="first",
